@@ -32,12 +32,8 @@ on_actions = {
 			
 			every_state = {
 				set_variable = { coring_cost = state_population_k }
-				
-				#set_variable = { coring_time = coring_cost }
 				multiply_variable = { coring_cost = 0.6 }
-				#divide_variable = { coring_time = 2 }
 				round_variable = coring_cost
-				#round_variable = coring_time
 				if = {
 					limit = {
 						is_controlled_by = CAL
@@ -394,6 +390,13 @@ on_actions = {
 	on_daily = {
 		effect = {
 			calculate_energy_balance = yes
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					NOT = { is_in_array = { ROOT.noncores_array = THIS.id } }
+				}
+				add_to_array = { ROOT.noncores_array = THIS.id }
+			}
 		}
 	}
 	on_daily_ZHR = {

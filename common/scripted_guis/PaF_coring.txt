@@ -1,0 +1,50 @@
+scripted_gui = {
+
+	open_coring_ui = {
+		context_type = player_context
+		parent_window_token = top_bar
+		window_name = "after_logistics_button"
+		effects = {
+			show_coring_button_click = {
+				if = {
+					limit = {
+						has_global_flag = coring_ui_visible
+					}
+					close_coring_ui_effect = yes
+				}
+				else = {
+					open_coring_ui_effect = yes
+				}
+			}
+		}
+	}
+
+	coring_ui = {
+		context_type = player_context
+		window_name = "PaF_coring_ui"
+		visible = {
+			is_ai = no
+			has_global_flag = coring_ui_visible
+		}
+		effects = {
+			add_core_click = {
+				coring_effect = yes
+			}
+		}
+		triggers = {
+			add_core_visible = {
+				NOT = {is_core_of = ROOT}
+			}
+			add_core_click_enabled = {
+				enable_coring_button = yes
+			}
+		}
+		dynamic_lists = {
+			noncores_gridbox = {
+				array = noncores_array
+				entry_container = noncores_entry
+				change_scope = yes
+			}
+		}
+	}
+}
