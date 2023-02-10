@@ -23,7 +23,6 @@ scripted_gui = {
 		context_type = player_context
 		window_name = "PaF_coring_ui"
 		visible = {
-			is_ai = no
 			has_global_flag = coring_ui_visible
 		}
 		effects = {
@@ -37,6 +36,23 @@ scripted_gui = {
 			}
 			add_core_click_enabled = {
 				enable_coring_button = yes
+			}
+		}
+		
+		ai_test_interval = 168
+		ai_test_variance = 0.2
+		ai_test_scopes = test_self_owned_states
+		
+		ai_check_scope = {
+			NOT = { is_core_of = ROOT }
+			is_owned_and_controlled_by = ROOT
+			any_neighbor_state = { is_core_of = ROOT }	
+		}
+		ai_weight = {
+			add_core_click = {
+				ai_will_do = {
+					factor = 1
+				}
 			}
 		}
 		dynamic_lists = {
