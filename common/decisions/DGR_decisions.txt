@@ -51,16 +51,23 @@ DGR_district_wars_category = {
 
 ###strzemieszyce###	
 	DGR_operation_levittoux = {
-		visible = { NOT = { has_country_flag = DGR_operation_levittoux } }
+		visible = { NOT = { 
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_OL_victory }
+		}
 		cost = 0
 		complete_effect = {
+			hidden_effect = { 
 			set_country_flag = DGR_operation_levittoux
-			log = "[GetDateText]: Decision DGR_operation_levittoux"
+			log = "[GetDateText]: Decision DGR_operation_levittoux"				
+			}
 		}
 	}
-
+	
 	DGR_operation_levittoux_collapse = {
-		visible = { has_country_flag = DGR_operation_levittoux }
+		visible = { has_country_flag = DGR_operation_levittoux
+					NOT = { has_country_flag = DGR_OL_victory }
+					}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_operation_levittoux
@@ -68,6 +75,109 @@ DGR_district_wars_category = {
 		}
 	}
 	
+	DGR_OL_instigate_workers = {
+		visible = { has_country_flag = DGR_operation_levittoux }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_levittoux
+					value = 25
+					}
+			log = "[GetDateText]: Decision DGR_OL_instigate_workers"
+		}
+	}
+	
+	DGR_OL_convoy_to_cargo = {
+		visible = { has_country_flag = DGR_operation_levittoux }
+		available = {
+			check_variable = {
+				DGR_op_levittoux > 24
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OL_convoy_to_cargo"
+			add_to_variable = {
+				var = DGR_op_levittoux
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OL_cutoff_s1 = {
+		visible = { has_country_flag = DGR_operation_levittoux }
+		available = {
+			check_variable = {
+				DGR_op_levittoux > 24
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OL_cutoff_s1"
+			add_to_variable = {
+				var = DGR_op_levittoux
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OL_march_on_basilica = {
+		visible = { has_country_flag = DGR_operation_levittoux 
+					}
+		available = {
+			check_variable = {
+				DGR_op_levittoux > 74
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OL_march_on_basilica"
+			add_to_variable = {
+				var = DGR_op_levittoux
+				value = 20
+			}
+		}
+	}
+	
+	DGR_OL_disband_organisations = {
+		visible = { has_country_flag = DGR_operation_levittoux 
+					}
+		available = {
+			check_variable = {
+				DGR_op_levittoux > 94
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OL_disband_organisations"
+			add_to_variable = {
+				var = DGR_op_levittoux
+				value = 5
+			}
+		}
+	}
+	
+	DGR_OL_emergency_conscription = {
+		visible = { has_country_flag = DGR_operation_levittoux 
+					}
+		available = {
+			check_variable = {
+				DGR_op_levittoux = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OL_emergency_conscription"
+			set_country_flag = DGR_OL_victory
+		}
+	}
 	
 ###darzbor###
 	DGR_operation_bien = {
@@ -88,9 +198,99 @@ DGR_district_wars_category = {
 		}
 	}
 	
+	DGR_OB_eradicate_foresters = {
+		visible = { has_country_flag = DGR_operation_bien }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_bien
+					value = 25
+					}
+			log = "[GetDateText]: Decision DGR_OB_eradicate_foresters"
+		}
+	}
+	
+	DGR_OB_leap_on_tucznawa = {
+		visible = { has_country_flag = DGR_operation_bien }
+		available = {
+			check_variable = {
+				DGR_op_bien > 24
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OB_leap_on_tucznawa"
+			add_to_variable = {
+				var = DGR_op_bien
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OB_leap_on_leka = {
+		visible = { has_country_flag = DGR_operation_bien }
+		available = {
+			check_variable = {
+				DGR_op_bien > 24
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OB_leap_on_leka"
+			add_to_variable = {
+				var = DGR_op_bien
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OB_pincer_resistance = {
+		visible = { has_country_flag = DGR_operation_bien 
+					}
+		available = {
+			check_variable = {
+				DGR_op_bien > 74
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OB_pincer_resistance"
+			add_to_variable = {
+				var = DGR_op_bien
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OB_nationalization_of_forests = {
+		visible = { has_country_flag = DGR_operation_bien 
+					}
+		available = {
+			check_variable = {
+				DGR_op_bien = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OB_nationalization_of_forests"
+			set_country_flag = DGR_OB_victory
+		}
+	}
+	
 ###slavkov###
 	DGR_operation_wasilkowski = {
-		visible = { NOT = { has_country_flag = DGR_operation_wasilkowski } }
+		visible = { NOT = { has_country_flag = DGR_operation_wasilkowski }
+				OR = { has_country_flag = DGR_OL_victory 
+				has_country_flag = DGR_OB_victory 
+			}
+		}
+
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_wasilkowski
@@ -99,11 +299,100 @@ DGR_district_wars_category = {
 	}
 
 	DGR_operation_wasilkowski_collapse = {
-		visible = { has_country_flag = DGR_operation_wasilkowski }
+		visible = { has_country_flag = DGR_operation_wasilkowski					
+		OR = { has_country_flag = DGR_OL_victory 
+				has_country_flag = DGR_OB_victory 
+			}
+		}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_operation_wasilkowski
 			log = "[GetDateText]: Decision DGR_operation_wasilkowski_collapse"
+		}
+	}
+	
+	DGR_OW_cutoff_euroterminal = {
+		visible = { has_country_flag = DGR_operation_wasilkowski }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_wasilkowski
+					value = 25
+					}
+			log = "[GetDateText]: Decision DGR_OW_cutoff_euroterminal"
+		}
+	}
+	
+	DGR_OW_send_armored_convoys = {
+		visible = { has_country_flag = DGR_operation_wasilkowski }
+		available = {
+			check_variable = {
+				DGR_op_wasilkowski > 24
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OW_send_armored_convoys"
+			add_to_variable = {
+				var = DGR_op_wasilkowski
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OW_arrest_separatists = {
+		visible = { has_country_flag = DGR_operation_wasilkowski }
+		available = {
+			check_variable = {
+				DGR_op_wasilkowski > 24
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OW_arrest_separatists"
+			add_to_variable = {
+				var = DGR_op_wasilkowski
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OW_teach_them_lesson = {
+		visible = { has_country_flag = DGR_operation_wasilkowski 
+					}
+		available = {
+			check_variable = {
+				DGR_op_wasilkowski > 74
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OW_teach_them_lesson"
+			add_to_variable = {
+				var = DGR_op_wasilkowski
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OW_state_of_emergency= {
+		visible = { has_country_flag = DGR_operation_wasilkowski 
+					}
+		available = {
+			check_variable = {
+				DGR_op_wasilkowski = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OW_state_of_emergency"
+			set_country_flag = DGR_OW_victory
 		}
 	}
 	
@@ -126,6 +415,130 @@ DGR_district_wars_category = {
 		}
 	}
 	
+	DGR_OP_envoy_to_metallurgists = {
+		visible = { has_country_flag = DGR_operation_piwowar }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_piwowar
+					value = 15
+					}
+			log = "[GetDateText]: Decision DGR_OP_envoy_to_metallurgists"
+		}
+	}
+	
+	DGR_OP_deal_with_devil = {
+		visible = { has_country_flag = DGR_operation_piwowar }
+		available = {
+			check_variable = {
+				DGR_op_piwowar > 14
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OP_deal_with_devil"
+			add_to_variable = {
+				var = DGR_op_piwowar
+				value = 15
+			}
+		}
+	}
+	
+	DGR_OP_approve_joint_strike = {
+		visible = { has_country_flag = DGR_operation_piwowar }
+		available = {
+			check_variable = {
+				DGR_op_piwowar > 29
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OP_approve_joint_strike"
+			add_to_variable = {
+				var = DGR_op_piwowar
+				value = 15
+			}
+		}
+	}
+	
+	DGR_OP_secure_industrial_zone = {
+		visible = { has_country_flag = DGR_operation_piwowar 
+					}
+		available = {
+			check_variable = {
+				DGR_op_piwowar > 44
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OP_secure_industrial_zone"
+			add_to_variable = {
+				var = DGR_op_piwowar
+				value = 15
+			}
+		}
+	}
+	
+	DGR_OP_siege_big_squat = {
+		visible = { has_country_flag = DGR_operation_piwowar 
+					}
+		available = {
+			check_variable = {
+				DGR_op_piwowar > 59
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OP_siege_big_squat"
+			add_to_variable = {
+				var = DGR_op_piwowar
+				value = 15
+			}
+		}
+	}
+	
+	DGR_OP_forced_indoctrination = {
+		visible = { has_country_flag = DGR_operation_piwowar 
+					}
+		available = {
+			check_variable = {
+				DGR_op_piwowar > 74
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OP_forced_indoctrination"
+			add_to_variable = {
+				var = DGR_op_piwowar
+				value = 25
+			}			
+		}
+	}
+	
+	DGR_OP_incorporation_of_nationalists = {
+		visible = { has_country_flag = DGR_operation_piwowar 
+					}
+		available = {
+			check_variable = {
+				DGR_op_piwowar = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OP_incorporation_of_nationalists"
+			set_country_flag = DGR_OP_victory
+		}
+	}
+	
 ###golonog###
 	DGR_operation_morcinek = {
 		visible = { NOT = { has_country_flag = DGR_operation_morcinek } }
@@ -144,10 +557,142 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_operation_morcinek_collapse"
 		}
 	}
+	
+	DGR_OM_assess_situation = {
+		visible = { has_country_flag = DGR_operation_morcinek }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_morcinek
+					value = 30
+					}
+			log = "[GetDateText]: Decision DGR_OM_assess_situation"
+		}
+	}
+	
+	DGR_OM_staging_point = {
+		visible = { has_country_flag = DGR_operation_morcinek }
+		available = {
+			check_variable = {
+				DGR_op_morcinek > 29
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_staging_point"
+			add_to_variable = {
+				var = DGR_op_morcinek
+				value = 30
+			}
+		}
+	}
+	
+	DGR_OM_cedler = {
+		visible = { has_country_flag = DGR_operation_morcinek
+					NOT = { has_country_flag = DGR_OM_cedler }
+					}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_cedler"
+			add_to_variable = {
+				var = DGR_op_morcinek
+				value = 10
+			}
+		}
+	}
+	
+	DGR_OM_kasprzak = {
+		visible = { has_country_flag = DGR_operation_morcinek 
+					NOT = { has_country_flag = DGR_OM_kasprzak }
+					}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_kasprzak"
+			add_to_variable = {
+				var = DGR_op_morcinek
+				value = 10
+			}
+		}
+	}
+	
+	DGR_OM_broadway = {
+		visible = { has_country_flag = DGR_operation_morcinek 
+					NOT = { has_country_flag = DGR_OM_broadway }
+					}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_broadway"
+			add_to_variable = {
+				var = DGR_op_morcinek
+				value = 10
+			}
+		}
+	}
+	
+	DGR_OM_manhattan = {
+		visible = { has_country_flag = DGR_operation_morcinek 
+		NOT = { has_country_flag = DGR_OM_manhattan }
+					}
+
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_manhattan"
+			add_to_variable = {
+				var = DGR_op_morcinek
+				value = 10
+			}			
+		}
+	}
+	
+	DGR_OM_force_submission = {
+		visible = { has_country_flag = DGR_operation_morcinek 
+					}
+		available = {
+			check_variable = {
+				DGR_op_morcinek > 89
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_force_submission"
+			add_to_variable = {
+				var = DGR_op_morcinek
+				value = 5
+			}
+		}
+	}
+	
+	DGR_OM_rebuilding_program = {
+		visible = { has_country_flag = DGR_operation_morcinek 
+					}
+		available = {
+			check_variable = {
+				DGR_op_morcinek > 94
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OM_rebuilding_program"
+			set_country_flag = DGR_OM_victory
+		}
+	}
 
 ###reden###
 	DGR_operation_adamiecki = {
-		visible = { NOT = { has_country_flag = DGR_operation_adamiecki } }
+		visible = { NOT = { has_country_flag = DGR_operation_adamiecki }
+						OR = { has_country_flag = DGR_OM_victory 
+							has_country_flag = DGR_OL_victory 
+							has_country_flag = DGR_OZ_victory 
+							}
+							}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_adamiecki
@@ -156,7 +701,12 @@ DGR_district_wars_category = {
 	}
 
 	DGR_operation_adamiecki_collapse = {
-		visible = { has_country_flag = DGR_operation_adamiecki }
+		visible = { has_country_flag = DGR_operation_adamiecki
+						OR = { has_country_flag = DGR_OM_victory 
+							has_country_flag = DGR_OL_victory 
+							has_country_flag = DGR_OZ_victory 
+							}
+		}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_operation_adamiecki
@@ -164,9 +714,117 @@ DGR_district_wars_category = {
 		}
 	}
 	
+	DGR_OA_around_korczak_line = {
+		visible = { has_country_flag = DGR_operation_adamiecki }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_adamiecki
+					value = 25
+					}
+			log = "[GetDateText]: Decision DGR_OA_around_korczak_line"
+		}
+	}
+	
+	DGR_OA_assault_on_city_hall = {
+		visible = { has_country_flag = DGR_operation_adamiecki }
+		available = {
+			check_variable = {
+				DGR_op_adamiecki > 24
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OA_assault_on_city_hall"
+			add_to_variable = {
+				var = DGR_op_adamiecki
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OA_battle_for_haller_park = {
+		visible = { has_country_flag = DGR_operation_adamiecki }
+		available = {
+			check_variable = {
+				DGR_op_adamiecki > 24
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OA_battle_for_haller_park"
+			add_to_variable = {
+				var = DGR_op_adamiecki
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OA_secure_reden = {
+		visible = { has_country_flag = DGR_operation_adamiecki 
+					}
+		available = {
+			check_variable = {
+				DGR_op_adamiecki > 74
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OA_secure_reden"
+			add_to_variable = {
+				var = DGR_op_adamiecki
+				value = 20
+			}
+		}
+	}
+	
+	DGR_OA_hunt_leaders = {
+		visible = { has_country_flag = DGR_operation_adamiecki 
+					}
+		available = {
+			check_variable = {
+				DGR_op_adamiecki > 94
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OA_hunt_leaders"
+			add_to_variable = {
+				var = DGR_op_adamiecki
+				value = 5
+			}
+		}
+	}
+	
+	DGR_OA_declare_amnesty = {
+		visible = { has_country_flag = DGR_operation_adamiecki 
+					}
+		available = {
+			check_variable = {
+				DGR_op_adamiecki = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OA_declare_amnesty"
+			set_country_flag = DGR_OA_victory
+		}
+	}
+	
 ###mydlice###
 	DGR_operation_zawadzki = {
-		visible = { NOT = { has_country_flag = DGR_operation_zawadzki } }
+		visible = { NOT = { has_country_flag = DGR_operation_zawadzki }
+						OR = { has_country_flag = DGR_OA_victory 
+							has_country_flag = DGR_AH_victory 
+							}
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_zawadzki
@@ -175,7 +833,11 @@ DGR_district_wars_category = {
 	}
 
 	DGR_operation_zawadzki_collapse = {
-		visible = { has_country_flag = DGR_operation_zawadzki }
+		visible = { has_country_flag = DGR_operation_zawadzki
+						OR = { has_country_flag = DGR_OA_victory 
+							has_country_flag = DGR_AH_victory 
+							}
+		}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_operation_zawadzki
@@ -183,9 +845,96 @@ DGR_district_wars_category = {
 		}
 	}
 	
+	DGR_OZ_retake_pkz = {
+		visible = { has_country_flag = DGR_operation_zawadzki }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+				set_variable = {
+					var = DGR_op_zawadzki
+					value = 25
+					}
+			log = "[GetDateText]: Decision DGR_OZ_retake_pkz"
+		}
+	}
+	
+	DGR_OZ_strike_on_sztygarka = {
+		visible = { has_country_flag = DGR_operation_zawadzki }
+		available = {
+			check_variable = {
+				DGR_op_zawadzki > 24
+			}
+			}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OZ_strike_on_sztygarka"
+			add_to_variable = {
+				var = DGR_op_zawadzki
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OZ_one_block_after_another = {
+		visible = { has_country_flag = DGR_operation_zawadzki }
+		available = {
+			check_variable = {
+				DGR_op_zawadzki > 24
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OZ_one_block_after_another"
+			add_to_variable = {
+				var = DGR_op_zawadzki
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OZ_hunt_leaders = {
+		visible = { has_country_flag = DGR_operation_zawadzki 
+					}
+		available = {
+			check_variable = {
+				DGR_op_zawadzki > 74
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OZ_hunt_leaders"
+			add_to_variable = {
+				var = DGR_op_zawadzki
+				value = 25
+			}
+		}
+	}
+	
+	DGR_OZ_declare_amnesty = {
+		visible = { has_country_flag = DGR_operation_zawadzki 
+					}
+		available = {
+			check_variable = {
+				DGR_op_zawadzki = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_OZ_declare_amnesty"
+			set_country_flag = DGR_OZ_victory
+		}
+	}
+	
 ###bledow###
 	DGR_action_windrose = {
-		visible = { NOT = { has_country_flag = DGR_action_windrose } }
+		visible = { NOT = { has_country_flag = DGR_action_windrose }
+					has_country_flag = DGR_OB_victory 
+					}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_action_windrose
@@ -194,7 +943,9 @@ DGR_district_wars_category = {
 	}
 
 	DGR_action_windrose_collapse = {
-		visible = { has_country_flag = DGR_action_windrose }
+		visible = { has_country_flag = DGR_action_windrose
+					has_country_flag = DGR_OB_victory 
+		}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_action_windrose
@@ -202,9 +953,60 @@ DGR_district_wars_category = {
 		}
 	}
 	
+	DGR_AW_zolnierska_street = {
+		visible = { has_country_flag = DGR_action_windrose }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AW_one_block_after_another"
+			add_to_variable = {
+				var = DGR_aw_windrose
+				value = 50
+			}
+		}
+	}
+	
+	DGR_AW_cross_przemsza = {
+		visible = { has_country_flag = DGR_action_windrose 
+					}
+		available = {
+			check_variable = {
+				DGR_aw_windrose > 49
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AW_cross_przemsza"
+			add_to_variable = {
+				var = DGR_aw_windrose
+				value = 50
+			}
+		}
+	}
+	
+	DGR_AW_interesting_proposition = {
+		visible = { has_country_flag = DGR_action_windrose 
+					}
+		available = {
+			check_variable = {
+				DGR_aw_windrose = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AW_interesting_proposition"
+			set_country_flag = DGR_AW_victory
+		}
+	}
+	
 ###zadupye###
 	DGR_action_sunflower = {
-		visible = { NOT = { has_country_flag = DGR_action_sunflower } }
+		visible = { NOT = { has_country_flag = DGR_action_sunflower }
+					has_country_flag = DGR_OP_victory 
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_action_sunflower
@@ -213,17 +1015,74 @@ DGR_district_wars_category = {
 	}
 
 	DGR_action_sunflower_collapse = {
-		visible = { has_country_flag = DGR_action_sunflower }
+		visible = { has_country_flag = DGR_action_sunflower
+					has_country_flag = DGR_OP_victory 
+		}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_action_sunflower
 			log = "[GetDateText]: Decision DGR_action_sunflower_collapse"
 		}
 	}
+	
+	DGR_AS_secure_ujejsce = {
+		visible = { has_country_flag = DGR_action_sunflower }
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AS_secure_ujejsce"
+			add_to_variable = {
+				var = DGR_as_sunflower
+				value = 50
+			}
+		}
+	}
+	
+	DGR_AS_cross_the_forests = {
+		visible = { has_country_flag = DGR_action_sunflower 
+					}
+		available = {
+			check_variable = {
+				DGR_aw_sunflower > 49
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AS_cross_the_forests"
+			add_to_variable = {
+				var = DGR_as_sunflower
+				value = 50
+			}
+		}
+	}
+	
+	DGR_AS_centralplan_trzebieslawice = {
+		visible = { has_country_flag = DGR_action_sunflower 
+					}
+		available = {
+			check_variable = {
+				DGR_as_sunflower = 100
+			}
+			
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AS_centralplan_trzebieslawice"
+			set_country_flag = DGR_AS_victory
+		}
+	}
 
 ###zielona###
 	DGR_action_hendrix = {
-		visible = { NOT = { has_country_flag = DGR_action_hendrix } }
+		visible = { NOT = { has_country_flag = DGR_action_hendrix
+							has_country_flag = DGR_AH_victory }
+						OR = { has_country_flag = DGR_OP_victory 
+							has_country_flag = DGR_OA_victory 
+							has_country_flag = DGR_OZ_victory 
+							}		
+							}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_action_hendrix
@@ -232,7 +1091,13 @@ DGR_district_wars_category = {
 	}
 
 	DGR_action_hendrix_collapse = {
-		visible = { has_country_flag = DGR_action_hendrix }
+		visible = { has_country_flag = DGR_action_hendrix
+		NOT = { has_country_flag = DGR_AH_victory }
+						OR = { has_country_flag = DGR_OP_victory 
+							has_country_flag = DGR_OA_victory 
+							has_country_flag = DGR_OZ_victory 
+							}
+		}
 		cost = 0
 		complete_effect = {
 			clr_country_flag = DGR_action_hendrix
@@ -240,6 +1105,15 @@ DGR_district_wars_category = {
 		}
 	}
 
-	
+	DGR_AH_just_ask = {
+		visible = { has_country_flag = DGR_action_hendrix
+					}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: Decision DGR_AH_centralplan_trzebieslawice"
+			set_country_flag = DGR_AH_victory
+		}
+	}	
 
 }
