@@ -134,6 +134,7 @@ on_actions = {
 				}
 			}
 			every_country = {
+				set_variable = { coreable_number = 0}
 				set_variable = {
 					var = doctrines_researched
 					value = 0
@@ -423,6 +424,25 @@ on_actions = {
 	on_daily = {
 		effect = {
 			calculate_energy_balance = yes
+			set_temp_variable = { coreable_temp = 0}
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 50
+				}
+				add_to_temp_variable = { coreable_temp = 1}
+			}
+			set_variable = {coreable_number = coreable_temp }
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 75
+				}
+				coring_effect = yes
+				ROOT = {
+					add_stability = -0.01
+				}
+			}
 			every_owned_state = {
 				limit = {
 					NOT = { is_core_of = ROOT }
@@ -430,6 +450,7 @@ on_actions = {
 				}
 				add_to_array = { ROOT.noncores_array = THIS.id }
 			}
+			
 		}
 	}
 	on_daily_ZHR = {
