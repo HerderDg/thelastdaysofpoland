@@ -1,0 +1,79 @@
+scripted_map_modes = {
+	PaF_pop_map_mode = {
+		top = { type = none }
+		bottom = {
+			type = state
+			color = {
+				set_temp_variable = { alpha_temp = 0.95 }
+				if = {
+					limit = {
+						FROM = {
+							state_population < 1000
+						}
+					}
+					set_temp_variable = { red = 0 }
+					set_temp_variable = { green = 0 }
+					set_temp_variable = { blue = 1 }
+					set_temp_variable = { alpha = alpha_temp }
+					else_if = {
+						limit = {
+							AND = {
+								FROM = {
+									state_population > 1000
+								}
+								FROM = {
+									state_population < 10000
+								}
+							}
+						}
+						set_temp_variable = { red = 0.25 }
+						set_temp_variable = { green = 0 }
+						set_temp_variable = { blue = 0.75 }
+						set_temp_variable = { alpha = alpha_temp }
+					}
+					else_if = {
+						limit = {
+							AND = {
+								FROM = {
+									state_population > 10000
+								}
+								FROM = {
+									state_population < 100000
+								}
+							}
+						}
+						set_temp_variable = { red = 0.5 }
+						set_temp_variable = { green = 0 }
+						set_temp_variable = { blue = 0.5 }
+						set_temp_variable = { alpha = alpha_temp }
+					}
+					else_if = {
+						limit = {
+							AND = {
+								FROM = {
+									state_population > 100000
+								}
+								FROM = {
+									state_population < 1000000
+								}
+							}
+						}
+						set_temp_variable = { red = 0.75 }
+						set_temp_variable = { green = 0 }
+						set_temp_variable = { blue = 0.25 }
+						set_temp_variable = { alpha = alpha_temp }
+					}
+					else = {
+						set_temp_variable = { red = 1 }
+						set_temp_variable = { green = 0 }
+						set_temp_variable = { blue = 0 }
+						set_temp_variable = { alpha = alpha_temp }
+					}
+				}
+			}
+		}
+		far_text = none
+		near_text = state
+		update_daily = no
+	}
+}
