@@ -1,5 +1,5 @@
 DGR_lore_category = {
-	
+
 	DGR_war_for_bukowno = {
 
 		icon = GFX_decision_generic_form_nation
@@ -77,7 +77,7 @@ DGR_district_wars_category = {
 	
 	DGR_OL_instigate_workers = {
 		visible = { has_country_flag = DGR_operation_levittoux }
-		cost = 0
+		cost = 20
 		fire_only_once = yes
 		complete_effect = {
 				set_variable = {
@@ -95,7 +95,7 @@ DGR_district_wars_category = {
 				DGR_op_levittoux > 24
 			}
 			}
-		cost = 0
+		cost = 10
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OL_convoy_to_cargo"
@@ -113,7 +113,7 @@ DGR_district_wars_category = {
 				DGR_op_levittoux > 24
 			}
 		}
-		cost = 0
+		cost = 10
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OL_cutoff_s1"
@@ -132,13 +132,25 @@ DGR_district_wars_category = {
 				DGR_op_levittoux > 74
 			}
 		}
-		cost = 0
+		cost = 10
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OL_march_on_basilica"
 			add_to_variable = {
 				var = DGR_op_levittoux
 				value = 20
+			}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 737
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 736
+					num_provinces = 2
+				}
 			}
 		}
 	}
@@ -151,13 +163,21 @@ DGR_district_wars_category = {
 				DGR_op_levittoux > 94
 			}
 		}
-		cost = 0
+		cost = 10
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OL_disband_organisations"
 			add_to_variable = {
 				var = DGR_op_levittoux
 				value = 5
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.05
 			}
 		}
 	}
@@ -171,11 +191,20 @@ DGR_district_wars_category = {
 			}
 			
 		}
-		cost = 0
+		cost = 20
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OL_emergency_conscription"
 			set_country_flag = DGR_OL_victory
+			736 = {
+				transfer_state_to = DGR
+				}
+		2107 = {
+			create_unit = {
+				division = "name = \"4 Batalion 'Przyjaźń'\" division_template = \"Batalion Czerwonych Sztandarów\" start_experience_factor = 0 start_equipment_factor = 0.75"
+				owner = DGR
+			}
+			}
 		}
 	}
 	
