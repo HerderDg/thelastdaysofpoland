@@ -116,6 +116,7 @@ focus_tree = {
 			    amount = 500
 			    producer = GER  
 		    }
+			add_timed_idea = { idea = POZ_tusk_help  days = 20 }
 		}
 	}
 	
@@ -135,7 +136,18 @@ focus_tree = {
 		cost = 0
 		search_filters = { }
 		completion_reward = { 
-		    add_political_power = -50
+		    add_political_power = -100
+			add_stability = -0.15
+			add_popularity = {
+                ideology = euroliberalism
+                popularity = -0.05 }
+			POZ = {
+				add_opinion_modifier = {
+					target = EKW
+					modifier = small_decrease
+				}
+			}
+			
 		}
 	}
 	
@@ -153,7 +165,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		
-		cost = 3
+		cost = 2
 		search_filters = { }
 		completion_reward = { 
 		    country_event = {
@@ -174,7 +186,7 @@ focus_tree = {
 		x = 2
 		y = 3
 		
-		cost = 4
+		cost = 2
 		search_filters = { }
 		completion_reward = { 
 		    country_event = {
@@ -187,17 +199,23 @@ focus_tree = {
 		prerequisite = { focus = POZ_establish_a_bike_supplylines }
 		mutually_exclusive = { focus = POZ_set_the_police_along_the_lines }
 		available = {
-		        hidden_trigger = { always = no }
+	        has_country_flag = POZ_negotiations_slums  
+            SLU = {
+			    exists = yes
+				}			
 		
 		}
 		
 		bypass = {
+		    SLU = {
+			    exists = no
+				}
 		}
 		
 		x = 1
 		y = 4
 		
-		cost = 3
+		cost = 1.5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = {
@@ -210,16 +228,22 @@ focus_tree = {
 		id = POZ_proposition_of_normalisation
 		prerequisite = { focus = POZ_trade_with_benefits }
 		available = {
+		    SLU = {
+			    exists = yes
+				}
 		
 		}
 		
 		bypass = {
+		    SLU = {
+			    exists = no
+				}
 		}
 		
 		x = 1
 		y = 5
 		
-		cost = 3
+		cost = 1.5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = {
@@ -231,7 +255,7 @@ focus_tree = {
 		id = POZ_urban_warrior_of_democracy
 		prerequisite = { focus = POZ_proposition_of_normalisation }
 		available = {
-		        hidden_trigger = { always = no }
+		    has_country_flag = POZ_urban_warriors   
 		}
 		
 		bypass = {
@@ -255,17 +279,23 @@ focus_tree = {
 		prerequisite = { focus = POZ_establish_a_bike_supplylines }
 		mutually_exclusive = { focus = POZ_trade_with_benefits }
 		available = {
-		        hidden_trigger = { always = no }
+	        has_country_flag = POZ_aganist_slums  
+            SLU = {
+			    exists = yes
+				}			
 		
 		}
 		
 		bypass = {
+		    SLU = {
+			    exists = no
+				}
 		}
 		
 		x = 3
 		y = 4
 		
-		cost = 3
+		cost = 1.5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = {
@@ -277,17 +307,23 @@ focus_tree = {
 		id = POZ_last_day_of_slums_anarchy
 		prerequisite = { focus = POZ_set_the_police_along_the_lines focus = POZ_proposition_of_normalisation }
 		available = {
-		        hidden_trigger = { always = no }
+			has_country_flag = POZ_invasion_on_slums
+			SLU = {
+			    exists = yes
+				}
 		
 		}
 		
 		bypass = {
+		    SLU = {
+			    exists = no
+				}
 		}
 		
 		x = 3
 		y = 6
 		
-		cost = 3
+		cost = 1.5
 		search_filters = { }
 		completion_reward = { 
 		    declare_war_on = {
@@ -301,6 +337,7 @@ focus_tree = {
 		id = POZ_pacification_force
 		prerequisite = { focus = POZ_last_day_of_slums_anarchy }
 		available = {
+		    has_war = no
 		
 		}
 		
@@ -310,7 +347,7 @@ focus_tree = {
 		x = 3
 		y = 7
 		
-		cost = 3
+		cost = 1
 		search_filters = { }
 		completion_reward = {					
 		    country_event = {
@@ -439,6 +476,10 @@ focus_tree = {
                 ideology = euroliberalism
                 popularity = 0.05
                 }
+            swap_ideas = {
+					remove_idea = POZ_incompetent_administration
+					add_idea = POZ_incompetent_administration2
+			}
 		}
 	}
 	
@@ -462,7 +503,11 @@ focus_tree = {
 		    swap_ideas = {
 					remove_idea = POZ_anti_religious_fervor
 					add_idea = POZ_anti_religious_fervor2
-				}
+			}
+			swap_ideas = {
+					remove_idea = POZ_incompetent_administration
+					add_idea = POZ_incompetent_administration2
+			}
 			country_event = {
 			    id = poznan.18 }
 		}
