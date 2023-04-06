@@ -134,8 +134,7 @@ focus_tree = {
 		id = KGH_seeking_for_export_markets
 		icon = KGH_seeking_for_export_markets
 		relative_position_id = KGH_promoting_competition
-		prerequisite = { focus = KGH_promoting_competition }
-		prerequisite = { focus = KGH_corporatisation_of_key_industry }
+		prerequisite = { focus = KGH_promoting_competition focus = KGH_corporatisation_of_key_industry }
 		available = {
 		
 		}
@@ -320,11 +319,26 @@ focus_tree = {
 		cost = 5
 		search_filters = { }
 		completion_reward = {
+		
+			if = {
+					limit = { has_idea = KGH_low_scientists_influence }
+					swap_ideas = {
+						remove_idea = KGH_low_scientists_influence
+						add_idea = KGH_medium_scientists_influence
+					}
+				}
+				
+			else_if = {
+					limit = { has_idea = KGH_medium_scientists_influence }
+					swap_ideas = {
+						remove_idea = KGH_medium_scientists_influence
+						add_idea = KGH_high_scientists_influence
+					}
+				}
+				
 			
 		}
 	}
-	
-	###
 	focus = {
 		id = KGH_security_case
 		icon = KGH_security_case
@@ -365,7 +379,8 @@ focus_tree = {
 		cost = 5
 		search_filters = { }
 		completion_reward = {
-			
+			add_ideas = KGH_combine_militia
+			remove_ideas = KGH_mercenary_speciallists
 		}
 	}
 	
@@ -437,7 +452,8 @@ focus_tree = {
 		cost = 5
 		search_filters = { }
 		completion_reward = {
-			
+			add_ideas = KGH_mercenary_speciallists
+			remove_ideas = KGH_combine_militia
 		}
 	}
 	
@@ -483,8 +499,24 @@ focus_tree = {
 		cost = 5
 		search_filters = { }
 		completion_reward = {
-			
+			if = {
+					limit = { has_idea = KGH_low_scientists_influence }
+					swap_ideas = {
+						remove_idea = KGH_low_scientists_influence
+						add_idea = KGH_medium_scientists_influence
+					}
+				}
+				
+			else_if = {
+					limit = { has_idea = KGH_medium_scientists_influence }
+					swap_ideas = {
+						remove_idea = KGH_medium_scientists_influence
+						add_idea = KGH_high_scientists_influence
+					}
+				}
+				
 		}
+		
 	}
 	
 	focus = {
@@ -515,7 +547,7 @@ focus_tree = {
 		cost = 5
 		search_filters = { }
 		completion_reward = {
-			
+			load_focus_tree = kghm_first_main_focus
 		}
 	}
 
@@ -563,6 +595,7 @@ focus_tree = {
 		icon = KGH_miners_militia
 		relative_position_id = KGH_battle_of_legnica
 		prerequisite = { focus = KGH_battle_of_legnica }
+		mutually_exclusive = { focus = KGH_ek_mercenaries }
 		available = {
 			has_war_with = CYG
 		}
@@ -585,6 +618,7 @@ focus_tree = {
 		icon = KGH_ek_mercenaries
 		relative_position_id = KGH_battle_of_legnica
 		prerequisite = { focus = KGH_battle_of_legnica }
+		mutually_exclusive = { focus = KGH_miners_militia }
 		available = {
 			has_war_with = CYG
 		}
@@ -598,7 +632,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			add_ideas = KGH_mercenary_specialists
 		}
 	}
 	
@@ -606,8 +640,7 @@ focus_tree = {
 		id = KGH_fall_of_legnica
 		icon = KGH_fall_of_legnica
 		relative_position_id = KGH_miners_militia
-		prerequisite = { focus = KGH_miners_militia }
-		prerequisite = { focus = KGH_ek_mercenaries }
+		prerequisite = { focus = KGH_miners_militia focus = KGH_ek_mercenaries }
 		mutually_exclusive = { focus = KGH_legnica_holds }
 		available = {
 			has_war_with = CYG
@@ -639,8 +672,7 @@ focus_tree = {
 		id = KGH_legnica_holds
 		icon = KGH_legnica_holds
 		relative_position_id = KGH_ek_mercenaries
-		prerequisite = { focus = KGH_miners_militia }
-		prerequisite = { focus = KGH_ek_mercenaries }
+		prerequisite = { focus = KGH_miners_militia focus = KGH_ek_mercenaries }
 		mutually_exclusive = { focus = KGH_fall_of_legnica }
 		available = {
 			has_war_with = CYG
@@ -678,7 +710,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 5
+		cost = 2
 		search_filters = { }
 		completion_reward = {
 			add_timed_idea = {
@@ -702,7 +734,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 5
+		cost = 2
 		search_filters = { }
 		completion_reward = {
 			
@@ -723,7 +755,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 5
+		cost = 2
 		search_filters = { }
 		completion_reward = {
 			
@@ -744,7 +776,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 5
+		cost = 2
 		search_filters = { }
 		completion_reward = {
 			add_command_power = 100
@@ -766,7 +798,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 5
+		cost = 2
 		search_filters = { }
 		completion_reward = {
 			
@@ -787,7 +819,7 @@ focus_tree = {
 		x = -2
 		y = 0
 		
-		cost = 5
+		cost = 3
 		search_filters = { }
 		completion_reward = {
 			army_experience = 20
@@ -808,7 +840,7 @@ focus_tree = {
 		x = -2
 		y = 0
 		
-		cost = 5
+		cost = 3
 		search_filters = { }
 		completion_reward = {
 			add_timed_idea = {
@@ -832,12 +864,16 @@ focus_tree = {
 		x = -2
 		y = 0
 		
-		cost = 5
+		cost = 3
 		search_filters = { }
 		completion_reward = {
 			add_timed_idea = {
 				idea = KGH_excavators_program_works
 				days = 30
+			}
+			
+			hidden_effect = {
+				add_ideas = KGH_low_scientists_influence
 			}
 			
 		}
@@ -859,7 +895,7 @@ focus_tree = {
 		x = 2
 		y = 0
 		
-		cost = 5
+		cost = 3
 		search_filters = { }
 		completion_reward = {
 			
@@ -885,7 +921,12 @@ focus_tree = {
 					}
 				}
 			}
+			hidden_effect = {
+				add_ideas = KGH_low_scientists_influence
+			}
 		}
+		
+		
 	}
 	focus = {
 		id = KGH_fresh_recruitment
@@ -902,7 +943,7 @@ focus_tree = {
 		x = 2
 		y = 0
 		
-		cost = 5
+		cost = 3
 		search_filters = { }
 		completion_reward = {
 			add_manpower = 1000
@@ -923,7 +964,7 @@ focus_tree = {
 		x = 2
 		y = 0
 		
-		cost = 5
+		cost = 3
 		search_filters = { }
 		completion_reward = {
 		 KGH = {
@@ -944,3 +985,1542 @@ focus_tree = {
 		}
 	}
 }	
+
+focus_tree = {
+	id = kghm_first_main_focus
+	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add = 10
+			tag = KGH
+		}
+	}
+	default = no
+	
+	continuous_focus_position = {x = 50 y = 1500 }
+	
+	focus = {
+		id = KGH_immortal_agreement
+		icon = KGH_immortal_agreement
+		available = {
+			
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 14
+		y = 0
+		
+		cost = 5
+		search_filters = {FOCUS_STABILITY}
+		completion_reward = {
+		add_political_power = 100
+			
+		}
+	}
+	focus = {
+		id = KGH_adressing_the_workers
+		icon = KGH_adressing_the_workers
+		relative_position_id = KGH_immortal_agreement
+		prerequisite = { focus = KGH_immortal_agreement }
+		mutually_exclusive = { focus = KGH_companys_communicator }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -8
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	focus = {
+		id = KGH_join_drink_dance
+		icon = KGH_join_drink_dance
+		relative_position_id = KGH_adressing_the_workers
+		prerequisite = { focus = KGH_adressing_the_workers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_sleep_well
+		icon = KGH_sleep_well
+		relative_position_id = KGH_join_drink_dance
+		prerequisite = { focus = KGH_join_drink_dance }
+		available = {
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = KGH_we_will_work_hard
+		icon = KGH_we_will_work_hard
+		relative_position_id = KGH_sleep_well
+		prerequisite = { focus = KGH_sleep_well }
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_companys_communicator
+		icon = KGH_companys_communicator
+		relative_position_id = KGH_immortal_agreement
+		prerequisite = { focus = KGH_immortal_agreement }
+		mutually_exclusive = { focus = KGH_adressing_the_workers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -6
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_behavioral_studies
+		icon = KGH_behavioral_studies
+		relative_position_id = KGH_companys_communicator
+		prerequisite = { focus = KGH_companys_communicator }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_rest_substitutes
+		icon = KGH_rest_substitutes
+		relative_position_id = KGH_behavioral_studies
+		prerequisite = { focus = KGH_behavioral_studies }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_work_will_be_easier
+		icon = KGH_work_will_be_easier
+		relative_position_id = KGH_rest_substitutes
+		prerequisite = { focus = KGH_rest_substitutes }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			add_command_power = 100
+			
+		}
+	}
+	focus = {
+		id = KGH_chairmen_in_action
+		icon = KGH_chairmen_in_action
+		relative_position_id = KGH_immortal_agreement
+		prerequisite = { focus = KGH_immortal_agreement }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_mining_academies
+		icon = KGH_mining_academies
+		relative_position_id = KGH_chairmen_in_action
+		prerequisite = { focus = KGH_chairmen_in_action }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_training_of_the_new_staff
+		icon = KGH_training_of_the_new_staff
+		relative_position_id = KGH_mining_academies
+		prerequisite = { focus = KGH_mining_academies }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 0
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_grand_bureau_of_sales
+		icon = KGH_grand_bureau_of_sales
+		relative_position_id = KGH_mining_academies
+		prerequisite = { focus = KGH_mining_academies }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_best_seller_competition
+		icon = KGH_best_seller_competition
+		relative_position_id = KGH_training_of_the_new_staff
+		prerequisite = { focus = KGH_grand_bureau_of_sales focus = KGH_training_of_the_new_staff }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_the_art_of_barter
+		icon = KGH_the_art_of_barter
+		relative_position_id = KGH_best_seller_competition
+		prerequisite = { focus = KGH_best_seller_competition }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_science_team_move
+		icon = KGH_science_team_move
+		relative_position_id = KGH_immortal_agreement
+		prerequisite = { focus = KGH_immortal_agreement }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_robotics_institute
+		icon = KGH_robotics_institute
+		relative_position_id = KGH_science_team_move
+		prerequisite = { focus = KGH_science_team_move }
+		available = {
+
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	focus = {
+		id = KGH_bioengineering_branch
+		icon = KGH_bioengineering_branch
+		relative_position_id = KGH_robotics_institute
+		prerequisite = { focus = KGH_robotics_institute }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 0
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			add_manpower = 1000
+		}
+	}
+	focus = {
+		id = KGH_modernisation_of_industry
+		icon = KGH_modernisation_of_industry
+		relative_position_id = KGH_robotics_institute
+		prerequisite = { focus = KGH_robotics_institute }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+		 
+		}
+	}
+	focus = {
+		id = KGH_searching_for_methods
+		icon = KGH_searching_for_methods
+		relative_position_id = KGH_bioengineering_branch
+		prerequisite = { focus = KGH_bioengineering_branch focus = KGH_modernisation_of_industry }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	focus = {
+		id = KGH_center_of_creativity
+		icon = KGH_center_of_creativity
+		relative_position_id = KGH_searching_for_methods
+		prerequisite = { focus = KGH_searching_for_methods }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	focus = {
+		id = KGH_money_will_flow
+		icon = KGH_money_will_flow
+		relative_position_id = KGH_grand_bureau_of_sales
+		prerequisite = { focus = KGH_grand_bureau_of_sales focus = KGH_modernisation_of_industry }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	focus = {
+		id = KGH_art_du_cuivre
+		icon = KGH_art_du_cuivre
+		relative_position_id = KGH_immortal_agreement
+		prerequisite = { focus = KGH_immortal_agreement }
+		mutually_exclusive = { focus = KGH_geomatrisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	
+	focus = {
+		id = KGH_acquiring_and_providing
+		icon = KGH_acquiring_and_providing
+		relative_position_id = KGH_art_du_cuivre
+		prerequisite = { focus = KGH_art_du_cuivre }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_music_soothes_the_savage_souls
+		icon = KGH_music_soothes_the_savage_souls
+		relative_position_id = KGH_acquiring_and_providing
+		prerequisite = { focus = KGH_acquiring_and_providing }
+		available = {
+		}
+		
+		bypass = {
+			}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+		
+		}
+	}
+	focus = {
+		id = KGH_bountiful_future
+		icon = KGH_bountiful_future
+		relative_position_id = KGH_music_soothes_the_savage_souls
+		prerequisite = { focus = KGH_music_soothes_the_savage_souls }
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_geomatrisation
+		icon = KGH_geomatrisation
+		relative_position_id = KGH_immortal_agreement
+		prerequisite = { focus = KGH_immortal_agreement }
+		mutually_exclusive = { focus = KGH_art_du_cuivre }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 8
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_cognition_and_observation
+		icon = KGH_cognition_and_observation
+		relative_position_id = KGH_geomatrisation
+		prerequisite = { focus = KGH_geomatrisation }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_calming_noise_waves
+		icon = KGH_calming_noise_waves
+		relative_position_id = KGH_cognition_and_observation
+		prerequisite = { focus = KGH_cognition_and_observation }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = KGH_cold_but_beauty
+		icon = KGH_cold_but_beauty
+		relative_position_id = KGH_calming_noise_waves
+		prerequisite = { focus = KGH_calming_noise_waves }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_special_joint_board_meeting
+		icon = KGH_special_joint_board_meeting
+		relative_position_id = KGH_money_will_flow
+		prerequisite = { focus = KGH_we_will_work_hard focus = KGH_work_will_be_easier }
+		prerequisite = { focus = KGH_money_will_flow }
+		prerequisite = { focus = KGH_bountiful_future focus = KGH_cold_but_beauty }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	###WAR###
+	focus = {
+		id = KGH_firms_role_in_unification
+		icon = KGH_frims_role_in_unification 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 34
+		y = 0
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_the_european_problem
+		icon = KGH_the_european_problem
+		relative_position_id = KGH_firms_role_in_unification
+		prerequisite = { focus = KGH_firms_role_in_unification }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_city_of_gold
+		icon = KGH_city_of_gold
+		relative_position_id = KGH_the_european_problem
+		prerequisite = { focus = KGH_the_european_problem }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_send_the_salesmen
+		icon = KGH_send_the_salesmen
+		relative_position_id = KGH_city_of_gold
+		prerequisite = { focus = KGH_city_of_gold }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_do_you_prefer_german_one
+		icon = KGH_do_you_prefer_german_one
+		relative_position_id = KGH_send_the_salesmen
+		prerequisite = { focus = KGH_send_the_salesmen }
+		mutually_exclusive = { focus = KGH_state_of_the_art_technology }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_you_will_regret_that_purchase
+		icon = KGH_you_will_regret_that_purchase
+		relative_position_id = KGH_do_you_prefer_german_one
+		prerequisite = { focus = KGH_state_of_the_art_technology focus = KGH_do_you_prefer_german_one }
+		mutually_exclusive = { focus = KGH_we_have_a_deal }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_state_of_the_art_technology
+		icon = KGH_state_of_the_art_technology
+		relative_position_id = KGH_send_the_salesmen
+		prerequisite = { focus = KGH_send_the_salesmen }
+		mutually_exclusive = { focus = KGH_do_you_prefer_german_one }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_we_have_a_deal
+		icon = KGH_we_have_a_deal
+		relative_position_id = KGH_state_of_the_art_technology
+		prerequisite = { focus = KGH_state_of_the_art_technology focus = KGH_do_you_prefer_german_one }
+		mutually_exclusive = { focus = KGH_you_will_regret_that_purchase }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_holiday_lottery
+		icon = KGH_holiday_lottery
+		relative_position_id = KGH_city_of_gold
+		prerequisite = { focus = KGH_city_of_gold }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_factories_and_power_plants_trip
+		icon = KGH_factories_and_power_plants_trip
+		relative_position_id = KGH_holiday_lottery
+		prerequisite = { focus = KGH_holiday_lottery }
+		mutually_exclusive = { focus = KGH_didactic_part }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_vacations_nicely_spended
+		icon = KGH_vacations_nicely_spended
+		relative_position_id = KGH_factories_and_power_plants_trip
+		prerequisite = { focus = KGH_didactic_part focus = KGH_factories_and_power_plants_trip }
+		mutually_exclusive = { focus = KGH_rumbling_of_the_workers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_didactic_part
+		icon = KGH_didactic_part
+		relative_position_id = KGH_holiday_lottery
+		prerequisite = { focus = KGH_holiday_lottery }
+		mutually_exclusive = { focus = KGH_factories_and_power_plants_trip }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_rumbling_of_the_workers
+		icon = KGH_rumbling_of_the_workers
+		relative_position_id = KGH_didactic_part
+		prerequisite = { focus = KGH_didactic_part focus = KGH_factories_and_power_plants_trip }
+		mutually_exclusive = { focus = KGH_vacations_nicely_spended }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_city_of_possibilities
+		icon = KGH_city_of_possibilities
+		relative_position_id = KGH_we_have_a_deal
+		prerequisite = { focus = KGH_you_will_regret_that_purchase focus = KGH_we_have_a_deal }
+		prerequisite = { focus = KGH_vacations_nicely_spended focus = KGH_rumbling_of_the_workers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	#
+	focus = {
+		id = KGH_getting_ready_to_next_fight
+		icon = KGH_getting_ready_to_next_fight
+		relative_position_id = KGH_the_european_problem
+		prerequisite = { focus = KGH_the_european_problem }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_dealer_contacts
+		icon = KGH_dealer_contacts
+		relative_position_id = KGH_getting_ready_to_next_fight
+		prerequisite = { focus = KGH_getting_ready_to_next_fight }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_cheapest_stock_will_do
+		icon = KGH_cheapest_stock_will_do
+		relative_position_id = KGH_dealer_contacts
+		prerequisite = { focus = KGH_dealer_contacts }
+		mutually_exclusive = { focus = KGH_Ill_have_two_number_9s }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_train_employees
+		icon = KGH_train_employees
+		relative_position_id = KGH_cheapest_stock_will_do
+		prerequisite = { focus = KGH_Ill_have_two_number_9s focus = KGH_cheapest_stock_will_do }
+		mutually_exclusive = { focus = KGH_let_the_smart_guys_do_research }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_Ill_have_two_number_9s
+		icon = KGH_Ill_have_two_number_9s
+		relative_position_id = KGH_dealer_contacts
+		prerequisite = { focus = KGH_dealer_contacts }
+		mutually_exclusive = { focus = KGH_cheapest_stock_will_do }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_let_the_smart_guys_do_research
+		icon = KGH_let_the_smart_guys_do_research
+		relative_position_id = KGH_Ill_have_two_number_9s
+		prerequisite = { focus = KGH_Ill_have_two_number_9s focus = KGH_cheapest_stock_will_do }
+		mutually_exclusive = { focus = KGH_train_employees }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_intelligence_gathering
+		icon = KGH_intelligence_gathering
+		relative_position_id = KGH_getting_ready_to_next_fight
+		prerequisite = { focus = KGH_getting_ready_to_next_fight }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_ensure_the_support_of_the_working_class
+		icon = KGH_ensure_the_support_of_the_working_class
+		relative_position_id = KGH_intelligence_gathering
+		prerequisite = { focus = KGH_intelligence_gathering }
+		mutually_exclusive = { focus = KGH_good_old_friends }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_old_paper_files_rummage
+		icon = KGH_old_paper_files_rummage
+		relative_position_id = KGH_ensure_the_support_of_the_working_class
+		prerequisite = { focus = KGH_good_old_friends focus = KGH_ensure_the_support_of_the_working_class }
+		mutually_exclusive = { focus = KGH_servers_hacking }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_good_old_friends
+		icon = KGH_good_old_friends
+		relative_position_id = KGH_intelligence_gathering
+		prerequisite = { focus = KGH_intelligence_gathering }
+		mutually_exclusive = { focus = KGH_ensure_the_support_of_the_working_class }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_servers_hacking
+		icon = KGH_servers_hacking
+		relative_position_id = KGH_good_old_friends
+		prerequisite = { focus = KGH_good_old_friends focus = KGH_ensure_the_support_of_the_working_class }
+		mutually_exclusive = { focus = KGH_old_paper_files_rummage }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_internal_foundations_prepared
+		icon = KGH_internal_foundations_prepared
+		relative_position_id = KGH_let_the_smart_guys_do_research
+		prerequisite = { focus = KGH_let_the_smart_guys_do_research focus = KGH_train_employees }
+		prerequisite = { focus = KGH_old_paper_files_rummage focus = KGH_servers_hacking }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_launch_the_attack
+		icon = KGH_launch_the_attack
+		relative_position_id = KGH_city_of_possibilities
+		prerequisite = { focus = KGH_city_of_possibilities }
+		prerequisite = { focus = KGH_internal_foundations_prepared }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	#ARMY#
+	focus = {
+		id = KGH_doctrine_question
+		icon = KGH_doctrine_question 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 50
+		y = 0
+		
+		cost = 5
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = KGH_combine_vanguard
+		icon = KGH_combine_vanguard
+		relative_position_id = KGH_doctrine_question
+		prerequisite = { focus = KGH_doctrine_question }
+		mutually_exclusive = { focus = KGH_backbone_of_the_army focus = KGH_modernisations_are_key }
+		available = {
+			NOT = { has_idea = KGH_high_scientists_influence }
+			has_idea = KGH_combine_militia
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_loyalty_as_our_strength
+		icon = KGH_loyalty_as_our_strength
+		relative_position_id = KGH_combine_vanguard
+		prerequisite = { focus = KGH_combine_vanguard }
+		available = {
+
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_backbone_of_the_army
+		icon = KGH_backbone_of_the_army
+		relative_position_id = KGH_doctrine_question
+		prerequisite = { focus = KGH_doctrine_question }
+		mutually_exclusive = { focus = KGH_modernisations_are_key focus = KGH_combine_vanguard }
+		available = {
+			NOT = { has_idea = KGH_high_scientists_influence }
+			has_idea = KGH_ek_mercenaries
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_organised_chain_of_command
+		icon = KGH_organised_chain_of_command
+		relative_position_id = KGH_backbone_of_the_army
+		prerequisite = { focus = KGH_backbone_of_the_army }
+		available = {
+
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_modernisations_are_key
+		icon = KGH_modernisations_are_key
+		relative_position_id = KGH_doctrine_question
+		prerequisite = { focus = KGH_doctrine_question }
+		mutually_exclusive = { focus = KGH_backbone_of_the_army focus = KGH_combine_vanguard }
+		available = {
+			has_idea = KGH_high_scientists_influence
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_battlefield_as_a_test_site
+		icon = KGH_battlefield_as_a_test_site
+		relative_position_id = KGH_modernisations_are_key
+		prerequisite = { focus = KGH_modernisations_are_key }
+		available = {
+
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_wide_disperse_attack
+		icon = KGH_wide_disperse_attack
+		relative_position_id = KGH_loyalty_as_our_strength
+		prerequisite = { focus = KGH_loyalty_as_our_strength focus = KGH_organised_chain_of_command }
+		available = {
+
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_armor_breakthrough
+		icon = KGH_armor_breakthrough
+		relative_position_id = KGH_organised_chain_of_command
+		prerequisite = { focus = KGH_battlefield_as_a_test_site focus = KGH_organised_chain_of_command }
+		available = {
+
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_faithful_troops
+		icon = KGH_faithful_troops
+		relative_position_id = KGH_wide_disperse_attack
+		prerequisite = { focus = KGH_wide_disperse_attack }
+		available = {
+			has_completed_focus = KGH_loyalty_as_our_strength
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_seasoned_and_effective
+		icon = KGH_seasoned_and_effective
+		relative_position_id = KGH_wide_disperse_attack
+		prerequisite = { focus = KGH_wide_disperse_attack focus = KGH_armor_breakthrough }
+		available = {
+			has_completed_focus = KGH_organised_chain_of_command
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = KGH_army_of_the_future
+		icon = KGH_army_of_the_future
+		relative_position_id = KGH_armor_breakthrough
+		prerequisite = { focus = KGH_armor_breakthrough }
+		available = {
+			has_completed_focus = KGH_battlefield_as_a_test_site
+		}
+		
+		bypass = {
+			
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	
+}
