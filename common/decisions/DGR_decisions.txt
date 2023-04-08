@@ -42,7 +42,7 @@ DGR_lore_category = {
 		}
 	}
 	
-
+	
 }
 
 
@@ -55,6 +55,19 @@ DGR_district_wars_category = {
 			has_country_flag = DGR_operation_levittoux
 			has_country_flag = DGR_OL_victory }
 		}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_zawadzki
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			hidden_effect = { 
@@ -63,17 +76,7 @@ DGR_district_wars_category = {
 			}
 		}
 	}
-	
-	DGR_operation_levittoux_collapse = {
-		visible = { has_country_flag = DGR_operation_levittoux
-					NOT = { has_country_flag = DGR_OL_victory }
-					}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_levittoux
-			log = "[GetDateText]: Decision DGR_operation_levittoux_collapse"
-		}
-	}
+
 	
 	DGR_OL_instigate_workers = {
 		visible = { has_country_flag = DGR_operation_levittoux }
@@ -169,6 +172,7 @@ DGR_district_wars_category = {
 			check_variable = {
 				DGR_op_levittoux > 94
 			}
+			owns_state = 736
 		}
 		cost = 10
 		fire_only_once = yes
@@ -213,12 +217,34 @@ DGR_district_wars_category = {
 				prioritize_location = 2107
 			}
 			}
+		clr_country_flag = DGR_operation_levittoux
+		DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
 		}
 	}
 	
 ###darzbor###
 	DGR_operation_bien = {
-		visible = { NOT = { has_country_flag = DGR_operation_bien } }
+		visible = { NOT = { has_country_flag = DGR_operation_bien 
+					has_country_flag = DGR_OB_victory }
+		}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+			has_country_flag = DGR_operation_zawadzki
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_bien
@@ -226,14 +252,6 @@ DGR_district_wars_category = {
 		}
 	}
 
-	DGR_operation_bien_collapse = {
-		visible = { has_country_flag = DGR_operation_bien }
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_bien
-			log = "[GetDateText]: Decision DGR_operation_bien_collapse"
-		}
-	}
 	
 	DGR_OB_eradicate_foresters = {
 		visible = { has_country_flag = DGR_operation_bien }
@@ -300,6 +318,25 @@ DGR_district_wars_category = {
 				var = DGR_op_bien
 				value = 25
 			}
+		775 = {
+			create_unit = {
+				division = "name = \"Darzbór Łosień\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7751
+			}
+		}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 737
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 775
+					num_provinces = 1
+				}
+			}
 		}
 	}
 	
@@ -310,41 +347,56 @@ DGR_district_wars_category = {
 			check_variable = {
 				DGR_op_bien = 100
 			}
-			
+			owns_state = 775
 		}
 		cost = 0
 		fire_only_once = yes
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OB_nationalization_of_forests"
 			set_country_flag = DGR_OB_victory
+			clr_country_flag = DGR_operation_bien
+		DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
+		775 = {
+			create_unit = {
+				division = "name = \"Koło Łowieckie Dąbrowa\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 1"
+				owner = DGR
+				prioritize_location = 7751
+			}
+		}
 		}
 	}
 	
 ###slavkov###
 	DGR_operation_wasilkowski = {
-		visible = { NOT = { has_country_flag = DGR_operation_wasilkowski }
+		visible = { NOT = { has_country_flag = DGR_operation_wasilkowski
+							has_country_flag = DGR_OW_victory }
 				OR = { has_country_flag = DGR_OL_victory 
 				has_country_flag = DGR_OB_victory 
 			}
+		}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+			has_country_flag = DGR_operation_zawadzki
+		 }
 		}
 
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_wasilkowski
 			log = "[GetDateText]: Decision DGR_operation_wasilkowski"
-		}
-	}
-
-	DGR_operation_wasilkowski_collapse = {
-		visible = { has_country_flag = DGR_operation_wasilkowski					
-		OR = { has_country_flag = DGR_OL_victory 
-				has_country_flag = DGR_OB_victory 
-			}
-		}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_wasilkowski
-			log = "[GetDateText]: Decision DGR_operation_wasilkowski_collapse"
 		}
 	}
 	
@@ -413,6 +465,59 @@ DGR_district_wars_category = {
 				var = DGR_op_wasilkowski
 				value = 25
 			}
+
+		if = {
+			limit = {
+				DGR = {
+					owns_state = 736
+					}
+				}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 736
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 480
+					num_provinces = 1
+				}
+			}
+		480 = {
+			create_unit = {
+				division = "name = \"1 Regiment Sławkowski\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7755
+			}
+		}
+		}
+		else_if = {
+			limit = {
+				DGR = {
+					owns_state = 775
+					}
+				}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 775
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 480
+					num_provinces = 1
+				}
+			}
+		480 = {
+			create_unit = {
+				division = "name = \"1 Regiment Sławkowski\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7757
+			}
+		}
+		}			
 		}
 	}
 	
@@ -430,25 +535,38 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OW_state_of_emergency"
 			set_country_flag = DGR_OW_victory
+			clr_country_flag = DGR_operation_wasilkowski
+		DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
 		}
 	}
 	
 ###zabkowice-leknice###
 	DGR_operation_piwowar = {
-		visible = { NOT = { has_country_flag = DGR_operation_piwowar } }
+		visible = { NOT = { has_country_flag = DGR_operation_piwowar 
+		has_country_flag = DGR_OP_victory
+		} }
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+			has_country_flag = DGR_operation_zawadzki
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_piwowar
 			log = "[GetDateText]: Decision DGR_operation_piwowar"
-		}
-	}
-
-	DGR_operation_piwowar_collapse = {
-		visible = { has_country_flag = DGR_operation_piwowar }
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_piwowar
-			log = "[GetDateText]: Decision DGR_operation_piwowar_collapse"
 		}
 	}
 	
@@ -536,6 +654,25 @@ DGR_district_wars_category = {
 				var = DGR_op_piwowar
 				value = 15
 			}
+		776 = {
+			create_unit = {
+				division = "name = \"Młodzi Hutnicy\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 3993
+			}
+		}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 737
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 776
+					num_provinces = 1
+				}
+			}
 		}
 	}
 	
@@ -555,7 +692,13 @@ DGR_district_wars_category = {
 			add_to_variable = {
 				var = DGR_op_piwowar
 				value = 25
-			}			
+			}	
+			DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
 		}
 	}
 	
@@ -573,25 +716,47 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OP_incorporation_of_nationalists"
 			set_country_flag = DGR_OP_victory
+			clr_country_flag = DGR_operation_piwowar
+		division_template = {
+				name = "Łęknicka Inkwizycja"
+				priority = 2
+				template_counter = 4
+				regiments = {
+					marine = { x = 0 y = 0 }
+					marine = { x = 0 y = 1 }
+				}
+			}
+		776 = {
+			create_unit = {
+				division = "name = \"1 Batalion ŁI\" division_template = \"Łęknicka Inkwizycja\" start_experience_factor = 0.1 start_equipment_factor = 1"
+				owner = DGR
+				prioritize_location = 3198
+			}
+		}
 		}
 	}
 	
 ###golonog###
 	DGR_operation_morcinek = {
-		visible = { NOT = { has_country_flag = DGR_operation_morcinek } }
+		visible = { NOT = { has_country_flag = DGR_operation_morcinek 
+							has_country_flag = DGR_OM_victory } }
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+			has_country_flag = DGR_operation_zawadzki
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_morcinek
 			log = "[GetDateText]: Decision DGR_operation_morcinek"
-		}
-	}
-
-	DGR_operation_morcinek_collapse = {
-		visible = { has_country_flag = DGR_operation_morcinek }
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_morcinek
-			log = "[GetDateText]: Decision DGR_operation_morcinek_collapse"
 		}
 	}
 	
@@ -703,6 +868,25 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 5
 			}
+		777 = {
+			create_unit = {
+				division = "name = \"Gangi Gołonoskie\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7746
+			}
+		}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 737
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 777
+					num_provinces = 1
+				}
+			}	
 		}
 	}
 	
@@ -719,35 +903,42 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OM_rebuilding_program"
 			set_country_flag = DGR_OM_victory
+			clr_country_flag = DGR_operation_morcinek
+			DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
 		}
 	}
 
 ###reden###
 	DGR_operation_adamiecki = {
-		visible = { NOT = { has_country_flag = DGR_operation_adamiecki }
+		visible = { NOT = { has_country_flag = DGR_operation_adamiecki
+							has_country_flag = DGR_OA_victory }
 						OR = { has_country_flag = DGR_OM_victory 
 							has_country_flag = DGR_OL_victory 
 							has_country_flag = DGR_OZ_victory 
 							}
 							}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_zawadzki
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_adamiecki
 			log = "[GetDateText]: Decision DGR_operation_adamiecki"
-		}
-	}
-
-	DGR_operation_adamiecki_collapse = {
-		visible = { has_country_flag = DGR_operation_adamiecki
-						OR = { has_country_flag = DGR_OM_victory 
-							has_country_flag = DGR_OL_victory 
-							has_country_flag = DGR_OZ_victory 
-							}
-		}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_adamiecki
-			log = "[GetDateText]: Decision DGR_operation_adamiecki_collapse"
 		}
 	}
 	
@@ -765,11 +956,14 @@ DGR_district_wars_category = {
 	}
 	
 	DGR_OA_assault_on_city_hall = {
-		visible = { has_country_flag = DGR_operation_adamiecki }
+		visible = { has_country_flag = DGR_operation_adamiecki
+			owns_state = 777
+		}
 		available = {
 			check_variable = {
 				DGR_op_adamiecki > 24
 			}
+
 			}
 		cost = 0
 		fire_only_once = yes
@@ -777,13 +971,34 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OA_assault_on_city_hall"
 			add_to_variable = {
 				var = DGR_op_adamiecki
-				value = 25
+				value = 65
 			}
+		735 = {
+			create_unit = {
+				division = "name = \"Królowie Fety\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7754
+			}
+		}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 736
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 735
+					num_provinces = 1
+				}
+			}	
 		}
 	}
 	
 	DGR_OA_battle_for_haller_park = {
-		visible = { has_country_flag = DGR_operation_adamiecki }
+		visible = { has_country_flag = DGR_operation_adamiecki
+			owns_state = 736
+		}
 		available = {
 			check_variable = {
 				DGR_op_adamiecki > 24
@@ -795,27 +1010,27 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OA_battle_for_haller_park"
 			add_to_variable = {
 				var = DGR_op_adamiecki
-				value = 25
+				value = 65
+			}
+		735 = {
+			create_unit = {
+				division = "name = \"Królowie Fety\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7748
 			}
 		}
-	}
-	
-	DGR_OA_secure_reden = {
-		visible = { has_country_flag = DGR_operation_adamiecki 
-					}
-		available = {
-			check_variable = {
-				DGR_op_adamiecki > 74
-			}
-		}
-		cost = 0
-		fire_only_once = yes
-		complete_effect = {
-			log = "[GetDateText]: Decision DGR_OA_secure_reden"
-			add_to_variable = {
-				var = DGR_op_adamiecki
-				value = 20
-			}
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 736
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 735
+					num_provinces = 1
+				}
+			}	
 		}
 	}
 	
@@ -835,6 +1050,12 @@ DGR_district_wars_category = {
 				var = DGR_op_adamiecki
 				value = 5
 			}
+			DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
 		}
 	}
 	
@@ -852,33 +1073,35 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OA_declare_amnesty"
 			set_country_flag = DGR_OA_victory
+			clr_country_flag = DGR_operation_adamiecki
 		}
 	}
 	
 ###mydlice###
 	DGR_operation_zawadzki = {
-		visible = { NOT = { has_country_flag = DGR_operation_zawadzki }
+		visible = { NOT = { has_country_flag = DGR_operation_zawadzki
+							has_country_flag = DGR_OZ_victory }
 						OR = { has_country_flag = DGR_OA_victory 
 							has_country_flag = DGR_AH_victory 
 							}
+		}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+		 }
 		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_operation_zawadzki
 			log = "[GetDateText]: Decision DGR_operation_zawadzki"
-		}
-	}
-
-	DGR_operation_zawadzki_collapse = {
-		visible = { has_country_flag = DGR_operation_zawadzki
-						OR = { has_country_flag = DGR_OA_victory 
-							has_country_flag = DGR_AH_victory 
-							}
-		}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_operation_zawadzki
-			log = "[GetDateText]: Decision DGR_operation_zawadzki_collapse"
 		}
 	}
 	
@@ -928,6 +1151,49 @@ DGR_district_wars_category = {
 				var = DGR_op_zawadzki
 				value = 25
 			}
+
+		if = { limit = { has_country_flag = DGR_OA_victory }
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 735
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 460
+					num_provinces = 1
+				}
+			}
+		460 = {
+			create_unit = {
+				division = "name = \"Sztygarzy\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 3201
+			}
+		}
+		}		
+		else_if = { limit = { has_country_flag = DGR_AH_victory }
+			start_border_war = {
+				change_state_after_war = yes
+				attacker = {
+					state = 776
+					num_provinces = 1
+				}
+							
+				defender = {
+					state = 460
+					num_provinces = 1
+				}
+			}
+		460 = {
+			create_unit = {
+				division = "name = \"Sztygarzy\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7745
+			}
+		}
+		}
 		}
 	}
 	
@@ -947,6 +1213,12 @@ DGR_district_wars_category = {
 				var = DGR_op_zawadzki
 				value = 25
 			}
+			DGA = {
+			delete_units = {
+				division_template = "Osiedlowe Gangi"
+				disband = yes
+			}
+		}
 		}
 	}
 	
@@ -964,29 +1236,33 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_OZ_declare_amnesty"
 			set_country_flag = DGR_OZ_victory
+			clr_country_flag = DGR_operation_zawadzki
 		}
 	}
 	
 ###bledow###
 	DGR_action_windrose = {
-		visible = { NOT = { has_country_flag = DGR_action_windrose }
+		visible = { NOT = { has_country_flag = DGR_action_windrose 
+							has_country_flag = DGR_AW_victory }
 					has_country_flag = DGR_OB_victory 
 					}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_operation_zawadzki
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_action_windrose
 			log = "[GetDateText]: Decision DGR_action_windrose"
-		}
-	}
-
-	DGR_action_windrose_collapse = {
-		visible = { has_country_flag = DGR_action_windrose
-					has_country_flag = DGR_OB_victory 
-		}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_action_windrose
-			log = "[GetDateText]: Decision DGR_action_windrose_collapse"
 		}
 	}
 	
@@ -1036,29 +1312,33 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_AW_interesting_proposition"
 			set_country_flag = DGR_AW_victory
+			clr_country_flag = DGR_action_windrose
 		}
 	}
 	
 ###zadupye###
 	DGR_action_sunflower = {
-		visible = { NOT = { has_country_flag = DGR_action_sunflower }
+		visible = { NOT = { has_country_flag = DGR_action_sunflower
+							has_country_flag = DGR_AS_victory }
 					has_country_flag = DGR_OP_victory 
+		}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_hendrix
+			has_country_flag = DGR_action_windrose
+			has_country_flag = DGR_operation_zawadzki
+		 }
 		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_action_sunflower
 			log = "[GetDateText]: Decision DGR_action_sunflower"
-		}
-	}
-
-	DGR_action_sunflower_collapse = {
-		visible = { has_country_flag = DGR_action_sunflower
-					has_country_flag = DGR_OP_victory 
-		}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_action_sunflower
-			log = "[GetDateText]: Decision DGR_action_sunflower_collapse"
 		}
 	}
 	
@@ -1108,6 +1388,7 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_AS_centralplan_trzebieslawice"
 			set_country_flag = DGR_AS_victory
+			clr_country_flag = DGR_action_sunflower
 		}
 	}
 
@@ -1120,6 +1401,19 @@ DGR_district_wars_category = {
 							has_country_flag = DGR_OZ_victory 
 							}		
 							}
+		available = {
+		 NOT = {
+			has_country_flag = DGR_operation_levittoux
+			has_country_flag = DGR_operation_bien
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_operation_piwowar
+			has_country_flag = DGR_operation_wasilkowski
+			has_country_flag = DGR_operation_adamiecki
+			has_country_flag = DGR_action_sunflower
+			has_country_flag = DGR_action_windrose
+			has_country_flag = DGR_operation_zawadzki
+		 }
+		}
 		cost = 0
 		complete_effect = {
 			set_country_flag = DGR_action_hendrix
@@ -1127,20 +1421,6 @@ DGR_district_wars_category = {
 		}
 	}
 
-	DGR_action_hendrix_collapse = {
-		visible = { has_country_flag = DGR_action_hendrix
-		NOT = { has_country_flag = DGR_AH_victory }
-						OR = { has_country_flag = DGR_OP_victory 
-							has_country_flag = DGR_OA_victory 
-							has_country_flag = DGR_OZ_victory 
-							}
-		}
-		cost = 0
-		complete_effect = {
-			clr_country_flag = DGR_action_hendrix
-			log = "[GetDateText]: Decision DGR_action_hendrix_collapse"
-		}
-	}
 
 	DGR_AH_just_ask = {
 		visible = { has_country_flag = DGR_action_hendrix
@@ -1150,6 +1430,7 @@ DGR_district_wars_category = {
 		complete_effect = {
 			log = "[GetDateText]: Decision DGR_AH_centralplan_trzebieslawice"
 			set_country_flag = DGR_AH_victory
+			clr_country_flag = DGR_action_hendrix
 		}
 	}	
 
