@@ -474,6 +474,14 @@ country_event = {
 			country_event = {
 				id = aievent.12
 				}
+			country_event = {
+				id = aievent.25
+				days = 2
+				}	
+			country_event = {
+				id = aievent.26
+				days = 3
+				}				
 		}
 		log = "[GetDateText]: republika krakowska"
 	}
@@ -511,115 +519,6 @@ country_event = {
 	option = {
 		name = aievent.12.a #demokracja
 		KRK_cw_KRA = yes
-		KRK_cw_BRK = yes
-		KRK_cw_WND = yes
-		KRK = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
-		WND = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-		}
-		BRK = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
 		KRA = {
 			if = {
 				limit = {
@@ -657,6 +556,47 @@ country_event = {
 		}
 		log = "[GetDateText]: republika krakowska zdechła"
 	}
+	option = {
+		name = aievent.12.b #demokracja
+		KRK_cw_KRA = yes
+		KRA = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = BRK
+					}
+				}
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = WND
+					}
+				}
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+			}
+		change_tag_from = KRK
+		}
+		log = "[GetDateText]: republika krakowska zdechła switch"
+	}
 }
 
 country_event = {
@@ -677,7 +617,25 @@ country_event = {
 				type = annex_everything
 			}
 		}
-		log = "[GetDateText]: republika UJ zdechła"
+		AGH = {
+			change_tag_from = KRK
+		}
+		log = "[GetDateText]: kto nie skacze ten z ujotu"
+	}
+	option = {
+		name = aievent.13.b
+		KRK_scjento_UJ = yes
+		KRK_scjento_AGH = yes
+		AGH = {
+			declare_war_on = {
+				target = UJG
+				type = annex_everything
+			}
+		}
+		UJG = {
+			change_tag_from = KRK
+		}
+		log = "[GetDateText]: agh na kolana wyruchamy wam dziekana"		
 	}
 }
 
@@ -705,6 +663,9 @@ country_event = {
 		ai_chance = { base = 40 }
 		KRK_krul_maklowicz = yes
 		log = "[GetDateText]: eeeeeeeeeeeee makłowicz"
+		HAB = {
+			change_tag_from = KRK
+		}
 	}
 }
 
@@ -1252,4 +1213,188 @@ country_event = {
 	}
 }
 
-	
+
+country_event = {
+	id = aievent.25 #kraków cw switcharoo
+	title = aievent.25.t
+	desc = aievent.25.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.25"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.25.a
+		log = "[GetDateText]: czas zaorac socjalizm - krakow ediszion"
+		KRK_cw_BRK = yes
+		BRK = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRA
+					}
+				}
+				declare_war_on = {
+					target = KRA
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = WND
+					}
+				}
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+			}
+		}
+	}
+	option = {
+		name = aievent.25.b
+		log = "[GetDateText]: czas zaorac socjalizm - krakow ediszion"
+		KRK_cw_BRK = yes
+		BRK = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRA
+					}
+				}
+				declare_war_on = {
+					target = KRA
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = WND
+					}
+				}
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+			}
+			change_tag_from = KRK
+		}
+	}
+}
+
+country_event = {
+	id = aievent.26 #kraków cw switcharoo
+	title = aievent.26.t
+	desc = aievent.26.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.26"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.26.a
+		log = "[GetDateText]: dont switch to Wanda"
+		KRK_cw_WND = yes
+		WND = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRA
+					}
+				}
+				declare_war_on = {
+					target = KRA
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = BRK
+					}
+				}
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+		}
+	}
+	option = {
+		name = aievent.26.b
+		log = "[GetDateText]: switch to Wanda"
+		KRK_cw_WND = yes
+		WND = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRA
+					}
+				}
+				declare_war_on = {
+					target = KRA
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = BRK
+					}
+				}
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+			change_tag_from = KRK
+		}
+	}	
+}
+
+
+
