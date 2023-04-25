@@ -10,6 +10,8 @@ calculate_energy_balance = {
 calculate_generated_energy = {
 	set_temp_variable = { num_of_power_plants = 0 }
 	set_temp_variable = { num_of_wind_farms = 0 }
+	set_variable = { free_coal = resource@coal }
+	set_variable = { produced_coal = resource_produced@coal }
 	every_owned_state = {
 		limit = {
 			always = yes
@@ -17,8 +19,36 @@ calculate_generated_energy = {
 		add_to_temp_variable = { PREV.num_of_power_plants = building_level@power_plant }
 		add_to_temp_variable = { PREV.num_of_wind_farms = building_level@wind_farm }
 	}
+	set_variable = { coal_used_by_power_plants = 10 }
+	multiply_variable = { coal_used_by_power_plants = num_of_power_plants }
+	subtract_from_variable = { free_coal = coal_used_by_power_plants }
 	set_variable = { generated_energy = num_of_power_plants }
+	set_variable = {lack_of_coal_modifier = 1}
 	multiply_variable = { generated_energy = 1350 }
+	if = {
+		limit = {
+			check_variable = { produced_coal = 0}
+		}
+		set_variable = {lack_of_coal_modifier = 0.1}
+		else = {
+			if = {
+				limit = {
+					check_variable = {
+						var = free_coal
+						value = 0
+						compare = less_than
+					}
+				}
+				log = "[this.getname]: [?free_coal] div by [?produced_coal]"
+				log = "[this.getname] lacks coal"
+				set_variable = {lack_of_coal_modifier = free_coal}
+				divide_variable = {lack_of_coal_modifier = produced_coal}
+				add_to_variable = {lack_of_coal_modifier = 1}
+			}
+		}
+	}
+	
+	multiply_variable = { generated_energy = lack_of_coal_modifier }
 	set_temp_variable = { energy_from_wind_farms = num_of_wind_farms }
 	multiply_temp_variable = { energy_from_wind_farms = 675 }
 	add_to_variable = { generated_energy = energy_from_wind_farms }
