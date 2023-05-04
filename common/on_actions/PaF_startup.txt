@@ -287,6 +287,22 @@ on_actions = {
 				every_neighbor_country = {
 					set_variable = { energy_imported = 0 }
 				}
+				BBW_calculate_smog_penalties = yes
+				every_state = {
+					limit = {
+						is_owned_by = BBW
+						or = {
+							has_state_category = city
+							has_state_category = large_city
+							has_state_category = metropolis
+							has_state_category = megalopolis
+						}
+					}
+					add_dynamic_modifier = {
+						modifier = BBW_smog_effect
+						custom_effect_tooltip = BBW_smog_effect_tt
+					}
+				}
 			}
 			WML = {
 				if = {
@@ -354,6 +370,11 @@ on_actions = {
 				add_to_array = { ROOT.noncores_array = THIS.id }
 			}
 			reset_vp_name = yes	
+		}
+	}
+	on_daily_BBW = {
+		effect = {
+			BBW_calculate_smog_penalties = yes
 		}
 	}
 	on_daily_ZHR = {
