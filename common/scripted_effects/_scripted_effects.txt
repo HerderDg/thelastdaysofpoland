@@ -10,48 +10,29 @@ calculate_energy_balance = {
 calculate_generated_energy = {
 	set_temp_variable = { num_of_power_plants = 0 }
 	set_temp_variable = { num_of_wind_farms = 0 }
-	if = {
-		limit = {
-			not = {
-				has_variable = built_coal_eaters
-			}
-		}
-		set_variable = { built_coal_eaters = 0 }
-	}
-	set_variable = { internal_imports = 0 }
+	set_variable = { coal_used_by_power_plants = 0 }
 	set_variable = { free_coal = resource@coal }
-	set_variable = { produced_coal = resource_produced@coal }
 	every_owned_state = {
 		limit = {
 			always = yes
 		}
-		set_variable = { this.coal_in_state = resource@coal }
 		set_variable = { this.power_plants_in_state = building_level@power_plant }
 		add_to_temp_variable = { PREV.num_of_power_plants = building_level@power_plant }
 		add_to_temp_variable = { PREV.num_of_wind_farms = building_level@wind_farm }
 		if = {
 			limit = {
-				check_variable = {this.coal_in_state < 0}
 				check_variable = {this.power_plants_in_state > 0}
 			}
 			add_to_variable = {
-				prev.internal_imports = this.power_plants_in_state
+				prev.coal_used_by_power_plants = this.power_plants_in_state
 			}
 		}
 	}
-	if = {
-		limit = {
-			check_variable = {
-				built_coal_eaters < internal_imports
-			} 
-		}
-		add_offsite_building = {
-			type = coal_eater
-			level = internal_imports
-		}
-		add_to_variable = {
-			built_coal_eaters = internal_imports
-		}
+	multiply_variable = {
+		coal_used_by_power_plants = 10
+	}
+	add_dynamic_modifier = {
+		modifier = coal_used_by_power_plants_modifier
 	}
 	set_variable = { generated_energy = num_of_power_plants }
 	set_variable = {lack_of_coal_modifier = 1}
@@ -70,10 +51,13 @@ calculate_generated_energy = {
 						compare = less_than
 					}
 				}
-				log = "[this.getname]: [?free_coal] div by [?produced_coal]"
-				log = "[this.getname] lacks coal"
+				if = {
+					original_tag = bbw
+					log = "[this.getname]: [?free_coal] div by [?coal_used_by_power_plants]"
+					log = "[this.getname] lacks coal"
+				}
 				set_variable = {lack_of_coal_modifier = free_coal}
-				divide_variable = {lack_of_coal_modifier = produced_coal}
+				divide_variable = {lack_of_coal_modifier = coal_used_by_power_plants}
 				clamp_variable = { 
 					var = lack_of_coal_modifier
 					min = -0.9

@@ -1,7 +1,4 @@
 BBW_calculate_smog_penalties = {
-	set_variable = {BBW_smog_org_penalty = -0.01}
-	set_variable = {BBW_smog_supply_penalty = -0.01}
-	set_variable = {BBW_smog_resource_penalty = -0.01}
 	every_state = {
 		limit = {
 			is_owned_by = BBW
@@ -12,9 +9,34 @@ BBW_calculate_smog_penalties = {
 				has_state_category = megalopolis
 			}
 		}
+		set_variable = {BBW_smog_org_penalty = -0.01}
+		set_variable = {BBW_smog_supply_penalty = -0.01}
+		set_variable = {BBW_smog_resource_penalty = -0.01}
 		set_temp_variable = { civ_count = building_level@industrial_complex}
 		set_temp_variable = { mil_count = building_level@arms_factory}
 		set_temp_variable = { pwr_count = building_level@power_plant}
-		log = "[THIS.GetName] has [?civ_count] civs, [?mil_count] mils and [?pwr_count] powerplants"
+		multiply_temp_variable = { mil_count = 2}
+		multiply_temp_variable = { pwr_count = 5}
+		set_temp_variable = { pollution = civ_count }
+		add_to_temp_variable = {
+			pollution = mil_count
+		}
+		add_to_temp_variable = {
+			pollution = pwr_count
+		}
+		clamp_temp_variable = {
+			var = pollution
+			max = 75
+		}
+		multiply_variable = {
+			BBW_smog_org_penalty = pollution
+		}
+		multiply_variable = {
+			BBW_smog_supply_penalty = pollution
+		}
+		multiply_variable = {
+			BBW_smog_resource_penalty = pollution
+		}
+		log = "[THIS.GetName] has [?pollution] pollution"
 	}
 }
