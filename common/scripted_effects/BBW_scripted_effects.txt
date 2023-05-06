@@ -15,6 +15,19 @@ BBW_calculate_smog_penalties = {
 		set_temp_variable = { civ_count = building_level@industrial_complex}
 		set_temp_variable = { mil_count = building_level@arms_factory}
 		set_temp_variable = { pwr_count = building_level@power_plant}
-		log = "[THIS.GetName] has [?civ_count] civs, [?mil_count] mils and [?pwr_count] powerplants"
+		multiply_temp_variable = { mil_count = 2}
+		multiply_temp_variable = { pwr_count = 5}
+		set_temp_variable = { pollution = civ_count }
+		add_to_temp_variable = {
+			pollution = mil_count
+		}
+		add_to_temp_variable = {
+			pollution = pwr_count
+		}
+		clamp_temp_variable = {
+			var = pollution
+			max = 75
+		}
+		log = "[THIS.GetName] has [?pollution] pollution"
 	}
 }
