@@ -765,7 +765,7 @@ focus_tree = {
 		search_filters = {FOCUS_STABILITY}
 		completion_reward = {
 			add_equipment_to_stockpile = {
-				type = infantry_equipment
+				type = ranged_equipment
 				amount = 400
 				producer = TSB
 			}
@@ -1055,7 +1055,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				bonus = 0.5
-				category = melee_equipment
+				category = melee_weapons
 				name = "Melee Infantry Research"
 			}
 			add_tech_bonus = {
@@ -1307,7 +1307,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				bonus = 0.5
-				category = heavy_artillery_equipment
+				category = heavy_artillery
 				name = "Artillery Research"
 				uses = 2
 			}
@@ -1367,7 +1367,6 @@ focus_tree = {
 		icon = generic_air_supremacy
 		relative_position_id = generic_better_conditions
 		prerequisite = {focus = generic_better_conditions } 
-		mutually_exclusive = { focus = generic_air_bombardment_corps }
 		available = {
 		}
 		
@@ -1381,7 +1380,7 @@ focus_tree = {
 		search_filters = {FOCUS_STABILITY}
 		completion_reward = {
 			add_equipment_to_stockpile = {
-				type = fighters
+				type = fighter_equipment
 				amount = 30
 				producer = TSB
 			}
@@ -1392,7 +1391,6 @@ focus_tree = {
 		icon = generic_air_bombardment_corps
 		relative_position_id = generic_better_conditions
 		prerequisite = {focus = generic_better_conditions } 
-		mutually_exclusive = { focus = generic_air_supremacy }
 		available = {
 		}
 		
@@ -1430,36 +1428,13 @@ focus_tree = {
 		search_filters = {FOCUS_STABILITY}
 		completion_reward = {
 			add_equipment_to_stockpile = {
-				type = transport_plane_equipment
+				type = transport_equipment
 				amount = 15
 				producer = TSB
 			}
 		}
 	}
-	focus = {
-		id = generic_air_supply
-		icon = generic_air_supply
-		relative_position_id = generic_better_conditions
-		prerequisite = {focus = generic_better_conditions } 
-		available = {
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 1
-		
-		cost = 10
-		search_filters = {FOCUS_STABILITY}
-		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = transport_plane_equipment
-				amount = 15
-				producer = TSB
-			}
-		}
-	}
+	
 	focus = {
 		id = generic_helicopter_focus
 		icon = generic_helicopter_focus
@@ -1482,6 +1457,54 @@ focus_tree = {
 				category = helicopters
 				name = "Artillery Research"
 				uses = 2
+			}
+		}
+	}
+	focus = {
+		id = generic_air_bombardment_focus
+		icon = generic_air_bombardment_focus
+		relative_position_id = generic_air_bombardment_corps
+		prerequisite = {focus = generic_air_supremacy focus = generic_air_bombardment_corps } 
+		mutually_exclusive = { focus = generic_air_supremacy_focus }
+		available = {
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 10
+		search_filters = {FOCUS_STABILITY}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				category = bombers
+			}
+		}
+	}
+	focus = {
+		id = generic_air_supremacy_focus
+		icon = generic_air_supremacy_focus
+		relative_position_id = generic_air_bombardment_corps
+		prerequisite = {focus = generic_air_supremacy focus = generic_air_bombardment_corps } 
+		mutually_exclusive = { focus = generic_air_bombardment_focus }
+		available = {
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 10
+		search_filters = {FOCUS_STABILITY}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				category = fighters
 			}
 		}
 	}
