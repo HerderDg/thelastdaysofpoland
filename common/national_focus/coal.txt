@@ -476,6 +476,7 @@ focus_tree = {
 			country_event = {
 				id = belchatow.40
 			}
+			set_country_flag = power_failure
 		}
 	}
 	
@@ -851,9 +852,12 @@ focus_tree = {
 		id = BBW_voice_of_the_brotherhood
 		icon = BBW_voice_of_the_brotherhood
 		relative_position_id = BBW_search_wherever_you_can
-		prerequisite = { focus = BBW_search_wherever_you_can }
+		prerequisite = { 
+			focus = BBW_search_wherever_you_can
+			
+		}
 		available = {
-		
+			check_variable = { current_balance > 0 }
 		}
 		
 		bypass = {
@@ -872,6 +876,7 @@ focus_tree = {
 			country_event = {
 				id = belchatow.46
 			}
+			clr_country_flag = power_failure
 		}
 	}
 	focus = {
@@ -896,6 +901,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_green_counter_revolution5
+				add_idea = BBW_green_counter_revolution6
+			}
 		}
 	}
 	focus = {
@@ -920,6 +929,29 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_green_counter_revolution6
+				add_idea = BBW_green_counter_revolution7
+			}
+			add_manpower = -500
+			random_owned_state = {
+				limit = {
+					arms_factory > 0
+				}
+				remove_building = {
+					type = arms_factory 
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					industrial_complex > 0
+				}
+				remove_building = {
+					type = industrial_complex 
+					level = 1
+				}
+			}
 		}
 	}
 	focus = {
@@ -946,6 +978,9 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			country_event = {
+				id = belchatow.47
+			}
 		}
 	}
 	focus = {
@@ -971,6 +1006,27 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			341 = {
+				create_unit = {
+					division = "name = \"5 Batalion Adeptów 'Bełchatów'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = BBW
+				}
+			}
+			if = {
+				limit = {
+					has_idea = BBW_new_coal_policy_spokesman
+				}
+				swap_ideas = {
+					remove_idea = BBW_new_coal_policy_spokesman
+					add_idea = BBW_new_coal_policy_everything
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_new_coal_policy
+					add_idea = BBW_new_coal_policy_militia
+				}
+			}
 		}
 	}
 	focus = {
@@ -996,6 +1052,38 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = roksi_jako_rzecznik
+				}
+				BBW_roksi_wegiel = {
+					add_corps_commander_role = {
+						traits = {
+							media_personality
+						}
+						skill = 2
+						attack_skill = 2
+						defense_skill = 2
+						planning_skill = 2
+						logistics_skill = 2
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_idea = BBW_new_coal_policy_militia
+				}
+				swap_ideas = {
+					remove_idea = BBW_new_coal_policy_militia
+					add_idea = BBW_new_coal_policy_everything
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_new_coal_policy
+					add_idea = BBW_new_coal_policy_spokesman
+				}
+			}
 		}
 	}
 	focus = {
@@ -1021,6 +1109,13 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			341 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1 #id state'a bełchatowa pls
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -1048,6 +1143,9 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			country_event = {
+				id = belchatow.48
+			}
 		}
 	}
 	focus = {
@@ -1073,7 +1171,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-		}
+			country_event = {
+				id = belchatow.49
+				}
+			}
 	}
 	
 ###JESZCZEJEDNODRZEWKOTYMCZASOWOTUTAJ###	
@@ -1093,7 +1194,9 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = {
+				id = belchatow.50
+			}
 		}
 	}
 
@@ -1101,6 +1204,13 @@ focus_tree = {
 		id = BBW_lungs_full_of_hope
 		icon = BBW_lungs_full_of_hope
 		relative_position_id = BBW_our_inspiration
+		prerequisite = { focus = BBW_surface_mines_glowno_rogozno }
+		prerequisite = { focus = BBW_first_contact_forces
+						focus = BBW_armored_roller_grace }	
+		prerequisite = { focus = BBW_full_success
+						focus = BBW_alternative_application }	
+		prerequisite = { focus = BBW_one_vision }		
+		prerequisite = { focus = BBW_full_shafts }								
 		available = {
 		
 		}
@@ -1109,7 +1219,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 11
+		y = 12
 		
 		cost = 2
 		search_filters = { }
@@ -1139,6 +1249,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_factory_scribes
 		}
 	}
 	focus = {
@@ -1146,7 +1257,6 @@ focus_tree = {
 		icon = BBW_tube_terminals
 		relative_position_id = BBW_factory_scribes
 		prerequisite = { focus = BBW_factory_scribes }
-		prerequisite = { focus = BBW_energetic_stability }
 		available = {
 		
 		}
@@ -1155,7 +1265,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 2
+		y = 1
 		
 		ai_will_do = {
 		factor = 100
@@ -1164,6 +1274,12 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_tube_terminals
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = electronics				
+			}
 		}
 	}
 	focus = {
@@ -1188,6 +1304,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_12h_work_week
 		}
 	}
 	focus = {
@@ -1212,6 +1329,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_private_investiments
 		}
 	}
 	focus = {
@@ -1227,7 +1345,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		
 		ai_will_do = {
 		factor = 100
@@ -1236,11 +1354,15 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_12h_work_week
+				add_idea = BBW_permament_12h_work_week
+			}
 		}
 	}
 	focus = {
-		id = BBW_american_licences
-		icon = BBW_american_licences
+		id = BBW_american_licenses
+		icon = BBW_american_licenses
 		relative_position_id = BBW_private_investitions
 		prerequisite = { focus = BBW_private_investitions }
 		available = {
@@ -1251,7 +1373,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		
 		ai_will_do = {
 		factor = 100
@@ -1260,13 +1382,23 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.25
+				uses = 1
+				category = electronics				
+			}
+			add_tech_bonus = {
+				bonus = 0.25
+				uses = 1
+				category = armor				
+			}
 		}
 	}
 	focus = {
 		id = BBW_district_bunkers
 		icon = BBW_district_bunkers
 		relative_position_id = BBW_tube_terminals
-		prerequisite = { focus = BBW_american_licences }
+		prerequisite = { focus = BBW_american_licenses }
 		prerequisite = { focus = BBW_full_speed_production }
 		available = {
 		
@@ -1276,7 +1408,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 3
+		y = 4
 		
 		ai_will_do = {
 		factor = 100
@@ -1285,6 +1417,17 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			every_owned_state = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -1309,6 +1452,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_eat_beef_leave_potatoes
 		}
 	}
 	focus = {
@@ -1333,6 +1477,9 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			country_event = {
+				id = belchatow.51
+			}
 		}
 	}
 	focus = {
@@ -1347,7 +1494,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -3
+		x = -4
 		y = 0
 		
 		ai_will_do = {
@@ -1357,6 +1504,17 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			341 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = coal
+					amount = 10
+				}
+			}
 		}
 	}
 	focus = {
@@ -1381,13 +1539,14 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_small_coal_plants
 		}
 	}
 	focus = {
 		id = BBW_underground_mine_belchatow
 		icon = BBW_underground_mine_belchatow
-		relative_position_id = BBW_american_licences
-		prerequisite = { focus = BBW_american_licences }
+		relative_position_id = BBW_american_licenses
+		prerequisite = { focus = BBW_american_licenses }
 		prerequisite = { focus = BBW_full_speed_production }
 		prerequisite = { focus = BBW_energetic_stability }
 		available = {
@@ -1397,7 +1556,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -2
+		x = -3
 		y = 1
 		
 		ai_will_do = {
@@ -1407,6 +1566,17 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			341 = {
+				add_building_construction = {
+					type = power_plant
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = coal
+					amount = 15
+				}
+			}
 		}
 	}
 	focus = {
@@ -1495,8 +1665,105 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 8
+		x = 19
 		y = 0
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = BBW_airships_of_the_future
+		icon = BBW_airships_of_the_future
+		relative_position_id = BBW_power_of_steel
+		prerequisite = { focus = BBW_power_of_steel }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = BBW_cinder_drones
+		icon = BBW_cinder_drones
+		relative_position_id = BBW_airships_of_the_future
+		prerequisite = { focus = BBW_airships_of_the_future }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = BBW_vertibirds_on_prey
+		icon = BBW_vertibirds_on_prey
+		relative_position_id = BBW_airships_of_the_future
+		prerequisite = { focus = BBW_airships_of_the_future }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = BBW_terror_of_the_skies
+		icon = BBW_terror_of_the_skies
+		relative_position_id = BBW_airships_of_the_future
+		prerequisite = { focus = BBW_vertibirds_on_prey }
+		prerequisite = { focus = BBW_cinder_drones }		
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
 		
 		ai_will_do = {
 		factor = 100
@@ -1519,7 +1786,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -3
+		x = -6
 		y = 1
 		
 		ai_will_do = {
@@ -1543,7 +1810,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 3
+		x = 0
 		y = 1
 		
 		ai_will_do = {
@@ -1608,6 +1875,7 @@ focus_tree = {
 		icon = BBW_fast_is_good
 		relative_position_id = BBW_need
 		prerequisite = { focus = BBW_need }
+		mutually_exclusive = { focus = BBW_harder_is_better }
 		available = {
 		
 		}
@@ -1632,6 +1900,7 @@ focus_tree = {
 		icon = BBW_harder_is_better
 		relative_position_id = BBW_need
 		prerequisite = { focus = BBW_need }
+		mutually_exclusive = { focus = BBW_fast_is_good }
 		available = {
 		
 		}
@@ -1639,7 +1908,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 1
+		x = 2
 		y = 1
 		
 		ai_will_do = {
@@ -1663,7 +1932,31 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = BBW_rapid_responding
+		icon = BBW_rapid_responding
+		relative_position_id = BBW_fast_is_good
+		prerequisite = { focus = BBW_fast_is_good }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
 		y = 1
 		
 		ai_will_do = {
@@ -1678,8 +1971,9 @@ focus_tree = {
 	focus = {
 		id = BBW_first_contact_forces
 		icon = BBW_first_contact_forces
-		relative_position_id = BBW_paladin_tomasz_sommer_zpw
+		relative_position_id = BBW_fast_is_good
 		prerequisite = { focus = BBW_paladin_tomasz_sommer_zpw }
+		prerequisite = { focus = BBW_rapid_responding }
 		available = {
 		
 		}
@@ -1688,7 +1982,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		
 		ai_will_do = {
 		factor = 100
@@ -1970,7 +2264,7 @@ focus_tree = {
 	focus = {
 		id = BBW_internal_peace
 		icon = BBW_internal_peace
-		relative_position_id = BBW_power_of_steel
+		relative_position_id = BBW_our_inspiration
 		prerequisite = { focus = BBW_our_inspiration }
 		available = {
 		
@@ -1979,8 +2273,8 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 8
-		y = 0
+		x = 0
+		y = 1
 		
 		ai_will_do = {
 		factor = 100
@@ -2090,7 +2384,7 @@ focus_tree = {
 	}
 	focus = {
 		id = BBW_semblance_of_discussion
-		icon = BBW_semblance_of_discussion
+		icon = BBW_semblance_of_dicussion
 		relative_position_id = BBW_brotherhood_u
 		prerequisite = { focus = BBW_brotherhood_u }
 		available = {
@@ -4316,4 +4610,18 @@ focus_tree = {
 			clr_country_flag = BBW_war_time
 		}
 	}
+}
+###drzewko wojewódzkie
+focus_tree = {
+	id = belchatow_voi_focus
+	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add =10
+			tag = BBW
+		}
+	}
+	default = no
 }
