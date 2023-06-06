@@ -6,9 +6,11 @@ ideas = {
 		
 		disarmed_nation = {
 						
-			#cost = 150
-			available = { always = no }
-			removal_cost = 0
+			cost = 200
+			available = {
+				has_war_support < 0.1
+			}
+			removal_cost = -1
 			level = 8
 			picture = paf_disarmed_nation
 			
@@ -33,24 +35,14 @@ ideas = {
 		
 		volunteer_only = {
 						
-			cost = 250
-			removal_cost = 0
+			cost = 200
+			removal_cost = -1
 			level = 7
 			picture = paf_volunteer_only
 			
 			
 			available = {
-					has_stability > 0.75
-					has_war_support > 0.5
-					NOT = {
-						OR = {
-							has_government = postpolonism
-							has_government = marxism_cranism
-							has_government = neonationalism
-							has_government = reactionary
-						}
-						has_war = yes
-					}
+				has_war_support > 0.15
 			}
 			
 			ai_will_do = {
@@ -66,16 +58,23 @@ ideas = {
 
 			modifier = {
 				conscription = 0.02
+				industrial_capacity_factory = 0.025
+				stability_factor = 0.05
+				production_speed_buildings_factor = 0.05
+				
 			}
+			
 			
 			cancel_if_invalid = no
 		}
 		
 		random_enlistment  = {
 						
-			cost = 150
-			available = { always = no }
-			removal_cost = 0
+			cost =  200
+			available = {
+				has_war_support > 0.20
+			}
+			removal_cost = -1
 			level = 6
 			
 			ai_will_do = {
@@ -88,6 +87,7 @@ ideas = {
 			}
 			
 			modifier = {
+				mobilization_speed = -0.1
 				conscription = 0.035
 			}
 			
@@ -98,7 +98,7 @@ ideas = {
 		system_enlistment  = {
 		
 			cost = 150
-			removal_cost = 0
+			removal_cost = -1
 			level = 5
 			
 			ai_will_do = {
@@ -106,12 +106,11 @@ ideas = {
 			}
 			
 			available = {
-				has_idea = random_enlistment 
+				#has_idea = random_enlistment 
 				OR = {
 					OR = {
 						has_war = yes
-						has_war_support > 0.5
-						has_stability > 0.5
+						has_war_support > 0.35
 					}
 				}
 			}
@@ -128,7 +127,7 @@ ideas = {
 		expanded_conscription = {
 					
 			cost = 200
-			removal_cost = 0
+			removal_cost = -1
 			level = 4
 
 			available = {
@@ -143,7 +142,7 @@ ideas = {
 					OR = {
 						has_war = yes
 						has_war_support > 0.5
-						has_stability > 0.6
+						
 					}
 				}
 			}
@@ -171,16 +170,18 @@ ideas = {
 			available = {
 				#has_manpower_for_recruit_change_to =  { value = 0.1 group = mobilization_laws }
 				OR = {
-					has_government = postpolonism
-					has_government = marxism_cranism
-					has_government = reactionary
-					has_government = neonationalism
+					OR = {
+						has_government = postpolonism
+						has_government = marxism_cranism
+						has_government = reactionary
+						has_government = neonationalism
+						}
 					AND = {
 						has_war = yes 
 					}
 					AND = {
-						has_war_support > 0.7
-						surrender_progress > 0.1
+						has_war_support > 0.65
+						surrender_progress > 0.2
 					}
 				}
 				
@@ -201,7 +202,7 @@ ideas = {
 			}
 			
 			cost = 200
-			removal_cost = 0
+			removal_cost = -1
 			level = 3
 
 			modifier = {
@@ -220,18 +221,20 @@ ideas = {
 			available = {
 				#has_manpower_for_recruit_change_to =  { value = 0.25 group = mobilization_laws }
 				OR = {
-					has_government = postpolonism
-					has_government = marxism_cranism
-					has_government = reactionary
-					has_government = neonationalism
+					OR = {
+						has_government = postpolonism
+						has_government = marxism_cranism
+						has_government = reactionary
+						has_government = neonationalism
+						}
 					AND = {
 						has_war = yes
-						surrender_progress > 0.2
+						surrender_progress > 0.35
 					}
 					AND = {
-						has_war_support > 0.9
-						surrender_progress > 0.2
-						has_war = yes
+						has_war_support > 0.8
+						
+						
 					}
 				}
 		
@@ -277,7 +280,7 @@ ideas = {
 			}
 			
 			cost = 200
-			removal_cost = 0
+			removal_cost = -1
 			level = 2
 
 			modifier = {
@@ -294,14 +297,20 @@ ideas = {
 			
 			available = {
 				OR = {
-					has_government = postpolonism
-					has_government = marxism_cranism
-					has_government = reactionary
-					has_government = neonationalism
+					OR = {
+						has_government = postpolonism
+						has_government = marxism_cranism
+						has_government = reactionary
+						has_government = neonationalism
+						}
 				}
-				OR = {
-					has_war_support > 0.9
-					surrender_progress > 0.3
+				AND = {
+					has_war_support > 0.95
+					
+				}
+				AND = {
+					has_war = yes
+					surrender_progress > 0.5
 				}
 			}
 				
@@ -349,7 +358,7 @@ ideas = {
 			}
 			
 			cost = 200
-			removal_cost = 0
+			removal_cost = -1
 			level = 1
 
 			modifier = {
@@ -591,19 +600,22 @@ hidden_ideas = {
 			}
 			equipment_bonus = {
 				ranged_equipment = {
-					build_cost_ic = -0.20 instant = yes
-					reliability = -0.10 instant = yes
-					defense = -0.10 instant = yes
+					build_cost_ic = -0.20
+					reliability = -0.10
+					defense = -0.10 
+					instant = yes
 				}
 				support_equipment = {
-					build_cost_ic = -0.20 instant = yes
-					reliability = -0.10 instant = yes
-					defense = -0.10 instant = yes
+					build_cost_ic = -0.20
+					reliability = -0.10
+					defense = -0.10 
+					instant = yes
 				}
 				motorized_equipment = {
-					build_cost_ic = -0.20 instant = yes
-					reliability = -0.10 instant = yes
-					defense = -0.10 instant = yes
+					build_cost_ic = -0.20
+					reliability = -0.10
+					defense = -0.10 
+					instant = yes
 				}
 			}
 		}
