@@ -2,6 +2,19 @@ on_actions = {
 	on_capitulation_immediate = {
 		effect = {
 			log = "[GetDateText]: [ROOT.GetName] was just capped by [FROM.GetName]"
+			if = {
+				limit = {
+					From = {
+						original_tag = BBW
+					}
+				}
+				clear_array = global.capped_states
+				ROOT = {
+					every_owned_state = {
+						add_to_array = { global.capped_states = this }
+					}
+				}
+			}
 			every_other_country = {
 				limit = {
 					NOT = {
@@ -262,6 +275,19 @@ on_actions = {
 				set_global_flag = ZHP_civil_war_lost
 				set_global_flag = skip_default_capitulation
 				log = "[GetDateText]: ZHP lost to archbishop"
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = BBW
+					}
+				}
+				FROM = {
+					country_event = {
+						id = belchatow.9001
+						days = 7
+					}
+				}
 			}
 			if = {	
 				limit = {
