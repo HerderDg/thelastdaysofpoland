@@ -1801,6 +1801,7 @@ ai_war_decisions = {
 			OR = {
 				original_tag = WIN
 				original_tag = ZAG
+				original_tag = PZL
 			}
 				}
 
@@ -1808,6 +1809,7 @@ ai_war_decisions = {
 				OR = {
 					original_tag = WIN
 					original_tag = ZAG
+					original_tag = PZL
 				}
 				NOT = { has_war = yes }
 				date > 2028.03.18
@@ -1833,6 +1835,13 @@ ai_war_decisions = {
 						 ROOT = { NOT = { original_tag = ZAG } } }
 				declare_war_on = {
 					target = ZAG
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = PZL 
+						 ROOT = { NOT = { original_tag = PZL } } }
+				declare_war_on = {
+					target = PZL
 					type = annex_everything
 				}
 				}
@@ -10253,29 +10262,26 @@ ai_war_decisions = {
 			}
 		}
 	}
-	
-	silesia_inferior_ZUL = {
+	ZUL_ANA_MNL_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
 		allowed = {
-			is_lower_silesia = yes
+			OR = {
+				original_tag = ZUL
+				original_tag = ANA
+				original_tag = MNL
+			}
 				}
 
 		visible = {
 				OR = {
-					original_tag = MNL
+					original_tag = ZUL
 					original_tag = ANA
+					original_tag = MNL
 				}
-				NOT = { 
-					OR = {
-							has_decision = silesia_inferior_MNL
-							has_decision = silesia_inferior_ANA
-						}
-					}
-				ROOT = { any_neighbor_country = { original_tag = ZUL } }
-			NOT = { has_war = yes }
-			date > 2027.08.01
+				NOT = { has_war = yes }
+				date > 2027.01.01
 		}
 
 		cost = 1
@@ -10284,96 +10290,27 @@ ai_war_decisions = {
 			factor = 100
 		}
 		fire_only_once = yes
-		days_remove = 10
+		days_remove = 3
 		remove_effect  = {
-			log = "[GetDateText]: Decision silesia_inferior_ZUL"
-				if = { limit = { country_exists = ZUL }
+			log = "[GetDateText]: ZUL_ANA_MNL_war"
+				if = { limit = { country_exists = ZUL
+								 ROOT = { NOT = { original_tag = ZUL } } }
 				declare_war_on = {
 					target = ZUL
 					type = annex_everything
 				}
 				}
-		}
-	}
-	
-	silesia_inferior_MNL = {
-
-		icon = GFX_decision_generic_prepare_civil_war
-		
-		allowed = {
-			is_lower_silesia = yes
-				}
-
-		visible = {
-				OR = {
-					original_tag = ZUL
-					original_tag = ANA
-				}
-				NOT = { 
-					OR = {
-							has_decision = silesia_inferior_ZUL
-							has_decision = silesia_inferior_ANA
-						}
-					}
-				ROOT = { any_neighbor_country = { original_tag = MNL } }
-			NOT = { has_war = yes }
-			date > 2027.08.01
-		}
-
-		cost = 1
-
-		ai_will_do = {
-			factor = 100
-		}
-		fire_only_once = yes
-		days_remove = 10
-		remove_effect  = {
-			log = "[GetDateText]: Decision silesia_inferior_MNL"
-				if = { limit = { country_exists = MNL }
+				if = { limit = { country_exists = ANA 
+						 ROOT = { NOT = { original_tag = ANA } } }
 				declare_war_on = {
-					target = MNL
+					target = ANA
 					type = annex_everything
 				}
 				}
-		}
-	}
-	
-	silesia_inferior_ANA = {
-
-		icon = GFX_decision_generic_prepare_civil_war
-		
-		allowed = {
-			is_lower_silesia = yes
-				}
-
-		visible = {
-				OR = {
-					original_tag = MNL
-					original_tag = ZUL
-				}
-				NOT = { 
-					OR = {
-							has_decision = silesia_inferior_MNL
-							has_decision = silesia_inferior_ZUL
-						}
-					}
-				ROOT = { any_neighbor_country = { original_tag = ANA } }
-			NOT = { has_war = yes }
-			date > 2027.08.01
-		}
-
-		cost = 1
-
-		ai_will_do = {
-			factor = 100
-		}
-		fire_only_once = yes
-		days_remove = 10
-		remove_effect  = {
-			log = "[GetDateText]: Decision silesia_inferior_ANA"
-				if = { limit = { country_exists = ANA }
+				if = { limit = { country_exists = MNL 
+						 ROOT = { NOT = { original_tag = MNL } } }
 				declare_war_on = {
-					target = ANA
+					target = PZL
 					type = annex_everything
 				}
 				}
@@ -10607,6 +10544,145 @@ ai_war_decisions = {
 		}
 	}
 	
+	legnica_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lower_silesia = yes
+				}
+
+		visible = {
+			OR = {
+			original_tag = EKS
+			original_tag = KGH
+			original_tag = CYG
+			}
+			date > 2028.01.01
+			count_triggers = {
+				amount = 4
+					EKS = { num_of_controlled_states < 1 }
+					CYG = { num_of_controlled_states < 1 }
+					KGH = { num_of_controlled_states < 1 }
+					PZL = { num_of_controlled_states < 1 }
+					WIN = { num_of_controlled_states < 1 }
+					ZAG = { num_of_controlled_states < 1 }
+		}
+		}
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision legnica_war"
+			if = { limit = { country_exists = PZL } 
+				declare_war_on = {
+					target = PZL
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = WIN } 
+				declare_war_on = {
+					target = WIN
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ZAG } 
+				declare_war_on = {
+					target = ZAG
+					type = annex_everything
+				}
+				}
+				
+		}
+	}
+	
+	wroclaw_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lower_silesia = yes
+				}
+
+		visible = {
+			OR = {
+			original_tag = WRO
+			original_tag = CZE
+			original_tag = RYB
+			original_tag = ZUL
+			original_tag = MNL
+			original_tag = ANA
+			date > 2028.01.01
+		}
+		count_triggers = {
+				amount = 4
+					WRO = { num_of_controlled_states < 1 }
+					RYB = { num_of_controlled_states < 1 }
+					CZE = { num_of_controlled_states < 1 }
+					ZUL = { num_of_controlled_states < 1 }
+					MNL = { num_of_controlled_states < 1 }
+					ANA = { num_of_controlled_states < 1 }
+		}
+		}
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision wroclaw_war"
+			if = { limit = { country_exists = PZL } 
+				declare_war_on = {
+					target = PZL
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = WRO } 
+				declare_war_on = {
+					target = WRO
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = CZE } 
+				declare_war_on = {
+					target = CZE
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = RYB } 
+				declare_war_on = {
+					target = RYB
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ZUL } 
+				declare_war_on = {
+					target = ZUL
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ANA } 
+				declare_war_on = {
+					target = ANA
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = MNL } 
+				declare_war_on = {
+					target = MNL
+					type = annex_everything
+				}
+				}
+				
+		}
+	}
+	
 	Last_lowersilesia_war = {
 	
 		icon = GFX_decision_generic_prepare_civil_war
@@ -10626,9 +10702,12 @@ ai_war_decisions = {
 					original_tag = ZUL
 					original_tag = MNL
 					original_tag = ANA
+					original_tag = WIN
+					original_tag = ZAG
+					original_tag = PZL
 					}
 			count_triggers = {
-				amount = 7
+				amount = 10
 					EKS = { num_of_controlled_states < 1 }
 					CYG = { num_of_controlled_states < 1 }
 					KGH = { num_of_controlled_states < 1 }
@@ -10639,8 +10718,11 @@ ai_war_decisions = {
 					ZUL = { num_of_controlled_states < 1 }
 					MNL = { num_of_controlled_states < 1 }
 					ANA = { num_of_controlled_states < 1 }
+					PZL = { num_of_controlled_states < 1 }
+					ZAG = { num_of_controlled_states < 1 }
+					WIN = { num_of_controlled_states < 1 }
 				}
-			date > 2028.01.01
+			date > 2028.07.01
 		}
 
 		cost = 1
@@ -10709,6 +10791,24 @@ ai_war_decisions = {
 				if = { limit = { country_exists = ANA } 
 				declare_war_on = {
 					target = ANA
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = WIN } 
+				declare_war_on = {
+					target = WIN
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = PZL } 
+				declare_war_on = {
+					target = PZL
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ZAG } 
+				declare_war_on = {
+					target = ZAG
 					type = annex_everything
 				}
 				}
