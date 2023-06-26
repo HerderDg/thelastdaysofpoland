@@ -1,6 +1,6 @@
 regional_conquest_category = {
 	final_solution_of_zigger_question = {
-		allowed = {
+		visible = {
 			is_warmia_and_masuria = yes
 		}
 		cost = 100
@@ -8,6 +8,36 @@ regional_conquest_category = {
 			declare_war_on = {
 				target = ROS
 				type = annex_everything
+			}
+		}
+	}
+	war_for_pomorze = {
+		visible = {
+			or = {
+				is_west_pomerania = yes
+				is_pomerelia = yes
+			}
+			date > "2029.01.01"
+		}
+		cost = 100
+		complete_effect = {
+			every_country = {
+				limit = {
+					exists = yes
+					or = {
+						is_west_pomerania = yes
+						is_pomerelia = yes
+					}
+					not = {
+						original_tag = ROOT
+					}
+				}
+				root = {
+					declare_war_on = {
+						target = prev
+						type = annex_everything
+					}
+				}
 			}
 		}
 	}
