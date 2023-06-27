@@ -1,8 +1,30 @@
 regional_conquest_category = {
+	attack_other_voi = {
+		visible = {
+			date > "2029.01.01"
+			ROOT = {
+				has_war = no
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				has_country_flag = unified_voivodeship
+			}
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+	}
 	final_solution_of_zigger_question = {
 		visible = {
 			is_warmia_and_masuria = yes
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -23,7 +45,7 @@ regional_conquest_category = {
 				is_west_pomerania = yes
 				is_pomerelia = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -58,7 +80,7 @@ regional_conquest_category = {
 				is_lubelskie = yes
 				is_subcarpathia = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -93,7 +115,7 @@ regional_conquest_category = {
 				is_northern_greater_poland = yes
 				is_southern_greater_poland = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -130,7 +152,7 @@ regional_conquest_category = {
 			any_neighbor_country = {
 				is_tatry_region = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		cost = 100
 		available = {
@@ -162,7 +184,7 @@ regional_conquest_category = {
 			any_neighbor_country = {
 				is_lesser_poland = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -194,7 +216,7 @@ regional_conquest_category = {
 			any_neighbor_country = {
 				is_zaglebie_and_jura = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -226,7 +248,7 @@ regional_conquest_category = {
 			any_neighbor_country = {
 				is_mazovia = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -258,7 +280,7 @@ regional_conquest_category = {
 			any_neighbor_country = {
 				is_capital_district = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -290,7 +312,7 @@ regional_conquest_category = {
 			any_neighbor_country = {
 				is_radom_province  = yes
 			}
-			date > "2029.01.01"
+			date > "2030.01.01"
 		}
 		available = {
 			has_war = no
@@ -316,17 +338,143 @@ regional_conquest_category = {
 }
 
 superregional_conquest_category = {
-	# war_for_silesia = {}
-	# war_for_galicia = {}
+	attack_other_region = {
+		visible = {
+			date > "2031.01.01"
+			ROOT = {
+				has_war = no
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				has_country_flag = unified_regional
+			}
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+	}
+	war_for_silesia = {
+		visible = {
+			or = {
+				is_legnica = yes
+				is_lower_silesia = yes
+				is_zaglebie_and_jura = yes
+				is_upper_silesia = yes
+			}
+			date > "2032.01.01"
+		}
+		available = {
+			has_war = no
+		}
+		cost = 100
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect = {
+			every_country = {
+				limit = {
+					exists = yes
+					or = {
+						is_legnica = yes
+						is_lower_silesia = yes
+						is_opolskie = yes
+						is_upper_silesia = yes
+					}
+					not = {
+						original_tag = ROOT
+					}
+				}
+				root = {
+					declare_war_on = {
+						target = prev
+						type = annex_everything
+					}
+				}
+			}
+		}
+	}
+	war_for_galicia = {
+		visible = {
+			or = {
+				is_tatry_region = yes
+				is_lesser_poland = yes
+				is_zaglebie_and_jura = yes
+				is_subcarpathia = yes
+				is_holy_cross = yes
+				is_lubelskie = yes
+				is_radom_province = yes
+			}
+			date > "2032.01.01"
+		}
+		available = {
+			has_war = no
+		}
+		cost = 100
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect = {
+			every_country = {
+				limit = {
+					exists = yes
+					or = {
+						is_tatry_region = yes
+						is_lesser_poland = yes
+						is_zaglebie_and_jura = yes
+						is_subcarpathia = yes
+						is_holy_cross = yes
+						is_lubelskie = yes
+						is_radom_province = yes
+					}
+					not = {
+						original_tag = ROOT
+					}
+				}
+				root = {
+					declare_war_on = {
+						target = prev
+						type = annex_everything
+					}
+				}
+			}
+		}
+	}
 }
 
 final_conquest_category = {
+	attack_other_region = {
+		visible = {
+			date > "2033.01.01"
+			ROOT = {
+				has_war = no
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				has_country_flag = unified_supregional
+			}
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+	}
 	the_sacred_war = {
 		visible = {
 			or = {
 				is_poland_unifier = yes
 			}
-			date > "2033.01.01"
+			date > "2034.01.01"
 		}
 		available = {
 			has_war = no
