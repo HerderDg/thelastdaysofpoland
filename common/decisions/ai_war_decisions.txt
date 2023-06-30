@@ -11176,20 +11176,25 @@ ai_war_decisions = {
 		}
 	}
 	
+	
 	EKS_KGH_or_CYG_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
 		allowed = {
-			is_lower_silesia = yes
+			original_tag = EKS
 				}
 
 		visible = {
 			original_tag = EKS
 			date > 2028.06.01
-			NOT = {
-				KGH = { has_war_with = CYG }
-			}
+			count_triggers = {
+					amount = 3
+						CYG = { num_of_controlled_states < 1 }
+						KGH = { num_of_controlled_states < 1 }
+						BOG = { num_of_controlled_states < 1 }
+						ECO = { num_of_controlled_states < 1 }
+					}
 		}
 		
 		cost = 1
@@ -11205,15 +11210,18 @@ ai_war_decisions = {
 		days_remove = 14
 		war_with_on_remove = KGH
 		remove_effect  = {
-			log = "[GetDateText]: Decision EKS_KGH_or_CYG_war"
+			log = "[GetDateText]: Decision RYB_MPK_war"
 			declare_war_on = {
 				target = KGH
 				type = annex_everything
 			}
-			declare_war_on = {
-				target = CYG
-				type = annex_everything
-			}
+			if = { limit = { country_exists = CYG } 
+				declare_war_on = {
+					target = CYG
+					type = annex_everything
+				}
+				}
+				
 			TOU = {
 				country_event = {
 				id = aievent.15
