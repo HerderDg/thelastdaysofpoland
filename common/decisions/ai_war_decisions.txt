@@ -990,7 +990,53 @@ ai_war_decisions = {
 				}
 		}
 	}
+	lezajsk_final_destination = {
 
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_subcarpathia = yes
+				}
+
+		visible = {
+		OR = {
+			original_tag = UHR
+			original_tag = UPA
+			original_tag = LGP
+			original_tag = TAR
+			original_tag = BSC
+			original_tag = RZE
+			original_tag = KOZ
+			original_tag = KRO
+			original_tag = CHR
+			}
+			NOT = { has_war = yes }
+			country_exists = LEZ
+			date > 2028.09.01
+			ROOT = { any_neighbor_country = { original_tag = LEZ } }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision rozpierdol_lezajsk"
+				if = { limit = { country_exists = LEZ }
+				declare_war_on = {
+					target = LEZ
+					type = annex_everything
+				}
+				}
+		}
+	}
 	lezajsk_wypij_do_dna = {
 
 		icon = GFX_decision_generic_prepare_civil_war
