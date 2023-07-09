@@ -2838,6 +2838,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_stability = -0.1
 		}
 	}
 	
@@ -2863,6 +2864,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_falling_economy
 		}
 	}
 
@@ -2888,6 +2890,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_falling_economy
+				add_idea = BBW_falling_economy_and_lungs
+			}
 		}
 	}
 	
@@ -2913,6 +2919,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_falling_economy_and_lungs
+				add_idea = BBW_falling_economy_lungs_and_security
+			}
 		}
 	}
 	focus = {
@@ -2937,6 +2947,30 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_and_lungs #from BBW_overcrowded_hospitals
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_lungs
+					add_idea = BBW_falling_economy_lungs_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_security #from BBW_insecurity
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_security
+					add_idea = BBW_falling_economy_lungs_security_and_slums
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy
+					add_idea = BBW_falling_economy_and_slums
+				}
+			}
 		}
 	}
 	
@@ -2962,6 +2996,44 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_slums #from BBW_overcrowded_hospitals
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_slums
+					add_idea = BBW_falling_economy_lungs_slums_and_morale
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_security_and_slums #from BBW_insecurity
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_security_and_slums
+					add_idea = BBW_falling_economy_bottom
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_slums
+					add_idea = BBW_falling_economy_slums_and_morale
+				}
+			}
+
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = BBW_humility
+					}
+					#todo : event w którym roxi dokonuje zamachu stanu
+				}
+				else ={
+					#todo :event w którym roxi zostaje wyrzucona
+				}
+			}
 		}
 	}
 	
