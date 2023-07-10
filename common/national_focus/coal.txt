@@ -2890,9 +2890,29 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_falling_economy
-				add_idea = BBW_falling_economy_and_lungs
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_and_slums #from BBW_exodus
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_slums
+					add_idea = BBW_falling_economy_lungs_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_slums_and_morale #from BBW_desperation
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_slums_and_morale
+					add_idea = BBW_falling_economy_lungs_slums_and_morale
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy
+					add_idea = BBW_falling_economy_and_lungs
+				}
 			}
 		}
 	}
@@ -2919,9 +2939,29 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_falling_economy_and_lungs
-				add_idea = BBW_falling_economy_lungs_and_security
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_slums #from BBW_exodus
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_slums
+					add_idea = BBW_falling_economy_lungs_security_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_slums_and_morale #from BBW_desperation
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_slums_and_morale
+					add_idea = BBW_falling_economy_bottom
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_lungs
+					add_idea = BBW_falling_economy_lungs_and_security
+				}
 			}
 		}
 	}
@@ -3028,10 +3068,16 @@ focus_tree = {
 					limit = {
 						has_completed_focus = BBW_humility
 					}
-					#todo : event w którym roxi dokonuje zamachu stanu
+					country_event = {
+						id = belchatow.62
+						days = 7
+					}
 				}
 				else ={
-					#todo :event w którym roxi zostaje wyrzucona
+					country_event = {
+						id = belchatow.63
+						days = 7
+					}
 				}
 			}
 		}
