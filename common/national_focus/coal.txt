@@ -675,10 +675,21 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-		swap_ideas = {
-			remove_idea = BBW_blackout3
-			add_idea = BBW_blackout4
-		}			
+		if = {
+			limit = {
+				has_idea = BBW_blackout3
+			}
+			swap_ideas = {
+				remove_idea = BBW_blackout3
+				add_idea = BBW_blackout4
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = BBW_blackout4
+				add_idea = BBW_blackout5
+			}
+		}		
 			country_event = {
 				id = belchatow.44
 			}
@@ -794,30 +805,48 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			random_state = {
+			custom_effect_tooltip = "We will cut down local forests for fuel to power plants"
+			if = {
 				limit = {
-					is_controlled_by = BBW
-					or = {
-						has_state_category = rural
-						has_state_category = pastoral
-					}
+					has_idea = BBW_blackout3
 				}
-				remove_building = {
-					type = industrial_complex
-					level = 1
+				swap_ideas = {
+					remove_idea = BBW_blackout3
+					add_idea = BBW_blackout4
 				}
 			}
-			random_state = {
-				limit = {
-					is_controlled_by = BBW
-					or = {
-						has_state_category = rural
-						has_state_category = pastoral
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_blackout4
+					add_idea = BBW_blackout5
+				}
+			}
+			hidden_effect = {
+				random_state = {
+					limit = {
+						is_controlled_by = BBW
+						or = {
+							has_state_category = rural
+							has_state_category = pastoral
+						}
+					}
+					remove_building = {
+						type = industrial_complex
+						level = 1
 					}
 				}
-				remove_building = {
-					type = industrial_complex
-					level = 1
+				random_state = {
+					limit = {
+						is_controlled_by = BBW
+						or = {
+							has_state_category = rural
+							has_state_category = pastoral
+						}
+					}
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
 				}
 			}
 		}
@@ -846,8 +875,8 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = BBW_blackout4
-				add_idea = BBW_blackout5
+				remove_idea = BBW_blackout5
+				add_idea = BBW_blackout6
 			}
 			add_manpower = -500
 		}
@@ -2838,6 +2867,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_stability = -0.1
 		}
 	}
 	
@@ -2863,6 +2893,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_falling_economy
 		}
 	}
 
@@ -2888,6 +2919,30 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_and_slums #from BBW_exodus
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_slums
+					add_idea = BBW_falling_economy_lungs_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_slums_and_morale #from BBW_desperation
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_slums_and_morale
+					add_idea = BBW_falling_economy_lungs_slums_and_morale
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy
+					add_idea = BBW_falling_economy_and_lungs
+				}
+			}
 		}
 	}
 	
@@ -2913,6 +2968,30 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_slums #from BBW_exodus
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_slums
+					add_idea = BBW_falling_economy_lungs_security_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_slums_and_morale #from BBW_desperation
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_slums_and_morale
+					add_idea = BBW_falling_economy_bottom
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_lungs
+					add_idea = BBW_falling_economy_lungs_and_security
+				}
+			}
 		}
 	}
 	focus = {
@@ -2937,6 +3016,30 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_and_lungs #from BBW_overcrowded_hospitals
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_lungs
+					add_idea = BBW_falling_economy_lungs_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_security #from BBW_insecurity
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_security
+					add_idea = BBW_falling_economy_lungs_security_and_slums
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy
+					add_idea = BBW_falling_economy_and_slums
+				}
+			}
 		}
 	}
 	
@@ -2962,6 +3065,50 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_slums #from BBW_overcrowded_hospitals
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_slums
+					add_idea = BBW_falling_economy_lungs_slums_and_morale
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_security_and_slums #from BBW_insecurity
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_security_and_slums
+					add_idea = BBW_falling_economy_bottom
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_slums
+					add_idea = BBW_falling_economy_slums_and_morale
+				}
+			}
+
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = BBW_humility
+					}
+					country_event = {
+						id = belchatow.62
+						days = 7
+					}
+				}
+				else ={
+					country_event = {
+						id = belchatow.63
+						days = 7
+					}
+				}
+			}
 		}
 	}
 	
@@ -2988,6 +3135,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_falling_economy_bottom
+				add_idea = BBW_reviving_economy
+			}
 		}
 	}
 	focus = {
@@ -3012,6 +3163,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy
+				add_idea = BBW_reviving_economy2
+			}
 		}
 	}
 	focus = {
@@ -3036,6 +3191,76 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy2
+				add_idea = BBW_reviving_economy3
+			}
+			GER = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			CZH = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			SVK = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			RUS = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			FRA = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			ENG = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			CHI = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			USA = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			ROM = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			HUN = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
+			AUT = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = outraged_at_coal_problems
+				}
+			}
 		}
 	}
 	focus = {
@@ -3060,6 +3285,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy3
+				add_idea = BBW_reviving_economy4
+			}
 		}
 	}
 	focus = {
@@ -3084,6 +3313,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy4
+				add_idea = BBW_reviving_economy5
+			}
 		}
 	}
 	focus = {
@@ -3092,7 +3325,10 @@ focus_tree = {
 		relative_position_id = BBW_efficiency_farming
 		prerequisite = { focus = BBW_efficiency_farming }
 		available = {
-		
+			or = {
+				has_completed_focus = BBW_quick_impressment
+				has_completed_focus = BBW_black_market
+			}
 		}
 		
 		bypass = {
@@ -3108,6 +3344,9 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			country_event = {
+				id = belchatow.64
+			}
 		}
 	}
 	focus = {
