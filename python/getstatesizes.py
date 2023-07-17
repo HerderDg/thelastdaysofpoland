@@ -6,7 +6,7 @@ PiU = cwd.parent.absolute().as_posix()
 mps = []
 
 directory = PiU+"/history/states"
-print(directory)
+
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
     if os.path.isfile(f):
@@ -24,5 +24,10 @@ for filename in os.listdir(directory):
         currentfile.close()
 
 mps.sort()
-print(list(filter(lambda pop: pop>1,mps)))
+mps = list(filter(lambda pop: pop>1,mps))
 
+divider = len(mps)/9
+
+for i in range(9):
+    if i != 0:
+        print(mps[round(divider*i)-1])
