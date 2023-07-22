@@ -26,8 +26,8 @@ for filename in os.listdir(directory):
 mps.sort()
 mps = list(filter(lambda pop: pop>1,mps))
 
-divider = len(mps)/9
+divider = len(mps)/11
 
-for i in range(9):
+for i in range(11):
     if i != 0:
         print(mps[round(divider*i)-1])
