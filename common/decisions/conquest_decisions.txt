@@ -7,6 +7,7 @@ regional_conquest_category = {
 					has_country_flag = getting_ready_to_war
 				}
 			}
+			has_country_flag = unified_voivodeship
 		}
 		available = {
 			date > "2032.03.01"
@@ -849,7 +850,7 @@ regional_conquest_category = {
 superregional_conquest_category = {
 	attack_other_region = {
 		visible = {
-			date > "2034.03.01"
+			#date > "2034.03.01"
 			ROOT = {
 				has_war = no
 				not = {
@@ -871,6 +872,28 @@ superregional_conquest_category = {
 		days_remove = 14
 		ai_will_do = {
 			base = 1000
+			modifier = {
+				factor = 0
+				or = {
+					#capital region
+					and = {
+						is_kuyavia_mazovia = yes
+						from = {
+							NOT = {
+								is_capital_district = yes
+							}
+						}
+					}
+					and = {
+						is_capital_district = yes
+						from = {
+							NOT = {
+								is_kuyavia_mazovia = yes
+							}
+						}
+					}
+				}
+			}
 		}
 		war_with_target_on_complete = yes
 		complete_effect = {
