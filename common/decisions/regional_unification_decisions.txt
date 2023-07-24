@@ -204,4 +204,37 @@ unification_category = {
 		}
 		ai_will_do = { factor = 1 }
 	}
+
+	lodz_jura_unification = {
+		icon = GFX_decision_icon_default
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_lodz_jura
+				can_unify_lodz_jura = yes
+			}
+		}
+		fire_only_once = yes
+
+		cost = 0
+		
+		visible = { 
+			AND = {
+				or = {
+					is_lodzkie  = yes
+					is_zaglebie_and_jura = yes
+				}
+				has_global_flag = lodzkie_unified
+				has_global_flag = zaglebie_unified
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: Decision greater_poland_regional_unification"
+			set_country_flag = unified_regional
+			clr_country_flag = unified_voivodeship
+			set_global_flag = lodz_jura_unified
+			regional_unification_effect = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
 }
