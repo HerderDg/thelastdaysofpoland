@@ -1211,21 +1211,19 @@ superregional_conquest_category = {
 final_conquest_category = {
 	attack_other_superregion = {
 		visible = {
-			date > "2036.01.01"
+			#date > "2036.01.01"
 			ROOT = {
 				has_war = no
-				not = {
-					has_country_flag = getting_ready_to_war
-				}
 			}
 		}
 		target_array = root.neighbors
 		target_trigger = {
 			FROM = {
 				has_country_flag = unified_supregional
-				or = {
-					has_war = yes
-					has_country_flag = getting_ready_to_war
+				not = {
+					or = {
+						has_country_flag = getting_ready_to_war
+					}
 				}
 			}
 		}
@@ -1235,6 +1233,10 @@ final_conquest_category = {
 		}
 		cost = 100
 		days_remove = 14
+		#cancel_if_not_visible = yes
+		cancel_effect = {
+			clr_country_flag = getting_ready_to_war
+		}
 		complete_effect = {
 			set_country_flag = getting_ready_to_war
 		}
