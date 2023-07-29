@@ -3811,9 +3811,9 @@ ai_war_decisions = {
 				date > 2030.05.01
 				count_triggers = {
 					amount = 2
-					SAT = { num_of_controlled_states < 1 }
-					SKA = { num_of_controlled_states < 1 }
-					GAR = { num_of_controlled_states < 1 }
+					SAT = { exists = no }
+					SKA = { exists = no }
+					GAR = { exists = no }
 				}
 			RAD = { is_puppet_of = ROOT }	
 		}
@@ -3855,11 +3855,11 @@ ai_war_decisions = {
 				date > 2028.04.10
 				NOT = { has_war = yes }
 				OR = {
-					GAR = { num_of_controlled_states < 1 }
-					SAT = { num_of_controlled_states < 1 }
-					SKA = { num_of_controlled_states < 1 }
+					GAR = { exists = no }
+					SAT = { exists = no }
+					SKA = { exists = no }
 					}
-				RAD = { num_of_controlled_states < 1 }	
+				RAD = { exists = no }	
 		}
 
 		cost = 1
@@ -3903,6 +3903,12 @@ ai_war_decisions = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
+		available = {
+			RAD = {
+				is_subject = yes
+			}
+		}
+
 		allowed = {
 			is_radom_province = yes
 				}
@@ -3913,7 +3919,10 @@ ai_war_decisions = {
 					original_tag = SAT
 					original_tag = SKA
 				}
-				RAD = { is_puppet = yes } 
+				RAD = { is_subject = yes }
+				NOT = {
+					is_subject_of = ROOT
+				}
 				date > 2028.04.10
 				NOT = { has_war = yes }
 		}
@@ -3931,51 +3940,61 @@ ai_war_decisions = {
 		days_remove = 4
 		remove_effect  = {
 			log = "[GetDateText]: Decision radom_fb_war"
-			if = { limit = { country_exists = SKA
-					RAD = { is_puppet_of = SKA } }
-				SAT = {
-					declare_war_on = {
-					target = SKA
-					type = annex_everything
-				}
-				}
-				GAR = {
-					declare_war_on = {
-					target = SKA
-					type = annex_everything
-				}
-				}
+			declare_war_on = {
+				target = RAD 
+				type = annex_everything
 			}
-			if = { limit = { country_exists = SAT
-					RAD = { is_puppet_of = SAT } }
-				SKA = {
-					declare_war_on = {
-					target = SAT
-					type = annex_everything
+			if = {
+				limit = {
+					RAD = {
+						NOT = {
+							is_subject_of = GAR
+						}
+					}
+					NOT = {
+						original_tag = GAR
+						has_war_with = GAR
+					}
 				}
-				}
-				GAR = {
-					declare_war_on = {
-					target = SAT
-					type = annex_everything
-				}
-				}
-			}
-			if = { limit = { country_exists = GAR
-					RAD = { is_puppet_of = GAR } }
-				SKA = {
-					declare_war_on = {
+				declare_war_on = {
 					target = GAR
 					type = annex_everything
 				}
+			}
+			if = {
+				limit = {
+					RAD = {
+						NOT = {
+							is_subject_of = SAT
+						}
+					}
+					NOT = {
+						original_tag = SAT
+						has_war_with = SAT
+					}
 				}
-				SAT = {
-					declare_war_on = {
-					target = GAR
+				declare_war_on = {
+					target = SAT
 					type = annex_everything
 				}
+			}
+			if = {
+				limit = {
+					RAD = {
+						NOT = {
+							is_subject_of = SKA
+						}
+					}
+					NOT = {
+						original_tag = SKA
+						has_war_with = SKA
+					}
 				}
-			}			
+				declare_war_on = {
+					target = SKA
+					type = annex_everything
+				}
+			}
 		}
 	}
 
