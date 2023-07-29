@@ -216,7 +216,7 @@ BBW_pollution_category = {
 	}
 }	
 
-BBW_energy_deals_category = {
+BBW_deals_category = {
 	
 	BBW_energy_deal = {
 		available = {
@@ -246,6 +246,43 @@ BBW_energy_deals_category = {
 			}
 		}
 	}
+
+	BBW_trade_agreement = {
+		available = {
+			has_country_flag = enable_trade_agreements
+		}
+		visible = {
+			NOT = {
+				has_country_flag = trade_agreement_in_progress
+			}
+		}
+#		target_array = { BBW.neighbors_owned }
+		targets_dynamic = yes
+		target_trigger = {
+			FROM = {
+				is_neighbor_of = BBW
+				NOT = {
+					OR ={
+						has_country_flag = agreed_to_trade
+						has_war_with = BBW
+					}
+				}
+			}
+		}
+		days_remove = 3
+		complete_effect = {
+			set_country_flag = trade_agreement_in_progress
+		}
+		days_re_enable = 30
+		remove_effect = {
+			log = "[GetDateText]: Decision BBW_trade_agreement"
+			FROM = {
+				country_event = {
+					id = belchatow.671
+				}
+			}
+		}
+	}	
 }
 
 BBW_blackout_category = {
@@ -591,8 +628,8 @@ BBW_industrial_rush_category = {
 			
 		target_root_trigger = {
 			has_country_flag = BBW_voivodship_united
-		NOT = {
-		check_variable = { var_industrial_missions_completed > var_industrial_missions_started }
+			NOT = {
+				check_variable = { var_industrial_missions_completed > var_industrial_missions_started }
 			}
 		}
 

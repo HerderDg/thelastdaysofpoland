@@ -1126,6 +1126,132 @@ country_event = {
 }
 
 country_event = {
+	id = belchatow.67 # ziemkiewicz wpada na pomysł układów handlowych
+	title = belchatow.67.t
+	desc = belchatow.67.desc
+	picture = GFX_report_event_german_Army
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log =  "[GetDateText]: [ROOT.GetName] fires belchatow.67" }
+
+	option = {
+		name = belchatow.67.a
+		custom_effect_tooltip = "We will unlock opportunity of estabilishing trade agreements with neighboring warlords"
+		set_country_flag = enable_trade_agreements
+	}
+}
+
+country_event = {
+	id = belchatow.671 #pytanie od bełchatowa
+	title = belchatow.671.t
+	desc = belchatow.671.desc
+	picture = GFX_report_event_german_Army
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log =  "[GetDateText]: [ROOT.GetName] fires belchatow.671" }
+
+	option = {
+		name = belchatow.671.a
+		set_country_flag = agreed_to_trade
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				or = {
+					has_government = squattism
+					has_government = marxism_cranism
+					has_government = euroliberalism
+				}
+			}
+			modifier = {
+				factor = 9
+				has_opinion = {
+					target = BBW
+					value = 50
+				}
+			}
+		}
+		BBW = {
+			country_event = {
+			 	id = belchatow.672
+			 	days = 3
+			}
+		}
+	}
+
+	option = {
+		name = belchatow.671.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				or = {
+					has_government = autocracy
+					has_government = neonationalism
+					has_government = reactionary
+					has_government = postpolonism
+				}
+			}
+		}
+		BBW = {
+			country_event = {
+				id = belchatow.673
+				days = 3
+		   }
+		}
+	}
+}
+
+country_event = {
+	id = belchatow.672 #nawiązano relacje handlowe
+	title = belchatow.672.t
+	desc = belchatow.672.desc
+	picture = GFX_report_event_german_Army
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log =  "[GetDateText]: [ROOT.GetName] fires belchatow.672" }
+
+	option = {
+		name = belchatow.672.a
+		every_country = {
+			limit = {
+				has_country_flag = agreed_to_trade
+			}
+			add_opinion_modifier = {
+				target = BBW
+				modifier = trade_agreement
+			}
+		}
+		clr_country_flag = trade_agreement_in_progress
+	}
+
+}
+
+country_event = {
+	id = belchatow.673 #relacje nie udane
+	title = belchatow.673.t
+	desc = belchatow.673.desc
+	picture = GFX_report_event_german_Army
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log =  "[GetDateText]: [ROOT.GetName] fires belchatow.673" }
+
+	option = {
+		name = belchatow.673.a
+		clr_country_flag = trade_agreement_in_progress
+	}
+
+}
+
+country_event = {
 	id = belchatow.2604 # atomowa krucjata powstaje
 	title = belchatow.2604.t
 	desc = belchatow.2604.desc
