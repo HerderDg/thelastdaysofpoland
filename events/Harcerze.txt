@@ -1,4 +1,6 @@
 ﻿add_namespace = zhp
+add_namespace = zhp_judge_n_jury
+add_namespace = zhp_krslaughter
 
 country_event = {
 	id = zhp.1
@@ -575,3 +577,128 @@ country_event = {
 	}
 }
 
+### osądy
+
+country_event = {
+	id = zhp_judge_n_jury.1 #proces sanitariuszy
+	title = zhp_judge_n_jury.1.t
+	desc = zhp_judge_n_jury.1.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zhp_judge_n_jury.1" }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = zhp_judge_n_jury.1.a
+		add_manpower = -1 #ebrantil is kil
+	}
+}
+
+country_event = {
+	id = zhp_judge_n_jury.2 #proces kwiaciarzy
+	title = zhp_judge_n_jury.2.t
+	desc = zhp_judge_n_jury.2.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zhp_judge_n_jury.2" }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = zhp_judge_n_jury.2.a #puścić ich wolno, to dobrzy ludzie są
+	}
+}
+
+country_event = {
+	id = zhp_judge_n_jury.3 #proces rutkowskiego
+	title = zhp_judge_n_jury.3.t
+	desc = zhp_judge_n_jury.3.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zhp_judge_n_jury.3" }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = zhp_judge_n_jury.3.a #paka
+	}
+}
+
+#zarzynanie
+
+country_event = {
+	id = zhp_krslaughter.1 #łapiemy ebrantila w pułapkę
+	title = zhp_krslaughter.1.t
+	desc = zhp_krslaughter.1.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zhp_krslaughter.1" }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = zhp_krslaughter.1.a
+		every_possible_country = {
+			limit = {
+				has_character = KRS_dr_ebrantil
+			}
+			random_character = {
+				limit = {
+					is_character = KRS_dr_ebrantil
+				}
+				set_nationality = ZHP
+				add_corps_commander_role = {
+					skill = 2
+					attack_skill = 4
+					defense_skill = 1
+					planning_skill = 3
+					logistics_skill = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = zhp_krslaughter.2 #rekwirujemy skrzydlewskim firmę
+	title = zhp_krslaughter.2.t
+	desc = zhp_krslaughter.2.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zhp_krslaughter.2" }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = zhp_krslaughter.2.a
+		236 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+country_event = {
+	id = zhp_krslaughter.3 #rozbrajamy grupę rutkowskiego
+	title = zhp_krslaughter.3.t
+	desc = zhp_krslaughter.3.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zhp_krslaughter.3" }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = zhp_krslaughter.3.a
+		add_equipment_to_stockpile = {
+			producer = KRS
+			type = ranged_equipment
+			amount = 1000
+		}
+		#zaś sam rutkowski dostaje kulkę (do ustalenia czy śmiertelną)
+	}
+}
