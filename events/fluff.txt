@@ -26,7 +26,12 @@ country_event = {
 	id = fluff_usa.2 # Wybory '28
 	title = fluff_usa.2.t
 	desc = fluff_usa.2.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.2"}
+	immediate = { 
+		clr_country_flag = Pence_wins
+		clr_country_flag = RFK_wins
+		clr_country_flag = Gabbard_wins
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.2"
+	}
 	fire_only_once = yes
 	trigger = {
 		original_tag = USA
@@ -35,6 +40,7 @@ country_event = {
 	option = {
 		ai_chance = { base = 50 } #Pence
 		name = fluff_usa.2.a
+		set_country_flag = Pence_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #RFK jr
@@ -42,6 +48,7 @@ country_event = {
 		trigger = {
 			has_country_flag = RFK_all_the_way
 		}
+		set_country_flag = RFK_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #Gabbard
@@ -51,6 +58,7 @@ country_event = {
 				has_country_flag = RFK_all_the_way
 			}
 		}
+		set_country_flag = Gabbard_wins
 	}
 }
 
@@ -58,7 +66,36 @@ country_event = {
 	id = fluff_usa.3 # inanguracja 46th
 	title = fluff_usa.3.t
 	desc = fluff_usa.3.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.3"}
+	immediate = {
+		if = {
+			limit = {
+				has_country_flag = Pence_wins
+			}
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
+			clr_country_flag = Pence_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = RFK_wins
+			}
+			set_politics = {
+				ruling_party = freemarketism
+			}
+			clr_country_flag = RFK_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = Gabbard_wins
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			clr_country_flag = Gabbard_wins
+		}
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.3"
+	}
 	fire_only_once = yes
 	trigger = {
 		is_ai = no
@@ -107,6 +144,7 @@ country_event = {
 		trigger = {
 			has_country_flag = PLEASE_CLAP_IYKYK
 		}
+		set_country_flag = JEB_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #Pence
@@ -116,10 +154,12 @@ country_event = {
 				has_country_flag = PLEASE_CLAP_IYKYK
 			}
 		}
+		set_country_flag = Pence_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #Gabbard
 		name = fluff_usa.5.c
+		set_country_flag = Gabbard_wins
 	}
 }
 
@@ -127,7 +167,44 @@ country_event = {
 	id = fluff_usa.6 # inanguracja 47th
 	title = fluff_usa.6.t
 	desc = fluff_usa.6.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.6"}
+	immediate = {
+		if = {
+			limit = {
+				has_country_flag = Pence_wins
+			}
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
+			clr_country_flag = Pence_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = JEB_wins
+			}
+			add_country_leader_role = {
+				character = USA_Jeb
+				promote_leader = yes
+				country_leader = { 
+					ideology = paternal_conservatism_national_conservatism_subtype
+					expire = "1.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
+			clr_country_flag = JEB_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = Gabbard_wins
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			clr_country_flag = Gabbard_wins
+		}
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.6"
+	}
 	fire_only_once = yes
 	trigger = {
 		is_ai = no
@@ -150,11 +227,13 @@ country_event = {
 	}
 	option = {
 		ai_chance = { base = 50 } #MTG
-		name = fluff_usa.5.a
+		name = fluff_usa.7.a
+		set_country_flag = MTG_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #AOC
-		name = fluff_usa.5.b
+		name = fluff_usa.7.b
+		set_country_flag = AOC_wins
 	}
 }
 
@@ -162,7 +241,43 @@ country_event = {
 	id = fluff_usa.8 # inanguracja 48
 	title = fluff_usa.8.t
 	desc = fluff_usa.8.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.8"}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.8"
+		if = {
+			limit = {
+				has_country_flag = AOC_wins
+			}
+			add_country_leader_role = {
+				character = USA_OcasioCortez
+				promote_leader = yes
+				country_leader = { 
+					ideology = socialdemocrature_progressivism_subtype
+					expire = "1.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			clr_country_flag = AOC_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = MTG_wins
+			}
+			add_country_leader_role = {
+				character = USA_TaylorGreene
+				promote_leader = yes
+				country_leader = { 
+					ideology = neonationalism_subtype
+					expire = "1.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = neonationalism
+			}
+			clr_country_flag = MTG_wins
+		}
+	}
 	fire_only_once = yes
 	trigger = {
 		is_ai = no
@@ -170,6 +285,35 @@ country_event = {
 	}
 	option = {
 		name = fluff_usa.8.a
+	}
+}
+
+country_event = {
+	id = fluff_usa.45 # trump is ded
+	title = fluff_usa.45.t
+	desc = fluff_usa.45.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.45"}
+	fire_only_once = yes
+	trigger = {
+		is_ai = no
+		date > "2039.9.1"
+	}
+	option = {
+		name = fluff_usa.45.a
+		retire_character = USA_Trump
+		add_country_leader_role = {
+			character = USA_Shapiro
+			promote_leader = yes
+			country_leader = { 
+				ideology = reactionary_subtype
+				expire = "1.1.1.1"
+			}
+		}
+		set_party_name = {
+			ideology = reactionary
+			name = "Republicans - Neotrumpists"
+			long_name = "Republican Party - Neotrumpist Faction"
+		}
 	}
 }
 
@@ -186,10 +330,12 @@ country_event = {
 	option = {
 		ai_chance = { base = 50 } #kurdupel szapiro
 		name = fluff_usa.9.a
+		set_country_flag = manlet_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #nina truner
 		name = fluff_usa.9.b
+		set_country_flag = BLM_wins
 	}
 }
 
@@ -197,14 +343,42 @@ country_event = {
 	id = fluff_usa.10 # inanguracja 48
 	title = fluff_usa.10.t
 	desc = fluff_usa.10.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.10"}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.10"
+		if = {
+			limit = {
+				has_country_flag = manlet_wins
+			}
+			set_politics = {
+				ruling_party = reactionary
+			}
+			clr_country_flag = manlet_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = BLM_wins
+			}
+			add_country_leader_role = {
+				character = USA_Turner
+				promote_leader = yes
+				country_leader = { 
+					ideology = squattism_anti_fascism_subtype
+					expire = "1.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = squattism
+			}
+			clr_country_flag = BLM_wins
+		}
+	}
 	fire_only_once = yes
 	trigger = {
 		is_ai = no
 		date > "2041.1.20"
 	}
 	option = {
-		name = fluff_usa.8.a
+		name = fluff_usa.10.a
 	}
 }
 
@@ -221,10 +395,12 @@ country_event = {
 	option = {
 		ai_chance = { base = 50 } #spenser
 		name = fluff_usa.11.a
+		set_country_flag = Spencer_wins
 	}
 	option = {
 		ai_chance = { base = 50 } #hasan
-		name = fluff_usa.91.b
+		name = fluff_usa.11.b
+		set_country_flag = Hasan_wins
 	}
 }
 
@@ -232,13 +408,49 @@ country_event = {
 	id = fluff_usa.12 # inanguracja 48
 	title = fluff_usa.12.t
 	desc = fluff_usa.12.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.12"}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_usa.12"
+		if = {
+			limit = {
+				has_country_flag = Spencer_wins
+			}
+			add_country_leader_role = {
+				character = USA_Spencer
+				promote_leader = yes
+				country_leader = { 
+					ideology = postpolonism_subtype
+					expire = "1.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = postpolonism
+			}
+			clr_country_flag = Spencer_wins
+		}
+		if = {
+			limit = {
+				has_country_flag = Hasan_wins
+			}
+			add_country_leader_role = {
+				character = USA_Piker
+				promote_leader = yes
+				country_leader = { 
+					ideology = marxism_cranism_subtype
+					expire = "1.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = marxism_cranism
+			}
+			clr_country_flag = Hasan_wins
+		}
+	}
 	fire_only_once = yes
 	trigger = {
 		is_ai = no
 		date > "2045.1.19"
 	}
 	option = {
-		name = fluff_usa.8.a
+		name = fluff_usa.12.a
 	}
 }
