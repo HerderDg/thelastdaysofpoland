@@ -298,267 +298,6 @@ regional_conquest_category = {
 			clr_country_flag = getting_ready_to_war
 		}
 	}
-	attack_lesser_warlords = {
-		visible = {
-			ROOT = {
-				not = {
-					has_country_flag = getting_ready_to_war
-				}
-			}
-			has_country_flag = unified_voivodeship
-		}
-		available = {
-			date > "2034.03.01"
-		}
-		target_array = root.neighbors
-		target_trigger = {
-			FROM = {
-				is_poland_unifier = yes
-				NOT = {
-					has_country_flag = unified_voivodeship
-					has_country_flag = unified_regional
-					has_country_flag = unified_supregional
-				}
-			}
-		}
-		ai_will_do = {
-			base = 1000
-			modifier = {
-				date < "2035.03.01"
-				factor = 0
-				or = {
-					from = {
-						or = {
-							is_podlasie = yes
-							is_capital_district = yes
-						}
-					}
-					# warszawka <-> kujawy
-					and = {
-						ROOT = {
-							is_mazovia = yes
-						}
-						from = {
-							not = {
-								is_kuyavia = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_kuyavia = yes
-						}
-						from = {
-							not = {
-								is_mazovia = yes
-							}
-						}
-					}
-					# szczecin <-> gdańsk
-					and = {
-						ROOT = {
-							is_pomerelia = yes
-						}
-						from = {
-							not = {
-								is_west_pomerania = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_west_pomerania = yes
-						}
-						from = {
-							not = {
-								is_pomerelia = yes
-							}
-						}
-					}
-					# wielkopolska
-					and = {
-						ROOT = {
-							is_southern_greater_poland  = yes
-						}
-						from = {
-							not = {
-								is_northern_greater_poland = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_northern_greater_poland = yes
-						}
-						from = {
-							not = {
-								is_southern_greater_poland = yes
-							}
-						}
-					}
-					# wrocław <-> legnica
-					and = {
-						ROOT = {
-							is_lower_silesia  = yes
-						}
-						from = {
-							not = {
-								is_legnica = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_legnica = yes
-						}
-						from = {
-							not = {
-								is_lower_silesia = yes
-							}
-						}
-					}
-					# wrocław <-> legnica
-					and = {
-						ROOT = {
-							is_lower_silesia  = yes
-						}
-						from = {
-							not = {
-								is_legnica = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_legnica = yes
-						}
-						from = {
-							not = {
-								is_lower_silesia = yes
-							}
-						}
-					}
-					# opole <-> katowice
-					and = {
-						ROOT = {
-							is_opolskie  = yes
-						}
-						from = {
-							not = {
-								is_upper_silesia = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_upper_silesia = yes
-						}
-						from = {
-							not = {
-								is_opolskie = yes
-							}
-						}
-					}
-					# łódź <-> częstochowa
-					and = {
-						ROOT = {
-							is_lodzkie  = yes
-						}
-						from = {
-							not = {
-								is_zaglebie_and_jura = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_zaglebie_and_jura = yes
-						}
-						from = {
-							not = {
-								is_lodzkie = yes
-							}
-						}
-					}
-					# krakow <-> tatry
-					and = {
-						ROOT = {
-							is_tatry_region  = yes
-						}
-						from = {
-							not = {
-								is_lesser_poland = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_lesser_poland = yes
-						}
-						from = {
-							not = {
-								is_tatry_region = yes
-							}
-						}
-					}
-					# radom <-> kielce
-					and = {
-						ROOT = {
-							is_radom_province = yes
-						}
-						from = {
-							not = {
-								is_holy_cross = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_holy_cross = yes
-						}
-						from = {
-							not = {
-								is_radom_province = yes
-							}
-						}
-					}
-					# lublin <-> podkarpacie
-					and = {
-						ROOT = {
-							is_subcarpathia = yes
-						}
-						from = {
-							not = {
-								is_lubelskie = yes
-							}
-						}
-					}
-					and = {
-						ROOT = {
-							is_lubelskie = yes
-						}
-						from = {
-							not = {
-								is_subcarpathia = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		days_remove = 14
-		complete_effect = {
-			set_country_flag = getting_ready_to_war
-			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
-		}
-		remove_effect = {
-			declare_war_on = {
-				target = FROM
-				type = annex_everything
-			}
-			clr_country_flag = getting_ready_to_war
-		}
-	}
 	sweep_westpom_warlords = {
 		visible = {
 		 	any_neighbor_country = {
@@ -640,6 +379,679 @@ regional_conquest_category = {
 		}
 
 	}
+	sweep_kuyavia_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_kuyavia = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_mazovia = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_kuyavia = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_mazovia_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_mazovia = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_kuyavia = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_mazovia = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_lublin_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_lubelskie = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_subcarpathia = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_lubelskie  = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_subcarpathia_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_subcarpathia = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_lubelskie = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_subcarpathia = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_holycross_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_holy_cross = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_radom_province = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_holy_cross = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_radom_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_radom_province = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_holy_cross = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_radom_province = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_tatry_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_tatry_region = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_lesser_poland  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_tatry_region = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_lesserpoland_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_lesser_poland = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_tatry_region  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_lesser_poland = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_zaglebie_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_zaglebie_and_jura = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_lodzkie  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_zaglebie_and_jura  = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_lodz_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_lodzkie = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_zaglebie_and_jura = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_lodzkie  = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_opole_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_opolskie = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_upper_silesia = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_opolskie = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_upper_silesian_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_upper_silesia = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_opolskie  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_upper_silesia  = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_legnica_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_legnica = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_lower_silesia = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_legnica = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_lower_silesian_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_lower_silesia = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_legnica  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_lower_silesia = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_southern_gp_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_southern_greater_poland = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_northern_greater_poland  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_southern_greater_poland = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	sweep_northern_gp_warlords = {
+		visible = {
+			has_war = no
+		 	any_neighbor_country = {
+				is_northern_greater_poland = yes
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+			}
+		}
+		available = {
+			date > "2034.03.01"
+		}
+		ai_will_do = {
+			base = 1000
+			modifier = {
+				date < "2035.03.01"
+				factor = 0
+				not = {
+					is_southern_greater_poland  = yes
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect = {
+			every_country = {
+				limit = {
+					is_northern_greater_poland  = yes
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+		}
+
+	}
+	
 	# declare_yourself_a_region = {
 	# 	visible = {
 	# 		date > "2032.03.01"
