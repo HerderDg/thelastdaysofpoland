@@ -630,6 +630,26 @@ on_actions = {
 					add_idea = ZHP_deurban4
 				}
 			}
+			if = {
+				limit = {
+					has_country_flag = applied_the_final_solution
+				}
+				set_temp_variable = { days_after_last_fs = global.num_days}
+				log = "[?appliance_date]"
+				log = "[?days_after_last_fs]"
+				subtract_from_temp_variable = {days_after_last_fs = appliance_date}
+				log = "[?days_after_last_fs]"
+				if = {
+					limit = {
+						check_variable = {
+							var = days_after_last_fs
+							value = 365
+							compare = greater_than_or_equals
+						}
+					}
+					clr_country_flag = applied_the_final_solution
+				}
+			}
 		}
 	}
 	on_daily_ZHR = {
