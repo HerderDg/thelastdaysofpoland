@@ -532,14 +532,14 @@ on_actions = {
 					compliance > 50
 				}
 				add_to_temp_variable = { coreable_temp = 1}
-				every_country = {
-					limit = {
-						PREV = {
-							is_claimed_by = THIS
-						}
-					}
-				 	log = "CORING CHECK: [PREV.GetName] is claimed by [THIS.GetName]"
-				}
+				# every_country = {
+				# 	limit = {
+				# 		PREV = {
+				# 			is_claimed_by = THIS
+				# 		}
+				# 	}
+				#  	log = "CORING CHECK: [PREV.GetName] is claimed by [THIS.GetName]"
+				# }
 			}
 			set_variable = {coreable_number = coreable_temp }
 			every_owned_state = {
@@ -567,6 +567,69 @@ on_actions = {
 				remove_from_array = { ROOT.noncores_array = THIS.id }
 			}
 			reset_vp_name = yes	
+		}
+	}
+	on_daily_ZHP = {
+		effect = {
+			if = {
+				limit = {
+					check_variable = { ZHP_deurbanization_progress < 25}
+				}
+				swap_ideas = {
+					remove_idea = ZHP_deurban2
+					add_idea = ZHP_deurban1
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ZHP_deurbanization_progress > 24}
+					has_idea = ZHP_deurban1
+				}
+				swap_ideas = {
+					remove_idea = ZHP_deurban1
+					add_idea = ZHP_deurban2
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ZHP_deurbanization_progress < 50}
+					has_idea = ZHP_deurban3
+				}
+				swap_ideas = {
+					remove_idea = ZHP_deurban3
+					add_idea = ZHP_deurban2
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ZHP_deurbanization_progress > 49}
+					has_idea = ZHP_deurban2
+				}
+				swap_ideas = {
+					remove_idea = ZHP_deurban2
+					add_idea = ZHP_deurban3
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ZHP_deurbanization_progress < 75}
+					has_idea = ZHP_deurban4
+				}
+				swap_ideas = {
+					remove_idea = ZHP_deurban4
+					add_idea = ZHP_deurban3
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ZHP_deurbanization_progress > 74}
+					has_idea = ZHP_deurban3
+				}
+				swap_ideas = {
+					remove_idea = ZHP_deurban3
+					add_idea = ZHP_deurban4
+				}
+			}
 		}
 	}
 	on_daily_ZHR = {
