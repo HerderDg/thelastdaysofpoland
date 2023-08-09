@@ -2,12 +2,12 @@ BBW_calculate_smog_penalties = {
 	every_state = {
 		limit = {
 			is_owned_by = BBW
-			or = {
-				has_state_category = city
-				has_state_category = large_city
-				has_state_category = metropolis
-				has_state_category = megalopolis
-			}
+			# or = {
+			# 	has_state_category = city
+			# 	has_state_category = large_city
+			# 	has_state_category = metropolis
+			# 	has_state_category = megalopolis
+			# }
 		}
 		set_variable = {BBW_smog_org_penalty = -0.01}
 		set_variable = {BBW_smog_supply_penalty = -0.01}
@@ -15,6 +15,37 @@ BBW_calculate_smog_penalties = {
 		set_temp_variable = { civ_count = building_level@industrial_complex}
 		set_temp_variable = { mil_count = building_level@arms_factory}
 		set_temp_variable = { pwr_count = building_level@power_plant}
+		set_temp_variable = { location_factor = 1 }
+		if = {
+			limit = {
+				has_state_category = city
+			}
+			set_temp_variable = { location_factor = 1.1 }
+		}
+		if = {
+			limit = {
+				has_state_category = large_city
+			}
+			set_temp_variable = { location_factor = 1.2 }
+		}
+		if = {
+			limit = {
+				has_state_category = metropolis
+			}
+			set_temp_variable = { location_factor = 1.3 }
+		}
+		if = {
+			limit = {
+				has_state_category = megalopolis
+			}
+			set_temp_variable = { location_factor = 1.5 }
+		}
+		if = {
+			limit = {
+				state = 903
+			}
+			set_temp_variable = { location_factor = 3 }
+		}
 		multiply_temp_variable = { mil_count = 2}
 		multiply_temp_variable = { pwr_count = 10}
 		set_temp_variable = { pollution = civ_count }
@@ -23,6 +54,12 @@ BBW_calculate_smog_penalties = {
 		}
 		add_to_temp_variable = {
 			pollution = pwr_count
+		}
+		multiply_temp_variable = {
+			pollution = location_factor
+		}
+		multiply_temp_variable = {
+			pollution = BBW.ideological_factor
 		}
 		clamp_temp_variable = {
 			var = pollution
