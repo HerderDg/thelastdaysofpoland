@@ -2902,7 +2902,9 @@ ai_war_decisions = {
 							has_decision = kujpom_KUJ
 							has_decision = kujpom_BYD
 							has_decision = kujpom_GRU
-							has_decision = kujpom_INO		
+							has_decision = kujpom_INO
+							has_decision = kujpom_SWC
+							has_decision = kujpom_PLK		
 						}
 					}
 				ROOT = { any_neighbor_country = { original_tag = TOR } }
@@ -2934,6 +2936,131 @@ ai_war_decisions = {
 		}
 	}
 
+	kujpom_PLK = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_kuyavia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = TOR
+					original_tag = BYD
+					original_tag = GRU
+					original_tag = INO		
+				}
+				NOT = { 
+					OR = {
+							has_decision = kujpom_KUJ
+							has_decision = kujpom_BYD
+							has_decision = kujpom_GRU
+							has_decision = kujpom_INO
+							has_decision = kujpom_SWC
+							has_decision = kujpom_TOR		
+						}
+					}
+				ROOT = { any_neighbor_country = { original_tag = PLK } }
+				NOT = { has_war = yes }
+				NOT = { has_war_with = PLK }
+				date > 2028.03.06
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = PLK
+		remove_effect  = {
+			log = "[GetDateText]: Decision kujpom_PLK"
+				if = { limit = { country_exists = PLK }
+				declare_war_on = {
+					target = SWC
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = KUJ
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = PLK
+					type = annex_everything
+				}
+				}
+		}
+	}
+
+	kujpom_SWC = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_kuyavia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = TOR
+					original_tag = BYD
+					original_tag = GRU
+					original_tag = INO		
+				}
+				NOT = { 
+					OR = {
+							has_decision = kujpom_KUJ
+							has_decision = kujpom_BYD
+							has_decision = kujpom_GRU
+							has_decision = kujpom_INO
+							has_decision = kujpom_PLK
+							has_decision = kujpom_TOR		
+						}
+					}
+				ROOT = { any_neighbor_country = { original_tag = SWC } }
+				NOT = { has_war = yes }
+				NOT = { has_war_with = SWC }
+				date > 2028.03.06
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SWC
+		remove_effect  = {
+			log = "[GetDateText]: Decision kujpom_SWC"
+				if = { limit = { country_exists = SWC }
+				declare_war_on = {
+					target = SWC
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = KUJ
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = PLK
+					type = annex_everything
+				}
+				}
+		}
+	}
+
+
 	kujpom_GRU = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -2954,7 +3081,9 @@ ai_war_decisions = {
 							has_decision = kujpom_KUJ
 							has_decision = kujpom_BYD
 							has_decision = kujpom_INO
-							has_decision = kujpom_TOR			
+							has_decision = kujpom_TOR
+							has_decision = kujpom_SWC
+							has_decision = kujpom_PLK			
 						}
 					}
 				ROOT = { any_neighbor_country = { original_tag = GRU } }
@@ -3005,7 +3134,9 @@ ai_war_decisions = {
 							has_decision = kujpom_KUJ
 							has_decision = kujpom_INO
 							has_decision = kujpom_GRU
-							has_decision = kujpom_TOR			
+							has_decision = kujpom_TOR
+							has_decision = kujpom_SWC
+							has_decision = kujpom_PLK			
 						}
 					}
 				ROOT = { any_neighbor_country = { original_tag = BYD } }
@@ -3056,7 +3187,9 @@ ai_war_decisions = {
 							has_decision = kujpom_INO
 							has_decision = kujpom_BYD
 							has_decision = kujpom_GRU
-							has_decision = kujpom_TOR			
+							has_decision = kujpom_TOR
+							has_decision = kujpom_SWC
+							has_decision = kujpom_PLK			
 						}
 					}
 				ROOT = { any_neighbor_country = { original_tag = KUJ } }
@@ -3080,7 +3213,15 @@ ai_war_decisions = {
 			log = "[GetDateText]: Decision kujpom_KUJ"
 				if = { limit = { country_exists = KUJ }
 				declare_war_on = {
+					target = SWC
+					type = annex_everything
+				}
+				declare_war_on = {
 					target = KUJ
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = PLK
 					type = annex_everything
 				}
 				}
@@ -3100,14 +3241,17 @@ ai_war_decisions = {
 					original_tag = KUJ
 					original_tag = BYD
 					original_tag = GRU
-					original_tag = TOR			
+					original_tag = TOR
+			
 				}
 				NOT = { 
 					OR = {
 							has_decision = kujpom_KUJ
 							has_decision = kujpom_BYD
 							has_decision = kujpom_GRU
-							has_decision = kujpom_TOR			
+							has_decision = kujpom_TOR
+							has_decision = kujpom_SWC
+							has_decision = kujpom_PLK
 						}
 					}
 				ROOT = { any_neighbor_country = { original_tag = INO } }
@@ -3137,6 +3281,53 @@ ai_war_decisions = {
 				}
 		}
 	}
+
+	zjednoczenie_krajna = {
+		
+		icon = GFX_decision_generic_prepare_civil_war
+
+		allowed = {
+			is_kuyavia = yes
+		}
+		visible = { 
+			OR = {
+				original_tag = KUJ
+			}	
+	
+		date > 2030.01.01
+		count_triggers = {
+					amount = 4
+					INO = { exists = no }
+					BYD = { exists = no }
+					TOR = { exists = no }
+					GRU = { exists = no }
+				}
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision zjednoczenie_krajna"
+			annex_country = {
+				target = PLK
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = SWC
+				transfer_troops = yes
+			}
+		}
+	}
+
 
 	warszawo_walcz_final_zachod = {
 
