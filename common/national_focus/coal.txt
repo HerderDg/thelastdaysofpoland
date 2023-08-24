@@ -2714,7 +2714,7 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			add_ideas = BBW_regionalisation_of_brotherhood
+			add_ideas = BBW_regionalisation_brotherhood
 		}
 	}
 	focus = {
@@ -4543,6 +4543,7 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					or = {
+						has_state_category = large_town
 						has_state_category = city
 						has_state_category = large_city
 						has_state_category = metropolis
@@ -4550,23 +4551,33 @@ focus_tree = {
 					}
 				}
 				random_list = {
+					
 					33 = {
-						set_temp_variable = {to_exterminate = -0.2}
-                		multiply_temp_variable = {to_exterminate = 1000}
-                		multiply_temp_variable = {to_exterminate = state_population_k}
-                		add_manpower = to_exterminate
+						custom_effect_tooltip = 20p_city_peeps_dead
+						hidden_effect = {
+							set_temp_variable = {to_exterminate = -0.2}
+                			multiply_temp_variable = {to_exterminate = 1000}
+                			multiply_temp_variable = {to_exterminate = state_population_k}
+                			add_manpower = to_exterminate
+						}
 					}
 					33 = {
-						set_temp_variable = {to_exterminate = -0.4}
-                		multiply_temp_variable = {to_exterminate = 1000}
-                		multiply_temp_variable = {to_exterminate = state_population_k}
-                		add_manpower = to_exterminate
+						custom_effect_tooltip = 40p_city_peeps_dead
+						hidden_effect = {
+							set_temp_variable = {to_exterminate = -0.4}
+                			multiply_temp_variable = {to_exterminate = 1000}
+                			multiply_temp_variable = {to_exterminate = state_population_k}
+                			add_manpower = to_exterminate
+						}
 					}
 					33 = {
-						set_temp_variable = {to_exterminate = -0.6}
-                		multiply_temp_variable = {to_exterminate = 1000}
-                		multiply_temp_variable = {to_exterminate = state_population_k}
-                		add_manpower = to_exterminate
+						custom_effect_tooltip = 60p_city_peeps_dead
+						hidden_effect = {
+							set_temp_variable = {to_exterminate = -0.6}
+							multiply_temp_variable = {to_exterminate = 1000}
+							multiply_temp_variable = {to_exterminate = state_population_k}
+							add_manpower = to_exterminate
+						}
 					}
 				}
 			}
@@ -4596,6 +4607,25 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			add_ideas = BBW_reduced_diet
+			every_owned_state = {
+				limit = {
+					not = {
+						has_state_category = large_town
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				custom_effect_tooltip = halving_rural_states
+				hidden_effect = {
+					set_temp_variable = {to_exterminate = -0.5}
+					multiply_temp_variable = {to_exterminate = 1000}
+					multiply_temp_variable = {to_exterminate = state_population_k}
+					add_manpower = to_exterminate
+				}
+			}
 		#na wsiach rozpierdol, minusy do budowy infrastuktury, spadek populacji na tych stejtach
 		}
 	}
@@ -4621,6 +4651,28 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reduced_diet
+				add_idea = BBW_reduced_diet2
+			} 
+			every_owned_state = {
+				limit = {
+					not = {
+						has_state_category = large_town
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				custom_effect_tooltip = halving_rural_states
+				hidden_effect = {
+					set_temp_variable = {to_exterminate = -0.5}
+					multiply_temp_variable = {to_exterminate = 1000}
+					multiply_temp_variable = {to_exterminate = state_population_k}
+					add_manpower = to_exterminate
+				}
+			}
 		#jeszcze bardziej dojebane do poprzedniego spiritu
 		}
 	}
@@ -4649,6 +4701,10 @@ focus_tree = {
 			country_event = {
 			id = belchatow.95
 			}
+			swap_ideas = {
+				remove_idea = BBW_eat_beef_leave_potatoes
+				add_idea = BBW_eat_artificial_beef_leave_potatoes
+			} 
 			#zmienic spirit eat beef leave potatoes (dojebać większe factory plus dać monthly pop na minusie)
 		}
 	}
@@ -4746,6 +4802,15 @@ focus_tree = {
 				remove_idea = drugs_all_penalised
 			}
 			add_stability = 0.05
+			every_owned_state = {
+				custom_effect_tooltip = BBW_inhalation_effects
+				hidden_effect = {
+					set_temp_variable = {to_exterminate = -0.05}
+					multiply_temp_variable = {to_exterminate = 1000}
+					multiply_temp_variable = {to_exterminate = state_population_k}
+					add_manpower = to_exterminate
+				}
+			}
 			#ludzie umieraja
 		}
 	}
@@ -4777,6 +4842,15 @@ focus_tree = {
 				remove_idea = minorities_hidden_oppresion
 			}
 			#ZABIJAJLUDZIZM MASOWY
+			every_owned_state = {
+				custom_effect_tooltip = BBW_DECIMATION
+				hidden_effect = {
+					set_temp_variable = {to_exterminate = -0.1}
+					multiply_temp_variable = {to_exterminate = 1000}
+					multiply_temp_variable = {to_exterminate = state_population_k}
+					add_manpower = to_exterminate
+				}
+			}
 		}
 	}
 	focus = {
@@ -4801,6 +4875,72 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_state = {
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+			}
 			#rozjebanie infrastuktury w losowych stejtach
 		}
 	}	
@@ -4835,6 +4975,15 @@ focus_tree = {
 				remove_idea = partial_refundation
 				}
 			#śmieeeeeeeeerć
+			every_owned_state = {
+				custom_effect_tooltip = BBW_burn
+				hidden_effect = {
+					set_temp_variable = {to_exterminate = -0.2}
+					multiply_temp_variable = {to_exterminate = 1000}
+					multiply_temp_variable = {to_exterminate = state_population_k}
+					add_manpower = to_exterminate
+				}
+			}
 		}
 	}
 	focus = {
@@ -4868,6 +5017,15 @@ focus_tree = {
 				remove_idea = state_religion
 			}
 			#jeszcze więcej śmierci
+			every_owned_state = {
+				custom_effect_tooltip = BBW_more_burn
+				hidden_effect = {
+					set_temp_variable = {to_exterminate = -0.3}
+					multiply_temp_variable = {to_exterminate = 1000}
+					multiply_temp_variable = {to_exterminate = state_population_k}
+					add_manpower = to_exterminate
+				}
+			}
 		}
 	}
 	
