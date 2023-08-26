@@ -454,9 +454,656 @@ focus_tree = {
 				days = 1 }
 		}
 	}
+}
+
+##WAR FOCUS TREE##
+
+focus_tree = {
+	id = belchatow_war_focus
 	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add =10
+			tag = BBW
+		}
+	}
+	default = no
 	
-#############TYMCZASOWE DRZEWKA KOLEJNE#############
+	continuous_focus_position = {x = 50 y = 1500 }
+	
+		focus = {
+		id = BBW_emergency_council
+		icon = BBW_emergency_council
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 0
+		
+		cost = 3.8
+		search_filters = { }
+		completion_reward = { 
+			add_political_power = 25
+			country_event = {
+				id = belchatow.9
+				days = 1 }
+			add_war_support = 0.15
+			}
+			
+	}
+	
+	focus = {
+		id = BBW_wiechowszczyzna
+		icon = BBW_wiechowszczyzna
+		relative_position_id = BBW_emergency_council
+		prerequisite = { focus = BBW_emergency_council }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 3
+		search_filters = { }
+		completion_reward = {
+			add_war_support = 0.1
+			country_event = {
+				id = belchatow.10
+				days = 1 }
+			swap_ideas = {
+				add_idea = advanced_security
+				remove_idea = basic_security
+			}
+			swap_ideas = {
+				add_idea = taxes_high
+				remove_idea = taxes_medium
+			}
+			swap_ideas = {
+				add_idea = BBW_carbon_fever3
+				remove_idea = BBW_carbon_fever2
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_going_to_schools
+		icon = BBW_going_to_schools
+		relative_position_id = BBW_wiechowszczyzna
+		prerequisite = { focus = BBW_wiechowszczyzna }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			country_event = {
+				id = belchatow.12
+				days = 1 }
+		}
+	}
+	focus = {
+		id = BBW_going_to_sources
+		icon = BBW_going_to_sources
+		relative_position_id = BBW_wiechowszczyzna
+		prerequisite = { focus = BBW_wiechowszczyzna }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			country_event = {
+				id = belchatow.11
+				days = 1 }
+		}
+	}
+	focus = {
+		id = BBW_going_into_homes
+		icon = BBW_going_into_homes
+		relative_position_id = BBW_wiechowszczyzna
+		prerequisite = { focus = BBW_going_to_schools }
+		prerequisite = { focus = BBW_going_to_sources }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			country_event = {
+				id = belchatow.13
+				days = 1 }
+		}
+	}
+	focus = {
+		id = BBW_permanent_danger
+		icon = BBW_permanent_danger
+		relative_position_id = BBW_going_into_homes
+		prerequisite = { focus = BBW_going_into_homes }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 3.8
+		search_filters = {}
+		completion_reward = {
+			341 = {
+				create_unit = {
+					division = "division_template = \"Rycerze Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = BBW
+				}
+				create_unit = {
+					division = "division_template = \"Rycerze Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = BBW
+				}
+			}
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = BBW_poor_examples
+		icon = BBW_poor_examples
+		will_lead_to_war_with = ZHP
+		available = {
+			NOT = {
+			has_war = yes
+			}
+		}
+		
+		bypass = {
+		OR = { 
+			AND = {	
+				ZHP = { num_of_controlled_states < 1 }
+				368 = { is_controlled_by = BBW }
+				}
+			has_war_with = ZHP
+			}
+		}
+		
+		x = 10
+		y = 0
+		
+		cost = 1
+		search_filters = {}
+		completion_reward = {
+				declare_war_on = {
+					target = ZHP
+					type = annex_everything
+				}
+		}
+	}
+	focus = {
+		id = BBW_rapid_electrification
+		icon = BBW_rapid_electrification
+		relative_position_id = BBW_poor_examples
+		prerequisite = { focus = BBW_poor_examples }
+		available = {
+		NOT = { country_exists = ZHP }
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 3
+		search_filters = {}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = electronics
+				}
+			if = {
+			limit = { any_controlled_state = { is_core_of = ZHP } }
+			random_controlled_state = {
+				prioritize = { 321 357 368 370 379 396 352 680 848 } 
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			}
+			if = {
+			limit = { any_controlled_state = { is_core_of = ZHP } }
+			random_controlled_state = {
+				prioritize = { 321 357 368 370 379 396 352 680 848 } 
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			}
+			if = {
+			limit = { any_controlled_state = { is_core_of = ZHP } }
+			random_controlled_state = {
+				prioritize = { 321 357 368 370 379 396 352 680 848 } 
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			}
+			if = {
+			limit = { any_controlled_state = { is_core_of = ZHP } }
+			every_controlled_state = {
+				limit = { is_core_of = ZHP }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			}
+		}
+	}
+	focus = {
+		id = BBW_revolution_avantgarde
+		icon = BBW_revolution_avantgarde
+		will_lead_to_war_with = ZYD
+		available = {
+			NOT = {
+			has_war = yes
+			}
+		}
+		
+		bypass = {
+		OR = { 
+			AND = {	
+				ZYD = { num_of_controlled_states < 1 }
+				353 = { is_controlled_by = BBW }
+				}
+			has_war_with = ZYD
+			}
+		}
+		
+		x = 13
+		y = 0
+		
+		cost = 1
+		search_filters = {}
+		completion_reward = {
+				declare_war_on = {
+					target = ZYD
+					type = annex_everything
+				}
+		}
+	}
+	focus = {
+		id = BBW_order_in_red_wilderness
+		icon = BBW_order_in_red_wilderness
+		relative_position_id = BBW_revolution_avantgarde
+		prerequisite = { focus = BBW_revolution_avantgarde }
+		available = {
+		NOT = { country_exists = ZYD }
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			add_stability = 0.1
+			every_controlled_state = {
+				limit = { is_core_of = ZYD }
+					add_compliance = 20
+					}
+		}
+	}
+	focus = {
+		id = BBW_rehab_conscription
+		icon = BBW_rehab_conscription
+		relative_position_id = BBW_revolution_avantgarde
+		prerequisite = { focus = BBW_revolution_avantgarde }
+		available = {
+		NOT = { country_exists = ZYD }
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			random_list = {
+			50 = { 	country_event = {
+				id = belchatow.16
+				days = 1 }
+				}
+			50 = { 	country_event = {
+				id = belchatow.17
+				days = 1 }
+				}
+			}
+		}
+	}
+	focus = {
+		id = BBW_dangerous_ruins
+		icon = BBW_dangerous_ruins
+		will_lead_to_war_with = WML
+		relative_position_id = BBW_order_in_red_wilderness
+		prerequisite = { focus = BBW_normalcy_guarantee }
+		prerequisite = { focus = BBW_divide_et_impera }
+		available = {
+			count_triggers = {
+				amount = 4
+				KRS = { num_of_controlled_states < 1 }
+				SAP = { num_of_controlled_states < 1 }
+				ZHP = { num_of_controlled_states < 1 }
+				ZYD = { num_of_controlled_states < 1 }				
+			}
+		}
+		
+		bypass = {
+		OR = { 
+			AND = {	
+				WML = { num_of_controlled_states < 1 }
+				302 = { is_controlled_by = BBW }
+				}
+			has_war_with = WML
+			}
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = {}
+		completion_reward = {
+				declare_war_on = {
+					target = WML
+					type = annex_everything
+				}
+		}
+	}
+	focus = {
+		id = BBW_chaos_among_rubble
+		icon = BBW_chaos_among_rubble
+		relative_position_id = BBW_dangerous_ruins
+		prerequisite = { focus = BBW_dangerous_ruins }
+		available = {
+			WML = { num_of_controlled_states < 1 }
+			302 = { is_controlled_by = BBW }
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_green_counter_revolution4
+				add_idea = BBW_green_counter_revolution5
+			}
+			every_controlled_state = {
+				limit = { is_core_of = WML }
+				add_building_construction = {
+					type = infrastructure
+					level = -1
+					instant_build = yes
+				}
+			}
+
+		}
+	}
+	focus = {
+		id = BBW_false_hope_symbols
+		icon = BBW_false_hope_symbols
+		relative_position_id = BBW_dangerous_ruins
+		prerequisite = { focus = BBW_dangerous_ruins }
+		available = {
+			WML = { num_of_controlled_states < 1 }
+			302 = { is_controlled_by = BBW }
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			country_event = {
+				id = belchatow.14
+				days = 1 }
+			add_stability = 0.15
+		}
+	}
+	focus = {
+		id = BBW_ordinary_people
+		icon = BBW_ordinary_people
+		will_lead_to_war_with = KRS
+		relative_position_id = BBW_rapid_electrification
+		prerequisite = { focus = BBW_order_in_red_wilderness }
+		prerequisite = { focus = BBW_rehab_conscription }
+		prerequisite = { focus = BBW_rapid_electrification }
+		available = {
+			has_war = no
+			KRS = { num_of_controlled_states > 1 }
+		}
+		
+		bypass = {
+			KRS = { num_of_controlled_states < 1 }
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			if = { limit = { NOT = { has_war_with = KRS } }
+				KRS = {
+				country_event = { id = krs_bbw.1 }
+				}
+				custom_effect_tooltip = BBW_kroswiecki_tooltip
+			else = {
+				add_political_power = 50 
+				}
+			}
+		}
+	}
+	focus = {
+		id = BBW_northern_retrograde
+		icon = BBW_northern_retrograde
+		relative_position_id = BBW_rehab_conscription
+		prerequisite = { focus = BBW_rehab_conscription }
+		prerequisite = { focus = BBW_order_in_red_wilderness }
+		prerequisite = { focus = BBW_rapid_electrification }
+		will_lead_to_war_with = SAP
+		available = {
+			has_war = no
+			SAP = { num_of_controlled_states > 1 }
+		}
+		
+		bypass = {
+			SAP = { num_of_controlled_states < 1 }
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = {}
+		completion_reward = {
+			if = { limit = { NOT = { has_war_with = SAP } } 
+				declare_war_on = {
+					target = SAP
+					type = annex_everything
+				}
+			}
+		}
+	}
+	focus = {
+		id = BBW_divide_et_impera
+		icon = BBW_divide_et_impera
+		relative_position_id = BBW_northern_retrograde
+		prerequisite = { focus = BBW_northern_retrograde }
+		available = {
+			SAP = { num_of_controlled_states < 1 }
+			269 = { is_controlled_by = BBW }
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = {}
+		completion_reward = {
+			every_possible_country = {
+				limit = { has_character = SAP_jacek_bartyzel }
+				random_character = {
+					limit = { is_character = SAP_jacek_bartyzel }
+					set_nationality = BBW
+				}
+			}
+			every_possible_country = {
+				limit = { has_character = SAP_pudzian }
+				random_character = {
+					limit = { is_character = SAP_pudzian }
+					set_nationality = BBW
+				}
+			}
+			random_character = {
+				limit = { 
+					is_character = SAP_jacek_bartyzel 
+					NOT = { is_corps_commander = yes }
+					}	
+				add_field_marshal_role = {
+					character = SAP_jacek_bartyzel
+						skill = 2
+						attack_skill = 4
+						defense_skill = 2
+						planning_skill = 4
+						logistics_skill = 2
+				}				
+				}
+
+		}
+	}
+	focus = {
+		id = BBW_normalcy_guarantee
+		icon = BBW_normalcy_guarantee
+		relative_position_id = BBW_ordinary_people
+		prerequisite = { focus = BBW_ordinary_people }
+		available = {
+			KRS = { num_of_controlled_states < 1 }
+			236 = { is_controlled_by = BBW }
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			add_manpower = 5000
+			swap_ideas = {
+				add_idea = BBW_street_anger5
+				remove_idea = BBW_street_anger4
+			}
+		}
+	}
+	focus = {
+		id = BBW_licking_wounds
+		icon = BBW_licking_wounds
+		relative_position_id = BBW_dangerous_ruins
+		prerequisite = { focus = BBW_false_hope_symbols }
+		prerequisite = { focus = BBW_chaos_among_rubble }
+		available = {
+		  302 = { is_controlled_by = BBW }
+		  NOT = { has_war = yes }
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = {}
+		completion_reward = {
+			country_event = {
+				id = belchatow.15
+				days = 1 }
+			clr_country_flag = BBW_war_time
+		}
+	}
+}
+###drzewko wojewódzkie
+focus_tree = {
+	id = belchatow_voi_focus
+	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add =10
+			tag = BBW
+		}
+	}
+	default = no
+
 	focus = {
 		id = BBW_warzecha_report
 		icon = BBW_warzecha_report
@@ -467,7 +1114,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 20
+		x = 12
 		y = 0
 		
 		cost = 2
@@ -1188,8 +1835,20 @@ focus_tree = {
 				}
 			}
 	}
-	
-###JESZCZEJEDNODRZEWKOTYMCZASOWOTUTAJ###	
+}
+
+focus_tree = {
+	id = belchatow_reg_focus
+	country = {
+		factor = 0
+		
+		modifier = {
+			add =10
+			tag = BBW
+		}
+	}
+	default = no
+
 	focus = {
 		id = BBW_our_inspiration
 		icon = BBW_our_inspiration
@@ -1200,7 +1859,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 40
+		x = 20
 		y = 0
 		
 		cost = 2
@@ -2691,9 +3350,20 @@ focus_tree = {
 			add_manpower = -1000
 		}
 	}
-	
-	
-###juzostatnieprzysiegam###
+}
+
+focus_tree = {
+	id = belchatow_superreg_focus
+	country = {
+		factor = 0
+		
+		modifier = {
+			add =10
+			tag = BBW
+		}
+	}
+	default = no
+
 	focus = {
 		id = BBW_regionalisation_of_brotherhood
 		icon = BBW_regionalisation_of_brotherhood
@@ -2704,7 +3374,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 65
+		x = 12
 		y = 0 
 		
 		ai_will_do = {
@@ -5063,653 +5733,4 @@ focus_tree = {
 			}
 		}
 	}
-}
-
-##WAR FOCUS TREE##
-
-focus_tree = {
-	id = belchatow_war_focus
-	
-	country = {
-		factor = 0
-		
-		modifier = {
-			add =10
-			tag = BBW
-		}
-	}
-	default = no
-	
-	continuous_focus_position = {x = 50 y = 1500 }
-	
-		focus = {
-		id = BBW_emergency_council
-		icon = BBW_emergency_council
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 4
-		y = 0
-		
-		cost = 3.8
-		search_filters = { }
-		completion_reward = { 
-			add_political_power = 25
-			country_event = {
-				id = belchatow.9
-				days = 1 }
-			add_war_support = 0.15
-			}
-			
-	}
-	
-	focus = {
-		id = BBW_wiechowszczyzna
-		icon = BBW_wiechowszczyzna
-		relative_position_id = BBW_emergency_council
-		prerequisite = { focus = BBW_emergency_council }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 3
-		search_filters = { }
-		completion_reward = {
-			add_war_support = 0.1
-			country_event = {
-				id = belchatow.10
-				days = 1 }
-			swap_ideas = {
-				add_idea = advanced_security
-				remove_idea = basic_security
-			}
-			swap_ideas = {
-				add_idea = taxes_high
-				remove_idea = taxes_medium
-			}
-			swap_ideas = {
-				add_idea = BBW_carbon_fever3
-				remove_idea = BBW_carbon_fever2
-			}
-		}
-	}
-
-	focus = {
-		id = BBW_going_to_schools
-		icon = BBW_going_to_schools
-		relative_position_id = BBW_wiechowszczyzna
-		prerequisite = { focus = BBW_wiechowszczyzna }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			country_event = {
-				id = belchatow.12
-				days = 1 }
-		}
-	}
-	focus = {
-		id = BBW_going_to_sources
-		icon = BBW_going_to_sources
-		relative_position_id = BBW_wiechowszczyzna
-		prerequisite = { focus = BBW_wiechowszczyzna }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			country_event = {
-				id = belchatow.11
-				days = 1 }
-		}
-	}
-	focus = {
-		id = BBW_going_into_homes
-		icon = BBW_going_into_homes
-		relative_position_id = BBW_wiechowszczyzna
-		prerequisite = { focus = BBW_going_to_schools }
-		prerequisite = { focus = BBW_going_to_sources }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			country_event = {
-				id = belchatow.13
-				days = 1 }
-		}
-	}
-	focus = {
-		id = BBW_permanent_danger
-		icon = BBW_permanent_danger
-		relative_position_id = BBW_going_into_homes
-		prerequisite = { focus = BBW_going_into_homes }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 3.8
-		search_filters = {}
-		completion_reward = {
-			341 = {
-				create_unit = {
-					division = "division_template = \"Rycerze Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = BBW
-				}
-				create_unit = {
-					division = "division_template = \"Rycerze Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = BBW
-				}
-			}
-			add_political_power = 100
-		}
-	}
-	focus = {
-		id = BBW_poor_examples
-		icon = BBW_poor_examples
-		will_lead_to_war_with = ZHP
-		available = {
-			NOT = {
-			has_war = yes
-			}
-		}
-		
-		bypass = {
-		OR = { 
-			AND = {	
-				ZHP = { num_of_controlled_states < 1 }
-				368 = { is_controlled_by = BBW }
-				}
-			has_war_with = ZHP
-			}
-		}
-		
-		x = 10
-		y = 0
-		
-		cost = 1
-		search_filters = {}
-		completion_reward = {
-				declare_war_on = {
-					target = ZHP
-					type = annex_everything
-				}
-		}
-	}
-	focus = {
-		id = BBW_rapid_electrification
-		icon = BBW_rapid_electrification
-		relative_position_id = BBW_poor_examples
-		prerequisite = { focus = BBW_poor_examples }
-		available = {
-		NOT = { country_exists = ZHP }
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 3
-		search_filters = {}
-		completion_reward = {
-			add_tech_bonus = {
-				bonus = 0.5
-				uses = 2
-				category = electronics
-				}
-			if = {
-			limit = { any_controlled_state = { is_core_of = ZHP } }
-			random_controlled_state = {
-				prioritize = { 321 357 368 370 379 396 352 680 848 } 
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			}
-			if = {
-			limit = { any_controlled_state = { is_core_of = ZHP } }
-			random_controlled_state = {
-				prioritize = { 321 357 368 370 379 396 352 680 848 } 
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			}
-			if = {
-			limit = { any_controlled_state = { is_core_of = ZHP } }
-			random_controlled_state = {
-				prioritize = { 321 357 368 370 379 396 352 680 848 } 
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			}
-			if = {
-			limit = { any_controlled_state = { is_core_of = ZHP } }
-			every_controlled_state = {
-				limit = { is_core_of = ZHP }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			}
-		}
-	}
-	focus = {
-		id = BBW_revolution_avantgarde
-		icon = BBW_revolution_avantgarde
-		will_lead_to_war_with = ZYD
-		available = {
-			NOT = {
-			has_war = yes
-			}
-		}
-		
-		bypass = {
-		OR = { 
-			AND = {	
-				ZYD = { num_of_controlled_states < 1 }
-				353 = { is_controlled_by = BBW }
-				}
-			has_war_with = ZYD
-			}
-		}
-		
-		x = 13
-		y = 0
-		
-		cost = 1
-		search_filters = {}
-		completion_reward = {
-				declare_war_on = {
-					target = ZYD
-					type = annex_everything
-				}
-		}
-	}
-	focus = {
-		id = BBW_order_in_red_wilderness
-		icon = BBW_order_in_red_wilderness
-		relative_position_id = BBW_revolution_avantgarde
-		prerequisite = { focus = BBW_revolution_avantgarde }
-		available = {
-		NOT = { country_exists = ZYD }
-		}
-		
-		bypass = {
-		}
-		
-		x = -1
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			add_stability = 0.1
-			every_controlled_state = {
-				limit = { is_core_of = ZYD }
-					add_compliance = 20
-					}
-		}
-	}
-	focus = {
-		id = BBW_rehab_conscription
-		icon = BBW_rehab_conscription
-		relative_position_id = BBW_revolution_avantgarde
-		prerequisite = { focus = BBW_revolution_avantgarde }
-		available = {
-		NOT = { country_exists = ZYD }
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			random_list = {
-			50 = { 	country_event = {
-				id = belchatow.16
-				days = 1 }
-				}
-			50 = { 	country_event = {
-				id = belchatow.17
-				days = 1 }
-				}
-			}
-		}
-	}
-	focus = {
-		id = BBW_dangerous_ruins
-		icon = BBW_dangerous_ruins
-		will_lead_to_war_with = WML
-		relative_position_id = BBW_order_in_red_wilderness
-		prerequisite = { focus = BBW_normalcy_guarantee }
-		prerequisite = { focus = BBW_divide_et_impera }
-		available = {
-			count_triggers = {
-				amount = 4
-				KRS = { num_of_controlled_states < 1 }
-				SAP = { num_of_controlled_states < 1 }
-				ZHP = { num_of_controlled_states < 1 }
-				ZYD = { num_of_controlled_states < 1 }				
-			}
-		}
-		
-		bypass = {
-		OR = { 
-			AND = {	
-				WML = { num_of_controlled_states < 1 }
-				302 = { is_controlled_by = BBW }
-				}
-			has_war_with = WML
-			}
-		}
-		
-		x = 0
-		y = 3
-		
-		cost = 1
-		search_filters = {}
-		completion_reward = {
-				declare_war_on = {
-					target = WML
-					type = annex_everything
-				}
-		}
-	}
-	focus = {
-		id = BBW_chaos_among_rubble
-		icon = BBW_chaos_among_rubble
-		relative_position_id = BBW_dangerous_ruins
-		prerequisite = { focus = BBW_dangerous_ruins }
-		available = {
-			WML = { num_of_controlled_states < 1 }
-			302 = { is_controlled_by = BBW }
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_green_counter_revolution4
-				add_idea = BBW_green_counter_revolution5
-			}
-			every_controlled_state = {
-				limit = { is_core_of = WML }
-				add_building_construction = {
-					type = infrastructure
-					level = -1
-					instant_build = yes
-				}
-			}
-
-		}
-	}
-	focus = {
-		id = BBW_false_hope_symbols
-		icon = BBW_false_hope_symbols
-		relative_position_id = BBW_dangerous_ruins
-		prerequisite = { focus = BBW_dangerous_ruins }
-		available = {
-			WML = { num_of_controlled_states < 1 }
-			302 = { is_controlled_by = BBW }
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			country_event = {
-				id = belchatow.14
-				days = 1 }
-			add_stability = 0.15
-		}
-	}
-	focus = {
-		id = BBW_ordinary_people
-		icon = BBW_ordinary_people
-		will_lead_to_war_with = KRS
-		relative_position_id = BBW_rapid_electrification
-		prerequisite = { focus = BBW_order_in_red_wilderness }
-		prerequisite = { focus = BBW_rehab_conscription }
-		prerequisite = { focus = BBW_rapid_electrification }
-		available = {
-			has_war = no
-			KRS = { num_of_controlled_states > 1 }
-		}
-		
-		bypass = {
-			KRS = { num_of_controlled_states < 1 }
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			if = { limit = { NOT = { has_war_with = KRS } }
-				KRS = {
-				country_event = { id = krs_bbw.1 }
-				}
-				custom_effect_tooltip = BBW_kroswiecki_tooltip
-			else = {
-				add_political_power = 50 
-				}
-			}
-		}
-	}
-	focus = {
-		id = BBW_northern_retrograde
-		icon = BBW_northern_retrograde
-		relative_position_id = BBW_rehab_conscription
-		prerequisite = { focus = BBW_rehab_conscription }
-		prerequisite = { focus = BBW_order_in_red_wilderness }
-		prerequisite = { focus = BBW_rapid_electrification }
-		will_lead_to_war_with = SAP
-		available = {
-			has_war = no
-			SAP = { num_of_controlled_states > 1 }
-		}
-		
-		bypass = {
-			SAP = { num_of_controlled_states < 1 }
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		search_filters = {}
-		completion_reward = {
-			if = { limit = { NOT = { has_war_with = SAP } } 
-				declare_war_on = {
-					target = SAP
-					type = annex_everything
-				}
-			}
-		}
-	}
-	focus = {
-		id = BBW_divide_et_impera
-		icon = BBW_divide_et_impera
-		relative_position_id = BBW_northern_retrograde
-		prerequisite = { focus = BBW_northern_retrograde }
-		available = {
-			SAP = { num_of_controlled_states < 1 }
-			269 = { is_controlled_by = BBW }
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		search_filters = {}
-		completion_reward = {
-			every_possible_country = {
-				limit = { has_character = SAP_jacek_bartyzel }
-				random_character = {
-					limit = { is_character = SAP_jacek_bartyzel }
-					set_nationality = BBW
-				}
-			}
-			every_possible_country = {
-				limit = { has_character = SAP_pudzian }
-				random_character = {
-					limit = { is_character = SAP_pudzian }
-					set_nationality = BBW
-				}
-			}
-			random_character = {
-				limit = { 
-					is_character = SAP_jacek_bartyzel 
-					NOT = { is_corps_commander = yes }
-					}	
-				add_field_marshal_role = {
-					character = SAP_jacek_bartyzel
-						skill = 2
-						attack_skill = 4
-						defense_skill = 2
-						planning_skill = 4
-						logistics_skill = 2
-				}				
-				}
-
-		}
-	}
-	focus = {
-		id = BBW_normalcy_guarantee
-		icon = BBW_normalcy_guarantee
-		relative_position_id = BBW_ordinary_people
-		prerequisite = { focus = BBW_ordinary_people }
-		available = {
-			KRS = { num_of_controlled_states < 1 }
-			236 = { is_controlled_by = BBW }
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			add_manpower = 5000
-			swap_ideas = {
-				add_idea = BBW_street_anger5
-				remove_idea = BBW_street_anger4
-			}
-		}
-	}
-	focus = {
-		id = BBW_licking_wounds
-		icon = BBW_licking_wounds
-		relative_position_id = BBW_dangerous_ruins
-		prerequisite = { focus = BBW_false_hope_symbols }
-		prerequisite = { focus = BBW_chaos_among_rubble }
-		available = {
-		  302 = { is_controlled_by = BBW }
-		  NOT = { has_war = yes }
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 2
-		search_filters = {}
-		completion_reward = {
-			country_event = {
-				id = belchatow.15
-				days = 1 }
-			clr_country_flag = BBW_war_time
-		}
-	}
-}
-###drzewko wojewódzkie
-focus_tree = {
-	id = belchatow_voi_focus
-	
-	country = {
-		factor = 0
-		
-		modifier = {
-			add =10
-			tag = BBW
-		}
-	}
-	default = no
 }
