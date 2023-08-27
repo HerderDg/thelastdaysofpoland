@@ -8,42 +8,74 @@ on_actions = {
 						original_tag = BBW
 					}
 				}
-				if = {
-					limit = {
-						ROOT = {
-							or = {
-								original_tag = KRS
-								original_tag = SAP
-								original_tag = WML
-								original_tag = ZHP
-								original_tag = ZYD
-							}
-						}
-					}
-					if = {
-						limit = {
-							not ={
-								FROM = {
-									has_variable = BBW_pre_blackout_nerf
-								}
+				# if = {
+				# 	limit = {
+				# 		ROOT = {
+				# 			or = {
+				# 				original_tag = KRS
+				# 				original_tag = SAP
+				# 				original_tag = WML
+				# 				original_tag = ZHP
+				# 				original_tag = ZYD
+				# 			}
+				# 		}
+				# 	}
+				# 	if = {
+				# 		limit = {
+				# 			not ={
+				# 				BBW = {
+				# 					has_variable = BBW_pre_blackout_nerf
+				# 				}
 								
-							}
-						}
-						FROM = {
-							set_variable = {BBW_pre_blackout_nerf = 0.9}
-						}
+				# 			}
+				# 		}
+				# 		BBW = {
+				# 			set_variable = {BBW_pre_blackout_nerf = 0.9}
+				# 		}
 						
-					}
-					else = {
-						FROM = {
-							add_to_variable = {BBW_pre_blackout_nerf = -0.1}
-						}
-					}
-				}
+				# 	}
+				# 	else = {
+				# 		BBW = {
+				# 			add_to_variable = {BBW_pre_blackout_nerf = -0.1}
+				# 		}
+				# 	}
+				# }
 				clear_array = global.capped_states
 				ROOT = {
 					every_owned_state = {
 						add_to_array = { global.capped_states = this }
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						or = {
+							original_tag = KRS
+							original_tag = SAP
+							original_tag = WML
+							original_tag = ZHP
+							original_tag = ZYD
+						}
+					}
+				}
+				if = {
+					limit = {
+						not ={
+							BBW = {
+								has_variable = BBW_pre_blackout_nerf
+							}
+							
+						}
+					}
+					BBW = {
+						set_variable = {BBW_pre_blackout_nerf = 0.9}
+					}
+					
+				}
+				else = {
+					BBW = {
+						add_to_variable = {BBW_pre_blackout_nerf = -0.1}
 					}
 				}
 			}
