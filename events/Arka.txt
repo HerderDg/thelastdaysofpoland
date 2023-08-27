@@ -1,12 +1,11 @@
 ﻿add_namespace = arka_exodus
 
-news_event = {
+country_event = {
 	id = arka_exodus.1
 	title = arka_exodus.1.t
 	desc = arka_exodus.1.desc
-	picture = GFX_news_event_arka_exodus
+	#picture = GFX_news_event_arka_exodus
 	
-	major = yes
 	fire_only_once = yes
 	is_triggered_only = yes
 
@@ -14,6 +13,45 @@ news_event = {
 
 	option = {
 		name = arka_exodus.1.a
+        custom_effect_tooltip = arka_exodus_tooltip
+			hidden_effect = {
+					867 = {
+						ARK = { transfer_state = PREV }
+					}
+					set_capital = { state = 867 }
+					867 = { set_state_name = "Nowa Gdynia" }
+					710 = {
+						HEL = { transfer_state = PREV }
+					}
+					711 = {
+						OWS = { transfer_state = PREV }
+					}
+					34 = {
+						OWS = { transfer_state = PREV }
+					}
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = arka_exodus.2 }
+				}						
+			}
+		log = "[GetDateText]: fires arka_exodus.1"
+	}
+}
+
+news_event = {
+	id = arka_exodus.2
+	title = arka_exodus.2.t
+	desc = arka_exodus.2.desc
+	picture = GFX_news_event_arka_exodus
+	
+	major = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires arka_exodus.2" }
+
+	option = {
+		name = arka_exodus.2.a
         set_global_flag = Super_Event_Visible
         set_global_flag = ARK_exodus_super_visible
         hidden_effect = {
