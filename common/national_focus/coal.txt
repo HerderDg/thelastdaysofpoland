@@ -1550,9 +1550,20 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = "Managed to overcome the blackout"
-				check_variable = { current_balance > 0 }
-				ATM = {
-					exists = no
+				has_war = NO
+				OR = {
+					AND = {
+						NOT = {
+							has_country_flag = ATM_has_risen
+						}
+						check_variable = { current_balance > 0 }
+					}
+					AND = {
+						has_country_flag = ATM_has_risen
+						ATM = {
+							exists = no
+						}
+					}
 				}
 			}
 		}
