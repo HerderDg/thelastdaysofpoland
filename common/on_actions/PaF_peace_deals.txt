@@ -2,51 +2,7 @@ on_actions = {
 	on_capitulation_immediate = {
 		effect = {
 			log = "[GetDateText]: [ROOT.GetName] was just capped by [FROM.GetName]"
-			if = {
-				limit = {
-					FROM = {
-						original_tag = BBW
-					}
-				}
-				# if = {
-				# 	limit = {
-				# 		ROOT = {
-				# 			or = {
-				# 				original_tag = KRS
-				# 				original_tag = SAP
-				# 				original_tag = WML
-				# 				original_tag = ZHP
-				# 				original_tag = ZYD
-				# 			}
-				# 		}
-				# 	}
-				# 	if = {
-				# 		limit = {
-				# 			not ={
-				# 				BBW = {
-				# 					has_variable = BBW_pre_blackout_nerf
-				# 				}
-								
-				# 			}
-				# 		}
-				# 		BBW = {
-				# 			set_variable = {BBW_pre_blackout_nerf = 0.9}
-				# 		}
-						
-				# 	}
-				# 	else = {
-				# 		BBW = {
-				# 			add_to_variable = {BBW_pre_blackout_nerf = -0.1}
-				# 		}
-				# 	}
-				# }
-				clear_array = global.capped_states
-				ROOT = {
-					every_owned_state = {
-						add_to_array = { global.capped_states = this }
-					}
-				}
-			}
+			
 			if = {
 				limit = {
 					ROOT = {
@@ -362,19 +318,6 @@ on_actions = {
 				set_global_flag = skip_default_capitulation
 				log = "[GetDateText]: ZHP lost to archbishop"
 			}
-#			if = {
-#				limit = {
-#					FROM = {
-#						original_tag = BBW
-#					}
-#				}
-#				FROM = {
-#					country_event = {
-#						id = belchatow.9001
-#						days = 7
-#					}
-#				}
-#			}
 			if = {	
 				limit = {
 					OR = {
@@ -386,11 +329,28 @@ on_actions = {
 						}
 					}
 				}
+				if = {
+					limit = {
+						FROM = {
+							original_tag = BBW
+						}
+					}
+					clear_array = global.capped_states
+				}
+				
 				FROM = {
 					log = "[GetDateText]: Before: [?ROOT.num_owned_states]"
 					every_controlled_state = {
 						limit = {
 							is_owned_by = ROOT
+						}
+						if = {
+							limit = {
+								FROM = {
+									original_tag = BBW
+								}
+							}
+							add_to_array = { global.capped_states = THIS }
 						}
 						transfer_state_to = FROM
 					}
@@ -505,6 +465,19 @@ on_actions = {
 				}
 				set_global_flag = war_won
 				set_global_flag = skip_default_capitulation
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = BBW
+					}
+				}
+				FROM = {
+					country_event = {
+						id = belchatow.9001
+						days = 7
+					}
+				}
 			}
 		}
 	}
