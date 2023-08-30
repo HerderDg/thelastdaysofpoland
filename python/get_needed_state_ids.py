@@ -19,5 +19,5 @@ while True:
         silesianStates.append(stateID);
 f.close();
 
-for state in kashubianStates:
+for state in silesianStates:
     print('state = '+state);
