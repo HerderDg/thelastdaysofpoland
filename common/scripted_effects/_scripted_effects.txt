@@ -3,6 +3,12 @@ calculate_energy_balance = {
 	calculate_used_energy = yes
 	set_variable = { current_balance = generated_energy }
 	subtract_from_variable = { current_balance = used_energy }
+	if = {
+		limit = {
+			has_variable = energy_exported
+		}
+		subtract_from_variable = { current_balance = energy_exported }
+	}
 	calculate_energy_effects = yes
 	#log = "[GetDateText]: [ROOT.GetName] - energy tick"
 }
@@ -91,12 +97,6 @@ calculate_used_energy = {
 	}
 	multiply_temp_variable = { energy_for_industry = 100 }
 	add_to_variable = { used_energy = energy_for_industry }
-	if = {
-		limit = {
-			has_variable = energy_exported
-		}
-		add_to_variable = { used_energy = energy_exported }
-	}
 	if = {
 		limit = {
 			has_country_flag = importing_energy
