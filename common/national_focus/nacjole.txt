@@ -174,11 +174,11 @@ focus_tree = {
 		completion_reward = {
 		    add_equipment_to_stockpile = {
 			type = ranged_equipment_2
-			amount = 1500
+			amount = 3000
 			producer = GER}
 			add_equipment_to_stockpile = {
 			type = melee_equipment_1
-			amount = 1500
+			amount = 3000
 			producer = GER}
 		}
 	}
@@ -228,6 +228,7 @@ focus_tree = {
 		cost = 0.8
 		search_filters = { }
 		completion_reward = {
+		    load_oob = "NAC_czolgi"
 		}
 	}
 	
@@ -470,6 +471,21 @@ focus_tree = {
 		cost = 0.8
 		search_filters = { }
 		completion_reward = {
+		if = {
+			limit = {
+				has_idea = NAC_allpolish_patriotic_movement
+			}
+			swap_ideas = {
+				remove_idea = NAC_allpolish_patriotic_movement
+				add_idea = NAC_allpolish_patriotic_movement2
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = NAC_allpolish_patriotic_movement2
+				add_idea = NAC_allpolish_patriotic_movement3
+			}
+		}
 		}
 	}
 	
@@ -488,6 +504,21 @@ focus_tree = {
 		cost = 0.8
 		search_filters = { }
 		completion_reward = {
+		if = {
+			limit = {
+				has_idea = NAC_allpolish_patriotic_movement
+			}
+			swap_ideas = {
+				remove_idea = NAC_allpolish_patriotic_movement
+				add_idea = NAC_allpolish_patriotic_movement2
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = NAC_allpolish_patriotic_movement2
+				add_idea = NAC_allpolish_patriotic_movement3
+			}
+		}
 		}
 	}
 	
@@ -507,6 +538,10 @@ focus_tree = {
 		cost = 0.8
 		search_filters = { }
 		completion_reward = {
+		    swap_ideas = {
+				remove_idea = NAC_allpolish_patriotic_movement3
+				add_idea = NAC_allpolish_patriotic_movement4
+			}
 		}
 	}
 	
@@ -569,6 +604,18 @@ focus_tree = {
 		cost = 0.8
 		search_filters = { }
 		completion_reward = {
+		    193 = {
+			create_unit = {
+				division = "name = \Ochotniczy Batalion Szamotulski\" division_template = \"Brygada Narodowa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+				owner = NAC
+			}
+			}
+			218 = {
+			create_unit = {
+				division = "name = \"Ochotniczy Batalion Nowotomyski\" division_template = \"Brygada Narodowa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+				owner = NAC
+			}
+			}
 		}
 	}
 	
@@ -589,6 +636,14 @@ focus_tree = {
 		cost = 0.8
 		search_filters = { }
 		completion_reward = {
+		    add_equipment_to_stockpile = {
+			type = ranged_equipment_2
+			amount = 3000
+			producer = GER}
+			add_equipment_to_stockpile = {
+			type = melee_equipment_1
+			amount = 3000
+			producer = GER}
 		    swap_ideas = {
                 remove_idea = NAC_allpolish_national_army
                 add_idea = NAC_allpolish_national_army2
@@ -662,9 +717,16 @@ focus_tree = {
 		id = NAC_operation_cyryl
 		prerequisite = { focus = NAC_time_for_action}
 		available = {
+		     country_exists = POZ
+			 country_exists = SYJ
+			 country_exists = SLU
+		     has_war = no
 		}
 		
 		bypass = {
+		    POZ = { num_of_controlled_states < 1 }
+			SYJ = { num_of_controlled_states < 1 }
+			SLU = { num_of_controlled_states < 1 }
 		}
 		
 		x = 23
@@ -680,9 +742,12 @@ focus_tree = {
 		id = NAC_religious_madness
 		prerequisite = { focus = NAC_operation_cyryl}
 		available = {
+		    country_exists = SYJ
+			has_war = no
 		}
 		
 		bypass = {
+		     SYJ = { num_of_controlled_states < 1 }
 		}
 		
 		x = 21
@@ -703,9 +768,12 @@ focus_tree = {
 		id = NAC_false_mayor_of_german_interests
 		prerequisite = { focus = NAC_operation_cyryl}
 		available = {
+		     country_exists = POZ
+		     has_war = no
 		}
 		
 		bypass = {
+		    POZ = { num_of_controlled_states < 1 }
 		}
 		
 		x = 23
@@ -725,9 +793,12 @@ focus_tree = {
 		id = NAC_city_slums
 		prerequisite = { focus = NAC_operation_cyryl}
 		available = {
+		    country_exists = SLU
+		     has_war = no
 		}
 		
 		bypass = {
+		    SLU = { num_of_controlled_states < 1 }
 		}
 		
 		x = 25
@@ -747,15 +818,20 @@ focus_tree = {
 		id = NAC_march_on_north
 		prerequisite = { focus = NAC_time_for_action}
 		available = {
+		     country_exists = PIL
+			 country_exists = WRT
+		     has_war = no
 		}
 		
 		bypass = {
+		    WRT = { num_of_controlled_states < 1 }
+			PIL = { num_of_controlled_states < 1 }
 		}
 		
 		x = 28
 		y = 3
 		
-		cost = 0.8
+		cost = 0.1
 		search_filters = { }
 		completion_reward = {
 		}
@@ -765,9 +841,12 @@ focus_tree = {
 		id = NAC_again_in_fight
 		prerequisite = { focus = NAC_march_on_north}
 		available = {
+		    country_exists = WRT
+		    has_war = no 
 		}
 		
 		bypass = {
+		    WRT = { num_of_controlled_states < 1 }
 		}
 		
 		x = 27
@@ -787,9 +866,12 @@ focus_tree = {
 		id = NAC_end_of_meat_empire
 		prerequisite = { focus = NAC_march_on_north}
 		available = {
+		    country_exists = PIL
+		    has_war = no 
 		}
 		
 		bypass = {
+		    PIL = { num_of_controlled_states < 1 }
 		}
 		
 		x = 29
@@ -809,15 +891,20 @@ focus_tree = {
 		id = NAC_western_campaign
 		prerequisite = { focus = NAC_time_for_action}
 		available = {
+		     country_exists = MOT
+			 country_exists = KAM
+		     has_war = no
 		}
 		
 		bypass = {
+		    MOT = { num_of_controlled_states < 1 }
+			KAM = { num_of_controlled_states < 1 }
 		}
 		
 		x = 32
 		y = 3
 		
-		cost = 0.8
+		cost = 0.1
 		search_filters = { }
 		completion_reward = {
 		}
@@ -827,9 +914,12 @@ focus_tree = {
 		id = NAC_occupation_army
 		prerequisite = { focus = NAC_western_campaign}
 		available = {
+		    country_exists = KAM
+		    has_war = no
 		}
 		
 		bypass = {
+		    KAM = { num_of_controlled_states < 1 }
 		}
 		
 		x = 31
@@ -849,9 +939,12 @@ focus_tree = {
 		id = NAC_gorzow_cossacks
 		prerequisite = { focus = NAC_western_campaign}
 		available = {
+		    country_exists = MOT
+		    has_war = no 
 		}
 		
 		bypass = {
+		    KAM = { num_of_controlled_states < 1 }
 		}
 		
 		x = 33
@@ -877,6 +970,7 @@ focus_tree = {
 		prerequisite = { focus = NAC_false_mayor_of_german_interests}
 		prerequisite = { focus = NAC_religious_madness}
 		available = {
+		    has_war = no 
 		}
 		
 		bypass = {

@@ -625,9 +625,6 @@ on_actions = {
 					compliance > 75
 				}
 				free_coring_effect = yes
-				ROOT = {
-					add_stability = -0.001
-				}
 			}
 			every_owned_state = {
 				limit = {
@@ -1033,10 +1030,17 @@ on_actions = {
 					modifier = aided_industry
 				}
 				remove_ideas = importing_energy_idea
+				subtract_from_variable = {energy_imported = 750}
 				BBW = {
 					add_offsite_building = {
 						type = industrial_complex
 						level = -1
+					}
+					if = {
+						limit = {
+							check_variable = { energy_exported > 0 }
+						}
+						subtract_from_variable = {energy_exported = 750}
 					}
 				}
 				log = "[GetDateText]: [ROOT.GetName] cancels energy imports"
@@ -1053,11 +1057,18 @@ on_actions = {
 						modifier = aided_industry
 					}
 					remove_ideas = importing_energy_idea
+					subtract_from_variable = {energy_imported = 750}
 				}
 				BBW = {
 					add_offsite_building = {
 						type = industrial_complex
 						level = -1
+					}
+					if = {
+						limit = {
+							check_variable = { energy_exported > 0 }
+						}
+						subtract_from_variable = {energy_exported = 750}
 					}
 				}
 				log = "[GetDateText]: [FROM.GetName] cancels energy imports"
