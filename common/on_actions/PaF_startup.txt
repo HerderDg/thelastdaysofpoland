@@ -651,16 +651,26 @@ on_actions = {
 			reset_vp_name = yes	
 		}
 	}
-	on_weekly = {
+	on_weekly_SWE = {
 		effect = {
-			if = {
+			set_temp_variable = { global.tempDeadPolacks = 0}
+			every_country = {
 				limit = {
 					NOT = {
 						original_tag = ROS
 					}
 				}
-				add_to_variable = { global.deadPolacks = ROOT.casualties}
+				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualties}
+				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualtiesFromEvents}
 			}
+			if = {
+				limit = {
+					has_variable = global.deadPolacksFromDeadNations
+				}
+				add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromDeadNations}
+			}
+			set_variable = {global.deadPolacks = global.tempDeadPolacks}
+			log = "There is [?global.deadPolacks] dead Polacks"
 		}
 	}
 	on_weekly_ZHP = {
