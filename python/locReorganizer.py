@@ -37,10 +37,10 @@ for file in vanillaLocs:
                 for key in vanillaKV:
                     if key in modKV:
                         if vanillaKV[key] != modKV[key]:
-                            replaceOutput.append(' '+key+': '+modKV[key])
+                            replaceOutput.append(' '+key+': '+'"'+modKV[key]+'"')
                 for key in modKV:
                     if key not in vanillaKV and key[0] != '#':
-                        modOutput.append(" "+key+': '+modKV[key])
+                        modOutput.append(" "+key+': '+'"'+modKV[key]+'"')
                 if not os.path.exists(os.getcwd()+"\\replace"):
                     os.makedirs(os.getcwd()+"\\replace")
                 if len(modOutput) > 1:
