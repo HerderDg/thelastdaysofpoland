@@ -1,32 +1,42 @@
-import glob,string;
+import glob,os,string;
 
-vanillaPath = "C:/Gry/Steam/steamapps/Hearts of Iron IV/localisation/*.yml"
+vanillaPath = "C:/Gry/Steam/steamapps/common/Hearts of Iron IV/localisation/english/*.yml"
 vanillaLocs = glob.glob(vanillaPath)
-print(vanillaLocs)
+os.chdir("./localisation/english")
+modPath = os.getcwd()+"/*.yml"
+modLocs = glob.glob(modPath)
 
-foo = "l_english:\r\n foo:0 \"foo\"\r\n bar:0 \"bar\"\r\n baz:0 \"baz\""
-bar = "l_english:\r\n foo:\"foo\"\r\n bar: \"baz\"\r\n #baz: \"baz\"\r\n boo: \"\\\"boo\\\"\""
 
-foo = foo.split("\r\n")
-bar = bar.split("\r\n")
-fooKV = {}
-barKV = {}
-for line in foo[1:]:
-    fooKey = line.strip().split(':',1)[0]
-    fooValue = line.strip().split(':',1)[1].split("\"")[1:]
-    fooKV[fooKey] = ''.join(list(filter(None,fooValue))).replace('\\','"')
-for line in bar[1:]:
-    barKey = line.strip().split(':',1)[0]
-    barValue = line.strip().split(':',1)[1].split("\"")[1:]
-    barKV[barKey] = ''.join(list(filter(None,barValue))).replace('\\','"')
-for key in fooKV:
-    if key in barKV:
-        if fooKV[key] != barKV[key]:
-            print('replaced '+key+': '+barKV[key])
-        else:
-            print(key+': '+fooKV[key])
+
+for file in vanillaLocs:
+    vanillaKV = {}
+    modKV = {}
+    if os.path.basename(file) in ['victory_points_l_english.yml','state_names_l_english.yml','strategic_region_names_l_english.yml']:
+        print("geo file, skippping")
     else:
-        print(key+': '+fooKV[key])
-for key in barKV:
-    if key not in fooKV and key[0] != '#':
-            print('new '+key+': '+barKV[key])
+        for modLocs in os.walk(os.getcwd()):
+            if os.path.basename(file) not in modLocs[2]:
+                print("File "+os.path.basename(file)+" not found, skipping")
+            else:
+                print(os.path.basename(file))
+                vanillaFileHandle =  open(file,"r",encoding="utf_8_sig",newline='\n')
+                for i,line in enumerate(vanillaFileHandle):
+                    if i!=0 and ':' in line:
+                        vanillaKey = line.strip().split(':',1)[0]
+                        vanillaValue = line.strip().split(':',1)[1].split("\"")[1:]
+                        vanillaKV[vanillaKey] = ''.join(list(filter(None,vanillaValue))).replace('\\','"')
+                vanillaFileHandle.close()
+                modFileHandle =  open(os.getcwd()+'\\'+os.path.basename(file),"r",encoding="utf_8_sig",newline='\r\n')
+                for i,line in enumerate(modFileHandle):
+                    if i!=0 and ':' in line:
+                        modKey = line.strip().split(':',1)[0]
+                        modValue = line.strip().split(':',1)[1].split("\"")[1:]
+                        modKV[modKey] = ''.join(list(filter(None,modValue))).replace('\\','"')
+                modFileHandle.close()
+                for key in vanillaKV:
+                    if key in modKV:
+                        if vanillaKV[key] != modKV[key]:
+                            print('replaced '+key+': '+modKV[key])
+                for key in modKV:
+                    if key not in vanillaKV and key[0] != '#':
+                        print('new '+key+': '+modKV[key])
