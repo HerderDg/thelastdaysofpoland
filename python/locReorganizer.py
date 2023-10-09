@@ -13,7 +13,7 @@ for file in vanillaLocs:
     modKV = {}
     replaceOutput = ["l_english:"]
     modOutput = ["l_english:"]
-    if os.path.basename(file) in ['victory_points_l_english.yml','state_names_l_english.yml','strategic_region_names_l_english.yml']:
+    if os.path.basename(file) in ['countries_l_english.yml','victory_points_l_english.yml','state_names_l_english.yml','strategic_region_names_l_english.yml']:
         print("geo file, skippping")
     else:
         for modLocs in os.walk(os.getcwd()):
@@ -43,12 +43,14 @@ for file in vanillaLocs:
                         modOutput.append(" "+key+': '+modKV[key])
                 if not os.path.exists(os.getcwd()+"\\replace"):
                     os.makedirs(os.getcwd()+"\\replace")
-                modOutputFile = open("PaF_"+os.path.basename(file),"w",encoding="utf_8_sig")
-                for line in modOutput:
-                    modOutputFile.write(line+'\n')
-                modOutputFile.close()
-                replaceOutputFile = open(os.getcwd()+"\\replace\\"+"replace_"+os.path.basename(file),"w",encoding="utf_8_sig")
-                for line in replaceOutput:
-                    replaceOutputFile.write(line+'\n')
-                replaceOutputFile.close()
+                if len(modOutput) > 1:
+                    modOutputFile = open("PaF_"+os.path.basename(file),"w",encoding="utf_8_sig")
+                    for line in modOutput:
+                        modOutputFile.write(line+'\n')
+                    modOutputFile.close()
+                if len(replaceOutput) > 1:
+                    replaceOutputFile = open(os.getcwd()+"\\replace\\"+"replace_"+os.path.basename(file),"w",encoding="utf_8_sig")
+                    for line in replaceOutput:
+                        replaceOutputFile.write(line+'\n')
+                    replaceOutputFile.close()
 print("Done :)")
