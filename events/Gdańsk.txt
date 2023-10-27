@@ -1,23 +1,12 @@
-﻿add_namespace = wmg
+﻿##########################
+#    GDAŃSKIE EVENTY     #
+# by Kano901 i Bombowiec #
+##########################
+
 add_namespace = gdansk
 add_namespace = gdansk.collapse
 
-
-country_event = {
-	id = wmg.1
-	title = wmg.1.t
-	desc = wmg.1.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires wmg.1"}
-	
-	option = {
-		name = wmg.1.a
-		}
-	
-}
+#EU Summit Preparations Begin
 country_event = {
 	id = gdansk.1
 	title = gdansk.1.t
@@ -29,9 +18,11 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.1" }
 	option = {
 		name = gdansk.1.a 
-		}
+		add_political_power = 10
+	}
 }
 
+#Meeting with Walesa
 country_event = {
 	id = gdansk.2
 	title = gdansk.2.t
@@ -43,8 +34,14 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.2" }
 	option = {
 		name = gdansk.2.a 
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.01
 		}
+	}
 }
+
+#Problem with Śniadek
 country_event = {
 	id = gdansk.3
 	title = gdansk.3.t
@@ -54,23 +51,116 @@ country_event = {
 	is_triggered_only = yes
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.3" }
-	option = {
+	option = { #Use Walesa's Authority
 		name = gdansk.3.a 
+		add_stability = -0.01
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.01
 		}
+		custom_effect_tooltip = GDA_use_walesa_to_remove_sniadek_tt
+		hidden_effect = {
+			set_country_flag = GDA_sided_with_walesa_flag
+			country_event = gdansk.4
+			days = 5
+		}
+	}
+
+	option = { #Try to use others loyal to us
+		name = gdansk.3.b
+		add_political_power = -10
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.01
+		}
+		custom_effect_tooltip = GDA_use_others_to_remove_sniadek_tt
+		hidden_effect = {
+			set_country_flag = GDA_sided_with_borowczak_flag
+			country_event = gdansk.5
+			days = 5
+		}
+	}
 }
+
+#Special Congress of Solidarność
 country_event = {
 	id = gdansk.4
 	title = gdansk.4.t
-	desc = gdansk.4.desc
+	desc = {
+		trigger = {
+			has_country_flag = GDA_sided_with_walesa_flag
+		}
+		text = gdansk.4.desc.walesa
+	}
+	desc = {
+		trigger = {
+			has_country_flag = GDA_sided_with_borowczak_flag
+		}
+		text = gdansk.4.desc.borowczak
+	}
 	
 	fire_only_once = yes
 	is_triggered_only = yes
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.4" }
 	option = {
-		name = gdansk.4.a 
+		trigger = {
+			has_country_flag = GDA_sided_with_walesa_flag
 		}
+		name = gdansk.4.a 
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.05
+		}
+		add_stability = 0.02
+		if = {
+			limit = {
+				has_idea = GDA_citizens_tamed
+			}
+			swap_ideas = {
+				remove_idea = GDA_citizens_tamed
+				add_idea = GDA_situation_tamed_solidarity_good
+			}
+		}
+		else = {
+			add_ideas = GDA_solidarity_tamed_good
+		}
+	}
+
+	option = {
+		trigger = {
+			has_country_flag = GDA_sided_with_borowczak_flag
+		}
+		name = gdansk.4.b
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.01
+		}
+		add_stability = -0.01
+		if = {
+			limit = {
+				has_idea = GDA_citizens_tamed
+			}
+			swap_ideas = {
+				remove_idea = GDA_citizens_tamed
+				add_idea = GDA_situation_tamed_solidarity_bad
+			}
+		}
+		else = {
+			add_ideas = GDA_solidarity_tamed_bad
+		}
+	}
 }
+
+#Meeting the Family
 country_event = {
 	id = gdansk.5
 	title = gdansk.5.t
@@ -82,8 +172,14 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.5" }
 	option = {
 		name = gdansk.5.a 
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.01
 		}
+	}
 }
+
+#WdG Leadership
 country_event = {
 	id = gdansk.6
 	title = gdansk.6.t
@@ -94,9 +190,23 @@ country_event = {
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.6" }
 	option = {
-		name = gdansk.6.a 
+		name = gdansk.6.a
+		if = {
+			limit = {
+				has_idea = GDA_citizens_tamed
+			}
+			swap_ideas = {
+				remove_idea = GDA_citizens_tamed
+				add_idea = GDA_situation_tamed_wdg
+			}
+		} 
+		else = {
+			add_ideas = GDA_party_tamed
 		}
+	}
 }
+
+#Plichta does stuff
 country_event = {
 	id = gdansk.7
 	title = gdansk.7.t
@@ -108,8 +218,20 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.7" }
 	option = {
 		name = gdansk.7.a 
+		add_popularity = {
+			ideology = corporativism
+			popularity = 0.05
 		}
+		hidden_effect = {
+			country_event = {
+				id = gdansk.8
+			    days = 10
+			}
+		}
+	}
 }
+
+#Owsiak does stuff
 country_event = {
 	id = gdansk.8
 	title = gdansk.8.t
@@ -120,9 +242,16 @@ country_event = {
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.8" }
 	option = {
-		name = gdansk.8.a 
+		name = gdansk.8.a
+		add_war_support = -0.05
+		add_popularity = {
+			ideology = squattism
+			popularity = 0.05
 		}
+	}
 }
+
+#Brzeźno Meeting
 country_event = {
 	id = gdansk.9
 	title = gdansk.9.t
@@ -134,7 +263,37 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdansk.9" }
 	option = {
 		name = gdansk.9.a 
+		if = {
+			limit = {
+				has_idea = GDA_solidarity_tamed_bad
+			}
+			swap_ideas = {
+				remove_idea = GDA_solidarity_tamed_bad
+				add_idea = GDA_situation_tamed_solidarity_bad
+			}
 		}
+		else_if = {
+			limit = {
+				has_idea = GDA_solidarity_tamed_good
+			}
+			swap_ideas = {
+				remove_idea = GDA_solidarity_tamed_good
+				add_idea = GDA_situation_tamed_solidarity_good
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = GDA_party_tamed
+			}
+			swap_ideas = {
+				remove_idea = GDA_party_tamed
+				add_idea = GDA_situation_tamed_wdg
+			}
+		}
+		else = {
+			add_ideas = GDA_citizens_tamed
+		}
+	}
 }
 country_event = {
 	id = gdansk.10
