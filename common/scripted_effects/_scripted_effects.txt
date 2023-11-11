@@ -130,7 +130,69 @@ calculate_energy_effects = {
 		}
 	}
 }
-
+#building effects
+public_buildings_effect = {
+	set_temp_variable = {
+		num_of_cathedrals = 0
+	}
+	every_controlled_state = {
+		limit = {
+			always = yes
+		}
+		add_to_temp_variable = { PREV.num_of_cathedrals = building_level@cathedral }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_controlled_states < 20
+			}
+			cathedral > 0
+		}
+		set_variable = {
+			max_effective_cathedrals = 1
+		}
+	}
+	else = {
+		set_variable = {
+			max_effective_cathedrals = num_controlled_states
+		}
+		divide_variable = {
+			max_effective_cathedrals = 20
+		}
+	}
+	set_variable = {
+		cathedral_stab_mod = 0.02
+	}
+	set_variable = {
+		cathedral_pp_mod = 0.1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				max_effective_cathedrals < num_of_cathedrals
+			}
+		}
+		set_country_flag = cathedrals_ineffective
+		multiply_variable = {
+			cathedral_stab_mod = max_effective_cathedrals
+		}
+		multiply_variable = {
+			cathedral_pp_mod = max_effective_cathedrals
+		}
+	}
+	else = {
+		clr_country_flag = cathedrals_ineffective
+		multiply_variable = {
+			cathedral_stab_mod = num_of_cathedrals
+		}
+		multiply_variable = {
+			cathedral_pp_mod = num_of_cathedrals
+		}
+	}
+	add_dynamic_modifier = {
+		modifier = catherdal_modifier
+	}
+} 
 count_voi_ownership = {
 	set_variable = { lodz_ownership = 0 }
 	set_variable = { holy_cross_ownership = 0 }
