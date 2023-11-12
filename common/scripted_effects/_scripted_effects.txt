@@ -85,6 +85,7 @@ calculate_generated_energy = {
 
 calculate_used_energy = {
 	set_variable = { used_energy = num_of_military_factories}
+	subtract_from_variable = {used_energy = workshops_count}
 	multiply_variable = { used_energy = 200 }
 	set_temp_variable = { energy_for_industry = num_of_civilian_factories }
 	every_controlled_state = {
@@ -93,6 +94,7 @@ calculate_used_energy = {
 		}
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@synthetic_refinery }
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@high_tech_complex }
+		add_to_temp_variable = { PREV.energy_for_industry = workshops_count }
 	}
 	multiply_temp_variable = { energy_for_industry = 100 }
 	add_to_variable = { used_energy = energy_for_industry }
@@ -130,7 +132,312 @@ calculate_energy_effects = {
 		}
 	}
 }
+#building effects
+public_buildings_effect = {
+	#liczenie
+	set_temp_variable = {
+		num_of_cathedrals = 0
+	}
+	set_temp_variable = {
+		num_of_universities = 0
+	}
+	set_temp_variable = {
+		num_of_hospitals = 0
+	}
+	set_temp_variable = {
+		num_of_prisons = 0
+	}
+	set_temp_variable = {
+		num_of_januszexes = 0
+	}
+	every_controlled_state = {
+		limit = {
+			always = yes
+		}
+		add_to_temp_variable = { PREV.num_of_cathedrals = building_level@cathedral }
+		add_to_temp_variable = { PREV.num_of_universities = building_level@university }
+		add_to_temp_variable = { PREV.num_of_hospitals = building_level@hospital }
+		add_to_temp_variable = { PREV.num_of_prisons = building_level@prison }
+		add_to_temp_variable = { PREV.num_of_januszexes = building_level@januszex }
+	}
+	#limitowanie
+	if = {
+		limit = {
+			check_variable = {
+				num_controlled_states < 20
+			}
+		}
+		set_variable = {
+			max_effective_cathedrals = 1
+		}
+	}
+	else = {
+		set_variable = {
+			max_effective_cathedrals = num_controlled_states
+		}
+		set_temp_variable = {
+			modulo_from_cathedrals = max_effective_cathedrals
+		}
+		modulo_temp_variable = {
+			modulo_from_cathedrals = 20
+		}
+		divide_variable = {
+			max_effective_cathedrals = 20
+		}
+		round_variable = max_effective_cathedrals
+		if = {
+			limit = {
+				check_variable = {
+					modulo_from_cathedrals < 10
+				}
+			}
+			add_to_variable = {
+				max_effective_cathedrals = 1
+			}
+		}
+	}
 
+	if = {
+		limit = {
+			check_variable = {
+				num_controlled_states < 20
+			}
+		}
+		set_variable = {
+			max_effective_universities = 1
+		}
+	}
+	else = {
+		set_variable = {
+			max_effective_universities = num_controlled_states
+		}
+		set_temp_variable = {
+			modulo_from_universities = max_effective_universities
+		}
+		modulo_temp_variable = {
+			modulo_from_universities = 20
+		}
+		divide_variable = {
+			max_effective_universities = 20
+		}
+		round_variable = max_effective_universities
+		if = {
+			limit = {
+				check_variable = {
+					modulo_from_universities < 10
+				}
+			}
+			add_to_variable = {
+				max_effective_universities = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_controlled_states < 2
+			}
+		}
+		set_variable = {
+			max_effective_hospitals = 1
+		}
+	}
+	else = {
+		set_variable = {
+			max_effective_hospitals = num_controlled_states
+		}
+		divide_variable = {
+			max_effective_hospitals = 2
+		}
+		round_variable = max_effective_hospitals
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_controlled_states < 5
+			}
+		}
+		set_variable = {
+			max_effective_prisons = 1
+		}
+	}
+	else = {
+		set_variable = {
+			max_effective_prisons = num_controlled_states
+		}
+		set_temp_variable = {
+			modulo_from_prisons = max_effective_prisons
+		}
+		modulo_temp_variable = {
+			modulo_from_prisons = 5
+		}
+		divide_variable = {
+			max_effective_prisons = 5
+		}
+		round_variable = max_effective_prisons
+		if = {
+			limit = {
+				check_variable = {
+					modulo_from_prisons < 3
+				}
+			}
+			add_to_variable = {
+				max_effective_prisons = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_controlled_states < 20
+			}
+		}
+		set_variable = {
+			max_effective_januszexes = 1
+		}
+	}
+	else = {
+		set_variable = {
+			max_effective_januszexes = num_controlled_states
+		}
+		set_temp_variable = {
+			modulo_from_januszexes = max_effective_januszexes
+		}
+		modulo_temp_variable = {
+			modulo_from_januszexes = 20
+		}
+		divide_variable = {
+			max_effective_januszexes = 20
+		}
+		round_variable = max_effective_januszexes
+		if = {
+			limit = {
+				check_variable = {
+					modulo_from_januszexes < 10
+				}
+			}
+			add_to_variable = {
+				max_effective_januszexes = 1
+			}
+		}
+	}
+
+	#wyliczanie modyfikatorów
+	if = {
+		limit = {
+			check_variable = {
+				var = max_effective_cathedrals
+				value = num_of_cathedrals
+				compare = greater_than_or_equals
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = catherdal_overlimit_mod
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = catherdal_overlimit_mod
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = catherdal_overlimit_mod
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = max_effective_universities
+				value = num_of_universities
+				compare = greater_than_or_equals
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = university_overlimit_mod
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = university_overlimit_mod
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = university_overlimit_mod
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				max_effective_hospitals = num_of_hospitals
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = hospital_overlimit_mod
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = hospital_overlimit_mod
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = hospital_overlimit_mod
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				max_effective_prisons = num_of_prisons
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = prison_overlimit_mod
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = prison_overlimit_mod
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = prison_overlimit_mod
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				max_effective_januszexes = num_of_januszexes
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = januszex_overlimit_mod
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = januszex_overlimit_mod
+				}
+			}
+			remove_dynamic_modifier = {
+				modifier = januszex_overlimit_mod
+			}
+		}
+	}
+} 
 count_voi_ownership = {
 	set_variable = { lodz_ownership = 0 }
 	set_variable = { holy_cross_ownership = 0 }
@@ -338,5 +645,72 @@ delete_eurokom_templates = {
 	delete_unit_template_and_units = {
 		division_template = "Pro-europejscy ochotnicy"
 		disband = yes
+	}
+}
+
+check_workshop_limit = {
+
+	set_temp_variable = {
+		owned_states_count = ROOT.owned_states	
+	}
+	set_temp_variable = {
+		owned_states_modulo = owned_states_count
+	}
+	if = {
+		limit = {
+			not = {
+				has_tech = better_workshops
+			}
+		}
+		
+		modulo_temp_variable = {
+			owned_states_modulo = 4
+		}
+		divide_temp_variable = {
+			owned_states_count = 4
+		}
+		round_temp_variable = owned_states_count
+		if = {
+			limit = {
+				check_variable = {
+					owned_states_modulo > 1
+				}
+			}
+			subtract_from_temp_variable = {
+				owned_states_count = 1
+			}
+		}
+	}
+	else = {
+		modulo_temp_variable = {
+			owned_states_modulo = 2
+		}
+		divide_temp_variable = {
+			owned_states_count = 2
+		}
+		round_temp_variable = owned_states_count
+		if = {
+			limit = {
+				check_variable = {
+					owned_states_modulo = 1
+				}
+			}
+			subtract_from_temp_variable = {
+				owned_states_count = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = active_workshops
+				value = owned_states_count
+				compare = greater_than_or_equals
+			}
+		}
+		set_country_flag = workshop_limit
+	}
+	else = {
+		clr_country_flag = workshop_limit
 	}
 }
