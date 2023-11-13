@@ -1605,6 +1605,9 @@ technologies = { #zmienić nazwy i do przodu
 	basic_coalstuff = {
 		research_cost = 3
 		start_year = 2028
+		dependencies = {
+			post_collapse_assesment = 1
+		}
 		on_research_complete = {	
 			modify_building_resources = {
 				building = bootleg_pit
@@ -1769,26 +1772,29 @@ technologies = { #zmienić nazwy i do przodu
 
 	improved_recycling = {
 		research_cost = 3
-		start_year = 30
+		start_year = 2028
 		on_research_complete = {	
 			modify_building_resources = {
 				building = recycling_plant
 				resource = steel
-				amount = 1
+				amount = 2
 			}
 			modify_building_resources = {
 				building = recycling_plant
 				resource = junk
-				amount = 1
+				amount = 2
 			}
 		}
 		categories = {
 			industry
 		}
-
+		path = {
+			leads_to_tech = advanced_recycling
+			research_cost_coeff = 1
+		}
 		folder = {
 			name = industry_folder
-			position = { x = 0 y = 2 }
+			position = { x = 0 y = 3 }
 		}
 		ai_will_do = {
 			factor = 10
@@ -1808,6 +1814,148 @@ technologies = { #zmienić nazwy i do przodu
 		show_effect_as_desc = yes
 	}
 
+	advanced_recycling = {
+		research_cost = 3
+		start_year = 2032
+		on_research_complete = {	
+			modify_building_resources = {
+				building = recycling_plant
+				resource = steel
+				amount = 1
+			}
+			modify_building_resources = {
+				building = recycling_plant
+				resource = junk
+				amount = 2
+			}
+		}
+		categories = {
+			industry
+		}
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 5 }
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				steel > 10
+			}
+			modifier = {
+				factor = 0.5
+				steel > 20
+			}	
+			modifier = {
+				factor = 0.5
+				steel > 30
+			}			
+		}
+		show_effect_as_desc = yes
+	}
+
+	basic_smelters = {
+		dependencies = {
+			post_collapse_assesment = 1
+		}
+		research_cost = 3
+		start_year = 2030
+		enable_building = {
+			building = steel_works
+			level = 3
+		}
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
+		path = {
+			leads_to_tech = improved_smelters
+			research_cost_coeff = 1
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				aluminium  > 10
+			}
+			modifier = {
+				factor = 0.5
+				aluminium > 20
+			}	
+			modifier = {
+				factor = 0.5
+				aluminium > 30
+			}			
+		}
+	}
+	improved_smelters = {
+		research_cost = 3
+		start_year = 2036
+		on_research_complete = {
+			modify_building_resources = {
+				building = steel_works
+				resource = steel
+				amount = 1
+			}
+			modify_building_resources = {
+				building = steel_works
+				resource = aluminium
+				amount = 1
+			}
+		}
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 4 }
+		}
+		path = {
+			leads_to_tech = advanced_smelters
+			research_cost_coeff = 1
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				aluminium  > 10
+			}
+			modifier = {
+				factor = 0.5
+				aluminium > 20
+			}	
+			modifier = {
+				factor = 0.5
+				aluminium > 30
+			}			
+		}
+	}
+	advanced_smelters = {
+		research_cost = 3
+		start_year = 2040
+		on_research_complete = {
+			enable_building = {
+				building = steel_works
+				level = 6
+			}
+		}
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 6 }
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				aluminium  > 10
+			}
+			modifier = {
+				factor = 0.5
+				aluminium > 20
+			}	
+			modifier = {
+				factor = 0.5
+				aluminium > 30
+			}			
+		}
+	}
 	#####################################
 	rubber_processing = {
 
