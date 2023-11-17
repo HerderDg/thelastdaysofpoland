@@ -7241,7 +7241,7 @@ ai_war_decisions = {
 				OR = {
 					original_tag = BRZ
 					original_tag = JWK
-					original_tag = ZAW
+					original_tag = JUR
 					original_tag = CCH
 				}
 
@@ -7249,7 +7249,7 @@ ai_war_decisions = {
 				amount = 3
 					BRZ = { exists = no }
 					JWK = { exists = no }
-					ZAW = { exists = no }
+					JUR = { exists = no }
 					CCH = { exists = no }
 				}
 		}
@@ -7285,6 +7285,12 @@ ai_war_decisions = {
 					type = annex_everything
 				}
 				}
+				if = { limit = { country_exists = ZAW } 
+				declare_war_on = {
+					target = ZAW
+					type = annex_everything
+				}
+				}
 		}
 	}
 	
@@ -7300,13 +7306,15 @@ ai_war_decisions = {
 				OR = {
 					original_tag = SOS
 					original_tag = JAW
+					original_tag = ZAW
 					original_tag = DGR
 				}
 
 			count_triggers = {
-				amount = 2
+				amount = 3
 					SOS = { exists = no }
 					DGR = { exists = no }
+					ZAW = { exists = no }
 					JAW = { exists = no }
 				}
 		}
@@ -7324,9 +7332,9 @@ ai_war_decisions = {
 		days_remove = 21
 		remove_effect  = {
 			log = "[GetDateText]: Decision zaglebie_war_2"
-				if = { limit = { country_exists = ZAW } 
+				if = { limit = { country_exists = JUR } 
 				declare_war_on = {
-					target = ZAW
+					target = JUR
 					type = annex_everything
 				}
 				}
@@ -7966,7 +7974,7 @@ ai_war_decisions = {
 
 		visible = {
 				OR = {
-					original_tag = ZAW
+					original_tag = JUR
 					original_tag = BRZ
 					original_tag = CCH
 				}
@@ -7974,7 +7982,7 @@ ai_war_decisions = {
 					OR = {
 							has_decision = jura_CCH
 							has_decision = jura_BRZ
-							has_decision = jura_ZAW
+							has_decision = jura_JUR
 						}
 					}
 				ROOT = { any_neighbor_country = { original_tag = JWK } }
@@ -8005,7 +8013,7 @@ ai_war_decisions = {
 		}
 	}
 	
-	jura_ZAW = {
+	jura_JUR = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -8026,7 +8034,7 @@ ai_war_decisions = {
 							has_decision = jura_JWK
 						}
 					}
-				ROOT = { any_neighbor_country = { original_tag = ZAW } }
+				ROOT = { any_neighbor_country = { original_tag = JUR } }
 				NOT = { has_war = yes }
 				date > 2028.02.14
 		}
@@ -8042,12 +8050,12 @@ ai_war_decisions = {
 		}
 		fire_only_once = yes
 		days_remove = 14
-		war_with_on_remove = ZAW
+		war_with_on_remove = JUR
 		remove_effect  = {
 			log = "[GetDateText]: Decision jura_ZAW"
-				if = { limit = { country_exists = ZAW }
+				if = { limit = { country_exists = JUR }
 				declare_war_on = {
-					target = ZAW
+					target = JUR
 					type = annex_everything
 				}
 				}
@@ -8065,13 +8073,13 @@ ai_war_decisions = {
 		visible = {
 				OR = {
 					original_tag = JWK
-					original_tag = ZAW
+					original_tag = JUR
 					original_tag = CCH
 				}
 				NOT = { 
 					OR = {
 							has_decision = jura_CCH
-							has_decision = jura_ZAW
+							has_decision = jura_JUR
 							has_decision = jura_JWK
 						}
 					}
@@ -8116,13 +8124,13 @@ ai_war_decisions = {
 		visible = {
 				OR = {
 					original_tag = JWK
-					original_tag = ZAW
+					original_tag = JUR
 					original_tag = BRZ
 				}
 				NOT = { 
 					OR = {
 							has_decision = jura_BRZ
-							has_decision = jura_ZAW
+							has_decision = jura_JUR
 							has_decision = jura_JWK
 						}
 					}
@@ -8165,11 +8173,13 @@ ai_war_decisions = {
 		visible = {
 				OR = {
 					original_tag = JAW
+					original_tag = ZAW
 					original_tag = SOS
 				}
 				NOT = { 
 					OR = {
 							has_decision = zaglebie_SOS
+							has_decision = zaglebie_ZAW
 							has_decision = zaglebie_JAW
 						}
 					}
@@ -8212,11 +8222,13 @@ ai_war_decisions = {
 		visible = {
 				OR = {
 					original_tag = DGR
+					original_tag = ZAW
 					original_tag = SOS
 				}
 				NOT = { 
 					OR = {
 							has_decision = zaglebie_SOS
+							has_decision = zaglebie_ZAW
 							has_decision = zaglebie_DGR
 						}
 					}
@@ -8259,11 +8271,13 @@ ai_war_decisions = {
 		visible = {
 				OR = {
 					original_tag = JAW
+					original_tag = ZAW
 					original_tag = DGR
 				}
 				NOT = { 
 					OR = {
 							has_decision = zaglebie_DGR
+							has_decision = zaglebie_ZAW
 							has_decision = zaglebie_JAW
 						}
 					}
@@ -8295,7 +8309,54 @@ ai_war_decisions = {
 		}
 	}
 	
+	zaglebie_ZAW = {
 
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_zaglebie_and_jura = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = JAW
+					original_tag = SOS
+					original_tag = DGR
+				}
+				NOT = { 
+					OR = {
+							has_decision = zaglebie_DGR
+							has_decision = zaglebie_SOS
+							has_decision = zaglebie_JAW
+						}
+					}
+				ROOT = { any_neighbor_country = { original_tag = ZAW } }
+				NOT = { has_war = yes }
+				date > 2028.02.14
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = ZAW
+		remove_effect  = {
+			log = "[GetDateText]: Decision zaglebie_ZAW"
+				if = { limit = { country_exists = ZAW }
+				declare_war_on = {
+					target = ZAW
+					type = annex_everything
+				}
+				}
+		}
+	}
 	
 	
 	BSK_podbeskidzie_war = {
