@@ -135,6 +135,7 @@ calculate_energy_effects = {
 #building effects
 public_buildings_effect = {
 	#liczenie
+
 	set_temp_variable = {
 		num_of_cathedrals = 0
 	}
@@ -161,6 +162,24 @@ public_buildings_effect = {
 		add_to_temp_variable = { PREV.num_of_januszexes = building_level@januszex }
 	}
 	#limitowanie
+	if = {
+		limit = {
+			NOT = {
+				has_variable = rare_buildings_divider
+			}
+		}
+		set_variable = {
+			rare_buildings_divider = 20
+		}
+		if = {
+			limit = {
+				has_tech = less_limits
+			}
+			set_variable = {
+				rare_buildings_divider = 10
+			}
+		}
+	}
 	set_temp_variable = {
 		divider_halved = rare_buildings_divider
 	}
@@ -663,50 +682,25 @@ check_workshop_limit = {
 	set_temp_variable = {
 		owned_states_modulo = owned_states_count
 	}
+
+	modulo_temp_variable = {
+		owned_states_modulo = 4
+	}
+	divide_temp_variable = {
+		owned_states_count = 4
+	}
+	round_temp_variable = owned_states_count
 	if = {
 		limit = {
-			not = {
-				has_tech = better_workshops
+			check_variable = {
+				owned_states_modulo > 1
 			}
 		}
-		
-		modulo_temp_variable = {
-			owned_states_modulo = 4
-		}
-		divide_temp_variable = {
-			owned_states_count = 4
-		}
-		round_temp_variable = owned_states_count
-		if = {
-			limit = {
-				check_variable = {
-					owned_states_modulo > 1
-				}
-			}
-			subtract_from_temp_variable = {
-				owned_states_count = 1
-			}
+		subtract_from_temp_variable = {
+			owned_states_count = 1
 		}
 	}
-	else = {
-		modulo_temp_variable = {
-			owned_states_modulo = 2
-		}
-		divide_temp_variable = {
-			owned_states_count = 2
-		}
-		round_temp_variable = owned_states_count
-		if = {
-			limit = {
-				check_variable = {
-					owned_states_modulo = 1
-				}
-			}
-			subtract_from_temp_variable = {
-				owned_states_count = 1
-			}
-		}
-	}
+	
 	if = {
 		limit = {
 			check_variable = {
