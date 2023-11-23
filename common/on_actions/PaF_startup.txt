@@ -2,6 +2,7 @@ on_actions = {
 	on_startup = {
 		effect = {
 			set_variable = {global.deadPolacks = 0}
+			set_variable = {global.deadPolacksFromSurvivors = 0}
 			every_country = {
 				limit = {
 					OR = {
@@ -741,6 +742,17 @@ on_actions = {
 				}
 				add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromDeadNations}
 			}
+			if = {
+				limit = {
+					has_variable = global.deadPolacksFromSurvivors
+				}
+				add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromSurvivors }
+			}
+			log = "[GetDateText]: There is [?global.deadPolacksFromSurvivors] dead Poles from survivors"
+			log = "[GetDateText]: There is [?global.deadPolacksFromDeadNations] dead Poles from nonexistant warlords"
+			set_variable = {global.deadPolacks_k = global.tempDeadPolacks}
+			divide_variable = {global.deadPolacks_k = 1000}
+			log = "[GetDateText]: There is [?global.deadPolacks_k] thousand dead Poles"
 			set_variable = {global.deadPolacks = global.tempDeadPolacks}
 		}
 	}
@@ -1101,6 +1113,7 @@ on_actions = {
 	}
 	on_declare_war = {
 		effect = {
+			log = "[?From.casualties] - [?ROOT.casualties]"
 			if = {
 				limit = {
 					FROM = {
