@@ -2,9 +2,19 @@ on_actions = {
 	on_capitulation_immediate = {
 		effect = {
 			log = "[GetDateText]: [ROOT.GetName] was just capped by [FROM.GetName]"
+			log = "[GetDateText]: [FROM.GetName] has [?FROM.casualties] casualties"
 			FROM = {
-				add_to_variable = {
-					global.deadPolacksFromPastWars = this.casualties
+				if = {
+					limit = {
+						NOT = {
+							original_tag = ROS
+							original_tag = UPA
+							original_tag = UHR
+						}
+					}
+					add_to_variable = {
+						global.deadPolacksFromPastWars = this.casualties
+					}
 				}
 			}
 			if = {
@@ -12,6 +22,8 @@ on_actions = {
 					ROOT = {
 						NOT = {
 							original_tag = ROS
+							original_tag = UPA
+							original_tag = UHR
 						}
 					}
 				}
@@ -32,7 +44,7 @@ on_actions = {
 				add_to_variable = {
 					global.deadPolacksFromDeadNations = ROOT.casualtiesFromEvents
 				}
-				log = "[GetDateText]: [ROOT.GetName] had [?ROOT.casualties] from war and [?ROOT.casualtiesFromEvents] from events"
+				log = "[GetDateText]: [ROOT.GetName] had [?ROOT.casualties] casualties from war and [?ROOT.casualtiesFromEvents] casualties from events"
 			}
 			
 			if = {
@@ -99,9 +111,14 @@ on_actions = {
 				limit = {
 					NOT = {
 						original_tag = FROM
+						original_tag = ROS
+						original_tag = UPA
+						original_tag = UHR
 					}
 					has_war_with = ROOT
-
+				}
+				add_to_array = {
+					global.allies = This
 				}
 				add_to_variable = {
 					global.deadPolacksFromPastWars = this.casualties
@@ -531,6 +548,29 @@ on_actions = {
 						days = 7
 					}
 				}
+			}
+			if = { #przypadek, gdy tag nie skończył jeszcze innych wojen
+				limit = {
+					FROM = {
+						has_war = yes
+					}
+				}
+				subtract_from_variable = {
+					global.deadPolacksFromPastWars = FROM.casualties
+				}
+				
+			}
+			for_each_scope_loop = {
+				array = global.allies
+				if = {
+					limit = {
+						has_war = yes
+					}
+					subtract_from_variable = {
+						global.deadPolacksFromPastWars = THIS.casualties
+					}
+				}
+				
 			}
 		}
 	}
