@@ -54,19 +54,3 @@ russian.close();
 kolonkish.close();
 kashubian.close();
 notthatprussian.close();
-on_actions = open("on_actions.txt","w",newline='\r\n')
-for tag in ['CAL']:
-    on_actions.write("on_daily_"+tag+" = {\n\teffect = {\n\t\tchange_vp_name_to_latin = yes\n\t}\n}\n");
-for tag in ['BRE','EKS','EKW','KAM','MNI','RAS','WRT','POM','KES','KOS','TEU','GER']:
-    on_actions.write("on_daily_"+tag+" = {\n\teffect = {\n\t\tchange_vp_name_to_german = yes\n\t}\n}\n");
-for tag in ['LEH','LCH','WAN','JAS']:
-    on_actions.write("on_daily_"+tag+" = {\n\teffect = {\n\t\tchange_vp_name_to_lechite = yes\n\t}\n}\n");
-for tag in ['UPA','KOZ','UHR','BEL','ROS']:
-    on_actions.write("on_daily_"+tag+" = {\n\teffect = {\n\t\tchange_vp_name_to_russian = yes\n\t}\n}\n");
-for tag in ['KSZ']:
-    on_actions.write("on_daily_"+tag+" = {\n\teffect = {\n\t\tchange_vp_name_to_kashubian = yes\n\t}\n}\n");
-for tag in ['PRU']:
-    on_actions.write("on_daily_"+tag+" = {\n\teffect = {\n\t\tchange_vp_name_to_notthatprussian = yes\n\t}\n}\n");
-for tag in ['CHO','GLI','FER','RUD','JSW','TRC']:
-    on_actions.write("#on_daily_"+tag+" = {\n#\teffect = {\n#\t\tchange_vp_name_to_silesian = yes\n#\t}\n#}\n");
-on_actions.close();
