@@ -781,18 +781,26 @@ on_actions = {
 			else = {
 				log = "[GetDateText]: There is [?global.chudCount]00[?global.deadPolacks] dead Poles"
 			}
-			set_variable = {global.dpModulo = global.deadPolacks}
-			modulo_variable = {global.dpModulo = 10000}
-			divide_variable = {global.deadPolacks = 10000}
-			round_variable = global.deadPolacks
 			if = {
 				limit = {
 					check_variable = {
-						global.dpModulo > 4999
+						global.chudCount > 0
 					}
 				}
-				subtract_from_variable = {global.deadPolacks = 1}
+				set_variable = {global.dpModulo = global.deadPolacks}
+				modulo_variable = {global.dpModulo = 10000}
+				divide_variable = {global.deadPolacks = 10000}
+				round_variable = global.deadPolacks
+				if = {
+					limit = {
+						check_variable = {
+							global.dpModulo > 4999
+						}
+					}
+					subtract_from_variable = {global.deadPolacks = 1}
+				}
 			}
+			
 		}
 	}
 	on_weekly_ZHP = {
