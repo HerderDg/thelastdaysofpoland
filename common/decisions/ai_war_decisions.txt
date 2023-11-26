@@ -5913,26 +5913,50 @@ ai_war_decisions = {
 		}
 
 		visible = {
-				OR = {
-					original_tag = BOM
-					original_tag = KON
-					original_tag = TAT
-					original_tag = BEL
-					original_tag = SAN
-					original_tag = LMZ
+			OR = {
+				AND = {
+					OR = {
+						original_tag = BOM
+						original_tag = KON
+						original_tag = TAT
+						original_tag = BEL
+						original_tag = SAN
+						original_tag = LMZ
+					}
+					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
+					FROM = { is_neighbor_of = ROOT }
+					FROM = { exists = yes }
+					date > 2027.10.01
+					NOT = {
+						has_war = yes
+						has_country_flag = podlasie_wojna
+					}
 				}
-				ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
-				FROM = { is_neighbor_of = ROOT }
-				FROM = { exists = yes }
-			date > 2027.10.01
-			NOT = {
-				has_war = yes
-				has_country_flag = podlasie_wojna
+				AND = {
+					OR = {
+						original_tag = SDL
+						original_tag = AGR
+						}
+					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
+					FROM = { is_neighbor_of = ROOT }
+					FROM = { exists = yes }	
+					count_triggers = {
+							amount = 7
+							TAT = {exists = no}
+							SAN = {exists = no}
+							LMZ = {exists = no}
+							BEL = {exists = no}
+							BOM = {exists = no}
+							KON = {exists = no}
+							SDL = {exists = no}
+							AGR = {exists = no}
+					}
+					NOT = {
+						has_war = yes
+						has_country_flag = podlasie_wojna
+					}	
+				}
 			}
-			#OR = {
-				#is_ai = no
-				#is_ai = yes
-			#}
 		}
 
 		cost = 1
