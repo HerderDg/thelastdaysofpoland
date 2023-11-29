@@ -54,3 +54,52 @@ ATM_supply_caches = {
 		}
 	}
 }
+
+ATM_emergency_workshops = {
+	ATM_setup_workshop = {
+		visible = {
+			has_war_with = BBW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = "Setup workshops in 5 states"
+				check_variable = {
+					emergency_workshops < 5
+				}
+			}
+		}
+		target_array = ROOT.controlled_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+			}
+		}
+		cost = 10
+		fire_only_once = yes
+		days_remove = 14
+		complete_effect = {
+			add_to_variable = {
+				emergency_workshops = 1
+			}
+		}
+		cancel_trigger = {
+			FROM = {
+				not = {
+					is_controlled_by = ROOT
+				}
+			}
+		}
+		cancel_effect = {
+			subtract_from_variable = {
+				emergency_workshops = 1
+			}
+		}
+		remove_effect = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 1
+			}
+		}
+	}
+}
