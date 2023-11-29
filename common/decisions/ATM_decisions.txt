@@ -103,3 +103,74 @@ ATM_emergency_workshops = {
 		}
 	}
 }
+
+ATM_convoy_raids = {
+	ATM_raid_enemy_depots = {
+		visible = {
+			has_war_with = BBW
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = "Raid is not in progress"
+				not = {
+					has_country_flag = raid_in_progress
+				}
+			}
+		}
+		target_array = BBW.controlled_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = BBW
+			}
+		}
+		cost = 10
+		fire_only_once = yes
+		days_remove = 21
+		complete_effect = {
+			add_to_variable = {
+				set_country_flag = raid_in_progress
+			}
+			add_manpower = -50
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = -25
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = -25
+			}
+		}
+		cancel_trigger = {
+			FROM = {
+				not = {
+					is_controlled_by = BBW
+				}
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = raid_in_progress
+			add_manpower = 25
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 20
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = 5
+			}
+		}
+		remove_effect = {
+			clr_country_flag = raid_in_progress
+			custom_effect_tooltip = "We will sabotage enemy supply depots"
+			hidden_effect = {
+				FROM = {
+					add_dynamic_modifier = {
+						modifier = ATM_whacked_supply
+						days = 90
+					}
+				}
+			}
+		}
+	}
+}
