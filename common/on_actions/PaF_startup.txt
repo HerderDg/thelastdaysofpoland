@@ -2,9 +2,8 @@ on_actions = {
 	on_startup = {
 		effect = {
 			set_variable = {global.deadPolacks = 0}
+			set_variable = {global.deadMilions = 0}
 			set_variable = {global.deadPolacksFromPastWars = 0}
-			set_variable = {global.chudCount = 0} # 1M martwych polaków = 1 chud
-			set_variable = {global.chudsFromPastWars = 0} # 1M martwych polaków = 1 chud
 			every_country = {
 				limit = {
 					OR = {
@@ -675,7 +674,6 @@ on_actions = {
 	on_weekly_SWE = {
 		effect = {
 			set_temp_variable = { global.tempDeadPolacks = 0}
-			set_temp_variable = { global.tempChudCount = 0}
 			every_country = {
 				limit = {
 					NOT = {
@@ -684,9 +682,8 @@ on_actions = {
 						original_tag = UHR
 					}
 				}
-				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualties}
+				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualties_k}
 				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualtiesFromEvents}
-				chuddery = yes
 			}
 			if = {
 				limit = {
@@ -694,63 +691,18 @@ on_actions = {
 				}
 				add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromPastWars }
 			}
-			chuddery = yes
 			add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromDeadNations }
-			chuddery = yes
-			add_to_variable = {global.tempChudCount = global.chudsFromPastWars}
-			log = "[GetDateText]: There is [?global.deadPolacksFromDeadNations] dead Poles from nonexistant warlords"
+			if = {
+				limit = {
+					check_variable = { global.tempDeadPolacks < 1}
+				}
+				set_variable = {global.deadPolacksSmall = global.tempDeadPolacks} 
+				multiply_variable = {global.deadPolacksSmall = 1000}
+			}
 			set_variable = {global.deadPolacks = global.tempDeadPolacks}
-			set_variable = {global.chudCount = global.tempChudCount}
-			
-			if = {
-				limit = {
-					check_variable = {
-						global.chudCount = 0
-					}
-				}
-				log = "[GetDateText]: There is [?global.deadPolacks] dead Poles"
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.deadPolacks
-						value = 100000
-					}
-				}
-				log = "[GetDateText]: There is [?global.chudCount][?global.deadPolacks] dead Poles"
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						var = global.deadPolacks
-						value = 10000
-					}
-				}
-				log = "[GetDateText]: There is [?global.chudCount]0[?global.deadPolacks] dead Poles"
-			}
-			else = {
-				log = "[GetDateText]: There is [?global.chudCount]00[?global.deadPolacks] dead Poles"
-			}
-			if = {
-				limit = {
-					check_variable = {
-						global.chudCount > 0
-					}
-				}
-				set_variable = {global.dpModulo = global.deadPolacks}
-				modulo_variable = {global.dpModulo = 10000}
-				divide_variable = {global.deadPolacks = 10000}
-				round_variable = global.deadPolacks
-				if = {
-					limit = {
-						check_variable = {
-							global.dpModulo > 4999
-						}
-					}
-					subtract_from_variable = {global.deadPolacks = 1}
-				}
-			}
-			
+			set_variable = {global.deadMillions = global.deadPolacks}
+			divide_variable = {global.deadMillions = 1000}
+
 		}
 	}
 	on_weekly_ZHP = {
@@ -1110,7 +1062,7 @@ on_actions = {
 	}
 	on_declare_war = {
 		effect = {
-			log = "[?From.casualties] - [?ROOT.casualties]"
+			log = "[?From.casualties] - [?ROOT.casualties_k]"
 			if = {
 				limit = {
 					FROM = {

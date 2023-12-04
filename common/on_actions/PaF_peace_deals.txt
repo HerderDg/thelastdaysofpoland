@@ -2,7 +2,6 @@ on_actions = {
 	on_capitulation_immediate = {
 		effect = {
 			log = "[GetDateText]: [ROOT.GetName] was just capped by [FROM.GetName]"
-			log = "[GetDateText]: [FROM.GetName] has [?FROM.casualties] casualties"
 			FROM = {
 				if = {
 					limit = {
@@ -13,7 +12,7 @@ on_actions = {
 						}
 					}
 					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties
+						global.deadPolacksFromPastWars = this.casualties_k
 					}
 				}
 			}
@@ -32,11 +31,11 @@ on_actions = {
 						has_variable = global.deadPolacksFromDeadNations
 					}
 					add_to_variable = {
-						global.deadPolacksFromDeadNations = ROOT.casualties
+						global.deadPolacksFromDeadNations = ROOT.casualties_k
 					}
 					else = {
 						set_variable = {
-							global.deadPolacksFromDeadNations = ROOT.casualties
+							global.deadPolacksFromDeadNations = ROOT.casualties_k
 						}
 					}
 					
@@ -44,7 +43,6 @@ on_actions = {
 				add_to_variable = {
 					global.deadPolacksFromDeadNations = ROOT.casualtiesFromEvents
 				}
-				log = "[GetDateText]: [ROOT.GetName] had [?ROOT.casualties] casualties from war and [?ROOT.casualtiesFromEvents] casualties from events"
 			}
 			
 			if = {
@@ -121,7 +119,7 @@ on_actions = {
 					global.allies = This
 				}
 				add_to_variable = {
-					global.deadPolacksFromPastWars = this.casualties
+					global.deadPolacksFromPastWars = this.casualties_k
 				}
 				log = "[GetDateText]: Also ran: [THIS.GetName]"
 			}
@@ -575,7 +573,7 @@ on_actions = {
 					}
 				}
 				subtract_from_variable = {
-					global.deadPolacksFromPastWars = FROM.casualties
+					global.deadPolacksFromPastWars = FROM.casualties_k
 				}
 				
 			}
@@ -586,7 +584,7 @@ on_actions = {
 						has_war = yes
 					}
 					subtract_from_variable = {
-						global.deadPolacksFromPastWars = THIS.casualties
+						global.deadPolacksFromPastWars = THIS.casualties_k
 					}
 				}
 				
