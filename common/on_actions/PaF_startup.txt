@@ -673,6 +673,7 @@ on_actions = {
 	}
 	on_weekly_SWE = {
 		effect = {
+			set_variable = { global.deadPolacksFromLastTick = global.deadPolacks}
 			set_temp_variable = { global.tempDeadPolacks = 0}
 			every_country = {
 				limit = {
@@ -685,12 +686,7 @@ on_actions = {
 				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualties_k}
 				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualtiesFromEvents}
 			}
-			if = {
-				limit = {
-					has_variable = global.deadPolacksFromPastWars
-				}
-				add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromPastWars }
-			}
+			add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromPastWars }
 			add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromDeadNations }
 			if = {
 				limit = {
@@ -702,7 +698,15 @@ on_actions = {
 			set_variable = {global.deadPolacks = global.tempDeadPolacks}
 			set_variable = {global.deadMillions = global.deadPolacks}
 			divide_variable = {global.deadMillions = 1000}
-
+			if = {
+				limit = {
+					check_variable = {
+						global.deadPolacksFromLastTick > global.deadPolacks
+					}
+				}
+				log = "[GetDateText]: WARNING - SOMETHING IS FUKED UP"
+				log = "current wars + [?global.deadPolacksFromDeadNations] + [?global.deadPolacksFromPastWars]  = [?global.deadPolacks]"
+			}
 		}
 	}
 	on_weekly_ZHP = {
