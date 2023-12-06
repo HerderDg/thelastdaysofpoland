@@ -137,29 +137,44 @@ public_buildings_effect = {
 	#liczenie
 
 	set_temp_variable = {
-		num_of_cathedrals = 0
+		num_of_cathedrals_temp = 0
 	}
 	set_temp_variable = {
-		num_of_universities = 0
+		num_of_universities_temp = 0
 	}
 	set_temp_variable = {
-		num_of_hospitals = 0
+		num_of_hospitals_temp = 0
 	}
 	set_temp_variable = {
-		num_of_prisons = 0
+		num_of_prisons_temp = 0
 	}
 	set_temp_variable = {
-		num_of_januszexes = 0
+		num_of_januszexes_temp = 0
 	}
 	every_controlled_state = {
 		limit = {
 			always = yes
 		}
-		add_to_temp_variable = { PREV.num_of_cathedrals = building_level@cathedral }
-		add_to_temp_variable = { PREV.num_of_universities = building_level@university }
-		add_to_temp_variable = { PREV.num_of_hospitals = building_level@hospital }
-		add_to_temp_variable = { PREV.num_of_prisons = building_level@prison }
-		add_to_temp_variable = { PREV.num_of_januszexes = building_level@januszex }
+		add_to_temp_variable = { PREV.num_of_cathedrals_temp = building_level@cathedral }
+		add_to_temp_variable = { PREV.num_of_universities_temp = building_level@university }
+		add_to_temp_variable = { PREV.num_of_hospitals_temp = building_level@hospital }
+		add_to_temp_variable = { PREV.num_of_prisons_temp = building_level@prison }
+		add_to_temp_variable = { PREV.num_of_januszexes_temp = building_level@januszex }
+	}
+	set_variable = {
+		num_of_cathedrals = num_of_cathedrals_temp
+	}
+	set_variable = {
+		num_of_universities = num_of_universities_temp
+	}
+	set_variable = {
+		num_of_hospitals = num_of_hospitals_temp
+	}
+	set_variable = {
+		num_of_prisons = num_of_prisons_temp
+	}
+	set_variable = {
+		num_of_januszexes = num_of_januszexes_temp
 	}
 	#limitowanie
 	if = {
@@ -353,7 +368,7 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_cathedrals
-				value = num_of_cathedrals
+				value = num_of_cathedrals_temp
 				compare = less_than_or_equals
 			}
 		}
@@ -377,7 +392,7 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_universities
-				value = num_of_universities
+				value = num_of_universities_temp
 				compare = less_than_or_equals
 			}
 		}
@@ -401,7 +416,7 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_hospitals
-				value = num_of_hospitals
+				value = num_of_hospitals_temp
 				compare = less_than_or_equals
 			}
 		}
@@ -425,7 +440,7 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_prisons
-				value = num_of_prisons
+				value = num_of_prisons_temp
 				compare = less_than_or_equals
 			}
 		}
@@ -448,7 +463,7 @@ public_buildings_effect = {
 	if = {
 		limit = {
 			check_variable = {
-				max_effective_januszexes = num_of_januszexes
+				max_effective_januszexes = num_of_januszexes_temp
 			}
 		}
 		add_dynamic_modifier = {
