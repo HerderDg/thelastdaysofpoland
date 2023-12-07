@@ -735,3 +735,140 @@ check_workshop_limit = {
 	}
 }
 
+#Ogólnie to jest na nierozjebywanie się poparcia podczas puppetowania, pierwsze dajesz przed puppetowaniem, drugie po
+get_current_government_type = {
+	clear_variable = original_government_type
+	set_variable = { original_government_type = current_party_ideology_group }
+
+	if = {
+		limit = { has_elections = yes }
+		set_country_flag = original_government_type_had_elections
+	}
+
+	clear_array = original_popularities
+	add_to_array = { original_popularities = party_popularity_100@marxism_cranism }
+	add_to_array = { original_popularities = party_popularity_100@squattism }
+	add_to_array = { original_popularities = party_popularity_100@socialdemocrature }
+	add_to_array = { original_popularities = party_popularity_100@euroliberalism }
+	add_to_array = { original_popularities = party_popularity_100@freemarketism }
+	add_to_array = { original_popularities = party_popularity_100@paternal_conservatism }
+	add_to_array = { original_popularities = party_popularity_100@autocracy }
+	add_to_array = { original_popularities = party_popularity_100@corporativism }
+	add_to_array = { original_popularities = party_popularity_100@neonationalism }
+	add_to_array = { original_popularities = party_popularity_100@reactionary }
+
+	set_temp_variable = { sum = 100 }
+	for_each_loop = {
+		array = original_popularities
+		subtract_from_temp_variable = { sum = v }
+	}
+	add_to_array = { original_popularities = sum } #last value (postpol), calculated directly to avoid rounding errors
+
+	if = {
+		limit = { has_autonomy_state = autonomy_colony }
+		set_country_flag = autonomy_colony
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_dominion }
+		set_country_flag = autonomy_dominion
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_integrated_puppet }
+		set_country_flag = autonomy_integrated_puppet
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_collaboration_government }
+		set_country_flag = autonomy_collaboration_government
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_personal_union }
+		set_country_flag = autonomy_personal_union
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_reichskommissariat }
+		set_country_flag = autonomy_reichskommissariat
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_reichsprotectorate }
+		set_country_flag = autonomy_reichsprotectorate
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_satellite }
+		set_country_flag = autonomy_satellite
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_supervised_state }
+		set_country_flag = autonomy_supervised_state
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_wtt_imperial_associate  }
+		set_country_flag = autonomy_wtt_imperial_associate 
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_wtt_imperial_protectorate }
+		set_country_flag = autonomy_wtt_imperial_protectorate
+	}
+	else_if = {
+		limit = { has_autonomy_state = autonomy_wtt_imperial_subject }
+		set_country_flag = autonomy_wtt_imperial_subject
+	}
+	else_if = {
+		limit = { is_subject = yes }
+		set_country_flag = default_puppet
+	}
+}
+
+restore_previous_government_type = {
+	hidden_effect = {
+		if = {
+			limit = { has_variable = original_government_type } #needed to avoid a CTD
+			if = {
+				limit = { has_country_flag = original_government_type_had_elections }
+				clr_country_flag = original_government_type_had_elections
+				set_politics = {
+					ruling_party = var:original_government_type
+					elections_allowed = yes
+				}
+			}
+			else = {
+				set_politics = {
+					ruling_party = var:original_government_type
+					elections_allowed = no
+				}
+			}
+		}
+		clear_variable = original_government_type
+
+		if = {
+			limit = { check_variable = { original_popularities^num > 0 } }
+			set_popularities = {
+				marxism_cranism = original_popularities^0
+				squattism = original_popularities^1
+				socialdemocrature = original_popularities^2
+				euroliberalism = original_popularities^3
+				freemarketism = original_popularities^4
+				paternal_conservatism = original_popularities^5
+				autocracy = original_popularities^6
+				corporativism = original_popularities^7
+				neonationalism = original_popularities^8
+				reactionary = original_popularities^9
+				postpolonism = original_popularities^10
+			}
+			clear_array = original_popularities
+		}
+
+		clr_country_flag = autonomy_colony
+		clr_country_flag = autonomy_dominion
+		clr_country_flag = autonomy_integrated_puppet
+		clr_country_flag = autonomy_collaboration_government
+		clr_country_flag = autonomy_personal_union
+		clr_country_flag = autonomy_reichskommissariat
+		clr_country_flag = autonomy_reichsprotectorate
+		clr_country_flag = autonomy_satellite
+		clr_country_flag = autonomy_supervised_state
+		clr_country_flag = autonomy_wtt_imperial_associate 
+		clr_country_flag = autonomy_wtt_imperial_protectorate
+		clr_country_flag = autonomy_wtt_imperial_subject
+	}
+}
+

@@ -1,0 +1,222 @@
+﻿##########################
+#    GDYŃSKIE EVENTY     #
+#      by Kano901        #
+##########################
+
+add_namespace = gdynia
+
+#Rada Miasta
+country_event = {
+	id = gdynia.1
+	title = gdynia.1.t
+	desc = gdynia.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.1"}
+
+	option = { #
+		name = gdynia.1.a
+		set_politics = {
+			ruling_party = autocracy
+		}
+		set_party_name = {
+			ideology = squattism
+			name = GDY_squattism_maciejewska_party
+			long_name = GDY_squattism_maciejewska_party_long
+		}
+		drop_cosmetic_tag = GDY_Anarchia
+		set_popularities = {
+			marxism_cranism	= 0
+			squattism = 0
+			socialdemocrature = 20
+			euroliberalism = 30
+			freemarketism = 5
+			paternal_conservatism = 15
+			autocracy = 5
+			corporativism = 0
+			neonationalism = 15
+			reactionary = 10
+			postpolonism = 0
+		}
+		every_country = {
+			limit = { NOT = { is_ai = yes } }
+			news_event = { id = gdynia.5 }
+		}	
+		country_event = {
+			id = gdynia.2
+			days = 20
+		}
+	}
+}
+
+#Maciejewska
+country_event = {
+	id = gdynia.2
+	title = gdynia.2.t
+	desc = gdynia.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.2"}
+
+	option = { #Lojalna do Biedronia
+		name = gdynia.2.a
+		set_country_flag = GDY_maciejewska_lojalna_biedroniowi
+		country_event = {
+			id = gdynia.2
+			days = 30
+		}
+	}
+
+	option = { #Lojalna do Owsiaka
+		name = gdynia.2.b
+		set_country_flag = GDY_maciejewska_lojalna_owsiakowi
+		promote_character = {
+			character = GDY_beata_maciejewska
+			ideology = squattism
+		}
+		set_temp_variable = { maciejewska_popularity = GDY.party_popularity100@socialdemocrature }
+		set_political_party = {
+			ideology = socialdemocrature
+			popularity = 0
+		}
+		set_political_party = {
+			ideology = squattism
+			popularity = maciejewska_popularity
+		}
+		country_event = {
+			id = gdynia.2
+			days = 30
+		}
+	}
+}
+
+#Wybory
+country_event = {
+	id = gdynia.3
+	title = gdynia.3.t
+	desc = gdynia.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.3"}
+
+	option = { #Maciejewska
+		name = gdynia.3.a
+		if = {
+			limit = { has_country_flag = GDY_maciejewska_lojalna_owsiakowi }
+			set_politics = {
+				ruling_party = squattism
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.2
+			}
+			OWS = {
+				country_event = {
+					id = gdynia.4
+					days = 5
+				}
+			}
+		}
+		else = {
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.2
+			}
+			GAY = {
+				country_event = {
+					id = gdynia.4
+					days = 5
+				}
+			}
+		}
+	}
+
+	option = { #Szczurek
+		name = gdynia.3.b
+		set_politics = {
+			ruling_party = euroliberalism
+		}
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.2
+		}
+		GDA = {
+			country_event = {
+				id = gdynia.4
+				days = 5
+			}
+		}
+	}
+
+	option = { #Krzywkowski
+		name = gdynia.3.c
+		set_politics = {
+			ruling_party = freemarketism
+		}
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.2
+		}
+		HEL = {
+			country_event = {
+				id = gdynia.4
+				days = 5
+			}
+		}
+	}
+}
+
+#Gdynia dołącza do frakcji uwu
+country_event = {
+	id = gdynia.4
+	title = gdynia.4.t
+	desc = gdynia.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.4"}
+
+	option = { #yay
+		name = gdynia.4.a
+		GDY = {
+			get_current_government_type = yes
+		}
+		puppet = GDY
+		set_autonomy = {
+			target = SOP
+			autonomy_state = autonomy_satellite
+			end_wars = no
+			end_civil_wars = no
+		}
+		GDY = {
+			restore_previous_government_type = yes
+		}
+	}
+}
+
+news_event = {
+	id = gdynia.5
+	title = gdynia.5.t
+	desc = gdynia.5.desc
+	picture = GFX_news_event_arka_exodus
+	
+	major = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.5" }
+
+	option = {
+		name = gdynia.5.a
+	}
+}
