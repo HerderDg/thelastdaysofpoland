@@ -1473,7 +1473,10 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = {
+				id = atom_plant.2
+			}
 		}
 	}
 	
@@ -1496,7 +1499,24 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			custom_effect_tooltip = "We will contact KHNP"
+			hidden_effect = {
+				random_list = {
+					1 = {
+						country_event = {
+							id = atom_plant.3003 #korea się zgadza
+							days = 7
+						}
+					}
+					1 = {
+						country_event = {
+							id = atom_plant.4003 #korea odmawia
+							days = 7
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -1519,7 +1539,25 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			custom_effect_tooltip = "We will contact NuScale"
+			hidden_effect = {
+				random_list = {
+					1 = {
+						country_event = {
+							id = atom_plant.5003 #NuScale się zgadza
+							days = 7
+						}
+					}
+					1 = {
+						country_event = {
+							id = atom_plant.6003 #NuScale odmawia
+							days = 7
+						}
+					}
+				}
+			}
+			
 		}
 	}
 	
@@ -1542,7 +1580,24 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			custom_effect_tooltip = "We will contact Hitachi"
+			hidden_effect = {
+				random_list = {
+					1 = {
+						country_event = {
+							id = atom_plant.1003 #hitachi się zgadza
+							days = 7
+						}
+					}
+					1 = {
+						country_event = {
+							id = atom_plant.2003 #hitachi odmawia
+							days = 7
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -1552,10 +1607,13 @@ focus_tree = {
 		relative_position_id = ATM_japanese_hitachi
 		prerequisite = { focus = ATM_japanese_hitachi }		
 		available = {
-		
+			has_country_flag = ATM_Hitachi_contractor
 		}
 		
 		bypass = {
+			NOT = {
+				country_exists = ORL
+			}
 		}
 		
 		x = -1
@@ -1573,10 +1631,13 @@ focus_tree = {
 		relative_position_id = ATM_american_nuscale
 		prerequisite = { focus = ATM_american_nuscale }		
 		available = {
-		
+			has_country_flag = ATM_nuscale_contractor
 		}
 		
 		bypass = {
+			NOT = {
+				country_exists = KGH
+			}
 		}
 		
 		x = 1
@@ -1597,7 +1658,7 @@ focus_tree = {
 						 focus = ATM_japanese_hitachi 
 						 }		
 		available = {
-		
+			has_country_flag = ATM_chosen_contractor
 		}
 		
 		bypass = {
@@ -1770,7 +1831,11 @@ focus_tree = {
 		prerequisite = { focus = ATM_prepare_for_future }
 		mutually_exclusive = { focus = ATM_revive_smr_project }
 		available = {
-			has_country_flag = ATM_chosen_retrofit
+			OR = {
+				has_country_flag = ATM_chosen_retrofit
+				has_country_flag = ATM_SMR_negotiations_failure
+			}
+			
 		}
 		
 		bypass = {

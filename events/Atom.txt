@@ -813,3 +813,300 @@ country_event = {
 		set_country_flag = ATM_chosen_retrofit
 	}
 }
+
+country_event = {
+	id = atom_plant.2
+	title = atom_plant.2.t
+	desc = atom_plant.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_plant.2" }
+
+	option = {
+		name = atom_plant.2.a
+	}
+}
+
+country_event = {
+	id = atom_plant.1003 #gm-hitachi się zgadza
+	title = atom_plant.1003.t
+	desc = atom_plant.1003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_plant.1003" }
+
+	option = {
+		name = atom_plant.1003.a
+		set_country_flag = ATM_chosen_contractor
+		set_country_flag = ATM_Hitachi_contractor
+	}
+}
+
+country_event = {
+	id = atom_plant.2003 #gm-hitachi odmawia
+	title = atom_plant.2003.t
+	desc = atom_plant.2003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = ATM_Hitachi_refused
+		log = "[GetDateText]: [ROOT.GetName] fires atom_plant.2003"
+	}
+
+	option = { #idziemy do korei
+		name = atom_plant.2003.a
+		trigger = {
+			NOT = {
+				has_country_flag = ATM_khnp_refused
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = atom_plant.3003 #korea się zgadza
+						days = 7
+					}
+				}
+				1 = {
+					country_event = {
+						id = atom_plant.4003 #korea odmawia
+						days = 7
+					}
+				}
+			}
+		}
+	}
+
+	option = { #idziemy do nuscale
+		name = atom_plant.2003.b
+		trigger = {
+			NOT = {
+				has_country_flag = ATM_nuscale_refused
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = atom_plant.5003 #nuscale się zgadza
+						days = 7
+					}
+				}
+				1 = {
+					country_event = {
+						id = atom_plant.6003 #nuscale odmawia
+						days = 7
+					}
+				}
+			}
+		}
+	}
+
+	option = { #musimy sobie sami radzić
+		name = atom_plant.2003.c
+		trigger = {
+			has_country_flag = ATM_nuscale_refused
+			has_country_flag = ATM_khnp_refused
+		}
+		uncomplete_national_focus = {
+			focus = ATM_revive_smr_project
+		}
+		clr_country_flag = ATM_chosen_SMRs
+		set_country_flag = ATM_SMR_negotiations_failure
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = {
+	id = atom_plant.3003 #khnp się zgadza
+	title = atom_plant.3003.t
+	desc = atom_plant.3003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_plant.3003" }
+
+	option = {
+		name = atom_plant.3003.a
+		set_country_flag = ATM_chosen_contractor
+	}
+}
+
+country_event = {
+	id = atom_plant.4003 #khnp odmawia
+	title = atom_plant.4003.t
+	desc = atom_plant.4003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = ATM_khnp_refused
+		log = "[GetDateText]: [ROOT.GetName] fires atom_plant.4003"
+	}
+
+	option = { #idziemy do hitachi
+		name = atom_plant.4003.a
+		trigger = {
+			NOT = {
+				has_country_flag = ATM_hitachi_refused
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = atom_plant.1003 #hitachi się zgadza
+						days = 7
+					}
+				}
+				1 = {
+					country_event = {
+						id = atom_plant.2003 #hitachi odmawia
+						days = 7
+					}
+				}
+			}
+		}
+	}
+
+	option = { #idziemy do nuscale
+		name = atom_plant.4003.b
+		trigger = {
+			NOT = {
+				has_country_flag = ATM_nuscale_refused
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = atom_plant.5003 #nuscale się zgadza
+						days = 7
+					}
+				}
+				1 = {
+					country_event = {
+						id = atom_plant.6003 #nuscale odmawia
+						days = 7
+					}
+				}
+			}
+		}
+	}
+
+	option = { #musimy sobie sami radzić
+		name = atom_plant.4003.c
+		trigger = {
+			has_country_flag = ATM_hitachi_refused
+			has_country_flag = ATM_nuscale_refused
+		}
+		uncomplete_national_focus = {
+			focus = ATM_revive_smr_project
+		}
+		set_country_flag = ATM_SMR_negotiations_failure
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = {
+	id = atom_plant.5003 #nuscale się zgadza
+	title = atom_plant.5003.t
+	desc = atom_plant.5003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_plant.5003" }
+
+	option = {
+		name = atom_plant.5003.a
+		set_country_flag = ATM_chosen_contractor
+		set_country_flag = ATM_nuscale_contractor
+	}
+}
+
+country_event = {
+	id = atom_plant.6003 #nuscale odmawia
+	title = atom_plant.6003.t
+	desc = atom_plant.6003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = ATM_nuscale_refused
+		log = "[GetDateText]: [ROOT.GetName] fires atom_plant.6003"
+	}
+
+	option = { #idziemy do hitachi
+		name = atom_plant.6003.a
+		trigger = {
+			NOT = {
+				has_country_flag = ATM_hitachi_refused
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = atom_plant.1003 #hitachi się zgadza
+						days = 7
+					}
+				}
+				1 = {
+					country_event = {
+						id = atom_plant.2003 #hitachi odmawia
+						days = 7
+					}
+				}
+			}
+		}
+	}
+
+	option = { #idziemy do khnp
+		name = atom_plant.6003.b
+		trigger = {
+			NOT = {
+				has_country_flag = ATM_khnp_refused
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = atom_plant.3003 #khnp się zgadza
+						days = 7
+					}
+				}
+				1 = {
+					country_event = {
+						id = atom_plant.4003 #khnp odmawia
+						days = 7
+					}
+				}
+			}
+		}
+	}
+
+	option = { #musimy sobie sami radzić
+		name = atom_plant.6003.c
+		trigger = {
+			has_country_flag = ATM_hitachi_refused
+			has_country_flag = ATM_khnp_refused
+		}
+		uncomplete_national_focus = {
+			focus = ATM_revive_smr_project
+		}
+		set_country_flag = ATM_SMR_negotiations_failure
+		mark_focus_tree_layout_dirty = yes
+	}
+}
