@@ -174,3 +174,33 @@ ATM_convoy_raids = {
 		}
 	}
 }
+
+ATM_nuclear_plant = {
+	ATM_sudety_extraction = {
+		days_mission_timeout = 7 #tymczasowo
+		timeout_effect = {
+			if = {
+				limit = {
+					not = {
+						has_variable = ATM_sudety_reps 
+					}
+				}
+				set_variable = {ATM_sudety_reps = 1}
+			}
+			else = {
+				set_variable = {ATM_additional_uranium_sudety = 10}
+				multiply_variable = {ATM_additional_uranium_sudety  = ATM_sudety_reps }
+				subtract_from_variable = { ATM_uranium_sudety = ATM_additional_uranium_sudety }
+				add_to_variable = { ATM_usable_uranium = ATM_additional_uranium_sudety }
+				if = {
+					limit = {
+						check_variable = { ATM_sudety_reps < 5 }
+					}
+					add_to_variable = {ATM_sudety_reps = 1}
+				}
+			}
+			subtract_from_variable = { ATM_uranium_sudety = 50 }
+			add_to_variable = { ATM_usable_uranium = 50 }
+		}
+	}
+}
