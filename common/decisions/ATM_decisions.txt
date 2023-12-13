@@ -181,8 +181,11 @@ ATM_nuclear_plant = {
 			}
 		}
 		available = {
-			any_owned_state = {
-				power_plant > 0
+			custom_trigger_tooltip = {
+				tooltip = "Did not have energy deficit"
+				check_variable = {
+					current_balance > 0
+				}
 			}
 		}
 		cost = 20
@@ -206,7 +209,7 @@ ATM_nuclear_plant = {
 		activation = {
 			always = no
 		}
-		days_mission_timeout = 7 #tymczasowo
+		days_mission_timeout = 365
 		timeout_effect = {
 			if = {
 				limit = {
@@ -230,6 +233,20 @@ ATM_nuclear_plant = {
 			}
 			subtract_from_variable = { ATM_uranium_sudety = 50 }
 			add_to_variable = { ATM_usable_uranium = 50 }
+			if = {
+				limit = {
+					check_variable = {
+						var = ATM_uranium_sudety
+						value = 0
+						compare = less_than_or_equals
+					}
+				}
+				clr_country_flag = ATM_sudety_deposits_avaiable
+			}
+			else = {
+				activate_mission = ATM_sudety_extraction
+			}
+			ATM_refresh_deposit_loc = YES
 		}
 	}
 }
