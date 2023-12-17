@@ -421,6 +421,11 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
+			add_building_construction = {
+				type = university
+				level = 1
+				instant_build = yes
+			}
 			add_tech_bonus = {
 				bonus = 0.5
 				uses = 3
@@ -441,7 +446,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 1
+		x = 0
 		y = 4
 		
 		cost = 1
@@ -524,7 +529,7 @@ focus_tree = {
 		completion_reward = {
 			603 = {
 				add_building_construction = {
-					type = infrastructure
+					type = wind_farm
 					level = 1
 					instant_build = yes
 				}
@@ -552,7 +557,7 @@ focus_tree = {
 			603 = {
 				add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -598,7 +603,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -1
+		x = 0
 		y = 4
 		
 		cost = 1
@@ -617,7 +622,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 22
+		x = 19
 		y = 0
 		
 		cost = 1
@@ -707,7 +712,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+
 		}
 	}
 	focus = {
@@ -820,7 +825,13 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			add_stability = 25
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				load_focus_tree = Nysa_AI
+			}
 		}
 	}
 	focus = {
@@ -984,4 +995,447 @@ focus_tree = {
 			}
 		}
 	}
+	}
+	focus_tree = {
+		id = Nysa_AI
+		
+		country = {
+			factor = 0
+			
+			modifier = {
+				add = 10
+				tag = NYS
+			}
+		}
+		focus = {
+			id = NYS_AI_what_now
+			icon = NYS_AI_what_now
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			
+			x = 12
+			y = 2
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+
+			}
+		}
+		focus = {
+			id = NYS_AI_we_cannot_stand_alone
+			icon = NYS_AI_we_cannot_stand_alone
+			prerequisite = {
+				focus = NYS_AI_what_now
+			}
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_what_now
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_searching_for_partners
+			icon = NYS_AI_earching_for_partners
+			prerequisite = {
+				focus = NYS_AI_we_cannot_stand_alone
+			}
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_we_cannot_stand_alone
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_germans
+			icon = NYS_AI_germans
+			prerequisite = {
+				focus = NYS_AI_searching_for_partners
+			}
+			available = {
+				MNI = {
+					controls_province = 380
+				}
+			}
+			mutually_exclusive = {
+				focus = NYS_AI_kukiz
+				focus = NYS_AI_our_own_way
+			}
+			bypass = {
+			}
+			relative_position_id = NYS_AI_searching_for_partners
+			x = -4
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_kukiz
+			icon = NYS_AI_kukiz
+			prerequisite = {
+				focus = NYS_AI_searching_for_partners
+			}
+			mutually_exclusive = {
+				focus = NYS_AI_germans
+			}
+			available = {
+				OPO = {
+					controls_province = 638
+				}
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_searching_for_partners
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_submit_for_their_demands
+			icon = NYS_AI_submit_for_their_demands
+			prerequisite = {
+				focus = NYS_AI_germans
+				focus = NYS_AI_kukiz
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_germans
+			x = 2
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_faithful_subject
+			icon = NYS_AI_faithful_subject
+			prerequisite = {
+				focus = NYS_AI_submit_for_their_demands
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_submit_for_their_demands
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_assistance_to_our_overlord
+			icon = NYS_AI_assistance_to_our_overlord
+			prerequisite = {
+				focus = NYS_AI_faithful_subject
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_faithful_subject
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_peaceful_integration
+			icon = NYS_AI_peaceful_integration
+			prerequisite = {
+				focus = NYS_AI_assistance_to_our_overlord
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_assistance_to_our_overlord
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_our_own_way
+			icon = NYS_AI_our_own_way
+			prerequisite = {
+				focus = NYS_AI_searching_for_partners
+			}
+			mutually_exclusive = {
+				focus = NYS_AI_kukiz
+				focus = NYS_AI_germans
+			}
+			available = {
+				LCH = {
+					controls_province = 1292
+				}
+				WAN = {
+					controls_province = 2316
+				}
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_searching_for_partners
+			x = 4
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_our_little_duchy
+			icon = NYS_AI_our_little_duchy
+			prerequisite = {
+				focus = NYS_AI_our_own_way
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_our_own_way
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_internal_quarrel
+			icon = NYS_AI_internal_quarrel
+			prerequisite = {
+				focus = NYS_AI_our_little_duchy
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_our_little_duchy
+			x = -1
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_political_stabilization
+			icon = NYS_AI_political_stabilization
+			prerequisite = {
+				focus = NYS_AI_internal_quarrel
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_internal_quarrel
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_prepare_for_war
+			icon = NYS_AI_prepare_for_war
+			prerequisite = {
+				focus = NYS_AI_our_little_duchy
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_our_little_duchy
+			x = 1
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_equipment_production
+			icon = NYS_AI_equipment_production
+			prerequisite = {
+				focus = NYS_AI_prepare_for_war
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_prepare_for_war
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_equipment_production
+			icon = NYS_AI_equipment_production
+			prerequisite = {
+				focus = NYS_AI_prepare_for_war
+			}
+			
+			available = {
+			
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_prepare_for_war
+			x = 0
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_our_last_stand
+			icon = NYS_AI_our_last_stand
+			prerequisite = {
+				focus = NYS_AI_equipment_production
+				focus = NYS_AI_political_stabilization
+			}
+			
+			available = {
+				NYS = {
+					has_war = yes
+				}
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_equipment_production
+			x = -1
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
+		focus = {
+			id = NYS_AI_theres_nothing_we_can_do
+			icon = NYS_AI_theres_nothing_we_can_do
+			prerequisite = {
+				focus = NYS_AI_peaceful_integration
+				focus = NYS_AI_our_last_stand
+			}
+			
+			available = {
+				NYS = {
+					has_war = yes
+				}
+			}
+			
+			bypass = {
+			}
+			relative_position_id = NYS_AI_peaceful_integration
+			x = 3
+			y = 1
+			
+			cost = 1
+			search_filters = { }
+			completion_reward = {
+				
+			}
+		}
 	}
