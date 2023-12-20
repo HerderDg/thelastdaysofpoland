@@ -547,4 +547,112 @@ ATM_nuclear_plant = {
 			}
 		}
 	}
+
+	ATM_building_belchatow_atom = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		days_mission_timeout = 1825
+		timeout_effect = {	
+			hidden_effect = {
+				set_country_flag = ATM_atomic_belchatow_built
+				subtract_from_variable = {
+					ATM_usable_uranium = 548
+				}
+				activate_mission = ATM_atomic_power_cycle
+				set_variable = {
+					power_from_atom = 40000
+				}
+			}
+		}
+	}
+
+	ATM_building_smrs = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		days_mission_timeout = 550
+		timeout_effect = {
+			if = {
+				limit = {
+					not = {
+						has_variable = ATM_SMR_wave
+					}
+				}
+				set_variable = {
+					ATM_SMR_wave = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					ATM_SMR_wave = 1
+				}
+			}
+			set_variable = {
+				ATM_uranium_for_smrs = 137
+			}
+			set_variable = {
+				power_from_atom = 10000
+			}
+			multiply_variable = {
+				ATM_uranium_for_smrs = ATM_SMR_wave
+			}
+			multiply_variable = {
+				power_from_atom = ATM_SMR_wave
+			}
+			hidden_effect = {
+				set_country_flag = ATM_atomic_belchatow_built
+				subtract_from_variable = {
+					ATM_usable_uranium = 137
+				}
+				activate_mission = ATM_atomic_power_cycle
+				if = {
+					limit = {
+						check_variable = {
+							ATM_SMR_wave < 4
+						}
+					}
+					activate_mission = ATM_building_smrs
+				}
+			}
+		}
+	}
+
+	ATM_atomic_power_cycle = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		days_mission_timeout = 365
+		timeout_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = ATM_atomic_belchatow_built
+					}
+					subtract_from_variable = {
+						ATM_usable_uranium = 548
+					}
+					activate_mission = ATM_atomic_power_cycle
+				}
+				else = {
+					set_variable = {
+						ATM_uranium_for_smrs = 137
+					}
+					multiply_variable = {
+						ATM_uranium_for_smrs = ATM_SMR_wave
+					}
+					activate_mission = ATM_atomic_power_cycle
+				}
+			}
+		}
+	}
 }
