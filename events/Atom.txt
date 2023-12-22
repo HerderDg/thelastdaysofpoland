@@ -836,18 +836,119 @@ country_event = {
 }
 
 country_event = {
-	id = atom_supreg.666 #What Berlin
+	id = atom_supreg.666 
 	title = atom_supreg.666.t
 	desc = atom_supreg.666.desc
 
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_supreg.666" }
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires atom_supreg.666"
+		hidden_effect = {
+			random_owned_state = {
+				limit = {
+					any_neighbor_state = {
+						NOT = {
+							is_owned_by = ATM
+						}
+					}
+				}
+				transfer_state_to = UNO
+				add_core_of = UNO
+				UNO = {
+					set_capital = {
+						state = PREV
+					}
+					inherit_technology = GER
+					set_cosmetic_tag = EKW_BBW
+					every_possible_country = {
+						limit = {
+							has_character = EKW_greta
+						}
+						random_character = {
+							limit = {
+								is_character = EKW_greta
+							}
+							set_nationality = {
+								target_country = UNO
+							}
+						}
+					}
+					add_country_leader_role = {
+						character = EKW_greta
+						promote_leader = yes
+						country_leader = {
+							ideology = autocracy_subtype
+						}
+					}
+					set_popularities = {
+						autocracy = 100
+					}
+					set_politics = {
+						ruling_party = autocracy
+						long_name = "United Nations Operation HQ"
+						name = "United Nations Operation HQ"
+					}
+					load_oob = "UN_PEACEKEEPERS"
+					
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"1st UN Peacekeeping Division (swedish)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 1 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"2nd UN Peacekeeping Division (japanese)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"3rd UN Peacekeeping Division (canadian)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"4rd UN Peacekeeping Division (egyptian)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"5th UN Peacekeeping Division (newzealander)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"6th UN Peacekeeping Division (iraqi)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"7th UN Peacekeeping Division (brazilian)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"8th UN Peacekeeping Division (argentinian)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"9th UN Peacekeeping Division (serbian)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+					create_unit = {
+						division = "name = \"10th UN Peacekeeping Division (albanian)\" division_template = \"UN Peacekeeping Forces\" start_experience_factor = 0.7 start_equipment_factor = 1"
+						owner = UNO
+					}
+				}
+				
+			}
+		}
+		
+	}
 
 	option = {
 		name = atom_supreg.666.a
-		# tutej spawnujemy onz
+		UNO = {
+			declare_war_on = {
+				target = ATM
+				type = annex_everything
+			}
+		}
 	}
 }
 
