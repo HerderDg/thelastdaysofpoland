@@ -1569,9 +1569,27 @@ country_event = {
 		name = atom_plant.14.a
 		if = {
 			limit = {
-				has_completed_focus = ATM_our_own_grand_project
+				AND = {
+					has_completed_focus = ATM_our_own_grand_project
+					check_variable = { belchatow_outcome > 3 }
+				}
 			}
 			activate_mission = ATM_building_belchatow_atom
+		}
+		else_if = {
+			limit = {
+				AND = {
+					has_completed_focus = ATM_our_own_grand_project
+					check_variable = { belchatow_outcome < 4 }
+				}
+			}
+			activate_mission = ATM_building_belchatow_atom
+			hidden_effect = {
+				country_event = {
+					id = atom_plant.15 #jebło
+					days = 14
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -1579,5 +1597,22 @@ country_event = {
 			}
 			activate_mission = ATM_building_smrs
 		}
+	}
+}
+
+country_event = {
+	id = atom_plant.15 #no i jebło
+	title = atom_plant.15.t
+	desc = atom_plant.15.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_plant.15" }
+
+	option = {
+		name = atom_plant.15.a 
+		add_ideas = ATM_belchatow_failed
+		remove_mission = ATM_building_belchatow_atom
 	}
 }
