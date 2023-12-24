@@ -11906,6 +11906,8 @@ ai_war_decisions = {
 		}	
 	}
 	
+
+
 	RYB_MPK_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -12087,6 +12089,77 @@ ai_war_decisions = {
 		}
 	}
 	
+	raid_on_wroc_harbor = {
+		allowed = {
+			is_lower_silesia = yes
+		}
+		visible = {
+			original_tag = CZE
+			NOT = {
+				country_exists = ZUL
+			}
+			date > 2028.05.16
+		}
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			declare_war_on = {
+				target = WRO
+				type = annex_everything
+			}
+		}
+	}
+
+	the_sutryk_proposition = {
+		allowed = {
+			is_lower_silesia = yes
+		}
+		visible = {
+			original_tag = WRO
+			NOT = {
+				country_exists = CZE
+			}
+			country_exists = ZUL
+			date > 2028.05.16
+		}
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			random_list = {
+				10 = {
+					annex_country = {
+						target = ZUL
+					}
+				}
+				90 = {
+					ZUL = {
+						declare_war_on = {
+							target = WRO
+						}
+					}
+				}
+			}
+		}
+	}
+
 	wroclaw_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -12106,7 +12179,7 @@ ai_war_decisions = {
 			date > 2028.01.01
 		}
 		count_triggers = {
-				amount = 3 #workaround problemu psiego pola
+				amount = 4
 					WRO = { exists = no }
 					RYB = { exists = no }
 					CZE = { exists = no }
