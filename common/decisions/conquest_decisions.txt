@@ -284,33 +284,68 @@ regional_conquest_category = {
 	#		}
 	#	}
 	#}
-	#final_solution_of_zigger_question = {
-	#	visible = {
-	#		is_warmia_and_masuria = yes
-	#		country_exists = ROS
-	#	}
-	#	available = {
-	#		date > "2032.06.01"
-	#		has_war = no
-	#	}
-	#	cost = 100
-	#	days_remove = 14
-	#	ai_will_do = {
-	#		base = 9001
-	#	}
-	#	fire_only_once = yes
-	#	complete_effect = {
-	#		set_country_flag = getting_ready_to_war
-	#		log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
-	#	}
-	#	remove_effect = {
-	#		declare_war_on = {
-	#			target = ROS
-	#			type = annex_everything
-	#		}
-	#		clr_country_flag = getting_ready_to_war
-	#	}
-	#}
+	final_solution_of_zigger_question = {
+		visible = {
+			is_warmia_and_masuria = yes
+			country_exists = ROS
+		}
+		available = {
+			date > "2032.06.01"
+			has_war = no
+		}
+		cost = 100
+		days_remove = 14
+		ai_will_do = {
+			base = 9001
+		}
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = getting_ready_to_war
+			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = ROS
+				type = annex_everything
+			}
+			clr_country_flag = getting_ready_to_war
+		}
+	}
+	avenge_warmians = {
+		visible = {
+			is_poland_unifier = yes
+			is_neighbor_of = ROS
+			country_exists = ROS
+			not = {
+				country_exists = PZW
+				country_exists = PRU
+				country_exists = TEU
+				country_exists = WRM
+				country_exists = MAL
+			}
+		}
+		available = {
+			date > "2036.06.01"
+			has_war = no
+		}
+		cost = 100
+		days_remove = 14
+		ai_will_do = {
+			base = 9001
+		}
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = getting_ready_to_war
+			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = ROS
+				type = annex_everything
+			}
+			clr_country_flag = getting_ready_to_war
+		}
+	}
 	#
 	#sweep_westpom_warlords = {
 	#	visible = {
@@ -1076,6 +1111,7 @@ regional_conquest_category = {
 				has_country_flag = unified_regional
 				has_country_flag = unified_supregional
 			}
+			has_global_flag = ffa_unification
 		}
 		available = {
 			if = {
@@ -1136,6 +1172,172 @@ regional_conquest_category = {
 
 	}
 	
+	declare_war_on_neighbour_decision_story = {
+		visible = {
+			OR = {
+				has_country_flag = unified_voivodeship
+				has_country_flag = unified_regional
+				has_country_flag = unified_supregional
+			}
+			has_global_flag = story_unification
+		}
+		available = {
+			if = {
+				limit = { 
+					has_country_flag = unified_voivodeship 
+				}
+				date > "2032.06.01"
+			}
+			else_if = {
+				limit = { has_country_flag = unified_regional }
+				date > "2034.06.01"
+			}
+			else_if = {
+				limit = { has_country_flag = unified_supregional }
+				date > "2036.06.01"
+			}
+			has_war = no
+			custom_trigger_tooltip = {
+				NOT = {
+					has_country_flag = getting_ready_to_war
+				}
+				tooltip = "Is not getting ready to conquer other warlord"
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				or = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+				}
+				
+				NOT = {
+					has_war = yes
+				}
+			}
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1000
+			modifier = {
+				factor = 0
+				has_country_flag = unified_voivodeship
+				OR = {
+					and = {
+						is_lodz_jura_unifier = yes
+						FROM = {
+							is_lodz_jura_unifier = no
+						}
+					}
+					and = {
+						is_old_polish_basin_unifier = yes
+						FROM = {
+							is_old_polish_basin_unifier = no
+						}
+					}
+					and = {
+						is_lesser_poland_region_unifier = yes
+						FROM = {
+							is_lesser_poland_region_unifier = no
+						}
+					}
+					and = {
+						is_red_ruthenia_unifier = yes
+						FROM = {
+							is_red_ruthenia_unifier = no
+						}
+					}
+					and = {
+						is_podlasie_unifier = yes
+						FROM = {
+							is_podlasie_unifier = no
+						}
+					}
+					and = {
+						is_greater_poland_unifier  = yes
+						FROM = {
+							is_greater_poland_unifier = no
+						}
+					}
+					and = {
+						is_greater_poland_unifier = yes
+						FROM = {
+							is_greater_poland_unifier = no
+						}
+					}
+					and = {
+						is_upper_silesian_unifier  = yes
+						FROM = {
+							is_upper_silesian_unifier = no
+						}
+					}
+					is_capital_district = yes
+					is_warmia_and_masuria = yes
+					is_podlasie_unifier = yes
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = unified_regional
+				or = {
+					and = {
+						is_northwest_unifier = yes
+						FROM = {
+							is_northwest_unifier = no
+						}
+					}
+					and = {
+						is_northeast_unifier  = yes
+						FROM = {
+							is_northeast_unifier = no
+						}
+					}
+					and = {
+						is_capital_region_unifier = yes
+						FROM = {
+							is_capital_region_unifier = no
+						}
+					}
+					and = {
+						is_galicia_unifier = yes
+						FROM = {
+							is_galicia_unifier = no
+						}
+					}
+					and = {
+						is_silesia_unifier = yes
+						FROM = {
+							is_silesia_unifier = no
+						}
+					}
+					and = {
+						is_central_poland_unifier = yes
+						FROM = {
+							is_central_poland_unifier = no
+						}
+					}
+				}
+			}
+		}
+		cost = 100
+		days_remove = 14
+		complete_effect = {
+			set_country_flag = getting_ready_to_war
+			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
+		}
+		remove_effect = {
+			clr_country_flag = getting_ready_to_war
+
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+
+	}
+
 	# declare_yourself_a_region = {
 	# 	visible = {
 	# 		date > "2032.06.01"
@@ -1440,41 +1642,7 @@ regional_conquest_category = {
 #			clr_country_flag = getting_ready_to_war
 #		}
 #	}
-#	avenge_warmians = {
-#		visible = {
-#			is_poland_unifier = yes
-#			is_neighbor_of = ROS
-#			country_exists = ROS
-#			not = {
-#				country_exists = PZW
-#				country_exists = PRU
-#				country_exists = TEU
-#				country_exists = WRM
-#				country_exists = MAL
-#			}
-#		}
-#		available = {
-#			date > "2036.06.01"
-#			has_war = no
-#		}
-#		cost = 100
-#		days_remove = 14
-#		ai_will_do = {
-#			base = 9001
-#		}
-#		fire_only_once = yes
-#		complete_effect = {
-#			set_country_flag = getting_ready_to_war
-#			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
-#		}
-#		remove_effect = {
-#			declare_war_on = {
-#				target = ROS
-#				type = annex_everything
-#			}
-#			clr_country_flag = getting_ready_to_war
-#		}
-#	}
+
 #	# war_for_silesia = {
 #	# 	visible = {
 #	# 		or = {
@@ -1836,51 +2004,52 @@ regional_conquest_category = {
 #}
 #
 final_conquest_category = {
-	#attack_other_superregion = {
-	#	visible = {
-	#		date > "2040.01.01"
-	#		ROOT = {
-	#			has_war = no
-	#		}
-	#	}
-	#	available = {
-	#		not = {
-	#			has_country_flag = getting_ready_to_war
-	#		}
-	#	}
-	#	target_array = root.neighbors
-	#	target_trigger = {
-	#		FROM = {
-	#			has_country_flag = unified_supregional
-	#			not = {
-	#				or = {
-	#					has_country_flag = getting_ready_to_war
-	#				}
-	#			}
-	#		}
-	#	}
-	#	war_with_target_on_complete = yes
-	#	ai_will_do = {
-	#		base = 1000
-	#	}
-	#	cost = 100
-	#	days_remove = 14
-	#	#cancel_if_not_visible = yes
-	#	cancel_effect = {
-	#		clr_country_flag = getting_ready_to_war
-	#	}
-	#	complete_effect = {
-	#		set_country_flag = getting_ready_to_war
-	#		log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
-	#	}
-	#	remove_effect = {
-	#		declare_war_on = {
-	#			target = FROM
-	#			type = annex_everything
-	#		}
-	#		clr_country_flag = getting_ready_to_war
-	#	}
-	#}
+	# attack_other_superregion = {
+	# 	visible = {
+	# 		date > "2040.01.01"
+	# 		ROOT = {
+	# 			has_war = no
+	# 		}
+	# 		has_global_flag = story_unification
+	# 	}
+	# 	available = {
+	# 		not = {
+	# 			has_country_flag = getting_ready_to_war
+	# 		}
+	# 	}
+	# 	target_array = root.neighbors
+	# 	target_trigger = {
+	# 		FROM = {
+	# 			has_country_flag = unified_supregional
+	# 			not = {
+	# 				or = {
+	# 					has_country_flag = getting_ready_to_war
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# 	war_with_target_on_complete = yes
+	# 	ai_will_do = {
+	# 		base = 1000
+	# 	}
+	# 	cost = 100
+	# 	days_remove = 14
+	# 	#cancel_if_not_visible = yes
+	# 	cancel_effect = {
+	# 		clr_country_flag = getting_ready_to_war
+	# 	}
+	# 	complete_effect = {
+	# 		set_country_flag = getting_ready_to_war
+	# 		log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
+	# 	}
+	# 	remove_effect = {
+	# 		declare_war_on = {
+	# 			target = FROM
+	# 			type = annex_everything
+	# 		}
+	# 		clr_country_flag = getting_ready_to_war
+	# 	}
+	# }
 	the_sacred_war = {
 		visible = {
 			or = {
@@ -1891,43 +2060,6 @@ final_conquest_category = {
 		available = {
 			has_war = no
 			has_country_flag = unified_supregional
-			# count_triggers = {
-			# 	amount = 3
-			# 	custom_trigger_tooltip = {
-			# 		tooltip = "Is existing Poland unifier"
-			# 		any_country = {
-			# 			is_poland_unifier = yes
-			# 			exists = yes
-			# 		}
-			# 	}
-			# }
-			# custom_trigger_tooltip = {
-			# 	tooltip = "Every superregion was unified"
-			# 	any_country = {
-			# 		is_northwest_unifier = yes
-			# 		has_country_flag = unified_supregional
-			# 	}
-			# 	any_country = {
-			# 		is_capital_region_unifier = yes
-			# 		has_country_flag = unified_supregional
-			# 	}
-			# 	any_country = {
-			# 		is_silesia_unifier = yes
-			# 		has_country_flag = unified_supregional
-			# 	}
-			# 	any_country = {
-			# 		is_central_poland_unifier = yes
-			# 		has_country_flag = unified_supregional
-			# 	}
-			# 	any_country = {
-			# 		is_galicia_unifier = yes
-			# 		has_country_flag = unified_supregional
-			# 	}
-			# 	any_country = {
-			# 		is_northeast_unifier = yes
-			# 		has_country_flag = unified_supregional
-			# 	}
-			# }
 		}
 		cost = 100
 		fire_only_once = yes
