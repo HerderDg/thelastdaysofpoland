@@ -417,8 +417,37 @@ public_buildings_effect = {
 			}
 		}
 	}
-
+	
 	#wyliczanie modyfikatorów
+	set_variable = { cathedral_effect_pp = num_of_cathedrals_temp }
+	multiply_variable = {
+		cathedral_effect_pp = 0.1
+	}
+	set_variable = { cathedral_effect_stab = num_of_cathedrals_temp }
+	multiply_variable = {
+		cathedral_effect_stab = 0.02
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_of_cathedrals_temp > 0
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = catherdal_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_dynamic_modifier = {
+				modifier = catherdal_mod
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = catherdal_mod
+		}
+	}
+
 	if = {
 		limit = {
 			check_variable = {
@@ -427,12 +456,16 @@ public_buildings_effect = {
 				compare = less_than_or_equals
 			}
 		}
-		set_variable = { cathedral_effect_correction = max_effective_cathedrals }
+		set_variable = { cathedral_effect_correction_pp = max_effective_cathedrals }
 		subtract_from_variable = { 
-			cathedral_effect_correction = num_of_cathedrals_temp
+			cathedral_effect_correction_pp = num_of_cathedrals_temp
+		}
+		set_variable = { cathedral_effect_correction_stab = cathedral_effect_correction_pp }
+		multiply_variable = {
+			cathedral_effect_correction_pp = 0.1
 		}
 		multiply_variable = {
-			cathedral_effect_correction = 0.1
+			cathedral_effect_correction_stab = 0.02
 		}
 		add_dynamic_modifier = {
 			modifier = catherdal_overlimit_mod
@@ -448,6 +481,31 @@ public_buildings_effect = {
 			remove_dynamic_modifier = {
 				modifier = catherdal_overlimit_mod
 			}
+		}
+	}
+
+	set_variable = { university_effect = num_of_universities_temp }
+	multiply_variable = {
+		university_effect = 0.01
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_of_universities_temp > 0
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = university_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_dynamic_modifier = {
+				modifier = university_mod
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = university_mod
 		}
 	}
 	if = {
@@ -479,6 +537,31 @@ public_buildings_effect = {
 			remove_dynamic_modifier = {
 				modifier = university_overlimit_mod
 			}
+		}
+	}
+
+	set_variable = { hospital_effect = num_of_hospitals_temp }
+	multiply_variable = {
+		hospital_effect = 0.005
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_of_hospitals_temp > 0
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = hospital_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_dynamic_modifier = {
+				modifier = university_mod
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = university_mod
 		}
 	}
 	if = {
@@ -537,6 +620,37 @@ public_buildings_effect = {
 			remove_dynamic_modifier = {
 				modifier = prison_overlimit_mod
 			}
+		}
+	}
+
+	set_variable = { januszex_effect_stab = num_of_januszexes_temp }
+	multiply_variable = {
+		januszex_effect_stab = 0.005
+	}
+	set_variable = {
+		januszex_effect_prod = januszex_effect_stab
+	}
+	multiply_temp_variable = {
+		januszex_effect_prod = 0.1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_of_hospitals_temp > 0
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = hospital_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_dynamic_modifier = {
+				modifier = university_mod
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = university_mod
 		}
 	}
 	if = {
