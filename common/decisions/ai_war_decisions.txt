@@ -12039,7 +12039,8 @@ ai_war_decisions = {
 			original_tag = KGH
 			original_tag = CYG
 			}
-				}
+			has_war = no
+		}
 
 		visible = {
 			OR = {
@@ -12048,15 +12049,30 @@ ai_war_decisions = {
 			original_tag = CYG
 			}
 			date > 2029.06.01
-			count_triggers = {
-				amount = 3
-					EKS = { exists = no }
-					CYG = { exists = no }
-					KGH = { exists = no }
-					PZL = { exists = no }
-					WIN = { exists = no }
-					ZAG = { exists = no }
-		}
+			or = {
+				count_triggers = {
+					amount = 3
+						EKS = { exists = no }
+						CYG = { exists = no }
+						KGH = { exists = no }
+						PZL = { exists = no }
+						WIN = { exists = no }
+						ZAG = { exists = no }
+				}
+				and = {
+					KGH = {
+						has_war_with = CYG
+					}
+					count_triggers = {
+						amount = 2
+							EKS = { exists = no }
+							PZL = { exists = no }
+							WIN = { exists = no }
+							ZAG = { exists = no }
+					}
+				}
+			}
+			
 		}
 		cost = 1
 
