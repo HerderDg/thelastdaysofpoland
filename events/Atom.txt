@@ -391,6 +391,24 @@ country_event = {
 	option = {
 		name = atom_reg.12.a
 		add_ideas = ATM_eco_org_idea
+			country_event = {
+				id = atom_reg_a.12
+			}
+	}
+}
+
+country_event = {
+	id = atom_reg_a.12 #Greenpeace Poland
+	title = atom_reg_a.12.t
+	desc = atom_reg_a.12.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires atom_reg_a.12" }
+
+	option = {
+		name = atom_reg_a.12.a
 	}
 }
 
@@ -1068,6 +1086,17 @@ country_event = {
 		name = atom_plant.1003.a
 		set_country_flag = ATM_chosen_contractor
 		set_country_flag = ATM_Hitachi_contractor
+		clr_country_flag = ATM_SMR_negotiations_ongoing
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = ATM_japanese_hitachi
+					}
+				}
+				complete_national_focus = ATM_japanese_hitachi
+			}
+		}
 	}
 }
 
@@ -1081,6 +1110,11 @@ country_event = {
 
 	immediate = {
 		set_country_flag = ATM_Hitachi_refused
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = ATM_japanese_hitachi
+			}
+		}
 		log = "[GetDateText]: [ROOT.GetName] fires atom_plant.2003"
 	}
 
@@ -1144,6 +1178,7 @@ country_event = {
 			focus = ATM_revive_smr_project
 		}
 		clr_country_flag = ATM_chosen_SMRs
+		clr_country_flag = ATM_SMR_negotiations_ongoing
 		set_country_flag = ATM_SMR_negotiations_failure
 		set_variable = { belchatow_outcome = 0 }
 		mark_focus_tree_layout_dirty = yes
@@ -1163,6 +1198,17 @@ country_event = {
 	option = {
 		name = atom_plant.3003.a
 		set_country_flag = ATM_chosen_contractor
+		clr_country_flag = ATM_SMR_negotiations_ongoing
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = ATM_korean_khnp
+					}
+				}
+				complete_national_focus = ATM_korean_khnp
+			}
+		}
 	}
 }
 
@@ -1176,6 +1222,11 @@ country_event = {
 
 	immediate = {
 		set_country_flag = ATM_khnp_refused
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = ATM_korean_khnp
+			}
+		}
 		log = "[GetDateText]: [ROOT.GetName] fires atom_plant.4003"
 	}
 
@@ -1238,6 +1289,8 @@ country_event = {
 		uncomplete_national_focus = {
 			focus = ATM_revive_smr_project
 		}
+		clr_country_flag = ATM_chosen_SMRs
+		clr_country_flag = ATM_SMR_negotiations_ongoing
 		set_country_flag = ATM_SMR_negotiations_failure
 		set_variable = { belchatow_outcome = 0 }
 		mark_focus_tree_layout_dirty = yes
@@ -1256,8 +1309,19 @@ country_event = {
 
 	option = {
 		name = atom_plant.5003.a
+		clr_country_flag = ATM_SMR_negotiations_ongoing
 		set_country_flag = ATM_chosen_contractor
 		set_country_flag = ATM_nuscale_contractor
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = ATM_american_nuscale
+					}
+				}
+				complete_national_focus = ATM_american_nuscale
+			}
+		}
 	}
 }
 
@@ -1271,6 +1335,11 @@ country_event = {
 
 	immediate = {
 		set_country_flag = ATM_nuscale_refused
+		hidden_effect = {
+			uncomplete_national_focus = {
+				focus = ATM_american_nuscale
+			}
+		}
 		log = "[GetDateText]: [ROOT.GetName] fires atom_plant.6003"
 	}
 
@@ -1333,7 +1402,10 @@ country_event = {
 		uncomplete_national_focus = {
 			focus = ATM_revive_smr_project
 		}
+		clr_country_flag = ATM_chosen_SMRs
+		clr_country_flag = ATM_SMR_negotiations_ongoing
 		set_country_flag = ATM_SMR_negotiations_failure
+		
 		set_variable = { belchatow_outcome = 0 }
 		mark_focus_tree_layout_dirty = yes
 	}
