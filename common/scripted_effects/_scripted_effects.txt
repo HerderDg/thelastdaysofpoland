@@ -419,13 +419,9 @@ public_buildings_effect = {
 	}
 	
 	#wyliczanie modyfikatorów
-	set_variable = { cathedral_effect_pp = num_of_cathedrals_temp }
-	multiply_variable = {
-		cathedral_effect_pp = 0.1
-	}
 	set_variable = { cathedral_effect_stab = num_of_cathedrals_temp }
 	multiply_variable = {
-		cathedral_effect_stab = 0.02
+		cathedral_effect_stab = 0.001
 	}
 	if = {
 		limit = {
@@ -466,16 +462,12 @@ public_buildings_effect = {
 				compare = less_than_or_equals
 			}
 		}
-		set_variable = { cathedral_effect_correction_pp = max_effective_cathedrals }
+		set_variable = { cathedral_effect_correction_stab = max_effective_cathedrals }
 		subtract_from_variable = { 
-			cathedral_effect_correction_pp = num_of_cathedrals_temp
-		}
-		set_variable = { cathedral_effect_correction_stab = cathedral_effect_correction_pp }
-		multiply_variable = {
-			cathedral_effect_correction_pp = 0.1
+			cathedral_effect_correction_stab = num_of_cathedrals_temp
 		}
 		multiply_variable = {
-			cathedral_effect_correction_stab = 0.02
+			cathedral_effect_correction_stab = 0.001
 		}
 		add_dynamic_modifier = {
 			modifier = catherdal_overlimit_mod
@@ -549,31 +541,7 @@ public_buildings_effect = {
 			}
 		}
 	}
-
-	set_variable = { hospital_effect = num_of_hospitals_temp }
-	multiply_variable = {
-		hospital_effect = 0.005
-	}
-	if = {
-		limit = {
-			check_variable = {
-				num_of_hospitals_temp > 0
-			}
-		}
-		add_dynamic_modifier = {
-			modifier = hospital_mod
-		}
-	}
-	else_if = {
-		limit = {
-			has_dynamic_modifier = {
-				modifier = university_mod
-			}
-		}
-		remove_dynamic_modifier = {
-			modifier = university_mod
-		}
-	}
+	
 	if = {
 		limit = {
 			check_variable = {
@@ -581,16 +549,6 @@ public_buildings_effect = {
 				value = num_of_hospitals_temp
 				compare = less_than_or_equals
 			}
-		}
-		set_variable = { hospital_effect_correction = max_effective_hospitals }
-		subtract_from_variable = { 
-			hospital_effect_correction = num_of_hospitals_temp
-		}
-		multiply_variable = {
-			hospital_effect_correction = 0.005
-		}
-		add_dynamic_modifier = {
-			modifier = university_overlimit_mod
 		}
 		add_dynamic_modifier = {
 			modifier = hospital_overlimit_mod
@@ -608,6 +566,30 @@ public_buildings_effect = {
 			}
 		}
 	}
+	set_variable = { prison_effect = num_of_prisons_temp }
+	multiply_variable = {
+		prison_effect = 0.001
+	}
+	if = {
+		limit = {
+			check_variable = {
+				num_of_prisons_temp > 0
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = prison_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_dynamic_modifier = {
+				modifier = prison_mod
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = prison_mod
+		}
+	}
 	if = {
 		limit = {
 			check_variable = {
@@ -616,6 +598,8 @@ public_buildings_effect = {
 				compare = less_than_or_equals
 			}
 		}
+		set_variable = { prison_effect_correction = max_effective_prisons }
+
 		add_dynamic_modifier = {
 			modifier = prison_overlimit_mod
 		}
@@ -633,44 +617,28 @@ public_buildings_effect = {
 		}
 	}
 
-	set_variable = { januszex_effect_stab = num_of_januszexes_temp }
-	multiply_variable = {
-		januszex_effect_stab = 0.005
-	}
-	set_variable = {
-		januszex_effect_prod = januszex_effect_stab
-	}
+	set_variable = { januszex_effect_prod = num_of_januszexes_temp }
 	multiply_temp_variable = {
-		januszex_effect_prod = 0.1
+		januszex_effect_prod = 0.001
 	}
 	if = {
 		limit = {
 			check_variable = {
-				januszex_effect_stab > 0.2
-			}
-		}
-		set_variable = {
-			januszex_effect_stab = 0.2
-		}
-	}
-	if = {
-		limit = {
-			check_variable = {
-				num_of_hospitals_temp > 0
+				num_of_januszexes_temp > 0
 			}
 		}
 		add_dynamic_modifier = {
-			modifier = hospital_mod
+			modifier = januszex_mod
 		}
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = {
-				modifier = university_mod
+				modifier = januszex_mod
 			}
 		}
 		remove_dynamic_modifier = {
-			modifier = university_mod
+			modifier = januszex_mod
 		}
 	}
 	if = {
@@ -681,21 +649,12 @@ public_buildings_effect = {
 				compare = less_than_or_equals
 			}
 		}
-		set_variable = { januszex_effect_correction_stab = max_effective_januszexes }
+		set_variable = { januszex_effect_correction_prod = max_effective_januszexes }
 		subtract_from_variable = { 
-			januszex_effect_correction_stab = num_of_januszexes_temp
-		}
-		set_variable = {
-			januszex_effect_correction_prod = januszex_effect_correction_stab
+			januszex_effect_correction_prod = num_of_januszexes_temp
 		}
 		multiply_variable = {
-			januszex_effect_correction_prod = 0.005
-		}
-		multiply_variable = {
-			januszex_effect_correction_prod = 0.1
-		}
-		multiply_variable = {
-			januszex_effect_correction_stab = 0.005
+			januszex_effect_correction_prod = 0.001
 		}
 		add_dynamic_modifier = {
 			modifier = januszex_overlimit_mod
