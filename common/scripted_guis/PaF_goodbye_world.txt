@@ -1,0 +1,67 @@
+scripted_gui = {
+	PaF_ending_button = {
+		context_type = player_context
+		parent_window_token = top_bar
+		window_name = "PaF_EndingScreen_OpenButton"
+
+		visible = {
+			always = yes
+		}
+
+		effects = {
+			topbar_opening_button_click = {
+				set_variable = { PaF_ending_screen_variable = 1 }
+			}
+		}
+	}
+
+	PaF_ending_screen_main = {
+		context_type = player_context
+		parent_window_token = top_bar
+		window_name = "PaF_EndingScreen_Main"
+
+		visible = {
+			has_country_flag = PaF_ending_screen_visible
+		}
+
+		effects = {
+			PaF_EndingScreen_CloseButton_click = {
+				clr_country_flag = PaF_ending_screen_visible
+			}
+			PaF_EndingScreen_Buttons_CountryView_click = {
+				set_variable = { PaF_ending_screen_variable = 1 }
+			}
+			PaF_EndingScreen_Buttons_ModView_click = {
+				set_variable = { PaF_ending_screen_variable = 2 }
+			}
+		}
+		
+		triggers = {
+			PaF_EndingScreen_Text_visible = {
+				check_variable = { PaF_ending_screen_variable = 1 }			
+			}
+			PaF_EndingScreen_Title_visible = {
+				check_variable = { PaF_ending_screen_variable = 1 }
+			}		
+			PaF_EndingScreen_Text_ModInfo_Buttons_visible = {
+				check_variable = { PaF_ending_screen_variable = 2 }
+			}
+			PaF_discord_button_visible = {
+				check_variable = { PaF_ending_screen_variable = 2 }
+			}
+			PaF_reddit_button_visible = {
+				check_variable = { PaF_ending_screen_variable = 2 }
+			}
+			PaF_facebook_button_visible = {
+				check_variable = { PaF_ending_screen_variable = 2 }
+			}
+			PaF_button_bg_visible = {
+				check_variable = { PaF_ending_screen_variable = 2 }
+			}			
+		}
+		
+		properties = {
+			PaF_EndingScreen_Poster = { image = "[GET_ENDING_POSTER]" }
+		}
+	}
+}
