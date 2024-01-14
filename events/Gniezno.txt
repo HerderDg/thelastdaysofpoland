@@ -130,7 +130,11 @@ country_event = { #kalisz decyduje o przyszłości koła
 	is_triggered_only = yes
 	option = { #przyda nam się wasal
 		name = gniezno_wip_cal.1.a
-		puppet = KLO #szpieg sprawdź czy to gry nie wywala
+				diplomatic_relation = {
+					country = KLO
+					relation = puppet
+					active = yes
+				}
 		ai_chance = {
 			base = 50
 		}
@@ -238,7 +242,7 @@ country_event = { #calisia forsuje pokój
 	trigger = {
 		original_tag = GNI
 		has_war_with = CAL
-		surrender_progress > 0.5
+		surrender_progress > 0.4
 	}
 	option = { #musimy poddać te ziemie :(
 		name = gniezno_vs_calisia.1.a 
@@ -254,10 +258,15 @@ country_event = { #calisia forsuje pokój
 			transfer_state_to = CAL
 		}
 		CAL = {
-			annex_country = {
-				target = KLO
-				transfer_troops = YES
+			diplomatic_relation = {
+				country = KLO
+				relation = puppet
+				active = yes
 			}
+				country_event = {
+					id = gniezno_wip_cal.2
+					days = 730
+				}
 		}
 	}
 }
@@ -273,11 +282,11 @@ country_event = { #WP pomiędzy GNI a CAL
 		original_tag = GNI
 		has_war_with = CAL
 		not = {
-			surrender_progress > 0.5
+			surrender_progress > 0.4
 		}
 		CAL = {
 			not = {
-				surrender_progress > 0.5
+				surrender_progress > 0.4
 			}
 		}
 		has_global_flag = {
@@ -368,7 +377,11 @@ country_event = { #pytanie do kola
 	option = { #ok
 		name = gniezno_wip_alt.3.a
 		KNN = {
-			end_puppet = KLO
+			diplomatic_relation = {
+				country = KLO
+				relation = puppet
+				active = no
+			}
 		}
 		GNI = {
 			country_event ={
