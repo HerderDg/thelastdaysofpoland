@@ -307,6 +307,89 @@ on_actions = {
 					set_global_flag = skip_default_capitulation
 			}
 			if = {
+				limit = {
+					FROM = {
+						original_tag = GNI
+					}
+					ROOT = {
+						original_tag = KNN
+					}
+				}
+				if = {
+					limit = {
+						KLO = {
+							has_country_flag = KLO_agreed_to_join_GNI
+						}
+					}
+					FROM = {
+						puppet = KLO
+					}
+					KLO = {
+						transfer_state = 912
+					}
+					annex_country = {
+						target = ROOT
+						transfer_troops = no
+					}
+				}
+				else_if = {
+					limit = {
+						KLO = {
+							exists = no
+						}
+					}
+					FROM = {
+						add_ideas = GNI_angry_nobles
+					}
+				}
+				set_global_flag = skip_default_capitulation
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = GNI
+					}
+					ROOT = {
+						original_tag = KLO
+					}
+				}
+				annex_country = {
+					target = ROOT
+					transfer_troops = no
+				}
+				if = {
+					limit = {
+						KNN = {
+							exists = no
+						}
+					}
+					FROM = {
+						add_ideas = GNI_angry_nobles
+					}
+				}
+				set_global_flag = skip_default_capitulation
+			}
+			if = {
+				limit = {
+					FROM = {
+						or = {
+							original_tag = KLO
+							original_tag = KNN
+						}
+					}
+					ROOT = {
+						original_tag = GNI
+					}
+				}
+				GNI = {
+					#todo: zmiana rządzącego
+					create_faction = "Drużyny Piastowskie"
+					add_to_faction = KLO
+					add_to_faction = KNN
+				}
+				set_global_flag = skip_default_capitulation
+			}
+			if = {
 					limit = {
 						ROOT = {
 							original_tag = KES
