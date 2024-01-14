@@ -1,0 +1,334 @@
+add_namespace = gniezno_wip
+add_namespace = gniezno_wip_alt #konin się nie składa
+add_namespace = gniezno_wip_cal
+add_namespace = gniezno_wip_alt_cal #konin się nie składa
+add_namespace = gniezno_vs_calisia
+
+country_event = { #konin otrzymuje żądanie
+	id = gniezno_wip.1
+	title = gniezno_wip.1.t
+	desc = gniezno_wip.1.desc
+	trigger = {
+		original_tag = KNN
+		date > "2027.11.10"
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip.1"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { #ok
+		name = gniezno_wip.1.a
+		GNI = {
+			country_event ={
+				id = gniezno_wip.2
+				days = 7
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = { #pierdol się
+		name = gniezno_wip.1.b
+		# GNI = {
+		# 	country_event ={
+		# 		id = gniezno_wip_alt.2
+		# 		days = 7
+		# 	}
+		# }
+		ai_chance = {
+			base = 50
+		}
+	}
+	mean_time_to_happen = {
+		days = 10
+	}
+}
+
+country_event = { #aneksja Konina przez gniezno
+	id = gniezno_wip.2
+	title = gniezno_wip.2.t
+	desc = gniezno_wip.2.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip.2"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = gniezno_wip.2.a
+		#todo dokodować usuwanie części dywizji przed aneksją
+		annex_country = {
+			target = KNN
+			transfer_troops = YES 
+		}
+		hidden_effect = {
+			KLO = {
+				country_event ={
+					id = gniezno_wip.3
+					days = 7
+				}
+			}
+		}
+	}
+}
+
+country_event = { #kolo otrzymuje żądanie
+	id = gniezno_wip.3
+	title = gniezno_wip.3.t
+	desc = gniezno_wip.3.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip.3"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { #ok
+		name = gniezno_wip.3.a
+		GNI = {
+			country_event = {
+				id = gniezno_wip.4
+				days = 7
+			}
+		}
+	}
+	option = { #wysłać wici do kalisza!
+		name = gniezno_wip.3.B
+		CAL = {
+			country_event = {
+				id = gniezno_wip_cal.1
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = { #aneksja koła przez gniezno
+	id = gniezno_wip.4
+	title = gniezno_wip.4.t
+	desc = gniezno_wip.4.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip.4"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = gniezno_wip.4.a
+		#todo dokodować usuwanie części dywizji przed aneksją
+		annex_country = {
+			target = KLO
+			transfer_troops = YES
+		}
+	}
+}
+
+country_event = { #kalisz decyduje o przyszłości koła
+	id = gniezno_wip_cal.1
+	title = gniezno_wip_cal.1.t
+	desc = gniezno_wip_cal.1.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip_cal.1"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { #przyda nam się wasal
+		name = gniezno_wip_cal.1.a
+		puppet = KLO #szpieg sprawdź czy to gry nie wywala
+		ai_chance = {
+			base = 50
+		}
+		GNI = {
+			country_event = {
+				id = gniezno_wip.5
+				days = 7
+			}
+		}
+	}
+	option = { #zostawmy ich
+		name = gniezno_wip_cal.1.a
+		GNI = {
+			country_event = {
+				id = gniezno_wip.6
+				days = 7
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+country_event = { #kalisz cockblockuje gniezno
+	id = gniezno_wip.5
+	title = gniezno_wip.5.t
+	desc = gniezno_wip.5.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip.5"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { 
+		name = gniezno_wip.5.a #to potwarz, zabić ich
+		declare_war_on = {
+			target = CAL
+			type = annex_everything
+		}
+		set_global_flag = gniezno_vs_calisia_war_started
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = { 
+		name = gniezno_wip.5.b #zostawmy ich
+		add_political_power = -100
+		hidden_effect = {
+			CAL = {
+				country_event = {
+					id = gniezno_wip_cal.2
+					days = 730
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+country_event = { #aneksja koła przez kalisz
+	id = gniezno_wip_cal.2
+	title = gniezno_wip_cal.2.t
+	desc = gniezno_wip_cal.2.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip_cal.2"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = gniezno_wip_cal.2.a
+		annex_country = {
+			target = KLO
+			transfer_troops = YES
+		}
+	}
+}
+
+country_event = { #kalisz zostawia koło gnieznu do zjedzenia
+	id = gniezno_wip.6
+	title = gniezno_wip.6.t
+	desc = gniezno_wip.6.desc
+
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_wip.6"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { 
+		name = gniezno_wip.6.a #to potwarz, zabić ich
+		declare_war_on = {
+			target = KOL
+			type = annex_everything
+		}
+	}
+}
+
+country_event = { #calisia forsuje pokój
+	id = gniezno_vs_calisia.1
+	title = gniezno_vs_calisia.1.t
+	desc = gniezno_vs_calisia.1.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_vs_calisia.1"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		original_tag = GNI
+		has_war_with = CAL
+		surrender_progress > 0.5
+	}
+	option = { #musimy poddać te ziemie :(
+		name = gniezno_vs_calisia.1.a 
+		add_to_variable = {global.deadPolacksFromPastWars = CAL.casualties_k}
+		add_to_variable = {global.deadPolacksFromPastWars = KLO.casualties_k}
+		add_to_variable = {global.deadPolacksFromPastWars = GNI.casualties_k}
+		white_peace = CAL
+		white_peace = KLO
+		255 = {
+			transfer_state_to = CAL
+		}
+		259 = {
+			transfer_state_to = CAL
+		}
+		CAL = {
+			annex_country = {
+				target = KLO
+				transfer_troops = YES
+			}
+		}
+	}
+}
+
+country_event = { #WP pomiędzy GNI a CAL
+	id = gniezno_vs_calisia.2
+	title = gniezno_vs_calisia.2.t
+	desc = gniezno_vs_calisia.2.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_vs_calisia.2"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		original_tag = GNI
+		has_war_with = CAL
+		not = {
+			surrender_progress > 0.5
+		}
+		CAL = {
+			not = {
+				surrender_progress > 0.5
+			}
+		}
+		has_global_flag = {
+			flag = gniezno_vs_calisia_war_started
+			days > 364
+		}
+	}
+	option = { #powrót do statusu quo I guess
+		name = gniezno_vs_calisia.2.a 
+		add_to_variable = {global.deadPolacksFromPastWars = CAL.casualties_k}
+		add_to_variable = {global.deadPolacksFromPastWars = KLO.casualties_k}
+		add_to_variable = {global.deadPolacksFromPastWars = GNI.casualties_k}
+		white_peace = CAL
+		white_peace = KLO
+		
+	}
+}
+
+country_event = { #gniezno forsuje pokój
+	id = gniezno_vs_calisia.3
+	title = gniezno_vs_calisia.3.t
+	desc = gniezno_vs_calisia.3.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gniezno_vs_calisia.3"}
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		original_tag = CAL
+		has_war_with = GNI
+		surrender_progress > 0.5
+	}
+	option = { #musimy poddać te ziemie :(
+		name = gniezno_vs_calisia.3.a 
+		add_to_variable = {global.deadPolacksFromPastWars = CAL.casualties_k}
+		add_to_variable = {global.deadPolacksFromPastWars = KLO.casualties_k}
+		add_to_variable = {global.deadPolacksFromPastWars = GNI.casualties_k}
+		white_peace = GNI
+		KLO = {
+			white_peace = GNI
+		}
+		266 = {
+			transfer_state_to = GNI
+		}
+		280 = {
+			transfer_state_to = CAL
+		}
+		GNI = {
+			annex_country = {
+				target = KLO
+				transfer_troops = YES
+			}
+		}
+	}
+}
