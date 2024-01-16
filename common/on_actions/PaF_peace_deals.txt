@@ -309,46 +309,33 @@ on_actions = {
 			if = {
 				limit = {
 					FROM = {
-						original_tag = GNI
+						or = {
+							original_tag = GNI
+							and = {
+								original_tag = KLO
+								has_country_flag = KLO_agreed_to_join_GNI
+							}
+						}
 					}
 					ROOT = {
 						original_tag = KNN
 					}
 				}
-				if = {
-					limit = {
-						KLO = {
-							has_country_flag = KLO_agreed_to_join_GNI
-						}
-					}
-					FROM = {
-						diplomatic_relation = {
-							country = KLO
-							relation = puppet
-							active = yes
-						}
-					}
-					KLO = {
-						transfer_state = 912
+				KLO = {
+					transfer_state = 912
+				}
+				GNI = {
+					diplomatic_relation = {
+						country = KLO
+						relation = puppet
+						active = yes
 					}
 					annex_country = {
-						target = ROOT
+						target = KNN
 						transfer_troops = no
 					}
 				}
-				else = {
-					annex_country = {
-						target = ROOT
-						transfer_troops = no
-					}
-					annex_country = {
-						target = KLO
-						transfer_troops = no
-					}
-					FROM = {
-						add_ideas = GNI_angry_nobles
-					}
-				}
+				log = "koń zwalony"
 				set_global_flag = skip_default_capitulation
 			}
 			if = {
@@ -364,15 +351,8 @@ on_actions = {
 					target = ROOT
 					transfer_troops = no
 				}
-				if = {
-					limit = {
-						KNN = {
-							exists = no
-						}
-					}
-					FROM = {
-						add_ideas = GNI_angry_nobles
-					}
+				FROM = {
+					add_ideas = GNI_angry_nobles
 				}
 				set_global_flag = skip_default_capitulation
 			}

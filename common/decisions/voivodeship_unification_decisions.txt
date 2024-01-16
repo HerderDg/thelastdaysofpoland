@@ -708,6 +708,11 @@ south_greater_poland_voivodeship_unification = {
 			tooltip = controls_southern_greater_poland
 			can_unify_kaliskie = yes
 		}
+		is_subject = no
+		or = {
+			is_in_faction = no
+			is_faction_leader = yes
+		}
 	}
 	
 	fire_only_once = yes
@@ -726,6 +731,17 @@ south_greater_poland_voivodeship_unification = {
 		set_country_flag = unified_voivodeship
 		set_global_flag = kaliskie_unified
 		add_research_slot = 1
+		every_country = {
+			limit = {
+				is_subject_of = ROOT
+			}
+			ROOT = {
+				annex_country = {
+					target = THIS
+					transfer_troops = YES
+				}
+			}
+		}
 		hidden_effect = {
 			add_dynamic_modifier = {
 				modifier = developed_economy_modifier
@@ -768,10 +784,6 @@ south_greater_poland_voivodeship_unification = {
 			set_cosmetic_tag = GNI_voivodeship
 			
 			hidden_effect = {
-				annex_country = {
-					target = KLO
-					transfer_troops = YES
-				}
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = unification.32 }
