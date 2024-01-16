@@ -978,16 +978,27 @@ can_unify_lower_silesia = {
 }
 
 can_unify_kaliskie = {
-AND = {
-	has_war = no
-	#CAL
-	controls_state = 314
-	#FEL
-	controls_state = 240
-	#SUS
-	controls_state = 299
-	#GNI
-	controls_state = 689
+	has_global_flag = needed_arrays_initialized
+	all_of = {
+		array = global.states_for_southern_gp_unification
+		value = s
+		or = {
+			ROOT = {
+				owns_state = s
+			}
+			any_of_scopes = {
+				array = ROOT.allies
+				this = {
+					owns_state = s
+				}
+			}
+			any_of_scopes = {
+				array = ROOT.subjects
+				this = {
+					owns_state = s
+				}
+			}
+		}
 	}
 }
 
@@ -2059,7 +2070,7 @@ can_unify_northeast = {
 ##poland##
 
 can_unify_poland = {
-	has_global_flag = needed_array_initialized
+	has_global_flag = needed_arrays_initialized
 	all_of = {
 		array = global.states_for_poland_unification
 		value = s
@@ -2069,6 +2080,12 @@ can_unify_poland = {
 			}
 			any_of_scopes = {
 				array = ROOT.allies
+				this = {
+					owns_state = s
+				}
+			}
+			any_of_scopes = {
+				array = ROOT.subjects
 				this = {
 					owns_state = s
 				}
