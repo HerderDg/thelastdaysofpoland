@@ -8912,6 +8912,63 @@ ai_war_decisions = {
 		}
 	}
 	
+	CAL_gniezno_cleanup = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = CAL
+			date > 2028.09.01
+			NOT = {
+				country_exists = GNI
+			}
+			or = {
+				country_exists = KNN
+				country_exists = KLO
+			}
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = KLO
+		war_with_on_remove = KNN
+		remove_effect  = {
+			log = "[GetDateText]: Decision CAL_gniezno_cleanup"
+			if = {
+				limit = {
+					country_exists = KNN
+				}
+				declare_war_on = {
+					target = KNN
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					country_exists = KLO
+				}
+				declare_war_on = {
+					target = KLO
+					type = annex_everything
+				}
+			}
+		}
+	}
+
 	GNI_kalisz_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
