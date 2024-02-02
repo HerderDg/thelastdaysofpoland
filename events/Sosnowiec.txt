@@ -1,0 +1,243 @@
+﻿add_namespace = sosnowiec_zaglebie
+
+
+country_event = {
+	id = sosnowiec_zaglebie.1 #incorporation of bedzin
+	title = sosnowiec_zaglebie.1.t
+	desc = sosnowiec_zaglebie.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.1"}
+	
+	option = {
+		name = sosnowiec_zaglebie.1.a #integracja
+		SOS = { country_event = { id = sosnowiec_zaglebie.2 days = 1 } }
+		ai_chance = { base = 65 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.1.b #puppet is best i can do
+		SOS = { country_event = { id = sosnowiec_zaglebie.3 days = 1 } }
+		ai_chance = { base = 25 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.1.c #spierdalaj z mojej ziemii
+		SOS = { country_event = { id = sosnowiec_zaglebie.4 days = 1 } }
+		ai_chance = { base = 10 }
+	}	
+
+}
+
+
+country_event = {
+	id = sosnowiec_zaglebie.2 #incorporation of bedzin - integracja
+	title = sosnowiec_zaglebie.2.t
+	desc = sosnowiec_zaglebie.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.2"
+		BED = {
+			delete_unit = {
+				division_template = "Batalion Robotniczy"
+			}
+		}
+	}
+	
+	option = {
+		name = sosnowiec_zaglebie.2.a #integracja
+		annex_country = {
+			target = BED
+			transfer_troops = yes
+		}
+		589 = { add_compliance = 60 }
+		453 = { add_compliance = 60 }
+	}
+	
+}
+
+country_event = {
+	id = sosnowiec_zaglebie.3 #incorporation of bedzin - puppetacja
+	title = sosnowiec_zaglebie.3.t
+	desc = sosnowiec_zaglebie.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.3" }
+	
+	option = {
+		name = sosnowiec_zaglebie.3.a #puppet
+		SOS = {
+		diplomatic_relation = {
+				country = BED
+				relation = puppet
+				active = yes
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = sosnowiec_zaglebie.4 #incorporation of bedzin - spierdalacja
+	title = sosnowiec_zaglebie.4.t
+	desc = sosnowiec_zaglebie.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.4" }
+	
+	option = {
+		name = sosnowiec_zaglebie.4.a #o ty chuju
+		BED = { leave_faction = yes }
+		BED = { 
+			declare_war_on = {
+				target = SOS
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sosnowiec_zaglebie.5 #question of siewierz
+	title = sosnowiec_zaglebie.5.t
+	desc = sosnowiec_zaglebie.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.5"}
+	
+	option = {
+		name = sosnowiec_zaglebie.5.a #send Żukowska
+		SIE = { country_event = { id = sosnowiec_zaglebie.7 days = 1 } }
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.5.b #send Litewka
+		SIE = { country_event = { id = sosnowiec_zaglebie.8	days = 1 } }
+		ai_chance = { base = 40 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.5.c #Just war them wuja strong
+		SOS = { 
+			declare_war_on = {
+				target = SIE
+				type = annex_everything
+			}
+		}		
+		ai_chance = { base = 10 }
+	}	
+
+}
+
+
+country_event = {
+	id = sosnowiec_zaglebie.6 #interwencja zawiercia
+	title = sosnowiec_zaglebie.6.t
+	desc = sosnowiec_zaglebie.6.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = ZAW
+		SOS = { has_war_with = SIE }
+	}
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.6"}
+	
+	option = {
+		name = sosnowiec_zaglebie.6.a #WAAAAAAAAAAAAAAAAR
+		ZAW = { 
+			declare_war_on = {
+				target = SOS
+				type = annex_everything
+			}
+		}	
+		ai_chance = { base = 40 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.6.b #cykam sie
+		ai_chance = { base = 60 }
+	}
+}
+
+country_event = {
+	id = sosnowiec_zaglebie.7 #Żukowska wyzywa wszystkich od Faszystów
+	title = sosnowiec_zaglebie.7.t
+	desc = sosnowiec_zaglebie.7.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = ZAW
+		SOS = { has_war_with = SIE }
+	}
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.7"}
+	
+	option = {
+		name = sosnowiec_zaglebie.7.a #WAAAAAAAAAAAAAAAAR
+		SIE = { 
+			declare_war_on = {
+				target = SOS
+				type = annex_everything
+			}
+		}	
+		ai_chance = { base = 60 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.7.b #cykam sie
+		ai_chance = { base = 40 }
+		SOS = {
+			create_wargoal = {
+				type = take_state_focus
+				target = SIE
+				generator = { 730 760 731 769 732 }
+				expire = 90
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sosnowiec_zaglebie.8 #Litewka przyjeżdża z pieskiem
+	title = sosnowiec_zaglebie.8.t
+	desc = sosnowiec_zaglebie.8.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = ZAW
+		SOS = { has_war_with = SIE }
+	}
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sosnowiec_zaglebie.8"}
+	
+	option = {
+		name = sosnowiec_zaglebie.8.a #no fajny piesek
+		SOS = {
+		diplomatic_relation = {
+				country = SIE
+				relation = puppet
+				active = yes
+			}
+		}
+		ai_chance = { base = 60 }
+	}
+	option = {
+		name = sosnowiec_zaglebie.8.b #mam uczulenie na psy
+		ai_chance = { base = 40 }
+		SOS = {
+			create_wargoal = {
+				type = take_state_focus
+				target = SIE
+				generator = { 730 760 731 769 732 }
+				expire = 90
+			}
+		}
+	}
+}
+
