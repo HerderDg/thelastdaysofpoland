@@ -563,7 +563,18 @@ focus_tree = {
 		cost = 6
 		search_filters = { }
 		completion_reward = { 
-		
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = CAL_ager_publicus_modifier
+						}
+				}
+				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
+				add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
+			}
+			hidden_effect = {
+				set_country_flag = ager_publicus_lex_optimates
+			}
 		}
 	}
 	
@@ -586,7 +597,18 @@ focus_tree = {
 		cost = 6
 		search_filters = { }
 		completion_reward = { 
-		
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = CAL_ager_publicus_modifier
+						}
+				}
+				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
+				add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
+			}
+			hidden_effect = {
+				set_country_flag = ager_publicus_lex_populares
+			}
 		}
 	}
 	
@@ -931,7 +953,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			country_event = { id = calisia.23 }
+		
 		}
 	}
 
@@ -985,7 +1007,7 @@ focus_tree = {
 		prerequisite = { focus = CAL_order_behind_prosna }
 		relative_position_id = CAL_order_behind_prosna
 		available = {
-			
+		
 		}
 		
 		bypass = {
@@ -997,18 +1019,6 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			359 = {
-				create_unit = {
-					division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
-					owner = CAL
-				}
-			}
-			311 = {
-				create_unit = {
-					division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
-					owner = CAL
-				}
-			}
 		
 		}
 	}
@@ -1031,16 +1041,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			add_equipment_to_stockpile = {
-				type = ranged_equipment
-				amount = 1000
-				producer = KES
-			}
-			add_equipment_to_stockpile = {
-				type = melee_equipment
-				amount = 1000
-				producer = KES
-			}
+		
 		}
 	}
 
@@ -1085,7 +1086,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			country_event = { id = calisia.22 }
+		
 		}
 	}
 
@@ -1284,7 +1285,10 @@ focus_tree = {
 		prerequisite = { focus = CAL_appropriation_of_church_holdings }
 		relative_position_id = CAL_appropriation_of_church_holdings
 		available = {
-		
+			CAL = {
+				controls_state = 285
+				controls_state = 851
+			}
 		}
 		
 		bypass = {
@@ -1296,14 +1300,28 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			every_owned_state = {
-				limit = {
-					is_core_of = KES
+				if = {
+					limit = {
+						has_country_flag = ager_publicus_lex_optimates
+						}
+						285 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
+						}
+						851 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
+						}
 				}
-				add_dynamic_modifier = {
-					modifier = CAL_ager_publicus_modifier
-				}
-			}
+				if = {
+					limit = {
+						has_country_flag = ager_publicus_lex_populares
+						}
+						285 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
+						}
+						851 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
+						}
+				}	
 		}
 	}
 	### Drzewko Wojewódzkie
