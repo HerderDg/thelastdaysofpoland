@@ -731,57 +731,58 @@ is_poland_unifier = {
 ##voivodeships##
 
 can_unify_lesser_poland = {
-AND = {
-	has_war = no
-	#OSW
-	controls_state = 513
-	#WDW
-	controls_state = 515
-	#SKW
-	controls_state = 519
-	#PRK
-	controls_state = 459 # Olkusz
-	#KRK
-	controls_state = 506
-	controls_state = 572
-	controls_state = 571
-	controls_state = 724
-	controls_state = 770
-	controls_state = 771
-	controls_state = 772
-	controls_state = 575
-	controls_state = 773
-	controls_state = 569
-	controls_state = 721
-	controls_state = 723
-	controls_state = 514
-	controls_state = 722
-	controls_state = 570
-	#NHT
-	controls_state = 573
-	#UMN
-	controls_state = 508
-	#BOH
-	controls_state = 505
-	#TRN
-	controls_state = 512
-	controls_state = 472
-}
+	AND = {
+		has_war = no
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_lesser_poland_unification
+			value = s
+			or = {
+				ROOT = {
+					owns_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						owns_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						owns_state = s
+					}
+				}
+			}
+		}
+	}
 }
 
 can_unify_mazovia = {
-AND = {
-	has_war = no
-	#POL
-	controls_state = 223
-	#ORL
-	controls_state = 642
-	#ZWK
-	controls_state = 139
-	#KUR
-	controls_state = 151
-	#SAS
-	controls_state = 160
+	AND = {
+		has_war = no
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_mazovia_unification
+			value = s
+			or = {
+				ROOT = {
+					owns_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						owns_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						owns_state = s
+					}
+				}
+			}
+		}
 	}
 }
 can_unify_lodz = {
@@ -991,6 +992,7 @@ can_unify_lower_silesia = {
 
 can_unify_kaliskie = {
 	has_global_flag = needed_arrays_initialized
+	has_war = no
 	all_of = {
 		array = global.states_for_southern_gp_unification
 		value = s
