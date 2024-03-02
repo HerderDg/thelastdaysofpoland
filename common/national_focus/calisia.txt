@@ -2900,7 +2900,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = calisia.38
 		}
 	}
 	focus = {
@@ -3015,7 +3015,7 @@ focus_tree = {
 		prerequisite = { focus = CAL_calisian_neighbourhoods }
 		mutually_exclusive = { focus = CAL_expansion_of_cathedral }
 		available = {
-		
+			has_completed_focus = CAL_first_pontifex_maximus
 		}
 		
 		bypass = {
@@ -3027,7 +3027,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_ideas = CAL_polytheist_temples
 		}
 	}
 	focus = {
@@ -3035,6 +3035,11 @@ focus_tree = {
 		icon = CAL_temples_on_fields_of_mars
 		relative_position_id = CAL_eternal_city
 		prerequisite = { focus = CAL_temple_of_jupiter }
+		bypass = { 
+			NOT = { 
+				has_completed_focus = CAL_fields_of_mars_training_grounds 
+			} 
+		}
 		available = {
 		
 		}
@@ -3048,7 +3053,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			swap_ideas = {
+				add_idea = CAL_polytheist_temples_2
+				remove_idea = CAL_polytheist_temples
+			}
 		}
 	}
 	focus = {
@@ -3069,7 +3077,26 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			if = {
+				limit = {
+					has_idea = { CAL_polytheist_temples }
+				}
+				swap_ideas = {
+					add_idea = CAL_polytheist_temples_4
+					remove_idea = CAL_polytheist_temples
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = { CAL_polytheist_temples_2 }
+				}
+				swap_ideas = {
+					add_idea = CAL_polytheist_temples_3
+					remove_idea = CAL_polytheist_temples_2
+				}
+			}
+			else = {
+			}
 		}
 	}
 	focus = {
@@ -3079,7 +3106,7 @@ focus_tree = {
 		prerequisite = { focus = CAL_calisian_neighbourhoods }
 		mutually_exclusive = { focus = CAL_temple_of_jupiter }
 		available = {
-		
+			has_completed_focus = CAL_edictum_lichensis
 		}
 		
 		bypass = {
@@ -3091,7 +3118,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_ideas = CAL_monotheist_temples
 		}
 	}
 	focus = {
@@ -3112,7 +3139,17 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			swap_ideas = {
+				add_idea = CAL_monotheist_temples_2
+				remove_idea = CAL_monotheist_temples
+			}
+			every_controlled_state = {
+				limit = {
+					NOT = { is_core_of = CAL }
+				}
+				add_compliance = 10
+				add_resistance = -5
+			}
 		}
 	}
 	focus = {
@@ -3133,7 +3170,12 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			every_owned_state = {
+				limit = {
+					is_core_of = CAL
+				}
+				add_extra_state_shared_building_slots = 1
+			}
 		}
 	}
 	focus = {
