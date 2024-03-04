@@ -3550,8 +3550,13 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
+		    add_political_power = 20
+			add_victory_points = {
+	                province = 13763
+	                value = 1
+            }
 		    add_equipment_to_stockpile = {
-                type = nsb_bicycle
+                type = bicycle_equipment_1
                 amount = 5000
                 producer = CAL
             }
@@ -3811,6 +3816,15 @@ focus_tree = {
 				}
 			}
 			314 = {
+			    add_state_modifier = {
+                    modifier = {
+                    	production_speed_buildings_factor = 0.15
+						monthly_population = 0.5
+						resistance_growth_on_our_occupied_states = 0.3
+                    }
+                }
+			}
+			846 = {
 			    add_state_modifier = {
                     modifier = {
                     	production_speed_buildings_factor = 0.15
@@ -4825,7 +4839,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    army_experience = 50
 		}
 	}
 	focus = {
@@ -4847,7 +4861,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = ranged_weapons
+            }
+			add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = melee_weapons
+            }
 		}
 	}
 	focus = {
@@ -4869,7 +4892,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    
 		}
 	}
 	focus = {
@@ -4891,7 +4914,6 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
 		}
 	}
 	focus = {
@@ -4913,7 +4935,21 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = light_artillery
+            }
+			add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = heavy_artillery
+            }
+			add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = rocket_artillery
+            }			
 		}
 	}
 	focus = {
@@ -4936,7 +4972,12 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    country_event = calisia.44
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 3
+				category = land_honor
+			}
 		}
 	}
 	focus = {
@@ -4958,7 +4999,14 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_command_power = 100
+			army_experience = 20
+			navy_experience = 20
+			air_experience = 20
+			swap_ideas = { 
+				remove_idea = officer_random
+				add_idea = officer_clerks
+			}
 		}
 	}
 	focus = {
@@ -4980,7 +5028,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    swap_ideas = { 
+				remove_idea = training_basic 
+				add_idea = training_veterans
+			}
 		}
 	}
 	focus = {
@@ -5002,8 +5053,52 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
-		}
+		    swap_ideas = { 
+				remove_idea = officer_clerks
+				add_idea = officer_leftovers
+			}
+			FEL = {
+			every_character = {
+				limit = {
+					is_character = FEL_zbigniew_targonski
+				}
+				set_nationality = CAL
+				set_character_name = "Sbigneus Targonus"
+				set_portraits = {
+					army = {
+						large = "GFX_CAL_Targonski"
+					}
+				}
+			}
+			}
+			GNI = {
+			every_character = {
+				limit = {
+					is_character = GNI_wojciech_pikula
+				}
+				set_nationality = CAL
+				set_character_name = "Adalbert Pikulus"
+				set_portraits = {
+					army = {
+						large = "GFX_CAL_Pikula"
+					}
+				}
+			}
+			}
+			GNI = {
+			every_character = {
+				limit = {
+					is_character = GNI_arkadiusz_golonka
+				}
+				set_nationality = CAL
+				set_character_name = "Arcadius Golonkus"
+				set_portraits = {
+					army = {
+						large = "GFX_CAL_Golonka" }
+					}
+				}
+			}
+	    }
 	}
 	focus = {
 		id = CAL_si_vis_pacem_para_bellum
@@ -5025,7 +5120,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    country_event = calisia.45
 		}
 	}
 	focus = {
@@ -5035,7 +5130,7 @@ focus_tree = {
         relative_position_id = CAL_schola_armaturarum
 		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
 		available = {
-		
+		    owns_state = 34
 		}
 		
 		bypass = {
@@ -5047,7 +5142,17 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    navy_experience = 50
+			if = {
+			limit = {
+				has_completed_focus = CAL_fields_of_mars_training_grounds
+				has_completed_focus = CAL_school_of_daedalus
+			}
+			swap_ideas = {
+				remove_idea = officer_leftovers
+				add_idea = officer_academies }
+			}
+			
 		}
 	}
 	focus = {
@@ -5057,7 +5162,10 @@ focus_tree = {
         relative_position_id = CAL_schola_armaturarum
 		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
 		available = {
-		
+		    or = {
+			    has_completed_focus = CAL_temples_on_fields_of_mars 
+				owns_state = 608
+				}
 		}
 		
 		bypass = {
@@ -5069,7 +5177,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    army_experience = 50
+			if = {
+			limit = {
+				has_completed_focus = CAL_establish_the_high_naval_magistrate
+				has_completed_focus = CAL_school_of_daedalus
+			}
+			swap_ideas = {
+				remove_idea = officer_leftovers
+				add_idea = officer_academies }
+			}
 		}
 	}
 	focus = {
@@ -5079,7 +5196,10 @@ focus_tree = {
         relative_position_id = CAL_schola_armaturarum
 		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
 		available = {
-		
+		    OR = {
+				owns_state = 53
+				owns_state = 310
+				}
 		}
 		
 		bypass = {
@@ -5091,7 +5211,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    air_experience = 50
+			if = {
+			limit = {
+				has_completed_focus = CAL_establish_the_high_naval_magistrate
+				has_completed_focus = CAL_fields_of_mars_training_grounds
+			}
+			swap_ideas = {
+				remove_idea = officer_leftovers
+				add_idea = officer_academies }
+			}
 		}
 	}
 	focus = {
@@ -5113,7 +5242,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_ideas = CAL_caesarea_cadre
 		}
 	}
 	focus = {
@@ -5136,7 +5265,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_ideas = CAL_homo_calisiensis_idea
 		}
 	}
 	focus = {
@@ -5202,7 +5331,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_research_slot = 1
 		}
 	}
 	focus = {
