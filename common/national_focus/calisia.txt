@@ -21,6 +21,7 @@ focus_tree = {
 	focus = {
 		id = CAL_dobrze_jest_byc_cesarzem
 		icon = CAL_dobrze_jest_byc_cesarzem
+		text_icon = CALISIA_focus_style
 		available = {
 		
 		}
@@ -41,6 +42,7 @@ focus_tree = {
 	focus = {
 		id = CAL_zwyczajowe_dary_od_senatorow
 		icon = CAL_zwyczajowe_dary_od_senatorow
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_dobrze_jest_byc_cesarzem
 		prerequisite = { focus = CAL_dobrze_jest_byc_cesarzem }
 		available = {
@@ -63,9 +65,10 @@ focus_tree = {
 	focus = {
 		id = CAL_merytokratyczny_psikus
 		icon = CAL_merytokratyczny_psikus
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_zwyczajowe_dary_od_senatorow
 		prerequisite = { focus = CAL_zwyczajowe_dary_od_senatorow }
-		mutually_exclusive = { focus = CAL_odwdzieczenie_sie }
+		#mutually_exclusive = { focus = CAL_odwdzieczenie_sie }
 		available = {
 		
 		}
@@ -86,7 +89,11 @@ focus_tree = {
 	focus = {
 		id = CAL_wyslanie_kwestorow_w_teren
 		icon = CAL_wyslanie_kwestorow_w_teren
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_merytokratyczny_psikus }
+		mutually_exclusive = {
+			focus = CAL_budowa_siatki_kontaktow
+		}
 		relative_position_id = CAL_merytokratyczny_psikus
 		available = {
 		
@@ -111,9 +118,10 @@ focus_tree = {
 	focus = {
 		id = CAL_odwdzieczenie_sie
 		icon = CAL_odwdzieczenie_sie
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_zwyczajowe_dary_od_senatorow }
 		relative_position_id = CAL_zwyczajowe_dary_od_senatorow
-		mutually_exclusive = { focus = CAL_merytokratyczny_psikus }
+		#mutually_exclusive = { focus = CAL_merytokratyczny_psikus }
 		available = {
 		
 		}
@@ -134,7 +142,11 @@ focus_tree = {
 	focus = {
 		id = CAL_budowa_siatki_kontaktow
 		icon = CAL_budowa_siatki_kontaktow
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_odwdzieczenie_sie }
+		mutually_exclusive = {
+			focus = CAL_wyslanie_kwestorow_w_teren
+		}
 		relative_position_id = CAL_odwdzieczenie_sie
 		available = {
 		
@@ -159,6 +171,7 @@ focus_tree = {
 	focus = {
 		id = CAL_niebywale_doniesienia
 		icon = CAL_niebywale_doniesienia
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_budowa_siatki_kontaktow focus = CAL_wyslanie_kwestorow_w_teren }
 		relative_position_id = CAL_zwyczajowe_dary_od_senatorow
 		available = {
@@ -171,20 +184,22 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 3
+		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.8
 		}
 	}
 	
 	focus = {
 		id = CAL_sprawa_ager_publicus
 		icon = CAL_sprawa_ager_publicus
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_dobrze_jest_byc_cesarzem }
 		relative_position_id = CAL_dobrze_jest_byc_cesarzem
-		available = {
 		
+		available = {
+		    has_completed_focus = CAL_niebywale_doniesienia
 		}
 		
 		bypass = {
@@ -196,13 +211,25 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.12
+			set_variable = {
+				CAL_senate_lvl = 1
+			}
+			set_variable = {
+				CAL_populares_count = 62
+			}
+			set_variable = {
+				CAL_populares_consuls = 2
+			}
+			CAL_redraw_senate_diagram = yes
+			custom_effect_tooltip = CAL_ager_publicus_unlock_gravitas
 		}
 	}
 	
 	focus = {
 		id = CAL_mowa_o_naduzyciach
 		icon = CAL_mowa_o_naduzyciach
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_sprawa_ager_publicus }
 		relative_position_id = CAL_sprawa_ager_publicus
 		available = {
@@ -218,18 +245,19 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.13
 		}
 	}
 	
 	focus = {
 		id = CAL_cyceronski_sznyt
 		icon = CAL_cyceronski_sznyt
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_mowa_o_naduzyciach }
 		relative_position_id = CAL_mowa_o_naduzyciach
 		mutually_exclusive = { focus = CAL_gniewnosc_demostenesa }
 		available = {
-		
+			has_country_flag = CAL_ager_publicus_sided_with_optimates
 		}
 		
 		bypass = {
@@ -241,13 +269,18 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			swap_ideas = {
+				remove_idea = CAL_repercussions_of_abuses_optimates_1
+				add_idea = CAL_repercussions_of_abuses_optimates_2
+			}
+			custom_effect_tooltip = CAL_cyceronski_sznyt_tt
 		}
 	}
 	
 	focus = {
 		id = CAL_rozkradanie_res_publici
 		icon = CAL_rozkradanie_res_publici
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_cyceronski_sznyt }
 		relative_position_id = CAL_cyceronski_sznyt
 		available = {
@@ -263,13 +296,22 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			swap_ideas = {
+				remove_idea = CAL_repercussions_of_abuses_optimates_2
+				add_idea = CAL_repercussions_of_abuses_optimates_3
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = -0.05
+			}
+			custom_effect_tooltip = CAL_rozkradanie_res_publici_tt
 		}
 	}
 	
 	focus = {
 		id = CAL_stracone_szanse
 		icon = CAL_stracone_szanse
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_rozkradanie_res_publici }
 		relative_position_id = CAL_rozkradanie_res_publici
 		available = {
@@ -285,18 +327,23 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			swap_ideas = {
+				remove_idea = CAL_repercussions_of_abuses_optimates_3
+				add_idea = CAL_repercussions_of_abuses_optimates_4
+			}
+			custom_effect_tooltip = CAL_stracone_szanse_tt
 		}
 	}
 	
 	focus = {
 		id = CAL_gniewnosc_demostenesa
 		icon = CAL_gniewnosc_demostenesa
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_mowa_o_naduzyciach }
 		relative_position_id = CAL_mowa_o_naduzyciach
 		mutually_exclusive = { focus = CAL_cyceronski_sznyt }
 		available = {
-		
+			has_country_flag = CAL_ager_publicus_sided_with_populares
 		}
 		
 		bypass = {
@@ -308,13 +355,18 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			swap_ideas = {
+				remove_idea = CAL_repercussions_of_abuses_populares_1
+				add_idea = CAL_repercussions_of_abuses_populares_2
+			}
+			custom_effect_tooltip = CAL_gniewnosc_demostenesa_tt
 		}
 	}
 	
 	focus = {
 		id = CAL_ubozenie_zwyklych_obywateli
 		icon = CAL_ubozenie_zwyklych_obywateli
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_gniewnosc_demostenesa }
 		relative_position_id = CAL_gniewnosc_demostenesa
 		available = {
@@ -330,13 +382,18 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			swap_ideas = {
+				remove_idea = CAL_repercussions_of_abuses_populares_2
+				add_idea = CAL_repercussions_of_abuses_populares_3
+			}
+			custom_effect_tooltip = CAL_ubozenie_zwyklych_obywateli_tt
 		}
 	}
 	
 	focus = {
 		id = CAL_glod_ziemi_o_stali
 		icon = CAL_glod_ziemi_o_stali
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_ubozenie_zwyklych_obywateli }
 		relative_position_id = CAL_ubozenie_zwyklych_obywateli
 		available = {
@@ -352,19 +409,23 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			swap_ideas = {
+				remove_idea = CAL_repercussions_of_abuses_populares_3
+				add_idea = CAL_repercussions_of_abuses_populares_4
+			}
+			add_stability = -0.05
+			custom_effect_tooltip = CAL_glod_ziemi_o_stali_tt
 		}
 	}
 	
 	focus = {
 		id = CAL_chaos_na_komisjach
 		icon = CAL_chaos_na_komisjach
+		text_icon = CALISIA_focus_style
 		prerequisite = { 
 			focus = CAL_glod_ziemi_o_stali 
 			focus = CAL_stracone_szanse 
 		}
-		prerequisite = { focus = CAL_lojalnosc_wiecznego_miasta }
-		prerequisite = { focus = CAL_niebywale_doniesienia }
 		relative_position_id = CAL_mowa_o_naduzyciach
 		available = {
 		    has_war = no
@@ -379,13 +440,15 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.14
+			add_stability = -0.1
 		}
 	}
 	
 	focus = {
 		id = CAL_armia_obywatelska
 		icon = CAL_armia_obywatelska
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_dobrze_jest_byc_cesarzem }
 		relative_position_id = CAL_dobrze_jest_byc_cesarzem
 		available = {
@@ -398,16 +461,17 @@ focus_tree = {
 		x = 4
 		y = 1
 		
-		cost = 3
+		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.9
 		}
 	}
 	
 	focus = {
 		id = CAL_wyzszy_zold_dla_pretorian
 		icon = CAL_wyzszy_zold_dla_pretorian
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_armia_obywatelska }
 		relative_position_id = CAL_armia_obywatelska
 		mutually_exclusive = { focus = CAL_wyzszy_zold_i_wieksza_dyscyplina }
@@ -421,17 +485,21 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 3
+		cost = 2
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.10
 		}
 	}
 	
 	focus = {
 		id = CAL_wino_w_koszarach
-		icon = CAL_wino_w_koszarach
+		icon = CAL_wino_w_barakach
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_wyzszy_zold_dla_pretorian
+		#mutually_exclusive = {
+		#	focus = CAL_krew_na_piachu
+		#}
 		prerequisite = { focus = CAL_wyzszy_zold_dla_pretorian }
 		available = {
 		
@@ -446,13 +514,14 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			
+		    add_stability = 0.05
 		}
 	}
 	
 	focus = {
 		id = CAL_wyzszy_zold_i_wieksza_dyscyplina
 		icon = CAL_wyzszy_zold_i_wieksza_dyscyplina
+		text_icon = CALISIA_focus_style
 		prerequisite = { focus = CAL_armia_obywatelska }
 		relative_position_id = CAL_armia_obywatelska
 		mutually_exclusive = { focus = CAL_wyzszy_zold_dla_pretorian }
@@ -469,14 +538,18 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = { 
-			
+			country_event = calisia.11
 		}
 	}
 	
 	focus = {
 		id = CAL_krew_na_piachu
 		icon = CAL_krew_na_piachu
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_wyzszy_zold_i_wieksza_dyscyplina
+		#mutually_exclusive = {
+		#	focus = CAL_wino_w_koszarach
+		#}
 		prerequisite = { focus = CAL_wyzszy_zold_i_wieksza_dyscyplina }
 		available = {
 		
@@ -491,13 +564,18 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_honor
+			}
 		}
 	}
 	
 	focus = {
 		id = CAL_lojalnosc_wiecznego_miasta
 		icon = CAL_lojalnosc_wiecznego_miasta
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_armia_obywatelska
 		prerequisite = { focus = CAL_krew_na_piachu focus = CAL_wino_w_koszarach }
 		available = {
@@ -513,13 +591,49 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			
+			add_ideas = CAL_army_worthy_of_aurelian
+			if = {
+				limit = {
+					has_completed_focus = CAL_wyzszy_zold_dla_pretorian
+				}
+				CAL_krystian_kinastowski = {
+					add_corps_commander_role = {
+						traits = { }
+						skill = 1
+						attack_skill = 2
+						defense_skill = 2
+						planning_skill = 2
+						logistics_skill = 1
+						legacy_id = -1
+					}
+				}	
+			}
+			else_if = {
+				limit = {
+					has_completed_focus = CAL_wyzszy_zold_i_wieksza_dyscyplina
+				}
+				CAL_pawel_delag = { #jakby ktoś chciał mu dać inne staty to prosze bardzo
+					add_corps_commander_role = {
+						traits = { }
+						skill = 1
+						attack_skill = 2
+						defense_skill = 2
+						planning_skill = 3
+						logistics_skill = 2
+						legacy_id = -1
+					}
+				}
+			}
+			else = {
+				custom_effect_tooltip = CAL_heirs_of_aurelian_tt
+			}
 		}
 	}
 	
 	focus = {
 		id = CAL_imperator_gwarantem_pokoju
 		icon = CAL_imperator_gwarantem_pokoju
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_chaos_na_komisjach
 		prerequisite = { focus = CAL_chaos_na_komisjach }
 		available = {
@@ -535,13 +649,25 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {
-		
+			add_political_power = 50
+			set_temp_variable = { CAL_loyalty_change = -10 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
 		}
 	}
 	
 	focus = {
 		id = CAL_lex_commutationis_et_perspicuitais
 		icon = CAL_lex_commutationis_et_perspicuitais
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_imperator_gwarantem_pokoju
 		prerequisite = { focus = CAL_imperator_gwarantem_pokoju }
 		mutually_exclusive = { focus = CAL_lex_lustitiae_socialis }
@@ -558,13 +684,26 @@ focus_tree = {
 		cost = 6
 		search_filters = { }
 		completion_reward = { 
-		
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = CAL_ager_publicus_modifier
+						}
+				}
+				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
+				add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
+			}
+			hidden_effect = {
+				set_country_flag = ager_publicus_lex_optimates
+			}
+			country_event = calisia.28
 		}
 	}
 	
 	focus = {
 		id = CAL_lex_lustitiae_socialis
 		icon = CAL_lex_lustitiae_socialis
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_imperator_gwarantem_pokoju
 		prerequisite = { focus = CAL_imperator_gwarantem_pokoju }
 		mutually_exclusive = { focus = CAL_lex_commutationis_et_perspicuitais }
@@ -581,7 +720,19 @@ focus_tree = {
 		cost = 6
 		search_filters = { }
 		completion_reward = { 
-		
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = CAL_ager_publicus_modifier
+						}
+				}
+				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
+				add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
+			}
+			hidden_effect = {
+				set_country_flag = ager_publicus_lex_populares
+			}
+			country_event = calisia.29
 		}
 	}
 	
@@ -590,6 +741,7 @@ focus_tree = {
     focus = {
 		id = CAL_order_behind_prosna
 		icon = CAL_alea_iacta_est
+		text_icon = CALISIA_focus_style
 		available = {
 		    always = no
 		}
@@ -612,10 +764,11 @@ focus_tree = {
 	focus = {
 		id = CAL_legions_march_on_north
 		icon = CAL_legions_going_north
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_order_behind_prosna
 		prerequisite = { focus = CAL_order_behind_prosna }
 		available = {
-		    date > 2028.01.15
+		    date > 2029.01.15
 			has_war = no
 		}
 		
@@ -628,13 +781,14 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_ideas = CAL_legions_march_on_north_idea
 		}
 	}
 	
 	focus = {
 		id = CAL_land_of_tyrants
 		icon = CAL_end_lives
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_legions_march_on_north
 		prerequisite = { focus = CAL_legions_march_on_north }
 		available = {
@@ -650,14 +804,43 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			declare_war_on = {
+				target = GNI
+				type = annex_everything
+			}
 		}
 	}
 	
 	focus = {
 		id = CAL_triumph_in_gnesna
 		icon = CAL_triumph_in_gnesna
+		text_icon = CALISIA_focus_style
 		relative_position_id = CAL_land_of_tyrants
+		prerequisite = { focus = CAL_land_of_tyrants }
+		available = {
+			GNI = {
+				exists = no
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.15
+		}
+	}
+
+	focus = {
+		id = CAL_triumph_in_equestria
+		icon = CAL_triumph_in_equestria
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_land_of_tyrants
 		prerequisite = { focus = CAL_land_of_tyrants }
 		available = {
 		
@@ -666,20 +849,21 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = -1
 		y = 1
 		
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = calisia.25
 		}
 	}
 	
 	focus = {
 		id = CAL_auxilia_gnesnesis
 		icon = CAL_auxilia_gnesnesis
-		relative_position_id = CAL_triumph_in_gnesna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_triumph_in_gnesna
 		prerequisite = { focus = CAL_triumph_in_gnesna }
 		available = {
 		
@@ -694,7 +878,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = calisia.27
 		}
 	}
 	
@@ -702,7 +886,8 @@ focus_tree = {
 		id = CAL_regrouping_on_west
 		icon = CAL_regrouping_on_west
 		prerequisite = { focus = CAL_order_behind_prosna }
-		relative_position_id = CAL_order_behind_prosna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_order_behind_prosna
 		available = {
 		    has_completed_focus = CAL_triumph_in_gnesna
 			has_war = no
@@ -718,7 +903,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_war_support = 0.05
 		}
 	}
 	
@@ -726,9 +911,93 @@ focus_tree = {
 		id = CAL_steppe_savages
 		icon = CAL_steppe_savages
 		prerequisite = { focus = CAL_regrouping_on_west }
-		relative_position_id = CAL_regrouping_on_west
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_regrouping_on_west
 		available = {
 		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    declare_war_on = {
+				target = FEL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = LSZ
+				type = annex_everything
+			}
+		}
+	}
+	
+	focus = {
+		id = CAL_triumph_in_mercuria_maior
+		icon = CAL_triumph_in_mercuria_maior
+		prerequisite = { focus = CAL_steppe_savages }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steppe_savages
+		available = {
+			FEL = {
+				exists = no
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.17
+			add_stability = 0.0025
+		}
+	}
+	
+	focus = {
+		id = CAL_cavalry_experience
+		icon = CAL_cavalry_experience
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_triumph_in_mercuria_maior
+		prerequisite = { focus = CAL_triumph_in_mercuria_maior }
+		prerequisite = { focus = CAL_triumph_in_equestria }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.18
+			add_manpower = 3000
+		}
+	}
+	
+	focus = {
+		id = CAL_triumph_in_lessna_polonorum
+		icon = CAL_triumph_in_lessna_polonorum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steppe_savages
+		prerequisite = { focus = CAL_steppe_savages }
+		available = {
+			LSZ = {
+				exists = no
+			}
 		}
 		
 		bypass = {
@@ -740,103 +1009,17 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
-		}
-	}
-	
-	focus = {
-		id = CAL_triumph_in_mercuria_maior
-		icon = CAL_triumph_in_mercuria_maior
-		prerequisite = { focus = CAL_steppe_savages }
-		relative_position_id = CAL_steppe_savages
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		search_filters = { }
-		completion_reward = { 
-		
-		}
-	}
-	
-	focus = {
-		id = CAL_cavalry_experience
-		icon = CAL_cavalry_experience
-		relative_position_id = CAL_triumph_in_mercuria_maior
-		prerequisite = { focus = CAL_triumph_in_mercuria_maior }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		search_filters = { }
-		completion_reward = { 
-		
-		}
-	}
-	
-	focus = {
-		id = CAL_barbarians_of_previous_era
-		icon = CAL_barbarians_of_previous_era
-		prerequisite = { focus = CAL_regrouping_on_west }
-		relative_position_id = CAL_regrouping_on_west
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 1
-		
-		cost = 1
-		search_filters = { }
-		completion_reward = { 
-		
-		}
-	}
-	
-	focus = {
-		id = CAL_triumph_in_lessna_polonorum
-		icon = CAL_triumph_in_lessna_polonorum
-		relative_position_id = CAL_barbarians_of_previous_era
-		prerequisite = { focus = CAL_barbarians_of_previous_era }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		search_filters = { }
-		completion_reward = { 
-		
+		    country_event = calisia.16
+			add_stability = 0.0025
 		}
 	}
 	
 	focus = {
 		id = CAL_commission_papers
-		icon = CAL_commission_papers
+		icon = CAL_commision_papers
 		prerequisite = { focus = CAL_triumph_in_lessna_polonorum }
-		relative_position_id = CAL_triumph_in_lessna_polonorum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_triumph_in_lessna_polonorum
 		available = {
 		
 		}
@@ -850,7 +1033,23 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    country_event = calisia.19
+			299 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			299 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	
@@ -862,7 +1061,8 @@ focus_tree = {
 		prerequisite = { focus = CAL_cavalry_experience }
 		prerequisite = { focus = CAL_auxilia_gnesnesis }
 		prerequisite = { focus = CAL_creation_of_collegia }
-		relative_position_id = CAL_commission_papers
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_commission_papers
 		available = {
 		
 		}
@@ -870,13 +1070,13 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -5
+		x = -3
 		y = 1
 		
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = calisia.26
 		}
 	}
 
@@ -885,9 +1085,10 @@ focus_tree = {
 		id = CAL_early_elections
 		icon = CAL_new_senators
 		prerequisite = { focus = CAL_order_behind_prosna }
-		relative_position_id = CAL_order_behind_prosna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_order_behind_prosna
 		available = {
-		
+			has_war = no
 		}
 		
 		bypass = {
@@ -899,15 +1100,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = { id = calisia.23 }
 		}
 	}
 
 	focus = {
 		id = CAL_appointing_new_officials
-		icon = CAL_
+		icon = CAL_appointing_new_officials
 		prerequisite = { focus = CAL_early_elections }
-		relative_position_id = CAL_early_elections
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_early_elections
 		available = {
 		
 		}
@@ -921,15 +1123,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_ideas = CAL_growing_bureaucracy
 		}
 	}
 
 	focus = {
 		id = CAL_factions_are_restless
-		icon = CAL_
+		icon = CAL_factions_are_restless
 		prerequisite = { focus = CAL_appointing_new_officials }
-		relative_position_id = CAL_appointing_new_officials
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_appointing_new_officials
 		available = {
 		
 		}
@@ -943,7 +1146,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_stability = -0.05
 		}
 	}
 
@@ -951,9 +1154,10 @@ focus_tree = {
 		id = CAL_assimilated_velites
 		icon = CAL_new_legions
 		prerequisite = { focus = CAL_order_behind_prosna }
-		relative_position_id = CAL_order_behind_prosna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_order_behind_prosna
 		available = {
-		
+			has_war = no
 		}
 		
 		bypass = {
@@ -965,7 +1169,19 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = { id = calisia.24 }
+			359 = {
+				create_unit = {
+					division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
+					owner = CAL
+				}
+			}
+			311 = {
+				create_unit = {
+					division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
+					owner = CAL
+				}
+			}
 		}
 	}
 
@@ -973,7 +1189,8 @@ focus_tree = {
 		id = CAL_barbarian_equipment
 		icon = CAL_barbarian_equipment
 		prerequisite = { focus = CAL_assimilated_velites }
-		relative_position_id = CAL_assimilated_velites
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_assimilated_velites
 		available = {
 		
 		}
@@ -987,7 +1204,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 1000
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = 1000
+				producer = KES
+			}
 		}
 	}
 
@@ -995,7 +1221,8 @@ focus_tree = {
 		id = CAL_ask_vinicius_to_train_the_new_legions
 		icon = CAL_legionists_training
 		prerequisite = { focus = CAL_barbarian_equipment }
-		relative_position_id = CAL_barbarian_equipment
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_equipment
 		available = {
 		
 		}
@@ -1009,16 +1236,20 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			swap_ideas = { 
+				remove_idea = training_battle 
+				add_idea = training_basic 
+			}
 		}
 	}
 
 	focus = {
 		id = CAL_open_up_gladiator_pits
-		icon = CAL_
+		icon = CAL_open_up_gladiator_pits
 		prerequisite = { focus = CAL_ask_vinicius_to_train_the_new_legions }
 		prerequisite = { focus = CAL_factions_are_restless }
-		relative_position_id = CAL_ask_vinicius_to_train_the_new_legions
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ask_vinicius_to_train_the_new_legions
 		available = {
 		
 		}
@@ -1032,7 +1263,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			 country_event = { id = calisia.22 }
 		}
 	}
 
@@ -1040,9 +1271,10 @@ focus_tree = {
 		id = CAL_the_first_provincia
 		icon = CAL_new_provinces
 		prerequisite = { focus = CAL_order_behind_prosna }
-		relative_position_id = CAL_order_behind_prosna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_order_behind_prosna
 		available = {
-		
+			has_war = no
 		}
 		
 		bypass = {
@@ -1054,6 +1286,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
+		    add_state_core = 285
+			add_state_core = 851
+			add_state_core = 311
+			add_state_core = 335
 			PRT = {
 				add_state_core = 359
 				add_state_core = 337
@@ -1077,14 +1313,16 @@ focus_tree = {
 			PRT = {
 				restore_previous_government_type = yes
 			}
+			country_event = calisia.20
 		}
 	}
 
 	focus = {
 		id = CAL_reconnect_the_eternal_city
-		icon = CAL_
+		icon = CAL_reconnect_the_eternal_city
 		prerequisite = { focus = CAL_the_first_provincia }
-		relative_position_id = CAL_the_first_provincia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_the_first_provincia
 		available = {
 		
 		}
@@ -1098,15 +1336,23 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+		    add_state_core = 846
+			846 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 	focus = {
 		id = CAL_nationalization_of_industry
-		icon = CAL_
+		icon = CAL_nationalization_of_industry
 		prerequisite = { focus = CAL_reconnect_the_eternal_city }
-		relative_position_id = CAL_reconnect_the_eternal_city
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_reconnect_the_eternal_city
 		available = {
 		
 		}
@@ -1120,7 +1366,36 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			random_state = {
+				limit = {
+					is_core_of = KES
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_state = {
+				limit = {
+					is_core_of = KES
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -1128,9 +1403,10 @@ focus_tree = {
 		id = CAL_constitutio_calisiana
 		icon = CAL_new_calisians
 		prerequisite = { focus = CAL_order_behind_prosna }
-		relative_position_id = CAL_order_behind_prosna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_order_behind_prosna
 		available = {
-		
+			has_war = no
 		}
 		
 		bypass = {
@@ -1142,15 +1418,24 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			every_owned_state = {
+				limit = {
+					NOT = {
+						is_core_of = CAL
+					}
+				}
+				add_compliance = 50
+			}
+			country_event = calisia.21
 		}
 	}
 
 	focus = {
 		id = CAL_appropriation_of_church_holdings
-		icon = CAL_
+		icon = CAL_appropriation_of_church_holdings
 		prerequisite = { focus = CAL_constitutio_calisiana }
-		relative_position_id = CAL_constitutio_calisiana
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constitutio_calisiana
 		available = {
 		
 		}
@@ -1164,15 +1449,7042 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			random_owned_state = {
+				limit = {
+					cathedral > 0
+				}
+				set_building_level = {
+					type = cathedral
+					level = 0
+				}
+			}
 		}
 	}
 
 	focus = {
 		id = CAL_expansion_of_ager_publicus
-		icon = CAL_
+		icon = CAL_expansion_of_ager_publicus
 		prerequisite = { focus = CAL_appropriation_of_church_holdings }
-		relative_position_id = CAL_appropriation_of_church_holdings
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_appropriation_of_church_holdings
+		available = {
+			CAL = {
+				controls_state = 285
+				controls_state = 851
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+				if = {
+					limit = {
+						has_country_flag = ager_publicus_lex_optimates
+						}
+						285 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
+						}
+						851 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
+						}
+				}
+				if = {
+					limit = {
+						has_country_flag = ager_publicus_lex_populares
+						}
+						285 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
+						}
+						851 = {
+							add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
+						}
+				}	
+		}
+	}
+	### Drzewko Wojewódzkie
+	focus = {
+		id = CAL_creation_of_collegia
+		icon = CAL_creation_of_collegia
+		prerequisite = { focus = CAL_nationalization_of_industry }
+		prerequisite = { focus = CAL_expansion_of_ager_publicus }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_nationalization_of_industry
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_collegia
+		}
+	}
+
+	focus = {
+		id = CAL_calisia_aeterna_victrix
+		icon = CAL_calisia_aeterna_victrix
+		text_icon = CALISIA_focus_style 
+		available = {
+			has_country_flag = unified_voivodeship
+		}
+		
+		bypass = {
+		}
+		
+		x = 55
+		y = 0
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.30
+			add_ideas = CAL_political_disputes
+		}
+	}
+
+	focus = {
+		id = CAL_emperors_feast
+		icon = CAL_emperors_feast
+		prerequisite = { focus = CAL_calisia_aeterna_victrix }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		available = {
+		    has_completed_focus = CAL_calisia_caput_mundi
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    swap_ideas = { 
+				remove_idea = CAL_political_disputes
+				add_idea = CAL_political_disputes2
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_arte_et_marte
+		icon = CAL_arte_et_marte
+		prerequisite = { focus = CAL_emperors_feast }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_emperors_feast
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_political_power = 100
+			add_stability = 0.05
+			add_ideas = CAL_imperial_artists
+		}
+	}
+
+	focus = {
+		id = CAL_per_aspera_ad_astra
+		icon = CAL_per_aspera_ad_astra
+		prerequisite = { focus = CAL_arte_et_marte }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arte_et_marte
+		available = {
+		    OR = {
+                has_completed_focus = CAL_lex_subsidiarum_socialum
+                has_completed_focus = CAL_lex_religionis
+                }
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    swap_ideas = { 
+				remove_idea = CAL_political_disputes2
+				add_idea = CAL_political_disputes3
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_heirs_to_the_empire
+		icon = CAL_heirs_to_the_empire
+		prerequisite = { focus = CAL_per_aspera_ad_astra }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_per_aspera_ad_astra
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = CAL_civilization_imperative
+		icon = CAL_civilization_imperative
+		prerequisite = { focus = CAL_per_aspera_ad_astra }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_per_aspera_ad_astra
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_war_support = 0.15
+		}
+	}
+
+	focus = {
+		id = CAL_calisia_semper_invicta
+		icon = CAL_calisia_semper_invicta
+		prerequisite = { focus = CAL_heirs_to_the_empire }
+		prerequisite = { focus = CAL_civilization_imperative }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_heirs_to_the_empire
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    remove_ideas = CAL_political_disputes3
+		}
+	}
+
+	focus = {
+		id = CAL_pax_calisiana
+		icon = CAL_pax_calisiana
+		prerequisite = { focus = CAL_calisia_aeterna_victrix }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 8
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_provincial_industria
+		icon = CAL_provincial_industria
+		prerequisite = { focus = CAL_calisia_aeterna_victrix }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		available = {
+			
+		}
+		
+		bypass = {
+
+		}
+		
+		x = -8
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			#inne staty?
+			285 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			851 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_developing_our_agriculture
+		icon = CAL_developing_our_agriculture
+		prerequisite = { focus = CAL_provincial_industria }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_provincial_industria
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_agricultural_subsidies
+		}
+	}
+
+	focus = {
+		id = CAL_agricultoris_mechanicus
+		icon = CAL_agricultoris_mechanicus
+		prerequisite = { focus = CAL_developing_our_agriculture }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_developing_our_agriculture
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CAL_agricultural_subsidies
+				add_idea = CAL_agricultural_subsidies_2
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_integral_migration
+		icon = CAL_integral_migration
+		prerequisite = { focus = CAL_provincial_industria }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_provincial_industria
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			314 = {
+				add_manpower = 2000
+			}
+			846 = {
+				add_manpower = 5000
+			}
+			688 = {
+				add_manpower = -1500
+			}
+			286 = {
+				add_manpower = -1500
+			}
+			285 = {
+				add_manpower = -2000
+			}
+			851 = {
+				add_manpower = -2000
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_barbarian_migration
+		icon = CAL_barbarian_migration
+		prerequisite = { focus = CAL_integral_migration }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_integral_migration
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.33 
+		}
+	}
+
+	focus = {
+		id = CAL_minerals_of_mother_terra
+		icon = CAL_minerals_of_mother_terra
+		prerequisite = { focus = CAL_provincial_industria }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_provincial_industria
+		available = {
+			owns_state = 219
+			owns_state = 260
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+			219 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bootleg_pit
+					level = 2
+					instant_build = yes
+				}
+			}
+			260 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = bootleg_pit
+					level = 2
+					instant_build = yes
+				
+				}
+			}
+			add_resource = {
+				type = oil
+				amount = 10
+				state = 314
+			}
+			add_resource = {
+				type = oil
+				amount = 8
+				state = 219
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_central_portus_of_konin
+		icon = CAL_central_portus_of_konin
+		prerequisite = { focus = CAL_minerals_of_mother_terra }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_minerals_of_mother_terra
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			256 = {
+				add_building_construction = {
+					type = naval_base
+					level = 5
+					instant_build = yes
+					province = 1372
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = 1372
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_our_iron_railways
+		icon = CAL_our_iron_railways
+		prerequisite = { focus = CAL_provincial_industria }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_provincial_industria
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+			#todo więcej linii postawić
+			build_railway = {
+				start_province = 14583
+				target_province = 14529
+			}
+			build_railway = {
+				start_province = 14529
+				target_province = 14492
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_all_roads_lead_to_calisia
+		icon = CAL_all_road_lead_to_calisia
+		prerequisite = { focus = CAL_our_iron_railways }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_our_iron_railways
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = {
+			country_event = calisia.32
+			
+		}
+	}
+
+	focus = {
+		id = CAL_factories_of_gnesna
+		icon = CAL_factories_of_gnesna
+		prerequisite = { focus = CAL_provincial_industria }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_provincial_industria
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			689 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_sugar_of_mercuria_maior
+		icon = CAL_sugar_of_mercuria_maior
+		prerequisite = { focus = CAL_factories_of_gnesna }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_factories_of_gnesna
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			240 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_imperial_mint
+		icon = CAL_imperial_mint
+		prerequisite = { focus = CAL_provincial_industria }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_provincial_industria
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			260 = {
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+			}
+			256 = {
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+			}
+			689 = {
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = CAL_pecunia_non_olet
+		icon = CAL_pecunia_non_olet
+		prerequisite = { focus = CAL_imperial_mint }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_imperial_mint
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.31
+		}
+	}
+
+	focus = {
+		id = CAL_rawicz_slaughter
+		icon = CAL_rawicz_slaughter
+		prerequisite = { focus = CAL_pax_calisiana }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pax_calisiana
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_indentured_servitude
+		icon = CAL_indentured_servitude
+		prerequisite = { focus = CAL_rawicz_slaughter }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_rawicz_slaughter
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_enslave_all_barbarians
+		icon = CAL_enslave_all_barbarians
+		prerequisite = { focus = CAL_rawicz_slaughter }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_rawicz_slaughter
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_vinicius_plead
+		icon = CAL_vinicius_plead
+		prerequisite = { focus = CAL_pax_calisiana }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pax_calisiana
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_wide_auxilia
+		icon = CAL_wide_auxilia
+		prerequisite = { focus = CAL_vinicius_plead }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinicius_plead
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_professional_calisian_army
+		icon = CAL_professional_calisian_army
+		prerequisite = { focus = CAL_vinicius_plead }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinicius_plead
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_coffes_are_getting_empty
+		icon = CAL_coffes_are_getting_empty
+		prerequisite = { focus = CAL_pax_calisiana }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pax_calisiana
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_tax_the_rich
+		icon = CAL_tax_the_rich
+		prerequisite = { focus = CAL_coffes_are_getting_empty }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_coffes_are_getting_empty
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_tax_the_barbarians
+		icon = CAL_tax_the_barbarians
+		prerequisite = { focus = CAL_coffes_are_getting_empty }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_coffes_are_getting_empty
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_abduction_of_the_poznanian_women
+		icon = CAL_abduction_of_the_poznanian_women
+		prerequisite = { focus = CAL_pax_calisiana }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pax_calisiana
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_treaty_of_kornik
+		icon = CAL_treaty_of_kornik
+		prerequisite = { focus = CAL_abduction_of_the_poznanian_women }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_abduction_of_the_poznanian_women
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_like_helen_of_troy
+		icon = CAL_like_helen_of_troy
+		prerequisite = { focus = CAL_abduction_of_the_poznanian_women }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_abduction_of_the_poznanian_women
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_philosophical_disputes
+		icon = CAL_philosophical_disputes
+		prerequisite = { focus = CAL_pax_calisiana }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pax_calisiana
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_homo_novus
+		icon = CAL_homo_novus
+		prerequisite = { focus = CAL_philosophical_disputes }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_philosophical_disputes
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_calisian_identity
+		icon = CAL_calisian_identity
+		prerequisite = { focus = CAL_philosophical_disputes }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_philosophical_disputes
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_thinking_about_the_roman_empire
+		icon = CAL_thinking_about_the_roman_empire
+		prerequisite = { focus = CAL_pax_calisiana }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pax_calisiana
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_legacy_of_ancient_world
+		icon = CAL_legacy_of_ancient_world
+		prerequisite = { focus = CAL_thinking_about_the_roman_empire }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_thinking_about_the_roman_empire
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_when_in_rome
+		icon = CAL_when_in_rome
+		prerequisite = { focus = CAL_thinking_about_the_roman_empire }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_thinking_about_the_roman_empire
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+###w urzędach kalisza/in service of calisia	
+	focus = {
+		id = CAL_in_service_of_calisia
+		icon = CAL_in_service_of_calisia
+		text_icon = CALISIA_focus_style 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 55
+		y = 7
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_another_early_elections
+		icon = CAL_another_early_elections
+		prerequisite = { focus = CAL_in_service_of_calisia }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_tributorum
+		icon = CAL_lex_tributorum
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_militae
+		icon = CAL_lex_militae
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_indentatae_servitutis
+		icon = CAL_lex_indentatae_servitutis
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -6
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_mercatoria
+		icon = CAL_lex_mercatoria
+		prerequisite = { focus = CAL_lex_militae }
+		prerequisite = { focus = CAL_lex_indentatae_servitutis } 
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_securitatis
+		icon = CAL_lex_securitatis
+		prerequisite = { focus = CAL_lex_militae }
+		prerequisite = { focus = CAL_lex_tributorum }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_subsidiarum_socialum
+		icon = CAL_lex_subsidiarum_socialum
+		prerequisite = { focus = CAL_lex_militae }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_cura_annonae
+		icon = CAL_cura_annonae
+		prerequisite = { focus = CAL_lex_subsidiarum_socialum }
+		mutually_exclusive = { focus = CAL_annonae_militaris }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -7
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_annonae_militaris
+		icon = CAL_annonae_militaris
+		prerequisite = { focus = CAL_lex_subsidiarum_socialum }
+		mutually_exclusive = { focus = CAL_cura_annonae }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_poenae_capitalis
+		icon = CAL_lex_poenae_capitalis
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_iuononis
+		icon = CAL_lex_iuononis
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_civitatis
+		icon = CAL_lex_civitatis
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_acculturationis
+		icon = CAL_lex_acculturationis
+		prerequisite = { focus = CAL_another_early_elections }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_amoris_liberi
+		icon = CAL_lex_amoris_liberi
+		prerequisite = { focus = CAL_lex_iuononis }
+		prerequisite = { focus = CAL_lex_civitatis }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_aesculapii
+		icon = CAL_lex_aesculapii
+		prerequisite = { focus = CAL_lex_acculturationis }
+		prerequisite = { focus = CAL_lex_civitatis }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_religionis
+		icon = CAL_lex_religionis
+		prerequisite = { focus = CAL_lex_civitatis }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_edictum_lichensis
+		icon = CAL_edictum_lichensis
+		prerequisite = { focus = CAL_lex_religionis }
+		mutually_exclusive = { focus = CAL_first_pontifex_maximus }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_first_pontifex_maximus
+		icon = CAL_first_pontifex_maximus
+		prerequisite = { focus = CAL_lex_religionis }
+		mutually_exclusive = { focus = CAL_edictum_lichensis }
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 7
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	# Drzewko Rozwoju Kalisza
+	focus = {
+		id = CAL_eternal_city
+		icon = CAL_eternal_city
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_service_of_calisia
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 6
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.35
+		}
+	}
+	focus = {
+		id = CAL_calisian_neighbourhoods
+		icon = CAL_calisian_neighbourhoods
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_eternal_city }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -10
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.38
+		}
+	}
+	focus = {
+		id = CAL_in_marble_blocks
+		icon = CAL_in_marble_blocks
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_calisian_neighbourhoods }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -12
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			314 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			846 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			314 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.05
+						recruitable_population_factor = 0.05
+                    }
+                }
+			}
+			846 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.05
+						recruitable_population_factor = 0.05
+                    }
+                }
+			}
+		}
+	}
+	focus = {
+		id = CAL_local_supermercatae
+		icon = CAL_local_supermercatae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_in_marble_blocks }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -13
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_supermercatae
+			314 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.025
+						local_supplies_for_controller = 0.05
+                    }
+                }
+			}
+			846 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.025
+						local_supplies_for_controller = 0.05
+                    }
+                }
+			}
+		}
+	}
+	focus = {
+		id = CAL_emporium_in_every_district
+		icon = CAL_emporium_in_every_district
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_local_supermercatae }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -13
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			314 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+			}
+			846 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+			}
+			314 = {
+				add_state_modifier = {
+                    modifier = {
+						state_resources_factor = 0.1
+                    }
+                }
+			}
+			846 = {
+				add_state_modifier = {
+                    modifier = {
+						state_resources_factor = 0.1
+                    }
+                }
+			}
+		}
+	}
+	focus = {
+		id = CAL_gardens_and_vineyards
+		icon = CAL_gardens_and_vineyards
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_in_marble_blocks }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -11
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			314 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.025
+						enemy_army_speed_factor = -0.1
+                    }
+                }
+			}
+			846 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.025
+						enemy_army_speed_factor = -0.1
+                    }
+                }
+			}
+		}
+	}
+	focus = {
+		id = CAL_senatorial_villas
+		icon = CAL_senatorial_villas
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_gardens_and_vineyards }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -11
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			set_temp_variable = { CAL_loyalty_change = 5 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = CAL_temple_of_jupiter
+		icon = CAL_temple_of_jupiter
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_calisian_neighbourhoods }
+		mutually_exclusive = { focus = CAL_expansion_of_cathedral }
+		available = {
+			has_completed_focus = CAL_first_pontifex_maximus
+		}
+		
+		bypass = {
+		}
+		
+		x = -9
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_polytheist_temples
+		}
+	}
+	focus = {
+		id = CAL_temples_on_fields_of_mars
+		icon = CAL_temples_on_fields_of_mars
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_temple_of_jupiter }
+		bypass = { 
+			NOT = { 
+				has_completed_focus = CAL_fields_of_mars_training_grounds 
+			} 
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -9
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			swap_ideas = {
+				add_idea = CAL_polytheist_temples_2
+				remove_idea = CAL_polytheist_temples
+			}
+		}
+	}
+	focus = {
+		id = CAL_house_of_bacchus
+		icon = CAL_house_of_bacchus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_temples_on_fields_of_mars }
+		available = {
+		
+		}
+		x = -9
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			if = {
+				limit = {
+					has_idea = CAL_polytheist_temples_2
+				}
+				swap_ideas = {
+					add_idea = CAL_polytheist_temples_3
+					remove_idea = CAL_polytheist_temples_2
+				}
+			}
+			else = {
+				swap_ideas = {
+					add_idea = CAL_polytheist_temples_4
+					remove_idea = CAL_polytheist_temples
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_expansion_of_cathedral
+		icon = CAL_expansion_of_cathedral
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_calisian_neighbourhoods }
+		mutually_exclusive = { focus = CAL_temple_of_jupiter }
+		available = {
+			has_completed_focus = CAL_edictum_lichensis
+		}
+		
+		bypass = {
+		}
+		
+		x = -7
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_monotheist_temples
+		}
+	}
+	focus = {
+		id = CAL_donation_of_calisus
+		icon = CAL_donation_of_calisus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_expansion_of_cathedral }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -7
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			swap_ideas = {
+				add_idea = CAL_monotheist_temples_2
+				remove_idea = CAL_monotheist_temples
+			}
+			every_controlled_state = {
+				limit = {
+					NOT = { is_core_of = CAL }
+				}
+				add_compliance = 10
+				add_resistance = -5
+			}
+		}
+	}
+	focus = {
+		id = CAL_graveyards_into_catacombs
+		icon = CAL_graveyards_into_catacombs
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_donation_of_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -7
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			314 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			846 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	focus = {
+		id = CAL_administratum_calisium
+		icon = CAL_administratum_calisium
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_eternal_city }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_administrative_reorganisation
+		}
+	}
+	focus = {
+		id = CAL_central_district
+		icon = CAL_central_district
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_administratum_calisium }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.43
+		}
+	}
+	focus = {
+		id = CAL_forum_calisianum
+		icon = CAL_forum_calisianum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_central_district }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_political_power = 100
+		}
+	}
+	focus = {
+		id = CAL_colossus_of_calisia_in_city_park
+		icon = CAL_colossus_of_calisia_in_city_park
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_forum_calisianum }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_ideas = CAL_monuments_glory
+		}
+	}
+	focus = {
+		id = CAL_thermae_ricardiae
+		icon = CAL_thermae_ricardiae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_colossus_of_calisia_in_city_park }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_stability = 0.1
+		}
+	}
+	focus = {
+		id = CAL_turning_city_stadium_into_colosseum
+		icon = CAL_turning_city_stadium_into_colosseum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_central_district }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_political_power = 50
+			add_victory_points = {
+	                province = 13763
+	                value = 2
+            }
+		}
+	}
+	focus = {
+		id = CAL_turning_cycling_track_into_circus_maximus
+		icon = CAL_turning_cycling_track_into_circus_maximus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_turning_city_stadium_into_colosseum }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_political_power = 20
+			add_victory_points = {
+	                province = 13763
+	                value = 1
+            }
+		    add_equipment_to_stockpile = {
+                type = bicycle_equipment_1
+                amount = 5000
+                producer = CAL
+            }
+		}
+	}
+	focus = {
+		id = CAL_reconstruction_of_defence_walls
+		icon = CAL_reconstruction_of_defence_walls
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_turning_cycling_track_into_circus_maximus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    314 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13761
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13762
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13764
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13766
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13767
+				}
+			}
+			846 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13768
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13772
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13775
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13773
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13770
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13774
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_imperial_district
+		icon = CAL_imperial_district
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_administratum_calisium }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.39
+			add_victory_points = {
+	                province = 13760
+	                value = 5
+            }
+		}
+	}
+	focus = {
+		id = CAL_new_palace_for_emperor
+		icon = CAL_new_palace_for_emperor
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_imperial_district }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    add_ideas = CAL_construction_palace
+		}
+	}
+	focus = {
+		id = CAL_architects_from_france
+		icon = CAL_architects_from_france
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_new_palace_for_emperor }
+		mutually_exclusive = { focus = CAL_local_architects }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.40
+			swap_ideas = {
+				remove_idea = CAL_construction_palace
+				add_idea = CAL_construction_palace3
+			}
+		}
+	}
+	focus = {
+		id = CAL_local_architects
+		icon = CAL_local_architects
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_new_palace_for_emperor }
+		mutually_exclusive = { focus = CAL_architects_from_france }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.41
+			swap_ideas = {
+				remove_idea = CAL_construction_palace
+				add_idea = CAL_construction_palace2
+			}
+		}
+	}
+	focus = {
+		id = CAL_calisia_caput_mundi
+		icon = CAL_calisia_caput_mundi
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { 
+			focus = CAL_architects_from_france 
+			focus = CAL_local_architects
+		}
+		available = {
+		    has_completed_focus = CAL_reconstruction_of_defence_walls
+			has_completed_focus = CAL_thermae_ricardiae
+			has_completed_focus = CAL_senatorial_villas
+			has_completed_focus = CAL_emporium_in_every_district
+			has_completed_focus = CAL_great_calisian_library
+			has_completed_focus = CAL_grand_tabularium
+			has_completed_focus = CAL_pillars_of_mercury
+			has_completed_focus = CAL_interchange_hubs
+			has_completed_focus = CAL_suburban_horrea
+			OR = {
+				has_completed_focus = CAL_graveyards_into_catacombs
+				has_completed_focus = CAL_house_of_bacchus
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.42
+		    add_victory_points = {
+	            province = 1759
+	            value = 20
+            }
+			add_victory_points = {
+	            province = 13771
+	            value = 15
+            }
+			remove_ideas = CAL_construction_palace2 
+			remove_ideas = CAL_construction_palace3
+            314 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			846 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			314 = {
+			    add_state_modifier = {
+                    modifier = {
+                    	production_speed_buildings_factor = 0.15
+						monthly_population = 0.5
+						resistance_growth_on_our_occupied_states = 0.3
+                    }
+                }
+			}
+			846 = {
+			    add_state_modifier = {
+                    modifier = {
+                    	production_speed_buildings_factor = 0.15
+						monthly_population = 0.5
+						resistance_growth_on_our_occupied_states = 0.3
+                    }
+                }
+			}
+		}
+	}
+	focus = {
+		id = CAL_senate_disctrict
+		icon = CAL_senate_disctrict
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_administratum_calisium }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.36
+		}
+	}
+	focus = {
+		id = CAL_imperial_university_of_calisia
+		icon = CAL_imperial_university_of_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_senate_disctrict }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_ideas = CAL_ateneum_calisiae_1
+		}
+	}
+	focus = {
+		id = CAL_building_campus
+		icon = CAL_building_campus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_imperial_university_of_calisia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			swap_ideas = {
+				remove_idea = CAL_ateneum_calisiae_1
+				add_idea = CAL_ateneum_calisiae_2
+			}
+		}
+	}
+	focus = {
+		id = CAL_great_calisian_library
+		icon = CAL_great_calisian_library
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_building_campus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			swap_ideas = {
+				remove_idea = CAL_ateneum_calisiae_2
+				add_idea = CAL_ateneum_calisiae_3
+			}
+		}
+	}
+	focus = {
+		id = CAL_building_worthy_of_senate
+		icon = CAL_building_worthy_of_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_senate_disctrict }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			set_temp_variable = { CAL_loyalty_change = 10 }
+			add_stability = -0.05
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+		}
+	}
+	focus = {
+		id = CAL_central_imperial_departament
+		icon = CAL_central_imperial_departament
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_building_worthy_of_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = CAL_grand_tabularium
+		icon = CAL_grand_tabularium
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_central_imperial_departament }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 5
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_ideas = CAL_grand_calisian_tabularium
+		}
+	}
+	focus = {
+		id = CAL_calisian_infrastructure
+		icon = CAL_calisian_infrastructure
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_eternal_city }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 8
+		y = 1
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.34
+		}
+	}
+	focus = {
+		id = CAL_aqueducts_on_prosna
+		icon = CAL_aqueducts_on_prosna
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_calisian_infrastructure }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 7
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			314 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+				}
+			} 
+		}
+	}
+	focus = {
+		id = CAL_new_bridges_on_varta
+		icon = CAL_new_bridges_on_varta
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_aqueducts_on_prosna }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 7
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+				}
+			} 
+		}
+	}
+	focus = {
+		id = CAL_pillars_of_mercury
+		icon = CAL_pillars_of_mercury
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_new_bridges_on_varta }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 7
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_building_construction = {
+					type = radar_station
+					level = 2
+				}
+			}
+
+			314 = {
+				add_building_construction = {
+					type = radar_station
+					level = 2
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_via_calisiana
+		icon = CAL_via_calisiana
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_calisian_infrastructure }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 10
+		y = 2
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = construction_tech
+			}
+		}
+	}
+	focus = {
+		id = CAL_viae_publicae
+		icon = CAL_viae_publicae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_via_calisiana }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 9
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			build_railway = {
+				start_province = 14611
+				target_province = 14492		
+			}
+			build_railway = {
+				start_province = 14583
+				target_province = 1372	
+			}
+			build_railway = {
+				start_province = 2814
+				target_province = 14750	
+			}
+		}
+	}
+	focus = {
+		id = CAL_interchange_hubs
+		icon = CAL_interchange_hubs
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_viae_publicae }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 9
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			build_railway = {
+				start_province = 13760
+				target_province = 13771			
+			}
+			build_railway = {
+				start_province = 13771	
+				target_province = 13773
+			}
+			build_railway = {
+				start_province = 13767
+				target_province = 13765
+			}
+		}
+	}
+	focus = {
+		id = CAL_viae_vicinales
+		icon = CAL_viae_vicinales
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_via_calisiana }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 11
+		y = 3
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			} 
+			314 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			} 
+		}
+	}
+	focus = {
+		id = CAL_suburban_horrea
+		icon = CAL_suburban_horrea
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city
+		prerequisite = { focus = CAL_viae_vicinales }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 11
+		y = 4
+		
+		cost = 2
+		search_filters = { }
+		completion_reward = { 
+			846 = {
+				add_building_construction = {
+					type = supply_node
+        			province = 1759
+					level = 1
+				}
+			}	
+			314 = {
+				add_building_construction = {
+					type = supply_node
+        			province = 13771
+					level = 1
+				}
+			}	
+		}
+	}
+	# Superregionalne
+	focus = {
+		id = CAL_exercitus_calisus
+		icon = CAL_exercitus_calisus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		#prerequisite = { focus = CAL_viae_vicinales }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 30
+		y = 0
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_political_power = 50
+			add_command_power = 50
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = CAL_machines_from_the_myths
+		icon = CAL_machines_from_the_myths
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exercitus_calisus
+		prerequisite = { focus = CAL_exercitus_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -8
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_eternal_dream_of_flying_1
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = 20
+				producer = EKS
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = 20
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = primitive_aircraft_equipment
+				amount = 50
+				producer = FEL
+			}
+			add_equipment_to_stockpile = {
+				type = primitive_aircraft_equipment
+				amount = 50
+				producer = GNI
+			}
+			add_equipment_to_stockpile = {
+				type = primitive_aircraft_equipment
+				amount = 50
+				producer = LSZ
+			}
+		}
+	}
+	focus = {
+		id = CAL_calisian_icarii
+		icon = CAL_calisian_icarii
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_machines_from_the_myths
+		prerequisite = { focus = CAL_machines_from_the_myths }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CAL_eternal_dream_of_flying_1
+				add_idea = CAL_eternal_dream_of_flying_2
+			}
+			air_experience = 50
+		}
+	}
+	focus = {
+		id = CAL_on_the_wings_of_giants
+		icon = CAL_on_the_wings_of_giants
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_machines_from_the_myths
+		prerequisite = { focus = CAL_calisian_icarii }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CAL_eternal_dream_of_flying_2
+				add_idea = CAL_eternal_dream_of_flying_3
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = bombers
+			}
+		}
+	}
+	focus = {
+		id = CAL_aerial_screw_of_our_times
+		icon = CAL_aerial_screw_of_our_times
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_machines_from_the_myths
+		prerequisite = { focus = CAL_machines_from_the_myths }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = helicopters
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_swarm_of_anisoptera
+		icon = CAL_swarm_of_anisoptera
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_machines_from_the_myths
+		prerequisite = { focus = CAL_aerial_screw_of_our_times }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = drones
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_imperial_aquilae
+		icon = CAL_imperial_aquilae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_machines_from_the_myths
+		prerequisite = { focus = CAL_on_the_wings_of_giants }
+		prerequisite = { focus = CAL_swarm_of_anisoptera }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.46
+			swap_ideas = {
+				remove_idea = CAL_eternal_dream_of_flying_3
+				add_idea = CAL_eternal_dream_of_flying_4
+			}
+		}
+	}
+	focus = {
+		id = CAL_heores_of_aeneid
+		icon = CAL_heores_of_aeneid
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exercitus_calisus
+		prerequisite = { focus = CAL_exercitus_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_like_aeneas_before_us_1
+		}
+	}
+	focus = {
+		id = CAL_titan_submersibles
+		icon = CAL_titan_submersibles
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_heores_of_aeneid
+		prerequisite = { focus = CAL_heores_of_aeneid }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			if = {
+				limit = { has_idea = CAL_like_aeneas_before_us_3 }
+				swap_ideas = {
+					remove_idea = CAL_like_aeneas_before_us_3
+					add_idea = CAL_like_aeneas_before_us_4
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_like_aeneas_before_us_1
+					add_idea = CAL_like_aeneas_before_us_2
+				}
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = ss_tech
+			}
+		}
+	}
+	focus = {
+		id = CAL_light_lembus_boats
+		icon = CAL_light_lembus_boats
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_heores_of_aeneid
+		prerequisite = { focus = CAL_heores_of_aeneid }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = cl_tech
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_reintroduction_of_quinquereme
+		icon = CAL_reintroduction_of_quinquereme
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_heores_of_aeneid
+		prerequisite = { focus = CAL_heores_of_aeneid }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			if = {
+				limit = { has_idea = CAL_like_aeneas_before_us_2 }
+				swap_ideas = {
+					remove_idea = CAL_like_aeneas_before_us_2
+					add_idea = CAL_like_aeneas_before_us_4
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_like_aeneas_before_us_1
+					add_idea = CAL_like_aeneas_before_us_3
+				}
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = dd_tech
+			}
+		}
+	}
+	focus = {
+		id = CAL_ramming_speed
+		icon = CAL_ramming_speed
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_heores_of_aeneid
+		prerequisite = { focus = CAL_titan_submersibles }
+		prerequisite = { focus = CAL_reintroduction_of_quinquereme }
+		prerequisite = { focus = CAL_light_lembus_boats }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.47
+			swap_ideas = {
+				remove_idea = CAL_like_aeneas_before_us_4
+				add_idea = CAL_like_aeneas_before_us_5
+			}
+		}
+	}
+	focus = {
+		id = CAL_steel_chariots
+		icon = CAL_steel_chariots
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exercitus_calisus
+		prerequisite = { focus = CAL_exercitus_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			army_experience = 50
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_2
+				amount = 10
+				producer = EKS
+			}
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_2
+				amount = 10
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_0
+				amount = 20
+				producer = FEL
+			}
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_0
+				amount = 20
+				producer = GNI
+			}
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_0
+				amount = 20
+				producer = LSZ
+			}
+		}
+	}
+	focus = {
+		id = CAL_armoured_behemoths
+		icon = CAL_armoured_behemoths
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steel_chariots
+		prerequisite = { focus = CAL_steel_chariots }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = CAL_modern_testudo
+		icon = CAL_modern_testudo
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steel_chariots
+		prerequisite = { focus = CAL_armoured_behemoths }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_ideas = CAL_armoured_behemoths_idea
+		}
+	}
+	focus = {
+		id = CAL_ironclad_vehicula
+		icon = CAL_ironclad_vehicula
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steel_chariots
+		prerequisite = { focus = CAL_steel_chariots }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = apc
+			}
+
+		}
+	}
+	focus = {
+		id = CAL_imperial_land_raiders
+		icon = CAL_imperial_land_raiders
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steel_chariots
+		prerequisite = { focus = CAL_ironclad_vehicula }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = ifv
+			}
+		}
+	}
+	focus = {
+		id = CAL_bellum_fulminatis
+		icon = CAL_bellum_fulminatis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_steel_chariots
+		prerequisite = { focus = CAL_modern_testudo }
+		prerequisite = { focus = CAL_imperial_land_raiders }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+			country_event = calisia.48
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.1
+				uses = 1
+				category = land_doctrine
+			}
+			swap_ideas = {
+				add_idea = CAL_armoured_behemoths_idea2
+				remove_idea = CAL_armoured_behemoths_idea
+			}
+		}
+	}
+	focus = {
+		id = CAL_disciples_of_mars
+		icon = CAL_disciples_of_mars
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exercitus_calisus
+		prerequisite = { focus = CAL_exercitus_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_champions_of_hercules
+		icon = CAL_champions_of_hercules
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_disciples_of_mars
+		prerequisite = { focus = CAL_disciples_of_mars }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_hounds_of_neptune
+		icon = CAL_hounds_of_neptune
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_disciples_of_mars
+		prerequisite = { focus = CAL_disciples_of_mars }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_harbingers_of_mercury
+		icon = CAL_harbingers_of_mercury
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_disciples_of_mars
+		prerequisite = { focus = CAL_disciples_of_mars }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_sons_of_calisia
+		icon = CAL_sons_of_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_disciples_of_mars
+		prerequisite = { focus = CAL_champions_of_hercules }
+		prerequisite = { focus = CAL_hounds_of_neptune }
+		prerequisite = { focus = CAL_harbingers_of_mercury }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_vinician_army_reforms
+		icon = CAL_vinician_army_reforms
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exercitus_calisus
+		prerequisite = { focus = CAL_exercitus_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    army_experience = 50
+			swap_ideas = {
+				add_idea = CAL_civic_army2
+				remove_idea = CAL_civic_army
+			}
+		}
+	}
+	focus = {
+		id = CAL_standarization_of_our_armaments
+		icon = CAL_standarization_of_our_armaments
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinician_army_reforms
+		prerequisite = { focus = CAL_vinician_army_reforms }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = ranged_weapons
+            }
+			add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = melee_weapons
+            }
+			if = {
+				limit = { has_idea = CAL_civic_army2 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army2
+					add_idea = CAL_civic_army3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_lorica_ballistica
+		icon = CAL_lorica_ballistica
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinician_army_reforms
+		prerequisite = { focus = CAL_standarization_of_our_armaments }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    if = {
+				limit = { has_idea = CAL_civic_army3 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army4
+					add_idea = CAL_civic_army5
+				}
+			}
+			add_ideas = CAL_legionarius_armor
+		}
+	}
+	focus = {
+		id = CAL_invest_in_auxilia
+		icon = CAL_invest_in_auxilia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinician_army_reforms
+		prerequisite = { focus = CAL_vinician_army_reforms }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    if = {
+				limit = { has_idea = CAL_civic_army2 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army2
+					add_idea = CAL_civic_army3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment_1
+				amount = 500
+				producer = CAL
+			}
+		}
+	}
+	focus = {
+		id = CAL_siege_engines_of_empire
+		icon = CAL_siege_engines_of_empire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinician_army_reforms
+		prerequisite = { focus = CAL_invest_in_auxilia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = light_artillery
+            }
+			add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = heavy_artillery
+            }
+			add_tech_bonus = {
+                bonus = 0.5
+                uses = 2
+                category = rocket_artillery
+            }
+            if = {
+				limit = { has_idea = CAL_civic_army3 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army4
+					add_idea = CAL_civic_army5
+				}
+			}			
+		}
+	}
+	focus = {
+		id = CAL_calisian_way_of_war
+		icon = CAL_calisian_way_of_war
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_vinician_army_reforms
+		prerequisite = { focus = CAL_lorica_ballistica }
+		prerequisite = { focus = CAL_siege_engines_of_empire }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.44
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 3
+				category = land_honor
+			}
+			swap_ideas = {
+					remove_idea = CAL_civic_army5
+					add_idea = CAL_civic_army6
+				}
+		}
+	}
+	focus = {
+		id = CAL_schola_armaturarum
+		icon = CAL_schola_armaturarum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exercitus_calisus
+		prerequisite = { focus = CAL_exercitus_calisus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 10
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    add_command_power = 100
+			army_experience = 20
+			navy_experience = 20
+			air_experience = 20
+			swap_ideas = { 
+				remove_idea = officer_random
+				add_idea = officer_clerks
+			}
+		}
+	}
+	focus = {
+		id = CAL_great_gladiatorial_training_school
+		icon = CAL_great_gladiatorial_training_school
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_schola_armaturarum }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    swap_ideas = { 
+				remove_idea = training_basic 
+				add_idea = training_veterans
+			}
+		}
+	}
+	focus = {
+		id = CAL_foederati_officers
+		icon = CAL_foederati_officers
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_schola_armaturarum }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    swap_ideas = { 
+				remove_idea = officer_clerks
+				add_idea = officer_leftovers
+			}
+			FEL = {
+			every_character = {
+				limit = {
+					is_character = FEL_zbigniew_targonski
+				}
+				set_nationality = CAL
+				set_character_name = "Sbigneus Targonus"
+				set_portraits = {
+					army = {
+						large = "GFX_CAL_Targonski"
+					}
+				}
+			}
+			}
+			GNI = {
+			every_character = {
+				limit = {
+					is_character = GNI_wojciech_pikula
+				}
+				set_nationality = CAL
+				set_character_name = "Adalbert Pikulus"
+				set_portraits = {
+					army = {
+						large = "GFX_CAL_Pikula"
+					}
+				}
+			}
+			}
+			GNI = {
+			every_character = {
+				limit = {
+					is_character = GNI_arkadiusz_golonka
+				}
+				set_nationality = CAL
+				set_character_name = "Arcadius Golonkus"
+				set_portraits = {
+					army = {
+						large = "GFX_CAL_Golonka" }
+					}
+				}
+			}
+	    }
+	}
+	focus = {
+		id = CAL_si_vis_pacem_para_bellum
+		icon = CAL_si_vis_pacem_para_bellum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_great_gladiatorial_training_school }
+		prerequisite = { focus = CAL_foederati_officers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    country_event = calisia.45
+		}
+	}
+	focus = {
+		id = CAL_establish_the_high_naval_magistrate
+		icon = CAL_establish_the_high_naval_magistrate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
+		available = {
+		    owns_state = 34
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    navy_experience = 100
+			if = {
+			limit = {
+				has_completed_focus = CAL_fields_of_mars_training_grounds
+				has_completed_focus = CAL_school_of_daedalus
+			}
+			swap_ideas = {
+				remove_idea = officer_leftovers
+				add_idea = officer_academies }
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			
+		}
+	}
+	focus = {
+		id = CAL_fields_of_mars_training_grounds
+		icon = CAL_fields_of_mars_training_grounds
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
+		available = {
+		    if = {
+                limit = {
+				    has_completed_focus = CAL_temples_on_fields_of_mars }
+				owns_state = 608
+				}
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    army_experience = 100
+			if = {
+			limit = {
+				has_completed_focus = CAL_establish_the_high_naval_magistrate
+				has_completed_focus = CAL_school_of_daedalus
+			}
+			swap_ideas = {
+				remove_idea = officer_leftovers
+				add_idea = officer_academies }
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_school_of_daedalus
+		icon = CAL_school_of_daedalus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
+		available = {
+		    OR = {
+				owns_state = 53
+				owns_state = 310
+				}
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    air_experience = 100
+			if = {
+			limit = {
+				has_completed_focus = CAL_establish_the_high_naval_magistrate
+				has_completed_focus = CAL_fields_of_mars_training_grounds
+			}
+			swap_ideas = {
+				remove_idea = officer_leftovers
+				add_idea = officer_academies }
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = CAL_institute_of_vitruvius
+		icon = CAL_institute_of_vitruvius
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_schola_armaturarum }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    add_ideas = CAL_caesarea_cadre
+		}
+	}
+	focus = {
+		id = CAL_homo_calisiensis
+		icon = CAL_homo_calisiensis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_schola_armaturarum
+		prerequisite = { focus = CAL_institute_of_vitruvius }
+		prerequisite = { focus = CAL_catonian_academy }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    add_ideas = CAL_homo_calisiensis_idea
+		}
+	}
+	focus = {
+		id = CAL_crisis_of_the_third_decade
+		icon = CAL_crisis_of_the_third_decade
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		#prerequisite = { focus = CAL_viae_vicinales }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 48
+		y = 0
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_hippocratic_corpus
+		icon = CAL_hippocratic_corpus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_crisis_of_the_third_decade	
+		prerequisite = { focus = CAL_crisis_of_the_third_decade }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_catonian_academy
+		icon = CAL_catonian_academy
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_hippocratic_corpus	
+		prerequisite = { focus = CAL_hippocratic_corpus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		    add_research_slot = 1
+		}
+	}
+	focus = {
+		id = CAL_roads_are_no_longer_safe
+		icon = CAL_roads_are_no_longer_safe
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_crisis_of_the_third_decade	
+		prerequisite = { focus = CAL_crisis_of_the_third_decade }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_establish_cohortes_urbanae
+		icon = CAL_establish_cohortes_urbanae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_roads_are_no_longer_safe }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_collapse_of_the_export_system
+		icon = CAL_collapse_of_the_export_system
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_establish_cohortes_urbanae }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_inefficient_taxation
+		icon = CAL_inefficient_taxation
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_collapse_of_the_export_system }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_forced_equalization_of_wealth
+		icon = CAL_forced_equalization_of_wealth
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_inefficient_taxation }
+		mutually_exclusive = { focus = CAL_public_punishments }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_public_punishments
+		icon = CAL_public_punishments
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_inefficient_taxation }
+		mutually_exclusive = { focus = CAL_forced_equalization_of_wealth }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_to_the_last_denarius
+		icon = CAL_to_the_last_denarius
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { 
+			focus = CAL_forced_equalization_of_wealth 
+			focus = CAL_public_punishments
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_reform_of_administrative_division
+		icon = CAL_reform_of_administrative_division
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_collapse_of_the_export_system }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_central_popular_committee
+		icon = CAL_central_popular_committee
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_reform_of_administrative_division }
+		mutually_exclusive = { focus = CAL_federalization_of_the_empire }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_federalization_of_the_empire
+		icon = CAL_federalization_of_the_empire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_reform_of_administrative_division }
+		mutually_exclusive = { focus = CAL_central_popular_committee }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_bureaucratic_behemoth
+		icon = CAL_bureaucratic_behemoth
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { 
+			focus = CAL_central_popular_committee 
+			focus = CAL_federalization_of_the_empire
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_there_was_once_a_dream
+		icon = CAL_there_was_once_a_dream
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_roads_are_no_longer_safe	
+		prerequisite = { focus = CAL_to_the_last_denarius }
+		prerequisite = { focus = CAL_bureaucratic_behemoth }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_bread_and_circuses
+		icon = CAL_bread_and_circuses
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_crisis_of_the_third_decade	
+		prerequisite = { focus = CAL_crisis_of_the_third_decade }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_first_calisian_spartakiad
+		icon = CAL_first_calisian_spartakiad
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_bread_and_circuses }
+		mutually_exclusive = { focus = CAL_the_bloody_games }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_march_of_unity
+		icon = CAL_march_of_unity
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_first_calisian_spartakiad }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_the_bloody_games
+		icon = CAL_the_bloody_games
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_bread_and_circuses }
+		mutually_exclusive = { focus = CAL_first_calisian_spartakiad }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_wine_women_and_singing
+		icon = CAL_wine_women_and_singing
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_the_bloody_games }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_grain_redistribution_centres
+		icon = CAL_grain_redistribution_centres
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_bread_and_circuses }
+		mutually_exclusive = { focus = CAL_its_almost_war_season }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_central_command_economy
+		icon = CAL_central_command_economy
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_grain_redistribution_centres }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_its_almost_war_season
+		icon = CAL_its_almost_war_season
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_bread_and_circuses }
+		mutually_exclusive = { focus = CAL_grain_redistribution_centres }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_economy_based_on_plunder
+		icon = CAL_economy_based_on_plunder
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_its_almost_war_season }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_inflation_1
+		icon = CAL_inflation_1
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { 
+			focus = CAL_march_of_unity
+			focus = CAL_wine_women_and_singing
+		}
+		prerequisite = { 
+			focus = CAL_central_command_economy
+			focus = CAL_economy_based_on_plunder
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_inflation_2
+		icon = CAL_inflation_2
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_inflation_1 }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_hyperinflation
+		icon = CAL_hyperinflation
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_bread_and_circuses	
+		prerequisite = { focus = CAL_inflation_2 }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	# Climax Barbarorum
+	focus = {
+		id = CAL_barbarian_crisis
+		icon = CAL_barbarian_crisis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		#prerequisite = { focus = CAL_viae_vicinales }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 35
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_enforce_the_limes
+		icon = CAL_enforce_the_limes
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_barbarian_crisis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_emergency_limitanei_legions
+		icon = CAL_emergency_limitanei_legions
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_enforce_the_limes }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_appease_our_subjects
+		icon = CAL_appease_our_subjects
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_barbarian_crisis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_we_will_defend_every_inch_of_our_land
+		icon = CAL_we_will_defend_every_inch_of_our_land
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_appease_our_subjects }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lex_barbarorum
+		icon = CAL_lex_barbarorum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_barbarian_crisis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_adapt_or_perish
+		icon = CAL_adapt_or_perish
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_lex_barbarorum }
+		mutually_exclusive = { focus = CAL_empire_or_death }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_partial_appeasement
+		icon = CAL_partial_appeasement
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_adapt_or_perish }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -6
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_settle_saxons_and_francs
+		icon = CAL_settle_saxons_and_francs
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_partial_appeasement }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_limes_occidentalis
+		icon = CAL_limes_occidentalis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_settle_saxons_and_francs }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_offer_to_the_goths
+		icon = CAL_offer_to_the_goths
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_partial_appeasement }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_germanic_bannerlords
+		icon = CAL_germanic_bannerlords
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_offer_to_the_goths }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_eastern_settlers
+		icon = CAL_eastern_settlers
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_partial_appeasement }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_limes_orientalis
+		icon = CAL_limes_orientalis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_eastern_settlers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_divide_et_impera
+		icon = CAL_divide_et_impera
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { 
+			focus = CAL_adapt_or_perish 
+			focus = CAL_empire_or_death
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_vandalic_despoilers
+		icon = CAL_vandalic_despoilers
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_divide_et_impera	
+		prerequisite = { focus = CAL_divide_et_impera }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lusatia_superior
+		icon = CAL_lusatia_superior
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_divide_et_impera	
+		prerequisite = { focus = CAL_vandalic_despoilers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_scourge_of_god
+		icon = CAL_scourge_of_god
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_divide_et_impera	
+		prerequisite = { focus = CAL_divide_et_impera }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_citizens_of_podlachia
+		icon = CAL_citizens_of_podlachia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_divide_et_impera	
+		prerequisite = { focus = CAL_scourge_of_god }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_jutish_reavers
+		icon = CAL_jutish_reavers
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_divide_et_impera	
+		prerequisite = { focus = CAL_divide_et_impera }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_pomerania_citerior
+		icon = CAL_pomerania_citerior
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_divide_et_impera	
+		prerequisite = { focus = CAL_jutish_reavers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_empire_or_death
+		icon = CAL_empire_or_death
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_lex_barbarorum }
+		mutually_exclusive = { focus = CAL_adapt_or_perish }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_operation_varus
+		icon = CAL_operation_varus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarian_crisis	
+		prerequisite = { focus = CAL_empire_or_death }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_break_franco_saxon_alliance
+		icon = CAL_break_franco_saxon_alliance
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus	
+		prerequisite = { focus = CAL_operation_varus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_dreams_of_limes_saxoniae
+		icon = CAL_dreams_of_limes_saxoniae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus	
+		prerequisite = { focus = CAL_break_franco_saxon_alliance }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_strike_at_the_visigothic_leadership
+		icon = CAL_strike_at_the_visigothic_leadership
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus	
+		prerequisite = { focus = CAL_operation_varus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_ostrogothia_delenda_est
+		icon = CAL_ostrogothia_delenda_est
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus	
+		prerequisite = { focus = CAL_strike_at_the_visigothic_leadership }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_drive_the_scythians_back_to_the_abyss
+		icon = CAL_drive_the_scythians_back_to_the_abyss
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus	
+		prerequisite = { focus = CAL_operation_varus }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_borussian_vespers
+		icon = CAL_borussian_vespers
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus	
+		prerequisite = { focus = CAL_drive_the_scythians_back_to_the_abyss }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_barbarians_in_the_senate
+		icon = CAL_barbarians_in_the_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_partial_appeasement	
+		prerequisite = { focus = CAL_limes_occidentalis }
+		prerequisite = { focus = CAL_germanic_bannerlords }
+		prerequisite = { focus = CAL_limes_orientalis }
+		prerequisite = { focus = CAL_lusatia_superior }
+		prerequisite = { focus = CAL_citizens_of_podlachia }
+		prerequisite = { focus = CAL_pomerania_citerior }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_reward_the_most_loyal
+		icon = CAL_reward_the_most_loyal
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarians_in_the_senate
+		prerequisite = { focus = CAL_barbarians_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_legion_of_senators
+		icon = CAL_legion_of_senators
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_reward_the_most_loyal
+		prerequisite = { focus = CAL_reward_the_most_loyal }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_seven_nation_army
+		icon = CAL_seven_nation_army
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_reward_the_most_loyal
+		prerequisite = { focus = CAL_reward_the_most_loyal }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_majority_in_the_senate
+		icon = CAL_majority_in_the_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_reward_the_most_loyal
+		prerequisite = { focus = CAL_legion_of_senators }
+		prerequisite = { focus = CAL_seven_nation_army }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_barbarian_consul
+		icon = CAL_barbarian_consul
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_reward_the_most_loyal
+		prerequisite = { focus = CAL_majority_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_constantine_plan
+		icon = CAL_constantine_plan
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarians_in_the_senate
+		prerequisite = { focus = CAL_barbarians_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_bring_legio_i_alpha
+		icon = CAL_bring_legio_i_alpha
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constantine_plan
+		prerequisite = { focus = CAL_constantine_plan }
+		mutually_exclusive = { focus = CAL_rally_the_cohortes_urbanae }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_rally_the_cohortes_urbanae
+		icon = CAL_rally_the_cohortes_urbanae
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constantine_plan
+		prerequisite = { focus = CAL_constantine_plan }
+		mutually_exclusive = { focus = CAL_bring_legio_i_alpha }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_fight_fire_with_fire
+		icon = CAL_fight_fire_with_fire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constantine_plan
+		prerequisite = { 
+			focus = CAL_bring_legio_i_alpha 
+			focus = CAL_rally_the_cohortes_urbanae
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_sack_the_city_officials
+		icon = CAL_sack_the_city_officials
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constantine_plan
+		prerequisite = { focus = CAL_fight_fire_with_fire }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_arrest_the_plotters_in_the_senate
+		icon = CAL_arrest_the_plotters_in_the_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constantine_plan
+		prerequisite = { focus = CAL_barbarian_consul }
+		prerequisite = { focus = CAL_sack_the_city_officials }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_accidental_invasion_on_the_praefecture
+		icon = CAL_accidental_invasion_on_the_praefecture
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arrest_the_plotters_in_the_senate
+		prerequisite = { focus = CAL_arrest_the_plotters_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_trial_of_praefectus
+		icon = CAL_trial_of_praefectus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arrest_the_plotters_in_the_senate
+		prerequisite = { focus = CAL_accidental_invasion_on_the_praefecture }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_raiders_of_the_lost_tribe
+		icon = CAL_raiders_of_the_lost_tribe
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arrest_the_plotters_in_the_senate
+		prerequisite = { focus = CAL_arrest_the_plotters_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_shield_the_civilian_population
+		icon = CAL_shield_the_civilian_population
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arrest_the_plotters_in_the_senate
+		prerequisite = { focus = CAL_raiders_of_the_lost_tribe }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_dissolution_of_the_praetorian_guard
+		icon = CAL_dissolution_of_the_praetorian_guard
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arrest_the_plotters_in_the_senate
+		prerequisite = { focus = CAL_trial_of_praefectus }
+		prerequisite = { focus = CAL_shield_the_civilian_population }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_progedi_populus
+		icon = CAL_progedi_populus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_arrest_the_plotters_in_the_senate
+		prerequisite = { focus = CAL_dissolution_of_the_praetorian_guard }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_conspiracy_of_stavissin
+		icon = CAL_conspiracy_of_stavissin
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarians_in_the_senate
+		prerequisite = { focus = CAL_barbarians_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -6
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_contacts_in_legions
+		icon = CAL_contacts_in_legions
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_conspiracy_of_stavissin }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_contacts_in_the_senate
+		icon = CAL_contacts_in_the_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_conspiracy_of_stavissin }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_cunning_stratagem
+		icon = CAL_cunning_stratagem
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_contacts_in_legions }
+		prerequisite = { focus = CAL_contacts_in_the_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_united_in_hatred
+		icon = CAL_united_in_hatred
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_cunning_stratagem }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_proper_officers_for_the_job
+		icon = CAL_proper_officers_for_the_job
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_united_in_hatred }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_quiet_purge_in_the_guard
+		icon = CAL_quiet_purge_in_the_guard
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_proper_officers_for_the_job }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_assignments_for_the_big_night
+		icon = CAL_assignments_for_the_big_night
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_quiet_purge_in_the_guard }
+		prerequisite = { focus = CAL_our_little_nero }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_oath_of_undying_loyalty
+		icon = CAL_oath_of_undying_loyalty
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_cunning_stratagem }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_servants_in_the_palace
+		icon = CAL_servants_in_the_palace
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_oath_of_undying_loyalty }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_false_plot
+		icon = CAL_false_plot
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_servants_in_the_palace }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_plant_the_evidence
+		icon = CAL_plant_the_evidence
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_invite_the_barbarians }
+		prerequisite = { focus = CAL_false_plot }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_explosive_mixture
+		icon = CAL_explosive_mixture
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_united_in_hatred }
+		prerequisite = { focus = CAL_oath_of_undying_loyalty }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_our_little_nero
+		icon = CAL_our_little_nero
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_explosive_mixture }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_invite_the_barbarians
+		icon = CAL_invite_the_barbarians
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_explosive_mixture }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_stashes_of_greek_fire
+		icon = CAL_stashes_of_greek_fire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_our_little_nero }
+		prerequisite = { focus = CAL_invite_the_barbarians }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_great_fire_of_calisia
+		icon = CAL_great_fire_of_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_assignments_for_the_big_night }
+		prerequisite = { focus = CAL_stashes_of_greek_fire }
+		prerequisite = { focus = CAL_plant_the_evidence }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_sic_semper_tyrannis
+		icon = CAL_sic_semper_tyrannis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_conspiracy_of_stavissin
+		prerequisite = { focus = CAL_great_fire_of_calisia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 9
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_ides
+		icon = CAL_ides
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_operation_varus
+		prerequisite = { focus = CAL_dreams_of_limes_saxoniae }
+		prerequisite = { focus = CAL_ostrogothia_delenda_est }
+		prerequisite = { focus = CAL_borussian_vespers }
+		prerequisite = { focus = CAL_lusatia_superior }
+		prerequisite = { focus = CAL_citizens_of_podlachia }
+		prerequisite = { focus = CAL_pomerania_citerior }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_expulsion_of_barbarians
+		icon = CAL_expulsion_of_barbarians
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_ides }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_caletus_wall
+		icon = CAL_caletus_wall
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_expulsion_of_barbarians }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_settle_soldiers_in_the_frontier
+		icon = CAL_settle_soldiers_in_the_frontier
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_expulsion_of_barbarians }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_tributes_from_germania
+		icon = CAL_tributes_from_germania
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_caletus_wall }
+		prerequisite = { focus = CAL_settle_soldiers_in_the_frontier }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_eternal_spirit_of_germanicus
+		icon = CAL_eternal_spirit_of_germanicus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_tributes_from_germania }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_surround_the_palace
+		icon = CAL_surround_the_palace
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_ides }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_purge_the_populares_leadership
+		icon = CAL_purge_the_populares_leadership
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_surround_the_palace }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_hour_of_the_lynx
+		icon = CAL_hour_of_the_lynx
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_surround_the_palace }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_servile_war
+		icon = CAL_servile_war
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_purge_the_populares_leadership }
+		prerequisite = { focus = CAL_hour_of_the_lynx }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_via_crucis
+		icon = CAL_via_crucis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_servile_war }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_shadow_of_an_emperor
+		icon = CAL_shadow_of_an_emperor
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_eternal_spirit_of_germanicus }
+		prerequisite = { focus = CAL_via_crucis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_reconstruction_fund
+		icon = CAL_reconstruction_fund
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_shadow_of_an_emperor }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_rewards_for_the_faction
+		icon = CAL_rewards_for_the_faction
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_reconstruction_fund }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_senatus_consultum_ultimum
+		icon = CAL_senatus_consultum_ultimum
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_shadow_of_an_emperor }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_total_administration_takeover
+		icon = CAL_total_administration_takeover
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_senatus_consultum_ultimum }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_triumph_in_calisia
+		icon = CAL_triumph_in_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_rewards_for_the_faction }
+		prerequisite = { focus = CAL_total_administration_takeover }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 8
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_renovatio_imperii
+		icon = CAL_renovatio_imperii
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_triumph_in_calisia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_cry_havoc
+		icon = CAL_cry_havoc
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ides
+		prerequisite = { focus = CAL_ides }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_optimates_secures_administration
+		icon = CAL_optimates_secures_administration
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_cry_havoc }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_praetorian_guard_secures_the_city
+		icon = CAL_praetorian_guard_secures_the_city
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_cry_havoc }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_triumph_of_liberatores
+		icon = CAL_triumph_of_liberatores
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_optimates_secures_administration }
+		prerequisite = { focus = CAL_praetorian_guard_secures_the_city }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_optimates_rule_over_senate
+		icon = CAL_optimates_rule_over_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_triumph_of_liberatores }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_declare_the_populares_enemies_of_the_state
+		icon = CAL_declare_the_populares_enemies_of_the_state
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_optimates_rule_over_senate }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_mass_annulment_of_laws
+		icon = CAL_mass_annulment_of_laws
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_declare_the_populares_enemies_of_the_state }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_primus_in_optimates
+		icon = CAL_primus_in_optimates
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_mass_annulment_of_laws }
+		prerequisite = { focus = CAL_lands_for_the_legionaries }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_praetorian_rule_over_army
+		icon = CAL_praetorian_rule_over_army
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_triumph_of_liberatores }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_border_camps_for_barbarians
+		icon = CAL_border_camps_for_barbarians
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_praetorian_rule_over_army }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_breaking_the_geneva_convention
+		icon = CAL_breaking_the_geneva_convention
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_border_camps_for_barbarians }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_master_of_puppets
+		icon = CAL_master_of_puppets
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_personal_offer_for_vinicius }
+		prerequisite = { focus = CAL_breaking_the_geneva_convention }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_compromise_with_popular_legions
+		icon = CAL_compromise_with_popular_legions
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_optimates_rule_over_senate }
+		prerequisite = { focus = CAL_praetorian_rule_over_army }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lands_for_the_legionaries
+		icon = CAL_lands_for_the_legionaries
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_compromise_with_popular_legions }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_personal_offer_for_vinicius
+		icon = CAL_personal_offer_for_vinicius
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_compromise_with_popular_legions }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_vulgar_beast
+		icon = CAL_vulgar_beast
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_lands_for_the_legionaries }
+		prerequisite = { focus = CAL_personal_offer_for_vinicius }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_lawful_tyrannicide
+		icon = CAL_lawful_tyrannicide
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_primus_in_optimates }
+		prerequisite = { focus = CAL_vulgar_beast }
+		prerequisite = { focus = CAL_master_of_puppets }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_the_first_triumvirate
+		icon = CAL_the_first_triumvirate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_cry_havoc
+		prerequisite = { focus = CAL_lawful_tyrannicide }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 9
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	##epilogis Praetor
+
+	focus = {
+		id = CAL_eternal_city_falls_silent
+		icon = CAL_eternal_city_falls_silent
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_calisia_aeterna_victrix
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 65
+		y = 0
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_sheep_in_the_den_of_wolves
+		icon = CAL_sheep_in_the_den_of_wolves
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_city_falls_silent
+		prerequisite = {
+			focus = CAL_eternal_city_falls_silent
+		}
 		available = {
 		
 		}
@@ -1191,11 +8503,66 @@ focus_tree = {
 	}
 
 	focus = {
-		id = CAL_creation_of_collegia
-		icon = CAL_
-		prerequisite = { focus = CAL_nationalization_of_industry }
-		prerequisite = { focus = CAL_expansion_of_ager_publicus }
-		relative_position_id = CAL_nationalization_of_industry
+		id = CAL_discordia
+		icon = CAL_discordia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_sheep_in_the_den_of_wolves
+		prerequisite = {
+			focus = CAL_sheep_in_the_den_of_wolves
+		}
+		mutually_exclusive = {
+			focus = CAL_concordia
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_lynx_blinded
+		icon = CAL_lynx_blinded
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_discordia
+		prerequisite = {
+			focus = CAL_discordia
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_incorporate_the_legions
+		icon = CAL_incorporate_the_legions
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_lynx_blinded
+		prerequisite = {
+			focus = CAL_lynx_blinded
+		}
 		available = {
 		
 		}
@@ -1213,4 +8580,2220 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = CAL_dinner_with_lions
+		icon = CAL_dinner_with_lions
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_lynx_blinded
+		prerequisite = {
+			focus = CAL_lynx_blinded
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_battle_with_urban_cohorts
+		icon = CAL_battle_with_urban_cohorts
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_lynx_blinded
+		prerequisite = {
+			focus = CAL_incorporate_the_legions
+		}
+		prerequisite = {
+			focus = CAL_dinner_with_lions
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_so_many_barbarians
+		icon = CAL_so_many_barbarians
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_battle_with_urban_cohorts
+		prerequisite = {
+			focus = CAL_battle_with_urban_cohorts
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_so_few_arenas
+		icon = CAL_so_few_arenas
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_so_many_barbarians
+		prerequisite = {
+			focus = CAL_so_many_barbarians
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_fight_for_your_lives
+		icon = CAL_fight_for_your_lives
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_so_few_arenas
+		prerequisite = {
+			focus = CAL_so_few_arenas
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_grace_of_the_mars
+		icon = CAL_grace_of_the_mars
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_fight_for_your_lives
+		prerequisite = {
+			focus = CAL_fight_for_your_lives
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_a_divine_law_of_imperator
+		icon = CAL_a_divine_law_of_imperator
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_battle_with_urban_cohorts
+		prerequisite = {
+			focus = CAL_battle_with_urban_cohorts
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_ridiculous_notions_of_liberty
+		icon = CAL_ridiculous_notions_of_liberty
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_a_divine_law_of_imperator
+		prerequisite = {
+			focus = CAL_a_divine_law_of_imperator
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_military_administration
+		icon = CAL_military_administration
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_a_divine_law_of_imperator
+		prerequisite = {
+			focus = CAL_a_divine_law_of_imperator
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_council_of_prefects
+		icon = CAL_council_of_prefects
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_ridiculous_notions_of_liberty
+		prerequisite = {
+			focus = CAL_ridiculous_notions_of_liberty
+		}
+		prerequisite = {
+			focus = CAL_military_administration
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_senate_deliberates_guard_decides
+		icon = CAL_senate_deliberates_guard_decides
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_battle_with_urban_cohorts
+		prerequisite = {
+			focus = CAL_battle_with_urban_cohorts
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_slave_empire
+		icon = CAL_slave_empire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_senate_deliberates_guard_decides
+		prerequisite = {
+			focus = CAL_senate_deliberates_guard_decides
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_tribunal_of_citizenship
+		icon = CAL_tribunal_of_citizenship
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_slave_empire
+		prerequisite = {
+			focus = CAL_slave_empire
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_gargrantuan_praetorian_paychecks
+		icon = CAL_gargrantuan_praetorian_paychecks
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_tribunal_of_citizenship
+		prerequisite = {
+			focus = CAL_tribunal_of_citizenship
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_our_little_augustus
+		icon = CAL_our_little_augustus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_council_of_prefects
+		prerequisite = {
+			focus = CAL_grace_of_the_mars
+		}
+		prerequisite = {
+			focus = CAL_council_of_prefects
+		}
+		prerequisite = {
+			focus = CAL_gargrantuan_praetorian_paychecks
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_empire_in_shackles
+		icon = CAL_empire_in_shackles
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_our_little_augustus
+		prerequisite = {
+			focus = CAL_our_little_augustus
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_concordia
+		icon = CAL_concordia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_sheep_in_the_den_of_wolves
+		prerequisite = {
+			focus = CAL_sheep_in_the_den_of_wolves
+		}
+		mutually_exclusive = {
+			focus = CAL_discordia
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_in_the_steps_of_cincinnatus
+		icon = CAL_in_the_steps_of_cincinnatus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_concordia
+		prerequisite = {
+			focus = CAL_concordia
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_preatorian_hegemony_in_army
+		icon = CAL_preatorian_hegemony_in_army
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_the_steps_of_cincinnatus
+		prerequisite = {
+			focus = CAL_in_the_steps_of_cincinnatus
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_favours_for_the_optimates
+		icon = CAL_favours_for_the_optimates
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_the_steps_of_cincinnatus
+		prerequisite = {
+			focus = CAL_in_the_steps_of_cincinnatus
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_concillium_plebis
+		icon = CAL_concillium_plebis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_in_the_steps_of_cincinnatus
+		prerequisite = {
+			focus = CAL_preatorian_hegemony_in_army
+		}
+		prerequisite = {
+			focus = CAL_favours_for_the_optimates
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_barbarians_in_our_midst
+		icon = CAL_barbarians_in_our_midst
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_concillium_plebis
+		prerequisite = {
+			focus = CAL_concillium_plebis
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_forceful_disarmament_of_invaders
+		icon = CAL_forceful_disarmament_of_invaders
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_barbarians_in_our_midst
+		prerequisite = {
+			focus = CAL_barbarians_in_our_midst
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_exile_the_most_dangerous
+		icon = CAL_exile_the_most_dangerous
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_forceful_disarmament_of_invaders
+		prerequisite = {
+			focus = CAL_forceful_disarmament_of_invaders
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_problem_for_decades
+		icon = CAL_problem_for_decades
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_exile_the_most_dangerous
+		prerequisite = {
+			focus = CAL_exile_the_most_dangerous
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_abolishment_of_populares_laws
+		icon = CAL_abolishment_of_populares_laws
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_concillium_plebis
+		prerequisite = {
+			focus = CAL_concillium_plebis
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_constitution_for_the_people
+		icon = CAL_constitution_for_the_people
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_abolishment_of_populares_laws
+		prerequisite = {
+			focus = CAL_abolishment_of_populares_laws
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_populist_not_popular
+		icon = CAL_populist_not_popular
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_abolishment_of_populares_laws
+		prerequisite = {
+			focus = CAL_abolishment_of_populares_laws
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_first_elections
+		icon = CAL_first_elections
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_constitution_for_the_people
+		prerequisite = {
+			focus = CAL_constitution_for_the_people
+		}
+		prerequisite = {
+			focus = CAL_populist_not_popular
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_overshadowing_senate
+		icon = CAL_overshadowing_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_concillium_plebis
+		prerequisite = {
+			focus = CAL_concillium_plebis
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_reintroduction_of_socmarket
+		icon = CAL_reintroduction_of_socmarket
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_overshadowing_senate
+		prerequisite = {
+			focus = CAL_overshadowing_senate
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_citizens_of_res_publica
+		icon = CAL_citizens_of_res_publica
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_reintroduction_of_socmarket
+		prerequisite = {
+			focus = CAL_reintroduction_of_socmarket
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_fate_of_the_throne
+		icon = CAL_fate_of_the_throne
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_citizens_of_res_publica
+		prerequisite = {
+			focus = CAL_citizens_of_res_publica
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_proclaim_the_republic
+		icon = CAL_proclaim_the_republic
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_first_elections
+		prerequisite = {
+			focus = CAL_problem_for_decades
+		}
+		prerequisite = {
+			focus = CAL_first_elections
+		}
+		prerequisite = {
+			focus = CAL_fate_of_the_throne
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+
+	focus = {
+		id = CAL_winds_of_change
+		icon = CAL_winds_of_change
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_proclaim_the_republic
+		prerequisite = {
+			focus = CAL_proclaim_the_republic
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	##epilogis calisius
+
+	focus = {
+		id = CAL_labor_omnia_vincit
+		icon = CAL_labor_omnia_vincit
+		text_icon = CALISIA_focus_style 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 143
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_edict_of_friendship
+		icon = CAL_edict_of_friendship
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_labor_omnia_vincit
+		prerequisite = { focus = CAL_labor_omnia_vincit }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	
+	focus = {
+		id = CAL_primus_inter_pares
+		icon = CAL_primus_inter_pares
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_edict_of_friendship
+		prerequisite = { focus = CAL_edict_of_friendship }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_trials_optimates
+		icon = CAL_trials_optimates
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_primus_inter_pares
+		prerequisite = { focus = CAL_primus_inter_pares }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_renewed_factionalism
+		icon = CAL_renewed_factionalism
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_trials_optimates
+		prerequisite = { focus = CAL_trials_optimates }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_easing_the_lus_criminale
+		icon = CAL_easing_the_lus_criminale
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_renewed_factionalism
+		prerequisite = { focus = CAL_renewed_factionalism }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_popular_tribunals
+		icon = CAL_popular_tribunals
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_easing_the_lus_criminale
+		prerequisite = { focus = CAL_easing_the_lus_criminale }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_were_all_calisians
+		icon = CAL_were_all_calisians
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_popular_tribunals
+		prerequisite = { focus = CAL_popular_tribunals }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_eternal_nemesis
+		icon = CAL_eternal_nemesis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_were_all_calisians
+		prerequisite = { focus = CAL_were_all_calisians }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_requiescat_in_pace
+		icon = CAL_requiescat_in_pace
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_eternal_nemesis
+		prerequisite = { focus = CAL_eternal_nemesis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_empire_of_the_people
+		icon = CAL_empire_of_the_people
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_requiescat_in_pace
+		prerequisite = { focus = CAL_requiescat_in_pace }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_ave_imperator_ignatius
+		icon = CAL_ave_imperator_ignatius
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_requiescat_in_pace
+		prerequisite = { focus = CAL_requiescat_in_pace }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_homo_homini_lupus_est
+		icon = CAL_homo_homini_lupus_est
+		text_icon = CALISIA_focus_style 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 147
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	
+	focus = {
+		id = CAL_purple_terror
+		icon = CAL_purple_terror
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_homo_homini_lupus_est
+		prerequisite = { focus = CAL_homo_homini_lupus_est }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_royal_hostage
+		icon = CAL_royal_hostage
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_purple_terror
+		prerequisite = { focus = CAL_purple_terror }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_persecution_of_the_opposition
+		icon = CAL_persecution_of_the_opposition
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_royal_hostage
+		prerequisite = { focus = CAL_royal_hostage }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_imperial_faction
+		icon = CAL_imperial_faction
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_persecution_of_the_opposition
+		prerequisite = { focus = CAL_persecution_of_the_opposition }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_dura_lex_sed_lex
+		icon = CAL_dura_lex_sed_lex
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_imperial_faction
+		prerequisite = { focus = CAL_imperial_faction }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_high_magistrate_of_justice
+		icon = CAL_high_magistrate_of_justice
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_dura_lex_sed_lex
+		prerequisite = { focus = CAL_dura_lex_sed_lex }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_were_not_same
+		icon = CAL_were_not_same
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_high_magistrate_of_justice
+		prerequisite = { focus = CAL_high_magistrate_of_justice }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_obstacle_in_palace
+		icon = CAL_obstacle_in_palace
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_were_not_same
+		prerequisite = { focus = CAL_were_not_same }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_forced_abdication
+		icon = CAL_forced_abdication
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_obstacle_in_palace
+		prerequisite = { focus = CAL_obstacle_in_palace }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_empire_of_the_nobles
+		icon = CAL_empire_of_the_nobles
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_forced_abdication
+		prerequisite = { focus = CAL_forced_abdication }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_ave_imperator_franciscus
+		icon = CAL_ave_imperator_franciscus
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_forced_abdication
+		prerequisite = { focus = CAL_forced_abdication }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	focus = {
+		id = CAL_dream_called_calisia
+		icon = CAL_dream_called_calisia
+		prerequisite = { focus = CAL_ave_imperator_ignatius focus = CAL_ave_imperator_franciscus }
+		prerequisite = { focus = CAL_empire_of_the_people focus = CAL_empire_of_the_nobles }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 145
+		y = 13
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	
+	#epilog triumwiratu
+	focus = {
+		id = CAL_pressure_of_circumstances
+		icon = CAL_pressure_of_circumstances
+		text_icon = CALISIA_focus_style 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 165
+		y = 0
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_dividing_the_calisia
+		icon = CAL_dividing_the_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_pressure_of_circumstances }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_legionary_provinces
+		icon = CAL_legionary_provinces
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_dividing_the_calisia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_breadbasket_of_calisia
+		icon = CAL_breadbasket_of_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_legionary_provinces }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_spirit_of_a_true_commander
+		icon = CAL_spirit_of_a_true_commander
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_legionary_provinces }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_ancient_capital_in_cracovia
+		icon = CAL_ancient_capital_in_cracovia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_breadbasket_of_calisia }
+		prerequisite = { focus = CAL_spirit_of_a_true_commander }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_desire_for_revenge
+		icon = CAL_desire_for_revenge
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_ancient_capital_in_cracovia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_senatorial_provinces
+		icon = CAL_senatorial_provinces
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_dividing_the_calisia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_threats_from_abroad_and_within
+		icon = CAL_threats_from_abroad_and_within
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_senatorial_provinces }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_desperate_need_for_money
+		icon = CAL_desperate_need_for_money
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_senatorial_provinces }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_off_to_killing_again
+		icon = CAL_off_to_killing_again
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_threats_from_abroad_and_within }
+		prerequisite = { focus = CAL_desperate_need_for_money }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_hunger_and_unrest_in_the_eternal_city
+		icon = CAL_hunger_and_unrest_in_the_eternal_city
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_off_to_killing_again }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_eastern_provinces
+		icon = CAL_eastern_provinces
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_dividing_the_calisia }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_amber_must_flow
+		icon = CAL_amber_must_flow
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_eastern_provinces }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_agents_of_the_empire
+		icon = CAL_agents_of_the_empire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_eastern_provinces }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 3
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_oriental_jewel_in_constantina
+		icon = CAL_oriental_jewel_in_constantina
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_amber_must_flow }
+		prerequisite = { focus = CAL_agents_of_the_empire }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_plotting_for_plots
+		icon = CAL_plotting_for_plots
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_oriental_jewel_in_constantina }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_demand_the_grain
+		icon = CAL_demand_the_grain
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_desire_for_revenge }
+		prerequisite = { focus = CAL_hunger_and_unrest_in_the_eternal_city }
+		prerequisite = { focus = CAL_plotting_for_plots }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_galician_blockade
+		icon = CAL_galician_blockade
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_demand_the_grain }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_ultimatum_for_praetorians
+		icon = CAL_ultimatum_for_praetorians
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_desire_for_revenge }
+		prerequisite = { focus = CAL_hunger_and_unrest_in_the_eternal_city }
+		prerequisite = { focus = CAL_plotting_for_plots }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_prefects_pride
+		icon = CAL_prefects_pride
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_ultimatum_for_praetorians }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_dogs_of_war
+		icon = CAL_dogs_of_war
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_prefects_pride }
+		prerequisite = { focus = CAL_galician_blockade }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 8
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_fall_of_the_triumvirate
+		icon = CAL_fall_of_the_triumvirate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_dogs_of_war }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 9
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	######
+	focus = {
+		id = CAL_mars_exulte
+		icon = CAL_
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		mutually_exclusive = { focus = CAL_vae_victis }
+		mutually_exclusive = { focus = CAL_morituri_te_salutant }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_cold_war_with_the_west
+		icon = CAL_cold_war_with_the_west
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_mars_exulte }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 11
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_eastern_legionary_empire
+		icon = CAL_eastern_legionary_empire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_mars_exulte }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 11
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_vae_victis
+		icon = CAL_vae_victis
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		mutually_exclusive = { focus = CAL_mars_exulte }
+		mutually_exclusive = { focus = CAL_morituri_te_salutant }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_primacy_of_the_senate
+		icon = CAL_primacy_of_the_senate
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_vae_victis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 11
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_correction_of_eastern_borders
+		icon = CAL_correction_of_eastern_borders
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_vae_victis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 11
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_morituri_te_salutant
+		icon = CAL_morituri_te_salutant
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		mutually_exclusive = { focus = CAL_vae_victis }
+		mutually_exclusive = { focus = CAL_mars_exulte }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_western_puppets
+		icon = CAL_western_puppets
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_morituri_te_salutant }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 11
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_eastern_praetorian_empire
+		icon = CAL_eastern_praetorian_empire
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+		prerequisite = { focus = CAL_morituri_te_salutant }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 11
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
+	focus = {
+		id = CAL_quo_vadis_calisia
+		icon = CAL_quo_vadis_calisia
+		text_icon = CALISIA_focus_style 
+        relative_position_id = CAL_pressure_of_circumstances
+
+		prerequisite = { focus = CAL_cold_war_with_the_west focus = CAL_primacy_of_the_senate focus = CAL_western_puppets }
+		prerequisite = { focus = CAL_eastern_legionary_empire focus = CAL_correction_of_eastern_borders focus = CAL_eastern_praetorian_empire }
+
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 12
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = { 
+		
+		}
+	}
 }
