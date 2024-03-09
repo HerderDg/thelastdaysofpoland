@@ -3731,7 +3731,7 @@ focus_tree = {
 		    country_event = calisia.40
 			swap_ideas = {
 				remove_idea = CAL_construction_palace
-				add_idea = CAL_construction_palace2
+				add_idea = CAL_construction_palace3
 			}
 		}
 	}
@@ -3806,6 +3806,7 @@ focus_tree = {
 	            value = 15
             }
 			remove_ideas = CAL_construction_palace2 
+			remove_ideas = CAL_construction_palace3
             314 = {
 				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
@@ -5028,6 +5029,10 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 		    army_experience = 50
+			swap_ideas = {
+				add_idea = CAL_civic_army2
+				remove_idea = CAL_civic_army
+			}
 		}
 	}
 	focus = {
@@ -5059,6 +5064,19 @@ focus_tree = {
                 uses = 2
                 category = melee_weapons
             }
+			if = {
+				limit = { has_idea = CAL_civic_army2 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army2
+					add_idea = CAL_civic_army3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
 		}
 	}
 	focus = {
@@ -5080,7 +5098,20 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		    
+		    if = {
+				limit = { has_idea = CAL_civic_army3 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army4
+					add_idea = CAL_civic_army5
+				}
+			}
+			add_ideas = CAL_legionarius_armor
 		}
 	}
 	focus = {
@@ -5102,6 +5133,24 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
+		    if = {
+				limit = { has_idea = CAL_civic_army2 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army2
+					add_idea = CAL_civic_army3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment_1
+				amount = 500
+				producer = CAL
+			}
 		}
 	}
 	focus = {
@@ -5137,7 +5186,20 @@ focus_tree = {
                 bonus = 0.5
                 uses = 2
                 category = rocket_artillery
-            }			
+            }
+            if = {
+				limit = { has_idea = CAL_civic_army3 }
+				swap_ideas = {
+					remove_idea = CAL_civic_army3
+					add_idea = CAL_civic_army4
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = CAL_civic_army4
+					add_idea = CAL_civic_army5
+				}
+			}			
 		}
 	}
 	focus = {
@@ -5166,6 +5228,10 @@ focus_tree = {
 				uses = 3
 				category = land_honor
 			}
+			swap_ideas = {
+					remove_idea = CAL_civic_army5
+					add_idea = CAL_civic_army6
+				}
 		}
 	}
 	focus = {
@@ -5330,7 +5396,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		    navy_experience = 50
+		    navy_experience = 100
 			if = {
 			limit = {
 				has_completed_focus = CAL_fields_of_mars_training_grounds
@@ -5339,6 +5405,22 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = officer_leftovers
 				add_idea = officer_academies }
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
 			}
 			
 		}
@@ -5350,8 +5432,9 @@ focus_tree = {
         relative_position_id = CAL_schola_armaturarum
 		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
 		available = {
-		    or = {
-			    has_completed_focus = CAL_temples_on_fields_of_mars 
+		    if = {
+                limit = {
+				    has_completed_focus = CAL_temples_on_fields_of_mars }
 				owns_state = 608
 				}
 		}
@@ -5365,7 +5448,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		    army_experience = 50
+		    army_experience = 100
 			if = {
 			limit = {
 				has_completed_focus = CAL_establish_the_high_naval_magistrate
@@ -5374,6 +5457,22 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = officer_leftovers
 				add_idea = officer_academies }
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
 	}
@@ -5399,7 +5498,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		    air_experience = 50
+		    air_experience = 100
 			if = {
 			limit = {
 				has_completed_focus = CAL_establish_the_high_naval_magistrate
@@ -5408,6 +5507,22 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = officer_leftovers
 				add_idea = officer_academies }
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
 	}
