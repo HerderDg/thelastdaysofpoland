@@ -457,7 +457,19 @@ focus_tree = {
 		
 		cost = 3
 		search_filters = { }
-		completion_reward = { 
+		completion_reward = {
+			# w zależności od ilości popularów, określone prawo przechodzi
+			if = {
+				limit = {
+					check_variable = {
+						CAL_populares_count > 50 
+					}
+				}
+				set_country_flag = ager_publicus_lex_populares
+			}
+			else = {
+				set_country_flag = ager_publicus_lex_optimates
+			}
 			country_event = calisia.14
 			add_stability = -0.1
 		}
@@ -711,17 +723,16 @@ focus_tree = {
 				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
 				add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
 			}
-			hidden_effect = {
-				set_country_flag = ager_publicus_lex_optimates
-			}
 			if = {
 				limit = {
-					check_variable = {
-						CAL_populares_count > 50
-					}
+					has_country_flag = ager_publicus_lex_populares
 				}
-				add_political_power = -50
+				custom_effect_tooltip = overruling_the_senate_tooltip
+				hidden_effect = {
+					add_stability = -0.1
+				}
 			}
+			
 			country_event = calisia.28
 		}
 	}
@@ -755,16 +766,14 @@ focus_tree = {
 				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
 				add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
 			}
-			hidden_effect = {
-				set_country_flag = ager_publicus_lex_populares
-			}
 			if = {
 				limit = {
-					check_variable = {
-						CAL_populares_count < 50
-					}
+					has_country_flag = ager_publicus_lex_optimates
 				}
-				add_political_power = -50
+				custom_effect_tooltip = overruling_the_senate_tooltip
+				hidden_effect = {
+					add_stability = -0.1
+				}
 			}
 			country_event = calisia.29
 		}
