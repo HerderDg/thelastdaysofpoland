@@ -901,3 +901,359 @@ CAL_redraw_senate_diagram = {
 		log= "[?CAL_seats_drawn] = [?CAL_populares_count]??? GUH???"
 	}
 }
+
+CAL_initiate_senate_vote_populares = {
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+
+	#############
+	# Populares #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = 0.3
+	}
+	round_variable = CAL_populares_moving_yes
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_no
+		value = 0.7
+	}
+	round_variable = CAL_populares_moving_no
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_no
+	}
+
+	#############
+	# Optimates #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = 0.1
+	}
+	round_variable = CAL_optimates_moving_yes
+	set_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_no
+		value = 0.9
+	}
+	round_variable = CAL_optimates_moving_no
+	set_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_no
+	}
+}
+
+CAL_initiate_senate_vote_optimates = {
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+
+	#############
+	# Populares #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = 0.1
+	}
+	round_variable = CAL_populares_moving_yes
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_no
+		value = 0.9
+	}
+	round_variable = CAL_populares_moving_no
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_no
+	}
+
+	#############
+	# Optimates #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = 0.3
+	}
+	round_variable = CAL_optimates_moving_yes
+	set_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_no
+		value = 0.7
+	}
+	round_variable = CAL_optimates_moving_no
+	set_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_no
+	}
+}
+
+CAL_senate_fix_no = {
+    subtract_from_variable = {
+        var = CAL_optimates_no
+        value = CAL_optimates_moving_yes
+    }
+    subtract_from_variable = {
+        var = CAL_populares_no
+        value = CAL_populares_moving_yes
+    }
+}
+
+CAL_senate_fix_yes = {
+    subtract_from_variable = {
+        var = CAL_populares_yes
+        value = CAL_populares_moving_no
+    }
+    subtract_from_variable = {
+        var = CAL_populares_yes
+        value = CAL_populares_moving_no
+    }
+}
+
+CAL_senators_halved_voting = {
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_total_senators
+		value = 0.5
+	}
+}
+
+CAL_count_yes_and_no = {
+	set_variable = {
+		var = CAL_all_yes_show
+		value = CAL_populares_yes
+	}
+	add_to_variable = {
+		var = CAL_all_yes_show
+		value = CAL_optimates_yes
+	}
+	set_variable = {
+		var = CAL_all_no_show
+		value = CAL_populares_no
+	}
+	add_to_variable = {
+		var = CAL_all_no_show
+		value = CAL_optimates_no
+	}
+}
+
+CAL_senate_voting_result = {
+	custom_effect_tooltip = CAL_votes_show_tt
+
+	CAL_senators_halved_voting = yes
+
+	#############
+	# POPULARZY #
+	#############
+
+	if = {
+		limit = {
+			has_country_flag = CAL_populares_lex_voting
+		}
+		if = {
+			limit = {
+				CAL_yes_senators_count = yes
+			}
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				#Nić xd
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				### PRAWO POPULARÓW
+				add_to_variable = {
+					var = CAL_populares_loyalty
+					value = 5
+					tooltip = CAL_change_loyalty_populares_tt
+				}
+				add_to_variable = {
+					var = CAL_optimates_loyalty
+					value = -10
+					tooltip = CAL_change_loyalty_optimates_tt
+				}
+			}
+		}
+		else = {
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				custom_effect_tooltip = CAL_ager_publicus_populares_fails_tt
+				hidden_effect = {
+					clr_country_flag = CAL_populares_lex_voting
+					clr_country_flag = CAL_ager_publicus_vote
+					set_country_flag = CAL_ager_publicus_failed
+				}
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				### PRAWO OPTYMATÓW
+				add_to_variable = {
+					var = CAL_populares_loyalty
+					value = -15
+					tooltip = CAL_change_loyalty_populares_tt
+				}
+				add_to_variable = {
+					var = CAL_optimates_loyalty
+					value = -5
+					tooltip = CAL_change_loyalty_optimates_tt
+				}
+			}
+		}
+	}
+
+	############
+	# OPTYMACI #
+	############
+
+	else_if = {
+		limit = {
+			has_country_flag = CAL_optimates_lex_voting
+		}
+		if = {
+			limit = {
+				CAL_yes_senators_count = yes
+			}
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				#Nić xd
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				### PRAWO OPTYMATÓW
+				add_to_variable = {
+					var = CAL_optimates_loyalty
+					value = 5
+					tooltip = CAL_change_loyalty_optimates_tt
+				}
+				add_to_variable = {
+					var = CAL_populares_loyalty
+					value = -10
+					tooltip = CAL_change_loyalty_populares_tt
+				}
+			}
+		}
+		else = {
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				custom_effect_tooltip = CAL_ager_publicus_optimates_fails_tt
+				hidden_effect = {
+					clr_country_flag = CAL_optimates_lex_voting
+					clr_country_flag = CAL_ager_publicus_vote
+					set_country_flag = CAL_ager_publicus_failed
+				}
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				### PRAWO POPULARÓW
+				add_to_variable = {
+					var = CAL_optimates_loyalty
+					value = -15
+					tooltip = CAL_change_loyalty_optimates_tt
+				}
+				add_to_variable = {
+					var = CAL_populares_loyalty
+					value = -5
+					tooltip = CAL_change_loyalty_populares_tt
+				}
+			}
+		}
+	}
+}
