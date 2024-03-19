@@ -6,11 +6,11 @@ def getY(a,i,m):
 
 
 x = 250
-y = 200
+y = 220
 i = 0
 j = 0
 r = 55
-p = math.ceil(math.pi*r/9)
+p = 21
 f = open("senate.gui","w",newline='\r\n')
 t = open("triggers.txt","w",newline='\r\n')
 props = open("properties.txt","w",newline='\r\n')
@@ -20,8 +20,7 @@ f.write("containerWindowType = {\n\t"+
 	"position = { x = 0 y = 0 }\n\t")
 t.write("triggers = {\n\t")
 while i < 900:
-    # print ("x = "+str(x+getX(p,i,r)))
-    # print ("y = "+str(y-getX(p,i,r)))
+
     f.write("icontype = {\n\t\t"+
         "name = \"GFX_CAL_senate_seat_"+str(i)+"\"\n\t\t"+
         "position = {\n\t\t\t"+
@@ -30,140 +29,166 @@ while i < 900:
         "}\n\t\t"+
         "scale = 0.6\n\t\t"+
         "spriteType = \"GFX_neutral_seat\"\n\t}\n\t")
-    props.write("GFX_CAL_senate_seat_"+str(i)+" = { image = \"[GetSeatDotNo"+str(i)+"]\"}\n")
-    if i >= 100 and i < 150 :
-        t.write("GFX_CAL_senate_seat_"+str(i)+"_visible = { check_variable = { CAL_senate_lvl > 1 } }\n\t")
-    elif i >= 150 and i < 300:
-        t.write("GFX_CAL_senate_seat_"+str(i)+"_visible = { check_variable = { CAL_senate_lvl > 2 } }\n\t")
-    elif i >= 300:
-        t.write("GFX_CAL_senate_seat_"+str(i)+"_visible = { check_variable = { CAL_senate_lvl = 4 } }\n\t")
     scriptedLocs.write("defined_text = {\n\t"+
-        "name = GetSeatDotNo"+str(i)+"\n\t")#+
-#        "text = {\n\t\t"+
-#            "localisation_key = GFX_optimates_seat\n\t}\n")
-    if i < 20:
+        "name = GetSeatDotNo"+str(i)+"\n\t")
+    if i < 21:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row1 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 20 and i < 43:
+    if i >= 21 and i < 45:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row2 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 43 and i < 69:
+    if i >= 45 and i < 71:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row3 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 69 and i < 98:
+    if i >= 71 and i < 100:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row4 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 98 and  i < 130:
+    if i >= 100 and  i < 125:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row5 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 130 and  i < 165:
+    if i >= 125 and  i < 150:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row6 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 165 and  i < 204:
+    if i >= 150 and  i < 183:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row7 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 204 and  i < 246:
+    if i >= 183 and  i < 218:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row8 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 246 and  i < 291:
+    if i >= 218 and  i < 257:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row9 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 291 and  i < 339:
+    if i >= 257 and  i < 300:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row10 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 339 and  i < 390:
+    if i >= 300 and  i < 347:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row11 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 390 and  i < 444:
+    if i >= 347 and  i < 456:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row12 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 444 and  i < 501:
+    if i >= 399 and  i < 456:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row13 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 501 and  i < 562:
+    if i >= 456 and  i < 516:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row14 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 562 and  i < 626:
+    if i >= 516 and  i < 579:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row15 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 626 and  i < 693:
+    if i >= 579 and  i < 648:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row16 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 693 and  i < 763:
+    if i >= 648 and  i < 724:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row17 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 763 and  i < 836:
+    if i >= 724 and  i < 808:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row18 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
-    if i >= 836:
+    if i >= 808:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
                 "check_variable = { CAL_populares_at_row19 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_seat\n\t}\n\t")
     scriptedLocs.write("text = {\n\t\t"+
-            "localization_key = GFX_optimates_seat\n\t}\n")
+            "localization_key = GFX_neutral_seat\n\t}\n")
     scriptedLocs.write("}\n")
     i=i+1
     j=j+1
     if j==p:
         r=r+9
-        p = math.ceil(math.pi*r/9)
         j=0
+    match i:
+        case 21:
+            p=24
+        case 45:
+            p=26
+        case 71:
+            p=29
+        case 100:
+            p=25
+        case 150:
+            p=33
+        case 183:
+            p=35
+        case 218:
+            p=39
+        case 257:
+            p=43
+        case 300:
+            p=47
+        case 347:
+            p=52
+        case 399:
+            p=57
+        case 456:
+            p=60
+        case 516:
+            p=63
+        case 579:
+            p=69
+        case 648:
+            p=76
+        case 724:
+            p=84
+        case 808:
+            p=92
+        
 
 f.write("}")
 f.close()
@@ -171,16 +196,5 @@ t.write("}")
 t.close()
 props.close()
 scriptedLocs.close()
-# while j < 10:
-#     while i < a:
-#         f.write("icontype = {\n\t"+
-#             "name = \"GFX_CAL_senate_seat_"+str(i)+"_"+str(j)+"\"\n\t"+
-#             "position = {\n\t\t"+
-#                 "x = "+str(getX(a,i,55+(15*j))+250)+"\n\t\t"+
-#                 "y = "+str(200-getY(a,i,55+(15*j)))+"\n\t"+
-#             "}\n\t"+
-#             "spriteType = \"GFX_neutral_seat\"\n}\n")
-#         i=i+1
-#     j=j+1
-#     i=0
+
 
