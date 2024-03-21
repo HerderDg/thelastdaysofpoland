@@ -544,7 +544,7 @@ country_event = {  #barbarian exodus
 	}
 }
 
-country_event = {
+country_event = { #Calisian Infrastructure
 	id = calisia.34
 	title = calisia.34.t
 	desc = calisia.34.desc
@@ -591,9 +591,15 @@ country_event = { #Coffers empty
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.37"}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.37"
+		set_country_flag = CAL_empty_coffers_flag
+	}
 	option = {
 		name = calisia.37.a
+		add_ideas = CAL_empty_coffers
+		complete_national_focus = CAL_coffes_are_getting_empty
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -876,9 +882,22 @@ country_event = { #vinicius plea
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.57"}
+
+	trigger = {
+		tag = CAL
+		has_war = no
+		num_divisions > 30
+	}
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.57"
+		set_country_flag = CAL_vinicius_plea_flag
+	}
 	option = {
 		name = calisia.57.a
+		add_ideas = CAL_campaign_seasons
+		complete_national_focus = CAL_vinicius_plead
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -889,9 +908,15 @@ country_event = { #rawicz slaughter
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.58"}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.58"
+		set_country_flag = CAL_rawicz_slaughter_flag
+	}
 	option = {
 		name = calisia.58.a
+		add_ideas = CAL_servile_war_idea
+		complete_national_focus = CAL_rawicz_slaughter
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -1334,6 +1359,150 @@ country_event = { #lex poenae capitalis
 			CAL_initiate_senate_vote_optimates = yes
 			CAL_count_yes_and_no = yes
 		}
+	}
+}
+
+country_event = { #Abduction of the Amazonians
+	id = calisia.73
+	title = calisia.73.t
+	desc = calisia.73.desc
+
+	trigger = {
+		tag = CAL
+		has_completed_focus = CAL_pax_calisiana
+		OR = {
+			AMA = {
+				has_country_flag = unified_voivodeship
+			}
+			INO = {
+				has_country_flag = unified_voivodeship
+			}
+			TOR = {
+				has_country_flag = unified_voivodeship
+			}
+			GRU = {
+				has_country_flag = unified_voivodeship
+			}
+			BYD = {
+				has_country_flag = unified_voivodeship
+			}
+			KUJ = {
+				has_country_flag = unified_voivodeship
+			}
+			PLK = {
+				has_country_flag = unified_voivodeship
+			}
+			SWC = {
+				has_country_flag = unified_voivodeship
+			}
+		}
+		OR = {
+			KAM = {
+				has_country_flag = unified_voivodeship
+			}
+			MOT = {
+				has_country_flag = unified_voivodeship
+			}
+			PIL = {
+				has_country_flag = unified_voivodeship
+			}
+			WRT = {
+				has_country_flag = unified_voivodeship
+			}
+			NAC = {
+				has_country_flag = unified_voivodeship
+			}
+			SYJ = {
+				has_country_flag = unified_voivodeship
+			}
+			POZ = {
+				has_country_flag = unified_voivodeship
+			}
+			SLU = {
+				has_country_flag = unified_voivodeship
+			}
+			SUS = {
+				has_country_flag = unified_voivodeship
+			}
+		}
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.73"
+		set_country_flag = CAL_abduction_of_the_amazonians_flag
+	}
+	option = {
+		name = calisia.73.a
+		add_ideas = CAL_curse_of_sybilla
+		complete_national_focus = CAL_abduction_of_the_poznanian_women
+		200 = {
+			add_manpower = -1000
+		}
+		704 = {
+			add_manpower = -1000
+		}
+		266 = {
+			add_manpower = 1000
+		}
+		359 = {
+			add_manpower = 1000
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { #Philosophical Disputes
+	id = calisia.74
+	title = calisia.74.t
+	desc = calisia.74.desc
+
+	trigger = {
+		tag = CAL
+		has_completed_focus = CAL_pax_calisiana
+		all_core_state = {
+			is_southern_greater_poland_state = yes
+		}
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.74"
+		set_country_flag = CAL_philosophical_disputes_flag
+	}
+	option = {
+		name = calisia.74.a
+		add_ideas = CAL_crisis_of_identity
+		complete_national_focus = CAL_philosophical_disputes
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { #Daydreaming of Rome
+	id = calisia.75
+	title = calisia.75.t
+	desc = calisia.75.desc
+
+	trigger = {
+		NOT = {
+			has_country_flag = CAL_populares_lex_voting
+			has_country_flag = CAL_optimates_lex_voting
+		}
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.75"
+		set_country_flag = CAL_daydreaming_of_rome_flag
+	}
+	option = {
+		name = calisia.75.a
+		add_ideas = CAL_nostalgic_for_rome
+		complete_national_focus = CAL_thinking_about_the_roman_empire
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
