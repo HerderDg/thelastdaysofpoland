@@ -1,6 +1,74 @@
 
 # tba
 
+CAL_add_new_senators = {
+	if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 2
+			}
+		}
+		set_temp_variable = {
+			CAL_new_senators_count = 50
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_senate_lvl = 3
+				}
+			}
+			set_temp_variable = {
+				CAL_new_senators_count = 150
+			}
+		}
+		else = {
+			set_temp_variable = {
+				CAL_new_senators_count = 600
+			}
+		}
+	}
+	set_temp_variable = {
+		parties_to_take = party_popularity@autocracy
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@neonationalism
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@reactionary
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@squattism
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@socialdemocrature
+	}
+
+	set_temp_variable = {
+		parties_propopulare = party_popularity@socialdemocrature
+	}
+
+	add_to_temp_variable = {
+		parties_propopulare = party_popularity@squattism
+	}
+
+	set_temp_variable = {
+		new_populares_percentage = parties_propopulare
+	}
+
+	divide_temp_variable = {
+		new_populares_percentage = parties_to_take
+	}
+
+	multiply_temp_variable = {
+		CAL_new_senators_count = new_populares_percentage
+	}
+	round_temp_variable = CAL_new_senators_count
+	add_to_variable = {
+		CAL_populares_count = CAL_new_senators_count
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
 CAL_redraw_senate_diagram = {
 	set_variable = {
 		CAL_populares_percentage = CAL_populares_count
