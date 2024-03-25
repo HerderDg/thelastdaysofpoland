@@ -9457,6 +9457,132 @@ ai_war_decisions = {
 				}
 		}
 	}
+	
+	north_wielkopolska_ROZ = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+			has_global_flag = poznanskie_unified
+			}
+
+		visible = {
+				OR = {
+					original_tag = POZ
+					original_tag = SYJ
+					original_tag = WRT
+					original_tag = PIL
+					original_tag = SLU
+					original_tag = KAM
+					original_tag = SUS
+					original_tag = NAC
+					has_global_flag = poznanskie_unified
+				}
+				NOT = { 
+					OR = {
+							has_decision = north_wielkopolska_POZ
+							has_decision = north_wielkopolska_SYJ
+							has_decision = north_wielkopolska_WRT
+							has_decision = north_wielkopolska_PIL
+							has_decision = north_wielkopolska_SLU
+							has_decision = north_wielkopolska_KAM
+							has_decision = north_wielkopolska_SUS
+							has_decision = north_wielkopolska_NAC
+							has_decision = north_wielkopolska_ZBK
+						}
+					}
+				ROOT = { any_neighbor_country = { original_tag = ROZ } }
+				NOT = { has_war = yes }
+				NOT = { has_war_with = ROZ }
+				date > 2031.06.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 20
+		war_with_on_remove = ROZ
+		remove_effect  = {
+			log = "[GetDateText]: Decision north_wielkopolska_ROZ"
+				if = { limit = { country_exists = ROZ }
+				declare_war_on = {
+					target = ROZ
+					type = annex_everything
+				}
+				}
+		}
+	}
+	
+	north_wielkopolska_ZBK = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+			has_global_flag = poznanskie_unified
+			}
+
+		visible = {
+				OR = {
+					original_tag = POZ
+					original_tag = SYJ
+					original_tag = WRT
+					original_tag = PIL
+					original_tag = SLU
+					original_tag = KAM
+					original_tag = SUS
+					original_tag = NAC
+					has_global_flag = poznanskie_unified
+				}
+				NOT = { 
+					OR = {
+							has_decision = north_wielkopolska_POZ
+							has_decision = north_wielkopolska_SYJ
+							has_decision = north_wielkopolska_WRT
+							has_decision = north_wielkopolska_PIL
+							has_decision = north_wielkopolska_SLU
+							has_decision = north_wielkopolska_KAM
+							has_decision = north_wielkopolska_SUS
+							has_decision = north_wielkopolska_NAC
+							has_decision = north_wielkopolska_ROZ
+						}
+					}
+				ROOT = { any_neighbor_country = { original_tag = ZBK } }
+				NOT = { has_war = yes }
+				NOT = { has_war_with = ZBK }
+				date > 2031.06.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 20
+		war_with_on_remove = ZBK
+		remove_effect  = {
+			log = "[GetDateText]: Decision north_wielkopolska_ZBK"
+				if = { limit = { country_exists = ZBK }
+				declare_war_on = {
+					target = ZBK
+					type = annex_everything
+				}
+				}
+		}
+	}
 
 	
 	lubelskie_starting_buffs = {
