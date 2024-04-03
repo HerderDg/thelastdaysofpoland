@@ -12259,4 +12259,67 @@ ai_war_decisions = {
 			}
 		}
 	}
+
+	barbarian_raid = {
+		allowed = {
+			always = yes
+		}
+		visible = {
+			or = {
+				has_cosmetic_tag = ECO_barbarian
+				has_cosmetic_tag = EKS_barbarian
+				has_cosmetic_tag = EKW_barbarian
+				has_cosmetic_tag = JOM_barbarian
+				has_cosmetic_tag = KAM_barbarian
+				has_cosmetic_tag = KON_barbarian
+				has_cosmetic_tag = KOZ_barbarian
+				has_cosmetic_tag = ROS_barbarian
+				has_cosmetic_tag = SOS_slave_revolt
+			}
+			CAL = {
+				has_country_flag = unified_supregional
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				# NOT = {
+				# 	has_war = yes
+				# }
+				is_somsiad = no
+				NOT = {
+					original_tag = ZON
+				}
+				not = {
+					is_in_faction_with = ROOT
+				}
+			}
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1
+		}
+		cost = 100
+		remove_effect  = {
+			log = "[GetDateText]: Decision barbarian_raid"
+			KGH = {
+				country_event = {
+				id = aievent.23
+				days = 3
+				}
+			}
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+			CAL = {
+				country_event = {
+					id = calisia.52
+					days = 7
+				}
+			}
+		}
+	}
 }
