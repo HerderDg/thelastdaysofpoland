@@ -66,6 +66,40 @@ CAL_add_new_senators = {
 	add_to_variable = {
 		CAL_populares_count = CAL_new_senators_count
 	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 2
+			}
+		}
+		set_variable = {
+			CAL_optimates_count = 150
+		}
+		subtract_from_variable = {
+			CAL_optimates_count = CAL_populares_count
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_senate_lvl = 3
+				}
+			}
+			set_variable = {
+				CAL_optimates_count = 300
+			}
+			subtract_from_variable = {
+				CAL_optimates_count = CAL_populares_count
+			}
+		}
+		else = {
+			set_variable = {
+				CAL_optimates_count = 900
+			}
+			subtract_from_variable = {
+				CAL_optimates_count = CAL_populares_count
+			}
+		}
+	}
 	CAL_redraw_senate_diagram = yes
 }
 
@@ -1177,6 +1211,160 @@ CAL_initiate_senate_vote_optimates = {
 	multiply_variable = {
 		var = CAL_optimates_moving_no
 		value = 0.7
+	}
+	round_variable = CAL_optimates_moving_no
+	set_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_no
+	}
+}
+
+CAL_intervene_to_populares = {
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+
+	#############
+	# Populares #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = 0.35
+	}
+	round_variable = CAL_populares_moving_yes
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_no
+		value = 0.65
+	}
+	round_variable = CAL_populares_moving_no
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_no
+	}
+
+	#############
+	# Optimates #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = 0.3
+	}
+	round_variable = CAL_optimates_moving_yes
+	set_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_no
+		value = 0.7
+	}
+	round_variable = CAL_optimates_moving_no
+	set_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_no
+	}
+}
+
+CAL_intervene_to_optimates = {
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+
+	#############
+	# Populares #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = 0.3
+	}
+	round_variable = CAL_populares_moving_yes
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_no
+		value = 0.7
+	}
+	round_variable = CAL_populares_moving_no
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_no
+	}
+
+	#############
+	# Optimates #
+	#############
+
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = 0.35
+	}
+	round_variable = CAL_optimates_moving_yes
+	set_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_no
+		value = 0.65
 	}
 	round_variable = CAL_optimates_moving_no
 	set_variable = {

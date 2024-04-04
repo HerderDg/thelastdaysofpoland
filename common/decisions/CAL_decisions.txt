@@ -213,4 +213,39 @@ CAL_gravitas_category = {
 			}
 		}
 	}
+	CAL_imperial_intervention = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 40
+				compare = greater_than_or_equals
+			}
+		}
+        visible = {
+			has_active_mission = CAL_senate_voting_mission
+        }
+		complete_effect = {
+			subtract_from_variable = {
+				var = CAL_emperor_gravitas 
+				value = 40
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			if = {
+				limit = {
+					has_country_flag = CAL_populares_lex_voting
+				}
+				CAL_intervene_to_optimates = yes
+			} 
+			else_if = {
+				limit = {
+					has_country_flag = CAL_optimates_lex_voting
+				}
+				CAL_intervene_to_populares = yes
+			}
+			else = {
+				log = "you don't set flag"
+			}
+			custom_effect_tooltip = CAL_quarter_senators_pushed
+		}
+	}
 }
