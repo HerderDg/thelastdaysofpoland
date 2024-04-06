@@ -1,6 +1,16 @@
 
 # tba
 
+# Ager Publicus (P) - pretorianie
+# Tributorum (P) - pretorianie
+# Militae (O) - legioniści
+# Securitatis (P) - pretorianie
+# Subsidiarum Socialum (P) - legioniści
+# Administrationis (P) - pretorianie
+# To od inefficient taxation:
+# (P) - pretorianie
+# (O) - legioniści
+
 CAL_add_new_senators = {
 	if = {
 		limit = {
@@ -1088,6 +1098,9 @@ CAL_initiate_senate_vote_populares = {
 		var = CAL_populares_moving_yes
 		value = 0.3
 	}
+	set_variable = {
+		CAL_populares_moving_yes_percentage = 0.3
+	}
 	round_variable = CAL_populares_moving_yes
 	set_variable = {
 		var = CAL_populares_yes
@@ -1120,6 +1133,9 @@ CAL_initiate_senate_vote_populares = {
 	multiply_variable = {
 		var = CAL_optimates_moving_yes
 		value = 0.1
+	}
+	set_variable = {
+		CAL_optimates_moving_yes_percentage = 0.1
 	}
 	round_variable = CAL_optimates_moving_yes
 	set_variable = {
@@ -1165,6 +1181,9 @@ CAL_initiate_senate_vote_optimates = {
 		var = CAL_populares_moving_yes
 		value = 0.1
 	}
+	set_variable = {
+		CAL_populares_moving_yes_percentage = 0.1
+	}
 	round_variable = CAL_populares_moving_yes
 	set_variable = {
 		var = CAL_populares_yes
@@ -1198,6 +1217,9 @@ CAL_initiate_senate_vote_optimates = {
 		var = CAL_optimates_moving_yes
 		value = 0.3
 	}
+	set_variable = {
+		CAL_optimates_moving_yes_percentage = 0.3
+	}
 	round_variable = CAL_optimates_moving_yes
 	set_variable = {
 		var = CAL_optimates_yes
@@ -1220,18 +1242,17 @@ CAL_initiate_senate_vote_optimates = {
 }
 
 CAL_intervene_to_populares = {
-	set_variable = {
-		var = CAL_total_senators
-		value = CAL_populares_count
-	}
+
 	add_to_variable = {
-		var = CAL_total_senators
-		value = CAL_optimates_count
+		CAL_populares_moving_yes_percentage = 0.25
+	}
+	set_variable = {
+		CAL_populares_moving_no_percentage = 1
 	}
 
-	#############
-	# Populares #
-	#############
+	subtract_from_variable = {
+		CAL_populares_moving_no_percentage = CAL_populares_moving_yes_percentage
+	}
 
 	# Yes
 	set_variable = {
@@ -1240,7 +1261,7 @@ CAL_intervene_to_populares = {
 	}
 	multiply_variable = {
 		var = CAL_populares_moving_yes
-		value = 0.35
+		value = CAL_populares_moving_yes_percentage
 	}
 	round_variable = CAL_populares_moving_yes
 	set_variable = {
@@ -1254,95 +1275,26 @@ CAL_intervene_to_populares = {
 	}
 	multiply_variable = {
 		var = CAL_populares_moving_no
-		value = 0.65
+		value = CAL_populares_moving_no_percentage
 	}
 	round_variable = CAL_populares_moving_no
 	set_variable = {
 		var = CAL_populares_no
 		value = CAL_populares_moving_no
-	}
-
-	#############
-	# Optimates #
-	#############
-
-	# Yes
-	set_variable = {
-		var = CAL_optimates_moving_yes
-		value = CAL_optimates_count
-	}
-	multiply_variable = {
-		var = CAL_optimates_moving_yes
-		value = 0.3
-	}
-	round_variable = CAL_optimates_moving_yes
-	set_variable = {
-		var = CAL_optimates_yes
-		value = CAL_optimates_moving_yes
-	}
-	# No
-	set_variable = {
-		var = CAL_optimates_moving_no
-		value = CAL_optimates_count
-	}
-	multiply_variable = {
-		var = CAL_optimates_moving_no
-		value = 0.7
-	}
-	round_variable = CAL_optimates_moving_no
-	set_variable = {
-		var = CAL_optimates_no
-		value = CAL_optimates_moving_no
 	}
 }
 
 CAL_intervene_to_optimates = {
-	set_variable = {
-		var = CAL_total_senators
-		value = CAL_populares_count
-	}
 	add_to_variable = {
-		var = CAL_total_senators
-		value = CAL_optimates_count
+		CAL_optimates_moving_yes_percentage = 0.25
+	}
+	set_variable = {
+		CAL_optimates_moving_no_percentage = 1
 	}
 
-	#############
-	# Populares #
-	#############
-
-	# Yes
-	set_variable = {
-		var = CAL_populares_moving_yes
-		value = CAL_populares_count
+	subtract_from_variable = {
+		CAL_optimates_moving_no_percentage = CAL_optimates_moving_yes_percentage
 	}
-	multiply_variable = {
-		var = CAL_populares_moving_yes
-		value = 0.3
-	}
-	round_variable = CAL_populares_moving_yes
-	set_variable = {
-		var = CAL_populares_yes
-		value = CAL_populares_moving_yes
-	}
-	# No
-	set_variable = {
-		var = CAL_populares_moving_no
-		value = CAL_populares_count
-	}
-	multiply_variable = {
-		var = CAL_populares_moving_no
-		value = 0.7
-	}
-	round_variable = CAL_populares_moving_no
-	set_variable = {
-		var = CAL_populares_no
-		value = CAL_populares_moving_no
-	}
-
-	#############
-	# Optimates #
-	#############
-
 	# Yes
 	set_variable = {
 		var = CAL_optimates_moving_yes
@@ -1350,7 +1302,7 @@ CAL_intervene_to_optimates = {
 	}
 	multiply_variable = {
 		var = CAL_optimates_moving_yes
-		value = 0.35
+		value = CAL_optimates_moving_yes_percentage
 	}
 	round_variable = CAL_optimates_moving_yes
 	set_variable = {
@@ -1364,7 +1316,7 @@ CAL_intervene_to_optimates = {
 	}
 	multiply_variable = {
 		var = CAL_optimates_moving_no
-		value = 0.65
+		value = CAL_optimates_moving_no_percentage
 	}
 	round_variable = CAL_optimates_moving_no
 	set_variable = {
@@ -1431,7 +1383,7 @@ CAL_count_yes_and_no = {
 
 CAL_senate_voting_result = {
 	custom_effect_tooltip = CAL_votes_show_tt
-
+	clr_country_flag = emperor_intervened
 	CAL_senators_halved_voting = yes
 
 	#############
