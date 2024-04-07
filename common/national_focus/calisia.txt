@@ -11470,7 +11470,7 @@ focus_tree = {
 				create_dynamic_country = {
 					original_tag = KRK
 					copy_tag = CAL
-					set_capital = 506
+					
 						transfer_state = 493
 						transfer_state = 513
 						transfer_state = 593
@@ -11688,7 +11688,7 @@ focus_tree = {
 				create_dynamic_country = {
 					original_tag = POL
 					copy_tag = CAL
-					set_capital = 3148
+					
 						transfer_state =  242
 						transfer_state =  563
 						transfer_state =  568
@@ -11967,6 +11967,8 @@ focus_tree = {
 					long_name = "Praetoriae Cohortes"
 					name = "Praetoriae Cohortes"
 				}
+				set_capital = 3148
+				load_focus_tree = { tree = calisia_intro_focus keep_completed = yes } 
 			}
 			KRK = {
 				set_cosmetic_tag = KRK_LEGIONY
@@ -11976,6 +11978,8 @@ focus_tree = {
 					long_name = "Legionas Romanae"
 					name = "Legionas Romanae"
 				}
+				set_capital = 506
+				load_focus_tree = { tree = calisia_intro_focus keep_completed = yes } 
 			}
 		}
 	}
@@ -12184,6 +12188,13 @@ focus_tree = {
 		completion_reward = { 
 			add_timed_idea = { idea = CAL_SENAT_off_to_killing_again days = 180 }
 			random_owned_controlled_state = {
+				limit = { 
+					free_building_slots = {
+						building = arms_factory
+						size < 2
+						include_locked = no
+					}
+				}
 				add_building_construction = {
 					type = arms_factory
 					level = 1
@@ -12191,9 +12202,16 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
+				limit = { 
+					free_building_slots = {
+						building = industrial_complex
+						size < 3
+						include_locked = no
+					}
+				}
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -12379,9 +12397,7 @@ focus_tree = {
 		icon = CAL_demand_the_grain
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_pressure_of_circumstances
-		prerequisite = { focus = CAL_desire_for_revenge }
 		prerequisite = { focus = CAL_hunger_and_unrest_in_the_eternal_city }
-		prerequisite = { focus = CAL_plotting_for_plots }
 		available = {
 		
 		}
@@ -12403,7 +12419,7 @@ focus_tree = {
 		icon = CAL_galician_blockade
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_pressure_of_circumstances
-		prerequisite = { focus = CAL_demand_the_grain }
+		prerequisite = { focus = CAL_desire_for_revenge }
 		available = {
 		
 		}
@@ -12411,7 +12427,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -1
+		x = -3
 		y = 7
 		
 		cost = 1
@@ -12425,9 +12441,7 @@ focus_tree = {
 		icon = CAL_ultimatum_for_praetorians
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_pressure_of_circumstances
-		prerequisite = { focus = CAL_desire_for_revenge }
 		prerequisite = { focus = CAL_hunger_and_unrest_in_the_eternal_city }
-		prerequisite = { focus = CAL_plotting_for_plots }
 		available = {
 		
 		}
@@ -12449,7 +12463,7 @@ focus_tree = {
 		icon = CAL_prefects_pride
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_pressure_of_circumstances
-		prerequisite = { focus = CAL_ultimatum_for_praetorians }
+		prerequisite = { focus = CAL_plotting_for_plots }
 		available = {
 		
 		}
@@ -12457,7 +12471,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 1
+		x = 3
 		y = 7
 		
 		cost = 1
@@ -12471,8 +12485,7 @@ focus_tree = {
 		icon = CAL_dogs_of_war
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_pressure_of_circumstances
-		prerequisite = { focus = CAL_prefects_pride }
-		prerequisite = { focus = CAL_galician_blockade }
+		prerequisite = { focus = CAL_prefects_pride focus = CAL_galician_blockade focus = CAL_demand_the_grain focus = CAL_ultimatum_for_praetorians }
 		available = {
 		
 		}
@@ -12520,7 +12533,7 @@ focus_tree = {
 		mutually_exclusive = { focus = CAL_vae_victis }
 		mutually_exclusive = { focus = CAL_morituri_te_salutant }
 		available = {
-		
+			tag = KRK
 		}
 		
 		bypass = {
@@ -12533,6 +12546,10 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.113
+			remove_ideas = CAL_PRETORIANIE_agents
+			CAL = {
+				remove_ideas = CAL_PRETORIANIE_agents
+			}
 		}
 	}
 	focus = {
@@ -12554,7 +12571,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			CAL = {
+				add_ideas = CAL_cold_war
+			}
+			add_ideas = CAL_cold_war
 		}
 	}
 	focus = {
@@ -12576,7 +12596,9 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			KRK = {
+				set_cosmetic_tag = KRK_LEGIONY_POST
+			}
 		}
 	}
 	focus = {
@@ -12587,7 +12609,7 @@ focus_tree = {
 		mutually_exclusive = { focus = CAL_mars_exulte }
 		mutually_exclusive = { focus = CAL_morituri_te_salutant }
 		available = {
-		
+			tag = CAL
 		}
 		
 		bypass = {
@@ -12621,7 +12643,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_ideas = CAL_primacy_of_the_senate_idea
 		}
 	}
 	focus = {
@@ -12643,7 +12665,96 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			custom_effect_tooltip = CAL_get_pomerelia_kuyavia
+			hidden_effect = {
+			transfer_state =  100		
+			transfer_state =  853
+			transfer_state =  96
+			transfer_state =  24
+			transfer_state =  35
+			transfer_state =  38
+			transfer_state =  624
+			transfer_state =  868
+			transfer_state =  20
+			transfer_state =  625
+			transfer_state =  627
+			transfer_state =  628
+			transfer_state =  666
+			transfer_state =  21
+			transfer_state =  23
+			transfer_state =  36
+			transfer_state =  62
+			transfer_state =  626
+			transfer_state =  34
+			transfer_state =  710
+			transfer_state =  711
+			transfer_state =  709
+			transfer_state =  712
+			transfer_state =  713
+			transfer_state =  716
+			transfer_state =  717
+			transfer_state =  897
+			transfer_state =  39
+			transfer_state =  630
+			transfer_state =  714
+			transfer_state =  715
+			transfer_state =  15
+			transfer_state =  44
+			transfer_state =  52
+			transfer_state =  74
+			transfer_state =  81
+			transfer_state =  89
+			transfer_state =  65
+			transfer_state =  67
+			transfer_state =  629
+			transfer_state =  99
+			transfer_state =  126
+			transfer_state =  128
+			transfer_state =  140
+			transfer_state =  141
+			transfer_state =  148
+			transfer_state =  707
+			transfer_state =  171
+			transfer_state =  176
+			transfer_state =  181
+			transfer_state =  182
+			transfer_state =  191
+			transfer_state =  200
+			transfer_state =  701
+			transfer_state =  703
+			transfer_state =  704
+			transfer_state =  852
+			transfer_state =  104
+			transfer_state =  124
+			transfer_state =  136
+			transfer_state =  150
+			transfer_state =  159
+			transfer_state =  166
+			transfer_state =  172
+			transfer_state =  705
+			transfer_state =  706
+			transfer_state =  708
+			transfer_state =  163
+			transfer_state =  165
+			transfer_state =  167
+			transfer_state =  170
+			transfer_state =  702
+			transfer_state =  847
+			transfer_state =  196
+			transfer_state =  198
+			transfer_state =  108
+			transfer_state =  115
+			transfer_state =  121
+			transfer_state =  129
+			transfer_state =  134
+			transfer_state =  145
+			transfer_state =  146
+			transfer_state =  152
+			transfer_state =  693
+			transfer_state =  905
+			transfer_state =  906
+			transfer_state =  907
+			}
 		}
 	}
 	focus = {
@@ -12654,7 +12765,7 @@ focus_tree = {
 		mutually_exclusive = { focus = CAL_vae_victis }
 		mutually_exclusive = { focus = CAL_mars_exulte }
 		available = {
-		
+			tag = POL
 		}
 		
 		bypass = {
@@ -12688,7 +12799,12 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			CAL = {
+				swap_ideas = {
+					remove_idea = CAL_PRETORIANIE_agents
+					add_idea = CAL_PRETORIANIE_agents_2
+				}
+			}
 		}
 	}
 	focus = {
@@ -12710,7 +12826,9 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			POL = {
+				set_cosmetic_tag = POL_PRETORIANIE_POST
+			}
 		}
 	}
 	focus = {
