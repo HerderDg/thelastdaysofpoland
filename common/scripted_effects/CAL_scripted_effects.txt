@@ -1517,6 +1517,69 @@ CAL_initiate_senate_vote_optimates = {
 	}
 }
 
+CAL_count_units_allegiance = {
+	set_variable = {
+		CAL_units_under_populares = 0
+	}
+	set_variable = {
+		CAL_units_under_optimates = 0
+	}
+	set_variable = {
+		CAL_units_under_legiones = 0
+	}
+	set_variable = {
+		CAL_units_under_praetoriae = 0
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = popular	
+		}
+		add_to_variable = {
+			CAL_units_under_populares = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = optimate
+		}
+		add_to_variable = {
+			CAL_units_under_optimates = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = legionarius
+		}
+		add_to_variable = {
+			CAL_units_under_legiones = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = praetorian
+		}
+		add_to_variable = {
+			CAL_units_under_praetoriae = this.num_units
+		}
+	}
+	clamp_variable = {
+		var = CAL_units_under_populares
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_optimates
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_legiones
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_praetoriae
+		max = 50
+	}
+}
+
 CAL_intervene_to_populares = {
 
 	add_to_variable = {
@@ -3655,8 +3718,6 @@ CAL_spawn_scythians= {
 	set_global_flag = CAL_scythians_spawned
 	
 }
-
-
 
 CAL_spawn_slave_revolt = {
 	SOS = {
