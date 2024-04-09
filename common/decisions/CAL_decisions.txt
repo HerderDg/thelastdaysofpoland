@@ -891,4 +891,282 @@ CAL_gravitas_category = {
 			}
 		}
 	}
+	CAL_bribe_optimate_senators = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 25
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 60
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -25
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = {
+				CAL_senators_to_bribe = CAL_optimates_count
+			}
+			divide_temp_variable = {
+				CAL_senators_to_bribe = 20
+			}
+			round_temp_variable = CAL_senators_to_bribe
+			log = "[?CAL_senators_to_bribe]"
+			custom_effect_tooltip = CAL_bribe_senators_tt
+			add_to_variable = {
+				CAL_populares_count = CAL_senators_to_bribe
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_senate_lvl = 1
+					}
+				}
+				set_variable = {
+					CAL_optimates_count = 100
+				}
+				subtract_from_variable = {
+					CAL_optimates_count = CAL_populares_count
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 150
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 300
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else = {
+					set_variable = {
+						CAL_optimates_count = 900
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+			}
+			CAL_redraw_senate_diagram = yes
+		}
+	}
+	CAL_bribe_populare_senators = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 25
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 60
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -25
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = {
+				CAL_senators_to_bribe = CAL_populares_count
+			}
+			divide_temp_variable = {
+				CAL_senators_to_bribe = 20
+			}
+			round_temp_variable = CAL_senators_to_bribe
+			log = "[?CAL_senators_to_bribe]"
+			custom_effect_tooltip = CAL_bribe_senators_tt
+			subtract_from_variable = {
+				CAL_populares_count = CAL_senators_to_bribe
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_senate_lvl = 1
+					}
+				}
+				set_variable = {
+					CAL_optimates_count = 100
+				}
+				subtract_from_variable = {
+					CAL_optimates_count = CAL_populares_count
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 150
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 300
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else = {
+					set_variable = {
+						CAL_optimates_count = 900
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+			}
+			CAL_redraw_senate_diagram = yes
+		}
+	}
+	CAL_plead_to_fellow_populares = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			has_country_flag = CAL_populares_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -10
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_populare_plea = yes
+		}
+	}
+	CAL_plead_to_fellow_optimates = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			has_country_flag = CAL_optimates_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -10
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_optimate_plea = yes
+		}
+	}
+	CAL_coerce_optimates_to_vote = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 15
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			has_country_flag = CAL_populares_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -15
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_optimate_vote_bribery = yes
+		}
+	}
+	CAL_coerce_populares_to_vote = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 15
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			has_country_flag = CAL_optimates_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -15
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_populare_vote_bribery = yes
+		}
+	}
 }
