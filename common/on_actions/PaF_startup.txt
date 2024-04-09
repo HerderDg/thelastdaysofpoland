@@ -767,6 +767,7 @@ on_actions = {
 				CAL_senate_military_moves = yes
 				set_country_flag = CAL_senate_military_made_a_move
 			}
+			CAL_count_units_allegiance = yes
 		}
 	}
 	on_weekly_SWE = {
@@ -1064,6 +1065,47 @@ on_actions = {
 	on_monthly_CAL = {
 		effect = {
 			change_vp_name_to_latin = yes
+			if = {
+				limit = {
+					check_variable = {
+						var = CAL_emperor_gravitas
+						value = 160
+						compare = greater_than_or_equals
+					}
+				}
+				subtract_from_variable = {
+					CAL_legiones_loyalty = 1
+				}
+				subtract_from_variable = {
+					CAL_populares_loyalty = 1
+				}
+				subtract_from_variable = {
+					CAL_preatoriae_loyalty = 1
+				}
+				subtract_from_variable = {
+					CAL_optimates_loyalty = 1
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_populares_percentage > 0.6
+					}
+				}
+				subtract_from_variable = {
+					CAL_optimates_loyalty = 1
+				}
+			} 
+			else_if = {
+				limit = {
+					check_variable = {
+						CAL_populares_percentage < 0.4
+					}
+				}
+				subtract_from_variable = {
+					CAL_populares_loyalty = 1
+				}
+			}
 		}
 	}
 	on_monthly_PRT = {

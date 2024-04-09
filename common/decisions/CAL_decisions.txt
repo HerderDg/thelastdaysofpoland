@@ -385,30 +385,138 @@ CAL_gravitas_category = {
 					CAL_gravitas_change_preatoriae = 3
 				}
 			}
+			#from units
+			set_temp_variable = {
+				CAL_populares_gravitas_from_units = CAL_units_under_populares
+			}
+			divide_temp_variable = {
+				CAL_populares_gravitas_from_units = 10
+			}
+			add_to_temp_variable = {
+				CAL_gravitas_change_populare = CAL_populares_gravitas_from_units
+			}
+			set_temp_variable = {
+				CAL_optimates_gravitas_from_units = CAL_units_under_optimates
+			}
+			divide_temp_variable = {
+				CAL_optimates_gravitas_from_units = 10
+			}
+			add_to_temp_variable = {
+				CAL_gravitas_change_optimate  = CAL_optimates_gravitas_from_units
+			}
+			set_temp_variable = {
+				CAL_legiones_gravitas_from_units = CAL_units_under_legiones
+			}
+			divide_temp_variable = {
+				CAL_legiones_gravitas_from_units = 10
+			}
+			add_to_temp_variable = {
+				CAL_gravitas_change_legiones = CAL_legiones_gravitas_from_units
+			}
+			set_temp_variable = {
+				CAL_preatoriae_gravitas_from_units = CAL_units_under_praetoriae
+			}
+			divide_temp_variable = {
+				CAL_preatoriae_gravitas_from_units = 10
+			}
+			add_to_temp_variable = {
+				CAL_gravitas_change_preatoriae = CAL_preatoriae_gravitas_from_units
+			}
+			#from imperial_favors
+			if = {
+				limit = {
+					has_country_flag = emperor_favored_populares
+				}
+				subtract_from_temp_variable = {
+					CAL_gravitas_change_emperor = 5
+				}
+				add_to_temp_variable = {
+					CAL_gravitas_change_populare = 10
+				}
+				add_to_variable = {
+					CAL_populares_loyalty = 3
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = emperor_favored_optimates
+				}
+				subtract_from_temp_variable = {
+					CAL_gravitas_change_emperor = 5
+				}
+				add_to_temp_variable = {
+					CAL_gravitas_change_optimate = 10
+				}
+				add_to_variable = {
+					CAL_optimates_loyalty = 3
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = emperor_favored_populares
+				}
+				subtract_from_temp_variable = {
+					CAL_gravitas_change_emperor = 5
+				}
+				add_to_temp_variable = {
+					CAL_gravitas_change_populare = 10
+				}
+				add_to_variable = {
+					CAL_populares_loyalty = 3
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = emperor_favored_legiones
+				}
+				subtract_from_temp_variable = {
+					CAL_gravitas_change_emperor = 5
+				}
+				add_to_temp_variable = {
+					CAL_gravitas_change_legiones  = 10
+				}
+				add_to_variable = {
+					CAL_legiones_loyalty = 3
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = emperor_favored_preatoriae
+				}
+				subtract_from_temp_variable = {
+					CAL_gravitas_change_emperor = 5
+				}
+				add_to_temp_variable = {
+					CAL_gravitas_change_preatoriae = 10
+				}
+				add_to_variable = {
+					CAL_preatoriae_loyalty = 3
+				}
+			}
 			add_to_variable = {
 				var = CAL_populares_gravitas
 				value = CAL_gravitas_change_populare
-				tooltip = CAL_change_gravitas_populares_tt_zwei
+				tooltip = CAL_change_gravitas_populares_tt_sum
 			}
 			add_to_variable = {
 				var = CAL_optimates_gravitas
 				value = CAL_gravitas_change_optimate
-				tooltip = CAL_change_gravitas_optimates_tt_zwei
+				tooltip = CAL_change_gravitas_optimates_tt_sum
 			}
 			add_to_variable = {
 				var = CAL_legiones_gravitas
 				value = CAL_gravitas_change_legiones
-				tooltip = CAL_change_gravitas_legiones_tt_zwei
+				tooltip = CAL_change_gravitas_legiones_tt_sum
 			}
 			add_to_variable = {
 				var = CAL_praetoriae_gravitas
 				value = CAL_gravitas_change_preatoriae
-				tooltip = CAL_change_gravitas_praetoriae_tt_zwei
+				tooltip = CAL_change_gravitas_praetoriae_tt_sum
 			}
 			add_to_variable = {
 				var = CAL_emperor_gravitas
 				value = CAL_gravitas_change_emperor
-				tooltip = CAL_change_gravitas_emperor_tt_zwei
+				tooltip = CAL_change_gravitas_emperor_tt_sum
 			}			
 			clamp_variable = {
 				var = CAL_populares_gravitas
@@ -540,9 +648,12 @@ CAL_gravitas_category = {
 			has_active_mission = CAL_senate_voting_mission
         }
 		complete_effect = {
-			subtract_from_variable = {
+			set_temp_variable = {
+				CAL_gravitas_change = -40
+			}
+			add_to_variable = {
 				var = CAL_emperor_gravitas 
-				value = 40
+				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_emperor_tt
 			}
 			if = {
@@ -563,5 +674,711 @@ CAL_gravitas_category = {
 			set_country_flag = emperor_intervened
 			custom_effect_tooltip = CAL_quarter_senators_pushed
 		}
+	}
+	CAL_bestow_favor_to_populares = {
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_populares
+			}
+			check_variable = {
+				CAL_decision_group = 1
+			}
+		}
+		complete_effect = {
+			set_country_flag = emperor_favored_populares
+			clr_country_flag = emperor_favored_optimates
+			clr_country_flag = emperor_favored_legiones
+			clr_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_bestow_favor_to_optimates = {
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_optimates
+			}
+			check_variable = {
+				CAL_decision_group = 2
+			}
+		}
+		complete_effect = {
+			clr_country_flag = emperor_favored_populares
+			set_country_flag = emperor_favored_optimates
+			clr_country_flag = emperor_favored_legiones
+			clr_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_bestow_favor_to_legiones = {
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_legiones
+			}
+			check_variable = {
+				CAL_decision_group = 3
+			}
+		}
+		complete_effect = {
+			clr_country_flag = emperor_favored_populares
+			clr_country_flag = emperor_favored_optimates
+			set_country_flag = emperor_favored_legiones
+			clr_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_bestow_favor_to_preatoriae = {
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_preatoriae
+			}
+			check_variable = {
+				CAL_decision_group = 4
+			}
+		}
+		complete_effect = {
+			clr_country_flag = emperor_favored_populares
+			clr_country_flag = emperor_favored_optimates
+			clr_country_flag = emperor_favored_legiones
+			set_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_grant_privileges_to_populares = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+		}
+	}
+	CAL_grant_privileges_to_optimates = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+		}
+	}
+	CAL_grant_privileges_to_legiones = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		visible = {
+			check_variable = {
+				CAL_decision_group = 3
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_legiones_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_legiones_tt
+			}
+			multiply_temp_variable = {
+				CAL_gravitas_change = -1
+			}
+			add_to_variable = {
+				var = CAL_legiones_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_legiones_tt
+			}
+		}
+	}
+	CAL_grant_privileges_to_praetoriae = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		visible = {
+			check_variable = {
+				CAL_decision_group = 4
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_preatoriae_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
+			}
+			multiply_temp_variable = {
+				CAL_gravitas_change = -1
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_praetoriae_tt
+			}
+		}
+	}
+	CAL_bribe_optimate_senators = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 25
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 60
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -25
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = {
+				CAL_senators_to_bribe = CAL_optimates_count
+			}
+			divide_temp_variable = {
+				CAL_senators_to_bribe = 20
+			}
+			round_temp_variable = CAL_senators_to_bribe
+			log = "[?CAL_senators_to_bribe]"
+			custom_effect_tooltip = CAL_bribe_senators_tt
+			add_to_variable = {
+				CAL_populares_count = CAL_senators_to_bribe
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_senate_lvl = 1
+					}
+				}
+				set_variable = {
+					CAL_optimates_count = 100
+				}
+				subtract_from_variable = {
+					CAL_optimates_count = CAL_populares_count
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 150
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 300
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else = {
+					set_variable = {
+						CAL_optimates_count = 900
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+			}
+			CAL_redraw_senate_diagram = yes
+		}
+	}
+	CAL_bribe_populare_senators = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 25
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 60
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -25
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = {
+				CAL_senators_to_bribe = CAL_populares_count
+			}
+			divide_temp_variable = {
+				CAL_senators_to_bribe = 20
+			}
+			round_temp_variable = CAL_senators_to_bribe
+			log = "[?CAL_senators_to_bribe]"
+			custom_effect_tooltip = CAL_bribe_senators_tt
+			subtract_from_variable = {
+				CAL_populares_count = CAL_senators_to_bribe
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_senate_lvl = 1
+					}
+				}
+				set_variable = {
+					CAL_optimates_count = 100
+				}
+				subtract_from_variable = {
+					CAL_optimates_count = CAL_populares_count
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 150
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 300
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else = {
+					set_variable = {
+						CAL_optimates_count = 900
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+			}
+			CAL_redraw_senate_diagram = yes
+		}
+	}
+	CAL_plead_to_fellow_populares = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			has_country_flag = CAL_populares_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -10
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_populare_plea = yes
+		}
+	}
+	CAL_plead_to_fellow_optimates = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			has_country_flag = CAL_optimates_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -10
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_optimate_plea = yes
+		}
+	}
+	CAL_coerce_optimates_to_vote = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 15
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			has_country_flag = CAL_populares_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -15
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_optimate_vote_bribery = yes
+		}
+	}
+	CAL_coerce_populares_to_vote = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 15
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 7
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			has_country_flag = CAL_optimates_lex_voting
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -15
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_populare_vote_bribery = yes
+		}
+	}
+	CAL_bribe_optimate_commander = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			any_army_leader = {
+				has_trait = optimate
+				NOT = {
+					is_character = CAL_pawel_delag
+				}
+				NOT = {
+					is_character = CAL_krystian_kinastowski
+				}
+				NOT = {
+					is_character = CAL_andrzej_kompa
+				}
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			random_army_leader = {
+				limit = {
+					has_trait = optimate
+					NOT = {
+						is_character = CAL_pawel_delag
+					}
+					NOT = {
+						is_character = CAL_krystian_kinastowski
+					}
+					NOT = {
+						is_character = CAL_andrzej_kompa
+					}
+				}
+				remove_unit_leader_trait = optimate
+				add_unit_leader_trait = popular
+			}
+		}
+		days_re_enable = 90
+	}
+	CAL_bribe_populare_commander = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			any_army_leader = {
+				has_trait = popular
+				NOT = {
+					is_character = CAL_pawel_delag
+				}
+				NOT = {
+					is_character = CAL_krystian_kinastowski
+				}
+				NOT = {
+					is_character = CAL_andrzej_kompa
+				}
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			random_army_leader = {
+				limit = {
+					has_trait = popular
+					NOT = {
+						is_character = CAL_pawel_delag
+					}
+					NOT = {
+						is_character = CAL_krystian_kinastowski
+					}
+					NOT = {
+						is_character = CAL_andrzej_kompa
+					}
+				}
+				remove_unit_leader_trait = popular
+				add_unit_leader_trait = optimate
+			}
+		}
+		days_re_enable = 90
+	}
+	CAL_bribe_praetorian = {
+		available = {
+			check_variable = {
+				var = CAL_legiones_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 3
+			}
+			any_army_leader = {
+				has_trait = praetorian
+				NOT = {
+					is_character = CAL_pawel_delag
+				}
+				NOT = {
+					is_character = CAL_krystian_kinastowski
+				}
+				NOT = {
+					is_character = CAL_andrzej_kompa
+				}
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_legiones_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_legiones_tt
+			}
+			random_army_leader = {
+				limit = {
+					has_trait = praetorian
+					NOT = {
+						is_character = CAL_pawel_delag
+					}
+					NOT = {
+						is_character = CAL_krystian_kinastowski
+					}
+					NOT = {
+						is_character = CAL_andrzej_kompa
+					}
+				}
+				remove_unit_leader_trait = praetorian
+				add_unit_leader_trait = legionarius
+			}
+		}
+		days_re_enable = 90
+	}
+	CAL_bribe_legionarius = {
+		available = {
+			check_variable = {
+				var = CAL_praetoriae_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 4
+			}
+			any_army_leader = {
+				has_trait = legionarius
+				NOT = {
+					is_character = CAL_pawel_delag
+				}
+				NOT = {
+					is_character = CAL_krystian_kinastowski
+				}
+				NOT = {
+					is_character = CAL_andrzej_kompa
+				}
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_praetoriae_tt
+			}
+			random_army_leader = {
+				limit = {
+					has_trait = legionarius
+					NOT = {
+						is_character = CAL_pawel_delag
+					}
+					NOT = {
+						is_character = CAL_krystian_kinastowski
+					}
+					NOT = {
+						is_character = CAL_andrzej_kompa
+					}
+				}
+				remove_unit_leader_trait = legionarius
+				add_unit_leader_trait = praetorian
+			}
+		}
+		days_re_enable = 90
 	}
 }

@@ -1517,6 +1517,69 @@ CAL_initiate_senate_vote_optimates = {
 	}
 }
 
+CAL_count_units_allegiance = {
+	set_variable = {
+		CAL_units_under_populares = 0
+	}
+	set_variable = {
+		CAL_units_under_optimates = 0
+	}
+	set_variable = {
+		CAL_units_under_legiones = 0
+	}
+	set_variable = {
+		CAL_units_under_praetoriae = 0
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = popular	
+		}
+		add_to_variable = {
+			CAL_units_under_populares = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = optimate
+		}
+		add_to_variable = {
+			CAL_units_under_optimates = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = legionarius
+		}
+		add_to_variable = {
+			CAL_units_under_legiones = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = praetorian
+		}
+		add_to_variable = {
+			CAL_units_under_praetoriae = this.num_units
+		}
+	}
+	clamp_variable = {
+		var = CAL_units_under_populares
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_optimates
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_legiones
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_praetoriae
+		max = 50
+	}
+}
+
 CAL_intervene_to_populares = {
 
 	add_to_variable = {
@@ -1563,6 +1626,172 @@ CAL_intervene_to_populares = {
 CAL_intervene_to_optimates = {
 	add_to_variable = {
 		CAL_optimates_moving_yes_percentage = 0.25
+	}
+	set_variable = {
+		CAL_optimates_moving_no_percentage = 1
+	}
+
+	subtract_from_variable = {
+		CAL_optimates_moving_no_percentage = CAL_optimates_moving_yes_percentage
+	}
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_moving_yes_percentage
+	}
+	round_variable = CAL_optimates_moving_yes
+	set_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_moving_no_percentage
+	}
+	round_variable = CAL_optimates_moving_no
+	set_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_no
+	}
+}
+
+CAL_populare_plea = {
+	add_to_variable = {
+		CAL_populares_moving_yes_percentage = 0.15
+	}
+	set_variable = {
+		CAL_populares_moving_no_percentage = 1
+	}
+
+	subtract_from_variable = {
+		CAL_populares_moving_no_percentage = CAL_populares_moving_yes_percentage
+	}
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_moving_yes_percentage
+	}
+	round_variable = CAL_populares_moving_yes
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_moving_no_percentage
+	}
+	round_variable = CAL_populares_moving_no
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_no
+	}
+}
+
+CAL_optimate_plea = {
+	add_to_variable = {
+		CAL_optimates_moving_yes_percentage = 0.15
+	}
+	set_variable = {
+		CAL_optimates_moving_no_percentage = 1
+	}
+
+	subtract_from_variable = {
+		CAL_optimates_moving_no_percentage = CAL_optimates_moving_yes_percentage
+	}
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_moving_yes_percentage
+	}
+	round_variable = CAL_optimates_moving_yes
+	set_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_no
+		value = CAL_optimates_moving_no_percentage
+	}
+	round_variable = CAL_optimates_moving_no
+	set_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_no
+	}
+}
+
+CAL_populare_vote_bribery = {
+	add_to_variable = {
+		CAL_populares_moving_yes_percentage = 0.1
+	}
+	set_variable = {
+		CAL_populares_moving_no_percentage = 1
+	}
+
+	subtract_from_variable = {
+		CAL_populares_moving_no_percentage = CAL_populares_moving_yes_percentage
+	}
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_moving_yes_percentage
+	}
+	round_variable = CAL_populares_moving_yes
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_count
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_no
+		value = CAL_populares_moving_no_percentage
+	}
+	round_variable = CAL_populares_moving_no
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_no
+	}
+}
+
+CAL_optimate_vote_bribery = {
+	add_to_variable = {
+		CAL_optimates_moving_yes_percentage = 0.1
 	}
 	set_variable = {
 		CAL_optimates_moving_no_percentage = 1
@@ -3655,8 +3884,6 @@ CAL_spawn_scythians= {
 	set_global_flag = CAL_scythians_spawned
 	
 }
-
-
 
 CAL_spawn_slave_revolt = {
 	SOS = {
