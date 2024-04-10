@@ -1384,33 +1384,68 @@ CAL_gravitas_category = {
 }
 
 CAL_triumvirate_war_counter = {
-	CAL_peace_counter = {
+	CAL_legion_capitulation = {
 		activation = {
 			has_country_flag = CAL_triumvirate_war
-			OR = {
-				ALP = { surrender_progress > 0.5 }
-				PRT = { surrender_progress > 0.5 }
-				CAL = { surrender_progress > 0.5 }
-			}
+			ALP = { surrender_progress > 0.5 }
+				#PRT = { surrender_progress > 0.5 }
+				#CAL = { surrender_progress > 0.5 }
 		}
 		available = {
-			has_country_flag = CAL_triumvirate_war
-			OR = {
-				ALP = { surrender_progress < 0.5 }
-				PRT = { surrender_progress < 0.5 }
-				CAL = { surrender_progress < 0.5 }
-			}
+			ALP = { surrender_progress < 0.5 }
+				#PRT = { surrender_progress < 0.5 }
+				#CAL = { surrender_progress < 0.5 }
 		}
 		cancel_trigger = {
-			OR = {
-				ALP = { surrender_progress < 0.5 }
-				PRT = { surrender_progress < 0.5 }
-				CAL = { surrender_progress < 0.5 }
-			}
+			ALP = { surrender_progress < 0.5 }
 		}
 		icon = mission_icon
 		is_good = yes
-		days_mission_timeout = 180
+		days_mission_timeout = 60
+		selectable_mission = no
+		complete_effect = {
+			
+		}
+		timeout_effect = {
+			event = calisia.129
+		}
+	}
+	CAL_senate_capitulation = {
+		activation = {
+			has_country_flag = CAL_triumvirate_war
+			CAL = { surrender_progress > 0.5 }
+		}
+		available = {
+			CAL = { surrender_progress < 0.5 }
+		}
+		cancel_trigger = {
+			CAL = { surrender_progress < 0.5 }
+		}
+		icon = mission_icon
+		is_good = yes
+		days_mission_timeout = 60
+		selectable_mission = no
+		complete_effect = {
+			
+		}
+		timeout_effect = {
+			event = calisia.129
+		}
+	}
+	CAL_praetorian_capitulation = {
+		activation = {
+			has_country_flag = CAL_triumvirate_war
+			PRT = { surrender_progress > 0.5 }
+		}
+		available = {
+			PRT = { surrender_progress < 0.5 }
+		}
+		cancel_trigger = {
+			PRT = { surrender_progress < 0.5 }
+		}
+		icon = mission_icon
+		is_good = yes
+		days_mission_timeout = 60
 		selectable_mission = no
 		complete_effect = {
 			
