@@ -1581,7 +1581,6 @@ CAL_count_units_allegiance = {
 }
 
 CAL_intervene_to_populares = {
-
 	add_to_variable = {
 		CAL_populares_moving_yes_percentage = 0.25
 	}
@@ -1621,6 +1620,7 @@ CAL_intervene_to_populares = {
 		var = CAL_populares_no
 		value = CAL_populares_moving_no
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_intervene_to_optimates = {
@@ -1662,6 +1662,7 @@ CAL_intervene_to_optimates = {
 		var = CAL_optimates_no
 		value = CAL_optimates_moving_no
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_populare_plea = {
@@ -1704,6 +1705,7 @@ CAL_populare_plea = {
 		var = CAL_populares_no
 		value = CAL_populares_moving_no
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_optimate_plea = {
@@ -1745,6 +1747,7 @@ CAL_optimate_plea = {
 		var = CAL_optimates_no
 		value = CAL_optimates_moving_no
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_populare_vote_bribery = {
@@ -1787,6 +1790,7 @@ CAL_populare_vote_bribery = {
 		var = CAL_populares_no
 		value = CAL_populares_moving_no
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_optimate_vote_bribery = {
@@ -1828,6 +1832,7 @@ CAL_optimate_vote_bribery = {
 		var = CAL_optimates_no
 		value = CAL_optimates_moving_no
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_senate_military_moves = {
@@ -2016,6 +2021,7 @@ CAL_senate_military_moves = {
 			value = CAL_optimates_moving_no
 		}
 	}
+	CAL_count_yes_and_no = yes
 }
 
 CAL_senate_fix_no = {
@@ -2065,6 +2071,14 @@ CAL_count_yes_and_no = {
 		value = CAL_optimates_yes
 	}
 	set_variable = {
+		var = CAL_total_yes
+		value = CAL_populares_yes
+	}
+	add_to_variable = {
+		var = CAL_total_yes
+		value = CAL_optimates_yes
+	}
+	set_variable = {
 		var = CAL_all_no_show
 		value = CAL_populares_no
 	}
@@ -2083,7 +2097,7 @@ CAL_senate_voting_result = {
 	#############
 	# POPULARZY #
 	#############
-
+	log = "[?CAL_total_yes]/needed [?CAL_total_senators]"
 	if = {
 		limit = {
 			has_country_flag = CAL_populares_lex_voting
@@ -2092,6 +2106,7 @@ CAL_senate_voting_result = {
 			limit = {
 				CAL_yes_senators_count = yes
 			}
+			
 			#AGER PUBLICUS
 			if = {
 				limit = {
