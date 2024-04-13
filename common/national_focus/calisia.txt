@@ -9232,7 +9232,27 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_stability = 0.1
+			add_political_power = 50
+			add_timed_idea = { idea = CAL_administrative_turmoil days = 30 }
+			set_temp_variable = { CAL_loyalty_change = -5 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = -10 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = 10 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
 		}
 	}
 	focus = {
@@ -9254,7 +9274,48 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_stability = 0.1
+			add_war_support = -0.05
+			314 = { set_demilitarized_zone = yes }
+			846 = { set_demilitarized_zone = yes }
+			314 = { add_manpower = -100 }
+			846 = { add_manpower = -100 }
+			damage_building = {
+				type = infrastructure
+				damage = 1
+				state = 314
+			}
+			damage_building = {
+				type = infrastructure
+				damage = 1
+				state = 846
+			}
+			damage_units = {
+				state = 314
+				damage = 0.5
+				org_damage = 0.5
+				str_damage = 0.5
+				ratio = yes
+				template = "Legio"
+				army = yes
+				navy = no
+			}
+			damage_units = {
+				state = 846
+				damage = 0.5
+				org_damage = 0.5
+				str_damage = 0.5
+				ratio = yes
+				template = "Legio"
+				army = yes
+				navy = no
+			}
+			set_temp_variable = { CAL_gravitas_change = 5 }
+			add_to_variable = {
+				var = CAL_praetoriae_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_praetoriae_tt
+			}
 		}
 	}
 	focus = {
@@ -9277,7 +9338,9 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			add_ideas = CAL_patriots_in_control
+			314 = { set_demilitarized_zone = no }
+			846 = { set_demilitarized_zone = no }
 		}
 	}
 	focus = {
@@ -9299,7 +9362,24 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			if = {
+				limit = {
+					has_idea = CAL_patriots_in_control
+				}
+				swap_ideas = {
+					remove_idea = CAL_patriots_in_control
+					add_idea = CAL_patriots_in_control_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = CAL_patriots_in_control_3
+				}
+				swap_ideas = {
+					remove_idea = CAL_patriots_in_control_3
+					add_idea = CAL_patriots_in_control_4
+				}
+			}
 		}
 	}
 	focus = {
@@ -9388,7 +9468,24 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			if = {
+				limit = {
+					has_idea = CAL_patriots_in_control
+				}
+				swap_ideas = {
+					remove_idea = CAL_patriots_in_control
+					add_idea = CAL_patriots_in_control_3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = CAL_patriots_in_control_2
+				}
+				swap_ideas = {
+					remove_idea = CAL_patriots_in_control_2
+					add_idea = CAL_patriots_in_control_4
+				}
+			}
 		}
 	}
 	focus = {
