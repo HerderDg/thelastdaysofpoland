@@ -3904,3 +3904,176 @@ CAL_spawn_slave_revolt = {
 	}
 	set_global_flag = CAL_spartakus_risen
 }
+
+CAL_set_military_loyalty_effects = {
+	log = "[?CAL_praetoriae_loyalty]"
+
+	log = "[?CAL_legiones_loyalty]"
+	if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 20
+			}
+		}
+		swap_ideas = {
+			remove_idea = CAL_legiones_disloyal
+			add_idea = CAL_legiones_rebellious
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 40
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CAL_legiones_hesistant
+			}
+			swap_ideas = {
+				remove_idea = CAL_legiones_hesistant
+				add_idea = CAL_legiones_disloyal
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = CAL_legiones_rebellious
+				add_idea = CAL_legiones_disloyal
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 60
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CAL_legiones_loyal
+			}
+			swap_ideas = {
+				remove_idea = CAL_legiones_loyal
+				add_idea = CAL_legiones_hesistant
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = CAL_legiones_disloyal
+				add_idea = CAL_legiones_hesistant
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 80
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CAL_legiones_fanatical
+			}
+			swap_ideas = {
+				remove_idea = CAL_legiones_fanatical
+				add_idea = CAL_legiones_loyal
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = CAL_legiones_hesistant
+				add_idea = CAL_legiones_loyal
+			}
+		}
+	}
+	else = {
+		swap_ideas = {
+			remove_idea = CAL_legiones_loyal
+			add_idea = CAL_legiones_fanatical
+		}
+	}
+
+	if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 20
+			}
+		}
+		swap_ideas = {
+			remove_idea = CAL_praetoriae_disloyal
+			add_idea = CAL_praetoriae_rebellious
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 40
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CAL_praetoriae_hesistant
+			}
+			swap_ideas = {
+				remove_idea = CAL_praetoriae_hesistant
+				add_idea = CAL_praetoriae_disloyal
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = CAL_praetoriae_rebellious
+				add_idea = CAL_praetoriae_disloyal
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 60
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CAL_praetoriae_loyal
+			}
+			swap_ideas = {
+				remove_idea = CAL_praetoriae_loyal
+				add_idea = CAL_praetoriae_hesistant
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = CAL_praetoriae_disloyal
+				add_idea = CAL_praetoriae_hesistant
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 80
+			}
+		}
+		if = {
+			limit = {
+				has_idea = CAL_praetoriae_fanatical
+			}
+			swap_ideas = {
+				remove_idea = CAL_praetoriae_fanatical
+				add_idea = CAL_praetoriae_loyal
+			}
+		}
+		else = {
+			swap_ideas = {
+				remove_idea = CAL_praetoriae_hesistant
+				add_idea = CAL_praetoriae_loyal
+			}
+		}
+	}
+	else = {
+		swap_ideas = {
+			remove_idea = CAL_praetoriae_loyal
+			add_idea = CAL_praetoriae_fanatical
+		}
+	}
+}
