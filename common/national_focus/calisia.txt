@@ -109,8 +109,15 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			set_country_flag = CAL_ager_publicus_start_bonus_populare
 			custom_effect_tooltip = CAL_populares_gain
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
 			add_popularity = {
                 ideology = socialdemocrature
 				popularity = 0.015
@@ -165,8 +172,15 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			set_country_flag = CAL_ager_publicus_start_bonus_optimate
 			custom_effect_tooltip = CAL_optimates_gain
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
 		    add_popularity = {
                 ideology = autocracy
 				popularity = 0.015
@@ -542,9 +556,21 @@ focus_tree = {
 		completion_reward = {
 			
 			custom_effect_tooltip = CAL_praetoriae_et_optimates_gain
+			set_temp_variable = {
+				CAL_loyalty_change = 5
+			}
 			add_to_variable = {
-				CAL_optimates_loyalty = 5
-				CAL_praetoriae_loyalty = 10
+				var = CAL_optimates_loyalty 
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			multiply_temp_variable = {
+				CAL_loyalty_change = 2
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty 
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
 			}
 		}
 	}
@@ -598,9 +624,21 @@ focus_tree = {
 		completion_reward = {
 			
 			custom_effect_tooltip = CAL_legiones_et_populares_gain
+			set_temp_variable = {
+				CAL_loyalty_change = 5
+			}
 			add_to_variable = {
-				CAL_populares_loyalty = 5
-				CAL_legiones_loyalty = 10
+				var = CAL_populares_loyalty 
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			multiply_temp_variable = {
+				CAL_loyalty_change = 2
+			}
+			add_to_variable = {
+				var = CAL_legiones_loyalty 
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_legiones_tt
 			}
 		}
 	}
@@ -654,8 +692,11 @@ focus_tree = {
 		
 		cost = 2
 		search_filters = { }
-		completion_reward = { 
-			add_ideas = CAL_army_worthy_of_aurelian
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = CAL_civic_army
+				add_idea = CAL_army_worthy_of_aurelian
+			}
 			if = {
 				limit = {
 					has_completed_focus = CAL_wyzszy_zold_dla_pretorian
@@ -714,16 +755,41 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = {
 			add_political_power = 50
-			set_temp_variable = { CAL_loyalty_change = -10 }
+			set_temp_variable = { CAL_loyalty_change = 10 }
+			set_temp_variable = { CAL_gravitas_change = -20 }
 			add_to_variable = {
-				var = CAL_populares_loyalty
-				value = CAL_loyalty_change
-				tooltip = CAL_change_loyalty_populares_tt
+				var = CAL_emperor_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
 			}
-			add_to_variable = {
-				var = CAL_optimates_loyalty
-				value = CAL_loyalty_change
-				tooltip = CAL_change_loyalty_optimates_tt
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_sided_with_populares
+				}
+				add_to_variable = {
+					var = CAL_populares_loyalty
+					value = CAL_loyalty_change
+					tooltip = CAL_change_loyalty_populares_tt
+				}
+				multiply_temp_variable = { CAL_loyalty_change = -1 }
+				add_to_variable = {
+					var = CAL_optimates_loyalty
+					value = CAL_loyalty_change
+					tooltip = CAL_change_loyalty_optimates_tt
+				}
+			}
+			else = {
+				add_to_variable = {
+					var = CAL_optimates_loyalty
+					value = CAL_loyalty_change
+					tooltip = CAL_change_loyalty_optimates_tt
+				}
+				multiply_temp_variable = { CAL_loyalty_change = -1 }
+				add_to_variable = {
+					var = CAL_populares_loyalty
+					value = CAL_loyalty_change
+					tooltip = CAL_change_loyalty_populares_tt
+				}
 			}
 		}
 	}
@@ -736,7 +802,7 @@ focus_tree = {
 		prerequisite = { focus = CAL_imperator_gwarantem_pokoju }
 		mutually_exclusive = { focus = CAL_lex_lustitiae_socialis }
 		available = {
-		
+			has_country_flag = CAL_ager_publicus_sided_with_optimates
 		}
 		
 		bypass = {
@@ -757,15 +823,6 @@ focus_tree = {
 				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
 				add_dynamic_modifier = { modifier = CAL_ager_publicus_optimates_modifier }
 			}
-			if = {
-				limit = {
-					has_country_flag = ager_publicus_lex_populares
-				}
-				custom_effect_tooltip = overruling_the_senate_tooltip
-				hidden_effect = {
-					add_stability = -0.1
-				}
-			}
 			
 			country_event = calisia.28
 		}
@@ -779,7 +836,7 @@ focus_tree = {
 		prerequisite = { focus = CAL_imperator_gwarantem_pokoju }
 		mutually_exclusive = { focus = CAL_lex_commutationis_et_perspicuitais }
 		available = {
-		
+			has_country_flag = CAL_ager_publicus_sided_with_populares
 		}
 		
 		bypass = {
@@ -799,15 +856,6 @@ focus_tree = {
 				}
 				remove_dynamic_modifier = { modifier = CAL_ager_publicus_modifier }
 				add_dynamic_modifier = { modifier = CAL_ager_publicus_populares_modifier }
-			}
-			if = {
-				limit = {
-					has_country_flag = ager_publicus_lex_optimates
-				}
-				custom_effect_tooltip = overruling_the_senate_tooltip
-				hidden_effect = {
-					add_stability = -0.1
-				}
 			}
 			country_event = calisia.29
 		}
