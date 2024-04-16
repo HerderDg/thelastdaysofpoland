@@ -987,6 +987,7 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.25
+			add_stability = 0.0025
 		}
 	}
 	
@@ -1063,6 +1064,10 @@ focus_tree = {
 			}
 			declare_war_on = {
 				target = LSZ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = LIS
 				type = annex_everything
 			}
 		}
@@ -1230,7 +1235,8 @@ focus_tree = {
 		
 		cost = 3
 		search_filters = { }
-		completion_reward = { 
+		completion_reward = {
+			custom_effect_tooltip = CAL_senate_150_tt
 			country_event = { id = calisia.23 }
 		}
 	}
@@ -1278,6 +1284,7 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			add_stability = -0.05
+			set_temp_variable = { CAL_gravitas_change = -10 }
 			set_temp_variable = { CAL_loyalty_change = -5 }
 			add_to_variable = {
 				var = CAL_optimates_loyalty
@@ -1288,6 +1295,16 @@ focus_tree = {
 				var = CAL_populares_loyalty
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
 			}
 		}
 	}
@@ -1312,18 +1329,22 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			country_event = { id = calisia.24 }
-			359 = {
-				create_unit = {
-					division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
-					owner = CAL
+			custom_effect_tooltip = CAL_legio_assim_tt
+			hidden_effect = {
+				359 = {
+					create_unit = {
+						division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
+						owner = CAL
+					}
+				}
+				311 = {
+					create_unit = {
+						division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
+						owner = CAL
+					}
 				}
 			}
-			311 = {
-				create_unit = {
-					division = "division_template = \"Legio\" start_experience_factor = 0.8 start_equipment_factor = 1.0"
-					owner = CAL
-				}
-			}
+			
 		}
 	}
 
@@ -1349,6 +1370,16 @@ focus_tree = {
 			add_equipment_to_stockpile = {
 				type = ranged_equipment
 				amount = 1000
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 50
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_2
+				amount = 1
 				producer = KES
 			}
 		}
@@ -1422,29 +1453,40 @@ focus_tree = {
 		
 		cost = 3
 		search_filters = { }
-		completion_reward = { 
-			PRT = {
-				add_state_core = 359
-				add_state_core = 337
-				add_state_core = 342
-			}		
-			every_owned_state = {
-				limit = { is_core_of = PRT }
-				PRT = { transfer_state = PREV }
+		completion_reward = {
+			custom_effect_tooltip = CAL_PRT_tt
+			set_temp_variable = {
+				CAL_loyalty_change = 10
 			}
-			PRT = {
-				load_oob = "PRT_2027"
-				get_current_government_type = yes
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
 			}
-			puppet = PRT
-			set_autonomy = {
-				target = PRT
-				autonomy_state = autonomy_satellite
-				end_wars = no
-				end_civil_wars = no
-			}
-			PRT = {
-				restore_previous_government_type = yes
+			hidden_effect = {
+				PRT = {
+					add_state_core = 359
+					add_state_core = 337
+					add_state_core = 342
+				}		
+				every_owned_state = {
+					limit = { is_core_of = PRT }
+					PRT = { transfer_state = PREV }
+				}
+				PRT = {
+					load_oob = "PRT_2027"
+					get_current_government_type = yes
+				}
+				puppet = PRT
+				set_autonomy = {
+					target = PRT
+					autonomy_state = autonomy_satellite
+					end_wars = no
+					end_civil_wars = no
+				}
+				PRT = {
+					restore_previous_government_type = yes
+				}
 			}
 			country_event = calisia.20
 		}
@@ -1499,25 +1541,15 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = { 
-			random_owned_state = {
-				limit = {
-					is_core_of = KES
-				}
+			311 = {
 				add_building_construction = {
-					type = industrial_complex
+					type = power_plant
 					level = 1
 					instant_build = yes
 				}
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+				add_extra_state_shared_building_slots = 1
 			}
-			random_owned_state = {
-				limit = {
-					is_core_of = KES
-				}
+			285 = {
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
@@ -1528,6 +1560,7 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
+				add_extra_state_shared_building_slots = 2
 			}
 		}
 	}
@@ -1581,18 +1614,29 @@ focus_tree = {
 		
 		cost = 3
 		search_filters = { }
-		completion_reward = { 
-			every_owned_state = {
-				limit = {
-					cathedral > 0
-				}
-				set_building_level = {
-					type = cathedral
-					level = 0
-				}
-				set_building_level = {
-					type = januszex
-					level = 1
+		completion_reward = {
+			set_temp_variable = {
+				CAL_loyalty_change = -10
+			}
+			add_to_variable = {
+				var = CAL_optimates_loyalty 
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			custom_effect_tooltip = CAL_appropriation_tt
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						cathedral > 0
+					}
+					set_building_level = {
+						type = cathedral
+						level = 0
+					}
+					set_building_level = {
+						type = januszex
+						level = 1
+					}
 				}
 			}
 		}
