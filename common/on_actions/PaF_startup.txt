@@ -775,6 +775,38 @@ on_actions = {
 				}
 				CAL_set_military_loyalty_effects = yes
 			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				set_variable = {
+					global.unifiers_count = 0
+				}
+				for_each_scope_loop = {
+					array = global.countries
+					if = {
+						limit = {
+							exists = yes
+							is_poland_unifier = yes
+						}
+						add_to_variable = {
+							global.unifiers_count = 1
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							global.unifiers_count = 2
+						}
+					}
+					country_event = {
+						id = calisia.52
+						days = 7
+					}
+				}
+				
+			}
 		}
 	}
 	on_weekly_SWE = {
