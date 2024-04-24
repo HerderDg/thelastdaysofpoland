@@ -9,7 +9,9 @@ country_event = {
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.1"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.1"
+		set_country_flag = CAL_senate_closed_due_to_grmans
+	}
 	option = {
 		name = calisia.1.a
 		declare_war_on = {
@@ -451,7 +453,35 @@ country_event = {  #Veni Vedi Vici?
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.26"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.26"
+		clr_country_flag = CAL_senate_closed_due_to_grmans
+		set_variable = {CAL_emperor_gravitas = 200}
+		if = {
+			limit = {
+				has_country_flag = CAL_ager_publicus_sided_with_optimates
+			}
+			set_variable = {CAL_populares_gravitas = 95}
+			set_variable = {CAL_optimates_gravitas = 45}
+			set_variable = {CAL_praetoriae_gravitas = 40}
+			set_variable = {CAL_legiones_gravitas = 40}
+			set_variable = {CAL_populares_loyalty = 60}
+			set_variable = {CAL_optimates_loyalty = 75}
+			set_variable = {CAL_praetoriae_loyalty = 55}
+			set_variable = {CAL_legiones_loyalty = 70}
+			else = {
+				set_variable = {CAL_populares_gravitas = 55}
+				set_variable = {CAL_optimates_gravitas = 100}
+				set_variable = {CAL_praetoriae_gravitas = 50}
+				set_variable = {CAL_legiones_gravitas = 30}
+				set_variable = {CAL_populares_loyalty = 85}
+				set_variable = {CAL_optimates_loyalty = 55}
+				set_variable = {CAL_praetoriae_loyalty = 45}
+				set_variable = {CAL_legiones_loyalty = 70}
+			}
+		}
+		
+
+	}
 	option = {
 		name = calisia.26.a
 		add_stability = -0.05
