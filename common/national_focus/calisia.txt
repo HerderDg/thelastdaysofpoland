@@ -1877,8 +1877,21 @@ focus_tree = {
 		
 		cost = 2
 		search_filters = { }
-		completion_reward = { 
-		    add_political_power = 50
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = CAL_fourth_rome_war_support
+				}
+				swap_ideas = {
+					remove_idea = CAL_fourth_rome_war_support
+					add_idea = CAL_fourth_rome
+				}
+				else = {
+					add_ideas = CAL_fourth_rome_pp
+				}
+			}
+			
+		    ##add_political_power = 50
 		}
 	}
 
@@ -1901,7 +1914,18 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = { 
-		    add_war_support = 0.15
+		    if = {
+				limit = {
+					has_idea = CAL_fourth_rome_pp
+				}
+				swap_ideas = {
+					remove_idea = CAL_fourth_rome_pp
+					add_idea = CAL_fourth_rome
+				}
+				else = {
+					add_ideas = CAL_fourth_rome_war_support
+				}
+			}
 		}
 	}
 
