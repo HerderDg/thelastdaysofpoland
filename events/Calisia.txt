@@ -245,6 +245,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.14"}
 	option = {
 		name = calisia.14.a
+		add_stability = -0.1
 		if = {
 			limit = {
 				has_country_flag = CAL_ager_publicus_sided_with_optimates
@@ -256,6 +257,11 @@ country_event = {
 				has_country_flag = CAL_ager_publicus_sided_with_populares
 			}
 			remove_ideas = CAL_repercussions_of_abuses_populares_4
+		}
+		complete_national_focus = CAL_chaos_na_komisjach
+		hidden_effect = {
+			set_country_flag = CAL_ager_publicus_failed
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 }
@@ -499,6 +505,7 @@ country_event = {  #Auxilia Gnesnensis
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.27"}
 	option = {
 		name = calisia.27.a
+		custom_effect_tooltip = CAL_ilski_popular_tt
 		hidden_effect = {
 			every_possible_country = {
 				limit = { has_character = KLO_ilski }
@@ -524,6 +531,7 @@ country_event = {  #Auxilia Gnesnensis
 	}
 	option = {
 		name = calisia.27.b
+		custom_effect_tooltip = CAL_ilski_optimate_tt
 		hidden_effect = {
 			every_possible_country = {
 				limit = { has_character = KLO_ilski }
@@ -982,6 +990,7 @@ country_event = { #kryzys trzeciej dekady
 	option = {
 		name = calisia.55.a
 		complete_national_focus = CAL_crisis_of_the_third_decade
+		set_country_flag = CAL_crisis_of_the_third_decade_flag
 	}
 }
 
@@ -2732,9 +2741,187 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.140"}
 	option = {
 		name = calisia.140.a 
-		remove_ideas = CAL_construction_palace2 
-		remove_ideas = CAL_construction_palace3
+		if = {
+			limit = {
+				has_idea = CAL_construction_palace2 
+			}
+			remove_ideas = CAL_construction_palace2 
+		}
+		if = {
+			limit = {
+				has_idea = CAL_construction_palace3
+			}
+			remove_ideas = CAL_construction_palace3
+		}
 		set_country_flag = CAL_palace
+	}
+}
+
+country_event = { 
+	id = calisia.141 #coroczne wybory
+	title = calisia.141.t
+	desc = calisia.141.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.141"
+		country_event = {
+			id = calisia.141
+			days = 365
+		}
+	}
+	option = { #Frakcja Zostaje
+		name = calisia.141.a 
+		trigger = {
+			if = {
+				trigger = {
+					has_government = socialdemocrature
+				}
+				OR = {
+					socialdemocrature > party_popularity@autocracy
+					socialdemocrature = party_popularity@autocracy
+				}
+			}
+			if = {
+				trigger = {
+					has_government = autocracy
+				}
+				OR = {
+					autocracy > party_popularity@socialdemocrature
+					autocracy = party_popularity@socialdemocrature
+				}
+			}
+		}
+		if = {
+			trigger = {
+				has_government = socialdemocrature
+			}
+			set_temp_variable = { CAL_gravitas_change = 20 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 20 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_political_power = 50
+		}
+		else_if = {
+			trigger = {
+				has_government = autocracy
+			}
+			set_temp_variable = { CAL_gravitas_change = 20 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 20 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_political_power = 50
+		}
+	}
+	option = { #Frakcje wyjebujemy
+		name = calisia.141.b 
+		trigger = {
+			if = {
+				trigger = {
+					has_government = socialdemocrature
+				}
+				socialdemocrature < party_popularity@autocracy
+			}
+			if = {
+				trigger = {
+					has_government = autocracy
+				}
+				autocracy < party_popularity@socialdemocrature
+			}
+		}
+		if = {
+			trigger = {
+				has_government = socialdemocrature
+			}
+			set_politics = {
+				ruling_party = autocracy
+			}
+			### NOWY RZĄD JAK BĘDĄ MINISTROWIE ###
+			set_temp_variable = { CAL_gravitas_change = -10 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -20 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = 10 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 30 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_stability = -0.1
+			custom_effect_tooltip = CAL_optimates_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 1
+			}
+		}
+		else_if = {
+			trigger = {
+				has_government = autocracy
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			### NOWY RZĄD JAK BĘDĄ MINISTROWIE ###
+			set_temp_variable = { CAL_gravitas_change = -10 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -20 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = 10 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 30 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_stability = -0.1
+			custom_effect_tooltip = CAL_populares_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 2
+			}
+		}
 	}
 }
 
