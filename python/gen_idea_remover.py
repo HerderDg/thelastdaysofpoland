@@ -7,7 +7,7 @@ bracketLayer = 0
 os.chdir('./common/ideas')
 ideasDir = os.getcwd()
 for file in os.listdir(ideasDir):
-    if file[:3] in ['JOM','EK_','EKS','KAM','ECO''WAN','ROS','KON','KOZ','SOS']:
+    if file[:3] in ['JOM','EK_','EKS','KAM','ECO''WAN','ROS','KON','KOZ','SOS','WRT']:
         ideasFiles.append(open(file,"r",newline='\r\n'))
      
 for ideaFileHandler in ideasFiles:
