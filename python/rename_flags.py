@@ -22,7 +22,7 @@ for root,dirs,files in os.walk(flagsDir):
             elif 'KOZ' in name:
                 os.rename(os.path.join(root, name),os.path.join(root, "SCY.tga"))
         if 'slave_revolt' in name:
-            print(os.path.join(root, "SPA.tga"))
+            os.rename(os.path.join(root, name),os.path.join(root, "SPA.tga"))
 
 
 
