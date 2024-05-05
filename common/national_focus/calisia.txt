@@ -894,7 +894,7 @@ focus_tree = {
 		relative_position_id = CAL_order_behind_prosna
 		prerequisite = { focus = CAL_order_behind_prosna }
 		available = {
-		    date > 2028.03.01
+		    date > 2028.07.01
 			has_war = no
 		}
 		
@@ -1074,6 +1074,11 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				country_exists = FEL
+				country_exists = LSZ
+				country_exists = LIS
+			}
 		}
 		
 		x = 0
@@ -1082,17 +1087,32 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		    declare_war_on = {
-				target = FEL
-				type = annex_everything
+			if = {
+				limit = {
+					country_exists = FEL
+				}
+				declare_war_on = {
+					target = FEL
+					type = annex_everything
+				}
 			}
-			declare_war_on = {
-				target = LSZ
-				type = annex_everything
+			if = {
+				limit = {
+					country_exists = LSZ
+				}
+				declare_war_on = {
+					target = LSZ
+					type = annex_everything
+				}
 			}
-			declare_war_on = {
-				target = LIS
-				type = annex_everything
+			if = {
+				limit = {
+					country_exists = LIS
+				}
+				declare_war_on = {
+					target = LIS
+					type = annex_everything
+				}
 			}
 		}
 	}
@@ -7315,6 +7335,20 @@ focus_tree = {
 			add_political_power = -50
 			add_stability = 0.1
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = CAL_central_command_economy
+						has_completed_focus = CAL_economy_based_on_plunder
+					}
+				}
+				hidden_effect = {
+					country_event = {
+						id = calisia.143
+						days = 30
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -7379,6 +7413,20 @@ focus_tree = {
 			add_political_power = 50
 			add_stability = -0.1
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = CAL_central_command_economy
+						has_completed_focus = CAL_economy_based_on_plunder
+					}
+				}
+				hidden_effect = {
+					country_event = {
+						id = calisia.143
+						days = 30
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -7452,6 +7500,20 @@ focus_tree = {
 				add_idea = economy_central_planning
 			}
 		}
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = CAL_march_of_unity
+					has_completed_focus = CAL_wine_women_and_singing
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = calisia.143
+					days = 30
+				}
+			}
+		}
 	}
 	focus = {
 		id = CAL_its_almost_war_season
@@ -7501,6 +7563,20 @@ focus_tree = {
 				add_idea = economy_militarism
 			}
 		}
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = CAL_march_of_unity
+					has_completed_focus = CAL_wine_women_and_singing
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = calisia.143
+					days = 30
+				}
+			}
+		}
 	}
 	focus = {
 		id = CAL_inflation_1
@@ -7515,6 +7591,9 @@ focus_tree = {
 			focus = CAL_central_command_economy
 			focus = CAL_economy_based_on_plunder
 		}
+		allow_branch = {
+			has_country_flag = CAL_inflation_1_flag
+		}
 		available = {
 		
 		}
@@ -7526,10 +7605,10 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 1
+		cost = 0
 		search_filters = { }
 		completion_reward = { 
-			add_ideas = CAL_inflation1_idea
+
 		}
 	}
 	focus = {
@@ -7538,6 +7617,9 @@ focus_tree = {
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_bread_and_circuses	
 		prerequisite = { focus = CAL_inflation_1 }
+		allow_branch = {
+			has_country_flag = CAL_inflation_2_flag
+		}
 		available = {
 		
 		}
@@ -7548,13 +7630,10 @@ focus_tree = {
 		x = 0
 		y = 4
 		
-		cost = 1
+		cost = 0
 		search_filters = { }
 		completion_reward = { 
-			swap_ideas = {
-				remove_idea = CAL_inflation1_idea
-				add_idea = CAL_inflation2_idea
-				}
+			
 		}
 	}
 	focus = {
@@ -7563,6 +7642,9 @@ focus_tree = {
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_bread_and_circuses	
 		prerequisite = { focus = CAL_inflation_2 }
+		allow_branch = {
+			has_country_flag = CAL_inflation_3_flag
+		}
 		available = {
 		
 		}
@@ -7573,13 +7655,10 @@ focus_tree = {
 		x = 0
 		y = 5
 		
-		cost = 1
+		cost = 0
 		search_filters = { }
 		completion_reward = { 
-			swap_ideas = {
-				remove_idea = CAL_inflation2_idea
-				add_idea = CAL_inflation3_idea
-				}
+			
 		}
 	}
 
@@ -7760,7 +7839,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = calisia.146
 		}
 	}
 	focus = {
@@ -8300,7 +8379,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-		
+			country_event = calisia.147
 		}
 	}
 	focus = {
@@ -8868,8 +8947,8 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
 		}
 	}
 	focus = {
-		id = CAL_trial_of_praefectus
-		icon = CAL_trial_of_praefectus
+		id = CAL_dissolution_of_the_praetorian_guard
+		icon = CAL_dissolution_of_the_praetorian_guard
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_arrest_the_plotters_in_the_senate
 		prerequisite = { focus = CAL_accidental_invasion_on_the_praefecture }
@@ -8886,7 +8965,6 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			country_event = calisia.137
 			swap_ideas = {
 				remove_idea = CAL_striking_hydra_in_its_heart1
 				add_idea = CAL_striking_hydra_in_its_heart2
@@ -9046,12 +9124,16 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
 		}
 	}
 	focus = {
-		id = CAL_dissolution_of_the_praetorian_guard
-		icon = CAL_dissolution_of_the_praetorian_guard
+		id = CAL_trial_of_praefectus
+		icon = CAL_trial_of_praefectus
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_arrest_the_plotters_in_the_senate
-		prerequisite = { focus = CAL_trial_of_praefectus }
-		prerequisite = { focus = CAL_shield_the_civilian_population }
+		prerequisite = { 
+			focus = CAL_dissolution_of_the_praetorian_guard 
+		}
+		prerequisite = { 
+			focus = CAL_shield_the_civilian_population
+		}
 		available = {
 		
 		}
@@ -9065,7 +9147,7 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			country_event = calisia.138
+			country_event = calisia.137
 			if = {
 				limit = {
 					has_idea = CAL_inspiration_from_constantine_cohortes3
@@ -9075,6 +9157,7 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
 			else = {
 				remove_ideas = CAL_inspiration_from_constantine_legiones3
 			}
+			remove_ideas = CAL_striking_hydra_in_its_heart2
 			custom_effect_tooltip = CAL_dissolution_of_the_praetorian_guard_tt
 			hidden_effect = {
 				set_temp_variable = {
@@ -9099,7 +9182,7 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
         relative_position_id = CAL_arrest_the_plotters_in_the_senate
 		prerequisite = { focus = CAL_dissolution_of_the_praetorian_guard }
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -9548,7 +9631,7 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
         relative_position_id = CAL_conspiracy_of_stavissin
 		prerequisite = { focus = CAL_great_fire_of_calisia }
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -10157,7 +10240,7 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
         relative_position_id = CAL_ides
 		prerequisite = { focus = CAL_triumph_in_calisia }
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -10774,7 +10857,7 @@ custom_effect_tooltip = CAL_majority_in_the_senate_tt
         relative_position_id = CAL_cry_havoc
 		prerequisite = { focus = CAL_lawful_tyrannicide }
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
