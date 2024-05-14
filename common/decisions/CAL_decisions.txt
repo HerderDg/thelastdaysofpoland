@@ -35,7 +35,7 @@ CAL_gravitas_category = {
 			set_temp_variable = { CAL_gravitas_change_optimate = 5 }
 			set_temp_variable = { CAL_gravitas_change_legiones = 5 }
 			set_temp_variable = { CAL_gravitas_change_preatoriae = 5 }
-			set_temp_variable = { CAL_gravitas_change_emperor = 0 }
+			set_temp_variable = { CAL_gravitas_change_emperor = 10 }
 			#KONSULOWIE
 			set_temp_variable = {
 				CAL_optimates_consuls = 3
@@ -1493,6 +1493,76 @@ CAL_gravitas_category = {
 			
 		}
 		days_re_enable = 90
+	}
+
+	CAL_additional_payment_for_legions = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		visible = {
+			check_variable = {
+				CAL_decision_group = 3
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -50
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 30
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_legiones_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_legiones_tt
+			}
+		}
+		days_re_enable = 180
+	}
+
+	CAL_additional_payment_for_praetoriae = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		visible = {
+			check_variable = {
+				CAL_decision_group = 4
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -50
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 30
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
+			}
+		}
+		days_re_enable = 180
 	}
 }
 
