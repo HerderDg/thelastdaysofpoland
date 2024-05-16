@@ -12095,19 +12095,33 @@ ai_war_decisions = {
 			always = yes
 		}
 		visible = {
-			or = {
-				original_tag = WIZ
-				original_tag = SAX
-				original_tag = OST
+			OR = {
 				original_tag = JUT
-				original_tag = FRK
 				original_tag = HNN
-				original_tag = SCY
-				original_tag = AES
-				original_tag = SPA
+				original_tag = VAN
+				if = {
+					limit = {
+						OR = {
+							original_tag = WIZ
+							original_tag = SAX
+							original_tag = OST
+							original_tag = FRK
+							original_tag = SCY
+							original_tag = AES
+						}
+						NOT = {
+							CAL = {
+								has_country_flag = CAL_lex_barbarorum_populares_passed
+							}
+						}
+					}
+				}
 			}
 			CAL = {
-				has_country_flag = unified_supregional
+				OR = {
+					has_country_flag = CAL_lex_barbarorum_optimates_passed
+					has_country_flag = CAL_lex_barbarorum_populares_passed
+				}
 			}
 		}
 		target_array = root.neighbors
@@ -12132,7 +12146,7 @@ ai_war_decisions = {
 					original_tag = HNN
 					original_tag = SCY
 					original_tag = AES
-					original_tag = SPA
+					original_tag = VAN
 				}
 			}
 		}
