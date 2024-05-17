@@ -161,8 +161,10 @@ country_event = { #Bribe for Praetorians
 		# 	remove_idea = CAL_praetoriae_hesistant
 		# 	add_idea = CAL_praetoriae_loyal
 		# }
-		
-
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.05
+		}
 	}
 }
 
@@ -181,7 +183,10 @@ country_event = { #Higher Pay for Legionnaires
 		# 	remove_idea = CAL_legiones_hesistant
 		# 	add_idea = CAL_legiones_loyal
 		# }
-		
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 0.05
+		}
 	}
 }
 
@@ -382,6 +387,10 @@ country_event = {  #the first Provincia
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.20"}
 	option = {
 		name = calisia.20.a
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.05
+		}
 	}
 }
 
@@ -534,9 +543,11 @@ country_event = {  #Auxilia Gnesnensis
 					}
 				}
 			}
-			
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.02
+			}
 		}
-		
 	}
 	option = {
 		name = calisia.27.b
@@ -561,7 +572,10 @@ country_event = {  #Auxilia Gnesnensis
 					}
 				}
 			}
-			
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.02
+			}
 		}
 	}
 }
@@ -1936,15 +1950,27 @@ country_event = { #barbarians in the senate
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.77"}
-	option = {
+	option = { #Kocham Barbarzyńców są najwspanialsi na świecie
 		name = calisia.77.a
+		trigger = {
+			NOT = {
+				has_country_flag = CAL_praetorians_will_remember_that
+			}
+		}
 		hidden_effect = {
-		    set_country_flag = CAL_barbarian_populares }
+		    set_country_flag = CAL_barbarian_populares 
+		}
 	}
-	option = {
+	option = { #ZABIĆ BARABARARZYŃCÓW
 		name = calisia.77.b
+		trigger = {
+			has_country_flag = CAL_praetorians_will_remember_that
+		}
+		activate_mission = CAL_emperors_alertness
 		hidden_effect = {
-		    set_country_flag = CAL_spisek }
+		    set_country_flag = CAL_spisek 
+			mark_focus_tree_layout_dirty = yes
+		}
 	}
 }
 
@@ -2036,7 +2062,7 @@ country_event = { #Operation Varus
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.82"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.81"}
 	option = {
 		name = calisia.81.a 
 		add_political_power = -50
@@ -2054,8 +2080,35 @@ country_event = { #Ides
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.82"}
-	option = {
+	option = { #optymaci yaya
 		name = calisia.82.a 
+		trigger = {
+			OR = {
+				check_variable = {
+					var = CAL_praetoriae_loyalty
+					value = 30
+					compare = greater_than_or_equals
+				}
+				check_variable = {
+					var = CAL_optimates_gravitas
+					value = CAL_praetoriae_gravitas
+					compare = greater_than_or_equals
+				}
+			}
+		}
+	}
+
+	option = { #ups cesarz ze zdech, pokój jego duszny
+		name = calisia.82.b
+		trigger = {
+			check_variable = { CAL_praetoriae_loyalty < 30 }
+			check_variable = { CAL_praetoriae_gravitas > CAL_optimates_gravitas }
+		}
+		set_country_flag = CAL_in_memoriam_ricardus
+		CAL_ricardus_calisius = {
+			retire = yes
+		}
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -3114,6 +3167,10 @@ country_event = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_optimates_tt
 			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.05
+			}
 			clr_country_flag = CAL_populares_passed_lex
 		}
 		if = {
@@ -3131,6 +3188,10 @@ country_event = {
 				var = CAL_populares_loyalty
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.05
 			}
 			clr_country_flag = CAL_optimates_passed_lex
 		}
@@ -3497,6 +3558,10 @@ country_event = {
 			tooltip = CAL_change_gravitas_populares_tt
 		}
 		CAL_clamp_on_loyalty_and_gravitas = yes
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.04
+		}
 	}
 }
 
@@ -3530,6 +3595,10 @@ country_event = {
 			tooltip = CAL_change_gravitas_optimates_tt
 		}
 		CAL_clamp_on_loyalty_and_gravitas = yes 
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.04
+		}
 	}
 }
 
@@ -3563,6 +3632,10 @@ country_event = {
 			tooltip = CAL_change_gravitas_populares_tt
 		}
 		CAL_clamp_on_loyalty_and_gravitas = yes
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.04
+		}
 	}
 }
 
@@ -3595,7 +3668,11 @@ country_event = {
 			value = CAL_gravitas_change
 			tooltip = CAL_change_gravitas_optimates_tt
 		}
-		CAL_clamp_on_loyalty_and_gravitas = yes		
+		CAL_clamp_on_loyalty_and_gravitas = yes	
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.04
+		}	
 	}
 }
 
@@ -3642,6 +3719,14 @@ country_event = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_optimates_tt
 			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.03
+			}
 			clr_country_flag = CAL_lex_populares_failed
 		}
 		if = {
@@ -3660,8 +3745,45 @@ country_event = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_populares_tt
 			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.03
+			}
 			clr_country_flag = CAL_lex_optimates_failed
 		}
+	}
+}
+
+country_event = { 
+	id = calisia.154 #Pretorianie przejebują życie
+	title = calisia.154.t
+	desc = calisia.154.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.154"}
+	option = {
+		name = calisia.154.a
+		clr_country_flag = CAL_spisek
+		set_country_flag = CAL_barbarian_populares
+		uncomplete_national_focus = CAL_conspiracy_of_stavissin
+		if = {
+			limit = {
+				has_completed_focus = CAL_contacts_in_legions
+			}
+			uncomplete_national_focus = CAL_contacts_in_legions
+		}
+		if = {
+			limit = {
+				has_completed_focus = CAL_contacts_in_the_senate
+			}
+			uncomplete_national_focus = CAL_contacts_in_the_senate
+		}
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
