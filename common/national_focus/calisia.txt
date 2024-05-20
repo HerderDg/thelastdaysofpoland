@@ -1929,6 +1929,10 @@ focus_tree = {
 				remove_idea = CAL_political_disputes2
 				add_idea = CAL_political_disputes3
 			}
+			create_intelligence_agency = {
+				name = "Frumentarii"
+				icon = GFX_intelligence_agency_logo_agency
+			}
 		}
 	}
 
@@ -7305,26 +7309,6 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = {
 			country_event = calisia.150
-			# add_ideas = CAL_central_popular_committee_idea
-			# set_temp_variable = { CAL_loyalty_change = 5 }
-			# add_to_variable = {
-			# 	var = CAL_populares_loyalty
-			# 	value = CAL_loyalty_change
-			# 	tooltip = CAL_change_loyalty_populares_tt
-			# }
-			# set_temp_variable = { CAL_loyalty_change = -5 }
-			# add_to_variable = {
-			# 	var = CAL_optimates_loyalty
-			# 	value = CAL_loyalty_change
-			# 	tooltip = CAL_change_loyalty_optimates_tt
-			# }
-			# set_temp_variable = { CAL_gravitas_change = 5 }
-			# add_to_variable = {
-			# 	var = CAL_populares_gravitas
-			# 	value = CAL_gravitas_change
-			# 	tooltip = CAL_change_gravitas_populares_tt
-			# }
-			# CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	focus = {
@@ -7392,7 +7376,10 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-			add_political_power = 75
+			swap_ideas = {
+				remove_idea = CAL_growing_bureaucracy
+				add_idea = CAL_byzantine_bureaucracy
+			}
 		}
 	}
 	focus = {
@@ -7891,7 +7878,6 @@ focus_tree = {
 					any_neighbor_state = {
 						NOT = {
 							is_owned_by = PRT
-							is_owned_by = CAL
 							is_owned_by = ALP
 						}
 					}
@@ -9320,6 +9306,10 @@ CAL_redraw_senate_diagram = yes
 				type = annex_everything
 			}
 			add_ideas = CAL_striking_hydra_in_its_heart1
+			delete_unit_template_and_units = {
+				division_template = "Praetoria Cohortes"
+				disband = no
+			}
 		}
 	}
 	focus = {
@@ -9765,8 +9755,10 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 		    add_manpower = -5750
+			retire_character = CAL_dariusz_bieniek
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_quiet_purge_in_the_guard_tt
+			
 		}
 	}
 	focus = {
@@ -9791,7 +9783,12 @@ CAL_redraw_senate_diagram = yes
 		completion_reward = { 
 		    add_command_power = 0.25
 			add_war_support = 0.05
-			add_stability = -0.15
+			add_stability = 0.01
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = land_terrorism
+			}	
 			mark_focus_tree_layout_dirty = yes
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_assignments_for_the_big_night_tt
@@ -9931,10 +9928,18 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 		    add_equipment_to_stockpile = {
-				type = special_forces_equipment
+				type = inf_anti_tank_equipment
 				amount = 400
 				producer = CAL
 			}
+			688 = {
+				add_building_construction = {
+					type = fuel_silo
+					level = 2
+					instant_build = yes
+				}
+			}
+				
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_explosive_mixture_tt
 		}
@@ -10015,15 +10020,25 @@ CAL_redraw_senate_diagram = yes
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-		    314 = {
-				damage_building = {
-                type = infrastructure
-                damage = 2 }
+		    688 = {
+				remove_building = {
+					type = fuel_silo
+					level = 2
+				}
+			}
+			314 = {
+				add_building_construction = {
+					type = fuel_silo
+					level = 1
+					instant_build = yes
+				}
 			}
 			846 = {
-				damage_building = {
-                type = infrastructure
-                damage = 2 }
+				add_building_construction = {
+					type = fuel_silo
+					level = 1
+					instant_build = yes
+				}
 			}
 			mark_focus_tree_layout_dirty = yes
 			custom_effect_tooltip = rozdzielacz_efektow
@@ -10112,7 +10127,7 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 		    country_event = calisia.82
-			set_temp_variable = { CAL_loyalty_change = -10 }
+			set_temp_variable = { CAL_loyalty_change = -100 }
 			add_to_variable = {
 				var = CAL_populares_loyalty
 				value = CAL_loyalty_change
@@ -10160,6 +10175,9 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 			add_timed_idea = { idea = CAL_expulsion_of_barbarians_idea days = 60 }
+			every_owned_state = {
+				add_manpower = -2000
+			}
 		}
 	}
 	focus = {
@@ -10367,7 +10385,7 @@ CAL_redraw_senate_diagram = yes
 		completion_reward = { 
 			314 = { set_demilitarized_zone = yes }
 			846 = { set_demilitarized_zone = yes }
-			set_temp_variable = { CAL_gravitas_change = -10 }
+			set_temp_variable = { CAL_gravitas_change = -200 }
 			add_to_variable = {
 				var = CAL_emperor_gravitas
 				value = CAL_gravitas_change
@@ -10396,7 +10414,7 @@ CAL_redraw_senate_diagram = yes
 		completion_reward = { 
 			add_popularity = {
                 ideology = socialdemocrature
-                popularity = -0.1
+                popularity = -0.2
             }
 			set_temp_variable = { CAL_gravitas_change = -20 }
 			add_to_variable = {
@@ -10570,9 +10588,40 @@ CAL_redraw_senate_diagram = yes
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-			swap_ideas = {
-				remove_idea = no_subsidies
-				add_idea = civil_industry_subsidies
+			if = {
+				limit = {
+					has_idea = no_subsidies
+				}
+				swap_ideas = {
+					remove_idea = no_subsidies
+					add_idea = civil_industry_subsidies
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = military_industry_subsidies
+				}
+				swap_ideas = {
+					remove_idea = military_industry_subsidies
+					add_idea = civil_industry_subsidies
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = civil_industry_subsidies
+				}
+				swap_ideas = {
+					remove_idea = civil_industry_subsidies
+					add_idea = basic_income
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = basic_income
+				}
+				add_stability = 0.1
+				add_war_support = 0.1
+				add_political_power = -50	
 			}
 		}
 	}
@@ -10934,6 +10983,10 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 			add_manpower = -200
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = -0.2
+			}
 			set_temp_variable = { CAL_gravitas_change = -20 }
 			add_to_variable = {
 				var = CAL_populares_gravitas
@@ -11142,7 +11195,6 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 			add_timed_idea = { idea = CAL_expulsion_of_barbarians_idea days = 30 }
-			
 		}
 	}
 	focus = {
@@ -11165,6 +11217,9 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 			add_timed_idea = { idea = CAL_expulsion_of_barbarians_idea_2 days = 30 }
+			every_owned_state = {
+				add_manpower = -1000
+			}
 		}
 	}
 	focus = {
