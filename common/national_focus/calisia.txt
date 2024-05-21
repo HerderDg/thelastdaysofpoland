@@ -9393,6 +9393,7 @@ CAL_redraw_senate_diagram = yes
 				division_template = "Praetoria Cohortes"
 				disband = no
 			}
+			remove_ideas = CAL_governor_cinastovicus
 		}
 	}
 	focus = {
@@ -9822,6 +9823,20 @@ CAL_redraw_senate_diagram = yes
 				available_to_spy_master = yes
 				nationalities = { CAL }
 			}
+			CAL = {
+			every_character = {
+				limit = {
+					is_character = FEL_zbigniew_targonski
+				}
+				add_unit_leader_trait = praetorian
+			}
+			every_character = {
+				limit = {
+					is_character = GNI_wojciech_pikula
+				}
+				add_unit_leader_trait = praetorian
+			}
+			}
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_proper_officers_for_the_job_tt
 		}
@@ -9905,13 +9920,22 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 		    add_popularity = {
-                ideology = socialdemocrature
+                ideology = reactionary
                 popularity = 0.03
             }
-			add_popularity = {
-                ideology = autocracy
-                popularity = 0.03
-            }
+			set_temp_variable = { CAL_gravitas_change = 15 }
+			add_to_variable = {
+				var = CAL_praetoriae_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_praetoriae_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = 10 }
+			add_to_variable = {
+				var = CAL_emperor_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			add_stability = 0.05
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_oath_of_undying_loyalty_tt
@@ -10413,6 +10437,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_emperor_tt
 			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			add_country_leader_trait = nero_emperor
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_our_little_nero_tt
