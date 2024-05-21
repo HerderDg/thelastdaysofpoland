@@ -1059,11 +1059,22 @@ focus_tree = {
         relative_position_id = CAL_order_behind_prosna
 		available = {
 		    has_completed_focus = CAL_triumph_in_gnesna
-			has_war = no
-		
+			OR = {
+				has_war = no
+				OR = {
+					has_war_with = FEL
+					has_war_with = LSZ
+				}
+			}
 		}
 		
 		bypass = {
+			FEL = {
+				exists = no
+			}
+			LSZ = {
+				exists = no
+			}
 		}
 		
 		x = 4
@@ -1429,6 +1440,10 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			country_event = { id = calisia.24 }
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.02
+			}
 			custom_effect_tooltip = CAL_legio_assim_tt
 			hidden_effect = {
 				359 = {
@@ -1620,6 +1635,10 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 	}
 
@@ -1665,7 +1684,7 @@ focus_tree = {
 			}
 			add_popularity = {
 				ideology = socialdemocrature
-				popularity = 0.02
+				popularity = 0.01
 			}
 		}
 	}
@@ -1790,7 +1809,7 @@ focus_tree = {
 				}
 				add_popularity = {
 					ideology = autocracy
-					popularity = 0.05
+					popularity = 0.03
 				}
 			}
 			if = {
@@ -1805,7 +1824,7 @@ focus_tree = {
 				}
 				add_popularity = {
 					ideology = socialdemocrature
-					popularity = 0.05
+					popularity = 0.03
 				}
 			}	
 		}
@@ -1875,6 +1894,7 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
+			country_event = calisia.156
 		    swap_ideas = { 
 				remove_idea = CAL_political_disputes
 				add_idea = CAL_political_disputes2
@@ -2195,6 +2215,10 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = CAL_agricultural_subsidies
 				add_idea = CAL_agricultural_subsidies_2
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
 			}
 			hidden_effect = {
 				country_event = {
@@ -2566,12 +2590,13 @@ focus_tree = {
 		}
 		
 		bypass = {
+			has_country_flag = CAL_rawicz_slaughter_flag
 		}
 		
 		x = -1
 		y = 1
 		
-		cost = 4
+		cost = 0
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -2673,6 +2698,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			has_country_flag = CAL_vinicius_plea_flag
 		}
 		
 		x = -3
@@ -2777,6 +2803,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			has_country_flag = CAL_empty_coffers_flag
 		}
 		
 		x = -5
@@ -2815,9 +2842,23 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			remove_ideas = CAL_empty_coffers
-			swap_ideas = {
-				remove_idea = taxes_medium 
-				add_idea = taxes_high
+			if = {
+				limit = {
+					has_idea = taxes_medium 
+				}
+				swap_ideas = {
+					remove_idea = taxes_medium 
+					add_idea = taxes_high
+				}
+			}
+			if = {
+				limit = {
+					has_idea = taxes_high
+				}
+				swap_ideas = {
+					remove_idea = taxes_high
+					add_idea = taxes_inhuman
+				}
 			}
 			add_popularity = {
 				ideology = socialdemocrature
@@ -3087,6 +3128,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			has_country_flag = CAL_philosophical_disputes_flag
 		}
 		
 		x = 3
@@ -3185,6 +3227,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			has_country_flag = CAL_daydreaming_of_rome_flag
 		}
 		
 		x = 5
@@ -3491,6 +3534,10 @@ focus_tree = {
 				ideology = socialdemocrature
 				popularity = 0.05
 			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 	}
 	focus = {
@@ -3520,6 +3567,10 @@ focus_tree = {
 			add_popularity = {
 				ideology = autocracy
 				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.01
 			}
 		}
 	}
@@ -3820,6 +3871,10 @@ focus_tree = {
 	            	value = 3 
 				}
 			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 	}
 	focus = {
@@ -3919,9 +3974,15 @@ focus_tree = {
 			}
 			CAL_project_funding = yes
 			314 = {
-			    add_manpower = 1000 }
+			    add_manpower = 1000 
+			}
 			846 = {
-			    add_manpower = 2000 }
+			    add_manpower = 2000 
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 	}
 	focus = {
@@ -4358,13 +4419,17 @@ focus_tree = {
 		    add_political_power = 100
 			CAL_project_funding = yes
 			314 = {
-			    add_manpower = 2200 }
+			    add_manpower = 2200 
+			}
 			add_victory_points = {
 	            province = 13763
 	            value = 3
-			
             }
 			314 = { set_province_name = { id = 13763 name = VICTORY_POINTS_13673_CAL2 }}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 	}
 	focus = {
@@ -4798,6 +4863,7 @@ focus_tree = {
 	            province = 13760
 	            value = 4
             }
+			custom_effect_tooltip = rozdzielacz_efektow
             314 = {
 				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
@@ -4814,6 +4880,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
 			314 = {
 			    add_state_modifier = {
                     modifier = {
@@ -4823,6 +4890,7 @@ focus_tree = {
                     }
                 }
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
 			846 = {
 			    add_state_modifier = {
                     modifier = {
@@ -4833,10 +4901,41 @@ focus_tree = {
                 }
 			}
 			CAL_project_funding = yes
+			custom_effect_tooltip = rozdzielacz_efektow
 			314 = {
-			    add_manpower = 10300 }
+			    add_manpower = 10300 
+			}
 			846 = {
-			    add_manpower = 15890 }
+			    add_manpower = 15890 
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = CAL_calisia_caput_mundi_tt
+			hidden_effect = {
+				remove_ideas = {
+					CAL_supermercatae
+					CAL_monuments_glory
+					CAL_ateneum_calisiae_3
+					CAL_grand_calisian_tabularium
+				}
+				if = {
+					limit = {
+						has_completed_focus = CAL_temple_of_jupiter
+					}
+					swap_ideas = {
+						remove_idea = CAL_polytheist_temples_3
+						add_idea = CAL_eternal_city_of_calisia_jupiter
+					}
+				}
+				if = {
+					limit = {
+						has_completed_focus = CAL_expansion_of_cathedral
+					}
+					swap_ideas = {
+						remove_idea = CAL_monotheist_temples_2
+						add_idea = CAL_eternal_city_of_calisia_christian
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -5322,7 +5421,12 @@ focus_tree = {
 			CAL_project_funding = yes
 			add_victory_points = {
 				province = 13773
-				value = 3 }
+				value = 3 
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 		
 	}
@@ -5484,7 +5588,10 @@ focus_tree = {
 	            province = 14660
 	            value = 2
             }
-			
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
 		}
 	}
 	
@@ -9662,11 +9769,10 @@ CAL_redraw_senate_diagram = yes
 		}
 
 		allow_branch = {
-			#has_country_flag = CAL_spisek
+			has_country_flag = CAL_spisek
 		}
 		
-		#x = 0
-		x = -7
+		x = 0
 		y = 1
 		
 		cost = 4
@@ -11261,11 +11367,10 @@ CAL_redraw_senate_diagram = yes
 		}
 
 		allow_branch = {
-			#has_country_flag = CAL_in_memoriam_ricardus
+			has_country_flag = CAL_in_memoriam_ricardus
 		}
 		
-		#x = 0
-		x = 7
+		x = 0
 		y = 1
 		
 		cost = 4
@@ -14785,7 +14890,11 @@ CAL_redraw_senate_diagram = yes
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-			remove_ideas = CAL_LEGIONY_blockade
+			ALP = {
+				country_event = {
+					id = calisia.157
+				}
+			}
 		}
 	}
 	focus = {

@@ -163,7 +163,7 @@ country_event = { #Bribe for Praetorians
 		# }
 		add_popularity = {
 			ideology = reactionary
-			popularity = 0.05
+			popularity = 0.03
 		}
 	}
 }
@@ -185,7 +185,7 @@ country_event = { #Higher Pay for Legionnaires
 		# }
 		add_popularity = {
 			ideology = neonationalism
-			popularity = 0.05
+			popularity = 0.03
 		}
 	}
 }
@@ -389,7 +389,7 @@ country_event = {  #the first Provincia
 		name = calisia.20.a
 		add_popularity = {
 			ideology = reactionary
-			popularity = 0.05
+			popularity = 0.02
 		}
 	}
 }
@@ -2662,7 +2662,7 @@ country_event = { #hunger and unrest
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.109"}
 	option = {
 		name = calisia.109.a 
-		add_ideas = CAL_LEGIONY_blockade
+		add_ideas = CAL_LEGIONY_blockade1
 	}
 }
 country_event = { #plotting for plots
@@ -3289,7 +3289,6 @@ country_event = {
 	title = calisia.138.t
 	desc = calisia.138.desc
 
-	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.138"}
 	option = {
@@ -3655,6 +3654,23 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.146"}
 	option = {
 		name = calisia.146.a
+		if = {
+			limit = {
+				has_government = autocracy
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			### NOWY RZĄD JAK BĘDĄ MINISTROWIE ###
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.1
+			}
+			custom_effect_tooltip = CAL_populares_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 2
+			}
+		}
 	}
 }
 
@@ -3668,6 +3684,23 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.147"}
 	option = {
 		name = calisia.147.a 
+		if = {
+			limit = {
+				has_government = socialdemocrature
+			}
+			set_politics = {
+				ruling_party = autocracy
+			}
+			### NOWY RZĄD JAK BĘDĄ MINISTROWIE ###
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.1
+			}
+			custom_effect_tooltip = CAL_optimates_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 1
+			}
+		}
 	}
 }
 
@@ -3841,7 +3874,6 @@ country_event = {
 	title = calisia.153.t
 	desc = calisia.153.desc
 
-	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.153"}
 	option = {
@@ -3948,6 +3980,55 @@ country_event = {
 		name = calisia.155.a
 		complete_national_focus = CAL_servile_war
 		CAL_spawn_slave_revolt = yes
+	}
+}
+
+country_event = { 
+	id = calisia.156 #emperors feast
+	title = calisia.156.t
+	desc = calisia.156.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.156"}
+	option = {
+		name = calisia.156.a
+	}
+}
+
+country_event = { 
+	id = calisia.157 #winiczusz dawaj żarno (PISARZE NIE PISAĆ TEGO BO TEGO GRACZ NIE WIDZI)
+	title = calisia.157.t
+	desc = calisia.157.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.157"}
+	option = {
+		name = calisia.157.a
+		CAL = {
+			country_event = {
+				id = calisia.158
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.158 #winicjusz mówi nie (Demand Grain from Vinicius)
+	title = calisia.158.t
+	desc = calisia.158.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.158"}
+	option = {
+		name = calisia.158.a
+		swap_ideas = {
+			remove_idea = CAL_LEGIONY_blockade1
+			add_idea = CAL_LEGIONY_blockade2
+		}
 	}
 }
 
