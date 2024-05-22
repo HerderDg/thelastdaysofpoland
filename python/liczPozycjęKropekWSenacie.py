@@ -103,8 +103,8 @@ while i < 900:
             "localization_key = GFX_populares_hard_seat\n\t}\n\t")
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
-                "check_variable = { CAL_populares_at_row3 < "+str(j+1)+" }\n\t\t\t"
-                "check_variable = { CAL_optimates_hard_at_row3 > "+str(28-j)+" }\n\t\t\t"
+                "check_variable = { CAL_populares_at_row4 < "+str(j+1)+" }\n\t\t\t"
+                "check_variable = { CAL_optimates_hard_at_row4 > "+str(28-j)+" }\n\t\t\t"
             "}\n\t\t"+
             "localization_key = GFX_optimates_hard_seat\n\t}\n\t")
     if i >= 100 and  i < 125:
@@ -120,6 +120,12 @@ while i < 900:
                 "check_variable = { CAL_populares_hard_at_row5 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_hard_seat\n\t}\n\t")
+        scriptedLocs.write("text = {\n\t\t"+
+            "trigger = {\n\t\t\t"+
+                "check_variable = { CAL_populares_at_row5 < "+str(j+1)+" }\n\t\t\t"
+                "check_variable = { CAL_optimates_hard_at_row5 > "+str(24-j)+" }\n\t\t\t"
+            "}\n\t\t"+
+            "localization_key = GFX_optimates_hard_seat\n\t}\n\t")
     if i >= 125 and  i < 150:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+
@@ -133,6 +139,12 @@ while i < 900:
                 "check_variable = { CAL_populares_hard_at_row6 > "+str(j)+" }\n\t\t"
             "}\n\t\t"+
             "localization_key = GFX_populares_hard_seat\n\t}\n\t")
+        scriptedLocs.write("text = {\n\t\t"+
+            "trigger = {\n\t\t\t"+
+                "check_variable = { CAL_populares_at_row6 < "+str(j+1)+" }\n\t\t\t"
+                "check_variable = { CAL_optimates_hard_at_row6 > "+str(24-j)+" }\n\t\t\t"
+            "}\n\t\t"+
+            "localization_key = GFX_optimates_hard_seat\n\t}\n\t")
     if i >= 150 and  i < 183:
         scriptedLocs.write("text = {\n\t\t"+
             "trigger = {\n\t\t\t"+

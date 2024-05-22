@@ -608,7 +608,6 @@ CAL_redraw_senate_diagram = {
 		set_variable = {CAL_optimates_hard_at_row3 = CAL_optimates_hard_seats_to_draw_this_round}
 		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row3}
 	}
-	log = "P: [?CAL_populares_at_row3] H: [?CAL_populares_hard_at_row3]"
 	#ROUND 4
 	if = {
 		limit = {
@@ -833,6 +832,72 @@ CAL_redraw_senate_diagram = {
 				}
 			}
 		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw  > 0
+				}
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						CAL_optimates_hard_seats_to_draw > 0
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row4 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row3 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row2 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row1 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+			}
+		}
 	}
 
 	#ROUND 5
@@ -868,6 +933,70 @@ CAL_redraw_senate_diagram = {
 		set_variable = {CAL_populares_at_row5 = CAL_populares_seats_to_draw_this_round}
 		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row5}
 	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 25
+		}	
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row5 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row5}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 25
+		}	
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row5 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row5}
+	}
 	# round 6
 	if = {
 		limit = {
@@ -901,13 +1030,76 @@ CAL_redraw_senate_diagram = {
 		set_variable = {CAL_populares_at_row6 = CAL_populares_seats_to_draw_this_round}
 		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row6}
 	}
-
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 25
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row6 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row6}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 25
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row6 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row6}
+	}
 	# #another bonus round (for lvl 2)
 	if = {
 		limit = {
 			check_variable = { CAL_senate_lvl = 2 }
-			check_variable = { CAL_populares_seats_to_draw > 0}
 		}
+		log = "[?CAL_populares_seats_to_draw]-[?CAL_populares_hard_seats_to_draw]-[?CAL_optimates_hard_seats_to_draw]"
 		while_loop_effect = {
 			limit = {
 				check_variable = { CAL_populares_seats_to_draw > 0 }
@@ -926,6 +1118,44 @@ CAL_redraw_senate_diagram = {
 				add_to_variable = { CAL_populares_at_row5 = 1}
 			}
 			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }		
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = {CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row6 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }	
+			if = {
+				limit = {
+					check_variable = {CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row5 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }		
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = {CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row6 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }	
+			if = {
+				limit = {
+					check_variable = {CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row5 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }		
 		}
 	}
 	# #round 7
