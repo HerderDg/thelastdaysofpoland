@@ -2825,6 +2825,18 @@ CAL_initiate_senate_vote_populares = {
 	divide_variable = {
 		CAL_half_of_senators = 2
 	}
+	set_variable = {
+		CAL_populares_swayable = CAL_populares_count
+	}
+	subtract_from_variable = {
+		CAL_populares_swayable = CAL_populares_hardliners
+	}
+	set_variable = {
+		CAL_optimates_swayable = CAL_optimates_count
+	}
+	subtract_from_variable = {
+		CAL_optimates_swayable = CAL_optimates_hardliners
+	}
 	#############
 	# Populares #
 	#############
@@ -2857,6 +2869,74 @@ CAL_initiate_senate_vote_populares = {
 	}
 }
 
+CAL_increase_unity_populare_effect = {
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_populares_count
+	}
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_populares_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	add_to_variable = {
+		CAL_populares_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_increase_unity_optimate_effect = {
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_optimates_count
+	}
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_optimates_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	add_to_variable = {
+		CAL_optimates_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_decrease_unity_populare_effect = {
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_populares_count
+	}
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_populares_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	subtract_from_variable = {
+		CAL_populares_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_decrease_unity_optimate_effect = {
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_optimates_count
+	}
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_optimates_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	subtract_from_variable = {
+		CAL_optimates_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
 CAL_initiate_senate_vote_optimates = {
 	set_variable = {
 		var = CAL_total_senators
@@ -2871,6 +2951,18 @@ CAL_initiate_senate_vote_optimates = {
 	}
 	divide_variable = {
 		CAL_half_of_senators = 2
+	}
+	set_variable = {
+		CAL_populares_swayable = CAL_populares_count
+	}
+	subtract_from_variable = {
+		CAL_populares_swayable = CAL_populares_hardliners
+	}
+	set_variable = {
+		CAL_optimates_swayable = CAL_optimates_count
+	}
+	subtract_from_variable = {
+		CAL_optimates_swayable = CAL_optimates_hardliners
 	}
 	#############
 	# Populares #
@@ -3070,7 +3162,7 @@ CAL_populare_plea = {
 	# Yes
 	set_variable = {
 		var = CAL_populares_moving_yes
-		value = CAL_populares_count
+		value = CAL_populares_swayable
 	}
 	multiply_variable = {
 		var = CAL_populares_moving_yes
