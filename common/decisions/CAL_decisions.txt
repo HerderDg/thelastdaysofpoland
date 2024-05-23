@@ -505,8 +505,11 @@ CAL_gravitas_category = {
 			}
 			#z gubernatorów
 			if = {
-				limit = { 
-					has_idea = CAL_governor_phaon
+				limit = {
+					or = {
+						has_idea = CAL_governor_phaon
+						has_idea = CAL_governor_phaon2
+					} 
 				}
 				add_to_temp_variable = {
 					CAL_gravitas_change_preatoriae = 5
@@ -572,7 +575,10 @@ CAL_gravitas_category = {
 			}
 			if = {
 				limit = { 
-					has_idea = CAL_governor_scriptor
+					or = {
+						has_idea = CAL_governor_scriptor
+						has_idea = CAL_governor_scriptor2
+					} 
 				}
 				add_to_temp_variable = {
 					CAL_gravitas_change_optimate = 5
@@ -1787,6 +1793,7 @@ CAL_empire_management_category = {
 					}
 					NOT = {
 						has_idea = CAL_governor_phaon
+						has_idea = CAL_governor_phaon2
 					}
 				}
 				and = {
@@ -1795,6 +1802,7 @@ CAL_empire_management_category = {
 					}
 					NOT = {
 						has_idea = CAL_governor_scriptor
+						has_idea = CAL_governor_scriptor2
 					}
 				}
 				and = {
@@ -1880,7 +1888,16 @@ CAL_empire_management_category = {
 							CAL_region_chosen = 1
 						}
 					}
-					add_ideas = CAL_governor_phaon
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_phaon2
+					}
+					else = {
+						add_ideas = CAL_governor_phaon
+					}
+					
 				}
 				if = {
 					limit = {
@@ -1888,7 +1905,15 @@ CAL_empire_management_category = {
 							CAL_region_chosen = 2
 						}
 					}
-					add_ideas = CAL_governor_scriptor
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_scriptor2
+					}
+					else = {
+						add_ideas = CAL_governor_scriptor
+					}
 				}
 				if = {
 					limit = {
