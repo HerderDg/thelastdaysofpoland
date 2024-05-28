@@ -1,0 +1,5206 @@
+# Ager Publicus (P) - pretorianie
+# Tributorum (P) - pretorianie
+# Militae (O) - legioniści
+# Securitatis (P) - pretorianie
+# Subsidiarum Socialum (P) - legioniści
+# Administrationis (P) - pretorianie 
+# Coequatio: 
+# (P) - pretorianie
+# (O) - legioniści
+
+CAL_initialize_senate = {
+	set_variable = {
+		CAL_senate_lvl = 1
+	}
+	set_variable = {
+		CAL_populares_count = 62
+	}
+	set_variable = {
+		CAL_populares_hardliners = CAL_populares_count
+	}
+	multiply_variable = {
+		CAL_populares_hardliners = 0.4
+	}
+	set_variable = {
+		CAL_optimates_count = 38
+	}
+	set_variable = {
+		CAL_optimates_hardliners = CAL_optimates_count
+	}
+	multiply_variable = {
+		CAL_optimates_hardliners = 0.6
+	}
+	set_variable = {
+		CAL_populares_consuls = 2
+	}
+	round_variable = CAL_populares_hardliners
+	round_variable = CAL_optimates_hardliners
+	CAL_redraw_senate_diagram = yes
+	set_country_flag = CAL_senate_opened
+	set_country_flag = {
+		flag = CAL_gravitas_tick
+		days = 90
+	}
+}
+
+
+CAL_add_new_senators = {
+	if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 2
+			}
+		}
+		set_temp_variable = {
+			CAL_new_senators_count = 50
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_senate_lvl = 3
+				}
+			}
+			set_temp_variable = {
+				CAL_new_senators_count = 150
+			}
+		}
+		else = {
+			set_temp_variable = {
+				CAL_new_senators_count = 600
+			}
+		}
+	}
+	set_temp_variable = {
+		parties_to_take = party_popularity@autocracy
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@neonationalism
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@reactionary
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@squattism
+	}
+	add_to_temp_variable = {
+		parties_to_take = party_popularity@socialdemocrature
+	}
+
+	set_temp_variable = {
+		parties_propopulare = party_popularity@socialdemocrature
+	}
+
+	add_to_temp_variable = {
+		parties_propopulare = party_popularity@squattism
+	}
+
+	set_temp_variable = {
+		new_populares_percentage = parties_propopulare
+	}
+
+	divide_temp_variable = {
+		new_populares_percentage = parties_to_take
+	}
+
+	multiply_temp_variable = {
+		CAL_new_senators_count = new_populares_percentage
+	}
+	round_temp_variable = CAL_new_senators_count
+	set_temp_variable = {
+		CAL_new_hard_populares_count = CAL_new_senators_count
+	}
+	divide_temp_variable = {
+		CAL_new_hard_populares_count = 2
+	}
+	round_temp_variable = CAL_new_hard_populares_count
+	add_to_variable = {
+		CAL_populares_count = CAL_new_senators_count
+	}
+	add_to_variable = {
+		CAL_populares_hardliners = CAL_new_hard_populares_count
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 2
+			}
+		}
+		set_variable = {
+			CAL_optimates_count = 150
+		}
+		set_temp_variable = {
+			CAL_new_optimates_count = 50
+		}
+		
+		subtract_from_variable = {
+			CAL_optimates_count = CAL_populares_count
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_senate_lvl = 3
+				}
+			}
+			set_variable = {
+				CAL_optimates_count = 300
+			}
+			subtract_from_variable = {
+				CAL_optimates_count = CAL_populares_count
+			}
+		}
+		else = {
+			set_variable = {
+				CAL_optimates_count = 900
+			}
+			subtract_from_variable = {
+				CAL_optimates_count = CAL_populares_count
+			}
+		}
+	}
+	subtract_from_temp_variable = {
+		CAL_new_optimates_count = CAL_new_senators_count
+	}
+	set_temp_variable = {
+		CAL_new_hard_optimates_count=CAL_new_optimates_count
+	}
+	divide_temp_variable = {
+		CAL_new_hard_optimates_count = 2
+	}
+	round_temp_variable = CAL_new_hard_optimates_count
+	add_to_variable = {
+		CAL_optimates_hardliners = CAL_new_hard_optimates_count
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_redraw_senate_diagram = {
+	set_variable = {
+		CAL_populares_percentage = CAL_populares_count
+	}
+	set_variable = {
+		CAL_populares_hard_percentage = CAL_populares_hardliners
+	}
+	set_variable = {
+		CAL_optimates_hard_percentage = CAL_optimates_hardliners
+	}
+	set_variable = {
+		CAL_populares_at_row1 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row2 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row3 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row4 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row5 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row6 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row7 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row8 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row9 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row10 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row11 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row12 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row13 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row14 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row15 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row16 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row17 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row18 = 0
+	}
+	set_variable = {
+		CAL_populares_at_row19 = 0
+	}
+
+	set_variable = {
+		CAL_populares_hard_at_row1 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row2 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row3 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row4 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row5 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row6 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row7 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row8 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row9 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row10 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row11 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row12 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row13 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row14 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row15 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row16 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row17 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row18 = 0
+	}
+	set_variable = {
+		CAL_populares_hard_at_row19 = 0
+	}
+
+	set_variable = {
+		CAL_optimates_hard_at_row1 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row2 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row3 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row4 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row5 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row6 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row7 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row8 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row9 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row10 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row11 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row12 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row13 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row14 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row15 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row16 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row17 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row18 = 0
+	}
+	set_variable = {
+		CAL_optimates_hard_at_row19 = 0
+	}
+
+	if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 1
+			}
+		}
+		divide_variable = {
+			CAL_populares_percentage = 100
+		}
+		divide_variable = {
+			CAL_populares_hard_percentage = 100
+		}
+		divide_variable = {
+			CAL_optimates_hard_percentage  = 100
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 2
+			}
+		}
+		divide_variable = {
+			CAL_populares_percentage = 150
+		}
+		divide_variable = {
+			CAL_populares_hard_percentage = 150
+		}
+		divide_variable = {
+			CAL_optimates_hard_percentage  = 150
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 3
+			}
+		}
+		divide_variable = {
+			CAL_populares_percentage = 300
+		}
+		divide_variable = {
+			CAL_populares_hard_percentage = 300
+		}
+		divide_variable = {
+			CAL_optimates_hard_percentage  = 300
+		}
+	}
+	else = {
+		divide_variable = {
+			CAL_populares_percentage = 900
+		}
+		divide_variable = {
+			CAL_populares_hard_percentage = 900
+		}
+		divide_variable = {
+			CAL_optimates_hard_percentage  = 900
+		}
+	}
+	set_variable = {
+		CAL_populares_seats_to_draw = CAL_populares_count
+	}
+	set_variable = {
+		CAL_populares_hard_seats_to_draw = CAL_populares_hardliners
+	}
+	set_variable = {
+		CAL_optimates_hard_seats_to_draw = CAL_optimates_hardliners
+	}
+	#drawing
+	#round 1
+	set_variable = {
+		CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+	}
+	set_variable = {
+		CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+	}
+	set_variable = {
+		CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+	}
+	multiply_variable = {
+		CAL_populares_seats_to_draw_this_round = 21
+	}
+	round_variable = CAL_populares_seats_to_draw_this_round
+	multiply_variable = {
+		CAL_populares_hard_seats_to_draw_this_round = 21
+	}
+	round_variable = CAL_populares_hard_seats_to_draw_this_round
+	multiply_variable = {
+		CAL_optimates_hard_seats_to_draw_this_round = 21
+	}
+	round_variable = CAL_optimates_hard_seats_to_draw_this_round
+	if = {
+		limit = { 
+			check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			check_variable = { CAL_populares_count > 0 }
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = 1
+		}
+	}
+	if = {
+		limit = { 
+			check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			check_variable = { CAL_populares_hardliners > 0 }
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 1
+		}
+	}
+	if = {
+		limit = { 
+			check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			check_variable = { CAL_optimates_hardliners > 0 }
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 1
+		}
+	}
+	set_variable = {CAL_populares_at_row1 = CAL_populares_seats_to_draw_this_round}
+	subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row1}
+	set_variable = {CAL_populares_hard_at_row1 = CAL_populares_hard_seats_to_draw_this_round}
+	subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row1}
+	set_variable = {CAL_optimates_hard_at_row1 = CAL_optimates_hard_seats_to_draw_this_round}
+	subtract_from_variable = { CAL_optimates_hard_seats_to_draw  = CAL_optimates_hard_at_row1}
+	#ROUND 2
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 24
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_populares_at_row2 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row2}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 24
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_populares_hard_at_row2 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row2}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 24
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_optimates_hard_at_row2 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row2}
+	}
+	#ROUND 3
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 26
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_populares_at_row3 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row3}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 26
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_populares_hard_at_row3 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row3}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 26
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_optimates_hard_at_row3 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row3}
+	}
+	#ROUND 4
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 29
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row4 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row4}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 29
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_populares_hard_at_row4 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row4}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 29
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		set_variable = {CAL_optimates_hard_at_row4 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row4}
+	}
+	# bonus dla senatu lvl 1
+	
+	if = {
+		limit = {
+			check_variable = {
+				CAL_senate_lvl = 1
+			}
+			
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw > 0
+				}
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						CAL_populares_seats_to_draw > 0
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_at_row4 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_at_row3 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_at_row2 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_at_row1 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_seats_to_draw = 1
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw  > 0
+				}
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						CAL_populares_hard_seats_to_draw > 0
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_hard_at_row4 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_hard_at_row3 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_hard_at_row2 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_populares_hard_at_row1 = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_hard_seats_to_draw = 1
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw  > 0
+				}
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						CAL_optimates_hard_seats_to_draw > 0
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row4 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row3 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row2 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_hard_seats_to_draw > 0
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_hard_at_row1 = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_hard_seats_to_draw = 1
+					}
+				}
+			}
+		}
+	}
+
+	#ROUND 5
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 25
+		}	
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row5 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row5}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 25
+		}	
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row5 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row5}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 25
+		}	
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row5 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row5}
+	}
+	# round 6
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 25
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row6 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row6}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 25
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row6 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row6}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 25
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row6 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row6}
+	}
+	# #another bonus round (for lvl 2)
+	if = {
+		limit = {
+			check_variable = { CAL_senate_lvl = 2 }
+		}
+		log = "[?CAL_populares_seats_to_draw]-[?CAL_populares_hard_seats_to_draw]-[?CAL_optimates_hard_seats_to_draw]"
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = {CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row6 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }	
+			if = {
+				limit = {
+					check_variable = {CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row5 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }		
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = {CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row6 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }	
+			if = {
+				limit = {
+					check_variable = {CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row5 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }		
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = {CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row6 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }	
+			if = {
+				limit = {
+					check_variable = {CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row5 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }		
+		}
+	}
+	# #round 7
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 33
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row7 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row7}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 33
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row7 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row7}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 33
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row7 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row7}
+	}
+	# #round 8
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 35
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row8 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row8}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 35
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row8 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row8}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 35
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row8 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row8}
+	}
+	#round 9
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 39
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row9 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row9}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 39
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row9 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row9}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 39
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row9 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row9}
+	}
+	#round 10
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 43
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row10 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row10}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 43
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row10 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row10}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 43
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row10 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row10}
+	}
+	#another bonus round (for lvl 3)
+	if = {
+		limit = {
+			check_variable = { CAL_senate_lvl = 3 }
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row10 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row9 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row8 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row7 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row10 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row9 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row8 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row7 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row10 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row9 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row8 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row7 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+		}
+	}
+	# #round 11
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 47
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row11 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row11}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 47
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row11 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row11}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 47
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row11 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row11}
+	}
+	# #round 12
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 52
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row12 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row12}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 52
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row12 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row12}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 52
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row12 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row12}
+	}
+	# #round 13
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 57
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row13 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row13}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 57
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row13 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row13}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 57
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row13 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row13}
+	}
+	# #round 14
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 60
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row14 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row14}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 60
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row14 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row14}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 60
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row14 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row14}
+	}
+	# #round 15
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 63
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row15 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row15}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 63
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row15 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row15}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 63
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row15 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row15}
+	}
+	# #round 16
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 69
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row16 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row16}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 69
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row16 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row16}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 69
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row16 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row16}
+	}
+	# #round 17
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 76
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row17 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row17}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 76
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row17 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row17}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 76
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row17 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row17}
+	}
+	# #round 18
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 84
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row18 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row18}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 84
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row18 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row18}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 84
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row18 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row18}
+	}
+	# #round 19
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_seats_to_draw_this_round = CAL_populares_percentage
+		}
+		multiply_variable = {
+			CAL_populares_seats_to_draw_this_round = 92
+		}
+		round_variable = CAL_populares_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_seats_to_draw < CAL_populares_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_seats_to_draw_this_round = CAL_populares_seats_to_draw}
+		}
+		set_variable = {CAL_populares_at_row19 = CAL_populares_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_seats_to_draw = CAL_populares_at_row19}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_populares_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_percentage
+		}
+		multiply_variable = {
+			CAL_populares_hard_seats_to_draw_this_round = 92
+		}
+		round_variable = CAL_populares_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_populares_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_populares_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_populares_hard_seats_to_draw < CAL_populares_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_populares_hard_seats_to_draw_this_round = CAL_populares_hard_seats_to_draw}
+		}
+		set_variable = {CAL_populares_hard_at_row19 = CAL_populares_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_populares_hard_seats_to_draw = CAL_populares_hard_at_row19}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				CAL_optimates_hard_seats_to_draw > 0 
+			}
+		}
+		set_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_percentage
+		}
+		multiply_variable = {
+			CAL_optimates_hard_seats_to_draw_this_round = 92
+		}
+		round_variable = CAL_optimates_hard_seats_to_draw_this_round
+		if = {
+			limit = { 
+				check_variable = { CAL_optimates_hard_seats_to_draw_this_round = 0 }
+			}
+			set_variable = {
+				CAL_optimates_hard_seats_to_draw_this_round = 1
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					CAL_optimates_hard_seats_to_draw < CAL_optimates_hard_seats_to_draw_this_round
+				}
+			}
+			set_variable = {CAL_optimates_hard_seats_to_draw_this_round = CAL_optimates_hard_seats_to_draw}
+		}
+		set_variable = {CAL_optimates_hard_at_row19 = CAL_optimates_hard_seats_to_draw_this_round}
+		subtract_from_variable = { CAL_optimates_hard_seats_to_draw = CAL_optimates_hard_at_row19}
+	}
+	# #last level, last bonus round
+	if = {
+		limit = {
+			check_variable = { CAL_senate_lvl = 4 }
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row19 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row18 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row17 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row16 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row15 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row14 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row13 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row12 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_at_row11 = 1}
+			}
+			subtract_from_variable = { CAL_populares_seats_to_draw = 1 }			
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row19 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row18 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row17 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row16 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row15 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row14 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row13 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row12 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_populares_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_populares_hard_at_row11 = 1}
+			}
+			subtract_from_variable = { CAL_populares_hard_seats_to_draw = 1 }			
+		}
+		while_loop_effect = {
+			limit = {
+				check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row19 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row18 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row17 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row16 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row15 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row14 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row13 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row12 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }
+			if = {
+				limit = {
+					check_variable = { CAL_optimates_hard_seats_to_draw > 0 }
+				}
+				add_to_variable = { CAL_optimates_hard_at_row11 = 1}
+			}
+			subtract_from_variable = { CAL_optimates_hard_seats_to_draw = 1 }			
+		}
+	}
+	set_variable = { CAL_populares_seats_drawn = CAL_populares_at_row1 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row2 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row3 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row4 }
+	if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_seats_drawn
+				value = CAL_populares_count
+				compare = not_equals
+			}
+			check_variable = {
+				CAL_senate_lvl = 1
+			}
+		}
+		log= "[?CAL_populares_seats_drawn] = [?CAL_populares_count]??? GUH???"
+	}
+	set_variable = { CAL_optimates_seats_drawn = CAL_optimates_at_row1 }
+
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row5 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row6 }
+	if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_seats_drawn
+				value = CAL_populares_count
+				compare = not_equals
+			}
+			check_variable = {
+				CAL_senate_lvl = 2
+			}
+		}
+		log= "[?CAL_populares_seats_drawn] = [?CAL_populares_count]??? GUH???"
+	}
+
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row7 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row8 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row9 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row10 }
+	if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_seats_drawn
+				value = CAL_populares_count
+				compare = not_equals
+			}
+			check_variable = {
+				CAL_senate_lvl = 3
+			}
+		}
+		log= "[?CAL_populares_seats_drawn] = [?CAL_populares_count]??? GUH???"
+	}
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row11 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row12 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row13 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row14 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row15 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row16 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row17 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row18 }
+	add_to_variable = { CAL_populares_seats_drawn	= CAL_populares_at_row19 }
+	if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_seats_drawn
+				value = CAL_populares_count
+				compare = not_equals
+			}
+			check_variable = {
+				CAL_senate_lvl = 4
+			}
+		}
+		log= "[?CAL_populares_seats_drawn] = [?CAL_populares_count]??? GUH???"
+	}
+}
+
+CAL_initiate_senate_vote_populares = {
+	set_variable = {
+		CAL_populares_yes_percentage = 0
+	}
+	set_variable = {
+		CAL_optimates_yes_percentage = 0
+	}
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+	set_variable = {
+		CAL_half_of_senators = CAL_total_senators
+	}
+	divide_variable = {
+		CAL_half_of_senators = 2
+	}
+	set_variable = {
+		CAL_populares_swayable = CAL_populares_count
+	}
+	subtract_from_variable = {
+		CAL_populares_swayable = CAL_populares_hardliners
+	}
+	set_variable = {
+		CAL_optimates_swayable = CAL_optimates_count
+	}
+	subtract_from_variable = {
+		CAL_optimates_swayable = CAL_optimates_hardliners
+	}
+	#############
+	# Populares #
+	#############
+
+	# Yes
+
+	set_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_hardliners
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_count
+	}
+	subtract_from_variable = {
+		CAL_populares_no = CAL_populares_hardliners
+	}
+	#############
+	# Optimates #
+	#############
+
+	# Yes
+
+	set_variable = {
+		CAL_optimates_yes = 0
+	}
+	set_variable = {
+		CAL_optimates_no = CAL_optimates_count
+	}
+}
+
+CAL_increase_unity_populare_effect = {
+
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_populares_count
+	}
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_populares_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	custom_effect_tooltip = CAL_increase_unity_tt
+	add_to_variable = {
+		CAL_populares_hardliners = CAL_senators_to_change
+	}
+
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_increase_unity_optimate_effect = {
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_optimates_count
+	}
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_optimates_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	custom_effect_tooltip = CAL_increase_unity_tt
+	add_to_variable = {
+		CAL_optimates_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_decrease_unity_populare_effect = {
+	set_temp_variable = {
+		CAL_senators_to_change = CAL_populares_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	custom_effect_tooltip = CAL_decrease_unity_populare_tt
+	subtract_from_variable = {
+		CAL_populares_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_decrease_unity_optimate_effect = {
+	subtract_from_temp_variable = {
+		CAL_senators_to_change = CAL_populares_hardliners
+	}
+	divide_temp_variable = {
+		CAL_senators_to_change = 20
+	}
+	round_temp_variable = CAL_senators_to_change
+	custom_effect_tooltip = CAL_decrease_unity_optimate_tt
+	subtract_from_variable = {
+		CAL_optimates_hardliners = CAL_senators_to_change
+	}
+	CAL_redraw_senate_diagram = yes
+}
+
+CAL_initiate_senate_vote_optimates = {
+	set_variable = {
+		CAL_populares_yes_percentage = 0
+	}
+	set_variable = {
+		CAL_optimates_yes_percentage = 0
+	}
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+	set_variable = {
+		CAL_half_of_senators = CAL_total_senators
+	}
+	divide_variable = {
+		CAL_half_of_senators = 2
+	}
+	set_variable = {
+		CAL_populares_swayable = CAL_populares_count
+	}
+	subtract_from_variable = {
+		CAL_populares_swayable = CAL_populares_hardliners
+	}
+	set_variable = {
+		CAL_optimates_swayable = CAL_optimates_count
+	}
+	subtract_from_variable = {
+		CAL_optimates_swayable = CAL_optimates_hardliners
+	}
+	#############
+	# Populares #
+	#############
+
+	# Yes
+
+	set_variable = {
+		CAL_populares_yes = 0
+	}
+	# No
+	set_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_count
+	}
+
+	#############
+	# Optimates #
+	#############
+
+	# Yes
+
+	set_variable = {
+		CAL_optimates_yes = CAL_optimates_hardliners
+	}
+	#no
+	set_variable = {
+		CAL_optimates_no = CAL_optimates_count
+	}
+	subtract_from_variable = {
+		CAL_optimates_no = CAL_optimates_hardliners
+	}
+}
+
+CAL_count_units_allegiance = {
+	set_variable = {
+		CAL_units_under_populares = 0
+	}
+	set_variable = {
+		CAL_units_under_optimates = 0
+	}
+	set_variable = {
+		CAL_units_under_legiones = 0
+	}
+	set_variable = {
+		CAL_units_under_praetoriae = 0
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = popular	
+		}
+		add_to_variable = {
+			CAL_units_under_populares = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = optimate
+		}
+		add_to_variable = {
+			CAL_units_under_optimates = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = legionarius
+		}
+		add_to_variable = {
+			CAL_units_under_legiones = this.num_units
+		}
+	}
+	every_army_leader = {
+		limit = {
+			has_trait = praetorian
+		}
+		add_to_variable = {
+			CAL_units_under_praetoriae = this.num_units
+		}
+	}
+	clamp_variable = {
+		var = CAL_units_under_populares
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_optimates
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_legiones
+		max = 50
+	}
+	clamp_variable = {
+		var = CAL_units_under_praetoriae
+		max = 50
+	}
+}
+
+CAL_intervene_to_populares = {
+	set_temp_variable = {
+		CAL_populares_moving_yes_percentage = 0.25
+	}
+	add_to_variable = {
+		CAL_populares_yes_percentage = CAL_populares_moving_yes_percentage
+	}
+	clamp_variable = {
+		var = CAL_populares_yes_percentage
+		max = 1
+	}
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_swayable
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_moving_yes_percentage
+	}
+	round_variable = CAL_populares_moving_yes
+	add_to_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	subtract_from_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_yes
+	}
+	CAL_count_yes_and_no = yes
+}
+
+CAL_intervene_to_optimates = {
+	set_temp_variable = {
+		CAL_optimates_moving_yes_percentage = 0.25
+	}
+	add_to_variable = {
+		CAL_optimates_yes_percentage = CAL_optimates_moving_yes_percentage
+	}
+	clamp_variable = {
+		var = CAL_optimates_yes_percentage
+		max = 1
+	}
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_swayable
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_moving_yes_percentage
+	}
+	round_variable = CAL_optimates_moving_yes
+	add_to_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	subtract_from_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_yes
+	}
+	CAL_count_yes_and_no = yes
+}
+
+CAL_populare_plea = {
+	
+	set_temp_variable = {
+		CAL_populares_moving_yes_percentage = 0.15
+	}
+	add_to_variable = {
+		CAL_populares_yes_percentage = CAL_populares_moving_yes_percentage
+	}
+	clamp_variable = {
+		var = CAL_populares_yes_percentage
+		max = 1
+	}
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_swayable
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_moving_yes_percentage
+	}
+	round_variable = CAL_populares_moving_yes
+	add_to_variable =  {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	subtract_from_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_yes
+	}
+	custom_effect_tooltip = CAL_populare_plea_tt
+	CAL_count_yes_and_no = yes
+}
+
+CAL_optimate_plea = {
+	
+	set_temp_variable = {
+		CAL_optimates_moving_yes_percentage = 0.15
+	}
+	add_to_variable = {
+		CAL_optimates_yes_percentage = CAL_optimates_moving_yes_percentage
+	}
+	clamp_variable = {
+		var = CAL_optimates_yes_percentage
+		max = 1
+	}
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_swayable
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_moving_yes_percentage
+	}
+	round_variable = CAL_optimates_moving_yes
+	add_to_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	subtract_from_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_yes
+	}
+	custom_effect_tooltip = CAL_optimates_plea_tt
+	CAL_count_yes_and_no = yes
+}
+
+CAL_populare_vote_bribery = {
+	custom_effect_tooltip = CAL_populare_bribe_tt
+	set_temp_variable = {
+		CAL_populares_moving_yes_percentage = 0.1
+	}
+	add_to_variable = {
+		CAL_populares_yes_percentage = CAL_populares_moving_yes_percentage
+	}
+	clamp_variable = {
+		var = CAL_populares_yes_percentage
+		max = 1
+	}
+
+	# Yes
+	set_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_swayable
+	}
+	multiply_variable = {
+		var = CAL_populares_moving_yes
+		value = CAL_populares_moving_yes_percentage
+	}
+	round_variable = CAL_populares_moving_yes
+	add_to_variable = {
+		var = CAL_populares_yes
+		value = CAL_populares_moving_yes
+	}
+	# No
+	subtract_from_variable = {
+		var = CAL_populares_no
+		value = CAL_populares_moving_yes
+	}
+	CAL_count_yes_and_no = yes
+}
+
+CAL_optimate_vote_bribery = {
+	custom_effect_tooltip = CAL_optimates_bribe_tt
+	set_temp_variable = {
+		CAL_optimates_moving_yes_percentage = 0.1
+	}
+	add_to_variable = {
+		CAL_optimates_yes_percentage = CAL_optimates_moving_yes_percentage
+	}
+	clamp_variable = {
+		var = CAL_optimates_yes_percentage
+		max = 1
+	}
+	# Yes
+	set_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_swayable
+	}
+	multiply_variable = {
+		var = CAL_optimates_moving_yes
+		value = CAL_optimates_moving_yes_percentage
+	}
+	round_variable = CAL_optimates_moving_yes
+	add_to_variable = {
+		var = CAL_optimates_yes
+		value = CAL_optimates_moving_yes
+	}
+	# No
+	subtract_from_variable = {
+		var = CAL_optimates_no
+		value = CAL_optimates_moving_yes
+	}
+	CAL_count_yes_and_no = yes
+}
+
+CAL_senate_military_moves = {
+	#pretorianie wykonują ruch
+	if = {
+		limit = {
+			or = {
+				has_country_flag = CAL_ager_publicus_vote
+				has_country_flag = CAL_lex_tributorum_vote
+				has_country_flag = CAL_lex_securitatis_vote
+				has_country_flag = CAL_lex_coequatio_vote
+				has_country_flag = CAL_lex_administrationis_vote
+			}
+			HAS_country_flag = CAL_populares_lex_voting
+		}
+		subtract_from_variable = {
+			CAL_praetoriae_gravitas = 30
+		}
+		set_temp_variable = {
+			CAL_moving_yes_percentage = 0.15
+		}
+		subtract_from_variable = {
+			CAL_populares_yes_percentage = CAL_moving_yes_percentage
+		}
+		subtract_from_variable = {
+			CAL_optimates_yes_percentage = CAL_moving_yes_percentage
+		}
+		clamp_variable = {
+			var = CAL_populares_yes_percentage
+			min = 0
+		}
+		clamp_variable = {
+			var = CAL_optimates_yes_percentage
+			min = 0
+		}
+		### populares ###
+		# yes
+		set_variable = {
+			var = CAL_populares_moving_yes
+			value = CAL_populares_swayable
+		}
+		multiply_variable = {
+			var = CAL_populares_moving_yes
+			value = CAL_populares_moving_yes_percentage
+		}
+		round_variable = CAL_populares_moving_yes
+		subtract_from_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_moving_yes
+		}
+		# No
+		add_to_variable = {
+			var = CAL_populares_no
+			value = CAL_populares_moving_yes
+		}
+		### optimates ###
+		# Yes
+		set_variable = {
+			var = CAL_optimates_moving_yes
+			value = CAL_optimates_swayable
+		}
+		multiply_variable = {
+			var = CAL_optimates_moving_yes
+			value = CAL_optimates_moving_yes_percentage
+		}
+		round_variable = CAL_optimates_moving_yes
+		subtract_from_variable = { 
+			var = CAL_optimates_yes
+			value = CAL_optimates_moving_yes
+		}
+		# No
+		add_to_variable = { 
+			var = CAL_optimates_no
+			value = CAL_optimates_moving_yes
+		}
+	}
+	#legioniści wykonują ruch
+	if = {
+		limit = {
+			or = {
+				and = {
+					has_country_flag = CAL_lex_militae_vote
+					HAS_country_flag = CAL_optimates_lex_voting
+				}
+				and = {
+					has_country_flag = CAL_lex_coequatio_vote
+					HAS_country_flag = CAL_optimates_lex_voting
+				}
+				and = {
+					has_country_flag = CAL_lex_subsidiarum_socialum_vote
+					HAS_country_flag = CAL_populares_lex_voting
+				}
+			}
+			
+		}
+		subtract_from_variable = {
+			CAL_legiones_gravitas = 30
+		}
+		set_temp_variable = {
+			CAL_moving_yes_percentage = 0.15
+		}
+		subtract_from_variable = {
+			CAL_populares_yes_percentage = CAL_moving_yes_percentage
+		}
+		subtract_from_variable = {
+			CAL_optimates_yes_percentage = CAL_moving_yes_percentage
+		}
+		clamp_variable = {
+			var = CAL_populares_yes_percentage
+			min = 0
+		}
+		clamp_variable = {
+			var = CAL_optimates_yes_percentage
+			min = 0
+		}
+		### populares ###
+		# yes
+		### populares ###
+		# yes
+		set_variable = {
+			var = CAL_populares_moving_yes
+			value = CAL_populares_swayable
+		}
+		multiply_variable = {
+			var = CAL_populares_moving_yes
+			value = CAL_populares_moving_yes_percentage
+		}
+		round_variable = CAL_populares_moving_yes
+		subtract_from_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_moving_yes
+		}
+		# No
+		add_to_variable = {
+			var = CAL_populares_no
+			value = CAL_populares_moving_yes
+		}
+		### optimates ###
+		# Yes
+		set_variable = {
+			var = CAL_optimates_moving_yes
+			value = CAL_optimates_swayable
+		}
+		multiply_variable = {
+			var = CAL_optimates_moving_yes
+			value = CAL_optimates_moving_yes_percentage
+		}
+		round_variable = CAL_optimates_moving_yes
+		subtract_from_variable = { 
+			var = CAL_optimates_yes
+			value = CAL_optimates_moving_yes
+		}
+		# No
+		add_to_variable = { 
+			var = CAL_optimates_no
+			value = CAL_optimates_moving_yes
+		}
+	}
+	CAL_count_yes_and_no = yes
+}
+
+CAL_senators_halved_voting = {
+	set_variable = {
+		var = CAL_total_senators
+		value = CAL_populares_count
+	}
+	add_to_variable = {
+		var = CAL_total_senators
+		value = CAL_optimates_count
+	}
+	multiply_variable = {
+		var = CAL_total_senators
+		value = 0.5
+	}
+}
+
+CAL_count_yes_and_no = {
+	set_variable = {
+		var = CAL_all_yes_show
+		value = CAL_populares_yes
+	}
+	add_to_variable = {
+		var = CAL_all_yes_show
+		value = CAL_optimates_yes
+	}
+	set_variable = {
+		var = CAL_total_yes
+		value = CAL_populares_yes
+	}
+	add_to_variable = {
+		var = CAL_total_yes
+		value = CAL_optimates_yes
+	}
+	set_variable = {
+		var = CAL_all_no_show
+		value = CAL_populares_no
+	}
+	add_to_variable = {
+		var = CAL_all_no_show
+		value = CAL_optimates_no
+	}
+}
+
+CAL_senate_voting_result = {
+	custom_effect_tooltip = CAL_votes_show_tt
+	clr_country_flag = emperor_intervened
+	clr_country_flag = CAL_senate_military_made_a_move
+	#CAL_senators_halved_voting = yes
+	if = {
+		limit = {
+			is_debug = yes
+		}
+		log =  "ZA: [?CAL_total_yes]"
+	}
+	#############
+	# POPULARZY #
+	#############
+	log = "[?CAL_total_yes]/needed [?CAL_half_of_senators]"
+	if = {
+		limit = {
+			has_country_flag = CAL_populares_lex_voting
+		}
+		clr_country_flag = CAL_populares_lex_voting
+		if = {
+			limit = {
+				CAL_yes_senators_count = yes
+			}
+			
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				
+				#Nić xd
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				clr_country_flag = CAL_lex_tributorum_vote
+				set_country_flag = CAL_lex_tributorum_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MILITAE
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_militae_vote
+				}
+				clr_country_flag = CAL_lex_militae_vote
+				set_country_flag = CAL_lex_militae_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX INDENTATAE SERVITUTIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_indentatae_servitutis_vote
+				}
+				clr_country_flag = CAL_lex_indentatae_servitutis_vote
+				set_country_flag = CAL_lex_indentatae_servitutis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SECURITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_securitatis_vote
+				}
+				clr_country_flag = CAL_lex_securitatis_vote
+				swap_ideas = {
+					remove_idea = basic_security
+					add_idea = advanced_security
+				}
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MERCATORIA
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_mercatoria_vote
+				}
+				clr_country_flag = CAL_lex_mercatoria_vote
+				swap_ideas = {
+					remove_idea = trade_regulated
+					add_idea = trade_minimal
+				}
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SUBSIDIARUM SOCIALUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_subsidiarum_socialum_vote
+				}
+				clr_country_flag = CAL_lex_subsidiarum_socialum_vote
+				set_country_flag = CAL_lex_subsidiarum_socialum_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX IUONONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_iuononis_vote
+				}
+				clr_country_flag = CAL_lex_iuononis_vote
+				set_country_flag = CAL_lex_iuononis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX CIVITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_civitatis_vote
+				}
+				clr_country_flag = CAL_lex_civitatis_vote
+				set_country_flag = CAL_lex_civitatis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ACCULTURATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_acculturationis_vote
+				}
+				clr_country_flag = CAL_lex_acculturationis_vote
+				set_country_flag = CAL_lex_acculturationis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AMORIS LIBERI
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_amoris_liberi_vote
+				}
+				clr_country_flag = CAL_lex_amoris_liberi_vote
+				set_country_flag = CAL_lex_amoris_liberi_populares_passed
+				swap_ideas = {
+					remove_idea = lgbt_limited_laws
+					add_idea = lgbt_equal_laws
+				}
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AESCULAPII
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_aesculapii_vote
+				}
+				clr_country_flag = CAL_lex_aesculapii_vote
+				set_country_flag = CAL_lex_aesculapii_populares_passed
+				swap_ideas = {
+					remove_idea = witch_doctors
+					add_idea = public_healthcare
+				}
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX RELIGIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_religionis_vote
+				}
+				clr_country_flag = CAL_lex_religionis_vote
+				set_country_flag = CAL_lex_religionis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX POENAE CAPITALIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_poenae_capitalis_vote
+				}
+				
+				clr_country_flag = CAL_lex_poenae_capitalis_vote
+				set_country_flag = CAL_lex_poenae_capitalis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX COEQUATIO
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_coequatio_vote
+				}
+				
+				clr_country_flag = CAL_lex_coequatio_vote
+				set_country_flag = CAL_lex_coequatio_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				#add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ADMINISTRATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_administrationis_vote
+				}
+				
+				clr_country_flag = CAL_lex_administrationis_vote
+				set_country_flag = CAL_lex_administrationis_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				#add_to_variable = { CAL_passed_laws_variable = 1 }
+				add_timed_idea = { idea = CAL_reform_of_administrative_division_idea days = 90 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX BARBARORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_barbarorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_barbarorum_vote
+				set_country_flag = CAL_lex_barbarorum_populares_passed
+				set_country_flag = CAL_populares_passed_lex
+				country_event = calisia.138
+				#add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+		}
+		else = {
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				custom_effect_tooltip = CAL_ager_publicus_populares_fails_tt
+				hidden_effect = {
+					clr_country_flag = CAL_ager_publicus_vote
+					country_event = {
+						id = calisia.14
+						days = 7
+					}
+				}
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_tributorum_vote
+				set_country_flag = CAL_lex_tributorum_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MILITAE
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_militae_vote
+				}
+				
+				clr_country_flag = CAL_lex_militae_vote
+				set_country_flag = CAL_lex_militae_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX INDENTATAE SERVITUTIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_indentatae_servitutis_vote
+				}
+				
+				clr_country_flag = CAL_lex_indentatae_servitutis_vote
+				set_country_flag = CAL_lex_indentatae_servitutis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SECURITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_securitatis_vote
+				}
+				
+				clr_country_flag = CAL_lex_securitatis_vote
+				swap_ideas = {
+					remove_idea = basic_security
+					add_idea = direct_security
+				}
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MERCATORIA
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_mercatoria_vote
+				}
+				
+				clr_country_flag = CAL_lex_mercatoria_vote
+				swap_ideas = {
+					remove_idea = trade_regulated
+					add_idea = trade_promoted
+				}
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SUBSIDIARUM SOCIALUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_subsidiarum_socialum_vote
+				}
+				
+				clr_country_flag = CAL_lex_subsidiarum_socialum_vote
+				set_country_flag = CAL_lex_subsidiarum_socialum_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX IUONONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_iuononis_vote
+				}
+				
+				clr_country_flag = CAL_lex_iuononis_vote
+				set_country_flag = CAL_lex_iuononis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX CIVITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_civitatis_vote
+				}
+				
+				clr_country_flag = CAL_lex_civitatis_vote
+				set_country_flag = CAL_lex_civitatis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ACCULTURATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_acculturationis_vote
+				}
+				
+				clr_country_flag = CAL_lex_acculturationis_vote
+				set_country_flag = CAL_lex_acculturationis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AMORIS LIBERI
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_amoris_liberi_vote
+				}
+				
+				clr_country_flag = CAL_lex_amoris_liberi_vote
+				set_country_flag = CAL_lex_amoris_liberi_optimates_passed
+				swap_ideas = {
+					remove_idea = lgbt_limited_laws
+					add_idea = lgbt_illegal_punished
+				}
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AESCULAPII
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_aesculapii_vote
+				}
+				
+				clr_country_flag = CAL_lex_aesculapii_vote
+				set_country_flag = CAL_lex_aesculapii_optimates_passed
+				swap_ideas = {
+					remove_idea = witch_doctors
+					add_idea = private_healthcare
+				}
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX RELIGIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_religionis_vote
+				}
+				
+				clr_country_flag = CAL_lex_religionis_vote
+				set_country_flag = CAL_lex_religionis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX POENAE CAPITALIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_poenae_capitalis_vote
+				}
+				
+				clr_country_flag = CAL_lex_poenae_capitalis_vote
+				set_country_flag = CAL_lex_poenae_capitalis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX COEQUATIO
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_coequatio_vote
+				}
+				
+				clr_country_flag = CAL_lex_coequatio_vote
+				set_country_flag = CAL_lex_coequatio_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ADMINISTRATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_administrationis_vote
+				}
+				
+				clr_country_flag = CAL_lex_administrationis_vote
+				set_country_flag = CAL_lex_administrationis_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				add_timed_idea = { idea = CAL_reform_of_administrative_division_idea days = 90 }
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX BARBARORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_barbarorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_barbarorum_vote
+				set_country_flag = CAL_lex_barbarorum_optimates_passed
+				set_country_flag = CAL_lex_populares_failed
+				country_event = calisia.153
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+		}
+	}
+
+	############
+	# OPTYMACI #
+	############
+
+	else_if = {
+		limit = {
+			has_country_flag = CAL_optimates_lex_voting
+		}
+		clr_country_flag = CAL_optimates_lex_voting
+		if = {
+			limit = {
+				CAL_yes_senators_count = yes
+			}
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				#Nić xd
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_tributorum_vote
+				set_country_flag = CAL_lex_tributorum_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MILITAE
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_militae_vote
+				}
+				
+				clr_country_flag = CAL_lex_militae_vote
+				set_country_flag = CAL_lex_militae_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX INDENTATAE SERVITUTIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_indentatae_servitutis_vote
+				}
+				
+				clr_country_flag = CAL_lex_indentatae_servitutis_vote
+				set_country_flag = CAL_lex_indentatae_servitutis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SECURITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_securitatis_vote
+				}
+				
+				clr_country_flag = CAL_lex_securitatis_vote
+				swap_ideas = {
+					remove_idea = basic_security
+					add_idea = direct_security
+				}
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MERCATORIA
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_mercatoria_vote
+				}
+				
+				clr_country_flag = CAL_lex_mercatoria_vote
+				swap_ideas = {
+					remove_idea = trade_regulated
+					add_idea = trade_promoted
+				}
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SUBSIDIARUM SOCIALUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_subsidiarum_socialum_vote
+				}
+				
+				clr_country_flag = CAL_lex_subsidiarum_socialum_vote
+				set_country_flag = CAL_lex_subsidiarum_socialum_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX IUONONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_iuononis_vote
+				}
+				
+				clr_country_flag = CAL_lex_iuononis_vote
+				set_country_flag = CAL_lex_iuononis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX CIVITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_civitatis_vote
+				}
+				
+				clr_country_flag = CAL_lex_civitatis_vote
+				set_country_flag = CAL_lex_civitatis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ACCULTURATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_acculturationis_vote
+				}
+				
+				clr_country_flag = CAL_lex_acculturationis_vote
+				set_country_flag = CAL_lex_acculturationis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AMORIS LIBERI
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_amoris_liberi_vote
+				}
+				
+				clr_country_flag = CAL_lex_amoris_liberi_vote
+				set_country_flag = CAL_lex_amoris_liberi_optimates_passed
+				swap_ideas = {
+					remove_idea = lgbt_limited_laws
+					add_idea = lgbt_illegal_punished
+				}
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AESCULAPII
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_aesculapii_vote
+				}
+				
+				clr_country_flag = CAL_lex_aesculapii_vote
+				set_country_flag = CAL_lex_aesculapii_optimates_passed
+				swap_ideas = {
+					remove_idea = witch_doctors
+					add_idea = private_healthcare
+				}
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX RELIGIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_religionis_vote
+				}
+				
+				clr_country_flag = CAL_lex_religionis_vote
+				set_country_flag = CAL_lex_religionis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX POENAE CAPITALIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_poenae_capitalis_vote
+				}
+				
+				clr_country_flag = CAL_lex_poenae_capitalis_vote
+				set_country_flag = CAL_lex_poenae_capitalis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX COEQUATIO
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_coequatio_vote
+				}
+				
+				clr_country_flag = CAL_lex_coequatio_vote
+				set_country_flag = CAL_lex_coequatio_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				#add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ADMINISTRATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_administrationis_vote
+				}
+				
+				clr_country_flag = CAL_lex_administrationis_vote
+				set_country_flag = CAL_lex_administrationis_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				add_timed_idea = { idea = CAL_reform_of_administrative_division_idea days = 90 }
+				country_event = calisia.138
+				#add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX BARBARORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_barbarorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_barbarorum_vote
+				set_country_flag = CAL_lex_barbarorum_optimates_passed
+				set_country_flag = CAL_optimates_passed_lex
+				country_event = calisia.138
+				#add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+		}
+		else = {
+			#AGER PUBLICUS
+			if = {
+				limit = {
+					has_country_flag = CAL_ager_publicus_vote
+				}
+				custom_effect_tooltip = CAL_ager_publicus_optimates_fails_tt
+				hidden_effect = {	
+					clr_country_flag = CAL_ager_publicus_vote
+					country_event = {
+						id = calisia.14
+						days = 7
+					}
+				}
+			}
+			#LEX TRIBUTORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_tributorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_tributorum_vote
+				set_country_flag = CAL_lex_tributorum_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MILITAE
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_militae_vote
+				}
+				
+				clr_country_flag = CAL_lex_militae_vote
+				set_country_flag = CAL_lex_militae_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX INDENTATAE SERVITUTIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_indentatae_servitutis_vote
+				}
+				
+				clr_country_flag = CAL_lex_indentatae_servitutis_vote
+				set_country_flag = CAL_lex_indentatae_servitutis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SECURITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_securitatis_vote
+				}
+				
+				clr_country_flag = CAL_lex_securitatis_vote
+				swap_ideas = {
+					remove_idea = basic_security
+					add_idea = advanced_security
+				}
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX MERCATORIA
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_mercatoria_vote
+				}
+				
+				clr_country_flag = CAL_lex_mercatoria_vote
+				swap_ideas = {
+					remove_idea = trade_regulated
+					add_idea = trade_minimal
+				}
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX SUBSIDIARUM SOCIALUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_subsidiarum_socialum_vote
+				}
+				
+				clr_country_flag = CAL_lex_subsidiarum_socialum_vote
+				set_country_flag = CAL_lex_subsidiarum_socialum_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX IUONONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_iuononis_vote
+				}
+				
+				clr_country_flag = CAL_lex_iuononis_vote
+				set_country_flag = CAL_lex_iuononis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX CIVITATIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_civitatis_vote
+				}
+				
+				clr_country_flag = CAL_lex_civitatis_vote
+				set_country_flag = CAL_lex_civitatis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ACCULTURATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_acculturationis_vote
+				}
+				
+				clr_country_flag = CAL_lex_acculturationis_vote
+				set_country_flag = CAL_lex_acculturationis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				mark_focus_tree_layout_dirty = yes
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AMORIS LIBERI
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_amoris_liberi_vote
+				}
+				
+				clr_country_flag = CAL_lex_amoris_liberi_vote
+				set_country_flag = CAL_lex_amoris_liberi_populares_passed
+				#swap_ideas = {
+				#	remove_idea = lgbt_
+				#	add_idea = lgbt_
+				#}
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX AESCULAPII
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_aesculapii_vote
+				}
+				
+				clr_country_flag = CAL_lex_aesculapii_vote
+				set_country_flag = CAL_lex_aesculapii_populares_passed
+				#swap_ideas = {
+				#	remove_idea = lgbt_
+				#	add_idea = lgbt_
+				#}
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX RELIGIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_religionis_vote
+				}
+				
+				clr_country_flag = CAL_lex_religionis_vote
+				set_country_flag = CAL_lex_religionis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX POENAE CAPITALIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_poenae_capitalis_vote
+				}
+				
+				clr_country_flag = CAL_lex_poenae_capitalis_vote
+				set_country_flag = CAL_lex_poenae_capitalis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX COEQUATIO
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_coequatio_vote
+				}
+				
+				clr_country_flag = CAL_lex_coequatio_vote
+				set_country_flag = CAL_lex_coequatio_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX ADMINISTRATIONIS
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_administrationis_vote
+				}
+				clr_country_flag = CAL_lex_administrationis_vote
+				set_country_flag = CAL_lex_administrationis_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				add_timed_idea = { idea = CAL_reform_of_administrative_division_idea days = 90 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+			#LEX BARBARORUM
+			if = {
+				limit = {
+					has_country_flag = CAL_lex_barbarorum_vote
+				}
+				
+				clr_country_flag = CAL_lex_barbarorum_vote
+				set_country_flag = CAL_lex_barbarorum_populares_passed
+				set_country_flag = CAL_lex_optimates_failed
+				country_event = calisia.153
+				add_to_variable = { CAL_passed_laws_variable = 1 }
+				hidden_effect = {
+					country_event = {
+						id = calisia.75
+						days = 30
+					}
+				}
+			}
+		}
+	}
+}
+
+CAL_set_civilian_loyalty_effects = {
+
+}
+
+CAL_set_military_loyalty_effects = {
+	if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 20
+			}
+		}
+		CAL_set_legiones_loyalty_0 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 40
+			}
+		}
+		CAL_set_legiones_loyalty_1 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 60
+			}
+		}
+		CAL_set_legiones_loyalty_2 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_legiones_loyalty < 80
+			}
+		}
+		CAL_set_legiones_loyalty_3 = yes
+	}
+	else = {
+		CAL_set_legiones_loyalty_4 = yes
+	}
+
+	if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 20
+			}
+		}
+		CAL_set_praetoriae_loyalty_0 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 40
+			}
+		}
+		CAL_set_praetoriae_loyalty_1 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 60
+			}
+		}
+		CAL_set_praetoriae_loyalty_2 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_praetoriae_loyalty < 80
+			}
+		}
+		CAL_set_praetoriae_loyalty_3 = yes
+	}
+	else = {
+		CAL_set_praetoriae_loyalty_4 = yes
+	}
+}
+
+CAL_set_legiones_loyalty_0 = {
+	if = {
+		limit = {
+			has_idea = CAL_legiones_disloyal
+		}
+		remove_ideas = CAL_legiones_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_hesistant
+		}
+		remove_ideas = CAL_legiones_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_loyal
+		}
+		remove_ideas = CAL_legiones_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_fanatical
+		}
+		remove_ideas = CAL_legiones_fanatical
+	}
+	add_ideas = CAL_legiones_rebellious
+}
+
+CAL_set_legiones_loyalty_1 = {
+	if = {
+		limit = {
+			has_idea = CAL_legiones_rebellious
+		}
+		remove_ideas = CAL_legiones_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_hesistant
+		}
+		remove_ideas = CAL_legiones_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_loyal
+		}
+		remove_ideas = CAL_legiones_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_fanatical
+		}
+		remove_ideas = CAL_legiones_fanatical
+	}
+	add_ideas = CAL_legiones_disloyal
+}
+
+CAL_set_legiones_loyalty_2 = {
+	if = {
+		limit = {
+			has_idea = CAL_legiones_disloyal
+		}
+		remove_ideas = CAL_legiones_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_rebellious
+		}
+		remove_ideas = CAL_legiones_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_loyal
+		}
+		remove_ideas = CAL_legiones_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_fanatical
+		}
+		remove_ideas = CAL_legiones_fanatical
+	}
+	add_ideas = CAL_legiones_hesistant
+}
+
+CAL_set_legiones_loyalty_3 = {
+	if = {
+		limit = {
+			has_idea = CAL_legiones_disloyal
+		}
+		remove_ideas = CAL_legiones_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_hesistant
+		}
+		remove_ideas = CAL_legiones_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_rebellious
+		}
+		remove_ideas = CAL_legiones_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_fanatical
+		}
+		remove_ideas = CAL_legiones_fanatical
+	}
+	add_ideas = CAL_legiones_loyal
+}
+
+CAL_set_legiones_loyalty_4 = {
+	if = {
+		limit = {
+			has_idea = CAL_legiones_disloyal
+		}
+		remove_ideas = CAL_legiones_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_hesistant
+		}
+		remove_ideas = CAL_legiones_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_loyal
+		}
+		remove_ideas = CAL_legiones_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_legiones_rebellious
+		}
+		remove_ideas = CAL_legiones_rebellious
+	}
+	add_ideas = CAL_legiones_fanatical
+}
+
+CAL_set_praetoriae_loyalty_0 = {
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_disloyal
+		}
+		remove_ideas = CAL_praetoriae_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_hesistant
+		}
+		remove_ideas = CAL_praetoriae_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_loyal
+		}
+		remove_ideas = CAL_praetoriae_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_fanatical
+		}
+		remove_ideas = CAL_praetoriae_fanatical
+	}
+	add_ideas = CAL_praetoriae_rebellious
+}
+
+CAL_set_praetoriae_loyalty_1 = {
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_rebellious
+		}
+		remove_ideas = CAL_praetoriae_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_hesistant
+		}
+		remove_ideas = CAL_praetoriae_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_loyal
+		}
+		remove_ideas = CAL_praetoriae_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_fanatical
+		}
+		remove_ideas = CAL_praetoriae_fanatical
+	}
+	add_ideas = CAL_praetoriae_disloyal
+}
+
+CAL_set_praetoriae_loyalty_2 = {
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_disloyal
+		}
+		remove_ideas = CAL_praetoriae_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_rebellious
+		}
+		remove_ideas = CAL_praetoriae_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_loyal
+		}
+		remove_ideas = CAL_praetoriae_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_fanatical
+		}
+		remove_ideas = CAL_praetoriae_fanatical
+	}
+	add_ideas = CAL_praetoriae_hesistant
+}
+
+CAL_set_praetoriae_loyalty_3 = {
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_disloyal
+		}
+		remove_ideas = CAL_praetoriae_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_hesistant
+		}
+		remove_ideas = CAL_praetoriae_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_rebellious
+		}
+		remove_ideas = CAL_praetoriae_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_fanatical
+		}
+		remove_ideas = CAL_praetoriae_fanatical
+	}
+	add_ideas = CAL_praetoriae_loyal
+}
+
+CAL_set_praetoriae_loyalty_4 = {
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_disloyal
+		}
+		remove_ideas = CAL_praetoriae_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_hesistant
+		}
+		remove_ideas = CAL_praetoriae_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_loyal
+		}
+		remove_ideas = CAL_praetoriae_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_rebellious
+		}
+		remove_ideas = CAL_praetoriae_rebellious
+	}
+	add_ideas = CAL_praetoriae_fanatical
+}
+
+CAL_clamp_on_loyalty_and_gravitas = {
+	round_variable = CAL_populares_gravitas
+	round_variable = CAL_optimates_gravitas
+	round_variable = CAL_emperor_gravitas
+	round_variable = CAL_legiones_gravitas
+	round_variable = CAL_praetoriae_gravitas
+	round_variable = CAL_populares_loyalty
+	round_variable = CAL_optimates_loyalty
+	round_variable = CAL_legiones_loyalty
+	round_variable = CAL_praetoriae_loyalty
+	clamp_variable = {
+		var = CAL_populares_gravitas
+		min = 0
+		max = 200
+	}
+	clamp_variable = {
+		var = CAL_optimates_gravitas
+		min = 0
+		max = 200
+	}
+	clamp_variable = {
+		var = CAL_emperor_gravitas
+		min = 0
+		max = 200
+	}
+	clamp_variable = {
+		var = CAL_legiones_gravitas
+		min = 0
+		max = 200
+	}
+	clamp_variable = {
+		var = CAL_praetoriae_gravitas
+		min = 0
+		max = 200
+	}
+	clamp_variable = {
+		var = CAL_populares_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = CAL_optimates_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = CAL_legiones_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = CAL_praetoriae_loyalty
+		min = 0
+		max = 100
+	}
+}
