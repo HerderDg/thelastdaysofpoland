@@ -35,6 +35,9 @@ CAL_initialize_senate = {
 	}
 	round_variable = CAL_populares_hardliners
 	round_variable = CAL_optimates_hardliners
+	add_dynamic_modifier = {
+		modifier = CAL_populare_loyalty_modifier
+	}
 	CAL_redraw_senate_diagram = yes
 	set_country_flag = CAL_senate_opened
 	set_country_flag = {
@@ -4806,8 +4809,24 @@ CAL_set_civilian_loyalty_effects = {
 		}
 		CAL_set_populares_loyalty_1 = yes
 	}
-	else = {
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_populares_loyalty < 80
+			}
+		}
 		CAL_unset_populares_loyalty = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				CAL_populares_loyalty < 90
+			}
+		}
+		CAL_set_populares_loyalty_3 = yes
+	}
+	else = {
+		CAL_set_populares_loyalty_4 = yes
 	}
 	if = {
 		limit = {
@@ -4827,6 +4846,16 @@ CAL_set_civilian_loyalty_effects = {
 	}
 	else = {
 		CAL_unset_optimates_loyalty = yes
+	}
+	set_temp_variable = {
+		CAL_kompa_conscription = 0.005
+	}
+	multiply_temp_variable = {
+		CAL_kompa_conscription = modifier@CAL_populare_loyalty_factor
+	}
+	log = "[?CAL_kompa_conscription]"
+	set_variable = {
+		CAL_kompa_conscription_bonus = CAL_kompa_conscription
 	}
 }
 
@@ -5191,6 +5220,18 @@ CAL_set_populares_loyalty_0 = {
 		}
 		remove_ideas = CAL_populares_disloyal
 	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_loyal
+		}
+		remove_ideas = CAL_populares_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_fanatical
+		}
+		remove_ideas = CAL_populares_fanatical
+	}
 	add_ideas = CAL_populares_rebellious
 }
 
@@ -5201,7 +5242,63 @@ CAL_set_populares_loyalty_1 = {
 		}
 		remove_ideas = CAL_populares_rebellious
 	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_loyal
+		}
+		remove_ideas = CAL_populares_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_fanatical
+		}
+		remove_ideas = CAL_populares_fanatical
+	}
 	add_ideas = CAL_populares_disloyal
+}
+
+CAL_set_populares_loyalty_3 = {
+	if = {
+		limit = {
+			has_idea = CAL_populares_rebellious
+		}
+		remove_ideas = CAL_populares_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_disloyal
+		}
+		remove_ideas = CAL_populares_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_fanatical
+		}
+		remove_ideas = CAL_populares_fanatical
+	}
+	add_ideas = CAL_populares_loyal
+}
+
+CAL_set_populares_loyalty_4 = {
+	if = {
+		limit = {
+			has_idea = CAL_populares_rebellious
+		}
+		remove_ideas = CAL_populares_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_disloyal
+		}
+		remove_ideas = CAL_populares_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_loyal
+		}
+		remove_ideas = CAL_populares_loyal
+	}
+	add_ideas = CAL_populares_fanatical
 }
 
 CAL_unset_populares_loyalty = {
@@ -5216,6 +5313,18 @@ CAL_unset_populares_loyalty = {
 			has_idea = CAL_populares_disloyal
 		}
 		remove_ideas = CAL_populares_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_loyal
+		}
+		remove_ideas = CAL_populares_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_populares_fanatical
+		}
+		remove_ideas = CAL_populares_fanatical
 	}
 }
 
@@ -5316,36 +5425,36 @@ CAL_loyalty_tick = {
 	set_temp_variable = { CAL_gravitas_change_optimate = 0 }
 	set_temp_variable = { CAL_gravitas_change_legiones = 0 }
 	set_temp_variable = { CAL_gravitas_change_preatoriae = 0 }
-	# set_temp_variable = { CAL_gravitas_change_populare = 5 }
-	# set_temp_variable = { CAL_gravitas_change_optimate = 5 }
-	# set_temp_variable = { CAL_gravitas_change_legiones = 5 }
-	# set_temp_variable = { CAL_gravitas_change_preatoriae = 5 }
+	set_temp_variable = { CAL_gravitas_change_populare = 5 }
+	set_temp_variable = { CAL_gravitas_change_optimate = 5 }
+	set_temp_variable = { CAL_gravitas_change_legiones = 5 }
+	set_temp_variable = { CAL_gravitas_change_preatoriae = 5 }
 	set_temp_variable = { CAL_gravitas_change_emperor = 0 }
 	#KONSULOWIE
-	# set_temp_variable = {
-	# 	CAL_optimates_consuls = 3
-	# }
-	# subtract_from_temp_variable = {
-	# 	CAL_optimates_consuls = CAL_populares_consuls
-	# }
-	# set_temp_variable = {
-	# 	CAL_populares_gravitas_from_consuls = CAL_populares_consuls
-	# }
-	# multiply_temp_variable = {
-	# 	CAL_populares_gravitas_from_consuls = 10
-	# }
-	# set_temp_variable = {
-	# 	CAL_optimates_gravitas_from_consuls = CAL_optimates_consuls
-	# }
-	# multiply_temp_variable = {
-	# 	CAL_optimates_gravitas_from_consuls = 10
-	# }
-	# add_to_temp_variable = {
-	# 	CAL_gravitas_change_populare = CAL_populares_gravitas_from_consuls
-	# }
-	# add_to_temp_variable = {
-	# 	CAL_gravitas_change_optimate = CAL_optimates_gravitas_from_consuls
-	# }
+	set_temp_variable = {
+		CAL_optimates_consuls = 3
+	}
+	subtract_from_temp_variable = {
+		CAL_optimates_consuls = CAL_populares_consuls
+	}
+	set_temp_variable = {
+		CAL_populares_gravitas_from_consuls = CAL_populares_consuls
+	}
+	multiply_temp_variable = {
+		CAL_populares_gravitas_from_consuls = 10
+	}
+	set_temp_variable = {
+		CAL_optimates_gravitas_from_consuls = CAL_optimates_consuls
+	}
+	multiply_temp_variable = {
+		CAL_optimates_gravitas_from_consuls = 10
+	}
+	add_to_temp_variable = {
+		CAL_gravitas_change_populare = CAL_populares_gravitas_from_consuls
+	}
+	add_to_temp_variable = {
+		CAL_gravitas_change_optimate = CAL_optimates_gravitas_from_consuls
+	}
 	#senat
 	set_temp_variable = {
 		CAL_populares_gravitas_from_senate = CAL_populares_percentage
