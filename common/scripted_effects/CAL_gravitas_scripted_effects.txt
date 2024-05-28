@@ -2875,10 +2875,102 @@ CAL_initiate_senate_vote_populares = {
 	#############
 
 	# Yes
-
-	set_variable = {
-		var = CAL_populares_yes
-		value = CAL_populares_hardliners
+	if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_loyalty
+				value = 15
+				compare = less_than_or_equals
+			}
+		}
+		set_variable = {
+			var = CAL_populares_yes
+			value = 0
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_loyalty
+				value = 30
+				compare = less_than_or_equals
+			}
+		}
+		set_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_hardliners
+		}
+		multiply_variable = {
+			CAL_populares_yes = 0.8
+		}
+		round_variable = CAL_populares_yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_loyalty
+				value = 80
+				compare = less_than_or_equals
+			}
+		}
+		set_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_hardliners
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_loyalty
+				value = 80
+				compare = less_than_or_equals
+			}
+		}
+		set_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_hardliners
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = CAL_populares_loyalty
+				value = 90
+				compare = less_than_or_equals
+			}
+		}
+		set_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_hardliners
+		}
+		set_variable = {
+			CAL_populares_yes_percentage = 0.1
+		}
+		set_temp_variable = {
+			CAL_populares_moving_yes = CAL_populares_swayable
+		}
+		multiply_temp_variable = {
+			CAL_populares_moving_yes = CAL_populares_yes_percentage
+		}
+	}
+	else = {
+		set_variable = {
+			var = CAL_populares_yes
+			value = CAL_populares_hardliners
+		}
+		set_variable = {
+			CAL_populares_yes_percentage = 0.2
+		}
+		set_temp_variable = {
+			CAL_populares_moving_yes = CAL_populares_swayable
+		}
+		multiply_temp_variable = {
+			CAL_populares_moving_yes = CAL_populares_yes_percentage
+		}
+	}
+	round_temp_variable = CAL_populares_moving_yes
+	add_to_variable = {
+		CAL_populares_yes = CAL_populares_moving_yes
 	}
 	# No
 	set_variable = {
@@ -2886,7 +2978,7 @@ CAL_initiate_senate_vote_populares = {
 		value = CAL_populares_count
 	}
 	subtract_from_variable = {
-		CAL_populares_no = CAL_populares_hardliners
+		CAL_populares_no = CAL_populares_yes  #CAL_populares_hardliners
 	}
 	#############
 	# Optimates #
@@ -5555,23 +5647,8 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_populare = 9
-		}
 		subtract_from_temp_variable = {
 			CAL_gravitas_change_emperor = 5
-		}
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				var = CAL_populares_loyalty
-				value = 30
-				compare = less_than_or_equals
-			}
-		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_populare = 1
 		}
 	}
 	else_if = {
@@ -5597,16 +5674,10 @@ CAL_loyalty_tick = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 10
 		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_populare = 1
-		}
 	}
 	else = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 15
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_populare = 3
 		}
 	}
 	#loyalty-bonus-optimate
@@ -5618,26 +5689,8 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_optimate = 5
-		}
 		subtract_from_temp_variable = {
 			CAL_gravitas_change_emperor = 10
-		}
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				var = CAL_optimates_loyalty
-				value = 20
-				compare = less_than_or_equals
-			}
-		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_optimate = 3
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_emperor = 5
 		}
 	}
 	else_if = {
@@ -5648,8 +5701,8 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_optimate = 1
+		subtract_from_temp_variable = {
+			CAL_gravitas_change_emperor = 5
 		}
 	}
 	else_if = {
@@ -5675,16 +5728,10 @@ CAL_loyalty_tick = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 10
 		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_optimate = 1
-		}
 	}
 	else = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 15
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_optimate = 3
 		}
 	}
 	#loyalty-bonus-legiones
@@ -5696,26 +5743,9 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_legiones = 5
-		}
+
 		subtract_from_temp_variable = {
 			CAL_gravitas_change_emperor = 10
-		}
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				var = CAL_legiones_loyalty
-				value = 20
-				compare = less_than_or_equals
-			}
-		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_legiones = 3
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_emperor = 5
 		}
 	}
 	else_if = {
@@ -5726,8 +5756,8 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_legiones = 1
+		subtract_from_temp_variable = {
+			CAL_gravitas_change_emperor = 5
 		}
 	}
 	else_if = {
@@ -5753,16 +5783,10 @@ CAL_loyalty_tick = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 10
 		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_legiones = 1
-		}
 	}
 	else = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 15
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_legiones = 3
 		}
 	}
 	#loyalty-bonus-preatoriae
@@ -5774,26 +5798,8 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_preatoriae = 5
-		}
 		subtract_from_temp_variable = {
 			CAL_gravitas_change_emperor = 10
-		}
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				var = CAL_praetoriae_loyalty
-				value = 20
-				compare = less_than_or_equals
-			}
-		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_preatoriae = 3
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_emperor = 5
 		}
 	}
 	else_if = {
@@ -5804,8 +5810,8 @@ CAL_loyalty_tick = {
 				compare = less_than_or_equals
 			}
 		}
-		add_to_temp_variable = {
-			CAL_gravitas_change_preatoriae = 1
+		subtract_from_temp_variable = {
+			CAL_gravitas_change_emperor = 5
 		}
 	}
 	else_if = {
@@ -5831,16 +5837,10 @@ CAL_loyalty_tick = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 10
 		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_preatoriae = 1
-		}
 	}
 	else = {
 		add_to_temp_variable = {
 			CAL_gravitas_change_emperor = 15
-		}
-		subtract_from_temp_variable = {
-			CAL_gravitas_change_preatoriae = 3
 		}
 	}
 	#from units
