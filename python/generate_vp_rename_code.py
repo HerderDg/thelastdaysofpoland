@@ -37,7 +37,13 @@ while True:
         if language == "POL":
             polish.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"\n\t\t}\n\t}\n");
         elif language == "CAL":
-            latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");
+            if province_id in ["13760","13763","13771"]:
+                print(province_id)
+                latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t\tNOT = {\n\t\t\t\thas_global_flag = CAL_"+province_id+"_alt_name\n\t\t\t}\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");
+            else:
+                latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");
+        elif language == "CAL2":
+            latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t\thas_global_flag = CAL_"+province_id+"_alt_name\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL2\n\t\t}\n\t}\n");
         elif language == "CZE":
             czepanese.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CZE\n\t\t}\n\t}\n");
         elif language == "GER":   
