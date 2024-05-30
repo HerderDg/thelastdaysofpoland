@@ -3069,16 +3069,16 @@ CAL_initiate_senate_vote_populares = {
 		}
 		set_variable = {
 			var = CAL_optimates_yes
-			value = CAL_optimates_hardliners
+			value = CAL_optimates_swayable
 		}
 		set_variable = {
 			CAL_optimates_yes_percentage = 0.1
 		}
-		set_temp_variable = {
-			CAL_optimates_moving_yes = CAL_optimates_swayable
+		set_variable = {
+			CAL_optimates_yes = CAL_optimates_swayable
 		}
-		multiply_temp_variable = {
-			CAL_optimates_moving_yes = CAL_optimates_yes_percentage
+		multiply_variable = {
+			CAL_optimates_yes = CAL_optimates_yes_percentage
 		}
 	}
 	else = {
@@ -3089,17 +3089,14 @@ CAL_initiate_senate_vote_populares = {
 		set_variable = {
 			CAL_optimates_yes_percentage = 0.2
 		}
-		set_temp_variable = {
-			CAL_optimates_moving_yes = CAL_optimates_swayable
+		set_variable = {
+			CAL_optimates_yes = CAL_optimates_swayable
 		}
-		multiply_temp_variable = {
-			CAL_optimates_moving_yes = CAL_optimates_yes_percentage
+		multiply_variable = {
+			CAL_optimates_yes = CAL_optimates_yes_percentage
 		}
 	}
-	round_temp_variable = CAL_optimates_moving_yes
-	add_to_variable = {
-		CAL_optimates_yes = CAL_optimates_moving_yes
-	}
+	round_variable = CAL_optimates_yes
 	set_variable = {
 		CAL_optimates_no = CAL_optimates_count
 	}
@@ -3135,18 +3132,20 @@ CAL_initiate_senate_vote_optimates = {
 	subtract_from_variable = {
 		CAL_populares_swayable = CAL_populares_hardliners
 	}
+	
 	set_variable = {
 		CAL_optimates_swayable = CAL_optimates_count
 	}
 	subtract_from_variable = {
 		CAL_optimates_swayable = CAL_optimates_hardliners
 	}
+	log = "SWAYABLE: [?CAL_populares_swayable]/[?CAL_optimates_swayable]"
 	#############
 	# Populares #
 	#############
 
 	# Yes
-
+	log = "POPULARES FOR: [?CAL_populares_yes]"
 	if = {
 		limit = {
 			check_variable = {
@@ -3169,37 +3168,28 @@ CAL_initiate_senate_vote_optimates = {
 		}
 		set_variable = {
 			var = CAL_populares_yes
-			value = CAL_populares_hardliners
+			value = CAL_populares_swayable
 		}
 		set_variable = {
 			CAL_populares_yes_percentage = 0.1
 		}
-		set_temp_variable = {
-			CAL_populares_moving_yes = CAL_populares_swayable
-		}
-		multiply_temp_variable = {
-			CAL_populares_moving_yes = CAL_populares_yes_percentage
+		multiply_variable = {
+			CAL_populares_yes = CAL_populares_yes_percentage
 		}
 	}
 	else = {
 		set_variable = {
 			var = CAL_populares_yes
-			value = CAL_populares_hardliners
+			value = CAL_populares_swayable
 		}
 		set_variable = {
 			CAL_populares_yes_percentage = 0.2
 		}
-		set_temp_variable = {
-			CAL_populares_moving_yes = CAL_populares_swayable
-		}
-		multiply_temp_variable = {
-			CAL_populares_moving_yes = CAL_populares_yes_percentage
+		multiply_variable = {
+			CAL_populares_yes = CAL_populares_yes_percentage
 		}
 	}
-	round_temp_variable = CAL_populares_moving_yes
-	add_to_variable = {
-		CAL_populares_yes = CAL_populares_moving_yes
-	}
+	round_variable = CAL_populares_yes
 	set_variable = {
 		CAL_populares_no = CAL_populares_count
 	}
