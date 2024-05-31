@@ -3050,7 +3050,10 @@ country_event = {
 	option = { #senat + pretorianie, legion przegrywa
 		name = calisia.129.a 
 		trigger = { 
-			ALP = { surrender_progress > 0.5 }
+			OR = {
+				ALP = { surrender_progress > 0.5 }
+				NOT = { country_exists = ALP }
+			}
 		}
 		PRT = {
 			annex_country = {
@@ -3065,7 +3068,10 @@ country_event = {
 	option = { #senat + legion, pretorianie przegrywają
 		name = calisia.129.b 
 		trigger = { 
-			PRT = { surrender_progress > 0.5 }
+			OR = {
+				PRT = { surrender_progress > 0.5 }
+				NOT = { country_exists = PRT }
+			}
 		}
 		ALP = {
 			annex_country = {
@@ -3081,7 +3087,20 @@ country_event = {
 	option = { #legion + pretorianie, senat przegrywa
 		name = calisia.129.c 
 		trigger = { 
-			CAL = { surrender_progress > 0.5 }
+			OR = {
+				AND = {
+					CAL = { surrender_progress > 0.5 }
+					NOT = {
+						PRT = { surrender_progress > 0.5 }
+					}
+				}
+				AND = {
+					NOT = { country_exists = CAL }
+					NOT = {
+						PRT = { surrender_progress > 0.5 }
+					}
+				}
+			}
 		}
 		ALP = {
 			annex_country = {
