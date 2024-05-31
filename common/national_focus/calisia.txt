@@ -15581,6 +15581,7 @@ CAL_redraw_senate_diagram = yes
 							#}
 						}
 						remove_ideas = podlasie_tribe_idea
+						inherit_technology = CAL
 						
 					}
 					PRT = {
@@ -15595,6 +15596,7 @@ CAL_redraw_senate_diagram = yes
 							}
 						}
 						remove_ideas = podlasie_tribe_idea
+						inherit_technology = CAL
 						
 					}
 				}
@@ -16275,8 +16277,28 @@ CAL_redraw_senate_diagram = yes
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-			ALP = {
-				set_cosmetic_tag = ALP_LEGIONY_POST
+			if = {
+				limit = {
+					CAL = {
+						exists = yes
+					}
+				}
+				ALP = {
+					set_cosmetic_tag = ALP_LEGIONY_POST
+				}
+			}
+			else_if = {
+				limit = {
+					CAL = {
+						exists = no
+					}
+				}
+				ALP = {
+					set_cosmetic_tag = ALP_AUS
+				}
+				PRT = {
+					set_cosmetic_tag = PRT_BOR
+				}
 			}
 		}
 	}
