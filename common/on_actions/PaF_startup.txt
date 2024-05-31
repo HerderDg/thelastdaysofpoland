@@ -1381,50 +1381,58 @@ on_actions = {
 					}
 				}
 				#loyalty-bonus-preatoriae
-				if ={
+				if= {
 					limit = {
-						check_variable = {
-							var = CAL_praetoriae_loyalty
-							value = 15
-							compare = less_than_or_equals
+						not = {
+							has_country_flag = CAL_praetorians_banned
 						}
 					}
-					add_to_variable = {
-						CAL_praetoriae_gravitas = 5
-					}
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							var = CAL_praetoriae_loyalty
-							value = 30
-							compare = less_than_or_equals
+					if ={
+						limit = {
+							check_variable = {
+								var = CAL_praetoriae_loyalty
+								value = 15
+								compare = less_than_or_equals
+							}
+						}
+						add_to_variable = {
+							CAL_praetoriae_gravitas = 5
 						}
 					}
-					add_to_variable = {
-						CAL_praetoriae_gravitas = 3
-					}
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							CAL_praetoriae_loyalty > 80
+					else_if = {
+						limit = {
+							check_variable = {
+								var = CAL_praetoriae_loyalty
+								value = 30
+								compare = less_than_or_equals
+							}
 						}
-						check_variable = {
-							var = CAL_praetoriae_loyalty
-							value = 90
-							compare = less_than_or_equals
+						add_to_variable = {
+							CAL_praetoriae_gravitas = 3
 						}
 					}
-					subtract_from_variable =  {
-						CAL_praetoriae_gravitas = 1
+					else_if = {
+						limit = {
+							check_variable = {
+								CAL_praetoriae_loyalty > 80
+							}
+							check_variable = {
+								var = CAL_praetoriae_loyalty
+								value = 90
+								compare = less_than_or_equals
+							}
+						}
+						subtract_from_variable =  {
+							CAL_praetoriae_gravitas = 1
+						}
+					}
+					else = {
+						subtract_from_variable =  {
+							CAL_praetoriae_gravitas = -3
+						}
 					}
 				}
-				else = {
-					subtract_from_variable =  {
-						CAL_praetoriae_gravitas = -3
-					}
-				}
+				
 				CAL_clamp_on_loyalty_and_gravitas = yes
 			}
 			

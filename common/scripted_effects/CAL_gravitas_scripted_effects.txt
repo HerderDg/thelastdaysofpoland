@@ -5216,39 +5216,48 @@ CAL_set_military_loyalty_effects = {
 
 	if = {
 		limit = {
-			check_variable = {
-				CAL_praetoriae_loyalty < 15
-			}
+			has_country_flag = CAL_praetorians_banned
 		}
-		CAL_set_praetoriae_loyalty_0 = yes
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				CAL_praetoriae_loyalty < 30
-			}
-		}
-		CAL_set_praetoriae_loyalty_1 = yes
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				CAL_praetoriae_loyalty < 80
-			}
-		}
-		CAL_set_praetoriae_loyalty_2 = yes
-	}
-	else_if = {
-		limit = {
-			check_variable = {
-				CAL_praetoriae_loyalty < 90
-			}
-		}
-		CAL_set_praetoriae_loyalty_3 = yes
+		CAL_unset_praetoriae_loyalty = yes
 	}
 	else = {
-		CAL_set_praetoriae_loyalty_4 = yes
+		if = {
+			limit = {
+				check_variable = {
+					CAL_praetoriae_loyalty < 15
+				}
+			}
+			CAL_set_praetoriae_loyalty_0 = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_praetoriae_loyalty < 30
+				}
+			}
+			CAL_set_praetoriae_loyalty_1 = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_praetoriae_loyalty < 80
+				}
+			}
+			CAL_set_praetoriae_loyalty_2 = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					CAL_praetoriae_loyalty < 90
+				}
+			}
+			CAL_set_praetoriae_loyalty_3 = yes
+		}
+		else = {
+			CAL_set_praetoriae_loyalty_4 = yes
+		}
 	}
+	
 }
 
 CAL_set_legiones_loyalty_0 = {
@@ -5529,6 +5538,39 @@ CAL_set_praetoriae_loyalty_4 = {
 		remove_ideas = CAL_praetoriae_rebellious
 	}
 	add_ideas = CAL_praetoriae_fanatical
+}
+
+CAL_unset_praetoriae_loyalty = {
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_disloyal
+		}
+		remove_ideas = CAL_praetoriae_disloyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_hesistant
+		}
+		remove_ideas = CAL_praetoriae_hesistant
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_loyal
+		}
+		remove_ideas = CAL_praetoriae_loyal
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_rebellious
+		}
+		remove_ideas = CAL_praetoriae_rebellious
+	}
+	if = {
+		limit = {
+			has_idea = CAL_praetoriae_fanatical
+		}
+		remove_ideas = CAL_praetoriae_fanatical
+	}
 }
 
 CAL_set_populares_loyalty_0 = {
@@ -6290,11 +6332,19 @@ CAL_loyalty_tick = {
 		value = CAL_gravitas_change_legiones
 		tooltip = CAL_change_gravitas_legiones_tt_sum
 	}
-	add_to_variable = {
-		var = CAL_praetoriae_gravitas
-		value = CAL_gravitas_change_preatoriae
-		tooltip = CAL_change_gravitas_praetoriae_tt_sum
+	if = {
+		limit = {
+			not = {
+				has_country_flag = CAL_praetorians_banned
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_gravitas
+				value = CAL_gravitas_change_preatoriae
+				tooltip = CAL_change_gravitas_praetoriae_tt_sum
+			}
+		}
 	}
+	
 	add_to_variable = {
 		var = CAL_emperor_gravitas
 		value = CAL_gravitas_change_emperor
