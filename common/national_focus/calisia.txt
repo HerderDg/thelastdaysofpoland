@@ -232,7 +232,7 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = { 
-			country_event = calisia.12
+			#country_event = calisia.12
 			CAL_initialize_senate = yes
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_ager_publicus_unlock_gravitas
@@ -2081,7 +2081,7 @@ focus_tree = {
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_calisia_aeterna_victrix
 		available = {
-			
+			has_completed_focus = CAL_pax_calisiana
 		}
 		
 		bypass = {
@@ -3207,6 +3207,7 @@ focus_tree = {
 		icon = CAL_in_service_of_calisia
 		text_icon = CALISIA_focus_style 
 		available = {
+			has_completed_focus = CAL_pax_calisiana
 			has_country_flag = unified_voivodeship
 		}
 		
@@ -3706,6 +3707,7 @@ focus_tree = {
         relative_position_id = CAL_in_service_of_calisia
 		available = {
 			has_country_flag = unified_voivodeship
+			has_completed_focus = CAL_pax_calisiana
 		}
 		
 		bypass = {
@@ -4886,6 +4888,7 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = { 
 			846 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = university
 					level = 1
@@ -9651,7 +9654,7 @@ CAL_redraw_senate_diagram = yes
         relative_position_id = CAL_arrest_the_plotters_in_the_senate
 		prerequisite = { focus = CAL_dissolution_of_the_praetorian_guard }
 		available = {
-			has_country_flag = poland_mountain
+			#has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -10629,6 +10632,11 @@ CAL_redraw_senate_diagram = yes
 		completion_reward = { 
 		    country_event = calisia.82
 			set_temp_variable = { CAL_loyalty_change = -100 }
+			CAL = {
+				retire_character = CAL_andrzej_kompa
+				retire_character = CAL_rafal_chwedoruk
+				retire_character = CAL_malecki
+			}
 			add_to_variable = {
 				var = CAL_populares_loyalty
 				value = CAL_loyalty_change
@@ -11503,6 +11511,14 @@ CAL_redraw_senate_diagram = yes
 			add_popularity = {
 				ideology = socialdemocrature
 				popularity = -0.2
+			}
+			CAL = {
+				every_army_leader = {
+					limit = {
+						has_trait = popular
+					}
+					remove_unit_leader_role = yes
+				}
 			}
 			set_temp_variable = { CAL_gravitas_change = -20 }
 			add_to_variable = {
@@ -14188,6 +14204,7 @@ CAL_redraw_senate_diagram = yes
 		text_icon = CALISIA_focus_style 
 		available = {
 		    has_completed_focus = CAL_progedi_populus
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -15548,7 +15565,18 @@ CAL_redraw_senate_diagram = yes
 						transfer_state =  894
 						transfer_state =  267
 						transfer_state =  273
-
+						every_army_leader = {
+							limit = {
+								has_trait = legionarius
+							}
+							set_nationality = ALP
+						}
+						every_army_leader = {
+							limit = {
+								has_trait = praetorian
+							}
+							set_nationality = PRT
+						}
 					}
 					ALP = {
 						load_oob = "ALP_2027"
@@ -15570,6 +15598,7 @@ CAL_redraw_senate_diagram = yes
 							#}
 						}
 						remove_ideas = podlasie_tribe_idea
+						inherit_technology = CAL
 						
 					}
 					PRT = {
@@ -15584,6 +15613,7 @@ CAL_redraw_senate_diagram = yes
 							}
 						}
 						remove_ideas = podlasie_tribe_idea
+						inherit_technology = CAL
 						
 					}
 				}
@@ -16264,8 +16294,28 @@ CAL_redraw_senate_diagram = yes
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-			ALP = {
-				set_cosmetic_tag = ALP_LEGIONY_POST
+			if = {
+				limit = {
+					CAL = {
+						exists = yes
+					}
+				}
+				ALP = {
+					set_cosmetic_tag = ALP_LEGIONY_POST
+				}
+			}
+			else_if = {
+				limit = {
+					CAL = {
+						exists = no
+					}
+				}
+				ALP = {
+					set_cosmetic_tag = ALP_AUS
+				}
+				PRT = {
+					set_cosmetic_tag = PRT_BOR
+				}
 			}
 		}
 	}
