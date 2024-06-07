@@ -4470,6 +4470,49 @@ country_event = {
 	}
 }
 
+country_event = { 
+	id = calisia.172 #danie traita nowemu generałowi
+	title = calisia.172.t
+	desc = calisia.172.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.172"}
+	option = {
+		name = calisia.172.a
+		every_unit_leader = {
+			if = {
+				limit = {
+					NOT = {
+						has_trait = popular
+						has_trait = optimate
+						has_trait = legionarius
+						has_trait = praetorian
+					}
+				}
+				random_list = {
+					50 = {
+						add_unit_leader_trait = popular
+						add_unit_leader_trait = legionarius
+					}
+					50 = {
+						add_unit_leader_trait = optimate
+						random_list = {
+							50 = {
+								add_unit_leader_trait = legionarius
+							}
+							50 = {
+								add_unit_leader_trait = praetorian
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 country_event = { #pudzian przychodzi do kalisza
 	id = calisia.1000
 	title = calisia.1000.t
