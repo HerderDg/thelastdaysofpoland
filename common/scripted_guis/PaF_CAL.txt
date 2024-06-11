@@ -919,6 +919,8 @@ scripted_gui = {
 		}
 		
 		triggers = {
+			GFX_CAL_senate_suspended_visible = { has_country_flag = CAL_senate_closed_due_to_grmans}
+
 			GFX_CAL_consuli_populare_1_visible = { check_variable = {CAL_populares_consuls > 0 } }
 			GFX_CAL_consuli_populare_2_visible = { check_variable = {CAL_populares_consuls > 1 } }
 			GFX_CAL_consuli_populare_3_visible = { check_variable = {CAL_populares_consuls = 3 } }
@@ -1726,6 +1728,384 @@ scripted_gui = {
 			GFX_CAL_senate_seat_897_visible = { check_variable = { CAL_senate_lvl = 4 } }
 			GFX_CAL_senate_seat_898_visible = { check_variable = { CAL_senate_lvl = 4 } }
 			GFX_CAL_senate_seat_899_visible = { check_variable = { CAL_senate_lvl = 4 } }
+		
+			GFX_CAL_senate_ita_count_visible = { has_active_mission = CAL_senate_voting_mission }
+			GFX_CAL_senate_non_count_visible = { has_active_mission = CAL_senate_voting_mission }
+			praetoriae_button_click_enabled = {
+				NOT = {
+					has_country_flag = CAL_praetorians_banned
+				}
+			}
+		}
+
+		effects = {
+			populares_button_click = {
+				set_variable = {
+					CAL_decision_group = 1
+				}
+			}
+			optimates_button_click = {
+				set_variable = {
+					CAL_decision_group = 2
+				}
+			}
+			legiones_button_click = {
+				set_variable = {
+					CAL_decision_group = 3
+				}
+			}
+			praetoriae_button_click = {
+				set_variable = {
+					CAL_decision_group = 4
+				}
+			}
+		}
+	}
+
+	CAL_empire_management_gui = {
+		window_name = "GFX_govenorships_UI"
+		context_type = decision_category
+		parent_window_token = decision_tab
+
+		properties = {
+			pomerania_btn = {image = "[GetPomeraniaBtnState]"}
+			borussia_btn = {image = "[GetBorussiaBtnState]"}
+			calisia_btn = {image = "[GetCalisiaBtnState]"}
+			vistulania_btn = {image = "[GetVistulaniaBtnState]"}
+			podlachia_btn = {image = "[GetPodlachiaBtnState]"}
+			silesia_inferior_btn = {image = "[GetSilesiaInferiorBtnState]"}
+			vartia_btn = {image = "[GetVartiaBtnState]"}
+			constantia_btn = {image = "[GetConstantiaBtnState]"}
+			silesia_superior_btn = {image = "[GetSilesiaSuperiorBtnState]"}
+			bescidia_btn = {image = "[GetBescidiaBtnState]"}
+			gallicia_btn = {image = "[GetGalliciaBtnState]"}
+			scythia_btn = {image = "[GetScythiaBtnState]"}
+
+			GFX_current_region = {image = "[GetCurrentRegionLogo]"}
+			GFX_current_governor = {image = "[GetCurrentGovernor]"}
+
+			GFX_pomerania_governor = {image = "[GetPomeraniaGovernor]"}
+			GFX_borussia_governor = {image = "[GetBorussiaGovernor]"}
+			GFX_vistulania_governor = {image = "[GetVistulaniaGovernor]"}
+			GFX_podlachia_governor = {image = "[GetPodlachiaGovernor]"}
+			GFX_silesia_inferior_governor = {image = "[GetSilesiaInferiorGovernor]"}
+			GFX_vartia_governor = {image = "[GetVartiaGovernor]"}
+			GFX_constantia_governor = {image = "[GetConstantiaGovernor]"}
+			GFX_silesia_superior_governor = {image = "[GetSilesiaSuperiorGovernor]"}
+			GFX_bescidia_governor = {image = "[GetBescidiaGovernor]"}
+			GFX_gallicia_governor = {image = "[GetGalliciaGovernor]"}
+			GFX_scythia_governor = {image = "[GetScythiaGovernor]"}
+			GFX_faction_logo = {image = "[GetCurrentFactionLogo]"}
+		}
+
+		triggers = {
+			pomerania_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_west_pomerania = yes
+						controls_pomerelia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_phaon
+						has_idea = CAL_governor_phaon2
+					}
+					
+				}
+			}
+			GFX_pomerania_governor_visible = {
+				OR = {
+					AND = {
+						controls_west_pomerania = yes
+						controls_pomerelia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_phaon
+						has_idea = CAL_governor_phaon2
+					}
+				}
+			}
+			borussia_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_warmia_and_masuria = yes
+						controls_state = 48
+					}
+					OR = {
+						has_idea = CAL_governor_scriptor
+						has_idea = CAL_governor_scriptor2
+					}
+				}
+			}
+			GFX_borussia_governor_visible = {
+				OR = {
+					AND = {
+						controls_warmia_and_masuria = yes
+						controls_state = 48
+					}
+					OR = {
+						has_idea = CAL_governor_scriptor
+						has_idea = CAL_governor_scriptor2
+					}
+				}
+			}
+			vistulania_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_kuyavia = yes
+						controls_mazovia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_obaitex
+						has_idea = CAL_governor_obaitex2
+					}
+				}
+				
+			}
+			GFX_vistulania_governor_visible = {
+				OR = {
+					AND = {
+						controls_kuyavia = yes
+						controls_mazovia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_obaitex
+						has_idea = CAL_governor_obaitex2
+					}
+				}
+			}
+			podlachia_btn_click_enabled = {
+				OR = {
+					controls_podlasie = yes
+					OR = {
+						has_idea = CAL_governor_majorix
+						has_idea = CAL_governor_majorix2
+					}
+				}
+			}
+			GFX_podlachia_governor_visible = {
+				OR = {
+					controls_podlasie = yes
+					OR = {
+						has_idea = CAL_governor_majorix
+						has_idea = CAL_governor_majorix2
+					}
+				}
+			}
+			constantia_btn_click_enabled = {
+				OR = {
+					controls_capital_district = yes
+					OR = {
+						has_idea = CAL_governor_trascovicus
+						has_idea = CAL_governor_trascovicus2
+					}  
+				}
+			}
+			GFX_constantia_governor_visible = {
+				OR = {
+					controls_capital_district = yes
+					OR = {
+						has_idea = CAL_governor_trascovicus
+						has_idea = CAL_governor_trascovicus2
+					}  
+				}
+			}
+			silesia_inferior_btn_click_enabled = {
+				NOT = {
+					has_country_flag = CAL_praetorians_banned
+				}
+				OR = {
+					AND = {
+						controls_legnica = yes
+						controls_lower_silesia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_cinastovicus
+						has_idea = CAL_governor_cinastovicus2
+					}
+				}
+			}
+			GFX_silesia_inferior_governor_visible = {
+				OR = {
+					AND = {
+						controls_legnica = yes
+						controls_lower_silesia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_cinastovicus
+						has_idea = CAL_governor_cinastovicus2
+					}
+				}
+			}
+			silesia_superior_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_opolskie = yes
+						controls_upper_silesia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_bescus
+						has_idea = CAL_governor_bescus2
+					} 
+				}
+			}
+			GFX_silesia_superior_governor_visible = {
+				OR = {
+					AND = {
+						controls_opolskie = yes
+						controls_upper_silesia = yes
+					}
+					OR = {
+						has_idea = CAL_governor_bescus
+						has_idea = CAL_governor_bescus2
+					} 
+				}
+			}
+			vartia_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_lodz = yes
+						controls_zaglebie = yes
+					}
+					OR = {
+						has_idea = CAL_governor_naimanus
+						has_idea = CAL_governor_naimanus2
+					}
+				}
+			}
+			GFX_vartia_governor_visible = {
+				OR = {
+					AND = {
+						controls_lodz = yes
+						controls_zaglebie = yes
+					}
+					OR = {
+						has_idea = CAL_governor_naimanus
+						has_idea = CAL_governor_naimanus2
+					}
+				}
+			}
+			bescidia_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_tatry = yes
+						controls_lesser_poland = yes
+					}
+					OR = {
+						has_idea = CAL_governor_vinicius
+						has_idea = CAL_governor_vinicius2
+					}
+				}
+			}
+			GFX_bescidia_governor_visible = {
+				OR = {
+					AND = {
+						controls_tatry = yes
+						controls_lesser_poland = yes
+					}
+					OR = {
+						has_idea = CAL_governor_vinicius
+						has_idea = CAL_governor_vinicius2
+					}
+				}
+			}
+			gallicia_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_holy_cross = yes
+						controls_radom_province = yes
+					}
+					OR = {
+						has_idea = CAL_governor_iconovicus
+						has_idea = CAL_governor_iconovicus2
+					}
+				}
+			}
+			GFX_gallicia_governor_visible = {
+				OR = {
+					AND = {
+						controls_holy_cross = yes
+						controls_radom_province = yes
+					}
+					OR = {
+						has_idea = CAL_governor_iconovicus
+						has_idea = CAL_governor_iconovicus2
+					}
+				}
+			}
+			scythia_btn_click_enabled = {
+				OR = {
+					AND = {
+						controls_subcarpathia = yes
+						controls_lubelskie =  yes
+					}
+					OR = {
+						has_idea = CAL_governor_sturnus
+						has_idea = CAL_governor_sturnus2
+					}
+				}
+			}
+			GFX_scythia_governor_visible = {
+				OR = {
+					AND = {
+						controls_subcarpathia = yes
+						controls_lubelskie = yes
+					}
+					OR = {
+						has_idea = CAL_governor_sturnus
+						has_idea = CAL_governor_sturnus2
+					}
+				}
+			}
+		}
+
+		effects = {
+			pomerania_btn_click = {
+				set_variable = { CAL_region_chosen = 1 }
+			}
+
+			borussia_btn_click = {
+				set_variable = { CAL_region_chosen = 2 }
+			}
+
+			calisia_btn_click = {
+				set_variable = { CAL_region_chosen = 3 }
+			}
+
+			vistulania_btn_click = {
+				set_variable = { CAL_region_chosen = 4 }
+			}
+
+			podlachia_btn_click = {
+				set_variable = { CAL_region_chosen = 5 }
+			}
+
+			silesia_inferior_btn_click = {
+				set_variable = { CAL_region_chosen = 6 }
+			}
+
+			silesia_superior_btn_click = {
+				set_variable = { CAL_region_chosen = 7 }
+			}
+
+			vartia_btn_click = {
+				set_variable = { CAL_region_chosen = 8 }
+			}
+
+			constantia_btn_click = {
+				set_variable = { CAL_region_chosen = 9 }
+			}
+
+			gallicia_btn_click = {
+				set_variable = { CAL_region_chosen = 10 }
+			}
+
+			bescidia_btn_click = {
+				set_variable = { CAL_region_chosen = 11 }
+			}
+
+			scythia_btn_click = {
+				set_variable = { CAL_region_chosen = 12 }
+			}
 		}
 	}
 }

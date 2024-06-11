@@ -1,4 +1,5 @@
 ﻿add_namespace = calisia
+add_namespace = post_calisia
 
 country_event = {
 	id = calisia.1
@@ -8,7 +9,14 @@ country_event = {
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.1"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.1"
+		set_country_flag = CAL_senate_closed_due_to_grmans
+		set_country_flag = CAL_show_war_foci
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+		complete_national_focus = CAL_lojalnosc_wiecznego_miasta
+		}
+	}
 	option = {
 		name = calisia.1.a
 		declare_war_on = {
@@ -25,6 +33,12 @@ country_event = {
 		add_state_claim = 846
 		complete_national_focus = CAL_order_behind_prosna
 		log = "[GetDateText]: kalisz napierdala kesselberga"
+		swap_ideas = {
+			remove_idea = CAL_army_worthy_of_aurelian
+			add_idea = CAL_civic_army
+		}
+		custom_effect_tooltip = rozdzielacz_efektow
+		custom_effect_tooltip = CAL_chaos_on_prosna_event_tt
 	}
 }
 country_event = { #good to be an emperor
@@ -125,6 +139,7 @@ country_event = { #questions of donativum
 	id = calisia.9
 	title = calisia.9.t
 	desc = calisia.9.desc
+	picture = GFX_event_calisia.9
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -151,12 +166,10 @@ country_event = { #Bribe for Praetorians
 		# 	remove_idea = CAL_praetoriae_hesistant
 		# 	add_idea = CAL_praetoriae_loyal
 		# }
-		custom_effect_tooltip = CAL_praetoriae_et_optimates_gain
-		add_to_variable = {
-			CAL_optimates_loyalty = 1
-			CAL_praetoriae_loyalty = 2
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.03
 		}
-
 	}
 }
 
@@ -175,11 +188,9 @@ country_event = { #Higher Pay for Legionnaires
 		# 	remove_idea = CAL_legiones_hesistant
 		# 	add_idea = CAL_legiones_loyal
 		# }
-		custom_effect_tooltip = CAL_legiones_et_populares_gain
-		add_to_variable = {
-			CAL_populares_loyalty = 1
-			CAL_legiones_loyalty = 2
-
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 0.03
 		}
 	}
 }
@@ -188,6 +199,7 @@ country_event = { #Lex Ager Publicus
 	id = calisia.12
 	title = calisia.12.t
 	desc = calisia.12.desc
+	picture = GFX_event_calisia.12
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -201,6 +213,7 @@ country_event = { #Speech about abuses
 	id = calisia.13
 	title = calisia.13.t
 	desc = calisia.13.desc
+	picture = GFX_event_calisia.senate
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -210,12 +223,32 @@ country_event = { #Speech about abuses
 		name = calisia.13.a
 		set_country_flag = CAL_ager_publicus_sided_with_optimates
 		add_ideas = CAL_repercussions_of_abuses_optimates_1
+		custom_effect_tooltip = rozdzielacz_efektow
+		custom_effect_tooltip = CAL_vote_begins_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_ager_publicus_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
 	}
 
 	option = { #Populares
 		name = calisia.13.b
 		set_country_flag = CAL_ager_publicus_sided_with_populares
 		add_ideas = CAL_repercussions_of_abuses_populares_1
+		custom_effect_tooltip = rozdzielacz_efektow
+		custom_effect_tooltip = CAL_vote_begins_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_ager_publicus_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
 	}
 }
 
@@ -223,12 +256,14 @@ country_event = {
 	id = calisia.14
 	title = calisia.14.t
 	desc = calisia.14.desc
+	picture = GFX_event_calisia.senate
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.14"}
 	option = {
 		name = calisia.14.a
+		add_stability = -0.1
 		if = {
 			limit = {
 				has_country_flag = CAL_ager_publicus_sided_with_optimates
@@ -241,6 +276,11 @@ country_event = {
 			}
 			remove_ideas = CAL_repercussions_of_abuses_populares_4
 		}
+		complete_national_focus = CAL_chaos_na_komisjach
+		hidden_effect = {
+			set_country_flag = CAL_ager_publicus_failed
+			mark_focus_tree_layout_dirty = yes
+		}
 	}
 }
 
@@ -248,7 +288,7 @@ country_event = { #Triumph in Gnesna
 	id = calisia.15
 	title = calisia.15.t
 	desc = calisia.15.desc
-	picture = GFX_event_gniezno
+	picture = GFX_event_calisia.triumph
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -262,7 +302,7 @@ country_event = { #Triumph in Lessna Polonorum
 	id = calisia.16
 	title = calisia.16.t
 	desc = calisia.16.desc
-	picture = GFX_event_leszno
+	picture = GFX_event_calisia.triumph
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -276,7 +316,7 @@ country_event = { #Triumph in Mercuria Maior
 	id = calisia.17
 	title = calisia.17.t
 	desc = calisia.17.desc
-	picture = GFX_event_sroda_wielkopolska
+	picture = GFX_event_calisia.triumph
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -297,6 +337,33 @@ country_event = { #Equites Class
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.18"}
 	option = {
 		name = calisia.18.a
+		division_template = {
+			name = "Equites"
+			division_names_group = CAL_AUX_01
+			priority = 0
+			template_counter = 5
+			regiments = {
+				cavalry = { x = 0 y = 0 }
+				cavalry = { x = 0 y = 1 }
+				cavalry = { x = 0 y = 2 }
+				cavalry = { x = 0 y = 3 }
+			}
+		}
+		custom_effect_tooltip = CAL_sarmatian_cavalry_tt
+		hidden_effect = {
+			256 = {
+				create_unit = {
+					division = "division_template = \"Equites\""
+					owner = CAL
+				}
+			}
+			240 = {
+				create_unit = {
+					division = "division_template = \"Equites\""
+					owner = CAL
+				}
+			}
+		}
 	}
 }
 
@@ -318,12 +385,17 @@ country_event = {  #the first Provincia
 	id = calisia.20
 	title = calisia.20.t
 	desc = calisia.20.desc
+	picture = GFX_event_calisia.10
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.20"}
 	option = {
 		name = calisia.20.a
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.02
+		}
 	}
 }
 
@@ -331,6 +403,7 @@ country_event = {  #constititio calisiana
 	id = calisia.21
 	title = calisia.21.t
 	desc = calisia.21.desc
+	picture = GFX_event_calisia.senate
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -358,12 +431,17 @@ country_event = {  #early elections
 	id = calisia.23
 	title = calisia.23.t
 	desc = calisia.23.desc
+	picture = GFX_event_calisia.23
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.23"}
 	option = {
 		name = calisia.23.a
+		add_to_variable = {
+			CAL_senate_lvl = 1
+		}
+		CAL_add_new_senators = yes
 	}
 }
 
@@ -371,6 +449,7 @@ country_event = {  #assimilated velites
 	id = calisia.24
 	title = calisia.24.t
 	desc = calisia.24.desc
+	picture = GFX_event_calisia_legions
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -384,6 +463,7 @@ country_event = {  #Triumph in Equestria
 	id = calisia.25
 	title = calisia.25.t
 	desc = calisia.25.desc
+	picture = GFX_event_calisia.triumph
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -397,10 +477,39 @@ country_event = {  #Veni Vedi Vici?
 	id = calisia.26
 	title = calisia.26.t
 	desc = calisia.26.desc
+	picture = GFX_event_calisia.triumph
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.26"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.26"
+		clr_country_flag = CAL_senate_closed_due_to_grmans
+		set_variable = {CAL_emperor_gravitas = 200}
+		if = {
+			limit = {
+				has_country_flag = CAL_ager_publicus_sided_with_optimates
+			}
+			set_variable = {CAL_populares_gravitas = 95}
+			set_variable = {CAL_optimates_gravitas = 45}
+			set_variable = {CAL_praetoriae_gravitas = 40}
+			set_variable = {CAL_legiones_gravitas = 40}
+			set_variable = {CAL_populares_loyalty = 60}
+			set_variable = {CAL_optimates_loyalty = 75}
+			set_variable = {CAL_praetoriae_loyalty = 55}
+			set_variable = {CAL_legiones_loyalty = 70}
+			else = {
+				set_variable = {CAL_populares_gravitas = 55}
+				set_variable = {CAL_optimates_gravitas = 100}
+				set_variable = {CAL_praetoriae_gravitas = 50}
+				set_variable = {CAL_legiones_gravitas = 30}
+				set_variable = {CAL_populares_loyalty = 85}
+				set_variable = {CAL_optimates_loyalty = 55}
+				set_variable = {CAL_praetoriae_loyalty = 45}
+				set_variable = {CAL_legiones_loyalty = 70}
+			}
+		}
+		
+
+	}
 	option = {
 		name = calisia.26.a
 		add_stability = -0.05
@@ -411,28 +520,66 @@ country_event = {  #Auxilia Gnesnensis
 	id = calisia.27
 	title = calisia.27.t
 	desc = calisia.27.desc
+	picture = GFX_event_gniezno_druzyna
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.27"}
 	option = {
 		name = calisia.27.a
-		every_possible_country = {
-			limit = { has_character = KLO_ilski }
-			random_character = {
-				limit = { is_character = KLO_ilski }
-				set_nationality = CAL
+		custom_effect_tooltip = CAL_ilski_popular_tt
+		hidden_effect = {
+			every_possible_country = {
+				limit = { has_character = KLO_ilski }
+				random_character = {
+					limit = { is_character = KLO_ilski }
+					set_nationality = CAL
+				}
+				KLO_ilski = {
+					set_character_name = "Flavius Theodosius" #bo napisał pracę doktorską o Teodozjuszu II xd
+					add_corps_commander_role = {
+						traits = { popular }
+						skill = 1
+						attack_skill = 3
+						defense_skill = 1
+						planning_skill = 1
+						logistics_skill = 1
+						legacy_id = -1
+					}
+				}
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.02
 			}
 		}
-		KLO_ilski = {
-			add_corps_commander_role = {
-				traits = { }
-				skill = 1
-				attack_skill = 3
-				defense_skill = 1
-				planning_skill = 1
-				logistics_skill = 1
-				legacy_id = -1
+	}
+	option = {
+		name = calisia.27.b
+		custom_effect_tooltip = CAL_ilski_optimate_tt
+		hidden_effect = {
+			every_possible_country = {
+				limit = { has_character = KLO_ilski }
+				random_character = {
+					limit = { is_character = KLO_ilski }
+					set_nationality = CAL
+				}
+				KLO_ilski = {
+					set_character_name = "Flavius Theodosius"
+					add_corps_commander_role = {
+						traits = { optimate }
+						skill = 1
+						attack_skill = 3
+						defense_skill = 1
+						planning_skill = 1
+						logistics_skill = 1
+						legacy_id = -1
+					}
+				}
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.02
 			}
 		}
 	}
@@ -442,12 +589,15 @@ country_event = {  #Lex Commutationis
 	id = calisia.28
 	title = calisia.28.t
 	desc = calisia.28.desc
+	picture = GFX_event_calisia.senate
+	
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.28"}
 	option = {
 		name = calisia.28.a
+		set_country_flag = ager_publicus_lex_optimates
 	}
 }
 
@@ -455,12 +605,14 @@ country_event = {  #Lex Iustitiae Socialis
 	id = calisia.29
 	title = calisia.29.t
 	desc = calisia.29.desc
+	picture = GFX_event_calisia.senate
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.29"}
 	option = {
 		name = calisia.29.a
+		set_country_flag = ager_publicus_lex_populares
 	}
 }
 
@@ -468,12 +620,14 @@ country_event = {  #Calisia Aeterna Victrix
 	id = calisia.30
 	title = calisia.30.t
 	desc = calisia.30.desc
+	picture = GFX_event_calisia.30
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.30"}
 	option = {
 		name = calisia.30.a
+		add_ideas = CAL_political_disputes
 	}
 }
 
@@ -481,6 +635,7 @@ country_event = {  #Pecunia non olet
 	id = calisia.31
 	title = calisia.31.t
 	desc = calisia.31.desc
+	picture = GFX_event_calisia.9
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -495,6 +650,7 @@ country_event = {  #all roads lead to calisia
 	id = calisia.32
 	title = calisia.32.t
 	desc = calisia.32.desc
+	picture = GFX_event_calisia.32
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -502,16 +658,221 @@ country_event = {  #all roads lead to calisia
 	option = {
 		name = calisia.32.a
 
-		every_owned_state = {
-			add_building_construction = {
-				type = infrastructure
-				level = 1
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
 			}
+			fallback = yes
+			#path = {  }
+			start_province = 1372
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 14529
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 14583
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 14492
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 13526
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 13512
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 3006
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 14646
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 14750
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 13793
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 13752
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 13796
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 916
+			target_province = 1759
+		}
+		build_railway = {
+			level = 1
+			build_only_on_allied = yes
+			controller_priority = {
+				base = 1
+				modifier = {
+					tag = CAL
+					add = 2
+				}
+			}
+			fallback = yes
+			#path = {  }
+			start_province = 13546
+			target_province = 1759
 		}
 		custom_effect_tooltip = CAL_legiones_gain
 		add_to_variable = {
-			CAL_legiones_loyalty = 2
+			CAL_legiones_gravitas = 5
 		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
 	}
 }
 
@@ -519,6 +880,7 @@ country_event = {  #barbarian exodus
 	id = calisia.33
 	title = calisia.33.t
 	desc = calisia.33.desc
+	picture = GFX_event_calisia.33
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -528,10 +890,11 @@ country_event = {  #barbarian exodus
 	}
 }
 
-country_event = {
+country_event = { #Calisian Infrastructure
 	id = calisia.34
 	title = calisia.34.t
 	desc = calisia.34.desc
+	picture = GFX_event_calisia.34
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -545,6 +908,7 @@ country_event = { #Eternal City
 	id = calisia.35
 	title = calisia.35.t
 	desc = calisia.35.desc
+	picture = GFX_event_calisia.35
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -558,6 +922,7 @@ country_event = { #Senate District
 	id = calisia.36
 	title = calisia.36.t
 	desc = calisia.36.desc
+	picture = GFX_event_calisia.senate
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -572,12 +937,24 @@ country_event = { #Coffers empty
 	id = calisia.37
 	title = calisia.37.t
 	desc = calisia.37.desc
+	picture = GFX_event_calisia.37
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.37"}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.37"
+		set_country_flag = CAL_empty_coffers_flag
+	}
 	option = {
 		name = calisia.37.a
+		add_ideas = CAL_empty_coffers
+		if = {
+			limit = {
+				has_completed_focus = CAL_pax_calisiana
+			}
+			complete_national_focus = CAL_coffes_are_getting_empty
+		}
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -585,6 +962,7 @@ country_event = { #Calisian neighbourhoods
 	id = calisia.38
 	title = calisia.38.t
 	desc = calisia.38.desc
+	picture = GFX_event_calisia.38
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -598,6 +976,7 @@ country_event = { #Imperial District
 	id = calisia.39
 	title = calisia.39.t
 	desc = calisia.39.desc
+	picture = GFX_event_calisia.39
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -611,6 +990,7 @@ country_event = { #Architects from France
 	id = calisia.40
 	title = calisia.40.t
 	desc = calisia.40.desc
+	picture = GFX_event_belchatow.21
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -624,6 +1004,7 @@ country_event = { #Local Architects
 	id = calisia.41
 	title = calisia.41.t
 	desc = calisia.41.desc
+	picture = GFX_event_belchatow.21
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -637,6 +1018,7 @@ country_event = { #Calisia Caput Mundi
 	id = calisia.42
 	title = calisia.42.t
 	desc = calisia.42.desc
+	picture = GFX_event_calisia.42
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -650,6 +1032,7 @@ country_event = { #Central District
 	id = calisia.43
 	title = calisia.43.t
 	desc = calisia.43.desc
+	picture = GFX_event_calisia.43
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -663,6 +1046,7 @@ country_event = { #Calisian Way of War
 	id = calisia.44
 	title = calisia.44.t
 	desc = calisia.44.desc
+	picture = GFX_event_calisia.44
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -676,6 +1060,7 @@ country_event = { #Si vis pacem para bellum
 	id = calisia.45
 	title = calisia.45.t
 	desc = calisia.45.desc
+	picture = GFX_event_calisia_legions
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -689,6 +1074,7 @@ country_event = { #Imperial Aquilae
 	id = calisia.46
 	title = calisia.46.t
 	desc = calisia.46.desc
+	picture = GFX_event_samoloty
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -702,6 +1088,7 @@ country_event = { #Ramming Speed
 	id = calisia.47
 	title = calisia.47.t
 	desc = calisia.47.desc
+	picture = GFX_event_calisia.46
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -715,12 +1102,3385 @@ country_event = { #bellum fulminatus
 	id = calisia.48
 	title = calisia.48.t
 	desc = calisia.48.desc
+	picture = GFX_event_calisia.47
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.48"}
 	option = {
 		name = calisia.48.a
+	}
+}
+country_event = { #sons of calisia
+	id = calisia.49
+	title = calisia.49.t
+	desc = calisia.49.desc
+	picture = GFX_event_calisia.48
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.49"}
+	option = {
+		name = calisia.49.a
+	}
+}
+
+country_event = { #bread and circuses
+	id = calisia.50
+	title = calisia.50.t
+	desc = calisia.50.desc
+	picture = GFX_event_calisia.22
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.50"}
+	option = {
+		name = calisia.50.a
+		add_stability = 0.1
+		add_political_power = -50
+	}
+}
+
+country_event = { #collapse of export system
+	id = calisia.51
+	title = calisia.51.t
+	desc = calisia.51.desc
+	picture = GFX_event_calisia.51
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.51"}
+	option = {
+		name = calisia.51.a
+		remove_trait = {
+			character = CAL_sylwiusz_jakubowski
+			trait = substance_abuser
+		}
+		add_trait = {
+			character = CAL_sylwiusz_jakubowski
+			trait = substance_addict
+		}		
+	}
+}
+
+country_event = { #barbarian Crisis
+	id = calisia.52
+	title = calisia.52.t
+	desc = calisia.52.desc
+	picture = GFX_event_calisia.52
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.52"
+		set_country_flag = CAL_show_barbarian_foci
+		mark_focus_tree_layout_dirty = yes
+	}
+	option = {
+		name = calisia.52.a
+		news_event = calisia.2003
+		WIZ = {
+			add_manpower = -450
+		}
+		OST = {
+			add_manpower = -300
+		}
+		CAL = {
+			add_manpower = -200
+		}
+		set_party_name = {
+			ideology = squattism
+			long_name = "Barbari"
+			name = "Barbari"
+		}
+		add_popularity = {
+			ideology = squattism
+			popularity = 0.2
+		}
+		hidden_effect = {
+			complete_national_focus = CAL_barbarian_crisis
+			set_country_flag = CAL_barbarian_crisis_flag
+		}
+
+	}
+}
+
+country_event = { #spartakiad
+	id = calisia.53
+	title = calisia.53.t
+	desc = calisia.53.desc
+	picture = GFX_event_calisia.53
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.53"}
+	option = {
+		name = calisia.53.a
+		army_experience = 30
+		random_country_division = {
+			add_history_entry = {
+				key = CAL_spartakiad_award
+				subject = "żyganium"
+				allow = yes
+			}
+		}
+
+	}
+}
+
+country_event = { #bloody games
+	id = calisia.54
+	title = calisia.54.t
+	desc = calisia.54.desc
+	picture = GFX_event_calisia.22
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.54"}
+	option = {
+		name = calisia.54.a
+		add_manpower = -500
+		random_country_division = {
+			add_history_entry = {
+				key = CAL_bloody_games_award
+				subject = "sranium"
+				allow = yes
+			}
+		}
+		random_country_division = {
+			add_history_entry = {
+				key = CAL_bloody_games_award
+				subject = "szczanium"
+				allow = yes
+			}
+		}
+	}
+}
+
+country_event = { #kryzys trzeciej dekady
+	id = calisia.55
+	title = calisia.55.t
+	desc = calisia.55.desc
+	picture = GFX_event_calisia.55
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.55"}
+	option = {
+		name = calisia.55.a
+		set_country_flag = CAL_crisis_of_the_third_decade_flag
+		mark_focus_tree_layout_dirty = yes
+		complete_national_focus = CAL_crisis_of_the_third_decade
+		
+	}
+}
+
+country_event = {
+	id = calisia.56  #there was once a dream
+	title = calisia.56.t
+	desc = calisia.56.desc
+	picture = GFX_event_calisia.2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.55"}
+	option = {
+		name = calisia.56.a
+	}
+}
+
+country_event = { #vinicius plea
+	id = calisia.57
+	title = calisia.57.t
+	desc = calisia.57.desc
+	picture = GFX_event_calisia_legions
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = CAL
+		has_war = no
+		num_divisions > 30
+		has_completed_focus = CAL_pax_calisiana
+	}
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.57"
+		set_country_flag = CAL_vinicius_plea_flag
+	}
+	option = {
+		name = calisia.57.a
+		add_ideas = CAL_campaign_seasons
+		complete_national_focus = CAL_vinicius_plead
+		mark_focus_tree_layout_dirty = yes
+	}
+	mean_time_to_happen = {
+		days = 14
+	}
+}
+
+country_event = { #rawicz slaughter
+	id = calisia.58
+	title = calisia.58.t
+	desc = calisia.58.desc
+	picture = GFX_event_calisia.58
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.58"
+		set_country_flag = CAL_rawicz_slaughter_flag
+	}
+	option = {
+		name = calisia.58.a
+		add_ideas = CAL_servile_war_idea
+		if = {
+			limit = {
+				has_completed_focus = CAL_pax_calisiana
+			}
+			complete_national_focus = CAL_rawicz_slaughter
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { #in service of calisia
+	id = calisia.59
+	title = calisia.59.t
+	desc = calisia.59.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.59"}
+	option = {
+		name = calisia.59.a
+	}
+}
+
+country_event = { #lex tributorum
+	id = calisia.60
+	title = calisia.60.t
+	desc = calisia.60.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.60"}
+	option = { #Populares
+		name = calisia.60.a
+		custom_effect_tooltip = CAL_lex_tributorum_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_tributorum_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.60.b
+		custom_effect_tooltip = CAL_lex_tributorum_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_tributorum_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex militae
+	id = calisia.61
+	title = calisia.61.t
+	desc = calisia.61.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.61"}
+	option = { #Populares
+		name = calisia.61.a
+		custom_effect_tooltip = CAL_lex_militae_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_lex_militae_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.61.b
+		custom_effect_tooltip = CAL_lex_militae_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_lex_militae_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex indentatae servitutis
+	id = calisia.62
+	title = calisia.62.t
+	desc = calisia.62.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.62"}
+	option = { #Populares
+		name = calisia.62.a
+		custom_effect_tooltip = CAL_lex_indentatae_servitutis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_indentatae_servitutis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.62.b
+		custom_effect_tooltip = CAL_lex_indentatae_servitutis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_indentatae_servitutis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex securitatis
+	id = calisia.63
+	title = calisia.63.t
+	desc = calisia.63.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.63"}
+	option = { #Populares
+		name = calisia.63.a
+		custom_effect_tooltip = CAL_lex_securitatis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_lex_securitatis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.63.b
+		custom_effect_tooltip = CAL_lex_securitatis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_securitatis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex mercatoria
+	id = calisia.64
+	title = calisia.64.t
+	desc = calisia.64.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.64"}
+	option = { #Populares
+		name = calisia.64.a
+		custom_effect_tooltip = CAL_lex_mercatoria_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_mercatoria_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.64.b
+		custom_effect_tooltip = CAL_lex_mercatoria_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_mercatoria_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex subsidiarum socialum
+	id = calisia.65
+	title = calisia.65.t
+	desc = calisia.65.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.65"}
+	option = { #Populares
+		name = calisia.65.a
+		custom_effect_tooltip = CAL_lex_subsidiarum_socialum_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_subsidiarum_socialum_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.65.b
+		custom_effect_tooltip = CAL_lex_subsidiarum_socialum_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_subsidiarum_socialum_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex iuonis
+	id = calisia.66
+	title = calisia.66.t
+	desc = calisia.66.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.66"}
+	option = { #Populares
+		name = calisia.66.a
+		custom_effect_tooltip = CAL_lex_iuonis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_iuononis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.66.b
+		custom_effect_tooltip = CAL_lex_iuonis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_iuononis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex civitatis
+	id = calisia.67
+	title = calisia.67.t
+	desc = calisia.67.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.67"}
+	option = { #Populares
+		name = calisia.67.a
+		custom_effect_tooltip = CAL_lex_civitatis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_civitatis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.67.b
+		custom_effect_tooltip = CAL_lex_civitatis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_civitatis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex acculturiationis
+	id = calisia.68
+	title = calisia.68.t
+	desc = calisia.68.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.68"}
+	option = { #Populares
+		name = calisia.68.a
+		custom_effect_tooltip = CAL_lex_acculturiationis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_acculturationis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.68.b
+		custom_effect_tooltip = CAL_lex_acculturiationis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_acculturationis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex amoris liberi
+	id = calisia.69
+	title = calisia.69.t
+	desc = calisia.69.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.69"}
+	option = { #Populares
+		name = calisia.69.a
+		custom_effect_tooltip = CAL_lex_amoris_liberi_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_amoris_liberi_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.69.b
+		custom_effect_tooltip = CAL_lex_amoris_liberi_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_amoris_liberi_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex aesculapii
+	id = calisia.70
+	title = calisia.70.t
+	desc = calisia.70.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.70"}
+	option = { #Populares
+		name = calisia.70.a
+		custom_effect_tooltip = CAL_lex_aesculapii_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_aesculapii_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.70.b
+		custom_effect_tooltip = CAL_lex_aesculapii_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_aesculapii_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex religionis
+	id = calisia.71
+	title = calisia.71.t
+	desc = calisia.71.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.71"}
+	option = { #Populares
+		name = calisia.71.a
+		custom_effect_tooltip = CAL_lex_religionis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_lex_religionis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.71.b
+		custom_effect_tooltip = CAL_lex_religionis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_religionis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex poenae capitalis
+	id = calisia.72
+	title = calisia.72.t
+	desc = calisia.72.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.72"}
+	option = { #Populares
+		name = calisia.72.a
+		custom_effect_tooltip = CAL_lex_poenae_capitalis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_poenae_capitalis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.72.b
+		custom_effect_tooltip = CAL_lex_poenae_capitalis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_poenae_capitalis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #Abduction of the Amazonians
+	id = calisia.73
+	title = calisia.73.t
+	desc = calisia.73.desc
+	picture = GFX_event_calisia.73
+
+	trigger = {
+		tag = CAL
+		has_completed_focus = CAL_pax_calisiana
+		OR = {
+			AMA = {
+				has_country_flag = unified_voivodeship
+			}
+			INO = {
+				has_country_flag = unified_voivodeship
+			}
+			TOR = {
+				has_country_flag = unified_voivodeship
+			}
+			GRU = {
+				has_country_flag = unified_voivodeship
+			}
+			BYD = {
+				has_country_flag = unified_voivodeship
+			}
+			AND = {
+				KUJ = {
+					has_country_flag = unified_voivodeship
+				}
+				PLK = {
+					exists = no
+				}
+				SWC = {
+					exists = no
+				}
+			}
+		}
+		# OR = {
+		# 	KAM = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	MOT = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	PIL = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	WRT = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	NAC = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	SYJ = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	POZ = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	SLU = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# 	SUS = {
+		# 		has_country_flag = unified_voivodeship
+		# 	}
+		# }
+	}
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.73"
+		set_country_flag = CAL_abduction_of_the_amazonians_flag
+	}
+	option = {
+		name = calisia.73.a
+		add_ideas = CAL_curse_of_sybilla
+		complete_national_focus = CAL_abduction_of_the_poznanian_women
+		200 = {
+			add_manpower = -1000
+		}
+		704 = {
+			add_manpower = -1000
+		}
+		266 = {
+			add_manpower = 1000
+		}
+		359 = {
+			add_manpower = 1000
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+	mean_time_to_happen = {
+		days = 14
+	}
+}
+
+country_event = { #Philosophical Disputes
+	id = calisia.74
+	title = calisia.74.t
+	desc = calisia.74.desc
+	picture = GFX_event_calisia.74
+
+	trigger = {
+		tag = CAL
+		has_completed_focus = CAL_pax_calisiana
+		CAL_all_calisian_states_cored = yes
+	}
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.74"
+		set_country_flag = CAL_philosophical_disputes_flag
+	}
+	option = {
+		name = calisia.74.a
+		add_ideas = CAL_crisis_of_identity
+		complete_national_focus = CAL_philosophical_disputes
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+			country_event = {
+				id = calisia.164
+				days = 30
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 14
+	}
+}
+
+country_event = { #Daydreaming of Rome
+	id = calisia.75
+	title = calisia.75.t
+	desc = calisia.75.desc
+	picture = GFX_event_calisia.75
+
+	trigger = {
+		NOT = {
+			has_country_flag = CAL_populares_lex_voting
+			has_country_flag = CAL_optimates_lex_voting
+		}
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.75"
+		set_country_flag = CAL_daydreaming_of_rome_flag
+	}
+	option = {
+		name = calisia.75.a
+		add_ideas = CAL_nostalgic_for_rome
+		if = {
+			limit = {
+				has_completed_focus = CAL_pax_calisiana
+
+			}
+			complete_national_focus = CAL_thinking_about_the_roman_empire
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { #partial appeasement
+	id = calisia.76
+	title = calisia.76.t
+	desc = calisia.76.desc
+	picture = GFX_event_calisia.52
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.76"}
+	option = {
+		name = calisia.76.a
+	}
+}
+
+country_event = { #barbarians in the senate
+	id = calisia.77
+	title = calisia.77.t
+	desc = calisia.77.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.77"}
+	option = { #Kocham Barbarzyńców są najwspanialsi na świecie
+		name = calisia.77.a
+		trigger = {
+			NOT = {
+				has_country_flag = CAL_praetorians_will_remember_that
+			}
+		}
+		hidden_effect = {
+		    set_country_flag = CAL_barbarian_populares 
+		}
+	}
+	option = { #ZABIĆ BARABARARZYŃCÓW
+		name = calisia.77.b
+		trigger = {
+			has_country_flag = CAL_praetorians_will_remember_that
+		}
+		activate_mission = CAL_emperors_alertness
+		hidden_effect = {
+		    set_country_flag = CAL_spisek 
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+}
+
+country_event = { #lex barbarorum
+	id = calisia.78
+	title = calisia.78.t
+	desc = calisia.78.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.78"}
+	option = { #Populares
+		name = calisia.78.a
+		custom_effect_tooltip = CAL_lex_barbarorum_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_barbarorum_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.78.b
+		custom_effect_tooltip = CAL_lex_barbarorum_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_barbarorum_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex coequatio
+	id = calisia.780
+	title = calisia.780.t
+	desc = calisia.780.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.780"}
+	option = { #Populares
+		name = calisia.780.a
+		custom_effect_tooltip = CAL_lex_coequatio_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_coequatio_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.780.b
+		custom_effect_tooltip = CAL_lex_coequatio_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_coequatio_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #lex administrationis
+	id = calisia.781
+	title = calisia.781.t
+	desc = calisia.781.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.781"}
+	option = { #Populares
+		name = calisia.781.a
+		custom_effect_tooltip = CAL_lex_administrationis_populares_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_populares_lex_voting
+			set_country_flag = CAL_lex_administrationis_vote
+			CAL_initiate_senate_vote_populares = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+
+	option = { #Optimates
+		name = calisia.781.b
+		custom_effect_tooltip = CAL_lex_administrationis_optimates_event_tt
+		hidden_effect = {
+			activate_mission = CAL_senate_voting_mission
+			set_country_flag = CAL_senate_voting_started
+			set_country_flag = CAL_optimates_lex_voting
+			set_country_flag = CAL_lex_administrationis_vote
+			CAL_initiate_senate_vote_optimates = yes
+			CAL_count_yes_and_no = yes
+		}
+	}
+}
+
+country_event = { #CAL_lusatia_superior
+	id = calisia.79
+	title = calisia.79.t
+	desc = calisia.79.desc
+	picture = GFX_event_calisia.52
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.79"}
+	option = { #Populares
+		name = calisia.79.a
+			add_state_core  = 415
+			add_state_core  = 920
+			415 = {
+				add_dynamic_modifier = {
+					modifier = CAL_resettlement_efforts_modifier
+					days = 180
+				}
+			}
+			920 = {
+				add_dynamic_modifier = {
+					modifier = CAL_resettlement_efforts_modifier
+					days = 180
+				}
+			}
+	}
+}
+
+country_event = { #CAL_pomerania_citerior
+	id = calisia.80
+	title = calisia.80.t
+	desc = calisia.80.desc
+	picture = GFX_event_calisia.52
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.80"}
+	option = { #Populares
+		name = calisia.80.a
+		add_state_core = 618
+		add_state_core = 43
+		add_state_core = 22 
+		add_state_core = 31
+		618 = {
+			add_dynamic_modifier = {
+				modifier = CAL_resettlement_efforts_modifier
+				days = 180
+			}
+		}
+		42 = {
+			add_dynamic_modifier = {
+				modifier = CAL_resettlement_efforts_modifier
+				days = 180
+			}
+		}
+		22 = {
+			add_dynamic_modifier = {
+				modifier = CAL_resettlement_efforts_modifier
+				days = 180
+			}
+		}
+		31 = {
+			add_dynamic_modifier = {
+				modifier = CAL_resettlement_efforts_modifier
+				days = 180
+			}
+		}
+	}
+}
+
+country_event = { #Operation Varus
+	id = calisia.81
+	title = calisia.81.t
+	desc = calisia.81.desc
+	picture = GFX_event_calisia.52
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.81"}
+	option = {
+		name = calisia.81.a 
+		add_political_power = -50
+		add_war_support = -0.05
+		add_manpower = -15000
+	}
+}
+
+country_event = { #Ides
+	id = calisia.82
+	title = calisia.82.t
+	desc = calisia.82.desc
+	picture = GFX_event_calisia.82
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.82"}
+	option = { #optymaci yaya
+		name = calisia.82.a 
+		trigger = {
+			OR = {
+				check_variable = {
+					var = CAL_praetoriae_loyalty
+					value = 30
+					compare = greater_than_or_equals
+				}
+				check_variable = {
+					var = CAL_optimates_gravitas
+					value = CAL_praetoriae_gravitas
+					compare = greater_than_or_equals
+				}
+			}
+		}
+	}
+
+	option = { #ups cesarz ze zdech, pokój jego duszny
+		name = calisia.82.b
+		trigger = {
+			check_variable = { CAL_praetoriae_loyalty < 30 }
+			check_variable = { CAL_praetoriae_gravitas > CAL_optimates_gravitas }
+		}
+		set_country_flag = CAL_in_memoriam_ricardus
+		CAL_ricardus_calisius = {
+			retire = yes
+		}
+		country_event = {
+			id = calisia.2137
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { 
+	id = calisia.83
+	title = calisia.83.t
+	desc = calisia.83.desc
+	picture = GFX_event_calisia.83
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.83"}
+	option = {
+		name = calisia.83.a 
+	}
+}
+
+country_event = { 
+	id = calisia.84
+	title = calisia.84.t
+	desc = calisia.84.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.84"}
+	option = {
+		name = calisia.84.a 
+	}
+}
+
+country_event = { 
+	id = calisia.85
+	title = calisia.85.t
+	desc = calisia.85.desc
+	picture = GFX_event_calisia.30
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.85"}
+	option = {
+		name = calisia.85.a 
+	}
+}
+
+country_event = { 
+	id = calisia.86
+	title = calisia.86.t
+	desc = calisia.86.desc
+	picture = GFX_event_calisia.86
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.86"}
+	option = {
+		name = calisia.86.a 
+	}
+}
+
+country_event = {
+	id = calisia.87
+	title = calisia.87.t
+	desc = calisia.87.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.87"}
+	option = {
+		name = calisia.87.a 
+	}
+}
+
+country_event = { 
+	id = calisia.88
+	title = calisia.88.t
+	desc = calisia.88.desc
+	picture = GFX_event_calisia.coronations
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.88"}
+	option = {
+		name = calisia.88.a 
+		create_country_leader = {
+			name = "Antonius Calisius"
+			desc = ""
+			picture = "GFX_CAL_Antonius"
+			expire = "2060.1.1"
+			ideology = autocracy_absolutism_subtype
+			traits = { }
+		}
+		create_country_leader = {
+			name = "Antonius Calisius"
+			desc = ""
+			picture = "GFX_CAL_Antonius"
+			expire = "2060.1.1"
+			ideology = socialdemocrature_subtype
+			traits = { }
+		}
+	}
+}
+
+country_event = { #Labor Omnia Vincit
+	id = calisia.89
+	title = calisia.89.t
+	desc = calisia.89.desc
+	picture = GFX_event_calisia.4
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.89"}
+	option = {
+		name = calisia.89.a 
+	}
+}
+
+country_event = { #Primus inter pares
+	id = calisia.90
+	title = calisia.90.t
+	desc = calisia.90.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.90"}
+	option = {
+		name = calisia.90.a 
+	}
+}
+
+country_event = { #Requitescat in Pace
+	id = calisia.91
+	title = calisia.91.t
+	desc = calisia.91.desc
+	picture = GFX_event_calisia.91
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.91"}
+	option = {
+		name = calisia.91.a 
+		retire_character = CAL_ricardus_calisius
+	}
+}
+
+country_event = { #Empire of the People
+	id = calisia.92
+	title = calisia.92.t
+	desc = calisia.92.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.92"}
+	option = {
+		name = calisia.92.a 
+	}
+}
+
+country_event = { #Ave Imperator Ignatius
+	id = calisia.93
+	title = calisia.93.t
+	desc = calisia.93.desc
+	picture = GFX_event_calisia.coronations
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.93"}
+	option = {
+		mark_focus_tree_layout_dirty = yes
+		name = calisia.93.a 
+		retire_character = CAL_senate
+        add_stability = 0.2		
+	}
+}
+
+country_event = { #a dream called Calisia
+	id = calisia.94
+	title = calisia.94.t
+	desc = calisia.94.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.94"}
+	option = {
+		name = calisia.94.a
+		hidden_effect = {
+			if = {
+				limit = { has_government = autocracy }
+			set_country_flag = PaF_CAL_optimates_ending
+			PaF_initiate_ending_screen = yes	
+			}
+			if = {
+				limit = { has_government = socialdemocrature }
+			set_country_flag = PaF_CAL_populares_ending
+			PaF_initiate_ending_screen = yes	
+			}			
+		}
+	}
+}
+
+country_event = { #Sic Semper Tyrannis
+	id = calisia.95
+	title = calisia.95.t
+	desc = calisia.95.desc
+	picture = GFX_event_calisia.95
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.95"}
+	option = {
+		name = calisia.95.a 
+		add_stability = -0.4
+		add_political_power = -150
+		add_manpower = -5000
+		retire_character = CAL_ricardus_calisius
+		set_politics = {
+			ruling_party = reactionary	
+			}
+		CAL_krystian_kinastowski = {
+		    promote_leader = yes }
+		CAL_change_gov_discordia = yes
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+			remove_ideas = CAL_inflation3_idea
+			news_event = calisia.2000
+		}
+	}
+}
+
+country_event = { #Eternal City falls silent
+	id = calisia.96
+	title = calisia.96.t
+	desc = calisia.96.desc
+	picture = GFX_event_calisia.96
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.96"}
+	option = {
+		name = calisia.96.a 
+		add_ideas = CAL_silence
+	}
+}
+
+country_event = { #Sheep in the Den of Wolves
+	id = calisia.97
+	title = calisia.97.t
+	desc = calisia.97.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.97"}
+	option = {
+		name = calisia.97.a 
+	}
+}
+
+country_event = { #Discodia
+	id = calisia.98
+	title = calisia.98.t
+	desc = calisia.98.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.98"}
+	option = {
+		name = calisia.98.a 
+	}
+}
+
+country_event = { #Battle with Urban Cohorts
+	id = calisia.99
+	title = calisia.99.t
+	desc = calisia.99.desc
+	picture = GFX_event_calisia.99
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.99"}
+	option = {
+		name = calisia.99.a 
+	}
+}
+
+country_event = { #Grace of the Mars
+	id = calisia.100
+	title = calisia.100.t
+	desc = calisia.100.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.100"}
+	option = {
+		name = calisia.100.a 
+		add_manpower = -1
+		add_manpower = 5
+	}
+}
+
+country_event = { #Gargantuan Praetorian
+	id = calisia.101
+	title = calisia.101.t
+	desc = calisia.101.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.101"}
+	option = {
+		name = calisia.101.a 
+		
+	}
+}
+
+country_event = { #Our Little Augustus
+	id = calisia.102
+	title = calisia.102.t
+	desc = calisia.102.desc
+	picture = GFX_event_calisia.coronations
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.102"}
+	option = {
+		name = calisia.102.a 
+		# CCH = {	najmana już przezwałem prz zostaniu gubernatorem
+		# 	every_character = {
+		# 		limit = {
+		# 			is_character = CCH_najman
+		# 		}
+		# 		set_nationality = CAL
+		# 		set_character_name = "Martinus Naimanus"
+		# 	}
+		# 	} 
+			add_country_leader_role = {
+				character = CCH_najman
+				promote_leader = yes
+				country_leader = {
+					ideology = autocracy_subtype
+				}
+			}
+			set_politics = {
+				ruling_party = autocracy	
+				long_name = "SPQC - Imperati"
+				name = "SPQC - Imperati"	
+			}
+			set_portraits = {
+				character = CCH_najman
+				civilian = { large ="GFX_CAL_Najman" }
+			}
+			set_cosmetic_tag = CAL_pretoriae_imperium_final2
+	}
+}
+
+country_event = { #OEmpire in Shackles
+	id = calisia.103
+	title = calisia.103.t
+	desc = calisia.103.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.103"}
+	option = {
+		name = calisia.103.a 
+		hidden_effect = {
+			set_country_flag = PaF_CAL_PRT_empire_ending
+			PaF_initiate_ending_screen = yes		
+		}
+	}
+}
+
+country_event = { #pressure of circumstances
+	id = calisia.104
+	title = calisia.104.t
+	desc = calisia.104.desc
+	picture = GFX_event_calisia.2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.104"}
+	option = {
+		name = calisia.104.a 
+	}
+}
+country_event = { #legionary provinces
+	id = calisia.105
+	title = calisia.105.t
+	desc = calisia.105.desc
+	picture = GFX_event_calisia_legions
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.105"}
+	option = {
+		name = calisia.105.a 
+	}
+}
+country_event = { #senatorial provinces
+	id = calisia.106
+	title = calisia.106.t
+	desc = calisia.106.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.106"}
+	option = {
+		name = calisia.106.a 
+		
+		add_ideas = CAL_PRETORIANIE_agents
+	}
+}
+country_event = { #eastern provinces
+	id = calisia.107
+	title = calisia.107.t
+	desc = calisia.107.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.107"}
+	option = {
+		name = calisia.107.a 
+	}
+}
+country_event = { #desire for revenge
+	id = calisia.108
+	title = calisia.108.t
+	desc = calisia.108.desc
+	picture = GFX_event_calisia_legions
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.108"}
+	option = {
+		name = calisia.108.a 
+	}
+}
+country_event = { #hunger and unrest
+	id = calisia.109
+	title = calisia.109.t
+	desc = calisia.109.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.109"}
+	option = {
+		name = calisia.109.a 
+		add_ideas = CAL_LEGIONY_blockade1
+	}
+}
+country_event = { #plotting for plots
+	id = calisia.110
+	title = calisia.110.t
+	desc = calisia.110.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.110"}
+	option = {
+		name = calisia.110.a 
+	}
+}
+country_event = { #dogs of war
+	id = calisia.111
+	title = calisia.111.t
+	desc = calisia.111.desc
+	picture = GFX_event_calisia.55
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.111"}
+	option = {
+		name = calisia.111.a 
+	}
+}
+country_event = { #fall of the triumvirate
+	id = calisia.112
+	title = calisia.112.t
+	desc = calisia.112.desc
+	picture = GFX_event_calisia.55
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.112"}
+	option = {
+		name = calisia.112.a 
+	}
+}
+country_event = { #mars exulte
+	id = calisia.113
+	title = calisia.113.t
+	desc = calisia.113.desc
+	picture = GFX_event_calisia_legions
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.113"}
+	option = {
+		name = calisia.113.a 
+	}
+}
+country_event = { #vae victis
+	id = calisia.114
+	title = calisia.114.t
+	desc = calisia.114.desc
+	picture = GFX_event_calisia.senate
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.114"}
+	option = {
+		name = calisia.114.a 
+	}
+}
+country_event = { #moritori te salutant
+	id = calisia.115
+	title = calisia.115.t
+	desc = calisia.115.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.115"}
+	option = {
+		name = calisia.115.a 
+	}
+}
+
+country_event = { #quo vadis calisia
+	id = calisia.116
+	title = calisia.116.t
+	desc = calisia.116.desc
+	picture = GFX_event_calisia.55
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.116"}
+	option = {
+		name = calisia.116.a 
+		hidden_effect = {
+			set_country_flag = PaF_CAL_triumvirate_ending
+			PaF_initiate_ending_screen = yes		
+		}
+	}
+}
+
+country_event = {
+	id = calisia.117 #concordia
+	title = calisia.117.t
+	desc = calisia.117.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.117"}
+	option = {
+		name = calisia.117.a 
+	}
+}
+
+country_event = {
+	id = calisia.118 #concillium plebis
+	title = calisia.118.t
+	desc = calisia.118.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.118"}
+	option = {
+		name = calisia.118.a 
+	}
+}
+
+country_event = {
+	id = calisia.119 #problem for decades
+	title = calisia.119.t
+	desc = calisia.119.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.119"}
+	option = {
+		name = calisia.119.a 
+	}
+}
+
+country_event = {
+	id = calisia.120 #fate of the throne
+	title = calisia.120.t
+	desc = calisia.120.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.120"}
+	option = {
+		name = calisia.120.a 
+	}
+}
+
+country_event = {
+	id = calisia.121 #proclaim the republic
+	title = calisia.121.t
+	desc = calisia.121.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.121"}
+	option = {
+		name = calisia.121.a 
+			add_country_leader_role = {
+				character = CAL_kaleta
+				promote_leader = yes
+				country_leader = {
+					ideology = paternal_conservatism_subtype
+				}
+			}
+			CAL_change_gov_concordia = yes
+			set_politics = {
+				ruling_party = paternal_conservatism	
+				long_name = "Ius et Iustitia"
+				name = "Ius et Iustitia"	
+			}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.3
+			}
+			set_party_name = {
+				ideology = socialdemocrature
+				long_name = "Nova Sinistra"
+				name = "Nova Sinistra"
+			}
+			set_party_name = {
+				ideology = euroliberalism
+				long_name = "Societas Civica"
+				name = "Societas Civica"
+			}
+			set_party_name = {
+				ideology = autocracy
+				long_name = "Motus Nationalis"
+				name = "Motus Nationalis"
+			}
+			set_portraits = {
+				character = CAL_kaleta
+				civilian = { large ="GFX_CAL_Kaleta2" }
+			}
+			set_cosmetic_tag = CAL_pretoriae_respublica_final2
+	}
+}
+
+country_event = {
+	id = calisia.122 #winds of change
+	title = calisia.122.t
+	desc = calisia.122.desc
+	picture = GFX_event_calisia.2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.122"}
+	option = {
+		name = calisia.122.a 
+		hidden_effect = {
+			set_country_flag = PaF_CAL_PRT_respublica_ending
+			PaF_initiate_ending_screen = yes		
+		}
+	}
+}
+
+country_event = {
+	id = calisia.123 #cry havoc
+	title = calisia.123.t
+	desc = calisia.123.desc
+	picture = GFX_event_calisia.55
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.123"}
+	option = {
+		name = calisia.123.a 
+		country_event = {
+			id = calisia.321
+		}
+		
+		
+	}
+}
+country_event = {
+	id = calisia.321
+	title = calisia.321.t
+	desc = calisia.321.desc
+	picture = GFX_event_calisia.55
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.321"}
+	option = {
+		name = calisia.321.a 
+		add_ideas = CAL_chaos
+	}
+}
+
+country_event = {
+	id = calisia.124 #primus in optimates
+	title = calisia.124.t
+	desc = calisia.124.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.124"}
+	option = {
+		name = calisia.124.a 
+	}
+}
+
+country_event = {
+	id = calisia.125 #vulgar beast
+	title = calisia.125.t
+	desc = calisia.125.desc
+	picture = GFX_event_calisia_legions
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.125"}
+	option = {
+		name = calisia.125.a 
+	}
+}
+
+country_event = {
+	id = calisia.126 #master of puppets
+	title = calisia.126.t
+	desc = calisia.126.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.126"}
+	option = {
+		name = calisia.126.a 
+	}
+}
+
+country_event = {
+	id = calisia.127 #lawful tyrannicide
+	title = calisia.127.t
+	desc = calisia.127.desc
+	picture = GFX_event_calisia.95
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.127"}
+	option = {
+		name = calisia.127.a 
+	}
+}
+
+country_event = {
+	id = calisia.128 #the first triumvirate
+	title = calisia.128.t
+	desc = calisia.128.desc
+	picture = GFX_event_calisia.30
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.128"}
+	option = {
+		name = calisia.128.a
+		mark_focus_tree_layout_dirty = yes
+		remove_ideas = CAL_inflation3_idea
+	}
+}
+
+country_event = {
+	id = calisia.129 #wojna triumwirat
+	title = calisia.129.t
+	desc = calisia.129.desc
+	picture = GFX_event_calisia.30
+	hidden = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.129"}
+	option = { #senat + pretorianie, legion przegrywa
+		name = calisia.129.a 
+		trigger = { 
+			OR = {
+				ALP = { surrender_progress > 0.5 }
+				NOT = { country_exists = ALP }
+			}
+		}
+		PRT = {
+			annex_country = {
+				target = ALP
+				transfer_troops = no
+			}	
+		}
+		PRT = { clr_country_flag = CAL_triumvirate_war }
+		ALP = { clr_country_flag = CAL_triumvirate_war }
+		CAL = { clr_country_flag = CAL_triumvirate_war }
+	}
+	option = { #senat + legion, pretorianie przegrywają
+		name = calisia.129.b 
+		trigger = { 
+			OR = {
+				PRT = { surrender_progress > 0.5 }
+				NOT = { country_exists = PRT }
+			}
+		}
+		ALP = {
+			annex_country = {
+				target = PRT
+				transfer_troops = yes
+			}
+			white_peace = CAL
+		}
+		PRT = { clr_country_flag = CAL_triumvirate_war }
+		ALP = { clr_country_flag = CAL_triumvirate_war }
+		CAL = { clr_country_flag = CAL_triumvirate_war }
+	}
+	option = { #legion + pretorianie, senat przegrywa
+		name = calisia.129.c 
+		trigger = { 
+			OR = {
+				AND = {
+					CAL = { surrender_progress > 0.5 }
+					NOT = {
+						PRT = { surrender_progress > 0.5 }
+					}
+				}
+				AND = {
+					NOT = { country_exists = CAL }
+					NOT = {
+						PRT = { surrender_progress > 0.5 }
+					}
+				}
+			}
+		}
+		ALP = {
+			annex_country = {
+				target = CAL
+				transfer_troops = no
+			}
+			white_peace = PRT
+		}
+		PRT = { clr_country_flag = CAL_triumvirate_war }
+		ALP = { clr_country_flag = CAL_triumvirate_war }
+		CAL = { clr_country_flag = CAL_triumvirate_war }
+		PRT = {
+		transfer_state =  919
+		transfer_state =  923
+		transfer_state =  922
+		transfer_state =  618
+		transfer_state =  54
+		transfer_state =  83
+		transfer_state =  619
+		transfer_state =  88
+		transfer_state =  90
+		transfer_state =  105
+		transfer_state =  114
+		transfer_state =  616
+		transfer_state =  617
+		transfer_state =  874
+		transfer_state =  55
+		transfer_state =  61
+		transfer_state =  68
+		transfer_state =  70
+		transfer_state =  620
+		transfer_state =  621
+		transfer_state =  33
+		transfer_state =  45
+		transfer_state =  53
+		transfer_state =  63
+		transfer_state =  622
+		transfer_state =  623
+		transfer_state =  78
+		transfer_state =  84
+		transfer_state =  98
+		transfer_state =  107
+		transfer_state =  118
+		transfer_state =  122
+		transfer_state =  127
+		transfer_state =  133
+		transfer_state =  158
+		transfer_state =  614
+		transfer_state =  615
+		transfer_state =  871
+		transfer_state =  872
+		transfer_state =  873
+		transfer_state =  82
+		transfer_state =  220
+		transfer_state =  264
+		transfer_state =  245
+		transfer_state =  585
+		transfer_state =  586
+		transfer_state =  699
+		transfer_state =  700
+		transfer_state =  225
+		transfer_state =  581
+		transfer_state =  582
+		transfer_state =  587
+		transfer_state =  207
+		transfer_state =  212
+		transfer_state =  583
+		transfer_state =  584
+		transfer_state =  694
+		transfer_state =  695
+		transfer_state =  696
+		transfer_state =  697
+		transfer_state =  244
+		transfer_state =  102
+		transfer_state =  111
+		transfer_state =  130
+		transfer_state =  135
+		transfer_state =  155
+		transfer_state =  161
+		transfer_state =  162
+		transfer_state =  164
+		transfer_state =  178
+		transfer_state =  184
+		transfer_state =  188
+		transfer_state =  193
+		transfer_state =  202
+		transfer_state =  206
+		transfer_state =  218
+		transfer_state =  692
+		transfer_state =  227
+		transfer_state =  612
+		transfer_state =  153
+		transfer_state =  175
+		transfer_state =  177
+		transfer_state =  183
+		transfer_state =  185
+		transfer_state =  187
+		transfer_state =  190
+		transfer_state =  208
+		transfer_state =  613
+		transfer_state =  204
+		transfer_state =  205
+		transfer_state =  209
+		transfer_state =  909
+		transfer_state =  910
+		transfer_state =  911
+		transfer_state =  916
+		}
+
+	}
+}
+
+country_event = { 
+	id = calisia.130 #Conspiracy of Stavissin
+	title = calisia.130.t
+	desc = calisia.130.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.130"}
+	option = {
+		name = calisia.130.a 
+	}
+}
+
+country_event = { 
+	id = calisia.131 #Cunning Stratagem
+	title = calisia.131.t
+	desc = calisia.131.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.131"}
+	option = {
+		name = calisia.131.a 
+	}
+}
+
+country_event = { 
+	id = calisia.132 #Great Fire of Calisia
+	title = calisia.132.t
+	desc = calisia.132.desc
+	picture = GFX_event_calisia.96
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.132"}
+	option = {
+		name = calisia.132.a 
+		    314 = {
+			    add_manpower = -17896
+				}
+			314 = {
+				damage_building = {
+                type = infrastructure
+                damage = 5 }
+			} 
+			314 = {
+				damage_building = {
+                type = arms_factory
+                damage = 4 }
+			}
+		    314 = {
+				damage_building = {
+                type = industrial_complex
+                damage = 3 }
+			}
+			846 = {
+			    add_manpower = -21612
+				}
+			846 = {
+				damage_building = {
+                type = infrastructure
+                damage = 5 }
+			} 
+			846 = {
+				damage_building = {
+                type = arms_factory
+                damage = 4 }
+			}
+			846 = {
+				damage_building = {
+                type = industrial_complex
+                damage = 3 }
+			}
+			retire_character = CAL_pawel_delag
+			retire_character = CAL_andrzej_kompa
+			retire_character = CAL_rafal_chwedoruk
+			retire_character = CAL_malecki
+			
+		
+	}
+}
+
+country_event = { 
+	id = calisia.133 #shadow of an emperor
+	title = calisia.133.t
+	desc = calisia.133.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.133"}
+	option = {
+		name = calisia.133.a 
+	}
+}
+
+country_event = { 
+	id = calisia.134 #triumph in calisia
+	title = calisia.134.t
+	desc = calisia.134.desc
+	picture = GFX_event_calisia.triumph
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.134"}
+	option = {
+		name = calisia.134.a 
+	}
+}
+
+country_event = { 
+	id = calisia.135 #renovatio imperii
+	title = calisia.135.t
+	desc = calisia.135.desc
+	picture = GFX_event_calisia.5
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.135"}
+	option = {
+		name = calisia.135.a 
+		remove_ideas = CAL_inflation3_idea
+	}
+}
+
+country_event = { 
+	id = calisia.136 #Arrest the Plotters in the Senate
+	title = calisia.136.t
+	desc = calisia.136.desc
+	picture = GFX_event_calisia.4
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.136"}
+	option = {
+		name = calisia.136.a
+		hidden_effect = {
+			set_country_flag = CAL_praetorians_banned
+			set_variable = {
+				CAL_decision_group = 1
+			}
+			set_variable = {
+				CAL_legiones_loyalty = 100
+			}
+			set_variable = {
+				CAL_praetoriae_gravitas = 0
+			}
+			set_variable = {
+				CAL_praetoriae_loyalty = 0
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.137 #Trial of Praefectus
+	title = calisia.137.t
+	desc = calisia.137.desc
+	picture = GFX_event_calisia.10
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.137"}
+	option = {
+		name = calisia.137.a 
+	}
+}
+
+country_event = { 
+	id = calisia.138 #Yay prawo przeszło
+	title = calisia.138.t
+	desc = calisia.138.desc
+	picture = GFX_event_calisia.senate
+
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.138"}
+	option = {
+		name = calisia.138.a
+		if = {
+			limit = {
+				has_country_flag = CAL_populares_passed_lex
+			}
+			set_temp_variable = { CAL_loyalty_change = 5 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -10 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.05
+			}
+			clr_country_flag = CAL_populares_passed_lex
+		}
+		if = {
+			limit = {
+				has_country_flag = CAL_optimates_passed_lex
+			}
+			set_temp_variable = { CAL_loyalty_change = 5 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -10 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.05
+			}
+			clr_country_flag = CAL_optimates_passed_lex
+		}
+		set_temp_variable = {
+			CAL_gravitas_change = CAL_gravitas_to_return 
+		}
+		add_to_variable = {
+			var = CAL_emperor_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_emperor_tt
+		}
+		set_variable = {
+			CAL_gravitas_to_return = 0
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+	}
+}
+
+country_event = { 
+	id = calisia.139 #Progedi Populus
+	title = calisia.139.t
+	desc = calisia.139.desc
+	picture = GFX_event_calisia.4
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.139"}
+	option = {
+		mark_focus_tree_layout_dirty = yes
+		name = calisia.139.a 
+		remove_ideas = CAL_inflation3_idea
+	}
+}
+
+country_event = { 
+	id = calisia.140 #pałac
+	title = calisia.140.t
+	desc = calisia.140.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.140"}
+	option = {
+		name = calisia.140.a 
+		if = {
+			limit = {
+				has_idea = CAL_construction_palace2 
+			}
+			remove_ideas = CAL_construction_palace2 
+		}
+		if = {
+			limit = {
+				has_idea = CAL_construction_palace3
+			}
+			remove_ideas = CAL_construction_palace3
+		}
+		set_country_flag = CAL_palace
+	}
+}
+
+country_event = { 
+	id = calisia.141 #coroczne wybory
+	title = calisia.141.t
+	desc = calisia.141.desc
+	picture = GFX_event_calisia.23
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			has_country_flag = CAL_barbarian_crisis_flag
+		}
+	}
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires calisia.141"
+		hidden_effect = {
+			country_event = {
+				id = calisia.141
+				days = 365
+			}
+		}
+	}
+	option = { #Frakcja Zostaje
+		name = calisia.141.a 
+		trigger = {
+			if = {
+				limit = {
+					has_government = socialdemocrature
+				}
+				check_variable = {
+					var = party_popularity@socialdemocrature
+					value = party_popularity@autocracy
+					compare = greater_than_or_equals
+				}
+			}
+			if = {
+				limit = {
+					has_government = autocracy
+				}
+				check_variable = {
+					var = party_popularity@autocracy
+					value = party_popularity@socialdemocrature
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = socialdemocrature
+			}
+			set_temp_variable = { CAL_gravitas_change = 20 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 20 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_political_power = 50
+		}
+		else_if = {
+			limit = {
+				has_government = autocracy
+			}
+			set_temp_variable = { CAL_gravitas_change = 20 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 20 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_political_power = 50
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+	}
+	option = { #Frakcje wyjebujemy
+		name = calisia.141.b 
+		trigger = {
+			if = {
+				limit = {
+					has_government = socialdemocrature
+				}
+				socialdemocrature < party_popularity@autocracy
+			}
+			if = {
+				limit = {
+					has_government = autocracy
+				}
+				autocracy < party_popularity@socialdemocrature
+			}
+		}
+		
+		if = {
+			limit = {
+				has_government = socialdemocrature
+			}
+			set_politics = {
+				ruling_party = autocracy
+			}
+			CAL_change_gov_optimates = yes
+			set_temp_variable = { CAL_gravitas_change = -10 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -20 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = 10 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 30 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_stability = -0.1
+			custom_effect_tooltip = CAL_optimates_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = autocracy
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			CAL_change_gov_populares = yes
+			set_temp_variable = { CAL_gravitas_change = -10 }
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -20 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			set_temp_variable = { CAL_gravitas_change = 10 }
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = 30 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_stability = -0.1
+			custom_effect_tooltip = CAL_populares_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 2
+			}
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+	}
+}
+
+country_event = { 
+	id = calisia.142 #calisia semper invicta
+	title = calisia.142.t
+	desc = calisia.142.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.142"}
+	option = {
+		name = calisia.142.a 
+		remove_ideas = CAL_political_disputes3
+	}
+}
+
+country_event = { 
+	id = calisia.143 #Inflation?
+	title = calisia.143.t
+	desc = calisia.143.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.143"}
+	option = {
+		name = calisia.143.a 
+		add_ideas = CAL_inflation1_idea
+		set_country_flag = CAL_inflation_1_flag
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+			complete_national_focus = CAL_inflation_1
+			country_event = {
+				id = calisia.144
+				days = 30
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.144 #JA JEBIE INFLACJA
+	title = calisia.144.t
+	desc = calisia.144.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.144"}
+	option = {
+		name = calisia.144.a 
+		swap_ideas = {
+			remove_idea = CAL_inflation1_idea
+			add_idea = CAL_inflation2_idea
+		}
+		set_country_flag = CAL_inflation_2_flag
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+			complete_national_focus = CAL_inflation_2
+			country_event = {
+				id = calisia.145
+				days = 30
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.145 #HIPERINFLACJA JAPIERDOLE
+	title = calisia.145.t
+	desc = calisia.145.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.145"}
+	option = {
+		name = calisia.145.a 
+		swap_ideas = {
+			remove_idea = CAL_inflation2_idea
+			add_idea = CAL_inflation3_idea
+		}
+		set_country_flag = CAL_inflation_3_flag
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+			complete_national_focus = CAL_hyperinflation
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.146 #Adapt or Perish
+	title = calisia.146.t
+	desc = calisia.146.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.146"}
+	option = {
+		name = calisia.146.a
+		if = {
+			limit = {
+				has_government = autocracy
+			}
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			CAL_change_gov_populares = yes
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.1
+			}
+			custom_effect_tooltip = CAL_populares_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 2
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.147 #Empire of Death
+	title = calisia.147.t
+	desc = calisia.147.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.147"}
+	option = {
+		name = calisia.147.a 
+		if = {
+			limit = {
+				has_government = socialdemocrature
+			}
+			set_politics = {
+				ruling_party = autocracy
+			}
+			CAL_change_gov_optimates = yes
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.1
+			}
+			custom_effect_tooltip = CAL_optimates_gain_consul_tt
+			set_variable = {
+				CAL_populares_consuls = 1
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.148 #CAL_forced_equalization_of_wealth
+	title = calisia.148.t
+	desc = calisia.148.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.148"}
+	option = {
+		name = calisia.148.a
+		add_ideas = CAL_aeque_in_tributa
+		set_temp_variable = { CAL_loyalty_change = 5 }
+		add_to_variable = {
+			var = CAL_populares_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_populares_tt
+		}
+		set_temp_variable = { CAL_loyalty_change = -5 }
+		add_to_variable = {
+			var = CAL_optimates_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_optimates_tt
+		}
+		set_temp_variable = { CAL_gravitas_change = 5 }
+		add_to_variable = {
+			var = CAL_populares_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_populares_tt
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.04
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.149 #CAL_public_punishments
+	title = calisia.149.t
+	desc = calisia.149.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.149"}
+	option = {
+		name = calisia.149.a
+		add_ideas = CAL_tributum_ponaenae
+		set_temp_variable = { CAL_loyalty_change = -5 }
+		add_to_variable = {
+			var = CAL_populares_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_populares_tt
+		}
+		set_temp_variable = { CAL_loyalty_change = 5 }
+		add_to_variable = {
+			var = CAL_optimates_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_optimates_tt
+		}
+		set_temp_variable = { CAL_gravitas_change = 5 }
+		add_to_variable = {
+			var = CAL_optimates_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_optimates_tt
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes 
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.04
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.150 #CAL_central_popular_committee
+	title = calisia.150.t
+	desc = calisia.150.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.150"}
+	option = {
+		name = calisia.150.a
+		add_ideas = CAL_central_popular_committee_idea
+		set_temp_variable = { CAL_loyalty_change = 5 }
+		add_to_variable = {
+			var = CAL_populares_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_populares_tt
+		}
+		set_temp_variable = { CAL_loyalty_change = -5 }
+		add_to_variable = {
+			var = CAL_optimates_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_optimates_tt
+		}
+		set_temp_variable = { CAL_gravitas_change = 5 }
+		add_to_variable = {
+			var = CAL_populares_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_populares_tt
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.04
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.151 #CAL_federalization_of_the_empire
+	title = calisia.151.t
+	desc = calisia.151.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.151"}
+	option = {
+		name = calisia.151.a
+		set_country_flag = CAL_empowered_governors
+		custom_effect_tooltip = CAL_empowered_governors_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea = CAL_governor_bescus
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_bescus
+					add_idea = CAL_governor_bescus2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_cinastovicus
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_cinastovicus
+					add_idea = CAL_governor_cinastovicus2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_iconovicus
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_iconovicus
+					add_idea = CAL_governor_iconovicus2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_majorix
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_majorix
+					add_idea = CAL_governor_majorix2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_naimanus
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_naimanus
+					add_idea = CAL_governor_naimanus2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_obaitex
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_obaitex
+					add_idea = CAL_governor_obaitex2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_phaon
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_phaon
+					add_idea = CAL_governor_phaon2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_scriptor
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_scriptor
+					add_idea = CAL_governor_scriptor2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_sturnus
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_sturnus
+					add_idea = CAL_governor_sturnus2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_trascovicus
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_trascovicus
+					add_idea = CAL_governor_trascovicus2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = CAL_governor_vinicius
+				}
+				swap_ideas = {
+					remove_idea = CAL_governor_vinicius
+					add_idea = CAL_governor_vinicius2
+				}
+			}
+		}
+		set_temp_variable = { CAL_loyalty_change = -5 }
+		add_to_variable = {
+			var = CAL_populares_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_populares_tt
+		}
+		set_temp_variable = { CAL_loyalty_change = 5 }
+		add_to_variable = {
+			var = CAL_optimates_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_optimates_tt
+		}
+		set_temp_variable = { CAL_gravitas_change = 5 }
+		add_to_variable = {
+			var = CAL_optimates_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_optimates_tt
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes	
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.04
+		}	
+	}
+}
+
+country_event = { 
+	id = calisia.152 #CAL_were_all_calisians
+	title = calisia.152.t
+	desc = calisia.152.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.152"}
+	option = {
+		name = calisia.152.a
+		swap_ideas = {
+			remove_idea = minorities_equal_rights
+			add_idea = minorities_multiculturalism
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.153 #Prawo Przejebane
+	title = calisia.153.t
+	desc = calisia.153.desc
+
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.153"}
+	option = {
+		name = calisia.153.a
+		set_variable = {
+			CAL_gravitas_to_return = 0
+		}
+		if = {
+			limit = {
+				has_country_flag = CAL_lex_populares_failed
+			}
+			set_temp_variable = { CAL_loyalty_change = -8 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -5 }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.03
+			}
+			clr_country_flag = CAL_lex_populares_failed
+		}
+		if = {
+			limit = {
+				has_country_flag = CAL_lex_optimates_failed
+			}
+			set_temp_variable = { CAL_loyalty_change = -8  }
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			set_temp_variable = { CAL_loyalty_change = -5 }
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.03
+			}
+			clr_country_flag = CAL_lex_optimates_failed
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+	}
+}
+
+country_event = { 
+	id = calisia.154 #Pretorianie przejebują życie
+	title = calisia.154.t
+	desc = calisia.154.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.154"}
+	option = {
+		name = calisia.154.a
+		clr_country_flag = CAL_spisek
+		set_country_flag = CAL_barbarian_populares
+		uncomplete_national_focus = {
+			focus = CAL_conspiracy_of_stavissin
+		}
+		hidden_effect = {
+			remove_ideas = CAL_praetorian_plot_1
+			remove_ideas = CAL_praetorian_plot_2
+			remove_ideas = CAL_praetorian_plot_3
+			remove_ideas = CAL_praetorian_plot_4
+		}
+		if = {
+			limit = {
+				has_completed_focus = CAL_contacts_in_legions
+			}
+			uncomplete_national_focus = {
+				focus = CAL_contacts_in_legions
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = CAL_contacts_in_the_senate
+			}
+			uncomplete_national_focus = {
+				focus = CAL_contacts_in_the_senate
+			}
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { 
+	id = calisia.155 #spartakus srartakus is GO
+	title = calisia.155.t
+	desc = calisia.155.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.155"}
+	option = {
+		name = calisia.155.a
+		complete_national_focus = CAL_servile_war
+		CAL_spawn_slave_revolt = yes
+	}
+}
+
+country_event = { 
+	id = calisia.156 #emperors feast
+	title = calisia.156.t
+	desc = calisia.156.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.156"}
+	option = {
+		name = calisia.156.a
+	}
+}
+
+country_event = { 
+	id = calisia.157 #winiczusz dawaj żarno (PISARZE NIE PISAĆ TEGO BO TEGO GRACZ NIE WIDZI)
+	title = calisia.157.t
+	desc = calisia.157.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.157"}
+	option = {
+		name = calisia.157.a
+		CAL = {
+			country_event = {
+				id = calisia.158
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.158 #winicjusz mówi nie (Demand Grain from Vinicius)
+	title = calisia.158.t
+	desc = calisia.158.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.158"}
+	option = {
+		name = calisia.158.a
+		swap_ideas = {
+			remove_idea = CAL_LEGIONY_blockade1
+			add_idea = CAL_LEGIONY_blockade2
+		}
+	}
+}
+
+country_event = { 
+	id = calisia.159 #kolegia
+	title = calisia.159.t
+	desc = calisia.159.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.159"}
+	option = {
+		name = calisia.159.a
+	}
+}
+
+country_event = { 
+	id = calisia.160 #CAL_cura_annonae
+	title = calisia.160.t
+	desc = calisia.160.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.160"}
+	option = {
+		name = calisia.160.a
+
+	}
+}
+
+country_event = { 
+	id = calisia.161 #CAL_annonae_militaris
+	title = calisia.161.t
+	desc = calisia.161.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.161"}
+	option = {
+		name = calisia.161.a
+
+	}
+}
+
+country_event = { 
+	id = calisia.162 #CAL_edictum_lichensis
+	title = calisia.162.t
+	desc = calisia.162.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.162"}
+	option = {
+		name = calisia.162.a
+
+	}
+}
+
+country_event = { 
+	id = calisia.163 #CAL_first_pontifex_maximus
+	title = calisia.163.t
+	desc = calisia.163.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.163.a
+
+	}
+}
+
+country_event = { 
+	id = calisia.164 #Epic rap battles of Calisia
+	title = calisia.164.t
+	desc = calisia.164.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.164.a
+	}
+}
+
+country_event = { 
+	id = calisia.165 #Yippie Calisia porwała Amazonki
+	title = calisia.165.t
+	desc = calisia.165.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.165.a
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.01
+		}
+		set_temp_variable = { CAL_gravitas_change = 10 }
+		add_to_variable = {
+			var = CAL_optimates_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_optimates_tt
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+	}
+}
+
+country_event = { 
+	id = calisia.166 #Beuh Calisia przejebała
+	title = calisia.166.t
+	desc = calisia.166.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.166.a
+		add_popularity = {
+			ideology = autocracy
+			popularity = -0.01
+		}
+		set_temp_variable = { CAL_gravitas_change = -10 }
+		add_to_variable = {
+			var = CAL_optimates_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_optimates_tt
+		}
+		set_temp_variable = { CAL_loyalty_change = -5 }
+		add_to_variable = {
+			var = CAL_praetoriae_loyalty
+			value = CAL_loyalty_change
+			tooltip = CAL_change_loyalty_praetoriae_tt
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
+	}
+}
+
+country_event = { 
+	id = calisia.167 #Kujawy wygrały
+	title = calisia.167.t
+	desc = calisia.167.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.167.a
+		add_political_power = 100
+	}
+}
+
+country_event = { 
+	id = calisia.168 #Kujawy przejebały
+	title = calisia.168.t
+	desc = calisia.168.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.168.a
+		add_ideas = CAL_abducted_women
+	}
+}
+
+country_event = { 
+	id = calisia.169 #oath of undying loyalty
+	title = calisia.169.t
+	desc = calisia.169.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.163"}
+	option = {
+		name = calisia.169.a
+	}
+}
+
+country_event = { 
+	id = calisia.170 #quiet purge in guard
+	title = calisia.170.t
+	desc = calisia.170.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.170"}
+	option = {
+		name = calisia.170.a
+	}
+}
+
+country_event = { 
+	id = calisia.171 #xplosive mixture
+	title = calisia.171.t
+	desc = calisia.171.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.171"}
+	option = {
+		name = calisia.171.a
 	}
 }
 
@@ -731,6 +4491,9 @@ country_event = { #pudzian przychodzi do kalisza
 
 	trigger = {
 		original_tag = CAL
+		BBW = {
+			exists = no
+		}
 		SAP = {
 			exists = no
 		}
@@ -738,17 +4501,20 @@ country_event = { #pudzian przychodzi do kalisza
 	}
 
 	fire_only_once = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.5"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.1000"}
 	option = {
-
 		name = calisia.5.a
-		SAP = {
+		set_global_flag = CAL_has_pudzian
+		every_possible_country = {
+			limit = {
+				has_character = SAP_pudzian
+			}
 			every_character = {
 				limit = {
 					is_character = SAP_pudzian
 				}
 				set_nationality = CAL
-				set_character_name = "Pudzianus Maximus"
+				set_character_name = "Marius Pudianus Maximus"
 				set_portraits = {
 					army = {
 						large = "GFX_CAL_Pudzian"
@@ -758,3 +4524,516 @@ country_event = { #pudzian przychodzi do kalisza
 		}
 	}
 }
+
+
+
+################
+# POST-CALISIA #
+################
+
+country_event = { #Kalisz Przejebuje, Pojawia się ODOAKER
+	id = post_calisia.1
+	title = post_calisia.1.t
+	desc = post_calisia.1.desc
+
+	trigger = {
+		original_tag = CAL
+		OR = {
+			has_war_with = WIZ
+			has_war_with = OST
+			has_war_with = JUT
+			has_war_with = VAN
+			has_war_with = SCY
+			has_war_with = HNN
+			has_war_with = AES
+			has_war_with = SAX
+			has_war_with = FRK
+		}
+		OR = {
+			and = {
+				NOT = {
+					controls_state = 314
+					controls_state = 846
+				}
+				surrender_progress > 0.6
+			}
+			surrender_progress > 0.9
+		}
+		
+		
+		has_country_flag = CAL_barbarian_crisis_flag
+	}
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.1"
+		hidden_effect = {
+			white_peace = WIZ
+			white_peace = OST
+			white_peace = JUT
+			white_peace = VAN
+			white_peace = SCY
+			white_peace = HNN
+			white_peace = AES
+			white_peace = SAX
+			white_peace = FRK
+			set_global_flag = CAL_barbarians_win_flag
+			set_cosmetic_tag = CAL_CAL
+			set_politics = {
+				ruling_party = reactionary
+				long_name = "Societas Civica"
+				name = "Societas Civica"					
+			}
+			set_political_party = {
+				ideology = reactionary
+				popularity = 100
+			}
+			add_country_leader_role = {
+				character = CAL_odoaker
+				promote_leader = yes
+				country_leader = {
+					ideology = reactionary_subtype
+				}
+			}
+			every_character = {
+				limit = {
+					OR = {
+						is_character = CAL_ricardus_calisius
+						is_character = CAL_pawel_delag
+						is_character = CAL_andrzej_kompa
+						is_character = CAL_malecki
+						is_character = CAL_rafal_chwedoruk
+						is_character = CAL_kaleta
+						is_character = CAL_przemyslaw_bojarczuk
+						is_character = CAL_luszczykiewicz
+						is_character = CAL_skarzynski
+					}
+					
+				}
+				ROOT = {
+					retire_character = THIS
+				}
+				
+			}
+		}
+	}
+	option = {
+		name = post_calisia.1.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.2
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { #Barbari Occidentalis
+	id = post_calisia.2
+	title = post_calisia.2.t
+	desc = post_calisia.2.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.2"
+		hidden_effect = {
+			CAL_jutes_win_barbarian_crisis = yes
+			CAL_franks_win_barbarian_crisis = yes
+			CAL_saxons_win_barbarian_crisis = yes
+			CAL_vandals_win_barbarian_crisis = yes
+			CAL_silingi_spawns_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.2.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.3
+				days = 10
+			}
+			news_event = {
+				id = calisia.2007 
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #Barbari Orientalis
+	id = post_calisia.3
+	title = post_calisia.3.t
+	desc = post_calisia.3.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.3"
+		hidden_effect = {
+			CAL_aesti_wins_barbarian_crisis = yes
+			CAL_huns_win_barbarian_crisis = yes
+			CAL_scythia_wins_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.3.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.4
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { #Goci
+	id = post_calisia.4
+	title = post_calisia.4.t
+	desc = post_calisia.4.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.4"
+		hidden_effect = {
+			CAL_ostrogoths_win_barbarian_crisis = yes
+			CAL_visigoths_win_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.4.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.5
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { #POPULI EST NISSA
+	id = post_calisia.5
+	title = post_calisia.5.t
+	desc = post_calisia.5.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.5"
+		hidden_effect = {
+			CAL_nysa_spawns_barbarian_crisis = yes
+			CAL_nova_calisia_spawns_barbarian_crisis = yes
+			CAL_eastern_calisian_empire_spawns_barbarian_crisis = yes
+			CAL_kingdom_of_calisians_spawns_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.5.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.6
+				days = 3
+			}
+		}
+	}
+}
+
+
+country_event = { #LEGIO FANATICA
+	id = post_calisia.6
+	title = post_calisia.6.t
+	desc = post_calisia.6.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.6"
+		hidden_effect = {
+			CAL_legio_fanatica_spawns_barbarian_crisis = yes
+			CAL_legio_alpha_spawns_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.6.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.7
+				days = 3
+			}
+		}
+	}
+}
+
+
+country_event = { #Kartagdynia Kurwa Świnia
+	id = post_calisia.7
+	title = post_calisia.7.t
+	desc = post_calisia.7.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.7"
+		hidden_effect = {
+			CAL_carthagdinia_spawns_barbarian_crisis = yes
+			CAL_empire_of_last_days_spawns_barbarian_crisis = yes
+			CAL_aquilin_spawns_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.7.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.8
+				days = 10
+			}
+		}
+	}
+}
+
+
+country_event = { #Czesi Zajebują Cieszyn
+	id = post_calisia.8
+	title = post_calisia.8.t
+	desc = post_calisia.8.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.8"
+		hidden_effect = {
+			CAL_czechia_takes_land_barbarian_crisis = yes
+			CAL_armenia_spawns_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.8.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.9
+				days = 10
+			}
+		}
+	}
+}
+
+
+country_event = { #THIS IS SPARTA
+	id = post_calisia.9
+	title = post_calisia.9.t
+	desc = post_calisia.9.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.9"
+		hidden_effect = {
+			CAL_polonesia_spawns_barbarian_crisis = yes
+			CAL_spartakus_spawns_barbarian_crisis = yes
+		}
+	}
+	option = {
+		name = post_calisia.9.a
+		hidden_effect = {
+			country_event = {
+				id = post_calisia.10
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { #Faraon
+	id = post_calisia.10
+	title = post_calisia.10.t
+	desc = post_calisia.10.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires post_calisia.10"
+		hidden_effect = {
+			CAL_pharaonate_spawns_barbarian_crisis = yes
+			CAL_gaulicia_spawns_barbarian_crisis = yes
+			CAL_judah_spawns_barbarian_crisis = yes
+			set_country_flag = PaF_CAL_postcalisia_ending
+			PaF_initiate_ending_screen = yes
+		}
+	}
+	option = {
+		name = post_calisia.10.a
+	}
+}
+
+
+
+################
+# NEWS EVENTS #
+################
+
+news_event = { 
+	id = calisia.2000 #praetorians coup
+	title = calisia.2000.t
+	desc = calisia.2000.desc
+	picture = GFX_news_event_calisian_praetorians
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2000"}
+	option = {
+		name = calisia.2000.a 
+	}
+}
+
+news_event = { 
+	id = calisia.2001 #calisian republic
+	title = calisia.2001.t
+	desc = calisia.2001.desc
+	picture = GFX_news_event_calisian_republic
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2001"}
+	option = {
+		name = calisia.2001.a 
+        set_global_flag = Super_Event_Visible
+        set_global_flag = CAL_respublica_super_visible
+
+		hidden_effect = {
+			if ={
+				limit = {
+					NOT = {
+						has_global_flag = superevents_muted
+					}
+				}
+			sound_effect = "CAL_respublica_super"
+			play_song = "cisza60"
+			}
+		}
+	}
+}
+
+news_event = { 
+	id = calisia.2002 #praetorian empire
+	title = calisia.2002.t
+	desc = calisia.2002.desc
+	picture = GFX_news_event_calisian_praetorians
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2002"}
+	option = {
+		name = calisia.2002.a 
+        set_global_flag = Super_Event_Visible
+        set_global_flag = CAL_pretoriae_super_visible
+
+		hidden_effect = {
+			if ={
+				limit = {
+					NOT = {
+						has_global_flag = superevents_muted
+					}
+				}
+			sound_effect = "CAL_pretorianie_super"
+			play_song = "cisza60"
+			}
+		}
+	}
+}
+
+news_event = { 
+	id = calisia.2003 #barbarian crisis
+	title = calisia.2003.t
+	desc = calisia.2003.desc
+	picture = GFX_news_event_barbarian_crisis
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2003"}
+	option = {
+		name = calisia.2003.a 
+       set_global_flag = Super_Event_Visible
+        set_global_flag = CAL_barbari_super_visible
+
+		hidden_effect = {
+			if ={
+				limit = {
+					NOT = {
+						has_global_flag = superevents_muted
+					}
+				}
+			sound_effect = "CAL_barbarzyncy_super"
+			play_song = "cisza45"
+			}
+		}
+	}
+}
+
+news_event = {
+	id = calisia.2004 #niemcy rozjebane
+	title = calisia.2004.t
+	desc = calisia.2004.desc
+	picture = GFX_news_event_calisia.2004
+
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2004"}
+	option = {
+		name = calisia.2004.a 
+	}
+}
+
+
+
+news_event = {
+	id = calisia.2007 #calisia fall
+	title = calisia.2007.t
+	desc = calisia.2007.desc
+	picture = GFX_news_event_calisia_fall
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2007"}
+	option = {
+		name = calisia.2007.a 
+		set_global_flag = Super_Event_Visible
+        set_global_flag = CAL_postcalisia_super_visible
+
+		hidden_effect = {
+			if ={
+				limit = {
+					NOT = {
+						has_global_flag = superevents_muted
+					}
+				}
+			sound_effect = "CAL_postcalisia_super"
+			play_song = "cisza60"
+			}
+		}
+	}
+}
+country_event = { #Death of Calisius #EVENT PRZY ZABICIU KALISZA PRZEZ PRETORIAN W TRAKCIE SPISKU
+	id = calisia.2137
+	title = calisia.2137.t
+	desc = calisia.2137.desc
+	picture = GFX_event_calisia.
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.2137"}
+	option = {
+		name = calisia.2137.a 
+		
+	}
+}
+

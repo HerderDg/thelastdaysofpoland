@@ -1,903 +1,3602 @@
+CAL_project_funding = {
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = { CAL_spending_level < 17 }
+			}
+			add_to_variable = { CAL_spending_level = 1 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { CAL_spending_level = 17 }
+			}
+			country_event = {
+				id = calisia.37 #Coffers Are Empty
+				days = 10
+			}
+		}
+	}
+}
 
-# tba
-
-CAL_redraw_senate_diagram = {
-	set_variable = {
-		CAL_populares_percentage = CAL_populares_count
-	}
-	set_variable = {
-		CAL_populares_at_row1 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row2 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row3 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row4 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row5 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row6 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row7 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row8 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row9 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row10 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row11 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row12 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row13 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row14 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row15 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row16 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row17 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row18 = 0
-	}
-	set_variable = {
-		CAL_populares_at_row19 = 0
-	}
+CAL_lex_reward = {
 	if = {
 		limit = {
-			check_variable = {
-				CAL_senate_lvl = 1
-			}
+			check_variable = { CAL_passed_laws_variable = 13 }
 		}
-		divide_variable = {
-			CAL_populares_percentage = 100
-		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 130
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				CAL_senate_lvl = 2
-			}
+			check_variable = { CAL_passed_laws_variable = 12 }
 		}
-		divide_variable = {
-			CAL_populares_percentage = 150
-		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 120
 	}
 	else_if = {
 		limit = {
-			check_variable = {
-				CAL_senate_lvl = 3
-			}
+			check_variable = { CAL_passed_laws_variable = 11 }
 		}
-		divide_variable = {
-			CAL_populares_percentage = 300
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 110
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 10 }
 		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 100
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 9 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 90
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 8 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 80
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 7 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 70
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 6 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 60
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 5 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 50
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 4 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 40
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 3 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 30
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 2 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 20
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_passed_laws_variable = 1 }
+		}
+		custom_effect_tooltip = CAL_lex_reward_tt
+		add_political_power = 10
 	}
 	else = {
-		divide_variable = {
-			CAL_populares_percentage = 900
-		}
+		custom_effect_tooltip = CAL_lex_reward_explaining_tt
 	}
-	set_variable = {
-		CAL_seats_to_draw = CAL_populares_count
-	}
-	#drawing
-	#round 1
-	set_variable = {
-		CAL_seats_to_draw_this_round = CAL_populares_percentage
-	}
-	multiply_variable = {
-		CAL_seats_to_draw_this_round = 20
-	}
-	round_variable = CAL_seats_to_draw_this_round
-	if = {
-		limit = { 
-			check_variable = { CAL_seats_to_draw_this_round = 0 }
-			check_variable = { CAL_populares_count > 0 }
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = 1
-		}
-	}
-	set_variable = {CAL_populares_at_row1 = CAL_seats_to_draw_this_round}
-	subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row1}
-	#ROUND 2
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 23
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
+}
 
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
+CAL_spawn_jutes = {
+	JUT = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
 		}
-		set_variable = {CAL_populares_at_row2 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row2}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}
+		
 	}
-	#ROUND 3
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 26
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
+	618 = {
+		transfer_state_to = JUT
+		add_core_of = JUT
+	}
 
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
+	JUT = {
+		delete_unit_template_and_units = {
+			division_template = "Infanteriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzergrenadierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerpionierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Versorgungsbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Jägerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Artilleriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Aufklärungsbataillon"
+		}
+		load_oob = "barbarians"
+		change_vp_name_to_nordic = yes
+	}
+
+	set_global_flag = CAL_jutes_spawned
+}
+
+CAL_spawn_ostrogoths = {
+	OST = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	923 = {
+		transfer_state_to = OST
+		add_core_of = OST
+	}
+	OST = {
+		delete_unit_template_and_units = {
+			division_template = "Infanteriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzergrenadierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerpionierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Versorgungsbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Jägerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Artilleriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Aufklärungsbataillon"
+		}
+		load_oob = "barbarians"
+		change_vp_name_to_german = yes
+	}
+	set_global_flag = CAL_ostrogoths_spawned
+	
+}
+
+CAL_spawn_franks = {
+	FRK = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	922 = {
+		transfer_state_to = FRK
+		add_core_of = FRK
+	}
+	FRK = {
+		delete_unit_template_and_units = {
+			division_template = "Infanteriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzergrenadierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerpionierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Versorgungsbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Jägerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Artilleriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Aufklärungsbataillon"
+		}
+		load_oob = "barbarians"
+		change_vp_name_to_german = yes
+	}
+	set_global_flag = CAL_franks_spawned
+	
+}
+
+CAL_spawn_visigoths = {
+	WIZ = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		create_faction = "Gotish Federation"
+		add_to_faction = OST
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	919 = {
+		transfer_state_to = WIZ
+		add_core_of = WIZ
+	}
+	WIZ = {
+		delete_unit_template_and_units = {
+			division_template = "Infanteriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzergrenadierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerpionierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Versorgungsbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Jägerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Artilleriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Aufklärungsbataillon"
+		}
+		load_oob = "barbarians"
+		change_vp_name_to_german = yes
+	}
+	set_global_flag = CAL_visigoths_spawned
+}
+
+CAL_spawn_saxons = {
+	SAX = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		create_faction = "Franko-Saxons"
+		add_to_faction = FRK
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	415 = {
+		transfer_state_to = SAX
+		add_core_of = SAX
+	}
+	SAX = {
+		delete_unit_template_and_units = {
+			division_template = "Infanteriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzergrenadierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerpionierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Versorgungsbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Jägerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Artilleriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Aufklärungsbataillon"
+		}
+		load_oob = "barbarians"
+		change_vp_name_to_german = yes
+	}
+	set_global_flag = CAL_saxons_spawned
+}
+
+CAL_spawn_vandals = {
+	VAN = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	920 = {
+		transfer_state_to = VAN
+		add_core_of = VAN
+	}
+	VAN = {
+		delete_unit_template_and_units = {
+			division_template = "Infanteriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzergrenadierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerpionierbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Versorgungsbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Panzerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Jägerbataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Artilleriebataillon"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Aufklärungsbataillon"
+		}
+		load_oob = "barbarians"
+		change_vp_name_to_german = yes
+	}
+	set_global_flag = CAL_vandals_spawned
+}
+
+CAL_spawn_estes = {
+	AES = {
+		load_focus_tree = blank_tree
+		add_ideas = barbarians_idea
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	25 = {
+		transfer_state_to = AES
+		add_core_of = AES
+	}
+	AES = {
+		load_oob = "barbarians"
+		change_vp_name_to_notthatprussian = yes
+	}
+	set_global_flag = CAL_estes_spawned
+}
+
+CAL_spawn_huns= {
+	HNN = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	830 = {
+		transfer_state_to = HNN
+		add_core_of = HNN
+	}
+	HNN = {
+		load_oob = "Huns"
+	}
+	set_global_flag = CAL_huns_spawned
+}
+
+CAL_spawn_scythians= {
+	SCY = {
+		add_ideas = barbarians_idea
+		load_focus_tree = blank_tree
+		add_offsite_building = {
+			type = arms_factory
+			level = 5
+		}
+		set_technology = {
+			melee_weapons = 1
+			ranged_weapons = 1
+		}	
+	}
+	520 = {
+		transfer_state_to = SCY
+		add_core_of = SCY
+	}
+	SCY = {
+		load_oob = "barbarians"
+		change_vp_name_to_russian = yes
+	}
+	set_global_flag = CAL_scythians_spawned
+}
+
+CAL_spawn_slave_revolt = {
+
+	481 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	798 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	453 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	589 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	460 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	735 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	736 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	777 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	737 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	480 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	776 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	775 = {
+		transfer_state_to = SPA
+		add_core_of = SPA
+	}
+	SPA = {
+		inherit_technology = CAL
+	}
+	set_global_flag = CAL_spartakus_risen
+}
+
+CAL_jutes_win_barbarian_crisis = {
+	54 = {
+		transfer_state_to = JUT
+	}
+	22 = {
+		transfer_state_to = JUT
+	}	
+	618 = {
+		transfer_state_to = JUT
+	}
+	31 = {
+		transfer_state_to = JUT
+	}	
+	83 = {
+		transfer_state_to = JUT
+	}
+	619 = {
+		transfer_state_to = JUT
+	}
+	70 = {
+		transfer_state_to = JUT
+	}
+	68 = {
+		transfer_state_to = JUT
+	}
+	620 = {
+		transfer_state_to = JUT
+	}
+	621 = {
+		transfer_state_to = JUT
+	}
+	55 = {
+		transfer_state_to = JUT
+	}
+	61 = {
+		transfer_state_to = JUT
+	}
+	874 = {
+		transfer_state_to = JUT
+	}
+	88 = {
+		transfer_state_to = JUT
+	}
+	617 = {
+		transfer_state_to = JUT
+	}
+	114 = {
+		transfer_state_to = JUT
+	}
+	616 = {
+		transfer_state_to = JUT
+	}
+	105 = {
+		transfer_state_to = JUT
+	}
+	90 = {
+		transfer_state_to = JUT
+	}
+	43 = {
+		transfer_state_to = JUT
+	}
+	JUT = {
+		set_capital = { state = 70 }
+		set_cosmetic_tag = JUT_CAL
+	}
+}
+
+CAL_franks_win_barbarian_crisis = {
+	122 = {
+		transfer_state_to = FRK
+	}
+	923 = {
+		transfer_state_to = FRK
+	}
+	922 = {
+		transfer_state_to = FRK
+	}	
+	133 = {
+		transfer_state_to = FRK
+	}
+	615 = {
+		transfer_state_to = FRK
+	}
+	158 = {
+		transfer_state_to = FRK
+	}
+	614 = {
+		transfer_state_to = FRK
+	}
+	175 = {
+		transfer_state_to = FRK
+	}
+	613 = {
+		transfer_state_to = FRK
+	}
+	187 = {
+		transfer_state_to = FRK
+	}
+	183 = {
+		transfer_state_to = FRK
+	}
+	185 = {
+		transfer_state_to = FRK
+	}
+	204 = {
+		transfer_state_to = FRK
+	}
+	209 = {
+		transfer_state_to = FRK
+	}
+	227 = {
+		transfer_state_to = FRK
+	}
+	190 = {
+		transfer_state_to = FRK
+	}
+	FRK = {
+		set_capital = { state = 922 }
+		set_cosmetic_tag = FRK_CAL
+	}
+}
+
+CAL_saxons_win_barbarian_crisis = {
+	273 = {
+		transfer_state_to = SAX
+	}
+	267 = {
+		transfer_state_to = SAX
+	}
+	297 = {
+		transfer_state_to = SAX
+	}
+	293 = {
+		transfer_state_to = SAX
+	}
+	894 = {
+		transfer_state_to = SAX
+	}
+	345 = {
+		transfer_state_to = SAX
+	}
+	372 = {
+		transfer_state_to = SAX
+	}
+	804 = {
+		transfer_state_to = SAX
+	}
+	336 = {
+		transfer_state_to = SAX
+	}
+	313 = {
+		transfer_state_to = SAX
+	}
+	308 = {
+		transfer_state_to = SAX
+	}
+	276 = {
+		transfer_state_to = SAX
+	}
+	251 = {
+		transfer_state_to = SAX
+	}
+	295 = {
+		transfer_state_to = SAX
+	}
+	609 = {
+		transfer_state_to = SAX
+	}
+	610 = {
+		transfer_state_to = SAX
+	}
+	282 = {
+		transfer_state_to = SAX
+	}
+	611 = {
+		transfer_state_to = SAX
+	}
+	316 = {
+		transfer_state_to = SAX
+	}
+	325 = {
+		transfer_state_to = SAX
+	}
+	329 = {
+		transfer_state_to = SAX
+	}
+	339 = {
+		transfer_state_to = SAX
+	}
+	729 = {
+		transfer_state_to = SAX
+	}
+	727 = {
+		transfer_state_to = SAX
+	}
+	725 = {
+		transfer_state_to = SAX
+	}
+	356 = {
+		transfer_state_to = SAX
+	}
+	381 = {
+		transfer_state_to = SAX
+	}
+	367 = {
+		transfer_state_to = SAX
+	}
+	373 = {
+		transfer_state_to = SAX
+	}
+	374 = {
+		transfer_state_to = SAX
+	}
+	401 = {
+		transfer_state_to = SAX
+	}
+	728 = {
+		transfer_state_to = SAX
+	}
+	407 = {
+		transfer_state_to = SAX
+	}
+	408 = {
+		transfer_state_to = SAX
+	}
+	415 = {
+		transfer_state_to = SAX
+	}
+	921 = {
+		transfer_state_to = SAX
+	}	
+	SAX = {
+		set_capital = { state = 345 }
+		set_cosmetic_tag = SAX_CAL
+	}
+}
+
+CAL_vandals_win_barbarian_crisis = {
+	414 = {
+		transfer_state_to = VAN
+	}
+	726 = {
+		transfer_state_to = VAN
+	}
+	397 = {
+		transfer_state_to = VAN
+	}
+	605 = {
+		transfer_state_to = VAN
+	}
+	419 = {
+		transfer_state_to = VAN
+	}
+	431 = {
+		transfer_state_to = VAN
+	}
+	805 = {
+		transfer_state_to = VAN
+	}
+	439 = {
+		transfer_state_to = VAN
+	}
+	449 = {
+		transfer_state_to = VAN
+	}
+	446 = {
+		transfer_state_to = VAN
+	}
+	409 = {
+		transfer_state_to = VAN
+	}
+	371 = {
+		transfer_state_to = VAN
+	}
+	387 = {
+		transfer_state_to = VAN
+	}
+	606 = {
+		transfer_state_to = VAN
+	}
+	608 = {
+		transfer_state_to = VAN
+	}
+	607 = {
+		transfer_state_to = VAN
+	}
+	388 = {
+		transfer_state_to = VAN
+	}
+	375 = {
+		transfer_state_to = VAN
+	}
+	376 = {
+		transfer_state_to = VAN
+	}
+	369 = {
+		transfer_state_to = VAN
+	}
+	806 = {
+		transfer_state_to = VAN
+	}
+	343 = {
+		transfer_state_to = VAN
+	}
+	344 = {
+		transfer_state_to = VAN
+	}
+	334 = {
+		transfer_state_to = VAN
+	}
+	324 = {
+		transfer_state_to = VAN
+	}
+	351 = {
+		transfer_state_to = VAN
+	}
+	866 = {
+		transfer_state_to = VAN
+	}
+	380 = {
+		transfer_state_to = VAN
+	}
+	399 = {
+		transfer_state_to = VAN
+	}
+	402 = {
+		transfer_state_to = VAN
+	}
+	796 = {
+		transfer_state_to = VAN
+	}
+	410 = {
+		transfer_state_to = VAN
+	}
+	802 = {
+		transfer_state_to = VAN
+	}
+	383 = {
+		transfer_state_to = VAN
+	}
+	386 = {
+		transfer_state_to = VAN
+	}
+	602 = {
+		transfer_state_to = VAN
+	}
+	425 = {
+		transfer_state_to = VAN
+	}
+	404 = {
+		transfer_state_to = VAN
+	}
+	428 = {
+		transfer_state_to = VAN
+	}
+	797 = {
+		transfer_state_to = VAN
+	}
+	427 = {
+		transfer_state_to = VAN
+	}
+	450 = {
+		transfer_state_to = VAN
+	}
+	448 = {
+		transfer_state_to = VAN
+	}
+	435 = {
+		transfer_state_to = VAN
+	}
+	795 = {
+		transfer_state_to = VAN
+	}
+	451 = {
+		transfer_state_to = VAN
+	}
+	471 = {
+		transfer_state_to = VAN
+	}
+	794 = {
+		transfer_state_to = VAN
+	}
+	467 = {
+		transfer_state_to = VAN
+	}
+	463 = {
+		transfer_state_to = VAN
+	}
+	792 = {
+		transfer_state_to = VAN
+	}
+	488 = {
+		transfer_state_to = VAN
+	}
+	500 = {
+		transfer_state_to = VAN
+	}
+	790 = {
+		transfer_state_to = VAN
+	}
+	510 = {
+		transfer_state_to = VAN
+	}
+	504 = {
+		transfer_state_to = VAN
+	}
+	497 = {
+		transfer_state_to = VAN
+	}
+	791 = {
+		transfer_state_to = VAN
+	}
+	793 = {
+		transfer_state_to = VAN
+	}
+	VAN = {
+		set_capital = { state = 608 }
+		set_cosmetic_tag = VAN_CAL
+	}
+	920 = {
+		transfer_state_to = SAX
+	}
+}
+
+CAL_visigoths_win_barbarian_crisis = {
+	681 = {
+		transfer_state_to = WIZ
+	}
+	283 = {
+		transfer_state_to = WIZ
+	}
+	686 = {
+		transfer_state_to = WIZ
+	}
+	576 = {
+		transfer_state_to = WIZ
+	}
+	580 = {
+		transfer_state_to = WIZ
+	}
+	302 = {
+		transfer_state_to = WIZ
+	}
+	759 = {
+		transfer_state_to = WIZ
+	}
+	578 = {
+		transfer_state_to = WIZ
+	}
+	579 = {
+		transfer_state_to = WIZ
+	}
+	685 = {
+		transfer_state_to = WIZ
+	}
+	904 = {
+		transfer_state_to = WIZ
+	}
+	318 = {
+		transfer_state_to = WIZ
+	}
+	317 = {
+		transfer_state_to = WIZ
+	}
+	309 = {
+		transfer_state_to = WIZ
+	}
+	684 = {
+		transfer_state_to = WIZ
+	}
+	683 = {
+		transfer_state_to = WIZ
+	}
+	328 = {
+		transfer_state_to = WIZ
+	}
+	361 = {
+		transfer_state_to = WIZ
+	}
+	353 = {
+		transfer_state_to = WIZ
+	}
+	358 = {
+		transfer_state_to = WIZ
+	}
+	341 = {
+		transfer_state_to = WIZ
+	}
+	379 = {
+		transfer_state_to = WIZ
+	}
+	398 = {
+		transfer_state_to = WIZ
+	}
+	394 = {
+		transfer_state_to = WIZ
+	}
+	362 = {
+		transfer_state_to = WIZ
+	}
+	370 = {
+		transfer_state_to = WIZ
+	}
+	368 = {
+		transfer_state_to = WIZ
+	}
+	396 = {
+		transfer_state_to = WIZ
+	}
+	903 = {
+		transfer_state_to = WIZ
+	}
+	848 = {
+		transfer_state_to = WIZ
+	}
+	861 = {
+		transfer_state_to = WIZ
+	}
+	WIZ = {
+		set_capital = { state = 341 }
+		set_cosmetic_tag = WIZ_CAL
+	}
+	919 = {
+		transfer_state_to = FRK
+	}
+}
+
+CAL_ostrogoths_win_barbarian_crisis = {
+	258 = {
+		transfer_state_to = OST
+	}
+	236 = {
+		transfer_state_to = OST
+	}
+	222 = {
+		transfer_state_to = OST
+	}
+	213 = {
+		transfer_state_to = OST
+	}
+	232 = {
+		transfer_state_to = OST
+	}
+	260 = {
+		transfer_state_to = OST
+	}
+	849 = {
+		transfer_state_to = OST
+	}
+	191 = {
+		transfer_state_to = OST
+	}
+	198 = {
+		transfer_state_to = OST
+	}
+	182 = {
+		transfer_state_to = OST
+	}
+	167 = {
+		transfer_state_to = OST
+	}
+	847 = {
+		transfer_state_to = OST
+	}
+	172 = {
+		transfer_state_to = OST
+	}
+	124 = {
+		transfer_state_to = OST
+	}
+	708 = {
+		transfer_state_to = OST
+	}
+	907 = {
+		transfer_state_to = OST
+	}
+	706 = {
+		transfer_state_to = OST
+	}
+	705 = {
+		transfer_state_to = OST
+	}
+	171 = {
+		transfer_state_to = OST
+	}
+	181 = {
+		transfer_state_to = OST
+	}
+	701 = {
+		transfer_state_to = OST
+	}
+	176 = {
+		transfer_state_to = OST
+	}
+	702 = {
+		transfer_state_to = OST
+	}
+	703 = {
+		transfer_state_to = OST
+	}
+	704 = {
+		transfer_state_to = OST
+	}
+	200 = {
+		transfer_state_to = OST
+	}
+	912 = {
+		transfer_state_to = OST
+	}
+	852 = {
+		transfer_state_to = OST
+	}
+	OST = {
+		set_capital = { state = 701 }
+		set_cosmetic_tag = OST_CAL
+	}
+	43 = {
+		transfer_state_to = JUT
+	}
+}
+
+CAL_scythia_wins_barbarian_crisis = {
+	517 = {
+		transfer_state_to = SCY
+	}
+	520 = {
+		transfer_state_to = SCY
+	}
+	808 = {
+		transfer_state_to = SCY
+	}
+	485 = {
+		transfer_state_to = SCY
+	}
+	499 = {
+		transfer_state_to = SCY
+	}
+	473 = {
+		transfer_state_to = SCY
+	}
+	457 = {
+		transfer_state_to = SCY
+	}
+	668 = {
+		transfer_state_to = SCY
+	}
+	411 = {
+		transfer_state_to = SCY
+	}
+	442 = {
+		transfer_state_to = SCY
+	}
+	426 = {
+		transfer_state_to = SCY
+	}
+	393 = {
+		transfer_state_to = SCY
+	}
+	403 = {
+		transfer_state_to = SCY
+	}
+	424 = {
+		transfer_state_to = SCY
+	}
+	413 = {
+		transfer_state_to = SCY
+	}
+	406 = {
+		transfer_state_to = SCY
+	}
+	815 = {
+		transfer_state_to = SCY
+	}
+	667 = {
+		transfer_state_to = SCY
+	}
+	391 = {
+		transfer_state_to = SCY
+	}
+	350 = {
+		transfer_state_to = SCY
+	}
+	382 = {
+		transfer_state_to = SCY
+	}
+	354 = {
+		transfer_state_to = SCY
+	}
+	349 = {
+		transfer_state_to = SCY
+	}
+	384 = {
+		transfer_state_to = SCY
+	}
+	669 = {
+		transfer_state_to = SCY
+	}
+	663 = {
+		transfer_state_to = SCY
+	}
+	364 = {
+		transfer_state_to = SCY
+	}
+	658 = {
+		transfer_state_to = SCY
+	}
+	355 = {
+		transfer_state_to = SCY
+	}
+	661 = {
+		transfer_state_to = SCY
+	}
+	662 = {
+		transfer_state_to = SCY
+	}
+	665 = {
+		transfer_state_to = SCY
+	}
+	664 = {
+		transfer_state_to = SCY
+	}
+	363 = {
+		transfer_state_to = SCY
+	}
+	365 = {
+		transfer_state_to = SCY
+	}
+	330 = {
+		transfer_state_to = SCY
+	}
+	347 = {
+		transfer_state_to = SCY
+	}
+	326 = {
+		transfer_state_to = SCY
+	}
+	322 = {
+		transfer_state_to = SCY
+	}
+	306 = {
+		transfer_state_to = SCY
+	}
+	304 = {
+		transfer_state_to = SCY
+	}
+	SCY = {
+		set_capital = { state = 363 }
+		set_cosmetic_tag = SCY_CAL
+	}
+}
+
+CAL_huns_win_barbarian_crisis = {
+	241 = {
+		transfer_state_to = HNN
+	}
+	277 = {
+		transfer_state_to = HNN
+	}
+	231 = {
+		transfer_state_to = HNN
+	}
+	656 = {
+		transfer_state_to = HNN
+	}
+	199 = {
+		transfer_state_to = HNN
+	}
+	194 = {
+		transfer_state_to = HNN
+	}
+	827 = {
+		transfer_state_to = HNN
+	}
+	828 = {
+		transfer_state_to = HNN
+	}
+	829 = {
+		transfer_state_to = HNN
+	}
+	830 = {
+		transfer_state_to = HNN
+	}
+	203 = {
+		transfer_state_to = HNN
+	}
+	169 = {
+		transfer_state_to = HNN
+	}
+	838 = {
+		transfer_state_to = HNN
+	}
+	151 = {
+		transfer_state_to = HNN
+	}
+	142 = {
+		transfer_state_to = HNN
+	}
+	831 = {
+		transfer_state_to = HNN
+	}
+	635 = {
+		transfer_state_to = HNN
+	}
+	174 = {
+		transfer_state_to = HNN
+	}
+	168 = {
+		transfer_state_to = HNN
+	}
+	149 = {
+		transfer_state_to = HNN
+	}
+	154 = {
+		transfer_state_to = HNN
+	}
+	834 = {
+		transfer_state_to = HNN
+	}
+	638 = {
+		transfer_state_to = HNN
+	}
+	639 = {
+		transfer_state_to = HNN
+	}
+	634 = {
+		transfer_state_to = HNN
+	}
+	641 = {
+		transfer_state_to = HNN
+	}
+	94 = {
+		transfer_state_to = HNN
+	}
+	833 = {
+		transfer_state_to = HNN
+	}
+	123 = {
+		transfer_state_to = HNN
+	}
+	640 = {
+		transfer_state_to = HNN
+	}
+	143 = {
+		transfer_state_to = HNN
+	}
+	844 = {
+		transfer_state_to = HNN
+	}
+	845 = {
+		transfer_state_to = HNN
+	}
+	637 = {
+		transfer_state_to = HNN
+	}
+	636 = {
+		transfer_state_to = HNN
+	}
+	103 = {
+		transfer_state_to = HNN
+	}
+	137 = {
+		transfer_state_to = HNN
+	}
+	HNN = {
+		set_capital = { state = 143 }
+		set_cosmetic_tag = HNN_CAL		
+	}
+}
+
+CAL_aesti_wins_barbarian_crisis = {
+	87 = {
+		transfer_state_to = AES
+	}
+	77 = {
+		transfer_state_to = AES
+	}
+	86 = {
+		transfer_state_to = AES
+	}
+	73 = {
+		transfer_state_to = AES
+	}
+	106 = {
+		transfer_state_to = AES
+	}
+	69 = {
+		transfer_state_to = AES
+	}
+	91 = {
+		transfer_state_to = AES
+	}
+	854 = {
+		transfer_state_to = AES
+	}
+	877 = {
+		transfer_state_to = AES
+	}
+	72 = {
+		transfer_state_to = AES
+	}
+	59 = {
+		transfer_state_to = AES
+	}
+	47 = {
+		transfer_state_to = AES
+	}
+	51 = {
+		transfer_state_to = AES
+	}
+	58 = {
+		transfer_state_to = AES
+	}
+	40 = {
+		transfer_state_to = AES
+	}
+	42 = {
+		transfer_state_to = AES
+	}
+	46 = {
+		transfer_state_to = AES
+	}
+	875 = {
+		transfer_state_to = AES
+	}
+	880 = {
+		transfer_state_to = AES
+	}
+	878 = {
+		transfer_state_to = AES
+	}
+	879 = {
+		transfer_state_to = AES
+	}
+	881 = {
+		transfer_state_to = AES
+	}
+	893 = {
+		transfer_state_to = AES
+	}
+	891 = {
+		transfer_state_to = AES
+	}
+	29 = {
+		transfer_state_to = AES
+	}
+	882 = {
+		transfer_state_to = AES
+	}
+	883 = {
+		transfer_state_to = AES
+	}
+	887 = {
+		transfer_state_to = AES
+	}
+	48 = {
+		transfer_state_to = AES
+	}
+	888 = {
+		transfer_state_to = AES
+	}
+	889 = {
+		transfer_state_to = AES
+	}
+	890 = {
+		transfer_state_to = AES
+	}
+	892 = {
+		transfer_state_to = AES
+	}
+	25 = {
+		transfer_state_to = AES
+	}
+	AES = {
+		set_capital = { state = 48 }
+		set_cosmetic_tag = AES_CAL
+	}
+}
+
+CAL_legio_fanatica_spawns_barbarian_crisis = {
+	876 = {
+		transfer_state_to = PZW
+	}
+	93 = {
+		transfer_state_to = PZW
+	}
+	117 = {
+		transfer_state_to = PZW
+	}
+	132 = {
+		transfer_state_to = PZW
+	}
+	138 = {
+		transfer_state_to = PZW
+	}
+	120 = {
+		transfer_state_to = PZW
+	}
+	110 = {
+		transfer_state_to = PZW
+	}
+	116 = {
+		transfer_state_to = PZW
+	}
+	95 = {
+		transfer_state_to = PZW
+	}
+	92 = {
+		transfer_state_to = PZW
+	}
+	79 = {
+		transfer_state_to = PZW
+	}
+	832 = {
+		transfer_state_to = PZW
+	}
+	80 = {
+		transfer_state_to = PZW
+	}
+	71 = {
+		transfer_state_to = PZW
+	}
+	97 = {
+		transfer_state_to = PZW
+	}
+	75 = {
+		transfer_state_to = PZW
+	}
+	85 = {
+		transfer_state_to = PZW
+	}
+	60 = {
+		transfer_state_to = PZW
+	}
+	57 = {
+		transfer_state_to = PZW
+	}
+	66 = {
+		transfer_state_to = PZW
+	}
+	37 = {
+		transfer_state_to = PZW
+	}
+	50 = {
+		transfer_state_to = PZW
+	}
+	633 = {
+		transfer_state_to = PZW
+	}
+	PZW = {
+		set_capital = { state = 75 }
+		set_cosmetic_tag = PZW_CAL
+		set_politics = {
+			ruling_party = reactionary
+			long_name = "Legio XXXVII Fanatica"
+			name = "Legio XXXVII Fanatica"					
+		}
+		set_political_party = {
+			ideology = reactionary
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = PZW_carassius
+			promote_leader = yes
+			country_leader = {
+				ideology = reactionary_subtype
 			}
 		}
-		set_variable = {CAL_populares_at_row3 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row3}
 	}
-	#ROUND 4
+}
+
+CAL_eastern_calisian_empire_spawns_barbarian_crisis = {
+	197 = {
+		transfer_state_to = TRZ
+	}
+	186 = {
+		transfer_state_to = TRZ
+	}
+	210 = {
+		transfer_state_to = TRZ
+	}
+	180 = {
+		transfer_state_to = TRZ
+	}
+	216 = {
+		transfer_state_to = TRZ
+	}
+	214 = {
+		transfer_state_to = TRZ
+	}
+	223 = {
+		transfer_state_to = TRZ
+	}
+	228 = {
+		transfer_state_to = TRZ
+	}
+	237 = {
+		transfer_state_to = TRZ
+	}
+	270 = {
+		transfer_state_to = TRZ
+	}
+	262 = {
+		transfer_state_to = TRZ
+	}
+	238 = {
+		transfer_state_to = TRZ
+	}
+	261 = {
+		transfer_state_to = TRZ
+	}
+	645 = {
+		transfer_state_to = TRZ
+	}
+	647 = {
+		transfer_state_to = TRZ
+	}
+	755 = {
+		transfer_state_to = TRZ
+	}
+	756 = {
+		transfer_state_to = TRZ
+	}
+	268 = {
+		transfer_state_to = TRZ
+	}
+	754 = {
+		transfer_state_to = TRZ
+	}
+	753 = {
+		transfer_state_to = TRZ
+	}
+	558 = {
+		transfer_state_to = TRZ
+	}
+	563 = {
+		transfer_state_to = TRZ
+	}
+	646 = {
+		transfer_state_to = TRZ
+	}
+	720 = {
+		transfer_state_to = TRZ
+	}
+	566 = {
+		transfer_state_to = TRZ
+	}
+	568 = {
+		transfer_state_to = TRZ
+	}
+	564 = {
+		transfer_state_to = TRZ
+	}
+	567 = {
+		transfer_state_to = TRZ
+	}
+	557 = {
+		transfer_state_to = TRZ
+	}
+	565 = {
+		transfer_state_to = TRZ
+	}
+	719 = {
+		transfer_state_to = TRZ
+	}
+	242 = {
+		transfer_state_to = TRZ
+	}
+	560 = {
+		transfer_state_to = TRZ
+	}
+	562 = {
+		transfer_state_to = TRZ
+	}
+	644 = {
+		transfer_state_to = TRZ
+	}
+	239 = {
+		transfer_state_to = TRZ
+	}
+	211 = {
+		transfer_state_to = TRZ
+	}
+	189 = {
+		transfer_state_to = TRZ
+	}
+	561 = {
+		transfer_state_to = TRZ
+	}
+	559 = {
+		transfer_state_to = TRZ
+	}
+	648 = {
+		transfer_state_to = TRZ
+	}
+	215 = {
+		transfer_state_to = TRZ
+	}
+	835 = {
+		transfer_state_to = TRZ
+	}
+	718 = {
+		transfer_state_to = TRZ
+	}
+	650 = {
+		transfer_state_to = TRZ
+	}
+	649 = {
+		transfer_state_to = TRZ
+	}
+	751 = {
+		transfer_state_to = TRZ
+	}
+	750 = {
+		transfer_state_to = TRZ
+	}
+	252 = {
+		transfer_state_to = TRZ
+	}
+	752 = {
+		transfer_state_to = TRZ
+	}
+	233 = {
+		transfer_state_to = TRZ
+	}
+	284 = {
+		transfer_state_to = TRZ
+	}
+	254 = {
+		transfer_state_to = TRZ
+	}
+	226 = {
+		transfer_state_to = TRZ
+	}
+	201 = {
+		transfer_state_to = TRZ
+	}
+	290 = {
+		transfer_state_to = TRZ
+	}
+	278 = {
+		transfer_state_to = TRZ
+	}
+	657 = {
+		transfer_state_to = TRZ
+	}
+	837 = {
+		transfer_state_to = TRZ
+	}
+	836 = {
+		transfer_state_to = TRZ
+	}
+	659 = {
+		transfer_state_to = TRZ
+	}
+	310 = {
+		transfer_state_to = TRZ
+	}
+	655 = {
+		transfer_state_to = TRZ
+	}
+	TRZ = {
+		remove_ideas = TRZ_interservice_rivalry_activists
+		remove_ideas = TRZ_the_media_in_exile_TVN
+		remove_ideas = TRZ_the_legitimate_government_2
+		remove_ideas = TRZ_the_legitimate_government_5
+		set_capital = { state = 753 }
+		set_cosmetic_tag = TRZ_CAL
+		set_politics = {
+			ruling_party = euroliberalism
+			long_name = "SPQC - Europaei"
+			name = "Senatus Populusque Constantiae - Europaei"					
+		}
+		set_political_party = {
+			ideology = euroliberalism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = TRZ_rafał_trzaskowski
+			promote_leader = yes
+			country_leader = {
+				ideology = euroliberalism_subtype
+			}
+		}
+		TRZ_rafał_trzaskowski = {
+			set_character_name = "Raphael I"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_RAPHAEL_I
+		}
+	}
+}
+
+CAL_kingdom_of_calisians_spawns_barbarian_crisis = {
+	430 = {
+		transfer_state_to = RZE
+	}
+	814 = {
+		transfer_state_to = RZE
+	}
+	429 = {
+		transfer_state_to = RZE
+	}
+	447 = {
+		transfer_state_to = RZE
+	}
+	461 = {
+		transfer_state_to = RZE
+	}
+	489 = {
+		transfer_state_to = RZE
+	}
+	484 = {
+		transfer_state_to = RZE
+	}
+	809 = {
+		transfer_state_to = RZE
+	}
+	601 = {
+		transfer_state_to = RZE
+	}
+	507 = {
+		transfer_state_to = RZE
+	}
+	468 = {
+		transfer_state_to = RZE
+	}
+	518 = {
+		transfer_state_to = RZE
+	}
+	816 = {
+		transfer_state_to = RZE
+	}
+	817 = {
+		transfer_state_to = RZE
+	}
+	456 = {
+		transfer_state_to = RZE
+	}
+	455 = {
+		transfer_state_to = RZE
+	}
+	472 = {
+		transfer_state_to = RZE
+	}
+	491 = {
+		transfer_state_to = RZE
+	}
+	512 = {
+		transfer_state_to = RZE
+	}
+	492 = {
+		transfer_state_to = RZE
+	}
+	822 = {
+		transfer_state_to = RZE
+	}
+	812 = {
+		transfer_state_to = RZE
+	}
+	813 = {
+		transfer_state_to = RZE
+	}
+	494 = {
+		transfer_state_to = RZE
+	}
+	498 = {
+		transfer_state_to = RZE
+	}
+	RZE = {
+		set_capital = { state = 507 }
+		set_cosmetic_tag = RZE_CAL
+		set_politics = {
+			ruling_party = socialdemocrature
+			long_name = "SPQC - Populares"
+			name = "SPQC - Populares"					
+		}
+		set_political_party = {
+			ideology = socialdemocrature
+			popularity = 100
+		}
+		every_possible_country = {
+			limit = { has_character = CAL_sylwiusz_jakubowski }
+			random_character = {
+				limit = { is_character = CAL_sylwiusz_jakubowski }
+				set_nationality = RZE
+			}
+		}
+		add_country_leader_role = {
+			character = CAL_sylwiusz_jakubowski
+			promote_leader = yes
+			country_leader = {
+				ideology = socialdemocrature_subtype
+			}
+		}
+		CAL_sylwiusz_jakubowski = {
+			set_character_name = "Silvius I"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_SILVIUS_I
+		}
+		remove_ideas = RZE_patodeveloperka
+	}
+}
+
+CAL_legio_alpha_spawns_barbarian_crisis = {
+	807 = {
+		transfer_state_to = ALP
+	}
+	536 = {
+		transfer_state_to = ALP
+	}
+	547 = {
+		transfer_state_to = ALP
+	}
+	542 = {
+		transfer_state_to = ALP
+	}
+	810 = {
+		transfer_state_to = ALP
+	}
+	541 = {
+		transfer_state_to = ALP
+	}
+	538 = {
+		transfer_state_to = ALP
+	}
+	526 = {
+		transfer_state_to = ALP
+	}
+	527 = {
+		transfer_state_to = ALP
+	}
+	535 = {
+		transfer_state_to = ALP
+	}
+	524 = {
+		transfer_state_to = ALP
+	}
+	533 = {
+		transfer_state_to = ALP
+	}
+	811 = {
+		transfer_state_to = ALP
+	}
+	ALP = {
+		set_capital = { state = 538 }
+		set_politics = {
+			ruling_party = neonationalism					
+		}
+		set_political_party = {
+			ideology = neonationalism
+			popularity = 30
+		}
+	}
+}
+
+CAL_nova_calisia_spawns_barbarian_crisis = {
+	98 = {
+		transfer_state_to = JAS
+	}
+	84 = {
+		transfer_state_to = JAS
+	}
+	78 = {
+		transfer_state_to = JAS
+	}
+	82 = {
+		transfer_state_to = JAS
+	}
+	107 = {
+		transfer_state_to = JAS
+	}
+	127 = {
+		transfer_state_to = JAS
+	}
+	871 = {
+		transfer_state_to = JAS
+	}
+	153 = {
+		transfer_state_to = JAS
+	}
+	177 = {
+		transfer_state_to = JAS
+	}
+	155 = {
+		transfer_state_to = JAS
+	}
+	118 = {
+		transfer_state_to = JAS
+	}
+	916 = {
+		transfer_state_to = JAS
+	}
+	135 = {
+		transfer_state_to = JAS
+	}
+	102 = {
+		transfer_state_to = JAS
+	}
+	873 = {
+		transfer_state_to = JAS
+	}
+	872 = {
+		transfer_state_to = JAS
+	}
+	JAS = {
+		JAS_aleksander_jabłonowski = {
+			set_nationality = JAS
+			set_character_name = "Phaon Alnus"
+		}
+		set_capital = { state = 98 }
+		add_victory_points = {
+			province = 401
+			value = 15
+		}
+		set_cosmetic_tag = JAS_CAL
+		set_politics = {
+			ruling_party = neonationalism
+			long_name = "Societas Lacertae"
+			name = "Societas Lacertae"					
+		}
+		set_political_party = {
+			ideology = neonationalism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = JAS_aleksander_jabłonowski
+			promote_leader = yes
+			country_leader = {
+				ideology = neonationalism_subtype
+			}
+		}
+		
+		set_country_leader_portrait = {
+			portrait = GFX_PHAON_ALNUS
+		}
+	}
+}
+
+CAL_carthagdinia_spawns_barbarian_crisis = {
+	884 = {
+		transfer_state_to = GDA
+	}
+	26 = {
+		transfer_state_to = GDA
+	}
+	886 = {
+		transfer_state_to = GDA
+	}
+	885 = {
+		transfer_state_to = GDA
+	}
+	41 = {
+		transfer_state_to = GDA
+	}
+	632 = {
+		transfer_state_to = GDA
+	}
+	631 = {
+		transfer_state_to = GDA
+	}
+	49 = {
+		transfer_state_to = GDA
+	}
+	56 = {
+		transfer_state_to = GDA
+	}
+	64 = {
+		transfer_state_to = GDA
+	}
+	15 = {
+		transfer_state_to = GDA
+	}
+	52 = {
+		transfer_state_to = GDA
+	}
+	44 = {
+		transfer_state_to = GDA
+	}
+	715 = {
+		transfer_state_to = GDA
+	}
+	630 = {
+		transfer_state_to = GDA
+	}
+	39 = {
+		transfer_state_to = GDA
+	}
+	717 = {
+		transfer_state_to = GDA
+	}
+	897 = {
+		transfer_state_to = GDA
+	}
+	714 = {
+		transfer_state_to = GDA
+	}
+	716 = {
+		transfer_state_to = GDA
+	}
+	709 = {
+		transfer_state_to = GDA
+	}
+	712 = {
+		transfer_state_to = GDA
+	}
+	713 = {
+		transfer_state_to = GDA
+	}
+	711 = {
+		transfer_state_to = GDA
+	}
+	20 = {
+		transfer_state_to = GDA
+	}
+	710 = {
+		transfer_state_to = GDA
+	}
+	34 = {
+		transfer_state_to = GDA
+	}
+	626 = {
+		transfer_state_to = GDA
+	}
+	21 = {
+		transfer_state_to = GDA
+	}
+	36 = {
+		transfer_state_to = GDA
+	}
+	666 = {
+		transfer_state_to = GDA
+	}
+	628 = {
+		transfer_state_to = GDA
+	}
+	627 = {
+		transfer_state_to = GDA
+	}
+	625 = {
+		transfer_state_to = GDA
+	}
+	624 = {
+		transfer_state_to = GDA
+	}
+	623 = {
+		transfer_state_to = GDA
+	}
+	622 = {
+		transfer_state_to = GDA
+	}
+	63 = {
+		transfer_state_to = GDA
+	}
+	53 = {
+		transfer_state_to = GDA
+	}
+	33 = {
+		transfer_state_to = GDA
+	}
+	23 = {
+		transfer_state_to = GDA
+	}
+	24 = {
+		transfer_state_to = GDA
+	}
+	35 = {
+		transfer_state_to = GDA
+	}
+	45 = {
+		transfer_state_to = GDA
+	}
+	GDA = {
+		set_capital = { state = 34 }
+		set_cosmetic_tag = GDA_CAL
+		set_politics = {
+			ruling_party = autocracy
+			long_name = "Adirim"
+			name = "Adirim"		
+		}
+		set_political_party = {
+			ideology = autocracy
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = GDA_aleksandra_dulkiewicz
+			promote_leader = yes
+			country_leader = {
+				ideology = autocracy_subtype
+			}
+		}
+		GDA_aleksandra_dulkiewicz = {
+			set_character_name = "Dulco"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_DULKONA
+		}
+	}
+}
+
+CAL_empire_of_last_days_spawns_barbarian_crisis = {
+	38 = {
+		transfer_state_to = SYJ
+	}
+	868 = {
+		transfer_state_to = SYJ
+	}
+	81 = {
+		transfer_state_to = SYJ
+	}
+	89 = {
+		transfer_state_to = SYJ
+	}
+	74 = {
+		transfer_state_to = SYJ
+	}
+	62 = {
+		transfer_state_to = SYJ
+	}
+	111 = {
+		transfer_state_to = SYJ
+	}
+	130 = {
+		transfer_state_to = SYJ
+	}
+	104 = {
+		transfer_state_to = SYJ
+	}
+	906 = {
+		transfer_state_to = SYJ
+	}
+	905 = {
+		transfer_state_to = SYJ
+	}
+	707 = {
+		transfer_state_to = SYJ
+	}
+	148 = {
+		transfer_state_to = SYJ
+	}
+	150 = {
+		transfer_state_to = SYJ
+	}
+	136 = {
+		transfer_state_to = SYJ
+	}
+	128 = {
+		transfer_state_to = SYJ
+	}
+	99 = {
+		transfer_state_to = SYJ
+	}
+	96 = {
+		transfer_state_to = SYJ
+	}
+	100 = {
+		transfer_state_to = SYJ
+	}
+	65 = {
+		transfer_state_to = SYJ
+	}
+	67 = {
+		transfer_state_to = SYJ
+	}
+	629 = {
+		transfer_state_to = SYJ
+	}
+	853 = {
+		transfer_state_to = SYJ
+	}
+	SYJ = {
+		set_capital = { state = 81 }
+		set_cosmetic_tag = SYJ_CAL
+		set_politics = {
+			ruling_party = postpolonism
+			long_name = "Synodus Ultima"
+			name = "Synodus Ultima"		
+		}
+		set_political_party = {
+			ideology = postpolonism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = SYJ_prorok_lichwała
+			promote_leader = yes
+			country_leader = {
+				ideology = postpolonism_subtype
+			}
+		}
+		SYJ_prorok_lichwała = {
+			set_character_name = "Iaroslaus Ultimus"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_CESARZ_DNI_OSTATNICH
+		}
+	}
+}
+
+CAL_aquilin_spawns_barbarian_crisis = {
+	115 = {
+		transfer_state_to = ORL
+	}
+	108 = {
+		transfer_state_to = ORL
+	}
+	112 = {
+		transfer_state_to = ORL
+	}
+	121 = {
+		transfer_state_to = ORL
+	}
+	129 = {
+		transfer_state_to = ORL
+	}
+	126 = {
+		transfer_state_to = ORL
+	}
+	141 = {
+		transfer_state_to = ORL
+	}
+	140 = {
+		transfer_state_to = ORL
+	}
+	145 = {
+		transfer_state_to = ORL
+	}
+	165 = {
+		transfer_state_to = ORL
+	}
+	134 = {
+		transfer_state_to = ORL
+	}
+	163 = {
+		transfer_state_to = ORL
+	}
+	152 = {
+		transfer_state_to = ORL
+	}
+	146 = {
+		transfer_state_to = ORL
+	}
+	170 = {
+		transfer_state_to = ORL
+	}
+	196 = {
+		transfer_state_to = ORL
+	}
+	192 = {
+		transfer_state_to = ORL
+	}
+	173 = {
+		transfer_state_to = ORL
+	}
+	156 = {
+		transfer_state_to = ORL
+	}
+	147 = {
+		transfer_state_to = ORL
+	}
+	125 = {
+		transfer_state_to = ORL
+	}
+	144 = {
+		transfer_state_to = ORL
+	}
+	113 = {
+		transfer_state_to = ORL
+	}
+	139 = {
+		transfer_state_to = ORL
+	}
+	160 = {
+		transfer_state_to = ORL
+	}
+	131 = {
+		transfer_state_to = ORL
+	}
+	157 = {
+		transfer_state_to = ORL
+	}
+	839 = {
+		transfer_state_to = ORL
+	}
+	840 = {
+		transfer_state_to = ORL
+	}
+	841 = {
+		transfer_state_to = ORL
+	}
+	842 = {
+		transfer_state_to = ORL
+	}
+	179 = {
+		transfer_state_to = ORL
+	}
+	642 = {
+		transfer_state_to = ORL
+	}
+	643 = {
+		transfer_state_to = ORL
+	}
+	28 = {
+		transfer_state_to = ORL
+	}
+	ORL = {
+		set_capital = { state = 642 }
+		set_cosmetic_tag = ORL_CAL
+		set_politics = {
+			ruling_party = autocracy
+			long_name = "Consilium Aqulinae"
+			name = "Consilium Aqulinae"		
+		}
+		set_political_party = {
+			ideology = autocracy
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = ORL_daniel_obajtek
+			promote_leader = yes
+			country_leader = {
+				ideology = autocracy_subtype
+			}
+		}
+		ORL_daniel_obajtek = {
+			set_character_name = "Danielus Obajtkus"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_OBAJTKUS
+		}
+	}
+}
+
+CAL_judah_spawns_barbarian_crisis = {
+	687 = {
+		transfer_state_to = ZYD
+	}
+	289 = {
+		transfer_state_to = ZYD
+	}
+	272 = {
+		transfer_state_to = ZYD
+	}
+	275 = {
+		transfer_state_to = ZYD
+	}
+	269 = {
+		transfer_state_to = ZYD
+	}
+	288 = {
+		transfer_state_to = ZYD
+	}
+	682 = {
+		transfer_state_to = ZYD
+	}
+	757 = {
+		transfer_state_to = ZYD
+	}
+	758 = {
+		transfer_state_to = ZYD
+	}
+	577 = {
+		transfer_state_to = ZYD
+	}
+	303 = {
+		transfer_state_to = ZYD
+	}
+	315 = {
+		transfer_state_to = ZYD
+	}
+	319 = {
+		transfer_state_to = ZYD
+	}
+	340 = {
+		transfer_state_to = ZYD
+	}
+	333 = {
+		transfer_state_to = ZYD
+	}
+	331 = {
+		transfer_state_to = ZYD
+	}
+	332 = {
+		transfer_state_to = ZYD
+	}
+	323 = {
+		transfer_state_to = ZYD
+	}
+	300 = {
+		transfer_state_to = ZYD
+	}
+	850 = {
+		transfer_state_to = ZYD
+	}
+	296 = {
+		transfer_state_to = ZYD
+	}
+	294 = {
+		transfer_state_to = ZYD
+	}
+	651 = {
+		transfer_state_to = ZYD
+	}
+	ZYD = {
+		set_capital = { state = 577 }
+		set_cosmetic_tag = ZYD_CAL
+		every_possible_country = {
+			limit = { has_character = SOS_zukowska }
+			random_character = {
+				limit = { is_character = SOS_zukowska }
+				set_nationality = ZYD
+			}
+		}
+		set_politics = {
+			ruling_party = squattism
+			long_name = "Court of Judah"
+			name = "Court of Judah"					
+		}
+		set_political_party = {
+			ideology = squattism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = SOS_zukowska
+			promote_leader = yes
+			country_leader = {
+				ideology = squattism_subtype
+			}
+		}
+		SOS_zukowska = {
+			set_character_name = "Hannāh Miriam Khipushít"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_AMZ_ZYD
+		}
+	}
+}
+
+CAL_gaulicia_spawns_barbarian_crisis = {
+	301 = {
+		transfer_state_to = MNI
+	}
+	346 = {
+		transfer_state_to = MNI
+	}
+	660 = {
+		transfer_state_to = MNI
+	}
+	654 = {
+		transfer_state_to = MNI
+	}
+	653 = {
+		transfer_state_to = MNI
+	}
+	652 = {
+		transfer_state_to = MNI
+	}
+	348 = {
+		transfer_state_to = MNI
+	}
+	366 = {
+		transfer_state_to = MNI
+	}
+	360 = {
+		transfer_state_to = MNI
+	}
+	673 = {
+		transfer_state_to = MNI
+	}
+	672 = {
+		transfer_state_to = MNI
+	}
+	378 = {
+		transfer_state_to = MNI
+	}
+	860 = {
+		transfer_state_to = MNI
+	}
+	864 = {
+		transfer_state_to = MNI
+	}
+	679 = {
+		transfer_state_to = MNI
+	}
+	899 = {
+		transfer_state_to = MNI
+	}
+	377 = {
+		transfer_state_to = MNI
+	}
+	859 = {
+		transfer_state_to = MNI
+	}
+	858 = {
+		transfer_state_to = MNI
+	}
+	392 = {
+		transfer_state_to = MNI
+	}
+	671 = {
+		transfer_state_to = MNI
+	}
+	670 = {
+		transfer_state_to = MNI
+	}
+	678 = {
+		transfer_state_to = MNI
+	}
+	677 = {
+		transfer_state_to = MNI
+	}
+	433 = {
+		transfer_state_to = MNI
+	}
+	676 = {
+		transfer_state_to = MNI
+	}
+	675 = {
+		transfer_state_to = MNI
+	}
+	674 = {
+		transfer_state_to = MNI
+	}
+	914 = {
+		transfer_state_to = MNI
+	}
+	915 = {
+		transfer_state_to = MNI
+	}
+	913 = {
+		transfer_state_to = MNI
+	}
+	416 = {
+		transfer_state_to = MNI
+	}
+	865 = {
+		transfer_state_to = MNI
+	}
+	389 = {
+		transfer_state_to = MNI
+	}
+	417 = {
+		transfer_state_to = MNI
+	}
+	433 = {
+		transfer_state_to = MNI
+	}
+	857 = {
+		transfer_state_to = MNI
+	}
+	856 = {
+		transfer_state_to = MNI
+	}
+	855 = {
+		transfer_state_to = MNI
+	}
+	863 = {
+		transfer_state_to = MNI
+	}
+	862 = {
+		transfer_state_to = MNI
+	}
+	469 = {
+		transfer_state_to = MNI
+	}
+	441 = {
+		transfer_state_to = MNI
+	}
+	443 = {
+		transfer_state_to = MNI
+	}
+	454 = {
+		transfer_state_to = MNI
+	}
+	438 = {
+		transfer_state_to = MNI
+	}
+	432 = {
+		transfer_state_to = MNI
+	}
+	420 = {
+		transfer_state_to = MNI
+	}
+	MNI = {
+		set_capital = { state = 416 }
+		set_cosmetic_tag = MNI_CAL
+		set_politics = {
+			ruling_party = squattism
+			long_name = "Gaulic Moot"
+			name = "Gaulic Moot"		
+		}
+		set_political_party = {
+			ideology = squattism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = MNI_richard_galla
+			promote_leader = yes
+			country_leader = {
+				ideology = squattism_subtype
+			}
+		}
+		MNI_richard_galla = {
+			set_character_name = "Ricardus Gaulus"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_GAULUS
+		}
+	}
+}
+
+CAL_polonesia_spawns_barbarian_crisis = {
+	412 = {
+		transfer_state_to = JWK
+	}
+	400 = {
+		transfer_state_to = JWK
+	}
+	870 = {
+		transfer_state_to = JWK
+	}
+	869 = {
+		transfer_state_to = JWK
+	}
+	418 = {
+		transfer_state_to = JWK
+	}
+	592 = {
+		transfer_state_to = JWK
+	}
+	591 = {
+		transfer_state_to = JWK
+	}
+	746 = {
+		transfer_state_to = JWK
+	}
+	390 = {
+		transfer_state_to = JWK
+	}
+	423 = {
+		transfer_state_to = JWK
+	}
+	436 = {
+		transfer_state_to = JWK
+	}
+	738 = {
+		transfer_state_to = JWK
+	}
+	440 = {
+		transfer_state_to = JWK
+	}
+	745 = {
+		transfer_state_to = JWK
+	}
+	744 = {
+		transfer_state_to = JWK
+	}
+	743 = {
+		transfer_state_to = JWK
+	}
+	421 = {
+		transfer_state_to = JWK
+	}
+	445 = {
+		transfer_state_to = JWK
+	}
+	JWK = {
+		set_capital = { state = 421 }
+		set_cosmetic_tag = JWK_CAL
+		set_politics = {
+			ruling_party = reactionary
+			long_name = "Spartiatikos Syllogos"
+			name = "Spartiatikos Syllogos"		
+		}
+		set_political_party = {
+			ideology = reactionary
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = JWK_kukula
+			promote_leader = yes
+			country_leader = {
+				ideology = reactionary_subtype
+			}
+		}
+		JWK_kukula = {
+			set_character_name = "Wiesław Kukuła" #Zostawiam w razie jakbyś chciał jakieś inne imie mu dać
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_ARCHAGETA
+		}
+	}
+}
+
+CAL_spartakus_spawns_barbarian_crisis = {
+	760 = {
+		transfer_state_to = SOS
+	}
+	731 = {
+		transfer_state_to = SOS
+	}
+	732 = {
+		transfer_state_to = SOS
+	}
+	730 = {
+		transfer_state_to = SOS
+	}
+	741 = {
+		transfer_state_to = SOS
+	}
+	739 = {
+		transfer_state_to = SOS
+	}
+	740 = {
+		transfer_state_to = SOS
+	}
+	826 = {
+		transfer_state_to = SOS
+	}
+	459 = {
+		transfer_state_to = SOS
+	}
+	825 = {
+		transfer_state_to = SOS
+	}
+	515 = {
+		transfer_state_to = SOS
+	}
+	594 = {
+		transfer_state_to = SOS
+	}
+	801 = {
+		transfer_state_to = SOS
+	}
+	800 = {
+		transfer_state_to = SOS
+	}
+	799 = {
+		transfer_state_to = SOS
+	}
+	513 = {
+		transfer_state_to = SOS
+	}
+	593 = {
+		transfer_state_to = SOS
+	}
+	493 = {
+		transfer_state_to = SOS
+	}
+	733 = {
+		transfer_state_to = SOS
+	}
+	734 = {
+		transfer_state_to = SOS
+	}
+	502 = {
+		transfer_state_to = SOS
+	}
+	761 = {
+		transfer_state_to = SOS
+	}
+	486 = {
+		transfer_state_to = SOS
+	}
+	487 = {
+		transfer_state_to = SOS
+	}
+	481 = {
+		transfer_state_to = SOS
+	}
+	453 = {
+		transfer_state_to = SOS
+	}
+	589 = {
+		transfer_state_to = SOS
+	}
+	769 = {
+		transfer_state_to = SOS
+	}
+	798 = {
+		transfer_state_to = SOS
+	}
+	480 = {
+		transfer_state_to = SOS
+	}
+	775 = {
+		transfer_state_to = SOS
+	}
+	776 = {
+		transfer_state_to = SOS
+	}
+	736 = {
+		transfer_state_to = SOS
+	}
+	737 = {
+		transfer_state_to = SOS
+	}
+	735 = {
+		transfer_state_to = SOS
+	}
+	777 = {
+		transfer_state_to = SOS
+	}
+	460 = {
+		transfer_state_to = SOS
+	}
+	SOS = {
+		set_capital = { state = 737 }
+		set_cosmetic_tag = SOS_CAL
+		set_politics = {
+			ruling_party = squattism
+			long_name = "Foedus Spartaci"
+			name = "Foedus Spartaci"		
+		}
+		set_political_party = {
+			ideology = squattism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = SOS_litewka
+			promote_leader = yes
+			country_leader = {
+				ideology = squattism_subtype
+			}
+		}
+		SOS_litewka = {
+			set_character_name = "Lucas Lituanus"
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_SPARTAKUS
+		}
+	}
+}
+
+CAL_silingi_spawns_barbarian_crisis = {
+	464 = {
+		transfer_state_to = GLI
+	}
+	742 = {
+		transfer_state_to = GLI
+	}
+	466 = {
+		transfer_state_to = GLI
+	}
+	474 = {
+		transfer_state_to = GLI
+	}
+	475 = {
+		transfer_state_to = GLI
+	}
+	479 = {
+		transfer_state_to = GLI
+	}
+	476 = {
+		transfer_state_to = GLI
+	}
+	768 = {
+		transfer_state_to = GLI
+	}
+	483 = {
+		transfer_state_to = GLI
+	}
+	763 = {
+		transfer_state_to = GLI
+	}
+	764 = {
+		transfer_state_to = GLI
+	}
+	767 = {
+		transfer_state_to = GLI
+	}
+	765 = {
+		transfer_state_to = GLI
+	}
+	766 = {
+		transfer_state_to = GLI
+	}
+	470 = {
+		transfer_state_to = GLI
+	}
+	490 = {
+		transfer_state_to = GLI
+	}
+	590 = {
+		transfer_state_to = GLI
+	}
+	501 = {
+		transfer_state_to = GLI
+	}
+	496 = {
+		transfer_state_to = GLI
+	}
+	789 = {
+		transfer_state_to = GLI
+	}
+	788 = {
+		transfer_state_to = GLI
+	}
+	787 = {
+		transfer_state_to = GLI
+	}
+	762 = {
+		transfer_state_to = GLI
+	}
+	509 = {
+		transfer_state_to = GLI
+	}
+	511 = {
+		transfer_state_to = GLI
+	}
+	516 = {
+		transfer_state_to = GLI
+	}
+	786 = {
+		transfer_state_to = GLI
+	}
+	GLI = {
+		set_capital = { state = 483 }
+		set_cosmetic_tag = GLI_CAL
+		set_politics = {
+			ruling_party = squattism
+			long_name = "Silingting"
+			name = "Silingting"		
+		}
+		set_political_party = {
+			ideology = squattism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = GLI_haja
+			promote_leader = yes
+			country_leader = {
+				ideology = squattism_subtype
+			}
+		}
+	}
+}
+
+CAL_czechia_takes_land_barbarian_crisis = {
+	604 = {
+		transfer_state_to = CZH
+	}
+	452 = {
+		transfer_state_to = CZH
+	}
+	434 = {
+		transfer_state_to = CZH
+	}
+	785 = {
+		transfer_state_to = CZH
+	}
+	749 = {
+		transfer_state_to = CZH
+	}
+	784 = {
+		transfer_state_to = CZH
+	}
+	522 = {
+		transfer_state_to = CZH
+	}
+	747 = {
+		transfer_state_to = CZH
+	}
+	748 = {
+		transfer_state_to = CZH
+	}
+	478 = {
+		transfer_state_to = CZH
+	}
+	803 = {
+		transfer_state_to = CZH
+	}
+}
+
+CAL_pharaonate_spawns_barbarian_crisis = {
+	599 = {
+		transfer_state_to = NHT
+	}
+	598 = {
+		transfer_state_to = NHT
+	}
+	477 = {
+		transfer_state_to = NHT
+	}
+	495 = {
+		transfer_state_to = NHT
+	}
+	482 = {
+		transfer_state_to = NHT
+	}
+	823 = {
+		transfer_state_to = NHT
+	}
+	824 = {
+		transfer_state_to = NHT
+	}
+	898 = {
+		transfer_state_to = NHT
+	}
+	505 = {
+		transfer_state_to = NHT
+	}
+	503 = {
+		transfer_state_to = NHT
+	}
+	508 = {
+		transfer_state_to = NHT
+	}
+	519 = {
+		transfer_state_to = NHT
+	}
+	596 = {
+		transfer_state_to = NHT
+	}
+	597 = {
+		transfer_state_to = NHT
+	}
+	574 = {
+		transfer_state_to = NHT
+	}
+	573 = {
+		transfer_state_to = NHT
+	}
+	575 = {
+		transfer_state_to = NHT
+	}
+	514 = {
+		transfer_state_to = NHT
+	}
+	570 = {
+		transfer_state_to = NHT
+	}
+	572 = {
+		transfer_state_to = NHT
+	}
+	571 = {
+		transfer_state_to = NHT
+	}
+	569 = {
+		transfer_state_to = NHT
+	}
+	773 = {
+		transfer_state_to = NHT
+	}
+	772 = {
+		transfer_state_to = NHT
+	}
+	774 = {
+		transfer_state_to = NHT
+	}
+	771 = {
+		transfer_state_to = NHT
+	}
+	770 = {
+		transfer_state_to = NHT
+	}
+	722 = {
+		transfer_state_to = NHT
+	}
+	721 = {
+		transfer_state_to = NHT
+	}
+	723 = {
+		transfer_state_to = NHT
+	}
+	724 = {
+		transfer_state_to = NHT
+	}
+	506 = {
+		transfer_state_to = NHT
+	}
+	NHT = {
+		set_capital = { state = 506 }
+		set_cosmetic_tag = NHT_CAL
+		set_politics = {
+			ruling_party = postpolonism
+			long_name = "Oracles of Astrampsychus"
+			name = "Oracles of Astrampsychus"					
+		}
+		set_political_party = {
+			ideology = postpolonism
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = NHT_astram_psychos
+			promote_leader = yes
+			country_leader = {
+				ideology = postpolonism_subtype
+			}
+		}
+	}
+}
+
+CAL_armenia_spawns_barbarian_crisis = {
+	600 = {
+		transfer_state_to = HAB
+	}
+	545 = {
+		transfer_state_to = HAB
+	}
+	525 = {
+		transfer_state_to = HAB
+	}
+	595 = {
+		transfer_state_to = HAB
+	}
+	783 = {
+		transfer_state_to = HAB
+	}
+	521 = {
+		transfer_state_to = HAB
+	}
+	523 = {
+		transfer_state_to = HAB
+	}
+	528 = {
+		transfer_state_to = HAB
+	}
+	532 = {
+		transfer_state_to = HAB
+	}
+	531 = {
+		transfer_state_to = HAB
+	}
+	539 = {
+		transfer_state_to = HAB
+	}
+	782 = {
+		transfer_state_to = HAB
+	}
+	781 = {
+		transfer_state_to = HAB
+	}
+	780 = {
+		transfer_state_to = HAB
+	}
+	779 = {
+		transfer_state_to = HAB
+	}
+	778 = {
+		transfer_state_to = HAB
+	}
+	534 = {
+		transfer_state_to = HAB
+	}
+	530 = {
+		transfer_state_to = HAB
+	}
+	529 = {
+		transfer_state_to = HAB
+	}
+	821 = {
+		transfer_state_to = HAB
+	}
+	820 = {
+		transfer_state_to = HAB
+	}
+	819 = {
+		transfer_state_to = HAB
+	}
+	818 = {
+		transfer_state_to = HAB
+	}
+	HAB = {
+		set_capital = { state = 523 }
+		set_cosmetic_tag = HAB_CAL
+		set_politics = {
+			ruling_party = autocracy
+			long_name = "Beskidi Miutyun"
+			name = "Beskidi Miutyun"		
+		}
+		set_political_party = {
+			ideology = autocracy
+			popularity = 100
+		}
+		add_country_leader_role = {
+			character = HAB_Makłowicz
+			promote_leader = yes
+			country_leader = {
+				ideology = autocracy_subtype
+			}
+		}
+		set_country_leader_portrait = {
+			portrait = GFX_MAKLOWICZ_ARMENIA
+		}
+	}
+}
+
+CAL_nysa_spawns_barbarian_crisis = {
+	603 = {
+		transfer_state_to = NYS
+	}
+	NYS = {
+		set_capital = { state = 603 }
+		set_cosmetic_tag = NYS_CAL
+		set_politics = {
+			ruling_party = socialdemocrature
+			long_name = "SPQN - Populares"
+			name = "Senatus Populusque Nissanum - Populares"					
+		}
+		set_political_party = {
+			ideology = socialdemocrature
+			popularity = 100
+		}
+	}
+}
+
+CAL_pax_calisiana_review = {
 	if = {
 		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 29
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
+			check_variable = { CAL_pax_calisiana_result = 6 }
 		}
 		if = {
 			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
+				has_idea = CAL_palma_non_sine_pulvere
 			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
+			swap_ideas = {
+				remove_idea = CAL_palma_non_sine_pulvere
+				add_idea = CAL_pax_calisiana_mixed
+			}
 		}
-		set_variable = {CAL_populares_at_row4 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row4}
+		else_if = {
+			limit = {
+				has_idea = CAL_pax_calisiana_mixed
+			}
+			
+		}
+		else_if = {
+			limit = {
+				has_idea = CAL_pax_calisiana_optimates
+			}
+			swap_ideas = {
+				remove_idea = CAL_pax_calisiana_optimates
+				add_idea = CAL_pax_calisiana_mixed
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = CAL_pax_calisiana_populares
+			}
+			swap_ideas = {
+				remove_idea = CAL_pax_calisiana_populares
+				add_idea = CAL_pax_calisiana_mixed
+			}
+		}
 	}
-	#ROUND 5
-	if = {
+	else_if = {
 		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
+			check_variable = { CAL_pax_calisiana_result > 6 }
 		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
+
 		if = {
 			limit = {
-				check_variable = {
-					CAL_senate_lvl = 1
-				}
+				has_idea = CAL_palma_non_sine_pulvere
 			}
-			multiply_variable = {
-				CAL_seats_to_draw_this_round = 2
-			}
-		}
-		else = {
-			multiply_variable = {
-				CAL_seats_to_draw_this_round = 32
+			swap_ideas = {
+				remove_idea = CAL_palma_non_sine_pulvere
+				add_idea = CAL_pax_calisiana_populares
 			}
 		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
+		else_if = {
+			limit = {
+				has_idea = CAL_pax_calisiana_populares
 			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
+			
+		}
+		else_if = {
+			limit = {
+				has_idea = CAL_pax_calisiana_mixed
+			}
+			swap_ideas = {
+				remove_idea = CAL_pax_calisiana_mixed
+				add_idea = CAL_pax_calisiana_populares
 			}
 		}
+		#else_if = {
+		#	limit = {
+		#		has_idea = CAL_pax_calisiana_optimates
+		#	}
+		#	swap_ideas = {
+		#		remove_idea = CAL_pax_calisiana_optimates
+		#		add_idea = CAL_pax_calisiana_populares
+		#	}
+		#}
+	}
+	else_if = {
+		limit = {
+			check_variable = { CAL_pax_calisiana_result < 6 }
+		}
+
 		if = {
 			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
+				has_idea = CAL_palma_non_sine_pulvere
 			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
+			swap_ideas = {
+				remove_idea = CAL_palma_non_sine_pulvere
+				add_idea = CAL_pax_calisiana_optimates
+			}
 		}
-		set_variable = {CAL_populares_at_row5 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row5}
-	}
-	#bonus round for lvl 1
-	if = {
-		limit = {
-			check_variable = { CAL_senate_lvl = 1 }
-			check_variable = { CAL_seats_to_draw > 0}
-		}
-		while_loop_effect = {
+		else_if = {
 			limit = {
-				check_variable = { CAL_seats_to_draw > 0 }
+				has_idea = CAL_pax_calisiana_optimates
 			}
-			if = {
-				limit = {
-					check_variable = {CAL_populares_at_row5 < 2 }
-				}
-				add_to_variable = { CAL_populares_at_row5 = 1}
+			
+		}
+		else_if = {
+			limit = {
+				has_idea = CAL_pax_calisiana_mixed
 			}
-			else_if = {
-				limit = {
-					check_variable = {CAL_populares_at_row4 < 29 }
-				}
-				add_to_variable = { CAL_populares_at_row4 = 1}
+			swap_ideas = {
+				remove_idea = CAL_pax_calisiana_mixed
+				add_idea = CAL_pax_calisiana_optimates
 			}
-			subtract_from_variable = { CAL_seats_to_draw = 1 }
 		}
 	}
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
+}
+
+CAL_spawn_limitanei = {
+	load_oob = CAL_emergency_legions
+	54 = {
 		if = {
 			limit = {
-				check_variable = {
-					CAL_senate_lvl = 2
-				}
+				is_controlled_by = ROOT
 			}
-			multiply_variable = {
-				CAL_seats_to_draw_this_round = 20
-			}
-		}
-		else = {
-			multiply_variable = {
-				CAL_seats_to_draw_this_round = 35
+			create_unit = {
+				division = "division_template = \"Limitanei\" start_equipment_factor = 0.5"
+				owner = ROOT
+				count = 5
 			}
 		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
+	}
+	209 = {
 		if = {
 			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
+				is_controlled_by = ROOT
 			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row6 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row6}
-	}
-	#another bonus round (for lvl 2)
-	if = {
-		limit = {
-			check_variable = { CAL_senate_lvl = 2 }
-			check_variable = { CAL_seats_to_draw > 0}
-		}
-		while_loop_effect = {
-			limit = {
-				check_variable = { CAL_seats_to_draw > 0 }
+			create_unit = {
+				division = "division_template = \"Limitanei\" start_equipment_factor = 0.5"
+				owner = ROOT
+				count = 5
 			}
-			if = {
-				limit = {
-					check_variable = {CAL_populares_at_row6 < 20 }
-				}
-				add_to_variable = { CAL_populares_at_row6 = 1}
-			}
-			else_if = {
-				limit = {
-					check_variable = {CAL_populares_at_row5 < 32 }
-				}
-				add_to_variable = { CAL_populares_at_row5 = 1}
-			}
-			subtract_from_variable = { CAL_seats_to_draw = 1 }
 		}
 	}
-	#round 7
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 39
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
+	345 = {
 		if = {
 			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
+				is_controlled_by = ROOT
 			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
+			create_unit = {
+				division = "division_template = \"Limitanei\" start_equipment_factor = 0.5"
+				owner = ROOT
+				count = 5
+			}
 		}
-		set_variable = {CAL_populares_at_row7 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row7}
 	}
-	#round 8
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 42
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
+	889 = {
 		if = {
 			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
+				is_controlled_by = ROOT
 			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
+			create_unit = {
+				division = "division_template = \"Limitanei\" start_equipment_factor = 0.5"
+				owner = ROOT
+				count = 5
+			}
 		}
-		set_variable = {CAL_populares_at_row8 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row8}
 	}
-	#round 9
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 45
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
+	168 = {
 		if = {
 			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
+				is_controlled_by = ROOT
 			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
+			create_unit = {
+				division = "division_template = \"Limitanei\" start_equipment_factor = 0.5"
+				owner = ROOT
+				count = 5
+			}
 		}
-		set_variable = {CAL_populares_at_row9 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row9}
 	}
-	#round 10
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
+	485 = {
 		if = {
 			limit = {
-				check_variable = {
-					CAL_senate_lvl = 3
+				is_controlled_by = ROOT
+			}
+			create_unit = {
+				division = "division_template = \"Limitanei\" start_equipment_factor = 0.5"
+				owner = ROOT
+				count = 5
+			}
+		}
+	}
+}
+CAL_change_gov_optimates = {
+	set_country_flag = CAL_current_gov_optimates
+	activate_advisor = CAL_min_kaleta
+	activate_advisor = CAL_min_luszczykiewicz
+	activate_advisor = CAL_min_skarzynski
+	activate_advisor = CAL_min_bojarczuk
+}
+CAL_change_gov_populares = {
+	clr_country_flag = CAL_current_gov_optimates
+	hidden_effect = {
+		add_dynamic_modifier = {
+			modifier = CAL_populare_loyalty_modifier
+		}
+		remove_dynamic_modifier = {
+			modifier = CAL_optimate_loyalty_modifier
+		}
+	}
+	activate_advisor = CAL_min_kompa
+	activate_advisor = CAL_min_delag
+	activate_advisor = CAL_min_malecki
+	activate_advisor = CAL_min_chwedoruk
+}
+CAL_change_gov_discordia = {
+	clr_country_flag = CAL_current_gov_optimates
+	hidden_effect = {
+		remove_dynamic_modifier = {
+			modifier = CAL_populare_loyalty_modifier
+		}
+		remove_dynamic_modifier = {
+			modifier = CAL_optimate_loyalty_modifier
+		}
+	}
+	set_country_flag = CAL_current_gov_discordia
+	activate_advisor = CAL_min_najman
+	activate_advisor = CAL_min_dieudonne
+	activate_advisor = CAL_min_eco_jaszczur
+	activate_advisor = CAL_min_kinastowski
+}
+CAL_change_gov_concordia = {
+	clr_country_flag = CAL_current_gov_optimates
+	clr_country_flag = CAL_current_gov_discordia
+	set_country_flag = CAL_current_gov_concordia
+	activate_advisor = CAL_min_kaleta
+	activate_advisor = CAL_min_dieudonne
+	activate_advisor = CAL_min_obaitex
+	activate_advisor = CAL_min_war_jaszczur
+}
+CAL_change_gov_legiones = {
+	activate_advisor = ALP_min_vinicius
+	activate_advisor = CAL_min_ziolkowski
+	activate_advisor = ALP_min_pudzianus
+	activate_advisor = CAL_min_ikonowicz
+}
+CAL_change_gov_praetoriae = {
+	activate_advisor = CAL_min_najman
+	activate_advisor = CAL_min_scriptor
+	activate_advisor = CAL_min_obaitex
+	CAL_dieudonne = {
+		add_advisor_role = {
+			advisor = { 
+				idea_token = CAL_min_war_dieudonne
+				slot = minister_of_war
+				traits = {
+					
 				}
 			}
-			multiply_variable = {
-				CAL_seats_to_draw_this_round = 9
-			}
-		}
-		else = {
-			multiply_variable = {
-				CAL_seats_to_draw_this_round = 48
-			}
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row10 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row10}
-	}
-	#another bonus round (for lvl 3)
-	if = {
-		limit = {
-			check_variable = { CAL_senate_lvl = 3 }
-			check_variable = { CAL_seats_to_draw > 0}
-		}
-		while_loop_effect = {
-			limit = {
-				check_variable = { CAL_seats_to_draw > 0 }
-			}
-			if = {
-				limit = {
-					check_variable = {CAL_populares_at_row10 < 20 }
-				}
-				add_to_variable = { CAL_populares_at_row10 = 1}
-			}
-			subtract_from_variable = { CAL_seats_to_draw = 1 }
 		}
 	}
-	#round 11
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 51
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row11 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row11}
-	}
-	#round 12
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 54
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row12 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row12}
-	}
-	#round 13
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 57
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row13 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row13}
-	}
-	#round 14
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 61
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row14 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row14}
-	}
-	#round 15
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 64
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row15 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row15}
-	}
-	#round 16
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 67
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row16 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row16}
-	}
-	#round 17
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 70
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row17 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row17}
-	}
-	#round 18
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 73
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row18 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row18}
-	}
-	#round 19
-	if = {
-		limit = {
-			check_variable = {
-				CAL_seats_to_draw > 0 
-			}
-		}
-		set_variable = {
-			CAL_seats_to_draw_this_round = CAL_populares_percentage
-		}
-		multiply_variable = {
-			CAL_seats_to_draw_this_round = 64
-		}
-		round_variable = CAL_seats_to_draw_this_round
-		if = {
-			limit = { 
-				check_variable = { CAL_seats_to_draw_this_round = 0 }
-			}
-			set_variable = {
-				CAL_seats_to_draw_this_round = 1
-			}
-		}
-		if = {
-			limit = {
-				check_variable = {
-					CAL_seats_to_draw < CAL_seats_to_draw_this_round
-				}
-			}
-			set_variable = {CAL_seats_to_draw_this_round = CAL_seats_to_draw}
-		}
-		set_variable = {CAL_populares_at_row19 = CAL_seats_to_draw_this_round}
-		subtract_from_variable = { CAL_seats_to_draw = CAL_populares_at_row19}
-	}
-	#last level, last bonus round
-	if = {
-		limit = {
-			check_variable = { CAL_senate_lvl = 4 }
-			check_variable = { CAL_seats_to_draw > 0}
-		}
-		while_loop_effect = {
-			limit = {
-				check_variable = { CAL_seats_to_draw > 0 }
-			}
-			if = {
-				limit = {
-					check_variable = {CAL_populares_at_row19 < 64 }
-				}
-				add_to_variable = { CAL_populares_at_row19 = 1}
-			}
-			else_if = {
-				limit = {
-					check_variable = {CAL_populares_at_row18 < 73 }
-				}
-				add_to_variable = { CAL_populares_at_row18 = 1}
-			}
-			subtract_from_variable = { CAL_seats_to_draw = 1 }
-		}
-	}
-	set_variable = { CAL_seats_drawn = CAL_populares_at_row1 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row2 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row3 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row4 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row5 }
-	if = {
-		limit = {
-			check_variable = {
-				var = CAL_seats_drawn
-				value = CAL_populares_count
-				compare = not_equals
-			}
-			check_variable = {
-				CAL_senate_lvl = 1
-			}
-		}
-		log= "[?CAL_seats_drawn] = [?CAL_populares_count]??? GUH???"
-	}
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row6 }
-	if = {
-		limit = {
-			check_variable = {
-				var = CAL_seats_drawn
-				value = CAL_populares_count
-				compare = not_equals
-			}
-			check_variable = {
-				CAL_senate_lvl = 2
-			}
-		}
-		log= "[?CAL_seats_drawn] = [?CAL_populares_count]??? GUH???"
-	}
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row7 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row8 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row9 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row10 }
-	if = {
-		limit = {
-			check_variable = {
-				var = CAL_seats_drawn
-				value = CAL_populares_count
-				compare = not_equals
-			}
-			check_variable = {
-				CAL_senate_lvl = 3
-			}
-		}
-		log= "[?CAL_seats_drawn] = [?CAL_populares_count]??? GUH???"
-	}
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row11 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row12 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row13 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row14 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row15 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row16 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row17 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row18 }
-	add_to_variable = { CAL_seats_drawn	= CAL_populares_at_row19 }
-	if = {
-		limit = {
-			check_variable = {
-				var = CAL_seats_drawn
-				value = CAL_populares_count
-				compare = not_equals
-			}
-			check_variable = {
-				CAL_senate_lvl = 4
-			}
-		}
-		log= "[?CAL_seats_drawn] = [?CAL_populares_count]??? GUH???"
-	}
+	activate_advisor = CAL_min_war_dieudonne
 }

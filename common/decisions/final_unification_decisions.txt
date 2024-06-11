@@ -6,13 +6,34 @@ poland_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
-		or = {
+		OR = {
 			is_in_faction = no
 			is_faction_leader = yes
 		}
 		custom_trigger_tooltip = {
 			tooltip = controls_poland
 			can_unify_poland = yes
+		}
+		if = {
+			limit = { original_tag = CAL }
+			OR = {
+				
+				has_completed_focus = CAL_concordia
+				has_completed_focus = CAL_discordia
+				
+				# AND = {
+				# 	has_completed_focus = CAL_reward_the_most_loyal
+				# 	has_completed_focus = CAL_constantine_plan
+					
+				# }
+				has_completed_focus = CAL_progedi_populus
+				has_completed_focus = CAL_renovatio_imperii
+				# AND = {
+				# 	has_completed_focus = CAL_expulsion_of_barbarians
+				# 	has_completed_focus = CAL_surround_the_palace
+				# }
+				has_completed_focus = CAL_cry_havoc
+			}
 		}
 	}
 	
@@ -815,10 +836,21 @@ poland_unification = {
 		else_if = {
 			limit = { 
 					 original_tag = CAL
-					 has_government = autocracy
+					 has_completed_focus = CAL_renovatio_imperii
 				}
-			set_cosmetic_tag = CAL_augustus_final
+			set_cosmetic_tag = CAL_optimates_final
+			
 			hidden_effect = {
+				CAL_ricardus_calisius = {
+					set_portraits = {
+						civilian = {
+							large = "gfx/leaders/CAL/CAL_Kalisz3.dds"
+						}
+						army = {
+							large = "gfx/leaders/CAL/CAL_Kalisz3.dds"
+						}
+					}
+				}
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = super.31 }
@@ -830,13 +862,68 @@ poland_unification = {
 		else_if = {
 			limit = { 
 					 original_tag = CAL
-					 has_government = socialdemocrature
+					 has_completed_focus = CAL_progedi_populus
 				}
 			set_cosmetic_tag = CAL_populares_final
 			hidden_effect = {
+				CAL_ricardus_calisius = {
+					set_portraits = {
+						civilian = {
+							large = "gfx/leaders/CAL/CAL_Kalisz2.dds"
+						}
+						army = {
+							large = "gfx/leaders/CAL/CAL_Kalisz2.dds"
+						}
+					}
+				}
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = super_a.31 }
+				}
+			}
+			
+		}
+		
+		else_if = {
+			limit = { 
+					 original_tag = CAL
+					 has_completed_focus = CAL_cry_havoc
+				}
+			set_cosmetic_tag = CAL_triumwirat_final
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = super_b.31 }
+				}
+			}
+			
+		}		
+		
+		else_if = {
+			limit = { 
+					 original_tag = CAL
+					 has_completed_focus = CAL_discordia
+				}
+			set_cosmetic_tag = CAL_pretoriae_imperium_final
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = super.311 }
+				}
+			}
+			
+		}
+
+		else_if = {
+			limit = { 
+					 original_tag = CAL
+					 has_completed_focus = CAL_concordia
+				}
+			set_cosmetic_tag = CAL_pretoriae_respublica_final
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = super.311 }
 				}
 			}
 			

@@ -25,6 +25,7 @@ unification_category = {
 				CHO = { exists = no }	
 			}
 			has_war = no
+			
         }
 		fire_only_once = yes
 		days_remove = 30
@@ -200,6 +201,7 @@ lodz_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_lodz_voivodeship
 			can_unify_lodz = yes
@@ -212,7 +214,7 @@ lodz_voivodeship_unification = {
 	
 	visible = {
 		is_lodzkie = yes
-		not = {
+		NOT = {
 			has_global_flag = lodzkie_unified
 		}
 	}
@@ -400,6 +402,7 @@ lubelskie_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_lublin_voivodeship
 			can_unify_lubelskie = yes
@@ -412,7 +415,7 @@ lubelskie_voivodeship_unification = {
 
 	visible = { 
 		is_lubelskie = yes
-		not = {
+		NOT = {
 			has_global_flag = lubelskie_unified
 		}
 	}
@@ -579,6 +582,7 @@ zaglebie_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_zaglebie
 			can_unify_zaglebie = yes
@@ -591,7 +595,7 @@ zaglebie_voivodeship_unification = {
 	
 	visible = {
 		is_zaglebie_and_jura = yes
-		not = {
+		NOT = {
 			has_global_flag = zaglebie_unified
 		}
 	}
@@ -718,6 +722,7 @@ upper_silesia_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_upper_silesia
 			can_unify_upper_silesia = yes
@@ -730,7 +735,7 @@ upper_silesia_voivodeship_unification = {
 	
 	visible = {
 		is_upper_silesia = yes
-		not = {
+		NOT = {
 			has_global_flag = slaskie_unified
 		}
 	}
@@ -898,12 +903,13 @@ south_greater_poland_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_southern_greater_poland
 			can_unify_kaliskie = yes
 		}
 		is_subject = no
-		or = {
+		OR = {
 			is_in_faction = no
 			is_faction_leader = yes
 		}
@@ -915,7 +921,7 @@ south_greater_poland_voivodeship_unification = {
 	
 	visible = {
 		is_southern_greater_poland = yes
-		not = {
+		NOT = {
 			has_global_flag = kaliskie_unified
 		}
 	}
@@ -924,18 +930,19 @@ south_greater_poland_voivodeship_unification = {
 		log = "[GetDateText]: Decision south_greater_poland_voivodeship_unification"
 		set_country_flag = unified_voivodeship
 		set_global_flag = kaliskie_unified
+		mark_focus_tree_layout_dirty = yes
 		add_research_slot = 1
-		every_country = {
-			limit = {
-				is_subject_of = ROOT
-			}
-			ROOT = {
-				annex_country = {
-					target = PREV
-					transfer_troops = YES
-				}
-			}
-		}
+		# every_country = {
+		# 	limit = {
+		# 		is_subject_of = ROOT
+		# 	}
+		# 	ROOT = {
+		# 		annex_country = {
+		# 			target = PREV
+		# 			transfer_troops = yes
+		# 		}
+		# 	}
+		# }
 		hidden_effect = {
 			add_dynamic_modifier = {
 				modifier = developed_economy_modifier
@@ -1010,6 +1017,7 @@ tatry_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_tatry
 			can_unify_tatry = yes
@@ -1022,7 +1030,7 @@ tatry_unification = {
 	
 	visible = {
 		is_tatry_region = yes
-		not = {
+		NOT = {
 			has_global_flag = tatry_unified
 		}
 	}
@@ -1150,19 +1158,24 @@ northen_greater_poland_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_poznanskie
 			can_unify_north_greater_poland = yes
 		}
 	}
 	
+	visible = {
+		date > 2028.01.01
+	}
+
 	fire_only_once = yes
 
 	cost = 0
 	
 	visible = {
 		is_northern_greater_poland = yes
-		not = {
+		NOT = {
 			has_global_flag = poznanskie_unified
 		}
 	}
@@ -1203,6 +1216,10 @@ northen_greater_poland_voivodeship_unification = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = unification.71 }
 				}
+				swap_ideas = {
+				    remove_idea = POZ_surrender
+				    add_idea = POZ_surrender2
+			    }
 			}
 			
 		}
@@ -1345,19 +1362,24 @@ legnica_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_legnica
 			can_unify_legnica = yes
 		}
 	}
 	
+	visible = {
+		date > 2028.01.01
+	}
+
 	fire_only_once = yes
 
 	cost = 0
 	
 	visible = {
 		is_legnica = yes
-		not = {
+		NOT = {
 			has_global_flag = legnica_unified
 		}
 	}
@@ -1452,19 +1474,24 @@ lower_silesia_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_lower_silesia
 			can_unify_lower_silesia = yes
 		}
 	}
 	
+	visible = {
+		date > 2028.01.01
+	}
+
 	fire_only_once = yes
 
 	cost = 0
 	
 	visible = {
 		is_lower_silesia = yes
-		not = {
+		NOT = {
 			has_global_flag = dolnoslaskie_unified
 		}
 	}
@@ -1582,19 +1609,24 @@ opole_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_opole_voivodeship
 			can_unify_opolskie = yes
 		}
 	}
 	
+	visible = {
+		date > 2028.01.01
+	}
+
 	fire_only_once = yes
 
 	cost = 0
 	
 	visible = {
 		is_opolskie = yes
-		not = {
+		NOT = {
 			has_global_flag = opolskie_unified
 		}
 	}
@@ -1711,19 +1743,24 @@ west_pomerania_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_west_pomerania_voivodeship
 			can_unify_west_pomerania = yes
 		}
 	}
 	
+	visible = {
+		date > 2028.01.01
+	}
+
 	fire_only_once = yes
 
 	cost = 0
 	
 	visible = {
 		is_west_pomerania = yes
-		not = {
+		NOT = {
 			has_global_flag = zachodniopomorskie_unified
 		}
 	}
@@ -1853,6 +1890,7 @@ kuyavia_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_kuyavia_voivodeship
 			can_unify_kuyavia = yes
@@ -1863,10 +1901,12 @@ kuyavia_voivodeship_unification = {
 
 	cost = 0
 	
-	visible = { 
-		is_kuyavia = yes
-		not = {
-			has_global_flag = kuyavia_unified
+	visible = {
+		AND = {
+			is_kuyavia = yes
+			NOT = {
+				has_global_flag = kuyavia_unified
+			}
 		}
 	}
 
@@ -2008,6 +2048,7 @@ pomerelia_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_pomerelia_voivodeship
 			can_unify_pomerelia = yes
@@ -2020,7 +2061,7 @@ pomerelia_voivodeship_unification = {
 	
 	visible = { 
 		is_pomerelia = yes
-		not = {
+		NOT = {
 			has_global_flag = pomorskie_unified
 		}
 	}
@@ -2172,6 +2213,7 @@ warmia_and_masuria_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_warmia_and_masuria_voivodeship
 			can_unify_warmia_and_masuria = yes
@@ -2184,7 +2226,7 @@ warmia_and_masuria_voivodeship_unification = {
 	
 	visible = { 
 		is_warmia_and_masuria = yes
-		not = {
+		NOT = {
 			has_global_flag = warminsko_mazurskie_unified
 		}
 	}
@@ -2298,6 +2340,7 @@ podlasie_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_podlasie_voivodeship
 			can_unify_podlasie = yes
@@ -2310,7 +2353,7 @@ podlasie_voivodeship_unification = {
 	
 	visible = { 
 		is_podlasie = yes
-		not = {
+		NOT = {
 			has_global_flag = podlaskie_unified
 		}
 	}
@@ -2450,6 +2493,7 @@ radom_province_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_radom_province_voivodeship
 			can_unify_radom_province = yes
@@ -2462,7 +2506,7 @@ radom_province_voivodeship_unification = {
 	
 	visible = { 
 		is_radom_province = yes
-		not = {
+		NOT = {
 			has_global_flag = radomskie_unified
 		}
 	}
@@ -2550,6 +2594,7 @@ mazovia_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_mazovia_voivodeship
 			can_unify_mazovia = yes
@@ -2562,7 +2607,7 @@ mazovia_voivodeship_unification = {
 	
 	visible = { 
 		is_mazovia = yes
-		not = {
+		NOT = {
 			has_global_flag = mazowieckie_unified
 		}
 	}
@@ -2635,10 +2680,12 @@ capital_district_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_capital_district_voivodeship
 			can_unify_capital_district = yes
 		}
+		NOT = { has_global_flag = CAL_barbarians_win_flag }
 	}
 	
 	fire_only_once = yes
@@ -2647,7 +2694,7 @@ capital_district_voivodeship_unification = {
 	
 	visible = { 
 		is_capital_district = yes
-		not = {
+		NOT = {
 			has_global_flag = capital_district_unified
 		}
 	}
@@ -2806,6 +2853,7 @@ holy_cross_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_holy_cross_voivodeship
 			can_unify_holy_cross = yes
@@ -2818,7 +2866,7 @@ holy_cross_voivodeship_unification = {
 	
 	visible = { 
 		is_holy_cross = yes
-		not = {
+		NOT = {
 			has_global_flag = swietokrzyskie_unified
 		}
 		
@@ -2949,6 +2997,7 @@ subcarpathia_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_subcarpathia_voivodeship
 			can_unify_subcarpathia = yes
@@ -2961,7 +3010,7 @@ subcarpathia_voivodeship_unification = {
 	
 	visible = { 
 		is_subcarpathia = yes
-		not = {
+		NOT = {
 			has_global_flag = podkarpackie_unified
 		}
 	}
@@ -3105,6 +3154,7 @@ lesser_poland_voivodeship_unification = {
 	icon = GFX_decision_icon_default
 	
 	available = {
+		has_war = no
 		custom_trigger_tooltip = {
 			tooltip = controls_lesser_poland_voivodeship
 			can_unify_lesser_poland = yes
@@ -3117,7 +3167,7 @@ lesser_poland_voivodeship_unification = {
 	
 	visible = {
 		is_lesser_poland = yes
-		not = {
+		NOT = {
 			has_global_flag = malopolskie_unified
 		}
 	}

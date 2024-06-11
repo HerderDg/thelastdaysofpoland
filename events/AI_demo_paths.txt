@@ -72,6 +72,7 @@ country_event = {
 	fire_only_once = yes
 	trigger = { 
 		original_tag = DGR
+		has_war = no
 		can_unify_zaglebie = yes
 	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.3" }
@@ -118,6 +119,7 @@ country_event = {
 	fire_only_once = yes
 	trigger = { 
 		original_tag = JAW
+		has_war = no
 		can_unify_zaglebie = yes
 	}
 
@@ -416,7 +418,7 @@ country_event = {
 		ai_chance = { base = 50 }
 		set_politics = {
 			ruling_party = euroliberalism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 10
@@ -437,7 +439,7 @@ country_event = {
 		ai_chance = { base = 25 }
 		set_politics = {
 			ruling_party = freemarketism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 10
@@ -458,7 +460,7 @@ country_event = {
 		ai_chance = { base = 25 }
 		set_politics = {
 			ruling_party = paternal_conservatism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 10
@@ -698,44 +700,42 @@ country_event = {
 	desc = aievent.15.desc
 
 	fire_only_once = yes
-	is_triggered_only = yes
+	trigger = { 
+		original_tag = TOU
+		date > 2028.10.01
+	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.15"}
 	option = {
 		name = aievent.15.a #EKS
 		ai_chance = { base = 50 }
-			EKS = {
-				set_autonomy = {
-					target = TOU
-					autonomous_state = autonomy_supervised_state
-					freedom_level = 0
-				} 
+		EKS = {
+			annex_country = {
+				target = TOU
+				transfer_troops = yes
 			}
-			TOU = {
-			set_politics = {
-				ruling_party = corporativism
-				}
-			}
-			set_political_power = -100
-			log = "[GetDateText]: turyści pod opieką EKS"
+		}
 	}			
 	option = {
-		name = aievent.15.b #KGH
+		name = aievent.15.b #KGHorCYG
 		ai_chance = { base = 50 }
-
+		if = {
+		limit = { country_exists = KGH }
 		KGH = {
-			set_autonomy = {
+			annex_country = {
 				target = TOU
-				autonomous_state = autonomy_supervised_state
-				freedom_level = 0 
-			}	 
-		}
-		TOU = {
-			set_politics = {
-				ruling_party = corporativism
-				}
+				transfer_troops = yes
 			}
-			set_political_power = -100
-		log = "[GetDateText]: turyści pod opieką KGH"
+		}	
+		else_if = {
+		limit = { country_exists = CYG }
+		CYG = {
+			annex_country = {
+				target = TOU
+				transfer_troops = yes
+			}
+		}
+        }		
+	}
 	}
 }
 
@@ -755,7 +755,7 @@ country_event = {
 		ai_chance = { base = 50 }
 		set_politics = {
 			ruling_party = postpolonism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -776,7 +776,7 @@ country_event = {
 		ai_chance = { base = 50 }
 		set_politics = {
 			ruling_party = corporativism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -809,7 +809,7 @@ country_event = {
 		name = aievent.18.a
 		set_politics = {
 			ruling_party = squattism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 58
@@ -842,7 +842,7 @@ country_event = {
 		name = aievent.19.a
 		set_politics = {
 			ruling_party = socialdemocrature
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -906,7 +906,7 @@ country_event = {
 		name = aievent.21.a #rydzyk
 		set_politics = {
 			ruling_party = corporativism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -928,7 +928,7 @@ country_event = {
 		name = aievent.21.b #memcen
 		set_politics = {
 			ruling_party = freemarketism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -964,7 +964,7 @@ country_event = {
 		name = aievent.22.a #solorz
 		set_politics = {
 			ruling_party = corporativism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -978,13 +978,15 @@ country_event = {
 			reactionary = 0
 			postpolonism = 0
 		}
+		get_current_government_type = yes
 		SAT = {
 			set_autonomy = {
 				target = RAD
 				autonomous_state = autonomy_supervised_state
 				freedom_level = 0.15 
-				}
 			}
+		}
+		restore_previous_government_type = yes
 		log = "[GetDateText]: polsat w radomiu"
 	}
 	option = {
@@ -992,7 +994,7 @@ country_event = {
 		name = aievent.22.b #kopacz
 		set_politics = {
 			ruling_party = euroliberalism 
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -1006,13 +1008,15 @@ country_event = {
 			reactionary = 0
 			postpolonism = 0
 		}	
+		get_current_government_type = yes
 		SKA = {
 			set_autonomy = {
 				target = RAD
 				autonomous_state = autonomy_supervised_state
 				freedom_level = 0.15 
-				}
 			}
+		}
+		restore_previous_government_type = yes
 		log = "[GetDateText]: kopacz w radomiu"
 	}
 	option = {
@@ -1020,7 +1024,7 @@ country_event = {
 		ai_chance = { base = 30 }
 		set_politics = {
 			ruling_party = paternal_conservatism
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -1034,13 +1038,15 @@ country_event = {
 			reactionary = 0
 			postpolonism = 0
 		}
+		get_current_government_type = yes
 		GAR = {
 			set_autonomy = {
 				target = RAD
 				autonomous_state = autonomy_supervised_state
 				freedom_level = 0.15 
-				}
 			}
+		}
+		restore_previous_government_type = yes
 		log = "[GetDateText]: fogiel w radomiu"
 	}
 	option = {
@@ -1048,7 +1054,7 @@ country_event = {
 		ai_chance = { base = 20 }
 		set_politics = {
 			ruling_party = autocracy
-			}
+		}
 		set_popularities = {
 			marxism_cranism	= 0
 			squattism = 0
@@ -1297,6 +1303,7 @@ country_event = {
 					NOT = {
 						has_war_with = BRK
 					}
+					country_exists = BRK
 				}
 				declare_war_on = {
 					target = BRK
@@ -1352,7 +1359,7 @@ country_event = {
 		log = "[GetDateText]: buski"
 	}
 	option = {
-		name = aievent.17.c #latos
+		name = aievent.17.c #prezes
 		ai_chance = { base = 20 }
 		set_politics = {
 			ruling_party = paternal_conservatism
@@ -1364,13 +1371,13 @@ country_event = {
 			euroliberalism = 27
 			freemarketism = 0
 			paternal_conservatism = 45
-			autocracy = 2
+			autocracy = 3
 			corporativism = 0
 			neonationalism = 5
-			reactionary = 5
+			reactionary = 0
 			postpolonism = 0
 		}
-		log = "[GetDateText]: latos"
+		log = "[GetDateText]: prezes"
 	}
 	option = {
 		name = aievent.17.d #kneblewski
@@ -1412,34 +1419,28 @@ country_event = {
 	option = {
 		ai_chance = { base = 50 }
 		name = aievent.28.a #puppet
+		get_current_government_type = yes
 		TAR = {
-		diplomatic_relation = {
+			diplomatic_relation = {
 				country = STL
 				relation = puppet
 				active = yes
 			}
 		}
-		STL = {
-		set_politics = {
-			ruling_party = corporativism
-			}
-		}
+		restore_previous_government_type = yes
 	}
 	option = {
 		ai_chance = { base = 50 }
 		name = aievent.28.b #puppet
+		get_current_government_type = yes
 		CHR = {
-		diplomatic_relation = {
+			diplomatic_relation = {
 				country = STL
 				relation = puppet
 				active = yes
 			}
 		}
-		STL = {
-		set_politics = {
-			ruling_party = corporativism
-			}
-		}
+		restore_previous_government_type = yes
 	}
 }
 

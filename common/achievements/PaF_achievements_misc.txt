@@ -1,0 +1,111 @@
+# possible - filters out achivements on game start so we dont have to check everything all the
+#time
+## happened - checks if achivement happened
+
+unique_id = misc_achievements
+
+##### CAL #####
+CAL_achievement_senate = {  #wszystkie ustawy przepchnąć dla jednej frakcji
+	possible = {
+		original_tag = CAL
+	}
+
+	happened = {
+		custom_trigger_tooltip = {
+			tooltip = CAL_achievement_senate_tt
+			hidden_trigger = {
+				OR = {
+					and = {
+						has_country_flag = CAL_lex_acculturationis_optimates_passed
+						has_country_flag = CAL_lex_administrationis_optimates_passed
+						has_country_flag = CAL_lex_aesculapii_optimates_passed
+						has_country_flag = CAL_lex_amoris_liberi_optimates_passed
+						has_country_flag = CAL_lex_barbarorum_optimates_passed
+						has_country_flag = CAL_lex_civitatis_optimates_passed
+						has_country_flag = CAL_lex_coequatio_optimates_passed
+						has_country_flag = CAL_lex_indentatae_servitutis_optimates_passed
+						has_country_flag = CAL_lex_iuononis_optimates_passed
+						has_country_flag = CAL_lex_mercatoria_optimates_passed
+						has_country_flag = CAL_lex_militae_optimates_passed
+						has_country_flag = CAL_lex_poenae_capitalis_optimates_passed
+						has_country_flag = CAL_lex_religionis_optimates_passed
+						has_country_flag = CAL_lex_securitatis_optimates_passed
+						has_country_flag = CAL_lex_subsidiarum_socialum_optimates_passed
+						has_country_flag = CAL_lex_tributorum_optimates_passed
+					}
+					and = {
+						has_country_flag = CAL_lex_acculturationis_populares_passed
+						has_country_flag = CAL_lex_administrationis_populares_passed
+						has_country_flag = CAL_lex_aesculapii_populares_passed
+						has_country_flag = CAL_lex_amoris_liberi_populares_passed
+						has_country_flag = CAL_lex_barbarorum_populares_passed
+						has_country_flag = CAL_lex_civitatis_populares_passed
+						has_country_flag = CAL_lex_coequatio_populares_passed
+						has_country_flag = CAL_lex_indentatae_servitutis_populares_passed
+						has_country_flag = CAL_lex_iuononis_populares_passed
+						has_country_flag = CAL_lex_mercatoria_populares_passed
+						has_country_flag = CAL_lex_militae_populares_passed
+						has_country_flag = CAL_lex_poenae_capitalis_populares_passed
+						has_country_flag = CAL_lex_religionis_populares_passed
+						has_country_flag = CAL_lex_securitatis_populares_passed
+						has_country_flag = CAL_lex_subsidiarum_socialum_populares_passed
+						has_country_flag = CAL_lex_tributorum_populares_passed
+					}
+				}
+			}	
+		}
+	}
+}
+
+CAL_achievement_loyalty = {  #lojalność wszystkich frakcji powyżej 80
+	possible = {
+		original_tag = CAL
+	}
+
+	happened = {
+		custom_trigger_tooltip = {
+			tooltip = CAL_achievement_loyalty_tt
+			check_variable = {
+				CAL_populares_loyalty > 80
+			}
+			check_variable = {
+				CAL_optimates_loyalty > 80
+			}
+			check_variable = {
+				CAL_legiones_loyalty > 80
+			}
+			check_variable = {
+				CAL_praetoriae_loyalty > 80
+			}	
+		}
+	}
+}
+
+CAL_achievement_winicjusz = {  # winicjusz wygrywa wojne w trumwiracie
+	possible = {
+		original_tag = ALP
+	}
+
+	happened = {
+		custom_trigger_tooltip = {
+			tooltip = CAL_achievement_winicjusz_TT
+			OR = {
+				has_cosmetic_tag = ALP_LEGIONY_POST
+				has_cosmetic_tag = ALP_AUS
+			}
+		}
+	}
+}
+
+CAL_achievement_caput_mundi = {
+	possible = {
+		original_tag = CAL
+	}
+
+	happened = {
+		custom_trigger_tooltip = {
+			has_completed_focus = CAL_calisia_caput_mundi
+			tooltip = CAL_achievement_caput_tt
+		}
+	}
+}

@@ -181,6 +181,10 @@ is_mazovia = {
 		original_tag = ORL
 		original_tag = KUR
 		original_tag = ZWK
+		original_tag = MAR
+		original_tag = PLO
+		original_tag = GOS
+		original_tag = SRP
 	}
 }
 
@@ -273,10 +277,27 @@ is_kuyavia = {
 		original_tag = BYD
 		original_tag = TOR
 		original_tag = INO
-		original_tag = PLK
-		original_tag = SWC
 		original_tag = AMA
 		original_tag = BRO
+		#if = {
+		#	limit = {
+		#		KUJ = {
+		#			exists = no
+		#		}
+		#	}
+		#	original_tag = PLK
+		#}
+		#if = {
+		#	limit = {
+		#		KUJ = {
+		#			exists = no
+		#		}
+		#		PLK = {
+		#			exists = no
+		#		}
+		#	}
+		#	original_tag = SWC
+		#}
 	}
 }
 
@@ -474,14 +495,14 @@ is_kuyavia_mazovia_unifier = {
 }
 
 is_greater_poland_unifier = {
-	or = {
+	OR = {
 		is_northern_greater_poland = yes
 		is_southern_greater_poland = yes
 	}
 }
 
 is_greater_lower_silesia_unifier = {
-	or = {
+	OR = {
 		is_lower_silesia  = yes
 		is_legnica = yes
 	}
@@ -495,21 +516,21 @@ is_lodz_jura_unifier = {
 }
 
 is_old_polish_basin_unifier = {
-	or = {
+	OR = {
 		is_radom_province = yes
 		is_holy_cross = yes
 	}
 }
 
 is_lesser_poland_region_unifier = {
-	or = {
+	OR = {
 		is_lesser_poland = yes
 		is_tatry_region = yes
 	}
 }
 
 is_red_ruthenia_unifier = {
-	or = {
+	OR = {
 		is_lubelskie = yes
 		is_subcarpathia = yes
 	}
@@ -540,21 +561,21 @@ is_galicia_unifier = {
 }
 
 is_central_poland_unifier = {
-	or = {
+	OR = {
 		is_lodz_jura_unifier = yes
 		is_old_polish_basin_unifier = yes
 	}
 }
 
 is_northwest_unifier = {
-	or = {
+	OR = {
 		is_greater_poland_unifier = yes
 		is_pomerelia_unifier = yes
 	}
 }
 
 is_northeast_unifier = {
-	or = {
+	OR = {
 		is_warmia_and_masuria = yes
 		is_podlasie_unifier = yes
 	}
@@ -732,12 +753,11 @@ is_poland_unifier = {
 
 can_unify_lesser_poland = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_lesser_poland_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -751,6 +771,33 @@ can_unify_lesser_poland = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_lesser_poland = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_lesser_poland_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -760,12 +807,11 @@ can_unify_lesser_poland = {
 
 can_unify_mazovia = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_mazovia_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -785,14 +831,41 @@ can_unify_mazovia = {
 		}
 	}
 }
+
+controls_mazovia = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_mazovia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
 can_unify_lodz = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_lodz_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -806,6 +879,33 @@ can_unify_lodz = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_lodz = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_lodz_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -815,12 +915,11 @@ can_unify_lodz = {
 
 can_unify_lubelskie = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_lubelskie_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -834,6 +933,33 @@ can_unify_lubelskie = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_lubelskie = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_lubelskie_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -843,13 +969,11 @@ can_unify_lubelskie = {
 
 can_unify_opolskie = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
-		date > 2028.01.01
 		all_of = {
 			array = global.states_for_opolskie_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -863,6 +987,33 @@ can_unify_opolskie = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_opolskie = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_opolskie_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -872,12 +1023,11 @@ can_unify_opolskie = {
 
 can_unify_zaglebie = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_zaglebie_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -891,6 +1041,33 @@ can_unify_zaglebie = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_zaglebie = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_zaglebie_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -900,12 +1077,11 @@ can_unify_zaglebie = {
 
 can_unify_tatry = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_tatra_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -919,6 +1095,33 @@ can_unify_tatry = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_tatry = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_tatra_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -928,12 +1131,11 @@ can_unify_tatry = {
 
 can_unify_upper_silesia = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_upper_silesia_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -947,6 +1149,33 @@ can_unify_upper_silesia = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_upper_silesia = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_upper_silesia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -956,12 +1185,11 @@ can_unify_upper_silesia = {
 
 can_unify_subcarpathia = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_subcarpathia_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -975,6 +1203,33 @@ can_unify_subcarpathia = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_subcarpathia = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_subcarpathia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -984,12 +1239,11 @@ can_unify_subcarpathia = {
 
 can_unify_legnica = {
 	AND = {
-		has_war = no
-		date > 2028.01.01
+		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_legnica_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1010,14 +1264,40 @@ can_unify_legnica = {
 	}
 }
 
+controls_legnica = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_legnica_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
 can_unify_lower_silesia = {
 	AND = {
-		has_war = no
-		date > 2028.01.01
+		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_lower_silesia_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1038,13 +1318,39 @@ can_unify_lower_silesia = {
 	}
 }
 
+controls_lower_silesia = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_lower_silesia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
+					}
+				}
+			}
+		}	
+	}
+}
+
 can_unify_kaliskie = {
 	has_global_flag = needed_arrays_initialized
-	has_war = no
 	all_of = {
 		array = global.states_for_southern_gp_unification
 		value = s
-		or = {
+		OR = {
 			ROOT = {
 				owns_state = s
 			}
@@ -1066,12 +1372,11 @@ can_unify_kaliskie = {
 
 can_unify_holy_cross = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_holy_cross_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1085,6 +1390,33 @@ can_unify_holy_cross = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_holy_cross = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_holy_cross_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -1094,12 +1426,11 @@ can_unify_holy_cross = {
 
 can_unify_radom_province = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_radom_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1113,6 +1444,33 @@ can_unify_radom_province = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_radom_province = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_radom_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -1121,42 +1479,12 @@ can_unify_radom_province = {
 }
 
 can_unify_capital_district = {
-AND = {
-	has_war = no
-	has_global_flag = needed_arrays_initialized
-	all_of = {
-		array = global.states_for_capital_unification
-		value = s
-		or = {
-			ROOT = {
-				owns_state = s
-			}
-			any_of_scopes = {
-				array = ROOT.allies
-				this = {
-					owns_state = s
-				}
-			}
-			any_of_scopes = {
-				array = ROOT.subjects
-				this = {
-					owns_state = s
-				}
-			}
-		}
-	}
-	}
-}
-
-
-can_unify_podlasie = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
-			array = global.states_for_podlachia_unification
+			array = global.states_for_capital_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1170,6 +1498,88 @@ can_unify_podlasie = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_capital_district = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_capital_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+can_unify_podlasie = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_podlachia_unification
+			value = s
+			OR = {
+				ROOT = {
+					owns_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						owns_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+
+controls_podlasie = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_podlachia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -1180,11 +1590,10 @@ can_unify_podlasie = {
 can_unify_warmia_and_masuria = {
 	AND = {
 		has_global_flag = needed_arrays_initialized
-		has_war = no
 		all_of = {
 			array = global.states_for_warmia_masuria_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1198,6 +1607,33 @@ can_unify_warmia_and_masuria = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_warmia_and_masuria = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_warmia_masuria_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -1212,7 +1648,7 @@ can_unify_pomerelia = {
 		all_of = {
 			array = global.states_for_pomerelia_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1226,6 +1662,33 @@ can_unify_pomerelia = {
 					array = ROOT.subjects
 					this = {
 						owns_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
+controls_pomerelia = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_pomerelia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
 					}
 				}
 			}
@@ -1235,12 +1698,11 @@ can_unify_pomerelia = {
 
 can_unify_kuyavia = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
 		all_of = {
 			array = global.states_for_kuyavia_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1261,15 +1723,40 @@ can_unify_kuyavia = {
 	}
 }
 
+controls_kuyavia = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_kuyavia_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
+					}
+				}
+			}
+		}
+	}
+}
+
 can_unify_north_greater_poland = {
 	AND = {
-		has_war = no
 		has_global_flag = needed_arrays_initialized
-		date > 2028.01.01
 		all_of = {
 			array = global.states_for_northern_gp_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1299,7 +1786,7 @@ can_unify_west_pomerania = {
 		all_of = {
 			array = global.states_for_west_pomerania_unification
 			value = s
-			or = {
+			OR = {
 				ROOT = {
 					owns_state = s
 				}
@@ -1320,12 +1807,38 @@ can_unify_west_pomerania = {
 	}
 }
 
+controls_west_pomerania = {
+	AND = {
+		has_global_flag = needed_arrays_initialized
+		all_of = {
+			array = global.states_for_west_pomerania_unification
+			value = s
+			OR = {
+				ROOT = {
+					controls_state = s
+				}
+				any_of_scopes = {
+					array = ROOT.allies
+					this = {
+						controls_state = s
+					}
+				}
+				any_of_scopes = {
+					array = ROOT.subjects
+					this = {
+						controls_state = s
+					}
+				}
+			}
+		}
+	}
+}
 ### Stare regiony ###
 
 can_unify_greater_poland_region = {
 	and = {
 		has_war = no
-		or = {
+		OR = {
 			is_northern_greater_poland = yes
 			is_southern_greater_poland = yes
 		}

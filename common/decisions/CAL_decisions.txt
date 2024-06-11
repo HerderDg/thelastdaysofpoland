@@ -1,73 +1,2156 @@
 CAL_gravitas_category = {
-    CAL_debug_add_populares_gravitas = {
+	CAL_senate_voting_mission = {
+		icon = GFX_decision_generic_political_rally
 		available = {
-			always = yes
+			always = no
+		}
+		allowed = {
+			always = no
+		}
+		is_good = no
+		timeout_effect = {
+			CAL_senate_voting_result = yes
+		}
+		days_mission_timeout = 50
+	}
+	CAL_landscape_evolution = {
+		icon = GFX_decision_generic_political_discourse
+		available = {
+			always = no
+		}
+		activation = {
+			has_country_flag = CAL_senate_opened
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		is_good = yes
+		timeout_effect = {
+			CAL_loyalty_tick = yes
+			
+		}
+		days_mission_timeout = 90
+		remove_trigger = {
+			has_country_flag = CAL_senate_opened
+		}
+	}
+	CAL_imperial_intervention = {
+		icon = GFX_decision_generic_speech
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 40
+				compare = greater_than_or_equals
+			}
 		}
         visible = {
-            always = yes
-			is_debug = yes
+			has_active_mission = CAL_senate_voting_mission
+			NOT = {
+				has_country_flag = emperor_intervened
+			}
+			NOT = {
+				has_country_flag = CAL_ager_publicus_vote
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
         }
-		icon = mission_icon   
+		days_remove = 14
+		cost = 40
+		cancel_trigger = {
+			CAL_is_voting_on_law = no
+		}
+		remove_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -40
+			}
+			add_to_variable = {
+				CAL_gravitas_to_return = 20
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			if = {
+				limit = {
+					has_country_flag = CAL_populares_lex_voting
+				}
+				CAL_intervene_to_optimates = yes
+			} 
+			else_if = {
+				limit = {
+					has_country_flag = CAL_optimates_lex_voting
+				}
+				CAL_intervene_to_populares = yes
+			}
+			else = {
+				log = "you don't set flag"
+			}
+			set_country_flag = emperor_intervened
+			custom_effect_tooltip = CAL_quarter_senators_pushed
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+	CAL_bestow_favor_to_populares = {
+		icon = GFX_decision_generic_welfare
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_populares
+			}
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 50
 		complete_effect = {
-			set_temp_variable = { CAL_gravitas_change = 5 }
+			set_country_flag = emperor_favored_populares
+			clr_country_flag = emperor_favored_optimates
+			clr_country_flag = emperor_favored_legiones
+			clr_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_bestow_favor_to_optimates = {
+		icon = GFX_decision_generic_welfare
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_optimates
+			}
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 50
+		complete_effect = {
+			clr_country_flag = emperor_favored_populares
+			set_country_flag = emperor_favored_optimates
+			clr_country_flag = emperor_favored_legiones
+			clr_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_bestow_favor_to_legiones = {
+		icon = GFX_decision_generic_welfare
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_legiones
+			}
+			check_variable = {
+				CAL_decision_group = 3
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 50
+		complete_effect = {
+			clr_country_flag = emperor_favored_populares
+			clr_country_flag = emperor_favored_optimates
+			set_country_flag = emperor_favored_legiones
+			clr_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_bestow_favor_to_praetoriae = {
+		icon = GFX_decision_generic_welfare
+		visible = {
+			NOT = {
+				has_country_flag = emperor_favored_preatoriae
+			}
+			check_variable = {
+				CAL_decision_group = 4
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 50
+		complete_effect = {
+			clr_country_flag = emperor_favored_populares
+			clr_country_flag = emperor_favored_optimates
+			clr_country_flag = emperor_favored_legiones
+			set_country_flag = emperor_favored_preatoriae
+			custom_effect_tooltip = CAL_favor_bestowing_tt
+		}
+	}
+	CAL_grant_privileges_to_populares = {
+		icon = GFX_decision_generic_fundraising
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 20
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+	CAL_grant_privileges_to_optimates = {
+		icon = GFX_decision_generic_fundraising
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 20
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+	CAL_grant_privileges_to_legiones = {
+		icon = GFX_decision_generic_protection
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		cost = 20
+		visible = {
+			check_variable = {
+				CAL_decision_group = 3
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_legiones_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_legiones_tt
+			}
+			multiply_temp_variable = {
+				CAL_gravitas_change = -1
+			}
+			add_to_variable = {
+				var = CAL_legiones_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_legiones_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+	CAL_grant_privileges_to_praetoriae = {
+		icon = GFX_decision_generic_protection
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 20
+				compare = greater_than_or_equals
+			}
+		}
+		days_re_enable = 90
+		cost = 20
+		visible = {
+			check_variable = {
+				CAL_decision_group = 4
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 10
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
+			}
+			multiply_temp_variable = {
+				CAL_gravitas_change = -1
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_praetoriae_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+	CAL_bribe_optimate_senators = {
+		icon = GFX_decision_hol_exchange_intelligence_data
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 25
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				CAL_optimates_hardliners < CAL_optimates_count
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_optimates_onethird_tt
+				OR = {
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 1
+						}
+						check_variable = {
+							CAL_optimates_count > 33
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+						check_variable = {
+							CAL_optimates_count > 50
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+						check_variable = {
+							CAL_optimates_count > 100
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 4
+						}
+						check_variable = {
+							CAL_optimates_count > 300
+						}
+					}
+				}
+			}
+			
+		}
+		days_re_enable = 60
+		cost = 25
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -25
+			}
 			add_to_variable = {
 				var = CAL_populares_gravitas
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_populares_tt
 			}
+			set_temp_variable = {
+				CAL_senators_to_bribe = CAL_optimates_count
+			}
+			subtract_from_temp_variable = {
+				CAL_senators_to_bribe = CAL_optimates_hardliners
+			}
+			set_temp_variable = {
+				CAL_perc_to_take = party_popularity@autocracy
+			}
+			divide_temp_variable = {
+				CAL_senators_to_bribe = 10
+			}
+			round_temp_variable = CAL_senators_to_bribe
+			multiply_temp_variable = {
+				CAL_perc_to_take = CAL_senators_to_bribe
+			}
+			divide_temp_variable = {
+				CAL_perc_to_take = CAL_optimates_count
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = CAL_perc_to_take
+			}
+			multiply_temp_variable = {
+				CAL_perc_to_take = -1
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = CAL_perc_to_take
+			}
+			log = "[?CAL_senators_to_bribe]"
+			custom_effect_tooltip = CAL_bribe_senators_tt
+			add_to_variable = {
+				CAL_populares_count = CAL_senators_to_bribe
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_senate_lvl = 1
+					}
+				}
+				set_variable = {
+					CAL_optimates_count = 100
+				}
+				subtract_from_variable = {
+					CAL_optimates_count = CAL_populares_count
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 150
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 300
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else = {
+					set_variable = {
+						CAL_optimates_count = 900
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_redraw_senate_diagram = yes
 		}
 	}
-	CAL_debug_add_optimates_gravitas = {
+	CAL_bribe_populare_senators = {
+		icon = GFX_decision_hol_exchange_intelligence_data
 		available = {
-			always = yes
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 25
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				CAL_populares_hardliners < CAL_populares_count
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_populares_onethird_tt
+				OR = {
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 1
+						}
+						check_variable = {
+							CAL_populares_count > 33
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+						check_variable = {
+							CAL_populares_count > 50
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+						check_variable = {
+							CAL_populares_count > 100
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 4
+						}
+						check_variable = {
+							CAL_populares_count > 300
+						}
+					}
+				}
+			}
 		}
-        visible = {
-            always = yes
-			is_debug = yes
-        }
-		icon = mission_icon   
+		days_re_enable = 60
+		cost = 25
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
 		complete_effect = {
-			set_temp_variable = { CAL_gravitas_change = 5 }
+			set_temp_variable = {
+				CAL_gravitas_change = -25
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas 
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			
+			set_temp_variable = {
+				CAL_senators_to_bribe = CAL_populares_count
+			}
+			subtract_from_temp_variable = {
+				CAL_senators_to_bribe = CAL_populares_hardliners
+			}
+			set_temp_variable = {
+				CAL_perc_to_take = party_popularity@socialdemocrature
+			}
+			divide_temp_variable = {
+				CAL_senators_to_bribe = 10
+			}
+			round_temp_variable = CAL_senators_to_bribe
+			multiply_temp_variable = {
+				CAL_perc_to_take = CAL_senators_to_bribe
+			}
+			divide_temp_variable = {
+				CAL_perc_to_take = CAL_populares_count
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = CAL_perc_to_take
+			}
+			multiply_temp_variable = {
+				CAL_perc_to_take = -1
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = CAL_perc_to_take
+			}
+			
+			log = "[?CAL_senators_to_bribe]"
+			custom_effect_tooltip = CAL_bribe_senators_tt
+			subtract_from_variable = {
+				CAL_populares_count = CAL_senators_to_bribe
+			}
+			if = {
+				limit = {
+					check_variable = {
+						CAL_senate_lvl = 1
+					}
+				}
+				set_variable = {
+					CAL_optimates_count = 100
+				}
+				subtract_from_variable = {
+					CAL_optimates_count = CAL_populares_count
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 150
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+					}
+					set_variable = {
+						CAL_optimates_count = 300
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+				else = {
+					set_variable = {
+						CAL_optimates_count = 900
+					}
+					subtract_from_variable = {
+						CAL_optimates_count = CAL_populares_count
+					}
+				}
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_redraw_senate_diagram = yes
+		}
+	}
+	CAL_plead_to_fellow_populares = {
+		icon = GFX_decision_SWI_support_humanitarian_efforts
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 10
+				compare = greater_than_or_equals
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_some_populars_to_sway_tt
+				check_variable = {
+					CAL_populares_yes_percentage < 1
+				}
+			}
+		}
+		cancel_trigger = {
+			CAL_is_voting_on_law = no
+		}
+		#days_re_enable = 7
+		days_remove = 7
+		cost = 5
+		visible = {
+			has_country_flag = CAL_populares_lex_voting
+			NOT = {
+				has_country_flag = CAL_ager_publicus_vote
+			}
+		}
+		remove_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -10
+			}
+			add_to_variable = {
+				CAL_gravitas_to_return = 2
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_populare_plea = yes
+		}
+	}
+	CAL_plead_to_fellow_optimates = {
+		icon = GFX_decision_SWI_support_humanitarian_efforts
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 10
+				compare = greater_than_or_equals
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = CAL_some_optimats_to_sway_tt
+				check_variable = {
+					CAL_optimates_yes_percentage < 1
+				}
+			}
+		}
+		cancel_trigger = {
+			CAL_is_voting_on_law = no
+		}
+		#days_re_enable = 7
+		days_remove = 7
+		cost = 5
+		visible = {
+			has_country_flag = CAL_optimates_lex_voting
+			NOT = {
+				has_country_flag = CAL_ager_publicus_vote
+			}
+		}
+		remove_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -10
+			}
+			add_to_variable = {
+				CAL_gravitas_to_return = 2
+			}
 			add_to_variable = {
 				var = CAL_optimates_gravitas
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_optimates_tt
 			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_optimate_plea = yes
 		}
 	}
-	CAL_debug_add_legiones_gravitas = {
+	CAL_coerce_optimates_to_vote = {
+		icon = GFX_decision_SWI_dismiss_council
 		available = {
-			always = yes
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 15
+				compare = greater_than_or_equals
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_some_optimats_to_sway_tt
+				check_variable = {
+					CAL_optimates_yes_percentage < 1
+				}
+			}
 		}
-        visible = {
-            always = yes
-			is_debug = yes
-        }
-		icon = mission_icon   
+		cancel_trigger = {
+			CAL_is_voting_on_law = no
+		}
+		#days_re_enable = 7
+		days_remove = 7
+		cost = 8
+		visible = {
+			has_country_flag = CAL_populares_lex_voting
+			NOT = {
+				has_country_flag = CAL_ager_publicus_vote
+			}
+		}
+		remove_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -15
+			}
+			add_to_variable = {
+				CAL_gravitas_to_return = 4
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_optimate_vote_bribery = yes
+		}
+	}
+	CAL_coerce_populares_to_vote = {
+		icon = GFX_decision_SWI_dismiss_council
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 15
+				compare = greater_than_or_equals
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_some_populars_to_sway_tt
+				check_variable = {
+					CAL_populares_yes_percentage < 1
+				}
+			}
+		}
+		cancel_trigger = {
+			CAL_is_voting_on_law = no
+		}
+		#days_re_enable = 7
+		days_remove = 7
+		cost = 8
+		visible = {
+			has_country_flag = CAL_optimates_lex_voting
+			NOT = {
+				has_country_flag = CAL_ager_publicus_vote
+			}
+		}
+		remove_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -15
+			}
+			add_to_variable = {
+				CAL_gravitas_to_return = 4
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_populare_vote_bribery = yes
+		}
+	}
+	# CAL_bribe_optimate_commander = { ok, i tak nie będziemy ich używali
+	# 	icon = GFX_decision_gre_investment_decisions
+	# 	available = {
+	# 		check_variable = {
+	# 			var = CAL_populares_gravitas
+	# 			value = 30
+	# 			compare = greater_than_or_equals
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		check_variable = {
+	# 			CAL_decision_group = 1
+	# 		}
+	# 		any_army_leader = {
+	# 			NOT = {
+	# 				has_trait = legionarius
+	# 				has_trait = praetorian
+	# 				has_trait = popular
+	# 				has_trait = optimate
+	# 				is_character = CAL_ricardus_calisius
+	# 			}
+	# 		}
+	# 		NOT = {
+	# 			has_country_flag = CAL_senate_closed_due_to_grmans
+	# 		}
+	# 	}
+	# 	cost = 30
+	# 	complete_effect = {
+	# 		set_temp_variable = {
+	# 			CAL_gravitas_change = -30
+	# 		}
+	# 		add_to_variable = {
+	# 			var = CAL_populares_gravitas
+	# 			value = CAL_gravitas_change
+	# 			tooltip = CAL_change_gravitas_populares_tt
+	# 		}
+	# 		random_army_leader = {
+	# 			limit = {
+	# 				NOT = {
+	# 					has_trait = legionarius
+	# 					has_trait = praetorian
+	# 					has_trait = popular
+	# 					has_trait = optimate
+	# 					is_character = CAL_ricardus_calisius
+	# 				}
+	# 			}
+	# 			add_unit_leader_trait = popular
+	# 		}
+	# 	}
+	# 	days_re_enable = 90
+	# }
+	# CAL_bribe_populare_commander = {
+	# 	icon = GFX_decision_gre_investment_decisions
+	# 	available = {
+	# 		check_variable = {
+	# 			var = CAL_optimates_gravitas
+	# 			value = 30
+	# 			compare = greater_than_or_equals
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		check_variable = {
+	# 			CAL_decision_group = 2
+	# 		}
+	# 		any_army_leader = {
+	# 			NOT = {
+	# 				has_trait = legionarius
+	# 				has_trait = praetorian
+	# 				has_trait = popular
+	# 				has_trait = optimate
+	# 				is_character = CAL_ricardus_calisius
+	# 			}
+	# 		}
+	# 		NOT = {
+	# 			has_country_flag = CAL_senate_closed_due_to_grmans
+	# 		}
+	# 	}
+	# 	cost = 30
+	# 	complete_effect = {
+	# 		set_temp_variable = {
+	# 			CAL_gravitas_change = -30
+	# 		}
+	# 		add_to_variable = {
+	# 			var = CAL_optimates_gravitas
+	# 			value = CAL_gravitas_change
+	# 			tooltip = CAL_change_gravitas_optimates_tt
+	# 		}
+	# 		random_army_leader = {
+	# 			limit = {
+	# 				NOT = {
+	# 					has_trait = legionarius
+	# 					has_trait = praetorian
+	# 					has_trait = popular
+	# 					has_trait = optimate
+	# 					is_character = CAL_ricardus_calisius
+	# 				}
+	# 			}
+	# 			add_unit_leader_trait = optimate
+	# 		}
+	# 	}
+	# 	days_re_enable = 90
+	# }
+	# CAL_bribe_praetorian = {
+	# 	icon = GFX_decision_gre_investment_decisions
+	# 	available = {
+	# 		check_variable = {
+	# 			var = CAL_legiones_gravitas
+	# 			value = 30
+	# 			compare = greater_than_or_equals
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		check_variable = {
+	# 			CAL_decision_group = 3
+	# 		}
+	# 		any_army_leader = {
+	# 			NOT = {
+	# 				has_trait = legionarius
+	# 				has_trait = praetorian
+	# 				has_trait = popular
+	# 				has_trait = optimate
+	# 				is_character = CAL_ricardus_calisius
+	# 			}
+	# 		}
+	# 		NOT = {
+	# 			has_country_flag = CAL_senate_closed_due_to_grmans
+	# 		}
+	# 	}
+	# 	cost = 30
+	# 	complete_effect = {
+	# 		set_temp_variable = {
+	# 			CAL_gravitas_change = -30
+	# 		}
+	# 		add_to_variable = {
+	# 			var = CAL_legiones_gravitas
+	# 			value = CAL_gravitas_change
+	# 			tooltip = CAL_change_gravitas_legiones_tt
+	# 		}
+	# 		random_army_leader = {
+	# 			limit = {
+	# 				NOT = {
+	# 					has_trait = legionarius
+	# 					has_trait = praetorian
+	# 					has_trait = popular
+	# 					has_trait = optimate
+	# 					is_character = CAL_ricardus_calisius
+	# 				}
+	# 			}
+	# 			add_unit_leader_trait = legionarius
+	# 		}
+	# 	}
+	# 	days_re_enable = 90
+	# }
+	# CAL_bribe_legionarius = {
+	# 	icon = GFX_decision_gre_investment_decisions
+	# 	available = {
+	# 		check_variable = {
+	# 			var = CAL_praetoriae_gravitas
+	# 			value = 30
+	# 			compare = greater_than_or_equals
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		check_variable = {
+	# 			CAL_decision_group = 4
+	# 		}
+	# 		any_army_leader = {
+	# 			NOT = {
+	# 				has_trait = legionarius
+	# 				has_trait = praetorian
+	# 				has_trait = popular
+	# 				has_trait = optimate
+	# 				is_character = CAL_ricardus_calisius
+	# 			}
+	# 		}
+	# 		NOT = {
+	# 			has_country_flag = CAL_senate_closed_due_to_grmans
+	# 		}
+	# 	}
+	# 	cost = 30
+	# 	complete_effect = {
+	# 		set_temp_variable = {
+	# 			CAL_gravitas_change = -30
+	# 		}
+	# 		add_to_variable = {
+	# 			var = CAL_praetoriae_gravitas
+	# 			value = CAL_gravitas_change
+	# 			tooltip = CAL_change_gravitas_praetoriae_tt
+	# 		}
+	# 		random_army_leader = {
+	# 			limit = {
+	# 				NOT = {
+	# 					has_trait = legionarius
+	# 					has_trait = praetorian
+	# 					has_trait = popular
+	# 					has_trait = optimate
+	# 					is_character = CAL_ricardus_calisius
+	# 				}
+	# 			}
+	# 			add_unit_leader_trait = praetorian
+	# 		}
+			
+	# 	}
+	# 	days_re_enable = 90
+	# }
+
+	CAL_use_favors_populare = {
+		icon = GFX_decision_SWI_dismiss_council
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CAL_enuff_loyalty_tt
+				check_variable = {
+					var = CAL_populares_loyalty
+					value = 30
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		cost = 50
+		days_remove = 30
+		days_re_enable = 60
 		complete_effect = {
-			set_temp_variable = { CAL_gravitas_change = 5 }
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = -10
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			add_to_variable = {
+				var = CAL_populares_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_populares_tt
+			}
+			if = {
+				limit = {
+					has_active_mission = CAL_emperors_alertness
+				}
+				add_to_variable = {
+					var = CAL_praetoriae_gravitas
+					value = CAL_gravitas_change
+					tooltip = CAL_change_gravitas_praetoriae_tt
+				}
+			}
+			add_dynamic_modifier = {
+				modifier = CAL_favor_populares
+				days = 30
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}	
+	}
+
+
+	CAL_use_favors_optimate = {
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CAL_enuff_loyalty_tt
+				check_variable = {
+					var = CAL_optimates_loyalty
+					value = 30
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		icon = GFX_decision_SWI_dismiss_council
+		cost = 50
+		days_remove = 30
+		days_re_enable = 60
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = -10
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			add_to_variable = {
+				var = CAL_optimates_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_optimates_tt
+			}
+			add_dynamic_modifier = {
+				modifier = CAL_favor_optimates
+				days = 30
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+
+	CAL_use_favors_legiones = {
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CAL_enuff_loyalty_tt
+				check_variable = {
+					var = CAL_legiones_loyalty
+					value = 30
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 3
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		icon = GFX_decision_SWI_dismiss_council
+		cost = 50
+		days_remove = 30
+		days_re_enable = 60
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = -10
+			}
 			add_to_variable = {
 				var = CAL_legiones_gravitas
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_legiones_tt
 			}
+			add_to_variable = {
+				var = CAL_legiones_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_legiones_tt
+			}
+			add_dynamic_modifier = {
+				modifier = CAL_favor_legiones
+				days = 30
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
-	CAL_debug_add_praetoriae_gravitas = {
+
+	CAL_use_favors_praetoriae = {
 		available = {
-			always = yes
+			custom_trigger_tooltip = {
+				tooltip = CAL_enuff_loyalty_tt
+				check_variable = {
+					var = CAL_praetoriae_loyalty
+					value = 30
+					compare = greater_than_or_equals
+				}
+			}
 		}
-        visible = {
-            always = yes
-			is_debug = yes
-        }
-		icon = mission_icon   
+		visible = {
+			check_variable = {
+				CAL_decision_group = 4
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		icon = GFX_decision_SWI_dismiss_council
+		cost = 50
+		days_remove = 30
+		days_re_enable = 60
 		complete_effect = {
-			set_temp_variable = { CAL_gravitas_change = 5 }
+			set_temp_variable = {
+				CAL_gravitas_change = -20
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = -10
+			}
 			add_to_variable = {
 				var = CAL_praetoriae_gravitas
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_praetoriae_tt
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
+			}
+			add_dynamic_modifier = {
+				modifier = CAL_favor_praetoriae
+				days = 30
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+	}
+
+	CAL_additional_payment_for_legions = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		visible = {
+			check_variable = {
+				CAL_decision_group = 3
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		icon = GFX_decision_generic_fundraising
+		cost = 50
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -50
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 30
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_legiones_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_legiones_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+		days_re_enable = 180
+	}
+
+	CAL_additional_payment_for_praetoriae = {
+		available = {
+			check_variable = {
+				var = CAL_emperor_gravitas
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		visible = {
+			check_variable = {
+				CAL_decision_group = 4
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+		}
+		icon = GFX_decision_generic_fundraising
+		cost = 50
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -50
+			}
+			set_temp_variable = {
+				CAL_loyalty_change = 30
+			}
+			add_to_variable = {
+				var = CAL_emperor_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_emperor_tt
+			}
+			add_to_variable = {
+				var = CAL_praetoriae_loyalty
+				value = CAL_loyalty_change
+				tooltip = CAL_change_loyalty_praetoriae_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+		}
+		days_re_enable = 180
+	}
+
+	CAL_increase_unity_populare = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				CAL_populares_hardliners < CAL_populares_count
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_populares_hard_onethird_tt
+				OR = {
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 1
+						}
+						check_variable = {
+							CAL_populares_hardliners < 34
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+						check_variable = {
+							CAL_populares_hardliners < 51
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+						check_variable = {
+							CAL_populares_hardliners < 101
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 4
+						}
+						check_variable = {
+							CAL_populares_hardliners < 301
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+			NOT = {
+				has_active_mission = CAL_senate_voting_mission
+			}
+		}
+		icon = GFX_decision_SWI_elect_confederation_president
+		cost = 30
+		days_re_enable = 90
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_increase_unity_populare_effect = yes
+		}
+	}
+
+	CAL_increase_unity_optimate = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				CAL_optimates_hardliners < CAL_optimates_count
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_optimates_hard_onethird_tt
+				OR = {
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 1
+						}
+						check_variable = {
+							CAL_optimates_hardliners < 34
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+						check_variable = {
+							CAL_optimates_hardliners < 51
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+						check_variable = {
+							CAL_optimates_hardliners < 101
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 4
+						}
+						check_variable = {
+							CAL_optimates_hardliners < 301
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+			NOT = {
+				has_active_mission = CAL_senate_voting_mission
+			}
+		}
+		icon = GFX_decision_SWI_elect_confederation_president
+		cost = 30
+		days_re_enable = 90
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_increase_unity_optimate_effect = yes
+		}
+	}
+
+	CAL_decrease_unity_populare = {
+		available = {
+			check_variable = {
+				var = CAL_optimates_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				CAL_populares_hardliners > 0
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_populares_hard_onetenth_tt
+				OR = {
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 1
+						}
+						check_variable = {
+							CAL_populares_hardliners > 9
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+						check_variable = {
+							CAL_populares_hardliners > 14
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+						check_variable = {
+							CAL_populares_hardliners > 29
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 4
+						}
+						check_variable = {
+							CAL_populares_hardliners > 89
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 2
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+			NOT = {
+				has_active_mission = CAL_senate_voting_mission
+			}
+		}
+		icon = GFX_decision_generic_political_discourse
+		cost = 30
+		days_re_enable = 90
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_optimates_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_optimates_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_decrease_unity_populare_effect = yes
+		}
+	}
+
+	CAL_decrease_unity_optimate = {
+		available = {
+			check_variable = {
+				var = CAL_populares_gravitas
+				value = 30
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				CAL_optimates_hardliners > 0
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAL_optimates_hard_onetenth_tt
+				OR = {
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 1
+						}
+						check_variable = {
+							CAL_optimates_hardliners > 9
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 2
+						}
+						check_variable = {
+							CAL_optimates_hardliners > 14
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 3
+						}
+						check_variable = {
+							CAL_optimates_hardliners > 29
+						}
+					}
+					AND = {
+						check_variable = {
+							CAL_senate_lvl = 4
+						}
+						check_variable = {
+							CAL_optimates_hardliners > 89
+						}
+					}
+				}
+			}
+		}
+		visible = {
+			check_variable = {
+				CAL_decision_group = 1
+			}
+			NOT = {
+				has_country_flag = CAL_senate_closed_due_to_grmans
+			}
+			NOT = {
+				has_active_mission = CAL_senate_voting_mission
+			}
+		}
+		icon = GFX_decision_generic_political_discourse
+		cost = 30
+		days_re_enable = 90
+		complete_effect = {
+			set_temp_variable = {
+				CAL_gravitas_change = -30
+			}
+			add_to_variable = {
+				var = CAL_populares_gravitas
+				value = CAL_gravitas_change
+				tooltip = CAL_change_gravitas_populares_tt
+			}
+			CAL_clamp_on_loyalty_and_gravitas = yes
+			CAL_decrease_unity_optimate_effect = yes
+		}
+	}
+
+	CAL_emperors_alertness = {
+		activation = {
+			has_country_flag = CAL_spisek
+		}
+
+		available = {
+			always = no
+		}
+		icon = GFX_decision_hol_exchange_intelligence_data #tymczasowo aż ktoś nie znajdzie lepszej ikonki
+		is_good = no
+		days_mission_timeout = 70
+		timeout_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = CAL_emperor_gravitas
+						value = CAL_praetoriae_gravitas
+						compare = greater_than
+					}
+				}
+				custom_effect_tooltip = CAL_emperors_alertness_high_tt
+				hidden_effect = {
+					country_event = calisia.154
+				}
+			}
+			else = {
+				custom_effect_tooltip = CAL_emperors_alertness_low_tt
+			}
+		}
+	}
+}
+
+CAL_empire_management_category = {
+	CAL_appoint_governor = {
+		allowed = {
+			always = yes
+		}
+		cost = 100
+		visible = {
+			OR = {
+				and = {
+					check_variable = {
+						CAL_region_chosen = 1
+					}
+					NOT = {
+						has_idea = CAL_governor_phaon
+						has_idea = CAL_governor_phaon2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 2
+					}
+					NOT = {
+						has_idea = CAL_governor_scriptor
+						has_idea = CAL_governor_scriptor2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 4
+					}
+					NOT = {
+						has_idea = CAL_governor_obaitex
+						has_idea = CAL_governor_obaitex2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 5
+					}
+					NOT = {
+						has_idea = CAL_governor_majorix
+						has_idea = CAL_governor_majorix2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 6
+					}
+					NOT = {
+						has_idea = CAL_governor_cinastovicus
+						has_idea = CAL_governor_cinastovicus2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 7
+					}
+					NOT = {
+						has_idea = CAL_governor_bescus
+						has_idea = CAL_governor_bescus2
+					} 
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 8
+					}
+					NOT = {
+						has_idea = CAL_governor_naimanus
+						has_idea = CAL_governor_naimanus2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 9
+					}
+					NOT = {
+						has_idea = CAL_governor_trascovicus
+						has_idea = CAL_governor_trascovicus2
+					}  
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 10
+					}
+					NOT = {
+						has_idea = CAL_governor_iconovicus
+						has_idea = CAL_governor_iconovicus2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 11
+					}
+					NOT = {
+						has_idea = CAL_governor_vinicius
+						has_idea = CAL_governor_vinicius2
+					}
+				}
+				and = {
+					check_variable = {
+						CAL_region_chosen = 12
+					}
+					NOT = {
+						has_idea = CAL_governor_sturnus
+						has_idea = CAL_governor_sturnus2
+					}
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = CAL_appoint_governor_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 1
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_phaon2
+					}
+					else = {
+						add_ideas = CAL_governor_phaon
+					}
+					every_possible_country = {
+						limit = {
+							has_character = JAS_aleksander_jabłonowski
+						}
+						random_character = {
+							limit = {
+								is_character = JAS_aleksander_jabłonowski
+							}
+							set_nationality = CAL
+							set_character_name = "Phaon Alnus"
+							set_portraits = {
+								civilian = {
+									small = "gfx/interface/ideas/CAL/CAL_phaon.dds"
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 2
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_scriptor2
+					}
+					else = {
+						add_ideas = CAL_governor_scriptor
+					}
+					CAL_scriptor = {
+						set_character_flag = is_governor
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 4
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_obaitex2
+					}
+					else = {
+						add_ideas = CAL_governor_obaitex
+					}
+					every_possible_country = {
+						limit = {
+							has_character = ORL_daniel_obajtek
+						}
+						random_character = {
+							limit = {
+								is_character = ORL_daniel_obajtek
+							}
+							set_nationality = CAL
+							set_character_name = "Daniel Obaitex"
+							set_portraits = {
+								civilian = {
+									small = "gfx/interface/ideas/CAL/CAL_obaitex.dds"
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 5
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_majorix2
+					}
+					else = {
+						add_ideas = CAL_governor_majorix
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 6
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_cinastovicus2
+					}
+					else = {
+						add_ideas = CAL_governor_cinastovicus
+					}
+					PRT = {
+						remove_ideas = podlasie_tribe_idea
+						set_portraits = {
+							character = PRT_kinastowski
+							civilian = { large ="GFX_CAL_Kinastowski2" }
+						}
+					}
+					every_state = {
+						limit = {
+							is_dolny_slask_state = yes
+						}
+						transfer_state_to = PRT
+					}
+					342 = {
+						set_state_owner_to = CAL
+						set_state_controller_to = CAL
+					}
+					337 = {
+						set_state_owner_to = CAL
+						set_state_controller_to = CAL
+					}
+					359 = {
+						set_state_owner_to = CAL
+						set_state_controller_to = CAL
+					}
+					set_portraits = {
+						character = CAL_krystian_kinastowski
+						civilian = { large ="GFX_CAL_Kinastowski2" }
+						army = { large ="GFX_CAL_Kinastowski2" }
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 7
+						}
+					}
+					
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_bescus2
+					}
+					else = {
+						add_ideas = CAL_governor_bescus
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 8
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_naimanus2
+					}
+					else = {
+						add_ideas = CAL_governor_naimanus
+					}
+					every_possible_country = {
+						limit = {
+							has_character = CCH_najman
+						}
+						random_character = {
+							limit = {
+								is_character = CCH_najman
+							}
+							set_nationality = CAL
+							set_character_name = "Martinus Naimanus"
+							set_portraits = {
+								civilian = {
+									small = "gfx/interface/ideas/CAL/CAL_naimanus.dds"
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 9
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_trascovicus2
+					}
+					else = {
+						add_ideas = CAL_governor_trascovicus
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 10
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_iconovicus2
+					}
+					else = {
+						add_ideas = CAL_governor_iconovicus
+					}
+					CAL_ikonowicz = {
+						set_character_flag = is_governor
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 11
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_vinicius2
+					}
+					else = {
+						add_ideas = CAL_governor_vinicius
+					}
+					ALP = {
+						remove_ideas = podlasie_tribe_idea
+						set_portraits = {
+							character = ALP_vinicius
+							civilian = { large ="GFX_CAL_Winicjusz2" }
+						}
+					}
+					every_state = {
+						limit = {
+							is_small_galicia_state = yes
+						}
+						transfer_state_to = ALP
+					}
+					266 = {
+						set_state_owner_to = CAL
+						set_state_controller_to = CAL
+					}
+					set_portraits = {
+						character = CAL_pawel_delag
+						civilian = { 
+							large ="GFX_CAL_Winicjusz2"
+							small ="gfx/interface/ideas/CAL/CAL_Vinicius2.dds"
+						}
+						army = { large ="GFX_CAL_Winicjusz2" }
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_region_chosen = 12
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = CAL_empowered_governors
+						}
+						add_ideas = CAL_governor_sturnus2
+					}
+					else = {
+						add_ideas = CAL_governor_sturnus
+					}
+				}
+			}
+		}
+	}
+}
+
+CAL_triumvirate_war_counter = {
+	CAL_legion_capitulation = {
+		icon = GFX_decision_generic_form_nation
+		activation = {
+			has_country_flag = CAL_triumvirate_war
+			ALP = { surrender_progress > 0.5 }
+				#PRT = { surrender_progress > 0.5 }
+				#CAL = { surrender_progress > 0.5 }
+		}
+		available = {
+			ALP = { surrender_progress < 0.5 }
+				#PRT = { surrender_progress < 0.5 }
+				#CAL = { surrender_progress < 0.5 }
+		}
+		cancel_trigger = {
+			ALP = { surrender_progress < 0.5 }
+		}
+		is_good = yes
+		days_mission_timeout = 30
+		selectable_mission = no
+		complete_effect = {
+			
+		}
+		timeout_effect = {
+			hidden_effect = {
+				set_country_flag = CAL_legion_capitulation_flag
+				country_event = calisia.129
+			}
+		}
+	}
+	CAL_senate_capitulation = {
+		icon = GFX_decision_generic_form_nation
+		activation = {
+			has_country_flag = CAL_triumvirate_war
+			CAL = { surrender_progress > 0.5 }
+		}
+		available = {
+			CAL = { surrender_progress < 0.5 }
+		}
+		cancel_trigger = {
+			CAL = { surrender_progress < 0.5 }
+		}
+		is_good = yes
+		days_mission_timeout = 30
+		selectable_mission = no
+		complete_effect = {
+			
+		}
+		timeout_effect = {
+			hidden_effect = {
+				set_country_flag = CAL_senate_capitulation_flag
+				country_event = calisia.129
+			}
+		}
+	}
+	CAL_praetorian_capitulation = {
+		activation = {
+			has_country_flag = CAL_triumvirate_war
+			PRT = { surrender_progress > 0.5 }
+		}
+		available = {
+			PRT = { surrender_progress < 0.5 }
+		}
+		cancel_trigger = {
+			PRT = { surrender_progress < 0.5 }
+		}
+		icon = GFX_decision_generic_form_nation
+		is_good = yes
+		days_mission_timeout = 30
+		selectable_mission = no
+		complete_effect = {
+			
+		}
+		timeout_effect = {
+			hidden_effect = {
+				set_country_flag = CAL_praetorian_capitulation_flag
+				country_event = calisia.129
 			}
 		}
 	}

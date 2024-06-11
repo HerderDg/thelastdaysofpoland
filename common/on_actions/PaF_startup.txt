@@ -1,13 +1,19 @@
 on_actions = {
 	on_startup = {
 		effect = {
+			CAL = {
+				scoped_play_song = "calisia"
+			}
+			ALP = {
+				scoped_play_song = "legio"
+			}			
 			random_country = { #hoi znowu jest upośledzone i nie daje zrobić oskryptowanego efektu jak normalny koder by myślał
 				create_arrays_of_needed_poland_states = yes
 			}
 			every_country = {
 				limit = {
 					is_ai = no
-					or = {
+					OR = {
 						tag = BOM
 						tag = BPD
 						tag = ARK
@@ -28,7 +34,7 @@ on_actions = {
 			}
 			every_country = {
 				limit = {
-					not = {
+					NOT = {
 						has_tech = industry_revival
 					}
 				}
@@ -73,7 +79,7 @@ on_actions = {
 				}
 				if = {
 					limit = {
-						or = {
+						OR = {
 						is_controlled_by = ALP
 						is_controlled_by = PRT
 						is_controlled_by = CAL
@@ -118,7 +124,7 @@ on_actions = {
 							and = {
 								is_controlled_by = EKS
 								EKS = {
-									not = {
+									NOT = {
 										has_country_flag = eurokom_has_fallen
 									}
 								}
@@ -126,7 +132,7 @@ on_actions = {
 							and = {
 								is_controlled_by = EKW
 								EKW = {
-									not = {
+									NOT = {
 										has_country_flag = eurokom_has_fallen
 									}
 								}
@@ -214,7 +220,7 @@ on_actions = {
 				if = {
 					limit = {
 						is_controlled_by = KSZ
-						or = {
+						OR = {
 							state = 15
 							state = 20
 							state = 21
@@ -664,28 +670,24 @@ on_actions = {
 			}
 			if = {
 				limit = {
-					or = {
+					OR = {
 						has_country_flag = unified_voivodeship
 						has_country_flag = unified_regional
 					}
 				}
 				count_voi_ownership = yes
 			}
+			
 			set_temp_variable = { coreable_temp = 0}
 			every_owned_state = {
 				limit = {
 					NOT = { is_core_of = ROOT }
-					compliance > 60
+					compliance > 75
+					check_variable = {
+						THIS.coring_cost < ROOT.political_power
+					}
 				}
 				add_to_temp_variable = { coreable_temp = 1}
-				# every_country = {
-				# 	limit = {
-				# 		PREV = {
-				# 			is_claimed_by = THIS
-				# 		}
-				# 	}
-				#  	log = "CORING CHECK: [PREV.GetName] is claimed by [THIS.GetName]"
-				# }
 			}
 			set_variable = {coreable_number = coreable_temp }
 			every_owned_state = {
@@ -706,6 +708,15 @@ on_actions = {
 				limit = {
 					is_core_of = ROOT 
 					is_in_array = { ROOT.noncores_array = THIS.id } 
+				}
+				remove_from_array = { ROOT.noncores_array = THIS.id }
+			}
+			every_state = {
+				limit = {
+					is_in_array = { ROOT.noncores_array = THIS.id }
+					NOT = {
+						is_owned_by = ROOT
+					}
 				}
 				remove_from_array = { ROOT.noncores_array = THIS.id }
 			}
@@ -730,7 +741,7 @@ on_actions = {
 				multiply_variable = { root.non_core_penalty_value = -0.01 }
 				if = {
 					limit = {
-						not = {
+						NOT = {
 							has_dynamic_modifier = {
 								modifier = non_core_penalty
 							}
@@ -752,8 +763,244 @@ on_actions = {
 			public_buildings_effect = yes
 		}
 	}
+	on_daily_CAL = {
+		effect = {
+			change_vp_name_to_latin = yes
+			if = {
+				limit = {
+					has_country_flag = {
+						flag = CAL_senate_voting_started
+						days > 17
+					}
+					NOT = {
+						has_country_flag = CAL_senate_military_made_a_move
+					}
+				}
+				CAL_senate_military_moves = yes
+				CAL_clamp_on_loyalty_and_gravitas = yes
+				set_country_flag = CAL_senate_military_made_a_move
+			}
+			CAL_count_units_allegiance = yes
+			if = {
+				limit = {
+					has_country_flag = CAL_senate_opened
+				}
+				CAL_set_civilian_loyalty_effects = yes
+			}
+			if = {
+				limit = {
+					OR = {
+						has_idea = CAL_legiones_rebellious
+						has_idea = CAL_legiones_disloyal
+						has_idea = CAL_legiones_hesistant
+						has_idea = CAL_legiones_loyal
+						has_idea = CAL_legiones_fanatical
+					}
+				}
+				CAL_set_military_loyalty_effects = yes
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				set_variable = {
+					global.unifiers_count = 0
+				}
+				for_each_scope_loop = {
+					array = global.countries
+					if = {
+						limit = {
+							exists = yes
+							is_poland_unifier = yes
+						}
+						add_to_variable = {
+							global.unifiers_count = 1
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							global.unifiers_count = 2
+						}
+					}
+					country_event = {
+						id = calisia.52
+						days = 7
+					}
+				}
+				
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = CAL_praetorians_will_remember_that
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_praetoriae_loyalty > 30
+						}
+					}
+					set_country_flag = CAL_praetorians_will_remember_that
+				}
+				#log = "Praetorians will remember that..."
+			}
+		}
+	}
+	on_daily_HNN = {
+		effect = {
+			if = {
+				limit = {
+					num_divisions < 300
+					NOT = {
+						has_country_flag = STOP_SPAMMING
+					}
+				}
+				capital_scope = {
+					create_unit = {
+						division = "division_template = \"Huńscy łupieżcy\""
+						owner = HNN
+					}
+				}
+			}
+			else = {
+				set_country_flag = STOP_SPAMMING
+			}
+		}
+	}
 	on_weekly_SWE = {
 		effect = {
+			if = {
+				limit = {
+					date > 2037.09.01
+					NOT = {
+						has_global_flag = CAL_jutes_spawned
+					}
+					JOM = {
+						exists = no
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_jutes = yes
+			}
+			if = {
+				limit = {
+					date > 2037.10.01
+					NOT = {
+						has_global_flag = CAL_ostrogoths_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_ostrogoths = yes
+			}
+			if = {
+				limit = {
+					date > 2037.11.01
+					NOT = {
+						has_global_flag = CAL_franks_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_franks = yes
+			}
+			if = {
+				limit = {
+					date > 2037.12.01
+					NOT = {
+						has_global_flag = CAL_visigoths_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_visigoths = yes
+			}
+			if = {
+				limit = {
+					date > 2038.01.01
+					NOT = {
+						has_global_flag = CAL_saxons_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_saxons = yes
+			}
+			if = {
+				limit = {
+					date > 2038.02.01
+					NOT = {
+						has_global_flag = CAL_vandals_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+					WAN = {
+						exists = no
+					}
+				}
+				CAL_spawn_vandals = yes
+			}
+			if = {
+				limit = {
+					date > 2038.03.01
+					NOT = {
+						has_global_flag = CAL_estes_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_estes = yes
+			}
+			if = {
+				limit = {
+					date > 2038.04.01
+					NOT = {
+						has_global_flag = CAL_huns_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+					KON = {
+						exists = no
+					}
+				}
+				CAL_spawn_huns = yes
+			}
+			if = {
+				limit = {
+					date > 2038.05.01
+					NOT = {
+						has_global_flag = CAL_scythians_spawned
+					}
+					CAL = {
+						is_ai = no
+					}
+				}
+				CAL_spawn_scythians = yes
+			}
+			# if = {
+			# 	limit = {
+			# 		date > 2038.06.01
+			# 		NOT = {
+			# 			has_global_flag = CAL_spartakus_risen
+			# 		}
+			# 		CAL = {
+			# 			is_ai = no
+			# 		}
+			# 	}
+			# 	CAL_spawn_slave_revolt = yes
+			# }
 			set_variable = { global.deadPolacksFromLastTick = global.deadPolacks}
 			set_temp_variable = { global.tempDeadPolacks = 0}
 			every_country = {
@@ -878,7 +1125,7 @@ on_actions = {
 			if = {
 				limit = {
 					has_character = ZHP_marek_jedraszewski
-					not = {
+					NOT = {
 						has_country_leader = {
 							character = ZHP_marek_jedraszewski
 							ruling_only = yes
@@ -904,7 +1151,7 @@ on_actions = {
 			if = {
 				limit = {
 					has_character = ZHP_orsza
-					not = {
+					NOT = {
 						has_country_leader = {
 							character = ZHP_orsza
 							ruling_only = yes
@@ -926,15 +1173,293 @@ on_actions = {
 	
 	on_monthly_CAL = {
 		effect = {
-			change_vp_name_to_latin = yes
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = CAL_senate_closed_due_to_grmans
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = CAL_emperor_gravitas
+							value = 160
+							compare = greater_than_or_equals
+						}
+					}
+					subtract_from_variable = {
+						CAL_legiones_loyalty = 1
+					}
+					subtract_from_variable = {
+						CAL_populares_loyalty = 1
+					}
+					subtract_from_variable = {
+						CAL_praetoriae_loyalty = 1
+					}
+					subtract_from_variable = {
+						CAL_optimates_loyalty = 1
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CAL_populares_percentage > 0.6
+						}
+					}
+					subtract_from_variable = {
+						CAL_optimates_loyalty = 1
+					}
+				} 
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_populares_percentage < 0.4
+						}
+					}
+					subtract_from_variable = {
+						CAL_populares_loyalty = 1
+					}
+				}
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_populares_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_populares_loyalty = 2
+				# 	}
+				# }
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_praetoriae_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_praetoriae_loyalty = 2
+				# 	}
+				# }
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_optimates_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_optimates_loyalty = 2
+				# 	}
+				# }
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_legiones_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_legiones_loyalty = 2
+				# 	}
+				# }
+				#loyalty-bonus-populare
+				if ={
+					limit = {
+						check_variable = {
+							var = CAL_populares_loyalty
+							value = 15
+							compare = less_than_or_equals
+						}
+					}
+					add_to_variable = {
+						CAL_populares_gravitas = 5
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							var = CAL_populares_loyalty
+							value = 30
+							compare = less_than_or_equals
+						}
+					}
+					add_to_variable = {
+						CAL_populares_gravitas = 3
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_populares_loyalty > 80
+						}
+						check_variable = {
+							var = CAL_populares_loyalty
+							value = 90
+							compare = less_than_or_equals
+						}
+					}
+					subtract_from_variable =  {
+						CAL_populares_gravitas = 1
+					}
+				}
+				else = {
+					subtract_from_variable =  {
+						CAL_populares_gravitas = -3
+					}
+				}
+				#loyalty-bonus-optimate
+				if ={
+					limit = {
+						check_variable = {
+							var = CAL_optimates_loyalty
+							value = 15
+							compare = less_than_or_equals
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_gravitas = 5
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							var = CAL_optimates_loyalty
+							value = 30
+							compare = less_than_or_equals
+						}
+					}
+					add_to_variable = {
+						CAL_optimates_gravitas = 3
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_optimates_loyalty > 80
+						}
+						check_variable = {
+							var = CAL_optimates_loyalty
+							value = 90
+							compare = less_than_or_equals
+						}
+					}
+					subtract_from_variable =  {
+						CAL_optimates_gravitas = 1
+					}
+				}
+				else = {
+					subtract_from_variable =  {
+						CAL_optimates_gravitas = -3
+					}
+				}
+				#loyalty-bonus-legiones
+				if ={
+					limit = {
+						check_variable = {
+							var = CAL_legiones_loyalty
+							value = 15
+							compare = less_than_or_equals
+						}
+					}
+					add_to_variable = {
+						CAL_legiones_gravitas = 5
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							var = CAL_legiones_loyalty
+							value = 30
+							compare = less_than_or_equals
+						}
+					}
+					add_to_variable = {
+						CAL_legiones_gravitas = 3
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CAL_legiones_loyalty > 80
+						}
+						check_variable = {
+							var = CAL_legiones_loyalty
+							value = 90
+							compare = less_than_or_equals
+						}
+					}
+					subtract_from_variable =  {
+						CAL_legiones_gravitas = 1
+					}
+				}
+				else = {
+					subtract_from_variable =  {
+						CAL_legiones_gravitas = -3
+					}
+				}
+				#loyalty-bonus-preatoriae
+				if= {
+					limit = {
+						NOT = {
+							has_country_flag = CAL_praetorians_banned
+						}
+					}
+					if ={
+						limit = {
+							check_variable = {
+								var = CAL_praetoriae_loyalty
+								value = 15
+								compare = less_than_or_equals
+							}
+						}
+						add_to_variable = {
+							CAL_praetoriae_gravitas = 5
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = {
+								var = CAL_praetoriae_loyalty
+								value = 30
+								compare = less_than_or_equals
+							}
+						}
+						add_to_variable = {
+							CAL_praetoriae_gravitas = 3
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = {
+								CAL_praetoriae_loyalty > 80
+							}
+							check_variable = {
+								var = CAL_praetoriae_loyalty
+								value = 90
+								compare = less_than_or_equals
+							}
+						}
+						subtract_from_variable =  {
+							CAL_praetoriae_gravitas = 1
+						}
+					}
+					else = {
+						subtract_from_variable =  {
+							CAL_praetoriae_gravitas = -3
+						}
+					}
+				}
+				
+				CAL_clamp_on_loyalty_and_gravitas = yes
+			}
+			
 		}
+		
 	}
-	on_monthly_PRT = {
+	on_daily_PRT = {
 		effect = {
 			change_vp_name_to_latin = yes
 		}
 	}
-	on_monthly_ALP = {
+	on_daily_ALP = {
 		effect = {
 			change_vp_name_to_latin = yes
 		}
@@ -957,6 +1482,11 @@ on_actions = {
 			change_vp_name_to_nordic = yes
 		}
 	}
+	on_monthly_JUT = {
+		effect = {
+			change_vp_name_to_nordic = yes
+		}
+	}
 	on_monthly_USP = {
 		effect = {
 			change_vp_name_to_kolonkish = yes
@@ -966,7 +1496,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					not = {
+					NOT = {
 						has_country_flag = eurokom_has_fallen
 					}
 				}
@@ -978,7 +1508,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					not = {
+					NOT = {
 						has_country_flag = eurokom_has_fallen
 					}
 				}
@@ -1032,6 +1562,31 @@ on_actions = {
 		}
 	}
 	on_monthly_TEU = {
+		effect = {
+			change_vp_name_to_german = yes
+		}
+	}
+	on_monthly_OST = {
+		effect = {
+			change_vp_name_to_german = yes
+		}
+	}
+	on_monthly_WIZ = {
+		effect = {
+			change_vp_name_to_german = yes
+		}
+	}
+	on_monthly_FRK = {
+		effect = {
+			change_vp_name_to_german = yes
+		}
+	}
+	on_monthly_VAN = {
+		effect = {
+			change_vp_name_to_german = yes
+		}
+	}
+	on_monthly_SAX = {
 		effect = {
 			change_vp_name_to_german = yes
 		}
@@ -1101,6 +1656,11 @@ on_actions = {
 			change_vp_name_to_notthatprussian = yes
 		}
 	}
+	on_monthly_AES = {
+		effect = {
+			change_vp_name_to_notthatprussian = yes
+		}
+	}
 	#on_daily_CHO = {
 	#	effect = {
 	#		change_vp_name_to_silesian = yes
@@ -1135,7 +1695,7 @@ on_actions = {
 		effect = {
 			every_owned_state = {
 				limit = {
-					not = {
+					NOT = {
 						has_dynamic_modifier = {
 							modifier = BBW_smog_effect
 						}
@@ -1161,7 +1721,7 @@ on_actions = {
 					has_completed_focus = ATM_suffocating_smoke
 					has_completed_focus = ATM_black_eagle
 					has_completed_focus = ATM_hearts_and_minds
-					not = {
+					NOT = {
 						has_completed_focus = ATM_at_least_fair_trial
 						has_completed_focus = ATM_captain_planet
 						has_completed_focus = ATM_rad_eaters
@@ -1199,7 +1759,7 @@ on_actions = {
 							var:party_popularity@paternal_conservatism < var:party_popularity@squattism
 						}
 					}
-					not = {
+					NOT = {
 						has_active_mission = ATM_brewing_tensions
 					}
 				}
@@ -1217,7 +1777,7 @@ on_actions = {
 				}
 				every_owned_state = {
 					limit = {
-						not = {
+						NOT = {
 							has_dynamic_modifier = {
 								modifier = BBW_smog_effect
 							}
@@ -1331,6 +1891,10 @@ on_actions = {
 						original_tag = ALP
 						original_tag = PRT
 						original_tag = CAL
+						AND = {
+							original_tag = KLO
+							is_subject_of = CAL
+						}
 					}
 				}
 				meta_effect = {
@@ -1342,6 +1906,21 @@ on_actions = {
 					}
 					STATE_ID = "[?FROM.FROM.GetID]"
 				}
+				if = {
+					limit = {
+						original_tag = CAL
+						has_country_flag = CAL_central_imperial_department
+						FROM.FROM = {
+							NOT = {
+								is_core_of = CAL
+							}
+						}
+					}
+					multiply_variable = {
+						FROM.FROM.coring_cost = 0.8
+					}
+					round_variable = FROM.FROM.coring_cost
+				}
 			}
 			else_if = {
 				limit = {
@@ -1351,7 +1930,6 @@ on_actions = {
 						ruling_only = yes
 					}
 				}
-				log = "xd"
 				meta_effect = {
 					text = {
 						FROM.FROM = {
@@ -1373,8 +1951,13 @@ on_actions = {
 						original_tag = KOS
 						original_tag = TEU 
 						original_tag = BRE
+						original_tag = OST
+						original_tag = WIZ
+						original_tag = SAX
+						original_tag = VAN
+						original_tag = FRK
 						AND = {
-							or = {
+							OR = {
 								original_tag = EKS
 								original_tag = EKW
 							}
@@ -1395,7 +1978,10 @@ on_actions = {
 			}
 			else_if = {
 				limit = {
-					original_tag = JOM
+					OR = {
+						original_tag = JOM
+						original_tag = JUT
+					}
 				}
 				meta_effect = {
 					text = {
@@ -1458,7 +2044,10 @@ on_actions = {
 			}
 			else_if = {
 				limit = {
-					original_tag = PRU
+					OR = {
+						original_tag = PRU
+						original_tag = AES
+					}
 					FROM.FROM = {
 						is_prusy_state = yes
 					}
@@ -1476,7 +2065,7 @@ on_actions = {
 				limit = {
 					original_tag = KSZ
 					FROM.FROM = {
-						or = {
+						OR = {
 							state = 15
 							state = 20
 							state = 21
@@ -1575,6 +2164,81 @@ on_actions = {
 						}
 					}
 					STATE_ID = "[?FROM.FROM.GetID]"
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = CAL
+						has_country_flag = CAL_central_imperial_department
+					}
+					FROM.FROM = {
+						NOT = {
+							is_core_of = CAL
+						}
+					}
+				}
+				divide_variable = {
+					FROM.FROM.coring_cost = 0.8
+				}
+				round_variable = FROM.FROM.coring_cost
+			}
+		}
+	}
+	on_unit_leader_promote_from_ranks_veteran = {
+		effect = {
+			if = {
+				limit = {
+					OWNER = {
+						original_tag = CAL
+					}
+				}
+				ROOT = {
+					random_list = {
+						50 = {
+							add_unit_leader_trait = popular
+						}
+						50 = {
+							add_unit_leader_trait = optimate
+						}
+					}
+					random_list = {
+						50 = {
+							add_unit_leader_trait = praetorian
+						}
+						50 = {
+							add_unit_leader_trait = legionarius
+						}
+					}
+				}
+			}
+		}
+	}
+	on_unit_leader_promote_from_ranks_green = {
+		effect = {
+			if = {
+				limit = {
+					OWNER = {
+						original_tag = CAL
+					}
+				}
+				ROOT = {
+					random_list = {
+						50 = {
+							add_unit_leader_trait = popular
+						}
+						50 = {
+							add_unit_leader_trait = optimate
+						}
+					}
+					random_list = {
+						50 = {
+							add_unit_leader_trait = praetorian
+						}
+						50 = {
+							add_unit_leader_trait = legionarius
+						}
+					}
 				}
 			}
 		}

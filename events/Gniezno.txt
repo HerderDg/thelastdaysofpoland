@@ -58,7 +58,7 @@ country_event = { #aneksja Konina przez gniezno
 		#todo dokodować usuwanie części dywizji przed aneksją
 		annex_country = {
 			target = KNN
-			transfer_troops = YES 
+			transfer_troops = yes 
 		}
 		hidden_effect = {
 			KLO = {
@@ -114,7 +114,7 @@ country_event = { #aneksja koła przez gniezno
 		#todo dokodować usuwanie części dywizji przed aneksją
 		annex_country = {
 			target = KLO
-			transfer_troops = YES
+			transfer_troops = yes
 		}
 	}
 }
@@ -130,27 +130,64 @@ country_event = { #kalisz decyduje o przyszłości koła
 	is_triggered_only = yes
 	option = { #przyda nam się wasal
 		name = gniezno_wip_cal.1.a
-				diplomatic_relation = {
-					country = KLO
-					relation = puppet
-					active = yes
+		hidden_effect = {
+			KLO = {
+				add_country_leader_role = {
+					character = KLO_ilski
+					promote_leader = yes
+					country_leader = {
+						ideology = socialdemocrature_subtype
+					}
 				}
+				
+			}
+		}
+		set_autonomy = {
+			target = KLO
+			autonomy_state = autonomy_colony
+		}
+		hidden_effect = {
+			KLO = {
+				set_cosmetic_tag = KLO_calisian
+				every_owned_state = {
+					meta_effect = {
+						text = {
+							THIS = {
+								set_state_name = STATE_[STATE_ID]_CAL
+								
+							}
+						}
+						STATE_ID = "[?THIS.GetID]"
+					}
+				}
+				set_party_name = {
+					ideology = socialdemocrature
+					long_name = "Societas Rota"
+					name = "Societas Rota"
+				}
+				change_vp_name_to_latin = yes
+			}
+		}
 		ai_chance = {
 			base = 50
 		}
-		GNI = {
-			country_event = {
-				id = gniezno_wip.5
-				days = 7
+		hidden_effect = {
+			GNI = {
+				country_event = {
+					id = gniezno_wip.5
+					days = 7
+				}
 			}
 		}
 	}
 	option = { #zostawmy ich
-		name = gniezno_wip_cal.1.a
-		GNI = {
-			country_event = {
-				id = gniezno_wip.6
-				days = 7
+		name = gniezno_wip_cal.1.b
+		hidden_effect = {
+			GNI = {
+				country_event = {
+					id = gniezno_wip.6
+					days = 7
+				}
 			}
 		}
 		ai_chance = {
@@ -209,7 +246,7 @@ country_event = { #aneksja koła przez kalisz
 		name = gniezno_wip_cal.2.a
 		annex_country = {
 			target = KLO
-			transfer_troops = YES
+			transfer_troops = yes
 		}
 	}
 }
@@ -281,11 +318,11 @@ country_event = { #WP pomiędzy GNI a CAL
 	trigger = {
 		original_tag = GNI
 		has_war_with = CAL
-		not = {
+		NOT = {
 			surrender_progress > 0.4
 		}
 		CAL = {
-			not = {
+			NOT = {
 				surrender_progress > 0.4
 			}
 		}
@@ -335,7 +372,7 @@ country_event = { #gniezno forsuje pokój
 		GNI = {
 			annex_country = {
 				target = KLO
-				transfer_troops = YES
+				transfer_troops = yes
 			}
 		}
 	}
