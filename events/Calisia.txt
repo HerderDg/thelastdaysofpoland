@@ -3515,9 +3515,11 @@ country_event = {
 
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires calisia.141"
-		country_event = {
-			id = calisia.141
-			days = 365
+		hidden_effect = {
+			country_event = {
+				id = calisia.141
+				days = 365
+			}
 		}
 	}
 	option = { #Frakcja Zostaje
@@ -4465,6 +4467,48 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.171"}
 	option = {
 		name = calisia.171.a
+	}
+}
+
+country_event = { 
+	id = calisia.172 #danie traita nowemu generałowi
+	title = calisia.172.t
+	desc = calisia.172.desc
+
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.172"}
+	option = {
+		name = calisia.172.a
+		every_unit_leader = {
+			if = {
+				limit = {
+					NOT = {
+						has_trait = popular
+						has_trait = optimate
+						has_trait = legionarius
+						has_trait = praetorian
+						is_character = CAL_ricardus_calisius
+					}
+				}
+				random_list = {
+					50 = {
+						add_unit_leader_trait = popular
+					}
+					50 = {
+						add_unit_leader_trait = optimate
+					}
+				}
+				random_list = {
+					50 = {
+						add_unit_leader_trait = legionarius
+					}
+					50 = {
+						add_unit_leader_trait = praetorian
+					}
+				}
+			}
+		}
 	}
 }
 
