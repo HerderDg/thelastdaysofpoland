@@ -182,7 +182,7 @@ focus_tree = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_optimates_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		    add_popularity = {
                 ideology = autocracy
 				popularity = 0.015
@@ -560,7 +560,7 @@ focus_tree = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_praetoriae_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	
@@ -921,8 +921,11 @@ focus_tree = {
 		}
 		
 		bypass = {
-			GNI = {
-				exists = no
+			OR = {
+				GNI = {
+					exists = no
+				}
+				has_war_with = GNI
 			}
 		}
 		
@@ -976,7 +979,7 @@ focus_tree = {
 				ideology = neonationalism
 				popularity = 0.01
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 
@@ -1017,7 +1020,7 @@ focus_tree = {
 				ideology = neonationalism
 				popularity = 0.01
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	
@@ -1028,7 +1031,7 @@ focus_tree = {
         relative_position_id = CAL_triumph_in_gnesna
 		prerequisite = { focus = CAL_triumph_in_gnesna }
 		available = {
-			or = {
+			OR = {
 				KLO = {
 					exists = no
 				}
@@ -1102,10 +1105,16 @@ focus_tree = {
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = FEL
-				country_exists = LSZ
-				country_exists = LIS
+			OR = {
+				NOT = {
+					country_exists = FEL
+					country_exists = LSZ
+					country_exists = LIS
+				}
+				AND = {
+					has_war_with = FEL
+					has_war_with = LSZ
+				}
 			}
 		}
 		
@@ -1118,6 +1127,9 @@ focus_tree = {
 			if = {
 				limit = {
 					country_exists = FEL
+					NOT = {
+						has_war_with = FEL
+					}
 				}
 				declare_war_on = {
 					target = FEL
@@ -1127,6 +1139,9 @@ focus_tree = {
 			if = {
 				limit = {
 					country_exists = LSZ
+					NOT = {
+						has_war_with = LSZ
+					}
 				}
 				declare_war_on = {
 					target = LSZ
@@ -1136,6 +1151,9 @@ focus_tree = {
 			if = {
 				limit = {
 					country_exists = LIS
+					LIS = {
+						is_subject = no
+					}
 				}
 				declare_war_on = {
 					target = LIS
@@ -1182,7 +1200,7 @@ focus_tree = {
 				ideology = neonationalism
 				popularity = 0.01
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	
@@ -1248,7 +1266,7 @@ focus_tree = {
 				ideology = neonationalism
 				popularity = 0.01
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	
@@ -1505,7 +1523,7 @@ focus_tree = {
 
 	focus = {
 		id = CAL_ask_vinicius_to_train_the_new_legions
-		icon = CAL_legionists_training
+		icon = CAL_legionist_training
 		prerequisite = { focus = CAL_barbarian_equipment }
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_barbarian_equipment
@@ -1582,7 +1600,7 @@ focus_tree = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_praetoriae_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			hidden_effect = {
 				PRT = {
 					add_state_core = 359
@@ -1751,7 +1769,7 @@ focus_tree = {
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_optimates_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			add_popularity = {
 				ideology = autocracy
 				popularity = -0.02
@@ -1808,7 +1826,7 @@ focus_tree = {
 				}
 				every_owned_state = {
 					limit = {
-						or = {
+						OR = {
 							state = 285
 							state = 851
 						}
@@ -1826,7 +1844,7 @@ focus_tree = {
 				}
 				every_owned_state = {
 					limit = {
-						or = {
+						OR = {
 							state = 285
 							state = 851
 						}
@@ -1876,7 +1894,7 @@ focus_tree = {
 		}
 		
 		allow_branch = {
-			or = {
+			OR = {
 				has_country_flag = unified_voivodeship
 				has_country_flag = unified_regional
 				has_country_flag = unified_supregional
@@ -2165,7 +2183,7 @@ focus_tree = {
 				}
 				every_owned_state = {
 					limit = {
-						or = {
+						OR = {
 							state = 274
 							state = 292
 							state = 843
@@ -2187,7 +2205,7 @@ focus_tree = {
 				}
 				every_owned_state = {
 					limit = {
-						or = {
+						OR = {
 							state = 274
 							state = 292
 							state = 843
@@ -2614,7 +2632,7 @@ focus_tree = {
 		completion_reward = { 
 			if = {
 				limit = {
-					or = {
+					OR = {
 						has_country_flag = CAL_lex_indentatae_servitutis_populares_passed
 						has_country_flag = CAL_lex_indentatae_servitutis_optimates_passed
 					}
@@ -2864,7 +2882,7 @@ focus_tree = {
 					add_idea = taxes_high
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_idea = taxes_high
 				}
@@ -3236,7 +3254,7 @@ focus_tree = {
 		}
 		
 		allow_branch = {
-			or = {
+			OR = {
 				has_country_flag = unified_voivodeship
 				has_country_flag = unified_regional
 				has_country_flag = unified_supregional
@@ -3743,7 +3761,7 @@ focus_tree = {
 		}
 		
 		allow_branch = {
-			or = {
+			OR = {
 				has_country_flag = unified_voivodeship
 				has_country_flag = unified_regional
 				has_country_flag = unified_supregional
@@ -3789,7 +3807,7 @@ focus_tree = {
 		x = -10
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.38
@@ -3828,7 +3846,7 @@ focus_tree = {
 		x = -12
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			314 = {
@@ -3887,7 +3905,7 @@ focus_tree = {
 		x = -13
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_supermercatae
@@ -3936,7 +3954,7 @@ focus_tree = {
 		x = -13
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			314 = {
@@ -3992,7 +4010,7 @@ focus_tree = {
 		x = -11
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			314 = {
@@ -4040,7 +4058,7 @@ focus_tree = {
 		x = -11
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			set_temp_variable = { CAL_loyalty_change = 5 }
@@ -4084,7 +4102,7 @@ focus_tree = {
 		x = -9
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_polytheist_temples
@@ -4121,7 +4139,7 @@ focus_tree = {
 		x = -9
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -4147,7 +4165,7 @@ focus_tree = {
 		x = -9
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -4189,7 +4207,7 @@ focus_tree = {
 		x = -7
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_monotheist_temples
@@ -4223,7 +4241,7 @@ focus_tree = {
 		x = -7
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -4260,7 +4278,7 @@ focus_tree = {
 		x = -7
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			314 = {
@@ -4292,7 +4310,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_timed_idea = { idea = CAL_administrative_reorganisation days = 180 }
@@ -4319,7 +4337,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = calisia.43
@@ -4348,7 +4366,7 @@ focus_tree = {
 		x = -5
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_political_power = 100
@@ -4384,7 +4402,7 @@ focus_tree = {
 		x = -5
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_ideas = CAL_monuments_glory
@@ -4413,7 +4431,7 @@ focus_tree = {
 		x = -5
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		CAL = { 
@@ -4448,7 +4466,7 @@ focus_tree = {
 		x = -3
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_war_support = 0.2
@@ -4478,7 +4496,7 @@ focus_tree = {
 		x = -3
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_political_power = 20
@@ -4512,7 +4530,7 @@ focus_tree = {
 		x = -3
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    314 = {
@@ -4616,7 +4634,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = calisia.39
@@ -4649,7 +4667,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_ideas = CAL_construction_palace
@@ -4792,7 +4810,7 @@ focus_tree = {
 		x = 0
 		y = 6
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.42
@@ -4891,7 +4909,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.36
@@ -4924,7 +4942,7 @@ focus_tree = {
 		x = 3
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -4961,7 +4979,7 @@ focus_tree = {
 		x = 3
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -4996,7 +5014,7 @@ focus_tree = {
 		x = 3
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5036,7 +5054,7 @@ focus_tree = {
 		x = 5
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5080,7 +5098,7 @@ focus_tree = {
 		x = 5
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5129,7 +5147,7 @@ focus_tree = {
 		x = 5
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5167,7 +5185,7 @@ focus_tree = {
 		x = 8
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.34
@@ -5195,7 +5213,7 @@ focus_tree = {
 		x = 7
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			314 = {
@@ -5232,7 +5250,7 @@ focus_tree = {
 		x = 7
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5264,7 +5282,7 @@ focus_tree = {
 		x = 7
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5302,7 +5320,7 @@ focus_tree = {
 		x = 10
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -5336,7 +5354,7 @@ focus_tree = {
 		x = 9
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			build_railway = {
@@ -5385,7 +5403,7 @@ focus_tree = {
 		x = 9
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			build_railway = {
@@ -5432,7 +5450,7 @@ focus_tree = {
 		x = 11
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			286 = {
@@ -5488,7 +5506,7 @@ focus_tree = {
 		x = 11
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			846 = {
@@ -5546,7 +5564,7 @@ focus_tree = {
 		}
 		
 		allow_branch = {
-			or = {
+			OR = {
 				has_country_flag = unified_regional
 				has_country_flag = unified_supregional
 			}
@@ -5558,7 +5576,7 @@ focus_tree = {
 		x = 30
 		y = 0
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_political_power = 50
@@ -5582,7 +5600,7 @@ focus_tree = {
 		x = -8
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_eternal_dream_of_flying_1
@@ -5625,7 +5643,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -5651,7 +5669,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -5681,7 +5699,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -5715,7 +5733,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -5758,7 +5776,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.46
@@ -5784,7 +5802,7 @@ focus_tree = {
 		x = -5
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_like_aeneas_before_us_1
@@ -5806,7 +5824,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -5845,7 +5863,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -5887,7 +5905,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -5928,7 +5946,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.47
@@ -5954,7 +5972,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			army_experience = 50
@@ -5981,7 +5999,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -6007,7 +6025,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_armoured_behemoths_idea
@@ -6029,7 +6047,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -6056,7 +6074,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -6083,7 +6101,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.48
@@ -6114,7 +6132,7 @@ focus_tree = {
 		x = 1
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -6141,7 +6159,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -6195,7 +6213,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -6249,7 +6267,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -6305,7 +6323,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.49
@@ -6331,7 +6349,7 @@ focus_tree = {
 		x = 4
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    army_experience = 50
@@ -6357,7 +6375,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_tech_bonus = {
@@ -6401,7 +6419,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    if = {
@@ -6436,7 +6454,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = {
             add_tech_bonus = {
@@ -6480,7 +6498,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_tech_bonus = {
@@ -6530,7 +6548,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = calisia.44
@@ -6561,7 +6579,7 @@ focus_tree = {
 		x = 10
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_command_power = 100
@@ -6590,7 +6608,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    swap_ideas = { 
@@ -6615,7 +6633,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    swap_ideas = { 
@@ -6753,7 +6771,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    country_event = calisia.45
@@ -6775,7 +6793,7 @@ focus_tree = {
 		x = -3
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    navy_experience = 100
@@ -6828,7 +6846,7 @@ focus_tree = {
 		x = -1
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    army_experience = 100
@@ -6878,7 +6896,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    air_experience = 100
@@ -6925,7 +6943,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_ideas = CAL_caesarea_cadre
@@ -6996,7 +7014,7 @@ focus_tree = {
 		x = -3
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_tech_bonus = {
@@ -7038,7 +7056,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_research_slot = 1
@@ -7060,7 +7078,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_stability = -0.15
@@ -7126,7 +7144,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			hidden_effect = {
@@ -7164,7 +7182,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    swap_ideas = {
@@ -7190,7 +7208,7 @@ focus_tree = {
 		x = -1
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 		    add_political_power = -150
@@ -7216,7 +7234,7 @@ focus_tree = {
 		x = -3
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = {
 			country_event = calisia.148
@@ -7259,7 +7277,7 @@ focus_tree = {
 		x = -1
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = {
 			country_event = calisia.149
@@ -7304,7 +7322,7 @@ focus_tree = {
 		x = -1
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			if = {
@@ -7340,7 +7358,7 @@ focus_tree = {
 		x = 1
 		y = 3
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = {
 			country_event = calisia.781
@@ -7387,7 +7405,7 @@ focus_tree = {
 		x = 3
 		y = 4
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = {
 			country_event = calisia.151
@@ -7432,7 +7450,7 @@ focus_tree = {
 		x = 1
 		y = 5
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -7458,7 +7476,7 @@ focus_tree = {
 		x = 0
 		y = 7
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.56
@@ -7480,7 +7498,7 @@ focus_tree = {
 		x = 6
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			country_event = calisia.50
@@ -7503,7 +7521,7 @@ focus_tree = {
 		x = -3
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_timed_idea = {
@@ -7533,7 +7551,7 @@ focus_tree = {
 		x = -3
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			set_temp_variable = { CAL_loyalty_change = 5 }
@@ -7584,7 +7602,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_timed_idea = {
@@ -7614,7 +7632,7 @@ focus_tree = {
 		x = -1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			set_temp_variable = { CAL_loyalty_change = 10 }
@@ -7666,7 +7684,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			266 = {
@@ -7712,7 +7730,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -7756,7 +7774,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			add_war_support = 0.2
@@ -7779,7 +7797,7 @@ focus_tree = {
 		x = 3
 		y = 2
 		
-		cost = 4
+		cost = 5
 		search_filters = { }
 		completion_reward = { 
 			swap_ideas = {
@@ -8173,7 +8191,7 @@ focus_tree = {
 				}
 				every_owned_state = {
 					limit = {
-						not = {
+						NOT = {
 							is_poland_state = yes
 						}
 					}
@@ -8303,7 +8321,7 @@ focus_tree = {
 				}
 				every_owned_state = {
 					limit = {
-						not = {
+						NOT = {
 							is_poland_state = yes
 						}
 					}
@@ -8471,7 +8489,7 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					any_neighbor_state = {
-						or = {
+						OR = {
 							is_owned_by = UKR
 							is_owned_by = RUS
 							is_owned_by = LIT
@@ -8531,7 +8549,7 @@ focus_tree = {
 		}
 		
 		bypass = {
-			not = {
+			NOT = {
 				country_exists = VAN
 			}
 		}
@@ -8544,7 +8562,7 @@ focus_tree = {
 		completion_reward = {
 			every_state = {
 				limit = {
-					or = {
+					OR = {
 						state = 293
 						state = 345
 						state = 803
@@ -8609,7 +8627,7 @@ focus_tree = {
 		}
 		
 		bypass = {
-			not = {
+			NOT = {
 				country_exists = HNN
 			}
 		}
@@ -8697,7 +8715,7 @@ focus_tree = {
 		}
 		
 		bypass = {
-			not = {
+			NOT = {
 				country_exists = JUT
 			}
 		}
@@ -8710,7 +8728,7 @@ focus_tree = {
 		completion_reward = {
 			every_state = {
 				limit = {
-					or = {
+					OR = {
 						state = 90
 						state = 88
 						state = 68
@@ -9785,7 +9803,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_legiones_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_contacts_in_legions_tt
 		}
@@ -9818,7 +9836,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_optimates_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = CAL_contacts_in_the_senate_tt
 		}
@@ -10963,7 +10981,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_emperor_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	focus = {
@@ -11104,7 +11122,12 @@ CAL_redraw_senate_diagram = yes
 		search_filters = { }
 		completion_reward = { 
 			add_ideas = CAL_spartakus_revolt
-			
+			SPA = {
+				declare_war_on = {
+					target = CAL
+					type = annex_everything
+				}
+			}
 		}
 	}
 	focus = {
@@ -11114,7 +11137,7 @@ CAL_redraw_senate_diagram = yes
         relative_position_id = CAL_ides
 		prerequisite = { focus = CAL_servile_war }
 		available = {
-			not = {
+			NOT = {
 				country_exists = SPA
 			}
 		}
@@ -11252,7 +11275,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_optimates_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 			add_political_power = 50
 		}
 	}
@@ -11464,7 +11487,6 @@ CAL_redraw_senate_diagram = yes
 				org_damage = 0.5
 				str_damage = 0.5
 				ratio = yes
-				template = "Legio"
 				army = yes
 				navy = no
 			}
@@ -11474,7 +11496,6 @@ CAL_redraw_senate_diagram = yes
 				org_damage = 0.5
 				str_damage = 0.5
 				ratio = yes
-				template = "Legio"
 				army = yes
 				navy = no
 			}
@@ -11484,7 +11505,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_praetoriae_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	focus = {
@@ -11875,7 +11896,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_legiones_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	focus = {
@@ -11935,7 +11956,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_gravitas_change
 				tooltip = CAL_change_gravitas_legiones_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	focus = {
@@ -11964,7 +11985,7 @@ CAL_redraw_senate_diagram = yes
 				value = CAL_loyalty_change
 				tooltip = CAL_change_loyalty_legiones_tt
 			}
-			CAL_clamp_on_loyalty_and_gravitas = YES
+			CAL_clamp_on_loyalty_and_gravitas = yes
 		}
 	}
 	focus = {
@@ -12102,7 +12123,7 @@ CAL_redraw_senate_diagram = yes
 			focus = CAL_concordia
 		}
 		available = {
-			has_country_flag = poland_mountain
+			
 		}
 		
 		bypass = {
@@ -12135,7 +12156,7 @@ CAL_redraw_senate_diagram = yes
 			focus = CAL_discordia
 		}
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -13233,7 +13254,7 @@ CAL_redraw_senate_diagram = yes
 			focus = CAL_discordia
 		}
 		available = {
-			has_country_flag = poland_mountain
+			
 		}
 		
 		bypass = {
@@ -13266,7 +13287,7 @@ CAL_redraw_senate_diagram = yes
 			focus = CAL_concordia
 		}
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -14286,7 +14307,7 @@ CAL_redraw_senate_diagram = yes
 		}
 		
 		allow_branch = {
-			or = {
+			OR = {
 				has_completed_focus = CAL_progedi_populus
 				has_completed_focus = CAL_homo_homini_lupus_est
 			}
@@ -14644,7 +14665,7 @@ CAL_redraw_senate_diagram = yes
 		}
 		
 		allow_branch = {
-			or = {
+			OR = {
 				has_completed_focus = CAL_renovatio_imperii
 				has_completed_focus = CAL_progedi_populus
 			}
@@ -15069,7 +15090,7 @@ CAL_redraw_senate_diagram = yes
 						CAL = {
 							every_character = {
 								limit = {
-									or = {
+									OR = {
 										is_character = CAL_ikonowicz
 										is_character = CAL_wojciech_ziolkowski
 									}
@@ -15079,7 +15100,7 @@ CAL_redraw_senate_diagram = yes
 							retire_character = CAL_pawel_delag
 							retire_character = SAP_pudzian
 						}
-						CAL_change_gov_legiones = Yes
+						CAL_change_gov_legiones = yes
 						transfer_state = 493
 						transfer_state = 513
 						transfer_state = 593
@@ -15299,7 +15320,7 @@ CAL_redraw_senate_diagram = yes
 						CAL = {
 							every_character = {
 								limit = {
-									or = {
+									OR = {
 										is_character = CCH_najman
 										is_character = CAL_scriptor
 										is_character = ORL_daniel_obajtek
@@ -16352,7 +16373,18 @@ CAL_redraw_senate_diagram = yes
 		cost = 4
 		search_filters = { }
 		completion_reward = { 
-			country_event = calisia.113
+			if = {
+				limit = {
+					NOT = { country_exists = PRT }
+				}
+				country_event = calisia.113
+			}
+			else_if = {
+				limit = {
+					NOT = { country_exists = CAL }
+				}
+				country_event = calisia.172
+			}
 		}
 	}
 	focus = {

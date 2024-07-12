@@ -1177,7 +1177,7 @@ country_event = { #barbarian Crisis
 	}
 	option = {
 		name = calisia.52.a
-		news_event = calisia.2003
+		
 		WIZ = {
 			add_manpower = -450
 		}
@@ -1199,6 +1199,7 @@ country_event = { #barbarian Crisis
 		hidden_effect = {
 			complete_national_focus = CAL_barbarian_crisis
 			set_country_flag = CAL_barbarian_crisis_flag
+			news_event = calisia.2003
 		}
 
 	}
@@ -3408,7 +3409,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.138"}
 	option = {
-		name = calisia.138.a 
+		name = calisia.138.a
 		if = {
 			limit = {
 				has_country_flag = CAL_populares_passed_lex
@@ -3453,7 +3454,18 @@ country_event = {
 			}
 			clr_country_flag = CAL_optimates_passed_lex
 		}
-		CAL_clamp_on_loyalty_and_gravitas = YES
+		set_temp_variable = {
+			CAL_gravitas_change = CAL_gravitas_to_return 
+		}
+		add_to_variable = {
+			var = CAL_emperor_gravitas
+			value = CAL_gravitas_change
+			tooltip = CAL_change_gravitas_emperor_tt
+		}
+		set_variable = {
+			CAL_gravitas_to_return = 0
+		}
+		CAL_clamp_on_loyalty_and_gravitas = yes
 	}
 }
 
@@ -3515,9 +3527,11 @@ country_event = {
 
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires calisia.141"
-		country_event = {
-			id = calisia.141
-			days = 365
+		hidden_effect = {
+			country_event = {
+				id = calisia.141
+				days = 365
+			}
 		}
 	}
 	option = { #Frakcja Zostaje
@@ -4100,6 +4114,9 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.153"}
 	option = {
 		name = calisia.153.a
+		set_variable = {
+			CAL_gravitas_to_return = 0
+		}
 		if = {
 			limit = {
 				has_country_flag = CAL_lex_populares_failed
@@ -4152,7 +4169,7 @@ country_event = {
 			}
 			clr_country_flag = CAL_lex_optimates_failed
 		}
-		CAL_clamp_on_loyalty_and_gravitas = YES
+		CAL_clamp_on_loyalty_and_gravitas = yes
 	}
 }
 
@@ -4204,11 +4221,15 @@ country_event = {
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.155"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.155"
+		hidden_effect = {
+		CAL_spawn_slave_revolt = yes	
+		}
+	}
 	option = {
 		name = calisia.155.a
 		complete_national_focus = CAL_servile_war
-		CAL_spawn_slave_revolt = yes
+
 	}
 }
 
@@ -4364,7 +4385,7 @@ country_event = {
 			value = CAL_gravitas_change
 			tooltip = CAL_change_gravitas_optimates_tt
 		}
-		CAL_clamp_on_loyalty_and_gravitas = YES
+		CAL_clamp_on_loyalty_and_gravitas = yes
 	}
 }
 
@@ -4395,7 +4416,7 @@ country_event = {
 			value = CAL_loyalty_change
 			tooltip = CAL_change_loyalty_praetoriae_tt
 		}
-		CAL_clamp_on_loyalty_and_gravitas = YES
+		CAL_clamp_on_loyalty_and_gravitas = yes
 	}
 }
 
@@ -4467,6 +4488,18 @@ country_event = {
 		name = calisia.171.a
 	}
 }
+country_event = { 
+	id = calisia.172 #legiony post-triumwirat, senat przegrał
+	title = calisia.172.t
+	desc = calisia.172.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires calisia.172"}
+	option = {
+		name = calisia.172.a
+	}
+}
 
 country_event = { #pudzian przychodzi do kalisza
 	id = calisia.1000
@@ -4533,7 +4566,7 @@ country_event = { #Kalisz Przejebuje, Pojawia się ODOAKER
 			has_war_with = SAX
 			has_war_with = FRK
 		}
-		or = {
+		OR = {
 			and = {
 				NOT = {
 					controls_state = 314
@@ -4581,7 +4614,7 @@ country_event = { #Kalisz Przejebuje, Pojawia się ODOAKER
 			}
 			every_character = {
 				limit = {
-					or = {
+					OR = {
 						is_character = CAL_ricardus_calisius
 						is_character = CAL_pawel_delag
 						is_character = CAL_andrzej_kompa
