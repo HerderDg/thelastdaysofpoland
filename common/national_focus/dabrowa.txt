@@ -118,6 +118,7 @@ focus_tree = {
 			}
 		}
 			add_political_power = 50
+			add_ideas = DGR_separatists
 		}
 	}
 	
@@ -139,7 +140,11 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+				remove_idea = no_party
+				add_idea = regime_council
+			}
+			country_event = dgr.3
 		}
 	}
 	
@@ -161,7 +166,11 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+				remove_idea = economy_criminal
+				add_idea = economy_workers_management
+			}
+			add_ideas = DGR_druglords
 		}
 	}
 	
@@ -183,7 +192,17 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			country_event = dgr.4
+			DGR = {
+				add_opinion_modifier = {
+					target = SOS
+					modifier = unstable_alliance
+				}
+				add_opinion_modifier = {
+					target = JAW
+					modifier = unstable_alliance
+				}				
+			}
 		}
 	}
 	
@@ -206,7 +225,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			remove_ideas = DGR_rastafari
+			add_stability = 0.05
+			add_political_power = 30
+			country_event = dgr.5
 		}
 	}
 	focus = {
@@ -230,7 +252,16 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			set_capital = {state = 460}
+			460 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_stability = 0.1
 		}
 	}
 	focus = {
@@ -252,7 +283,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			remove_ideas = DGR_druglords
+			add_stability = 0.05
+			add_political_power = 30
+			country_event = dgr.6
 		}
 	}
 	focus = {
@@ -274,7 +308,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			remove_ideas = DGR_pharaohs
+			add_stability = 0.05
+			add_political_power = 30
+			country_event = dgr.7
 		}
 	}
 	focus = {
@@ -296,7 +333,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			remove_ideas = DGR_separatists
+			add_stability = 0.05
+			add_political_power = 30
+			country_event = dgr.8
 		}
 	}
 	focus = {
@@ -317,7 +357,11 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = {
-			
+			country_event = dgr.9
+			swap_ideas = {
+				remove_idea = trade_none
+				add_idea = trade_minimal
+			}
 		}
 	}
 	focus = {
@@ -326,14 +370,7 @@ focus_tree = {
 		relative_position_id = DGR_our_position
 		prerequisite = { focus = DGR_our_position }
 		available = {
-			OR = {
-				BED = {
-					num_of_controlled_states < 1
-				}
-				BED = {
-					is_puppet_of = SOS
-				}
-			}
+
 		}
 		
 		bypass = {
@@ -345,6 +382,15 @@ focus_tree = {
 		cost = 4.3
 		search_filters = { }
 		completion_reward = {
+			if = {
+				limit = { ROOT = {
+				NOT = { is_ai = yes
+						has_global_flag = miedzypowiatowka_collapsed
+				}
+				}
+				}
+			country_event = aievent.5
+				}
 		}
 	}
 	focus = {
@@ -386,7 +432,7 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = {
-			
+			upgrade_military_law = yes
 		}
 	}
 	focus = {
@@ -407,7 +453,10 @@ focus_tree = {
 		cost = 3
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+				remove_idea = no_subsidies
+				add_idea = military_industry_subsidies
+			}
 		}
 	}
 	focus = {
@@ -429,7 +478,11 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+			remove_idea = DGR_industrial_heart1
+			add_idea = DGR_industrial_heart2
+			}
+			737 = { add_extra_state_shared_building_slots = 1 }
 		}
 	}
 	focus = {
@@ -450,7 +503,15 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			add_fuel = 4000
+			736 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -471,7 +532,19 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			775 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 2
+				state = 775
+			}
 		}
 	}
 	focus = {
@@ -492,7 +565,20 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			460 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+
 		}
 	}
 	focus = {
@@ -515,7 +601,18 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+			remove_idea = DGR_industrial_heart2
+			add_idea = DGR_industrial_heart3
+			}
+			737 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -536,7 +633,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			
+		swap_ideas = {
+			remove_idea = DGR_industrial_heart3
+			add_idea = DGR_industrial_heart4
+			}
 		}
 	}
 	focus = {
@@ -557,7 +657,10 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+				remove_idea = economy_workers_management
+				add_idea = economy_central_planning
+			}
 		}
 	}
 	focus = {
@@ -599,7 +702,29 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			add_advisor_role = {
+				character = DGR_bargieła
+				advisor = {
+					slot = minister_of_war
+					cost = 100
+					idea_token = DGR_min_bargieła
+					traits = {
+					}
+				}
+			}
+			add_corps_commander_role = {
+				character = DGR_bargieła
+				skill = 2
+				traits = { commando ambusher }
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 4
+				logistics_skill = 2
+			}
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.1
+			}
 		}
 	}
 	focus = {
@@ -641,7 +766,10 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			swap_ideas = {
+				remove_idea = training_battle
+				add_idea = training_basic
+			}
 		}
 	}
 	focus = {
@@ -685,7 +813,8 @@ focus_tree = {
 		cost = 2
 		search_filters = { }
 		completion_reward = {
-			
+			add_war_support = 0.1
+			army_experience = 30
 		}
 	}
 	focus = {
