@@ -1,0 +1,80 @@
+set_initial_team = {
+	log = "---------------------------------------------------"
+	set_temp_variable = {
+		attackers = 0
+	}
+	while_loop_effect = {
+		limit = {
+			check_variable = {
+				attackers < 2
+			}
+		}
+		set_temp_variable = {
+			max_power = 0
+		}
+		every_character = {
+			limit = {
+				has_character_flag = is_footballer
+				has_character_flag = is_attacker
+				NOT = {
+					has_character_flag = is_active
+				}
+			}
+			log = "current max power: [?max_power]"
+			log = "current char: [THIS.GetName] ([?THIS.fb_power])"
+			IF = {
+				limit = {
+					check_variable = {
+						max_power = 0
+					}
+				}
+				set_temp_variable = {
+					max_power = THIS.fb_power
+				}
+				set_character_flag = initially_chosen
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = {
+						max_power < THIS.fb_power
+					}
+				}
+				log = "change chosen char to [THIS.GetName]"
+				set_temp_variable = {
+					max_power = THIS.fb_power
+				}
+				ROOT = {
+					every_character = {
+						limit = {
+							has_character_flag = initially_chosen
+						}
+						clr_character_flag = initially_chosen
+						log = "[THIS.GetName] loses the flag"
+					}
+				}
+				set_character_flag = initially_chosen
+			}
+		}
+		every_character = {
+			limit = {
+				has_character_flag = initially_chosen
+			}
+			clr_character_flag = initially_chosen
+			set_character_flag = is_active
+			log = "[THIS.GetName] was chosen to team"
+		}
+		add_to_temp_variable = {
+			attackers = 1
+		}
+		log = "loop ended"
+	}
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			not = {
+				has_character_flag = is_attacker
+			}
+		}
+		set_character_flag = is_active
+	}
+}
