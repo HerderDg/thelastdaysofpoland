@@ -41,12 +41,15 @@ scripted_gui = {
 			BRZ_team_3_right_def_btn = { image = "[ShowRightDefBtnClickState]" }
 
 			BRZ_goalkeeper_btn = { image = "[ShowGKBtnClickState]" }
+
+			BRZ_reserve_player = { image = "[ShowReserveButtonClickState]"}
 		}
 
 		dynamic_lists = {
 			BRZ_reserve_gridbox = {
 				array = available_reserve
-				change_scope = yes
+				index = available_reserve_index
+				value = chosen_reserve
 				entry_container = "BRZ_reserve_array"
 			}
 		}
@@ -467,6 +470,16 @@ scripted_gui = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_def_chosen
 				show_def_in_reserve = yes
+			}
+
+			BRZ_reserve_player_click = {
+				every_character = {
+					limit = {
+						is_character = chosen_reserve
+					}
+					set_character_flag = ready_to_field
+				}
+				log = "[?available_reserve^available_reserve_index.GetTokenValue]"
 			}
 		}
 	}
