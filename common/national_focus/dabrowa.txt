@@ -1298,7 +1298,28 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_command_power = 40
+			create_corps_commander = {
+				name = "Adam Abrahamowicz"
+				picture = "Portrait_Adam_Abrahamowicz.dds"
+				traits = { trickster brilliant_strategist ranger }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			create_corps_commander = {
+				name = "Dominik Kondratowicz"
+				picture = "Portrait_Dominik_Kondratowicz.dds"
+				traits = { trickster commando scavenger }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 5
+				logistics_skill = 1
+			}		
 		}
 	}	
 	
@@ -1320,6 +1341,27 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			add_political_power = 50
+			create_corps_commander = {
+				name = "Michał Czyżewski"
+				picture = "Portrait_Michal_Czyzewski.dds"
+				traits = { politically_connected urban_assault_specialist fortress_buster }
+				skill = 3
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 2
+			}
+			create_corps_commander = {
+				name = "Wojciech Zimmermann"
+				picture = "Portrait_Wojciech_Zimmermann.dds"
+				traits = { trickster politically_connected harsh_leader }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 4
+				logistics_skill = 3
+			}
 		}
 	}
 	
@@ -1340,7 +1382,17 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_partisan
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_warsaw_pact
+			}			
 		}
 	}
 	
@@ -1350,6 +1402,7 @@ focus_tree = {
 	focus = {
 		id = DGR_revenge_at_czarzasty
 		icon = DGR_revenge_at_czarzasty
+		will_lead_to_war_with = SOS
 		available = {
 		has_country_flag = DGR_temp_war
 			NOT = {
@@ -1383,6 +1436,7 @@ focus_tree = {
 	focus = {
 		id = DGR_strike_back_at_antifa
 		icon = DGR_strike_back_at_antifa
+		will_lead_to_war_with = JAW
 		available = {
 		has_country_flag = DGR_temp_war
 			NOT = {
@@ -1420,7 +1474,10 @@ focus_tree = {
 		relative_position_id = DGR_revenge_at_czarzasty
 		prerequisite = { focus = DGR_revenge_at_czarzasty }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = SOS }
+				798 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1431,7 +1488,17 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_state_core = 798
+			add_manpower = 350
+			add_resource = {
+				type = coal
+				amount = 5
+				state = 798
+			}
+			798 = {
+				set_state_name = "DG-Zagórze"
+			}
 		}
 	}
 
@@ -1441,7 +1508,11 @@ focus_tree = {
 		relative_position_id = DGR_revenge_at_czarzasty
 		prerequisite = { focus = DGR_revenge_at_czarzasty }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = SOS }
+				NOT = { country_exists = SIE }
+				730 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1453,6 +1524,22 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			build_railway = {
+			  level = 1
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
+
+				modifier = {
+				  tag = DGR
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 3993 1273 7793 7792 }
+			  start_province = 3993
+			  target_province = 7792
+			}
 		}
 	}	
 	
@@ -1462,7 +1549,11 @@ focus_tree = {
 		relative_position_id = DGR_revenge_at_czarzasty
 		prerequisite = { focus = DGR_revenge_at_czarzasty }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = BED }
+				NOT = { country_exists = SOS }
+				453 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1474,6 +1565,19 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			453 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 3
+				state = 453
+			}
 		}
 	}
 
@@ -1494,7 +1598,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.12
 		}
 	}	
 	
@@ -1504,7 +1609,10 @@ focus_tree = {
 		relative_position_id = DGR_strike_back_at_antifa
 		prerequisite = { focus = DGR_strike_back_at_antifa }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JAW }
+				487 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1525,7 +1633,13 @@ focus_tree = {
 		relative_position_id = DGR_strike_back_at_antifa
 		prerequisite = { focus = DGR_strike_back_at_antifa }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JAW }
+				487 = { is_controlled_by = DGR }
+				734 = { is_controlled_by = DGR }
+				761 = { is_controlled_by = DGR }
+				502 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1537,6 +1651,22 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			build_railway = {
+			  level = 1
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
+
+				modifier = {
+				  tag = DGR
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 7801 7809 3129 7798 7820 4040 7825 7827 4046 7826 }
+			  start_province = 7801 
+			  target_province = 7826
+			}
 		}
 	}	
 	
@@ -1546,7 +1676,10 @@ focus_tree = {
 		relative_position_id = DGR_strike_back_at_antifa
 		prerequisite = { focus = DGR_strike_back_at_antifa }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JAW }
+				487 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1557,7 +1690,20 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			487 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = electronics
+				amount = 3
+				state = 487
+			}		
 		}
 	}
 
@@ -1578,7 +1724,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.13
 		}
 	}	
 	
@@ -1589,7 +1736,13 @@ focus_tree = {
 		prerequisite = { focus = DGR_question_of_councils }
 		prerequisite = { focus = DGR_question_of_leadership }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = SOS }
+				NOT = { country_exists = JAW }
+				NOT = { country_exists = SIE }
+				NOT = { country_exists = BED }
+				DGR = { has_war = no }
+			}
 		}
 		
 		bypass = {
@@ -1600,7 +1753,37 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+				if = { limit = { country_exists = JUR } 
+				declare_war_on = {
+					target = JUR
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = CCH } 
+				declare_war_on = {
+					target = CCH
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = JWK } 
+				declare_war_on = {
+					target = JWK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = BRZ } 
+				declare_war_on = {
+					target = BRZ
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ZAW } 
+				declare_war_on = {
+					target = ZAW
+					type = annex_everything
+				}
+				}				
 		}
 	}
 
