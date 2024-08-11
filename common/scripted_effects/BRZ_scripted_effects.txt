@@ -518,6 +518,7 @@ add_defender = {
 
 show_atk_in_reserve = {
 	clear_array = available_reserve
+	clear_array = available_reserve_tee_numbers
 	every_character = {
 		limit = {
 			has_character_flag = is_attacker
@@ -528,11 +529,16 @@ show_atk_in_reserve = {
 		add_to_array = {
 			array = ROOT.available_reserve
 		}
+		add_to_array = {
+			array = ROOT.available_reserve_tee_numbers
+			value = THIS.tee_number
+		}
 	}
 }
 
 show_mid_in_reserve = {
 	clear_array = available_reserve
+	clear_array = available_reserve_tee_numbers
 	every_character = {
 		limit = {
 			has_character_flag = is_midfielder
@@ -543,11 +549,16 @@ show_mid_in_reserve = {
 		add_to_array = {
 			array = ROOT.available_reserve
 		}
+		add_to_array = {
+			array = ROOT.available_reserve_tee_numbers
+			value = THIS.tee_number
+		}
 	}
 }
 
 show_def_in_reserve = {
 	clear_array = available_reserve
+	clear_array = available_reserve_tee_numbers
 	every_character = {
 		limit = {
 			has_character_flag = is_defender
@@ -558,7 +569,50 @@ show_def_in_reserve = {
 		add_to_array = {
 			array = ROOT.available_reserve
 		}
+		add_to_array = {
+			array = ROOT.available_reserve_tee_numbers
+			value = THIS.tee_number
+		}
 	}
+}
+
+swap_footballer = {
+	# if = {
+	# 	limit = {
+	# 		has_country_flag = left_atk_chosen
+	# 	}
+	# }
+	# every_character = {
+	# 	limit = {
+	# 		has_character_flag = ready_to_field
+	# 	}
+	# 	log = "[THIS.GetName]"
+	# }
+	# clear_team_ui_flags = yes
+	if = {
+		limit = {
+			has_country_flag = left_atk_chosen
+		}
+		every_character = {
+			limit = {
+				has_character_flag = left_atk
+			}
+			clr_character_flag = left_atk
+			clr_character_flag = is_active
+			log = "[THIS.GetName] is out"
+		}
+		every_character = {
+			limit = {
+				has_character_flag = ready_to_field
+			}
+			clr_character_flag = ready_to_field
+			set_character_flag = left_atk
+			set_character_flag = is_active
+			set_variable = {ROOT.left_atk_tee_number = THIS.tee_number}
+			log = "[THIS.GetName] is in"
+		}
+	}
+	clear_team_ui_flags = yes
 }
 
 clear_team_ui_flags = {
@@ -572,4 +626,11 @@ clear_team_ui_flags = {
 	clr_country_flag = center_def_chosen
 	clr_country_flag = right_def_chosen
 	clr_country_flag = gk_chosen
+	every_character = {
+		limit = {
+			has_character_flag = ready_to_field
+		}
+		clr_character_flag = ready_to_field
+	}
+	clear_array = available_reserve
 }
