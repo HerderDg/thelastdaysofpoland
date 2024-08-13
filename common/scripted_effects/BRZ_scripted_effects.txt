@@ -1,0 +1,575 @@
+set_initial_team = {
+	log = "---------------------------------------------------"
+	set_temp_variable = {
+		attackers = 0
+	}
+	while_loop_effect = {
+		limit = {
+			check_variable = {
+				attackers < 2
+			}
+		}
+		set_temp_variable = {
+			max_power = 0
+		}
+		every_character = {
+			limit = {
+				has_character_flag = is_footballer
+				has_character_flag = is_attacker
+				NOT = {
+					has_character_flag = is_active
+				}
+			}
+			log = "current max power: [?max_power]"
+			log = "current char: [THIS.GetName] ([?THIS.fb_power])"
+			IF = {
+				limit = {
+					check_variable = {
+						max_power = 0
+					}
+				}
+				set_temp_variable = {
+					max_power = THIS.fb_power
+				}
+				set_character_flag = initially_chosen
+			}
+			ELSE_IF = {
+				limit = {
+					check_variable = {
+						max_power < THIS.fb_power
+					}
+				}
+				log = "change chosen char to [THIS.GetName]"
+				set_temp_variable = {
+					max_power = THIS.fb_power
+				}
+				ROOT = {
+					every_character = {
+						limit = {
+							has_character_flag = initially_chosen
+						}
+						clr_character_flag = initially_chosen
+						log = "[THIS.GetName] loses the flag"
+					}
+				}
+				set_character_flag = initially_chosen
+			}
+		}
+		every_character = {
+			limit = {
+				has_character_flag = initially_chosen
+			}
+			clr_character_flag = initially_chosen
+			set_character_flag = is_active
+			log = "[THIS.GetName] was chosen to team"
+		}
+		add_to_temp_variable = {
+			attackers = 1
+		}
+		log = "loop ended"
+	}
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			NOT = {
+				has_character_flag = is_attacker
+			}
+		}
+		set_character_flag = is_active
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_attacker
+			has_character_flag = is_active
+		}
+		set_character_flag = left_atk
+		set_variable = {ROOT.left_atk_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on left attack"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_attacker
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_atk
+			}
+		}
+		set_character_flag = right_atk
+		set_variable = {ROOT.right_atk_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on right attack"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_midfielder
+			has_character_flag = is_active
+		}
+		set_character_flag = left_mid
+		set_variable = {ROOT.left_mid_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on left mid"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_midfielder
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_mid
+			}
+		}
+		set_character_flag = left_mid
+		set_character_flag = center_mid
+		set_variable = {ROOT.left_center_mid_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on left-center mid"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_midfielder
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_mid
+			}
+		}
+		set_character_flag = right_mid
+		set_character_flag = center_mid
+		set_variable = {ROOT.right_center_mid_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on right-center mid"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_midfielder
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_mid
+			}
+			NOT = {
+				has_character_flag = center_mid
+			}
+			NOT = {
+				has_character_flag = right_mid
+			}
+		}
+		set_character_flag = right_mid
+		set_variable = {ROOT.right_mid_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on right mid"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_defender
+			has_character_flag = is_active
+		}
+		set_character_flag = left_def
+		set_variable = {ROOT.left_def_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on left defense"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_defender
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_def
+			}
+		}
+		set_character_flag = left_def
+		set_character_flag = center_def
+		set_variable = {ROOT.left_center_def_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on left-center defense"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_defender
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_def
+			}
+		}
+		set_character_flag = center_def
+		set_character_flag = right_def
+		set_variable = {ROOT.right_center_def_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on right-center defense"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_defender
+			has_character_flag = is_active
+			NOT = {
+				has_character_flag = left_def
+			}
+			NOT = {
+				has_character_flag = center_def
+			}
+			NOT = {
+				has_character_flag = right_def
+			}
+		}
+		set_character_flag = right_def
+		set_variable = {ROOT.right_def_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is on right defense"
+	}
+	random_character = {
+		limit = {
+			has_character_flag = is_goalkeeper
+		}
+		set_variable = {ROOT.gk_tee_number = THIS.tee_number}
+		log = "[THIS.GetName] is is_goalkeeper"
+	}
+
+}
+
+change_to_442_setup = {
+	
+	
+	if = {
+		limit = {
+			check_variable = {
+				current_team_setup = 433
+			}
+		}
+		add_midfielder = yes
+	}
+	else = {
+		add_defender = yes
+	}
+	subtract_attacker = yes
+	set_variable = {
+		current_team_setup = 442
+	}	
+	
+}
+
+change_to_433_setup = {
+	if = {
+		limit = {
+			check_variable = {
+				current_team_setup = 442
+			}
+		}
+		add_attacker = yes
+		
+	}
+	else = {
+		#343
+		add_defender = yes
+	}
+	subtract_midfielder = yes
+	
+	
+	
+	# every_character = {
+	# 	limit = {
+	# 		has_character_flag = is_footballer
+	# 		has_character_flag = is_midfielder
+	# 		has_character_flag = is_active
+	# 		has_character_flag = center_mid
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			check_variable = {
+	# 				THIS.fb_power > weakest_mid
+	# 			}
+	# 		}
+	# 		set_variable = {
+	# 			ROOT.weakest_mid = THIS.fb_power 
+	# 		}
+	# 		ROOT = {
+	# 			every_character = {
+	# 				limit = {
+	# 					has_character_flag = midfielder_to_drop
+	# 				}
+	# 				clr_character_flag = midfielder_to_drop
+	# 			}
+	# 		}
+	# 		set_character_flag = midfielder_to_drop
+	# 	}
+	# }
+	# every_character = {
+	# 	limit = {
+	# 		has_character_flag = midfielder_to_drop
+	# 	}
+	# 	clr_character_flag = is_active
+	# 	clr_character_flag = left_mid
+	# 	clr_character_flag = center_mid
+	# 	clr_character_flag = right_mid
+	# }
+	# every_character = {
+	# 	limit = {
+	# 		has_character_flag = is_footballer
+	# 		has_character_flag = is_midfielder
+	# 		has_character_flag = is_active
+	# 		has_character_flag = center_mid
+	# 	}
+	# 	log = "[THIS.GetName] is on center mid"
+	# }
+
+	set_variable = {
+		current_team_setup = 433
+	}
+}
+
+change_to_343_setup = {
+	
+	if = {
+		limit = {
+			check_variable = {
+				current_team_setup = 442
+			}
+		}
+		add_attacker = yes
+	}
+	else = {
+		#433
+		add_midfielder = yes
+	}
+	subtract_defender = yes
+	# every_character = {
+	# 	limit = {
+	# 		has_character_flag = is_footballer
+	# 		has_character_flag = is_midfielder
+	# 		not = {
+	# 			has_character_flag = is_active
+	# 		}
+	# 	}
+	# 	log = "[THIS.GetName] will re-enter"
+	# 	ROOT = {
+	# 		every_character = {
+	# 			limit = {
+	# 				has_character_flag = is_footballer
+	# 				has_character_flag = is_midfielder
+	# 				has_character_flag = is_active
+	# 				has_character_flag = center_mid
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_character_flag = left_mid
+	# 				}
+	# 				ROOT = {
+	# 					set_country_flag = right_mid_to_refill
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+				
+	# 		}
+	# 	}
+	# }
+	set_variable = {
+		current_team_setup = 343
+	}
+	
+}
+
+subtract_attacker = {
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_attacker
+			has_character_flag = is_active
+			has_character_flag = center_atk
+		}
+		clr_character_flag = is_active
+		clr_character_flag = center_atk
+	}
+}
+
+add_attacker = {
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_attacker
+			not = {
+				has_character_flag = is_active
+			}
+		}
+		set_character_flag = is_active
+		set_character_flag = center_atk
+		set_variable = {ROOT.center_atk_tee_number = THIS.tee_number}
+	}
+}
+
+subtract_midfielder = {
+	set_variable = {
+		ROOT.weakest_mid = 101
+	}
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_midfielder
+			has_character_flag = is_active
+			has_character_flag = center_mid
+		}	
+		if = {
+			limit = {
+				check_variable = {
+					THIS.fb_power < ROOT.weakest_mid
+				}
+			}
+			set_variable = {
+				ROOT.weakest_mid = THIS.fb_power 
+			}
+			ROOT = {
+				every_character = {
+					limit = {
+						has_character_flag = midfielder_to_drop
+					}
+					clr_character_flag = midfielder_to_drop
+				}
+			}
+			set_character_flag = midfielder_to_drop
+		}
+	}
+	every_character = {
+		limit = {
+			has_character_flag = midfielder_to_drop
+		}
+		clr_character_flag = midfielder_to_drop
+		clr_character_flag = is_active
+		log = "[THIS.GetName] is dropped"
+	}
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_midfielder
+			has_character_flag = is_active
+			has_character_flag = center_mid
+		}
+		set_variable = {ROOT.center_mid_tee_number = THIS.tee_number}
+	}
+}
+
+add_midfielder = {
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_midfielder
+			has_character_flag = center_mid
+			not = {
+				has_character_flag = is_active
+			}
+		}
+		set_character_flag = is_active
+		log = "[THIS.GetName] is added"
+	}
+}
+
+subtract_defender = {
+	set_variable = {
+		ROOT.weakest_def = 101
+	}
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_defender
+			has_character_flag = is_active
+			has_character_flag = center_def
+		}	
+		if = {
+			limit = {
+				check_variable = {
+					THIS.fb_power < ROOT.weakest_def
+				}
+			}
+			set_variable = {
+				ROOT.weakest_def = THIS.fb_power 
+			}
+			ROOT = {
+				every_character = {
+					limit = {
+						has_character_flag = defender_to_drop
+					}
+					clr_character_flag = defender_to_drop
+				}
+			}
+			set_character_flag = defender_to_drop
+		}
+	}
+	every_character = {
+		limit = {
+			has_character_flag = defender_to_drop
+		}
+		clr_character_flag = defender_to_drop
+		clr_character_flag = is_active
+		log = "[THIS.GetName] is dropped"
+	}
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_defender
+			has_character_flag = is_active
+			has_character_flag = center_def
+		}
+		set_variable = {ROOT.center_def_tee_number = THIS.tee_number}
+	}
+}
+
+add_defender = {
+	every_character = {
+		limit = {
+			has_character_flag = is_footballer
+			has_character_flag = is_defender
+			has_character_flag = center_def
+			not = {
+				has_character_flag = is_active
+			}
+		}
+		set_character_flag = is_active
+		log = "[THIS.GetName] is added"
+	}
+}
+
+show_atk_in_reserve = {
+	clear_array = available_reserve
+	every_character = {
+		limit = {
+			has_character_flag = is_attacker
+			not = {
+				has_character_flag = is_active
+			}
+		}
+		add_to_array = {
+			array = ROOT.available_reserve
+		}
+	}
+}
+
+show_mid_in_reserve = {
+	clear_array = available_reserve
+	every_character = {
+		limit = {
+			has_character_flag = is_midfielder
+			not = {
+				has_character_flag = is_active
+			}
+		}
+		add_to_array = {
+			array = ROOT.available_reserve
+		}
+	}
+}
+
+show_def_in_reserve = {
+	clear_array = available_reserve
+	every_character = {
+		limit = {
+			has_character_flag = is_defender
+			not = {
+				has_character_flag = is_active
+			}
+		}
+		add_to_array = {
+			array = ROOT.available_reserve
+		}
+	}
+}
+
+clear_team_ui_flags = {
+	clr_country_flag = left_atk_chosen
+	clr_country_flag = center_atk_chosen
+	clr_country_flag = right_atk_chosen
+	clr_country_flag = left_mid_chosen
+	clr_country_flag = center_mid_chosen
+	clr_country_flag = right_mid_chosen
+	clr_country_flag = left_def_chosen
+	clr_country_flag = center_def_chosen
+	clr_country_flag = right_def_chosen
+	clr_country_flag = gk_chosen
+}
