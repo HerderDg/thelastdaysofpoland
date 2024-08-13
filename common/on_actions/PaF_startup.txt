@@ -13,7 +13,7 @@ on_actions = {
 			every_country = {
 				limit = {
 					is_ai = no
-					or = {
+					OR = {
 						tag = BOM
 						tag = BPD
 						tag = ARK
@@ -34,7 +34,7 @@ on_actions = {
 			}
 			every_country = {
 				limit = {
-					not = {
+					NOT = {
 						has_tech = industry_revival
 					}
 				}
@@ -79,7 +79,7 @@ on_actions = {
 				}
 				if = {
 					limit = {
-						or = {
+						OR = {
 						is_controlled_by = ALP
 						is_controlled_by = PRT
 						is_controlled_by = CAL
@@ -124,7 +124,7 @@ on_actions = {
 							and = {
 								is_controlled_by = EKS
 								EKS = {
-									not = {
+									NOT = {
 										has_country_flag = eurokom_has_fallen
 									}
 								}
@@ -132,7 +132,7 @@ on_actions = {
 							and = {
 								is_controlled_by = EKW
 								EKW = {
-									not = {
+									NOT = {
 										has_country_flag = eurokom_has_fallen
 									}
 								}
@@ -220,7 +220,7 @@ on_actions = {
 				if = {
 					limit = {
 						is_controlled_by = KSZ
-						or = {
+						OR = {
 							state = 15
 							state = 20
 							state = 21
@@ -382,26 +382,21 @@ on_actions = {
 				calculate_energy_balance = yes
 				public_buildings_effect = yes
 				set_variable = { global.PaF_Opening_Screen = 1 }
-				
-			}
-			if = {
-				limit = { 
-					AND = {
+				if ={
+					limit = {
 						is_poland_unifier = yes
 						is_ai = yes
-						}
 					}
-					add_ideas = fucking_ai 
+					add_ideas = fucking_ai
 				}
-			if = {
-				limit = { 
-					AND = {
+				if = {
+					limit = {
 						is_upper_silesia = yes
 						is_ai = yes
-						}
 					}
 					add_ideas = silesia_minor_surrender
 				}
+			}
 			if = {
 				limit = {
 					CRN = {
@@ -444,6 +439,9 @@ on_actions = {
 					days = 1 
 					}
 			}
+			WYM = {
+				change_vp_name_to_silesian = yes
+			}
 			EKS = {
 				country_lock_all_division_template = yes
 				country_event = {
@@ -469,15 +467,6 @@ on_actions = {
 				change_vp_name_to_german = yes
 			}
 			DGR = {
-				if = {
-					limit = {
-						 is_ai = no 
-						}
-					country_event = {
-						id = dgr_district.1
-						days = 1
-						}
-				}
 				if = {
 					limit = {
 						 is_ai = yes 
@@ -569,7 +558,7 @@ on_actions = {
 					hostility_reason = asked_to_join
 				}
 			}
-			BOH = {
+			CHW = {
 				add_to_war = { 
 					targeted_alliance = PRK 
 					enemy = SND 
@@ -670,7 +659,7 @@ on_actions = {
 			}
 			if = {
 				limit = {
-					or = {
+					OR = {
 						has_country_flag = unified_voivodeship
 						has_country_flag = unified_regional
 					}
@@ -741,7 +730,7 @@ on_actions = {
 				multiply_variable = { root.non_core_penalty_value = -0.01 }
 				if = {
 					limit = {
-						not = {
+						NOT = {
 							has_dynamic_modifier = {
 								modifier = non_core_penalty
 							}
@@ -772,7 +761,7 @@ on_actions = {
 						flag = CAL_senate_voting_started
 						days > 17
 					}
-					not = {
+					NOT = {
 						has_country_flag = CAL_senate_military_made_a_move
 					}
 				}
@@ -789,7 +778,7 @@ on_actions = {
 			}
 			if = {
 				limit = {
-					or = {
+					OR = {
 						has_idea = CAL_legiones_rebellious
 						has_idea = CAL_legiones_disloyal
 						has_idea = CAL_legiones_hesistant
@@ -847,19 +836,6 @@ on_actions = {
 				}
 				#log = "Praetorians will remember that..."
 			}
-			if = {
-				limit = {
-					any_army_leader = {
-						NOT = {
-							has_trait = popular
-							has_trait = optimate
-							has_trait = legionarius
-							has_trait = praetorian
-						}
-					}
-				}
-				country_event = calisia.172
-			}
 		}
 	}
 	on_daily_HNN = {
@@ -867,7 +843,7 @@ on_actions = {
 			if = {
 				limit = {
 					num_divisions < 300
-					not = {
+					NOT = {
 						has_country_flag = STOP_SPAMMING
 					}
 				}
@@ -888,8 +864,11 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2037.09.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_jutes_spawned
+					}
+					JOM = {
+						exists = no
 					}
 					CAL = {
 						is_ai = no
@@ -900,7 +879,7 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2037.10.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_ostrogoths_spawned
 					}
 					CAL = {
@@ -912,7 +891,7 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2037.11.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_franks_spawned
 					}
 					CAL = {
@@ -924,7 +903,7 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2037.12.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_visigoths_spawned
 					}
 					CAL = {
@@ -936,7 +915,7 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2038.01.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_saxons_spawned
 					}
 					CAL = {
@@ -948,11 +927,14 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2038.02.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_vandals_spawned
 					}
 					CAL = {
 						is_ai = no
+					}
+					WAN = {
+						exists = no
 					}
 				}
 				CAL_spawn_vandals = yes
@@ -960,7 +942,7 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2038.03.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_estes_spawned
 					}
 					CAL = {
@@ -972,11 +954,14 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2038.04.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_huns_spawned
 					}
 					CAL = {
 						is_ai = no
+					}
+					KON = {
+						exists = no
 					}
 				}
 				CAL_spawn_huns = yes
@@ -984,7 +969,7 @@ on_actions = {
 			if = {
 				limit = {
 					date > 2038.05.01
-					not = {
+					NOT = {
 						has_global_flag = CAL_scythians_spawned
 					}
 					CAL = {
@@ -996,7 +981,7 @@ on_actions = {
 			# if = {
 			# 	limit = {
 			# 		date > 2038.06.01
-			# 		not = {
+			# 		NOT = {
 			# 			has_global_flag = CAL_spartakus_risen
 			# 		}
 			# 		CAL = {
@@ -1129,7 +1114,7 @@ on_actions = {
 			if = {
 				limit = {
 					has_character = ZHP_marek_jedraszewski
-					not = {
+					NOT = {
 						has_country_leader = {
 							character = ZHP_marek_jedraszewski
 							ruling_only = yes
@@ -1155,7 +1140,7 @@ on_actions = {
 			if = {
 				limit = {
 					has_character = ZHP_orsza
-					not = {
+					NOT = {
 						has_country_leader = {
 							character = ZHP_orsza
 							ruling_only = yes
@@ -1179,7 +1164,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					not = {
+					NOT = {
 						has_country_flag = CAL_senate_closed_due_to_grmans
 					}
 				}
@@ -1224,46 +1209,46 @@ on_actions = {
 						CAL_populares_loyalty = 1
 					}
 				}
-				if = {
-					limit = {
-						check_variable = {
-							CAL_emperor_gravitas < CAL_populares_gravitas
-						}
-					}
-					subtract_from_variable = {
-						CAL_populares_loyalty = 2
-					}
-				}
-				if = {
-					limit = {
-						check_variable = {
-							CAL_emperor_gravitas < CAL_praetoriae_gravitas
-						}
-					}
-					subtract_from_variable = {
-						CAL_praetoriae_loyalty = 2
-					}
-				}
-				if = {
-					limit = {
-						check_variable = {
-							CAL_emperor_gravitas < CAL_optimates_gravitas
-						}
-					}
-					subtract_from_variable = {
-						CAL_optimates_loyalty = 2
-					}
-				}
-				if = {
-					limit = {
-						check_variable = {
-							CAL_emperor_gravitas < CAL_legiones_gravitas
-						}
-					}
-					subtract_from_variable = {
-						CAL_legiones_loyalty = 2
-					}
-				}
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_populares_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_populares_loyalty = 2
+				# 	}
+				# }
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_praetoriae_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_praetoriae_loyalty = 2
+				# 	}
+				# }
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_optimates_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_optimates_loyalty = 2
+				# 	}
+				# }
+				# if = {
+				# 	limit = {
+				# 		check_variable = {
+				# 			CAL_emperor_gravitas < CAL_legiones_gravitas
+				# 		}
+				# 	}
+				# 	subtract_from_variable = {
+				# 		CAL_legiones_loyalty = 2
+				# 	}
+				# }
 				#loyalty-bonus-populare
 				if ={
 					limit = {
@@ -1402,7 +1387,7 @@ on_actions = {
 				#loyalty-bonus-preatoriae
 				if= {
 					limit = {
-						not = {
+						NOT = {
 							has_country_flag = CAL_praetorians_banned
 						}
 					}
@@ -1500,7 +1485,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					not = {
+					NOT = {
 						has_country_flag = eurokom_has_fallen
 					}
 				}
@@ -1512,7 +1497,7 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					not = {
+					NOT = {
 						has_country_flag = eurokom_has_fallen
 					}
 				}
@@ -1699,7 +1684,7 @@ on_actions = {
 		effect = {
 			every_owned_state = {
 				limit = {
-					not = {
+					NOT = {
 						has_dynamic_modifier = {
 							modifier = BBW_smog_effect
 						}
@@ -1725,7 +1710,7 @@ on_actions = {
 					has_completed_focus = ATM_suffocating_smoke
 					has_completed_focus = ATM_black_eagle
 					has_completed_focus = ATM_hearts_and_minds
-					not = {
+					NOT = {
 						has_completed_focus = ATM_at_least_fair_trial
 						has_completed_focus = ATM_captain_planet
 						has_completed_focus = ATM_rad_eaters
@@ -1763,7 +1748,7 @@ on_actions = {
 							var:party_popularity@paternal_conservatism < var:party_popularity@squattism
 						}
 					}
-					not = {
+					NOT = {
 						has_active_mission = ATM_brewing_tensions
 					}
 				}
@@ -1781,7 +1766,7 @@ on_actions = {
 				}
 				every_owned_state = {
 					limit = {
-						not = {
+						NOT = {
 							has_dynamic_modifier = {
 								modifier = BBW_smog_effect
 							}
@@ -1961,7 +1946,7 @@ on_actions = {
 						original_tag = VAN
 						original_tag = FRK
 						AND = {
-							or = {
+							OR = {
 								original_tag = EKS
 								original_tag = EKW
 							}
@@ -1982,7 +1967,7 @@ on_actions = {
 			}
 			else_if = {
 				limit = {
-					or = {
+					OR = {
 						original_tag = JOM
 						original_tag = JUT
 					}
@@ -2048,7 +2033,7 @@ on_actions = {
 			}
 			else_if = {
 				limit = {
-					or = {
+					OR = {
 						original_tag = PRU
 						original_tag = AES
 					}
@@ -2069,7 +2054,7 @@ on_actions = {
 				limit = {
 					original_tag = KSZ
 					FROM.FROM = {
-						or = {
+						OR = {
 							state = 15
 							state = 20
 							state = 21
@@ -2186,6 +2171,64 @@ on_actions = {
 					FROM.FROM.coring_cost = 0.8
 				}
 				round_variable = FROM.FROM.coring_cost
+			}
+		}
+	}
+	on_unit_leader_promote_from_ranks_veteran = {
+		effect = {
+			if = {
+				limit = {
+					OWNER = {
+						original_tag = CAL
+					}
+				}
+				ROOT = {
+					random_list = {
+						50 = {
+							add_unit_leader_trait = popular
+						}
+						50 = {
+							add_unit_leader_trait = optimate
+						}
+					}
+					random_list = {
+						50 = {
+							add_unit_leader_trait = praetorian
+						}
+						50 = {
+							add_unit_leader_trait = legionarius
+						}
+					}
+				}
+			}
+		}
+	}
+	on_unit_leader_promote_from_ranks_green = {
+		effect = {
+			if = {
+				limit = {
+					OWNER = {
+						original_tag = CAL
+					}
+				}
+				ROOT = {
+					random_list = {
+						50 = {
+							add_unit_leader_trait = popular
+						}
+						50 = {
+							add_unit_leader_trait = optimate
+						}
+					}
+					random_list = {
+						50 = {
+							add_unit_leader_trait = praetorian
+						}
+						50 = {
+							add_unit_leader_trait = legionarius
+						}
+					}
+				}
 			}
 		}
 	}
