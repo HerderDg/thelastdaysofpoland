@@ -1,15 +1,26 @@
 scripted_gui = {
 	
 	STE_hanza_gui = {
-		window_name = "GFX_PaF_hanza"
+		window_name = "PaF_hanza"
 		context_type = politics_tab
-		#parent_window_token = politics_tab
+		parent_window_token = politics_tab
 		visible = {
 			original_tag = STE
 		}
 		effects = {
-			STE_hanza_open_click={
-				has_country_flag = hanza_gui_shown
+			STE_hanza_open_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = hanza_gui_shown }
+					}
+					set_country_flag = hanza_gui_shown
+				}
+				else_if = { 
+					limit = {
+						has_country_flag = hanza_gui_shown
+					}
+					clr_country_flag = hanza_gui_shown
+				}
 			}
 
 			
