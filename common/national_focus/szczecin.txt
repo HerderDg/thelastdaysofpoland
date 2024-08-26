@@ -19,10 +19,10 @@ focus_tree = {
 	continuous_focus_position = {x = 50 y = 1500 }
 	
 	focus = {
-		id = STE_great_charter_of_freedoms
-		icon = STE_great_charter_of_freedoms
+		id = STE_so_ist_leben
+		icon = STE_so_ist_leben
 		available = {
-			has_government = corporativism
+			has_government = euroliberalism
 		}
 		
 		bypass = {
@@ -35,173 +35,204 @@ focus_tree = {
 		search_filters = { }
 		completion_reward = {
 			country_event = szczecin.1
+			
 		}
 	}
 	focus = {
-		id = STE_dousing_fire
-		icon = STE_dousing_fire
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_great_charter_of_freedoms }
+		id = STE_wild_goose_chase
+		icon = STE_wild_goose_chase
+		prerequisite = { focus = STE_so_ist_leben }
+		relative_position_id = STE_so_ist_leben
 		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			country_event = szczecin.2
-		}
-	}
-	
-	focus = {
-		id = STE_market_forces_in_control
-		icon = STE_market_forces_in_control
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_dousing_fire }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			country_event = szczecin.3
-			set_country_flag = STE_unit_recruitment_allowed
-			custom_effect_tooltip = STE_powerstruggle_tooltip
-			set_country_flag = STE_powerstruggle_start
-		}
-	}
-	
-
-	#Netto
-	focus = {
-		id = STE_danish_lapdogs
-		icon = STE_danish_lapdogs
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_market_forces_in_control }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 3
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			country_event = szczecin.4
-		}
-	}
-
-	focus = {
-		id = STE_war_on_small_business
-		icon = STE_war_on_small_business
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_danish_lapdogs }
-		available = {
-		
+			has_government = euroliberalism
 		}
 		
 		bypass = {
 		}
 		
 		x = -3
-		y = 4
+		y = 1
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			country_event = szczecin.2
 		}
 	}
-	
 	focus = {
-		id = STE_danish_week_in_netto
-		icon = STE_danish_week_in_netto
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_war_on_small_business }
+		id = STE_call_reinforcements
+		icon = STE_call_reinforcements
+		prerequisite = { focus = STE_wild_goose_chase }
+		relative_position_id = STE_so_ist_leben
 		available = {
-		
+			has_government = euroliberalism
 		}
 		
 		bypass = {
 		}
 		
-		x = -4
-		y = 5
+		x = -3
+		y = 2
 		
-		cost = 2
-		search_filters = { }
+		cost = 1
+		search_filters = { STE_ }
 		completion_reward = {
-			
+			create_unit = { division = "name = \"2. Stettiner Euroinfanteriebataillon\" division_template = \"Euroinfanteriebataillon\" start_experience_factor = 0.5" owner = STE }
+			create_unit = { division = "name = \"31. Europanzergrenadierbataillon\" division_template = \"Europanzergrenadierbataillon (mot. inf.)\" start_experience_factor = 0.5" owner = STE }
 		}
 	}
-	
 	focus = {
-		id = STE_buyouts_buyouts_buyouts
-		icon = STE_buyouts_buyouts_buyouts
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_war_on_small_business }
+		id = STE_insurgent_whackamole
+		icon = STE_insurgent_whackamole
+		prerequisite = { focus = STE_so_ist_leben }
+		relative_position_id = STE_so_ist_leben
 		available = {
+			has_government = euroliberalism
+		}
 		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+			country_event = szczecin.3
+		}
+	}
+	focus = {
+		id = STE_smoke_them_out
+		icon = STE_smoke_them_out
+		prerequisite = { focus = STE_insurgent_whackamole }
+		relative_position_id = STE_so_ist_leben
+		available = {
+			has_government = euroliberalism
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+			add_timed_idea = { idea = STE_anti_partisan days = 60 }
+		}
+	}
+	focus = {
+		id = STE_fortify_buildings
+		icon = STE_fortify_buildings
+		prerequisite = { focus = STE_smoke_them_out }
+		prerequisite = { focus = STE_call_reinforcements }
+		relative_position_id = STE_so_ist_leben
+		available = {
+			has_government = euroliberalism
 		}
 		
 		bypass = {
 		}
 		
 		x = -2
-		y = 5
+		y = 3
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = 16041
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = 16042
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = 16047
+			}
 		}
 	}
-	#Chemiewerke
 	focus = {
-		id = STE_german_remnants
-		icon = STE_german_remnants
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_market_forces_in_control }
+		id = STE_ausweiss_bitte
+		icon = STE_ausweiss_bitte
+		prerequisite = { focus = STE_so_ist_leben }
+		relative_position_id = STE_so_ist_leben
 		available = {
-		
+			has_government = euroliberalism
 		}
 		
 		bypass = {
 		}
 		
-		x = 0
+		x = 2
+		y = 1
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+			country_event = szczecin.4
+		}
+	}
+	focus = {
+		id = STE_scold_companies
+		icon = STE_scold_companies
+		prerequisite = { focus = STE_ausweiss_bitte }
+		relative_position_id = STE_so_ist_leben
+		available = {
+			has_government = euroliberalism
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_word_from_sponsors
+		icon = STE_word_from_sponsors
+		prerequisite = { focus = STE_scold_companies }
+		relative_position_id = STE_so_ist_leben
+		available = {
+			has_government = euroliberalism
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
 		y = 3
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
 			country_event = szczecin.5
 		}
 	}
 	focus = {
-		id = STE_the_goods_must_flow
-		icon = STE_the_goods_must_flow
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_german_remnants }
+		id = STE_hall_of_the_mountain_king
+		icon = STE_hall_of_the_mountain_king
+		prerequisite = { focus = STE_fortify_buildings }
+		prerequisite = { focus = STE_word_from_sponsors }
+		relative_position_id = STE_so_ist_leben
 		available = {
-		
+			has_government = euroliberalism
 		}
 		
 		bypass = {
@@ -210,657 +241,155 @@ focus_tree = {
 		x = 0
 		y = 4
 		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_the_shadow_city
-		icon = STE_the_shadow_city
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_the_goods_must_flow }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 5
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-
-	#Polsteam-PŻM
-	focus = {
-		id = STE_full_polsteam_ahead
-		icon = STE_full_polsteam_ahead
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_market_forces_in_control }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 3
-		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
 			country_event = szczecin.6
+			105 = { set_demilitarized_zone = yes }
+			114 = { set_demilitarized_zone = yes }
+			616 = { set_demilitarized_zone = yes }
+			617 = { set_demilitarized_zone = yes }
 		}
 	}
 	focus = {
-		id = STE_where_are_our_ships
-		icon = STE_where_are_our_ships
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_full_polsteam_ahead }
+		id = STE_hanse_brucke_falling
+		icon = STE_hanse_brucke_falling
+		prerequisite = { focus = STE_hall_of_the_mountain_king }
+		relative_position_id = STE_so_ist_leben
 		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 3
-		y = 4
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_patrols_on_the_szczecin_lagoon
-		icon = STE_patrols_on_the_szczecin_lagoon
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_where_are_our_ships }
-		available = {
-			has_idea = JOM_viking_raids
-		}
-		
-		bypass = {
-		}
-		
-		x = 4
-		y = 5
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			remove_ideas = JOM_viking_raids_target
-			if = {
-				limit = {
-					EKW = { has_idea = JOM_viking_raids_target }
-				}
-				EKW = { 
-					remove_ideas = JOM_viking_raids_target
-					##country_event!!
-				}
-			}	
-		}
-	}
-	focus = {
-		id = STE_means_of_paprykarz_production
-		icon = STE_means_of_paprykarz_production
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { focus = STE_where_are_our_ships }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 5
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-
-	focus = {
-		id = STE_unhealthy_competition
-		icon = STE_unhealthy_competition
-		relative_position_id = STE_great_charter_of_freedoms
-		prerequisite = { 
-			focus = STE_means_of_paprykarz_production
-			focus = STE_the_shadow_city
-			focus = STE_buyouts_buyouts_buyouts
-			}
-		available = {
-		
+			has_government = euroliberalism
 		}
 		
 		bypass = {
 		}
 		
 		x = 0
-		y = 6
+		y = 5
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-			load_focus_tree = {
-				tree = szczecin_corporate_escalation_focus
-				keep_completed = yes
-			}			
+			country_event = szczecin.7
+				EKW_collapse_CHE = yes
+				custom_effect_tooltip = STE_chemiewerke_wypierdala
+				hidden_effect = {
+					CHE = { load_oob = STE_2027 }
+					set_country_flag = STE_nochemiewerke_trigger
+				delete_unit_template_and_units = {
+					division_template = "Euroinfanteriebataillon"
+					disband = no
+				}
+				delete_unit_template_and_units = {
+					division_template = "Europanzergrenadierbataillon (armor)"
+					disband = no
+				}
+				delete_unit_template_and_units = {
+					division_template = "Europanzergrenadierbataillon (mot. inf.)"
+					disband = no
+				}
+				delete_unit_template_and_units = {
+					division_template = "Korporacyjne Siły Porządkowe"
+					disband = no
+				}
+				}
 		}
 	}
-###wojenne wojewódzkie###
+	
+	####regionalne polskie####
 	focus = {
-		id = STE_protecting_corporate_assets
-		icon = STE_protecting_corporate_assets
-		#relative_position_id = 
-		prerequisite = { 
-		}
+		id = STE_i_vow_to_thee
+		icon = STE_i_vow_to_thee
+		#prerequisite = { focus = STE_hanse_brucke_falling }
+		#relative_position_id = STE_
 		available = {
+		
 		}
+		
 		bypass = {
 		}
 		
-		x = 18
+		x = 14
 		y = 0
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-		
+			105 = { set_demilitarized_zone = no }
+			114 = { set_demilitarized_zone = no }
+			616 = { set_demilitarized_zone = no }
+			617 = { set_demilitarized_zone = no }
+			hidden_effect = { load_oob = STE_Krzystek }
 		}
 	}
 	focus = {
-		id = STE_play_them_like_a_fiddle
-		icon = STE_play_them_like_a_fiddle
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-		focus = STE_protecting_corporate_assets
-		}
+		id = STE_the_european_elephant
+		icon = STE_the_european_elephant
+		prerequisite = { focus = STE_i_vow_to_thee }
+		relative_position_id = STE_i_vow_to_thee
 		available = {
+		
 		}
+		
 		bypass = {
 		}
 		
 		x = 0
 		y = 1
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-		
+
 		}
 	}
 	focus = {
-		id = STE_extremism_bad_for_business
-		icon = STE_extremism_bad_for_business
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-		focus = STE_play_them_like_a_fiddle
-		}
+		id = STE_summer_union
+		icon = STE_summer_union
+		prerequisite = { focus = STE_the_european_elephant }
+		relative_position_id =  STE_i_vow_to_thee
 		available = {
-		}
-		bypass = {
-		}
-		
-		x = -2
-		y = 2
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
 		
 		}
-	}
-	focus = {
-		id = STE_stop_deluge_of_larpers
-		icon = STE_stop_deluge_of_larpers
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-		focus = STE_extremism_bad_for_business
-		}
-		available = {
-		}
-		bypass = {
-		}
 		
-		x = -3
-		y = 3
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_one_way_ticket
-		icon = STE_one_way_ticket
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-		focus = STE_stop_deluge_of_larpers	
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = -4
-		y = 4
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_the_violent_reds
-		icon = STE_the_violent_reds
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = {
-			focus = STE_stop_deluge_of_larpers	
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = -2
-		y = 4
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_put_down_brown_madmen
-		icon = STE_put_down_brown_madmen
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_extremism_bad_for_business
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = 0
-		y = 3
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_land_of_lakes
-		icon = STE_land_of_lakes
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_put_down_brown_madmen
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = 0
-		y = 4
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_no_interest_but_corporate_interests
-		icon = STE_no_interest_but_corporate_interests
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_play_them_like_a_fiddle
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = 2
-		y = 3
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_elektrownia_dolna_odra
-		icon = STE_elektrownia_dolna_odra
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_no_interest_but_corporate_interests
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = 2
-		y = 4
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_our_other_half
-		icon = STE_our_other_half
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_the_violent_reds
-		}
-		prerequisite = { 
-			focus = STE_one_way_ticket
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = -3
-		y = 5
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_port_szczecin_swinoujscie
-		icon = STE_port_szczecin_swinoujscie
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_our_other_half
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = -3
-		y = 6
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_the_final_offer
-		icon = STE_the_final_offer
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_land_of_lakes
-		}
-		prerequisite = { 
-			focus = STE_elektrownia_dolna_odra
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = 1
-		y = 5
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_stargard_szczecinski
-		icon = STE_stargard_szczecinski
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_the_final_offer
-		}
-		available = {
-		}
-		bypass = {
-		}
-		
-		x = 1
-		y = 6
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = STE_single_breath_of_peace
-		icon = STE_single_breath_of_peace
-		relative_position_id = STE_protecting_corporate_assets
-		prerequisite = { 
-			focus = STE_stargard_szczecinski
-		}
-		prerequisite = {
-			focus = STE_port_szczecin_swinoujscie
-		}
-		available = {
-		}
 		bypass = {
 		}
 		
 		x = -1
-		y = 7
+		y = 2
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-		
-		}
-	}
 
-}
-#########################
-#########################
-#########################
-focus_tree = {
-	id = szczecin_corporate_escalation_focus
-	
-	country = {
-		factor = 0
-		
-		modifier = {
-			add = 10
-			tag = STE
 		}
 	}
-	default = no
-	
-	continuous_focus_position = {x = 50 y = 1500 }
-	
-	####split again###
+	focus = {
+		id = STE_the_castle
+		icon = STE_the_castle
+		prerequisite = { focus = STE_the_european_elephant }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
 
-	focus = {
-		id = STE_creative_pricing
-		icon = STE_creative_pricing
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 3
-		y = 1
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
 		}
 	}
 	focus = {
-		id = STE_last_minute_mercenaries
-		icon = STE_last_minute_mercenaries
-		prerequisite = { 
-			focus = STE_creative_pricing
-			}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 3
-		y = 2
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_sabotaged_products
-		icon = STE_sabotaged_products
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 6
-		y = 1
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_european_little_green_men
-		icon = STE_european_little_green_men
-		prerequisite = { 
-			focus = STE_sabotaged_products 
-			}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 6
-		y = 2
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_sudden_problems_in_logistics
-		icon = STE_sudden_problems_in_logistics
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 9
-		y = 1
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_battlestations
-		icon = STE_battlestations
-		prerequisite = { 
-			focus = STE_sudden_problems_in_logistics 
-			}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 9
-		y = 2
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-		focus = {
-		id = STE_corporate_war
-		icon = STE_corporate_war
-		prerequisite = { 
-			focus = STE_last_minute_mercenaries
-			focus = STE_european_little_green_men
-			focus = STE_battlestations
-			}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 6
-		y = 3
-		
-		cost = 2
-		search_filters = { }
-		completion_reward = {
-			
-		}
-	}
-	focus = {
-		id = STE_one_to_rule_them_all
-		icon = STE_one_to_rule_them_all
-		relative_position_id = STE_corporate_war
-		prerequisite = { 
-			focus = STE_corporate_war
-			}
+		id = STE_uneasy_alliance
+		icon = STE_uneasy_alliance
+		prerequisite = { focus = STE_summer_union }
+		prerequisite = { focus = STE_the_castle }
+		relative_position_id = STE_i_vow_to_thee
 		available = {
 		
 		}
@@ -869,12 +398,310 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 2
+		y = 3
 		
-		cost = 2
+		cost = 1
 		search_filters = { }
 		completion_reward = {
-			
+
+		}
+	}
+	focus = {
+		id = STE_trying_his_best
+		icon = STE_trying_his_best
+		prerequisite = { focus = STE_uneasy_alliance }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_castle_fit_for_the_duke
+		icon = STE_castle_fit_for_the_duke
+		prerequisite = { focus = STE_trying_his_best }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_scavenging_whatevers_left
+		icon = STE_scavenging_whatevers_left
+		prerequisite = { focus = STE_castle_fit_for_the_duke }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_the_first_session
+		icon = STE_the_first_session
+		prerequisite = { focus = STE_uneasy_alliance }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_reward_loyal_partisans
+		icon = STE_reward_loyal_partisans
+		prerequisite = { focus = STE_the_first_session }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_odd_one_out
+		icon = STE_odd_one_out
+		prerequisite = { focus = STE_reward_loyal_partisans }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_night_golden_gryphons
+		icon = STE_night_golden_gryphons
+		prerequisite = { focus = STE_uneasy_alliance }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 4
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_invest_back
+		icon = STE_invest_back
+		prerequisite = { focus = STE_night_golden_gryphons }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 5
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_make_them_invest
+		icon = STE_make_them_invest
+		prerequisite = { focus = STE_invest_back }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 6
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_echoes_of_the_past
+		icon = STE_echoes_of_the_past
+		prerequisite = { focus = STE_make_them_invest }
+		prerequisite = { focus = STE_scavenging_whatevers_left }
+		prerequisite = { focus = STE_odd_one_out }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 7
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_business_is_business
+		icon = STE_business_is_business
+		prerequisite = { focus = STE_echoes_of_the_past }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 8
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_and_all_her_paths_are_peace
+		icon = STE_and_all_her_paths_are_peace
+		prerequisite = { focus = STE_business_is_business }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 9
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_strict_polite
+		icon = STE_strict_polite
+		prerequisite = { focus = STE_and_all_her_paths_are_peace }
+		mutually_exclusive = { focus = STE_wider_still_and_wider }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = STE_wider_still_and_wider
+		icon = STE_wider_still_and_wider
+		prerequisite = { focus = STE_and_all_her_paths_are_peace }
+		mutually_exclusive = { focus = STE_strict_polite }
+		relative_position_id = STE_i_vow_to_thee
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 10
+		
+		cost = 1
+		search_filters = { }
+		completion_reward = {
+
 		}
 	}
 	

@@ -1,0 +1,67 @@
+scripted_gui = {
+	
+	STE_hanza_gui = {
+		window_name = "PaF_hanza"
+		#context_type = politics_tab
+		parent_window_token = politics_tab
+		visible = {
+			original_tag = STE
+		}
+		effects = {
+			STE_hanza_open_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = hanza_gui_shown }
+					}
+					set_country_flag = hanza_gui_shown
+				}
+				else_if = { 
+					limit = {
+						has_country_flag = hanza_gui_shown
+					}
+					clr_country_flag = hanza_gui_shown
+				}
+			}
+
+			
+		}
+		
+	}
+
+	STE_container_gui = {
+		window_name = "GFX_PaF_STE_container_gui"
+		context_type = player_context
+		visible = {
+			original_tag = STE
+			has_country_flag = hanza_gui_shown
+		}
+
+		properties = {
+
+		}
+
+		dynamic_lists = {
+			#BRZ_reserve_gridbox = {
+			#	array = available_reserve
+			#	index = available_reserve_index
+			#	value = chosen_reserve
+			#	entry_container = "BRZ_reserve_array"
+			#}
+		}
+
+		triggers = {
+			STE_nochemiewerke_visible = {
+				has_country_flag = STE_nochemiewerke_trigger
+			}
+		}
+
+		effects = {
+			STE_hanza_close_click={
+				clr_country_flag = hanza_gui_shown
+			}
+			
+
+			
+		}
+	}
+}
