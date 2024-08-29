@@ -1941,25 +1941,70 @@ nsfl_simulate_round = {
 }
 
 sort_league_array = {
-	set_variable = {
-		max_points = -1
-	}
-	set_variable = {
-		max_balance = -8
-	}
-	set_variable = {
-		max_goals = -4
-	}
+	reset_sorting_values = yes
 	set_variable = {
 		truskolasy_balance = truskolasy_goals_shot
 	}
 	subtract_from_variable = {
 		truskolasy_balance = truskolasy_goals_lost
 	}
+	set_variable = {
+		krzepice_balance = krzepice_goals_shot
+	}
+	subtract_from_variable = {
+		krzepice_balance = krzepice_goals_lost
+	}
+	set_variable = {
+		przystajn_balance = przystajn_goals_shot
+	}
+	subtract_from_variable = {
+		przystajn_balance = przystajn_goals_lost
+	}
+	set_variable = {
+		klobuck_balance = klobuck_goals_shot
+	}
+	subtract_from_variable = {
+		klobuck_balance = klobuck_goals_lost
+	}
+	set_variable = {
+		miedzno_balance = miedzno_goals_shot
+	}
+	subtract_from_variable = {
+		miedzno_balance = miedzno_goals_lost
+	}
+	set_variable = {
+		lobodno_balance = lobodno_goals_shot
+	}
+	subtract_from_variable = {
+		lobodno_balance = lobodno_goals_lost
+	}
+	set_variable = {
+		wreczyca_balance = wreczyca_goals_shot
+	}
+	subtract_from_variable = {
+		wreczyca_balance = wreczyca_goals_lost
+	}
+	set_variable = {
+		popow_balance = popow_goals_shot
+	}
+	subtract_from_variable = {
+		popow_balance = popow_goals_lost
+	}
+	set_variable = {
+		panki_balance = panki_goals_shot
+	}
+	subtract_from_variable = {
+		panki_balance = panki_goals_lost
+	}
+	set_variable = {
+		ostrowy_balance = ostrowy_goals_shot
+	}
+	subtract_from_variable = {
+		ostrowy_balance = ostrowy_goals_lost
+	}
 	for_each_loop = {
 		array = league_standings
 		value = current_team
-		log = "[?current_team.GetTokenLocalizedKey]"
 		if = {
 			limit = {
 				check_variable = {
@@ -1969,12 +2014,7 @@ sort_league_array = {
 					var = truskolasy_points
 					value = max_points
 				}
-				# check_variable = {
-				# 	truskolasy_balance > max_balance
-				# }
-				# check_variable = {
-				# 	truskolasy_goals_shot > max_goals
-				# }
+				
 			}
 			if = {
 				limit = {
@@ -1983,21 +2023,32 @@ sort_league_array = {
 						value = max_balance
 					}
 				}
-				set_variable = {
-					no1 = current_team
+				if = {
+					limit = {
+						check_variable = {
+						 	var = truskolasy_goals_shot
+							value = max_goals
+						}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = truskolasy_points
+					}
+					set_variable = {
+						max_balance = truskolasy_balance
+					}
+					set_variable = {
+						max_goals = truskolasy_goals_shot
+					}
 				}
-				set_variable = {
-					max_points = truskolasy_points
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
 				}
 			}
-			
-			# set_variable = {
-			# 	max_balance = truskolasy_balance
-			# }
-			# set_variable = {
-			# 	max_goals = truskolasy_goals_shot
-			# }
-			
 		}
 		else_if = {
 			limit = {
@@ -2009,11 +2060,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = krzepice_points
+			if = {
+				limit = {
+					check_variable = {
+						var = krzepice_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+						 	var = krzepice_goals_shot
+							value = max_goals
+						}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = krzepice_points
+					}
+					set_variable = {
+						max_balance = krzepice_balance
+					}
+					set_variable = {
+						max_goals = krzepice_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2026,11 +2104,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = przystajn_points
+			if = {
+				limit = {
+					check_variable = {
+						var = przystajn_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = przystajn_points
+					}
+					set_variable = {
+						max_balance = przystajn_balance
+					}
+					set_variable = {
+						max_goals = przystajn_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2043,11 +2148,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = klobuck_points
+			if = {
+				limit = {
+					check_variable = {
+						var = klobuck_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = klobuck_points
+					}
+					set_variable = {
+						max_balance = klobuck_balance
+					}
+					set_variable = {
+						max_goals = klobuck_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2060,11 +2192,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = miedzno_points
+			if = {
+				limit = {
+					check_variable = {
+						var = miedzno_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = miedzno_points
+					}
+					set_variable = {
+						max_balance = miedzno_balance
+					}
+					set_variable = {
+						max_goals = miedzno_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2077,11 +2236,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = lobodno_points
+			if = {
+				limit = {
+					check_variable = {
+						var = lobodno_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = lobodno_points
+					}
+					set_variable = {
+						max_balance = lobodno_balance
+					}
+					set_variable = {
+						max_goals = lobodno_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2094,11 +2280,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = wreczyca_points
+			if = {
+				limit = {
+					check_variable = {
+						var = wreczyca_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = wreczyca_points
+					}
+					set_variable = {
+						max_balance = wreczyca_balance
+					}
+					set_variable = {
+						max_goals = wreczyca_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2111,11 +2324,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = popow_points
+			if = {
+				limit = {
+					check_variable = {
+						var = popow_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = popow_points
+					}
+					set_variable = {
+						max_balance = popow_balance
+					}
+					set_variable = {
+						max_goals = popow_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2128,11 +2368,38 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = panki_points
+			if = {
+				limit = {
+					check_variable = {
+						var = panki_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = panki_points
+					}
+					set_variable = {
+						max_balance = panki_balance
+					}
+					set_variable = {
+						max_goals = panki_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 		else_if = {
@@ -2145,13 +2412,2762 @@ sort_league_array = {
 					value = max_points
 				}
 			}
-			set_variable = {
-				no1 = current_team
-			}
-			set_variable = {
-				max_points = ostrowy_points
+			if = {
+				limit = {
+					check_variable = {
+						var = ostrowy_balance
+						value = max_balance
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_goals_shot
+						   	value = max_goals
+					   	}
+					}
+					set_temp_variable = {
+						no1 = current_team
+					}
+					set_variable = {
+						max_points = ostrowy_points
+					}
+					set_variable = {
+						max_balance = ostrowy_balance
+					}
+					set_variable = {
+						max_goals = ostrowy_goals_shot
+					}
+				}
+				else = {
+					set_variable = {
+						max_goals = -1
+					}
+				}
 			}
 		}
 	}
 	log = "1) [?no1.GetTokenLocalizedKey]"
+
+	reset_sorting_values = yes
+	for_each_loop = {
+		array = league_standings
+		value = current_team
+		if = {
+			limit = {
+				check_variable = {
+					var = current_team
+					value = no1
+					compare = not_equals
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						var = truskolasy_points
+						value = max_points
+					}
+					
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = truskolasy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 var = truskolasy_goals_shot
+								value = max_goals
+							}
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = truskolasy_points
+						}
+						set_variable = {
+							max_balance = truskolasy_balance
+						}
+						set_variable = {
+							max_goals = truskolasy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_krzepice
+					}
+					check_variable = {
+						var = krzepice_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = krzepice_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 var = krzepice_goals_shot
+								value = max_goals
+							}
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = krzepice_points
+						}
+						set_variable = {
+							max_balance = krzepice_balance
+						}
+						set_variable = {
+							max_goals = krzepice_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_plomien_przystajn
+					}
+					check_variable = {
+						var = przystajn_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = przystajn_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = przystajn_points
+						}
+						set_variable = {
+							max_balance = przystajn_balance
+						}
+						set_variable = {
+							max_goals = przystajn_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_znicz_klobuck
+					}
+					check_variable = {
+						var = klobuck_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = klobuck_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = klobuck_points
+						}
+						set_variable = {
+							max_balance = klobuck_balance
+						}
+						set_variable = {
+							max_goals = klobuck_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_grom_miedzno
+					}
+					check_variable = {
+						var = miedzno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = miedzno_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = miedzno_points
+						}
+						set_variable = {
+							max_balance = miedzno_balance
+						}
+						set_variable = {
+							max_goals = miedzno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_oksza_lobodno
+					}
+					check_variable = {
+						var = lobodno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = lobodno_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = lobodno_points
+						}
+						set_variable = {
+							max_balance = lobodno_balance
+						}
+						set_variable = {
+							max_goals = lobodno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_sokol_wreczyca
+					}
+					check_variable = {
+						var = wreczyca_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = wreczyca_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = wreczyca_points
+						}
+						set_variable = {
+							max_balance = wreczyca_balance
+						}
+						set_variable = {
+							max_goals = wreczyca_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_popow
+					}
+					check_variable = {
+						var = popow_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = popow_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = popow_points
+						}
+						set_variable = {
+							max_balance = popow_balance
+						}
+						set_variable = {
+							max_goals = popow_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_ks_panki
+					}
+					check_variable = {
+						var = panki_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = panki_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = panki_points
+						}
+						set_variable = {
+							max_balance = panki_balance
+						}
+						set_variable = {
+							max_goals = panki_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_naprzod_ostrowy
+					}
+					check_variable = {
+						var = ostrowy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = ostrowy_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no2 = current_team
+						}
+						set_variable = {
+							max_points = ostrowy_points
+						}
+						set_variable = {
+							max_balance = ostrowy_balance
+						}
+						set_variable = {
+							max_goals = ostrowy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	log = "2) [?no2.GetTokenLocalizedKey]"
+
+	reset_sorting_values = yes
+	for_each_loop = {
+		array = league_standings
+		value = current_team
+		if = {
+			limit = {
+				check_variable = {
+					var = current_team
+					value = no1
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no2
+					compare = not_equals
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						var = truskolasy_points
+						value = max_points
+					}
+					
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = truskolasy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 var = truskolasy_goals_shot
+								value = max_goals
+							}
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = truskolasy_points
+						}
+						set_variable = {
+							max_balance = truskolasy_balance
+						}
+						set_variable = {
+							max_goals = truskolasy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_krzepice
+					}
+					check_variable = {
+						var = krzepice_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = krzepice_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 var = krzepice_goals_shot
+								value = max_goals
+							}
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = krzepice_points
+						}
+						set_variable = {
+							max_balance = krzepice_balance
+						}
+						set_variable = {
+							max_goals = krzepice_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_plomien_przystajn
+					}
+					check_variable = {
+						var = przystajn_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = przystajn_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = przystajn_points
+						}
+						set_variable = {
+							max_balance = przystajn_balance
+						}
+						set_variable = {
+							max_goals = przystajn_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_znicz_klobuck
+					}
+					check_variable = {
+						var = klobuck_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = klobuck_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = klobuck_points
+						}
+						set_variable = {
+							max_balance = klobuck_balance
+						}
+						set_variable = {
+							max_goals = klobuck_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_grom_miedzno
+					}
+					check_variable = {
+						var = miedzno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = miedzno_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = miedzno_points
+						}
+						set_variable = {
+							max_balance = miedzno_balance
+						}
+						set_variable = {
+							max_goals = miedzno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_oksza_lobodno
+					}
+					check_variable = {
+						var = lobodno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = lobodno_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = lobodno_points
+						}
+						set_variable = {
+							max_balance = lobodno_balance
+						}
+						set_variable = {
+							max_goals = lobodno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_sokol_wreczyca
+					}
+					check_variable = {
+						var = wreczyca_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = wreczyca_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = wreczyca_points
+						}
+						set_variable = {
+							max_balance = wreczyca_balance
+						}
+						set_variable = {
+							max_goals = wreczyca_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_popow
+					}
+					check_variable = {
+						var = popow_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = popow_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = popow_points
+						}
+						set_variable = {
+							max_balance = popow_balance
+						}
+						set_variable = {
+							max_goals = popow_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_ks_panki
+					}
+					check_variable = {
+						var = panki_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = panki_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = panki_points
+						}
+						set_variable = {
+							max_balance = panki_balance
+						}
+						set_variable = {
+							max_goals = panki_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_naprzod_ostrowy
+					}
+					check_variable = {
+						var = ostrowy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = ostrowy_goals_shot
+								   value = max_goals
+							   }
+						}
+						set_temp_variable = {
+							no1 = current_team
+						}
+						set_variable = {
+							max_points = ostrowy_points
+						}
+						set_variable = {
+							max_balance = ostrowy_balance
+						}
+						set_variable = {
+							max_goals = ostrowy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	log = "3) [?no3.GetTokenLocalizedKey]"
+
+	reset_sorting_values = yes
+	for_each_loop = {
+		array = league_standings
+		value = current_team
+		if = {
+			limit = {
+				check_variable = {
+					var = current_team
+					value = no1
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no2
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no3
+					compare = not_equals
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						var = truskolasy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = truskolasy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 truskolasy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = truskolasy_points
+						}
+						set_variable = {
+							max_balance = truskolasy_balance
+						}
+						set_variable = {
+							max_goals = truskolasy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_krzepice
+					}
+					check_variable = {
+						var = krzepice_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = krzepice_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 krzepice_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = krzepice_points
+						}
+						set_variable = {
+							max_balance = krzepice_balance
+						}
+						set_variable = {
+							max_goals = krzepice_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_plomien_przystajn
+					}
+					check_variable = {
+						var = przystajn_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								przystajn_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = przystajn_points
+						}
+						set_variable = {
+							max_balance = przystajn_balance
+						}
+						set_variable = {
+							max_goals = przystajn_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_znicz_klobuck
+					}
+					check_variable = {
+						var = klobuck_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 klobuck_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = klobuck_points
+						}
+						set_variable = {
+							max_balance = klobuck_balance
+						}
+						set_variable = {
+							max_goals = klobuck_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_grom_miedzno
+					}
+					check_variable = {
+						var = miedzno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 miedzno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = miedzno_points
+						}
+						set_variable = {
+							max_balance = miedzno_balance
+						}
+						set_variable = {
+							max_goals = miedzno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_oksza_lobodno
+					}
+					check_variable = {
+						var = lobodno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 lobodno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = lobodno_points
+						}
+						set_variable = {
+							max_balance = lobodno_balance
+						}
+						set_variable = {
+							max_goals = lobodno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_sokol_wreczyca
+					}
+					check_variable = {
+						var = wreczyca_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 wreczyca_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = wreczyca_points
+						}
+						set_variable = {
+							max_balance = wreczyca_balance
+						}
+						set_variable = {
+							max_goals = wreczyca_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_popow
+					}
+					check_variable = {
+						var = popow_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 popow_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = popow_points
+						}
+						set_variable = {
+							max_balance = popow_balance
+						}
+						set_variable = {
+							max_goals = popow_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_ks_panki
+					}
+					check_variable = {
+						var = panki_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 panki_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = panki_points
+						}
+						set_variable = {
+							max_balance = panki_balance
+						}
+						set_variable = {
+							max_goals = panki_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_naprzod_ostrowy
+					}
+					check_variable = {
+						var = ostrowy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 ostrowy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no4 = current_team
+						}
+						set_variable = {
+							max_points = ostrowy_points
+						}
+						set_variable = {
+							max_balance = ostrowy_balance
+						}
+						set_variable = {
+							max_goals = ostrowy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	log = "4) [?no4.GetTokenLocalizedKey]"
+
+	reset_sorting_values = yes
+	for_each_loop = {
+		array = league_standings
+		value = current_team
+		if = {
+			limit = {
+				check_variable = {
+					var = current_team
+					value = no1
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no2
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no3
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no4
+					compare = not_equals
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						var = truskolasy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = truskolasy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 truskolasy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = truskolasy_points
+						}
+						set_variable = {
+							max_balance = truskolasy_balance
+						}
+						set_variable = {
+							max_goals = truskolasy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_krzepice
+					}
+					check_variable = {
+						var = krzepice_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = krzepice_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 krzepice_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = krzepice_points
+						}
+						set_variable = {
+							max_balance = krzepice_balance
+						}
+						set_variable = {
+							max_goals = krzepice_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_plomien_przystajn
+					}
+					check_variable = {
+						var = przystajn_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								przystajn_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = przystajn_points
+						}
+						set_variable = {
+							max_balance = przystajn_balance
+						}
+						set_variable = {
+							max_goals = przystajn_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_znicz_klobuck
+					}
+					check_variable = {
+						var = klobuck_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 klobuck_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = klobuck_points
+						}
+						set_variable = {
+							max_balance = klobuck_balance
+						}
+						set_variable = {
+							max_goals = klobuck_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_grom_miedzno
+					}
+					check_variable = {
+						var = miedzno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 miedzno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = miedzno_points
+						}
+						set_variable = {
+							max_balance = miedzno_balance
+						}
+						set_variable = {
+							max_goals = miedzno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_oksza_lobodno
+					}
+					check_variable = {
+						var = lobodno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 lobodno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = lobodno_points
+						}
+						set_variable = {
+							max_balance = lobodno_balance
+						}
+						set_variable = {
+							max_goals = lobodno_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_sokol_wreczyca
+					}
+					check_variable = {
+						var = wreczyca_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 wreczyca_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = wreczyca_points
+						}
+						set_variable = {
+							max_balance = wreczyca_balance
+						}
+						set_variable = {
+							max_goals = wreczyca_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_popow
+					}
+					check_variable = {
+						var = popow_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 popow_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = popow_points
+						}
+						set_variable = {
+							max_balance = popow_balance
+						}
+						set_variable = {
+							max_goals = popow_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_ks_panki
+					}
+					check_variable = {
+						var = panki_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 panki_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = panki_points
+						}
+						set_variable = {
+							max_balance = panki_balance
+						}
+						set_variable = {
+							max_goals = panki_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_naprzod_ostrowy
+					}
+					check_variable = {
+						var = ostrowy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 ostrowy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no5 = current_team
+						}
+						set_variable = {
+							max_points = ostrowy_points
+						}
+						set_variable = {
+							max_balance = ostrowy_balance
+						}
+						set_variable = {
+							max_goals = ostrowy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+		}
+		log = "[?no5.GetTokenLocalizedKey]"		
+	}
+
+	log = "5) [?no5.GetTokenLocalizedKey]"
+
+	reset_sorting_values = yes
+	for_each_loop = {
+		array = league_standings
+		value = current_team
+		if = {
+			limit = {
+				check_variable = {
+					var = current_team
+					value = no1
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no2
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no3
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no4
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no5
+					compare = not_equals
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						var = truskolasy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = truskolasy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 truskolasy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = truskolasy_points
+						}
+						set_variable = {
+							max_balance = truskolasy_balance
+						}
+						set_variable = {
+							max_goals = truskolasy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_krzepice
+					}
+					check_variable = {
+						var = krzepice_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = krzepice_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 krzepice_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = krzepice_points
+						}
+						set_variable = {
+							max_balance = krzepice_balance
+						}
+						set_variable = {
+							max_goals = krzepice_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_plomien_przystajn
+					}
+					check_variable = {
+						var = przystajn_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								przystajn_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = przystajn_points
+						}
+						set_variable = {
+							max_balance = przystajn_balance
+						}
+						set_variable = {
+							max_goals = przystajn_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_znicz_klobuck
+					}
+					check_variable = {
+						var = klobuck_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 klobuck_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = klobuck_points
+						}
+						set_variable = {
+							max_balance = klobuck_balance
+						}
+						set_variable = {
+							max_goals = klobuck_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_grom_miedzno
+					}
+					check_variable = {
+						var = miedzno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 miedzno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = miedzno_points
+						}
+						set_variable = {
+							max_balance = miedzno_balance
+						}
+						set_variable = {
+							max_goals = miedzno_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_oksza_lobodno
+					}
+					check_variable = {
+						var = lobodno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 lobodno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = lobodno_points
+						}
+						set_variable = {
+							max_balance = lobodno_balance
+						}
+						set_variable = {
+							max_goals = lobodno_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_sokol_wreczyca
+					}
+					check_variable = {
+						var = wreczyca_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 wreczyca_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = wreczyca_points
+						}
+						set_variable = {
+							max_balance = wreczyca_balance
+						}
+						set_variable = {
+							max_goals = wreczyca_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_popow
+					}
+					check_variable = {
+						var = popow_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 popow_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = popow_points
+						}
+						set_variable = {
+							max_balance = popow_balance
+						}
+						set_variable = {
+							max_goals = popow_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_ks_panki
+					}
+					check_variable = {
+						var = panki_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 panki_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = panki_points
+						}
+						set_variable = {
+							max_balance = panki_balance
+						}
+						set_variable = {
+							max_goals = panki_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_naprzod_ostrowy
+					}
+					check_variable = {
+						var = ostrowy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 ostrowy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = ostrowy_points
+						}
+						set_variable = {
+							max_balance = ostrowy_balance
+						}
+						set_variable = {
+							max_goals = ostrowy_goals_shot
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	log = "6) [?no6.GetTokenLocalizedKey]"
+
+	for_each_loop = {
+		array = league_standings
+		value = current_team
+		if = {
+			limit = {
+				check_variable = {
+					var = current_team
+					value = no1
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no2
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no3
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no4
+					compare = not_equals
+				}
+				check_variable = {
+					var = current_team
+					value = no5
+					compare = not_equals
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						var = truskolasy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = truskolasy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 truskolasy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = truskolasy_points
+						}
+						set_variable = {
+							max_balance = truskolasy_balance
+						}
+						set_variable = {
+							max_goals = truskolasy_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_krzepice
+					}
+					check_variable = {
+						var = krzepice_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = krzepice_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 krzepice_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = krzepice_points
+						}
+						set_variable = {
+							max_balance = krzepice_balance
+						}
+						set_variable = {
+							max_goals = krzepice_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_plomien_przystajn
+					}
+					check_variable = {
+						var = przystajn_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = przystajn_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								przystajn_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = przystajn_points
+						}
+						set_variable = {
+							max_balance = przystajn_balance
+						}
+						set_variable = {
+							max_goals = przystajn_goals_shot
+						}
+					}
+					else = {
+						set_variable = {
+							max_goals = -1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_znicz_klobuck
+					}
+					check_variable = {
+						var = klobuck_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = klobuck_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 klobuck_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = klobuck_points
+						}
+						set_variable = {
+							max_balance = klobuck_balance
+						}
+						set_variable = {
+							max_goals = klobuck_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_grom_miedzno
+					}
+					check_variable = {
+						var = miedzno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = miedzno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 miedzno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = miedzno_points
+						}
+						set_variable = {
+							max_balance = miedzno_balance
+						}
+						set_variable = {
+							max_goals = miedzno_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_oksza_lobodno
+					}
+					check_variable = {
+						var = lobodno_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = lobodno_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 lobodno_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = lobodno_points
+						}
+						set_variable = {
+							max_balance = lobodno_balance
+						}
+						set_variable = {
+							max_goals = lobodno_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_sokol_wreczyca
+					}
+					check_variable = {
+						var = wreczyca_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = wreczyca_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 wreczyca_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = wreczyca_points
+						}
+						set_variable = {
+							max_balance = wreczyca_balance
+						}
+						set_variable = {
+							max_goals = wreczyca_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_liswarta_popow
+					}
+					check_variable = {
+						var = popow_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = popow_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 popow_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = popow_points
+						}
+						set_variable = {
+							max_balance = popow_balance
+						}
+						set_variable = {
+							max_goals = popow_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_ks_panki
+					}
+					check_variable = {
+						var = panki_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = panki_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 panki_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = panki_points
+						}
+						set_variable = {
+							max_balance = panki_balance
+						}
+						set_variable = {
+							max_goals = panki_goals_shot
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						current_team = token:BRZ_naprzod_ostrowy
+					}
+					check_variable = {
+						var = ostrowy_points
+						value = max_points
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = ostrowy_balance
+							value = max_balance
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								 ostrowy_goals_shot > max_goals
+							}
+						}
+						set_variable = {
+							no6 = current_team
+						}
+						set_variable = {
+							max_points = ostrowy_points
+						}
+						set_variable = {
+							max_balance = ostrowy_balance
+						}
+						set_variable = {
+							max_goals = ostrowy_goals_shot
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	log = "7) [?no7.GetTokenLocalizedKey]"
+
+	log = "8) [?no8.GetTokenLocalizedKey]"
+
+	log = "9) [?no9.GetTokenLocalizedKey]"
+
+	log = "10) [?no10.GetTokenLocalizedKey]"
+}
+
+reset_sorting_values = {
+	set_variable = {
+		max_points = -1
+	}
+	set_variable = {
+		max_balance = -1000
+	}
+	set_variable = {
+		max_goals = -4
+	}
 }
