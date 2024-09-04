@@ -278,17 +278,25 @@ focus_tree = {
 		
 		cost = 2
 		search_filters = {}
-		select_effect = {
-			random_list = {
-				1 = {
-					set_country_flag = krzepice_kickoff_victory
+		completion_reward = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = krzepice_focus_done
+					}
 				}
-				1 = {
-
+				hidden_effect = {
+					random_list = {
+						1 = {
+							set_country_flag = krzepice_kickoff_victory
+						}
+						1 = {
+		
+						}
+					}
 				}
 			}
-		}
-		completion_reward = { 
+			set_country_flag = krzepice_focus_done
 			country_event = buzzer.4
 		}
 	}
@@ -310,16 +318,26 @@ focus_tree = {
 		
 		cost = 2
 		search_filters = {}
-		select_effect = {
-			random_list = {
-				1 = {
-					set_country_flag = klobuck_kickoff_victory
+			
+		completion_reward = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = klobuck_focus_done
+					}
 				}
-				1 = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							set_country_flag = klobuck_kickoff_victory
+						}
+						1 = {
+		
+						}
+					}
 				}
 			}
-		}
-		completion_reward = { 
+			set_country_flag = klobuck_focus_done
 			country_event = buzzer.5
 		}
 	}
@@ -814,7 +832,225 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_temp_variable = {
+				BRZ_goals = 0
+			}
+			set_temp_variable = {
+				JWK_goals = 0
+			}
+			set_temp_variable = {
+				BRZ_effectivness_base = zwkp_atk
+			}
+			divide_temp_variable = {
+				BRZ_effectivness_base = JWK.fb_def
+			}
+			set_temp_variable = {
+				BRZ_mid_inf = zwkp_mid
+			}
+			divide_temp_variable = {
+				BRZ_mid_inf = JWK.fb_mid
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = BRZ_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_rand
+			}
+			set_temp_variable = {
+				JWK_effectivness_base = JWK.fb_atk
+			}
+			divide_temp_variable = {
+				JWK_effectivness_base = zwkp_def
+			}
+			set_temp_variable = {
+				JWK_mid_inf = JWK.fb_mid
+			}
+			divide_temp_variable = {
+				JWK_mid_inf = zwkp_mid
+			}
+			multiply_temp_variable = {
+				JWK_effectivness_base = JWK_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = JWK_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				JWK_effectivness_base = JWK_rand
+			}
+			set_temp_variable = {
+				roll = 1
+			}
+			set_temp_variable = {
+				stamina_coeff = 1
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						var = roll
+						value = 6
+					}
+				}
+				set_temp_variable = {
+					BRZ_effectivness = BRZ_effectivness_base
+				}
+				multiply_temp_variable = {
+					BRZ_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				set_temp_variable = {
+					JWK_effectivness = JWK_effectivness_base
+				}
+				multiply_temp_variable = {
+					JWK_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							JWK_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								JWK_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							JWK_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								JWK_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								JWK_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				if ={
+					limit = {
+						check_variable = {
+							roll = 3
+						}
+					}
+					add_to_temp_variable = {
+						stamina_coeff = 0.15
+					}
+				}
+				else = {
+					subtract_from_temp_variable = {
+						stamina_coeff = 0.1
+					}
+				}
+				add_to_temp_variable = {
+					roll = 1
+				}
+			}
+			log = "BRZ: [?BRZ_goals] JWK: [?JWK_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > JWK_goals
+					}
+				}
+				set_country_flag = lubliniec_kickoff_victory
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < JWK_goals
+					}
+				}
+				set_country_flag = lubliniec_kickoff_defeat
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							set_country_flag = lubliniec_kickoff_victory
+						}
+						1 = {
+							set_country_flag = lubliniec_kickoff_defeat
+						}
+					}
+				}
+				
+			}
 			country_event = buzzer.9
 		}
 	}
