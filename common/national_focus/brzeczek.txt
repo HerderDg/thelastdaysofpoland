@@ -845,6 +845,9 @@ focus_tree = {
 			multiply_temp_variable = {
 				BRZ_effectivness_base = BRZ_mid_inf
 			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = 1.05
+			}
 			set_temp_variable_to_random = {
 				var = BRZ_rand
 				min = 0.95
@@ -876,6 +879,7 @@ focus_tree = {
 			multiply_temp_variable = {
 				JWK_effectivness_base = JWK_rand
 			}
+			
 			set_temp_variable = {
 				roll = 1
 			}
@@ -1180,7 +1184,9 @@ focus_tree = {
 		id = BRZ_lubliniec_training_camp #drzewko wojenne
 		icon = BRZ_lubliniec_training_camp
 		available = {
-		
+			not = {
+				country_exists = JWK
+			}
 		}
 		
 		bypass = {
@@ -1192,6 +1198,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.15
 		}
 	}
 	
@@ -1212,7 +1219,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			declare_war_on = {
+				target = JUR
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1233,7 +1244,249 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_temp_variable = {
+				BRZ_goals = 0
+			}
+			set_temp_variable = {
+				ZAW_goals = 0
+			}
+			set_temp_variable = {
+				BRZ_effectivness_base = zwkp_atk
+			}
+			divide_temp_variable = {
+				BRZ_effectivness_base = ZAW.fb_def
+			}
+			set_temp_variable = {
+				BRZ_mid_inf = zwkp_mid
+			}
+			divide_temp_variable = {
+				BRZ_mid_inf = ZAW.fb_mid
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_mid_inf
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = 1.05
+			}
+			set_temp_variable_to_random = {
+				var = BRZ_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_rand
+			}
+			set_temp_variable = {
+				ZAW_effectivness_base = ZAW.fb_atk
+			}
+			divide_temp_variable = {
+				ZAW_effectivness_base = zwkp_def
+			}
+			set_temp_variable = {
+				ZAW_mid_inf = ZAW.fb_mid
+			}
+			divide_temp_variable = {
+				ZAW_mid_inf = zwkp_mid
+			}
+			multiply_temp_variable = {
+				ZAW_effectivness_base = ZAW_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = ZAW_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				ZAW_effectivness_base = ZAW_rand
+			}
+			
+			set_temp_variable = {
+				roll = 1
+			}
+			set_temp_variable = {
+				stamina_coeff = 1
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						var = roll
+						value = 6
+					}
+				}
+				set_temp_variable = {
+					BRZ_effectivness = BRZ_effectivness_base
+				}
+				multiply_temp_variable = {
+					BRZ_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				set_temp_variable = {
+					ZAW_effectivness = ZAW_effectivness_base
+				}
+				multiply_temp_variable = {
+					ZAW_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							ZAW_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								ZAW_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							ZAW_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								ZAW_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								ZAW_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				if ={
+					limit = {
+						check_variable = {
+							roll = 3
+						}
+					}
+					add_to_temp_variable = {
+						stamina_coeff = 0.15
+					}
+				}
+				else = {
+					subtract_from_temp_variable = {
+						stamina_coeff = 0.1
+					}
+				}
+				add_to_temp_variable = {
+					roll = 1
+				}
+			}
+			log = "BRZ: [?BRZ_goals] ZAW: [?ZAW_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > ZAW_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < ZAW_goals
+					}
+				}
+				ZAW = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							ZAW = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+				
+			}
+			declare_war_on = {
+				target = ZAW
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1243,7 +1496,10 @@ focus_tree = {
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
-		
+			not = {
+				country_exists = JUR
+				country_exists = ZAW
+			}
 		}
 		
 		bypass = {
@@ -1255,6 +1511,15 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			every_owned_state = {
+				limit = {
+					or = {
+						is_core_of = JUR
+						is_core_of = ZAW
+					}
+				}
+				add_compliance = 40
+			}
 		}
 	}
 	
@@ -1264,7 +1529,10 @@ focus_tree = {
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
-		
+			not = {
+				country_exists = JUR
+				country_exists = ZAW
+			}
 		}
 		
 		bypass = {
@@ -1276,6 +1544,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.16
 		}
 	}
 
@@ -1317,7 +1586,247 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_temp_variable = {
+				BRZ_goals = 0
+			}
+			set_temp_variable = {
+				CCH_goals = 0
+			}
+			set_temp_variable = {
+				BRZ_effectivness_base = zwkp_atk
+			}
+			divide_temp_variable = {
+				BRZ_effectivness_base = CCH.fb_def
+			}
+			set_temp_variable = {
+				BRZ_mid_inf = zwkp_mid
+			}
+			divide_temp_variable = {
+				BRZ_mid_inf = CCH.fb_mid
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = BRZ_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_rand
+			}
+			set_temp_variable = {
+				CCH_effectivness_base = CCH.fb_atk
+			}
+			divide_temp_variable = {
+				CCH_effectivness_base = zwkp_def
+			}
+			set_temp_variable = {
+				CCH_mid_inf = CCH.fb_mid
+			}
+			divide_temp_variable = {
+				CCH_mid_inf = zwkp_mid
+			}
+			multiply_temp_variable = {
+				CCH_effectivness_base = CCH_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = CCH_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				CCH_effectivness_base = CCH_rand
+			}
+			multiply_temp_variable = {
+				CCH_effectivness_base = 1.05
+			}
+			set_temp_variable = {
+				roll = 1
+			}
+			set_temp_variable = {
+				stamina_coeff = 1
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						var = roll
+						value = 6
+					}
+				}
+				set_temp_variable = {
+					BRZ_effectivness = BRZ_effectivness_base
+				}
+				multiply_temp_variable = {
+					BRZ_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				set_temp_variable = {
+					CCH_effectivness = CCH_effectivness_base
+				}
+				multiply_temp_variable = {
+					CCH_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							CCH_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								CCH_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							CCH_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								CCH_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								CCH_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				if ={
+					limit = {
+						check_variable = {
+							roll = 3
+						}
+					}
+					add_to_temp_variable = {
+						stamina_coeff = 0.15
+					}
+				}
+				else = {
+					subtract_from_temp_variable = {
+						stamina_coeff = 0.1
+					}
+				}
+				add_to_temp_variable = {
+					roll = 1
+				}
+			}
+			log = "BRZ: [?BRZ_goals] CCH: [?CCH_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > CCH_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < CCH_goals
+					}
+				}
+				CCH = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							CCH = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = CCH
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1327,7 +1836,9 @@ focus_tree = {
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
-		
+			not = {
+				country_exists = CCH
+			}
 		}
 		
 		bypass = {
@@ -1359,7 +1870,9 @@ focus_tree = {
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
-		
+			not = {
+				country_exists = CCH
+			}
 		}
 		
 		bypass = {
@@ -1371,6 +1884,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.17
 		}
 	}
 
@@ -1391,7 +1905,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			declare_war_on = {
+				target = SIE
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1413,6 +1931,11 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 50
+				producer = JWK
+			}
 		}
 	}
 	
@@ -1434,6 +1957,16 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 200
+				producer = JWK
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 10
+				producer = JWK
+			}
 		}
 	}
 	
@@ -1454,7 +1987,247 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_temp_variable = {
+				BRZ_goals = 0
+			}
+			set_temp_variable = {
+				DGR_goals = 0
+			}
+			set_temp_variable = {
+				BRZ_effectivness_base = zwkp_atk
+			}
+			divide_temp_variable = {
+				BRZ_effectivness_base = DGR.fb_def
+			}
+			set_temp_variable = {
+				BRZ_mid_inf = zwkp_mid
+			}
+			divide_temp_variable = {
+				BRZ_mid_inf = DGR.fb_mid
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = BRZ_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_rand
+			}
+			set_temp_variable = {
+				DGR_effectivness_base = DGR.fb_atk
+			}
+			divide_temp_variable = {
+				DGR_effectivness_base = zwkp_def
+			}
+			set_temp_variable = {
+				DGR_mid_inf = DGR.fb_mid
+			}
+			divide_temp_variable = {
+				DGR_mid_inf = zwkp_mid
+			}
+			multiply_temp_variable = {
+				DGR_effectivness_base = DGR_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = DGR_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				DGR_effectivness_base = DGR_rand
+			}
+			multiply_temp_variable = {
+				DGR_effectivness_base = 1.05
+			}
+			set_temp_variable = {
+				roll = 1
+			}
+			set_temp_variable = {
+				stamina_coeff = 1
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						var = roll
+						value = 6
+					}
+				}
+				set_temp_variable = {
+					BRZ_effectivness = BRZ_effectivness_base
+				}
+				multiply_temp_variable = {
+					BRZ_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				set_temp_variable = {
+					DGR_effectivness = DGR_effectivness_base
+				}
+				multiply_temp_variable = {
+					DGR_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							DGR_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								DGR_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							DGR_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								DGR_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								DGR_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				if ={
+					limit = {
+						check_variable = {
+							roll = 3
+						}
+					}
+					add_to_temp_variable = {
+						stamina_coeff = 0.15
+					}
+				}
+				else = {
+					subtract_from_temp_variable = {
+						stamina_coeff = 0.1
+					}
+				}
+				add_to_temp_variable = {
+					roll = 1
+				}
+			}
+			log = "BRZ: [?BRZ_goals] DGR: [?DGR_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > DGR_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < DGR_goals
+					}
+				}
+				DGR = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							DGR = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = DGR
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1475,7 +2248,247 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_temp_variable = {
+				BRZ_goals = 0
+			}
+			set_temp_variable = {
+				SOS_goals = 0
+			}
+			set_temp_variable = {
+				BRZ_effectivness_base = zwkp_atk
+			}
+			divide_temp_variable = {
+				BRZ_effectivness_base = SOS.fb_def
+			}
+			set_temp_variable = {
+				BRZ_mid_inf = zwkp_mid
+			}
+			divide_temp_variable = {
+				BRZ_mid_inf = SOS.fb_mid
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = BRZ_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_rand
+			}
+			set_temp_variable = {
+				SOS_effectivness_base = SOS.fb_atk
+			}
+			divide_temp_variable = {
+				SOS_effectivness_base = zwkp_def
+			}
+			set_temp_variable = {
+				SOS_mid_inf = SOS.fb_mid
+			}
+			divide_temp_variable = {
+				SOS_mid_inf = zwkp_mid
+			}
+			multiply_temp_variable = {
+				SOS_effectivness_base = SOS_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = SOS_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				SOS_effectivness_base = SOS_rand
+			}
+			multiply_temp_variable = {
+				SOS_effectivness_base = 1.05
+			}
+			set_temp_variable = {
+				roll = 1
+			}
+			set_temp_variable = {
+				stamina_coeff = 1
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						var = roll
+						value = 6
+					}
+				}
+				set_temp_variable = {
+					BRZ_effectivness = BRZ_effectivness_base
+				}
+				multiply_temp_variable = {
+					BRZ_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				set_temp_variable = {
+					SOS_effectivness = SOS_effectivness_base
+				}
+				multiply_temp_variable = {
+					SOS_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							SOS_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								SOS_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							SOS_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								SOS_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								SOS_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				if ={
+					limit = {
+						check_variable = {
+							roll = 3
+						}
+					}
+					add_to_temp_variable = {
+						stamina_coeff = 0.15
+					}
+				}
+				else = {
+					subtract_from_temp_variable = {
+						stamina_coeff = 0.1
+					}
+				}
+				add_to_temp_variable = {
+					roll = 1
+				}
+			}
+			log = "BRZ: [?BRZ_goals] SOS: [?SOS_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > SOS_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < SOS_goals
+					}
+				}
+				SOS = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							SOS = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = SOS
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1496,7 +2509,247 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_temp_variable = {
+				BRZ_goals = 0
+			}
+			set_temp_variable = {
+				JAW_goals = 0
+			}
+			set_temp_variable = {
+				BRZ_effectivness_base = zwkp_atk
+			}
+			divide_temp_variable = {
+				BRZ_effectivness_base = JAW.fb_def
+			}
+			set_temp_variable = {
+				BRZ_mid_inf = zwkp_mid
+			}
+			divide_temp_variable = {
+				BRZ_mid_inf = JAW.fb_mid
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = BRZ_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				BRZ_effectivness_base = BRZ_rand
+			}
+			set_temp_variable = {
+				JAW_effectivness_base = JAW.fb_atk
+			}
+			divide_temp_variable = {
+				JAW_effectivness_base = zwkp_def
+			}
+			set_temp_variable = {
+				JAW_mid_inf = JAW.fb_mid
+			}
+			divide_temp_variable = {
+				JAW_mid_inf = zwkp_mid
+			}
+			multiply_temp_variable = {
+				JAW_effectivness_base = JAW_mid_inf
+			}
+			set_temp_variable_to_random = {
+				var = JAW_rand
+				min = 0.95
+				max = 1.05
+			}
+			multiply_temp_variable = {
+				JAW_effectivness_base = JAW_rand
+			}
+			multiply_temp_variable = {
+				JAW_effectivness_base = 1.05
+			}
+			set_temp_variable = {
+				roll = 1
+			}
+			set_temp_variable = {
+				stamina_coeff = 1
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						var = roll
+						value = 6
+					}
+				}
+				set_temp_variable = {
+					BRZ_effectivness = BRZ_effectivness_base
+				}
+				multiply_temp_variable = {
+					BRZ_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								BRZ_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				set_temp_variable = {
+					JAW_effectivness = JAW_effectivness_base
+				}
+				multiply_temp_variable = {
+					JAW_effectivness = stamina_coeff
+				}
+				if = {
+					limit = {
+						check_variable = {
+							JAW_effectivness > 1.5
+						}
+					}
+					random_list = {
+						70 = {
+							add_to_temp_variable = {
+								JAW_goals = 1
+							}
+						}
+						30 = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							JAW_effectivness > 1
+						}
+					}
+					random_list = {
+						50 = {
+							add_to_temp_variable = {
+								JAW_goals = 1
+							}
+						}
+						50 = {
+
+						}
+					}
+				}
+				else = {
+					random_list = {
+						30 = {
+							add_to_temp_variable = {
+								JAW_goals = 1
+							}
+						}
+						70 = {
+
+						}
+					}
+				}
+				if ={
+					limit = {
+						check_variable = {
+							roll = 3
+						}
+					}
+					add_to_temp_variable = {
+						stamina_coeff = 0.15
+					}
+				}
+				else = {
+					subtract_from_temp_variable = {
+						stamina_coeff = 0.1
+					}
+				}
+				add_to_temp_variable = {
+					roll = 1
+				}
+			}
+			log = "BRZ: [?BRZ_goals] JAW: [?JAW_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > JAW_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < JAW_goals
+					}
+				}
+				JAW = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							JAW = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			} 
+			declare_war_on = {
+				target = JAW
+				type = annex_everything
+			}
 		}
 	}
 
@@ -1506,7 +2759,9 @@ focus_tree = {
 		relative_position_id = BRZ_zaglebie_sosnowiec_match
 		prerequisite = { focus = BRZ_zaglebie_sosnowiec_match }
 		available = {
-		
+			NOT = {
+				country_exists = SOS
+			}
 		}
 		
 		bypass = {
@@ -1528,7 +2783,9 @@ focus_tree = {
 		relative_position_id = BRZ_unia_dg_match
 		prerequisite = { focus = BRZ_unia_dg_match }
 		available = {
-		
+			NOT = {
+				country_exists = DGR
+			}
 		}
 		
 		bypass = {
@@ -1549,7 +2806,9 @@ focus_tree = {
 		relative_position_id = BRZ_szczakowianka_jaworzno_match
 		prerequisite = { focus = BRZ_szczakowianka_jaworzno_match }
 		available = {
-		
+			NOT = {
+				country_exists = JAW
+			}
 		}
 		
 		bypass = {
@@ -1561,6 +2820,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			
 		}
 	}
 
@@ -1584,6 +2844,16 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = JAW
+						is_core_of = DGR
+						is_core_of = SOS
+					}
+				}
+				add_compliance = 40
+			}
 		}
 	}
 	
@@ -1605,6 +2875,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.18
 		}
 	}
 
