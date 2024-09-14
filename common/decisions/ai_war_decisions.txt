@@ -5052,7 +5052,7 @@ ai_war_decisions = {
 	}
 	
 
-	pom_war_final_tricity = {
+	pom_war_final_tricity_center = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -5064,53 +5064,17 @@ ai_war_decisions = {
 			OR = {
 				original_tag = KOR
 				original_tag = GDA
-				original_tag = OWS
 				original_tag = BOL
-			}
-			OR = {
-				KOR = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
-				GDA = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
-				OWS = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
-				BOL = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
+				original_tag = TVI
+				original_tag = MPR
 			}
 			count_triggers = {
-				amount = 3
+				amount = 2
 				GDA = { exists = no }
 				KOR = { exists = no }
-				OWS = { exists = no }
 				BOL = { exists = no }
+				MPR = { exists = no }
+				TVI = { exists = no }
 			}
 			NOT = { has_war = yes }
 			date > 2028.01.01
@@ -5126,62 +5090,61 @@ ai_war_decisions = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 3
 		remove_effect  = {
-			log = "[GetDateText]: Decision pom_war_final_tricity"
+			log = "[GetDateText]: Decision pom_war_final_tricity_center"
 			if = { 
 				limit = { 
-					country_exists = LOT
-					ROOT = { NOT = { original_tag = LOT } } 
+					country_exists = GDA
+					ROOT = { NOT = { original_tag = GDA } }
 				}
 				declare_war_on = {
-					target = LOT
+					target = GDA
 					type = annex_everything
 				}
 			}
 			if = { 
 				limit = { 
-					country_exists = KSZ 
-					ROOT = { NOT = { original_tag = KSZ } } 
+					country_exists = KOR
+					ROOT = { NOT = { original_tag = KOR } }
 				}
 				declare_war_on = {
-					target = KSZ
+					target = KOR
 					type = annex_everything
+					}
 				}
-			}
 			if = { 
 				limit = { 
-					country_exists = HEL
-					ROOT = { NOT = { original_tag = HEL } } 
+					country_exists = MPR
+					ROOT = { NOT = { original_tag = MPR } }
 				}
 				declare_war_on = {
-					target = HEL
+					target = MPR
 					type = annex_everything
-				}
-			}
+					}
+				}		
 			if = { 
 				limit = { 
-					country_exists = CZL 
-					ROOT = { NOT = { original_tag = CZL } } 
+					country_exists = BOL
+					ROOT = { NOT = { original_tag = BOL } }
 				}
 				declare_war_on = {
-					target = CZL
+					target = BOL
 					type = annex_everything
-				}
-			}
+					}
+				}	
 			if = { 
 				limit = { 
-					country_exists = GAY 
-					ROOT = { NOT = { original_tag = GAY } } 
+					country_exists = TVI
+					ROOT = { NOT = { original_tag = TVI } }
 				}
 				declare_war_on = {
-					target = GAY
+					target = TVI
 					type = annex_everything
-				}
-			}				
-		}
+					}
+				}				
+		}	
 	}
-
 	pom_war_final_kaszubia = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -5262,7 +5225,7 @@ ai_war_decisions = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 3
 		remove_effect  = {
 			log = "[GetDateText]: Decision pom_war_final_kaszubia"
 			if = { 
@@ -5318,24 +5281,273 @@ ai_war_decisions = {
 
 		visible = {
 			OR = {
-				original_tag = KOR
-				original_tag = GDA
+				original_tag = MPR
+				original_tag = TVI
 			}
 			OR = {
-				KOR = { exists = no }
-				GDA = { exists = no }
+				MPR = { exists = yes }
+				TVI = { exists = yes }
 			}
 			OR = {
-				GDA = {
+				TVI = {
 					OR = {
-						is_neighbor_of = OWS
-						is_neighbor_of = BOL
+						is_neighbor_of = MPR
+						is_neighbor_of = KOR
 					}
 				}
-				KOR = {
+				MPR = {
 					OR = {
-						is_neighbor_of = OWS
-						is_neighbor_of = BOL
+						is_neighbor_of = TVI
+						is_neighbor_of = GDA
+					}
+				}
+			}
+			count_triggers = {
+				amount = 1
+				LOT = { exists = no }
+				HEL = { exists = no }
+				KSZ = { exists = no }
+				GAY = { exists = no }
+				CZL = { exists = no }
+			}
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_tricity_south"
+			if = { 
+				limit = { 
+					country_exists = MPR
+					ROOT = { NOT = { original_tag = MPR } } 
+				}
+				declare_war_on = {
+					target = MPR
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists = TVI 
+					ROOT = { NOT = { original_tag = TVI } } 
+				}
+				declare_war_on = {
+					target = TVI
+					type = annex_everything
+				}
+			}
+		}
+	}
+	
+	pom_war_kociwie_kaszuby = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = KSZ
+				original_tag = KSC
+				original_tag = LOT
+				original_tag = CZL
+			}
+			count_triggers = {
+				amount = 1
+				KSZ = { exists = no }
+				KSC = { exists = no }
+				LOT = { exists = no }
+			}			
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_tricity_south"
+			if = { 
+				limit = { 
+					country_exists = KSC
+					ROOT = { NOT = { original_tag = KSC } }
+				}
+				declare_war_on = {
+					target = KSC
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists = KSZ
+					ROOT = { NOT = { original_tag = KSZ }  }
+				}
+				declare_war_on = {
+					target = KSZ
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = { 
+					country_exists = LOT
+					ROOT = { NOT = { original_tag = LOT } }
+				}
+				declare_war_on = {
+					target = LOT
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = { 
+					country_exists = CZL
+					ROOT = { NOT = { original_tag = CZL } }
+				}
+				declare_war_on = {
+					target = CZL
+					type = annex_everything
+				}
+			}			
+		}
+	}
+
+pom_war_great_north = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = PGF
+				original_tag = SVG
+				original_tag = RLE
+				original_tag = GAY
+			}
+			OR = {
+				PGF = { exists = yes }
+				SVG = { exists = yes }
+				RLE = { exists = yes }
+				GAY = { exists = yes }
+			}
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_great_north"
+			if = { 
+				limit = { 
+					country_exists = PGF
+					ROOT = { NOT = { original_tag = PGF } } 
+				}
+				declare_war_on = {
+					target = PGF
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	SVG
+					ROOT = { NOT = { original_tag = SVG } } 
+				}
+				declare_war_on = {
+					target = SVG
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	RLE
+					ROOT = { NOT = { original_tag = RLE } } 
+				}
+				declare_war_on = {
+					target = RLE
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	GAY
+					ROOT = { NOT = { original_tag = GAY } } 
+				}
+				declare_war_on = {
+					target = GAY
+					type = annex_everything
+				}
+			}
+		}
+	}
+pom_war_kociewie_north = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = LOT
+				original_tag = LTT
+				original_tag = LTS
+			}
+			OR = {
+				LOT = { exists = yes }
+				LTT = { exists = yes }
+				LTS = { exists = yes }
+
+			}
+			OR = {
+				LOT = {
+					OR = {
+						is_neighbor_of = LTT
+						is_neighbor_of = LTS
+					}
+				}
+				LTT = {
+					OR = {
+						is_neighbor_of = LOT
+						is_neighbor_of = LTS
+					}
+				}
+				LTS = {
+					OR = {
+						is_neighbor_of = LOT
+						is_neighbor_of = LTT
 					}
 				}
 			}
@@ -5353,32 +5565,99 @@ ai_war_decisions = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 3
 		remove_effect  = {
-			log = "[GetDateText]: Decision pom_war_tricity_south"
+			log = "[GetDateText]: Decision pom_war_kociewie_north"
 			if = { 
 				limit = { 
-					country_exists = OWS
-					ROOT = { NOT = { original_tag = OWS } } 
+					country_exists = LTT
+					ROOT = { NOT = { original_tag = LTT } } 
 				}
 				declare_war_on = {
-					target = OWS
+					target = LTT
 					type = annex_everything
 				}
 			}
 			if = { 
 				limit = { 
-					country_exists = BOL 
-					ROOT = { NOT = { original_tag = BOL } } 
+					country_exists =	LTS
+					ROOT = { NOT = { original_tag = LTS } } 
 				}
 				declare_war_on = {
-					target = BOL
+					target = LTS
 					type = annex_everything
 				}
 			}
 		}
 	}
+pom_war_tricity_sopot = {
 
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = UGD
+				original_tag = SOP
+			}
+			OR = {
+				UGD = { exists = yes }
+				SOP = { exists = yes }
+			}
+			OR = {
+				UGD = {
+					OR = {
+						is_neighbor_of = GDA
+					}
+				}
+				SOP = {
+					OR = {
+						is_neighbor_of = UGD
+					}
+				}
+			}
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_tricity_south"
+			if = { 
+				limit = { 
+					country_exists = UGD
+					ROOT = { NOT = { original_tag = UGD } } 
+				}
+				declare_war_on = {
+					target = UGD
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists = SOP 
+					ROOT = { NOT = { original_tag = SOP } } 
+				}
+				declare_war_on = {
+					target = SOP
+					type = annex_everything
+				}
+			}
+		}
+	}
 	pom_war_tricity_north = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -5389,15 +5668,15 @@ ai_war_decisions = {
 
 		visible = {
 			OR = {
-				original_tag = OWS
+				original_tag = GDA
 				original_tag = BOL
 			}
 			OR = {
-				OWS = { exists = no }
+				GDA = { exists = no }
 				BOL = { exists = no }
 			}
 			OR = {
-				OWS = {
+				GDA = {
 					OR = {
 						is_neighbor_of = GDA
 						is_neighbor_of = KOR
@@ -5424,7 +5703,7 @@ ai_war_decisions = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 3
 		remove_effect  = {
 			log = "[GetDateText]: Decision pom_war_tricity_north"
 			if = { 
@@ -5449,88 +5728,8 @@ ai_war_decisions = {
 			}
 		}
 	}
-
-	pom_war_gay_kaszubia = {
-
-		icon = GFX_decision_generic_prepare_civil_war
-		
-		allowed = {
-			is_pomerelia = yes
-		}
-
-		visible = {
-			OR = {
-				original_tag = LOT
-				original_tag = HEL
-				original_tag = KSZ
-			}
-			OR = {
-				LOT = {
-					OR = {
-						is_neighbor_of = GAY
-						is_neighbor_of = CZL
-					}
-				}
-				HEL = {
-					OR = {
-						is_neighbor_of = GAY
-						is_neighbor_of = CZL
-					}
-				}
-				KSZ = {
-					OR = {
-						is_neighbor_of = GAY
-						is_neighbor_of = CZL
-					}
-				}
-			}
-			count_triggers = {
-				amount = 2 
-				LOT = { exists = no }
-				HEL = { exists = no }
-				KSZ = { exists = no }
-			}
-			NOT = { has_war = yes }
-			date > 2028.01.01
-		}
-
-		cost = 1
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
-		}
-		fire_only_once = yes
-		days_remove = 30
-		remove_effect  = {
-			log = "[GetDateText]: Decision pom_war_gay_kaszubia"
-			if = { 
-				limit = { 
-					country_exists = GAY
-					ROOT = { NOT = { original_tag = GAY } } 
-				}
-				declare_war_on = {
-					target = GAY
-					type = annex_everything
-				}
-			}
-			if = { 
-				limit = { 
-					country_exists = CZL 
-					ROOT = { NOT = { original_tag = CZL } } 
-				}
-				declare_war_on = {
-					target = CZL
-					type = annex_everything
-				}
-			}
-		}
-	}
-
-	pom_war_kaszuby_gay = {
+ 
+	pom_chojnice_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -5540,107 +5739,22 @@ ai_war_decisions = {
 
 		visible = {
 			OR = {
-				original_tag = GAY
+				original_tag = CHG
 				original_tag = CZL
 			}
 			OR = {
-				GAY = { exists = no }
-				CZL = { exists = no }
-			}
-			OR = {
-				GAY = {
-					OR = {
-						is_neighbor_of = HEL
-						is_neighbor_of = KSZ
-						is_neighbor_of = LOT
-					}
-				}
-				CZL = {
-					OR = {
-						is_neighbor_of = HEL
-						is_neighbor_of = KSZ
-						is_neighbor_of = LOT
-					}
-				}
-			}
-			NOT = { has_war = yes }
-			date > 2028.01.01
-		}
-
-		cost = 1
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
-		}
-		fire_only_once = yes
-		days_remove = 30
-		remove_effect  = {
-			log = "[GetDateText]: Decision pom_war_kaszuby_gay"
-			if = { 
-				limit = { 
-					country_exists = HEL
-					ROOT = { NOT = { original_tag = HEL } } 
-				}
-				declare_war_on = {
-					target = HEL
-					type = annex_everything
-				}
-			}
-			if = { 
-				limit = { 
-					country_exists = KSZ 
-					ROOT = { NOT = { original_tag = KSZ } } 
-				}
-				declare_war_on = {
-					target = KSZ
-					type = annex_everything
-				}
-			}
-			if = { 
-				limit = { 
-					country_exists = LOT 
-					ROOT = { NOT = { original_tag = LOT } } 
-				}
-				declare_war_on = {
-					target = LOT
-					type = annex_everything
-				}
-			}
-		}
-	}
-
-
-	pom_gay_war = {
-
-		icon = GFX_decision_generic_prepare_civil_war
-		
-		allowed = {
-			is_pomerelia = yes
-		}
-
-		visible = {
-			OR = {
-				original_tag = GAY
-				original_tag = CZL
-			}
-			OR = {
-				GAY = {
+				CHG = {
 					is_neighbor_of = CZL
 				}
 				CZL = {
-					is_neighbor_of = GAY
-				}
+					is_neighbor_of = CHG
 			}
-			date > 2028.03.19
+			date > 2028.01.01
 			NOT = { has_war = yes }
-			NOT = { has_war_with = GAY }
+			NOT = { has_war_with = CHG }
 			NOT = { has_war_with = CZL }
 		}
-
+	}
 		cost = 1
 
 		ai_will_do = {
@@ -5656,11 +5770,11 @@ ai_war_decisions = {
 			log = "[GetDateText]: Decision pom_gay_war"
 			if = { 
 				limit = { 
-					country_exists = GAY
-					ROOT = { NOT = { original_tag = GAY } } 
+					country_exists = CHG
+					ROOT = { NOT = { original_tag = CHG } } 
 				}
 				declare_war_on = {
-					target = GAY
+					target = CHG
 					type = annex_everything
 				}
 			}
@@ -5676,7 +5790,6 @@ ai_war_decisions = {
 			}
 		}
 	}
-
 	pom_war_kaszuby = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -5687,31 +5800,20 @@ ai_war_decisions = {
 
 		visible = {
 			OR = {
-				original_tag = HEL
+				original_tag = KSC
 				original_tag = KSZ
-				original_tag = LOT
 			}
-			OR = {
-				HEL = {
-					OR = {
-						is_neighbor_of = KSZ
-						is_neighbor_of = LOT
-					}
-				}
 				KSZ = {
 					OR = {
-						is_neighbor_of = HEL
-						is_neighbor_of = LOT
+						is_neighbor_of = KSC
 					}
 				}
-				LOT = {
+				KSC = {
 					OR = {
 						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
 					}
 				}
-			}
-			date > 2028.03.16
+			date > 2028.01.01
 			NOT = { has_war = yes }
 		}
 
@@ -5730,17 +5832,6 @@ ai_war_decisions = {
 			log = "[GetDateText]: Decision pom_war_kaszuby"
 			if = { 
 				limit = { 
-					country_exists = HEL
-					ROOT = { NOT = { original_tag = HEL } } 
-					ROOT = { NOT = { has_war_with = HEL } }
-				}
-				declare_war_on = {
-					target = HEL
-					type = annex_everything
-				}
-			}
-			if = { 
-				limit = { 
 					country_exists = KSZ 
 					ROOT = { NOT = { original_tag = KSZ } } 
 					ROOT = { NOT = { has_war_with = KSZ } }
@@ -5752,12 +5843,12 @@ ai_war_decisions = {
 			}
 			if = { 
 				limit = { 
-					country_exists = LOT 
-					ROOT = { NOT = { original_tag = LOT } } 
-					ROOT = { NOT = { has_war_with = LOT } }
+					country_exists = KSC
+					ROOT = { NOT = { original_tag = KSC } } 
+					ROOT = { NOT = { has_war_with = KSC } }
 				}
 				declare_war_on = {
-					target = LOT
+					target = KSC
 					type = annex_everything
 				}
 			}
@@ -5765,7 +5856,7 @@ ai_war_decisions = {
 	}
 
 
-	pom_war_gda_kor = {
+	pom_war_gda_bol = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -5776,20 +5867,20 @@ ai_war_decisions = {
 		visible = {
 			OR = {
 				original_tag = GDA
-				original_tag = KOR
+				original_tag = BOL
 			}
 			OR = {
 				GDA = {
-					is_neighbor_of = KOR
+					is_neighbor_of = BOL
 				}
-				KOR = {
+				BOL = {
 					is_neighbor_of = GDA
 				}
 			}
-			date > 2028.03.26
+			date > 2028.01.01
 			NOT = { has_war = yes }
 			NOT = { has_war_with= GDA }
-			NOT = { has_war_with= KOR }
+			NOT = { has_war_with= BOL }
 		}
 
 		cost = 1
@@ -5807,11 +5898,11 @@ ai_war_decisions = {
 			log = "[GetDateText]: Decision pom_war_gda_kor"
 			if = { 
 				limit = { 
-					country_exists = KOR
-					ROOT = { NOT = { original_tag = KOR } } 
+					country_exists = BOL
+					ROOT = { NOT = { original_tag = BOL } } 
 				}
 				declare_war_on = {
-					target = KOR
+					target = BOL
 					type = annex_everything
 				}
 			}
@@ -5828,7 +5919,7 @@ ai_war_decisions = {
 		}
 	}
 
-	pom_war_ows_bol = {
+	pom_war_ows_ows = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -5839,20 +5930,20 @@ ai_war_decisions = {
 		visible = {
 			OR = {
 				original_tag = OWS
-				original_tag = BOL
+				original_tag = GDY
 			}
 			OR = {
 				OWS = {
-					is_neighbor_of = BOL
+					is_neighbor_of = GDY
 				}
-				BOL = {
+				GDY = {
 					is_neighbor_of = OWS
 				}
 			}
-			date > 2028.03.28
+			date > 2028.01.01
 			NOT = { has_war = yes }
 			NOT = { has_war_with= OWS }
-			NOT = { has_war_with= BOL }
+			NOT = { has_war_with= GDY }
 		}
 
 		cost = 1
@@ -5880,11 +5971,11 @@ ai_war_decisions = {
 			}
 			if = { 
 				limit = { 
-					country_exists = BOL 
-					ROOT = { NOT = { original_tag = BOL } } 
+					country_exists = GDY 
+					ROOT = { NOT = { original_tag = GDY } } 
 				}
 				declare_war_on = {
-					target = BOL
+					target = GDY
 					type = annex_everything
 				}
 			}
@@ -7495,7 +7586,7 @@ ai_war_decisions = {
 					target = KIE
 					type = annex_everything
 				}
-				}
+			}
 		}
 	}
 	
@@ -8892,6 +8983,402 @@ ai_war_decisions = {
 		}
 	}
 
+    poznan_war_syj = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+			}
+
+		visible = {
+			original_tag = SYJ
+			date > 2028.05.01
+			country_exists = POZ
+			country_exists = SLU
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = POZ
+		war_with_on_remove = SLU
+		remove_effect  = {
+			log = "[GetDateText]: Decision POZ_war"
+			declare_war_on = {
+				target = POZ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = SLU
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			SYJ = {
+				has_war_with = POZ
+			}
+			SYJ = {
+				has_war_with = SLU
+			}
+		}
+	}
+	
+	poznan_war_poz = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+			}
+
+		visible = {
+			original_tag = POZ
+			date > 2028.05.01
+			country_exists = SYJ
+			country_exists = SLU
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SYJ
+		war_with_on_remove = SLU
+		remove_effect  = {
+			log = "[GetDateText]: Decision POZ_war"
+			declare_war_on = {
+				target = SYJ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = SLU
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			POZ = {
+				has_war_with = SYJ
+			}
+			POZ = {
+				has_war_with = SLU
+			}
+		}
+	}
+	
+	poznan_war_peja = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+			}
+
+		visible = {
+			original_tag = SLU
+			date > 2028.05.01
+			country_exists = SYJ
+			country_exists = POZ
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SYJ
+		war_with_on_remove = POZ
+		remove_effect  = {
+			log = "[GetDateText]: Decision POZ_war"
+			declare_war_on = {
+				target = SYJ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = POZ
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			SLU = {
+				has_war_with = SYJ
+			}
+			SLU = {
+				has_war_with = POZ
+			}
+		}
+	}
+	
+	MOT_KAM_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = MOT
+			date > 2028.06.01
+			country_exists = KAM
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = KAM
+		remove_effect  = {
+			log = "[GetDateText]: Decision MOT_KAM_war"
+			declare_war_on = {
+				target = KAM
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			MOT = {
+				has_war_with = KAM
+			}
+		}
+	}
+	
+	KAM_MOT_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = KAM
+			date > 2028.06.01
+			country_exists = MOT
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = MOT
+		remove_effect  = {
+			log = "[GetDateText]: Decision KAM_MOT_war"
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			KAM = {
+				has_war_with = MOT
+			}
+		}
+	}
+	
+	PIL_WRT_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = PIL
+			date > 2028.06.01
+			country_exists = WRT
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = WRT
+		remove_effect  = {
+			log = "[GetDateText]: Decision PIL_WRT_war"
+			declare_war_on = {
+				target = WRT
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			PIL = {
+				has_war_with = WRT
+			}
+		}
+	}
+	
+	WRT_PIL_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = WRT
+			date > 2028.06.01
+			country_exists = PIL
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = PIL
+		remove_effect  = {
+			log = "[GetDateText]: Decision WRT_PIL_war"
+			declare_war_on = {
+				target = PIL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			WRT = {
+				has_war_with = PIL
+			}
+		}
+	}
+	
+	NAC_SUS_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = NAC
+			date > 2028.06.01
+			country_exists = SUS
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SUS
+		remove_effect  = {
+			log = "[GetDateText]: Decision NAC_SUS_war"
+			declare_war_on = {
+				target = SUS
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			NAC = {
+				has_war_with = SUS
+			}
+		}
+	}
+	
+	SUS_NAC_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = SUS
+			date > 2028.06.01
+			country_exists = NAC
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = NAC
+		remove_effect  = {
+			log = "[GetDateText]: Decision SUS_NAC_war"
+			declare_war_on = {
+				target = NAC
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			SUS = {
+				has_war_with = NAC
+			}
+		}
+	}
+	
 	north_wielkopolska_SLU = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -8925,7 +9412,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = SLU } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -8982,7 +9469,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = SUS } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9041,7 +9528,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = PIL } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9100,7 +9587,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = WRT } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9160,7 +9647,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = SYJ } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9220,7 +9707,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = POZ } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9279,7 +9766,7 @@ ai_war_decisions = {
 					}
 				ROOT = { any_neighbor_country = { original_tag = NAC } }
 				NOT = { has_war = yes }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9339,7 +9826,7 @@ ai_war_decisions = {
 				ROOT = { any_neighbor_country = { original_tag = KAM } }
 				NOT = { has_war = yes }
 				NOT = { has_war_with = KAM }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
@@ -9399,7 +9886,7 @@ ai_war_decisions = {
 				ROOT = { any_neighbor_country = { original_tag = MOT } }
 				NOT = { has_war = yes }
 				NOT = { has_war_with = MOT }
-				date > 2028.07.01
+				date > 2029.01.15
 		}
 
 		cost = 1
