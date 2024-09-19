@@ -199,7 +199,7 @@ country_event = {
 		hidden_effect = {
 			country_event = {
 				id = ziobro.8
-				hours = 12
+				days = 1
 				}
 			if = {
 				limit = { has_country_flag = ziobro_start_war_victory }
@@ -287,6 +287,7 @@ country_event = {
 				limit = { has_country_flag = ziobro_start_war_lose }
 				PRK_revolt_major_KIE = yes
 			}
+			set_country_flag = PRK_ziobro_can_explode
 		}
 	}
 
@@ -452,6 +453,7 @@ country_event = {
 
 	fire_only_once = yes
 	trigger = {
+		has_country_flag = PRK_ziobro_can_explode
 		AND = {
 			OR = {
 			PRK = { 
@@ -482,6 +484,7 @@ country_event = {
 		name = ziobro.15.a
 			PRK_withdrawal = yes
 			set_country_flag = PRK_ziobro_spierdala_z_santa_cruz
+			clr_country_flag = PRK_ziobro_can_explode
 	}
 }
 
@@ -571,13 +574,20 @@ country_event = {
 	}
 	option = {
 		name = ziobro.19.b
-		news_event = { id = ziobro.20 }
+		news_event = { id = ziobro.20 days = 9}
+		set_country_flag = holy_cross_revolt_strong
+		hidden_effect = {
+			PRK = {
+				country_event = { 
+					id = ziobro.5
+					days = 7
+				}
+			}
 	}
 }
 
 news_event = {
 	id = ziobro.20 #ROZPIERDOL
-	hours = 12
 	title = ziobro.20.t
 	desc = ziobro.20.desc
 	picture = GFX_news_event_ziobro_win
@@ -589,5 +599,34 @@ news_event = {
 
 	option = {
 		name = ziobro.20.a
+	}
+}
+
+news_event = {
+	id = ziobro.21 #KONIEC REWOLTY KURWY, BAĆ SIĘ WASZEGO NOWEGO, ZEROWEGO BOGA
+	title = ziobro.21.t
+	desc = ziobro.21.desc
+	picture = GFX_news_event_ziobro_win
+	
+	trigger = {
+		has_country_flag = PRK_ziobro_can_explode
+		NOT = {
+			has_war_with = STO
+			has_war_with = KEL
+			has_war_with = NSZ
+			has_war_with = NRA
+			has_war_with = SND
+			has_war_with = STA
+		}
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires ziobro.21" }
+
+	option = {
+		name = ziobro.21.a
+		clr_country_flag = PRK_ziobro_can_explode
 	}
 }

@@ -18,7 +18,7 @@ ziobro_war = {
 
 		icon = mission_icon   
 		fire_only_once = yes
-		days_mission_timeout = 1
+		days_mission_timeout = 90
 		complete_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war win"
 			clr_country_flag = ziobro_start_war
@@ -30,8 +30,8 @@ ziobro_war = {
 		}
 		timeout_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war lose"
-			if = {
-				limit = { # czyli jeśli oba tagi nie kontrolują żadnego statu to się wojna przedłuża???
+			if = { # to jest wygrana
+				limit = { 
 					NOT = {
 						OR = { 
 							STA = { num_of_controlled_states < 1 }
@@ -70,9 +70,9 @@ ziobro_war = {
 				}
 				OSW = { drop_cosmetic_tag = yes }				
 			}
-			else = {		
+			else = { # to jest stalemate
 				clr_country_flag = ziobro_start_war
-				set_country_flag = ziobro_start_war_extend
+				set_country_flag = ziobro_start_war_lose
 				SND = {
 					add_to_variable = {
 						global.deadPolacksFromPastWars = this.casualties_k
@@ -112,14 +112,14 @@ ziobro_war = {
 				}
 			}
 		}
-		days_mission_timeout = 1
-		complete_effect = {
+		days_mission_timeout = 30
+		complete_effect = { # wygrana
 			every_country = {
 				limit = { NOT = { is_ai = yes } }
 				news_event = { id = ziobro.1 }
 			}
 		}
-		timeout_effect = {
+		timeout_effect = { # rozpierdol
 			PRK = {
 					country_event = { 
 						id = ziobro.19
