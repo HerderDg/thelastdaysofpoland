@@ -7,7 +7,6 @@ ziobro_war = {
 		}
 
 		available = {
-			#date < 2027.06.01
 			has_war = no
 			NOT = {
 				AND = {
@@ -19,7 +18,7 @@ ziobro_war = {
 
 		icon = mission_icon   
 		fire_only_once = yes
-		days_mission_timeout = 90
+		days_mission_timeout = 1
 		complete_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war win"
 			clr_country_flag = ziobro_start_war
@@ -33,17 +32,18 @@ ziobro_war = {
 			log = "[GetDateText]: Decision ziobro_holy_war lose"
 			if = {
 				limit = { # czyli jeśli oba tagi nie kontrolują żadnego statu to się wojna przedłuża???
-					OR = { 
-						STA = { num_of_controlled_states < 1 }
-						SND = { num_of_controlled_states < 1 }
-						}
 					NOT = {
+						OR = { 
+							STA = { num_of_controlled_states < 1 }
+							SND = { num_of_controlled_states < 1 }
+							}
+						}
 						AND = { 
 							STA = { num_of_controlled_states < 1 }
 							SND = { num_of_controlled_states < 1 }	
 							}
 						}
-					}
+					
 				clr_country_flag = ziobro_start_war
 				set_country_flag = ziobro_start_war_victory
 				every_country = {
@@ -99,12 +99,11 @@ ziobro_war = {
 		}
 	}
 
-	zero_test_misji = {
+	ziobro_holy_war_2 = {
 		allowed = {
 			always = no
 		}
 		available = {
-			#date < 2027.06.01
 			has_war = no
 			NOT = {
 				AND = {
@@ -113,12 +112,18 @@ ziobro_war = {
 				}
 			}
 		}
-		days_mission_timeout = 7
+		days_mission_timeout = 1
 		complete_effect = {
-			log = "mission passed"
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = ziobro.1 }
+			}
 		}
 		timeout_effect = {
-			log = "mission failed"
+			PRK = {
+					country_event = { 
+						id = ziobro.19
+					}
 		}
 	}
 }
