@@ -5052,7 +5052,7 @@ ai_war_decisions = {
 	}
 	
 
-	pom_war_final_tricity = {
+	pom_war_final_tricity_center = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -5064,53 +5064,17 @@ ai_war_decisions = {
 			OR = {
 				original_tag = KOR
 				original_tag = GDA
-				original_tag = OWS
 				original_tag = BOL
-			}
-			OR = {
-				KOR = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
-				GDA = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
-				OWS = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
-				BOL = {
-					OR = {
-						is_neighbor_of = LOT
-						is_neighbor_of = KSZ
-						is_neighbor_of = HEL
-						is_neighbor_of = CZL
-						is_neighbor_of = GAY
-					}
-				}
+				original_tag = TVI
+				original_tag = MPR
 			}
 			count_triggers = {
-				amount = 3
+				amount = 2
 				GDA = { exists = no }
 				KOR = { exists = no }
-				OWS = { exists = no }
 				BOL = { exists = no }
+				MPR = { exists = no }
+				TVI = { exists = no }
 			}
 			NOT = { has_war = yes }
 			date > 2028.01.01
@@ -5126,62 +5090,61 @@ ai_war_decisions = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 3
 		remove_effect  = {
-			log = "[GetDateText]: Decision pom_war_final_tricity"
+			log = "[GetDateText]: Decision pom_war_final_tricity_center"
 			if = { 
 				limit = { 
-					country_exists = LOT
-					ROOT = { NOT = { original_tag = LOT } } 
+					country_exists = GDA
+					ROOT = { NOT = { original_tag = GDA } }
 				}
 				declare_war_on = {
-					target = LOT
+					target = GDA
 					type = annex_everything
 				}
 			}
 			if = { 
 				limit = { 
-					country_exists = KSZ 
-					ROOT = { NOT = { original_tag = KSZ } } 
+					country_exists = KOR
+					ROOT = { NOT = { original_tag = KOR } }
 				}
 				declare_war_on = {
-					target = KSZ
+					target = KOR
 					type = annex_everything
+					}
 				}
-			}
 			if = { 
 				limit = { 
-					country_exists = HEL
-					ROOT = { NOT = { original_tag = HEL } } 
+					country_exists = MPR
+					ROOT = { NOT = { original_tag = MPR } }
 				}
 				declare_war_on = {
-					target = HEL
+					target = MPR
 					type = annex_everything
-				}
-			}
+					}
+				}		
 			if = { 
 				limit = { 
-					country_exists = CZL 
-					ROOT = { NOT = { original_tag = CZL } } 
+					country_exists = BOL
+					ROOT = { NOT = { original_tag = BOL } }
 				}
 				declare_war_on = {
-					target = CZL
+					target = BOL
 					type = annex_everything
-				}
-			}
+					}
+				}	
 			if = { 
 				limit = { 
-					country_exists = GAY 
-					ROOT = { NOT = { original_tag = GAY } } 
+					country_exists = TVI
+					ROOT = { NOT = { original_tag = TVI } }
 				}
 				declare_war_on = {
-					target = GAY
+					target = TVI
 					type = annex_everything
-				}
-			}				
-		}
+					}
+				}				
+		}	
 	}
-
 	pom_war_final_kaszubia = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -5325,20 +5288,6 @@ ai_war_decisions = {
 				MPR = { exists = yes }
 				TVI = { exists = yes }
 			}
-			OR = {
-				TVI = {
-					OR = {
-						is_neighbor_of = MPR
-						is_neighbor_of = KOR
-					}
-				}
-				MPR = {
-					OR = {
-						is_neighbor_of = TVI
-						is_neighbor_of = GDA
-					}
-				}
-			}
 			NOT = { has_war = yes }
 			date > 2028.01.01
 		}
@@ -5373,6 +5322,247 @@ ai_war_decisions = {
 				}
 				declare_war_on = {
 					target = TVI
+					type = annex_everything
+				}
+			}
+		}
+	}
+	
+	pom_war_kociwie_kaszuby = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = KSZ
+				original_tag = KSC
+				original_tag = LOT
+				original_tag = CZL
+			}
+			count_triggers = {
+				amount = 1
+				KSZ = { exists = no }
+				KSC = { exists = no }
+				LOT = { exists = no }
+			}			
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_tricity_south"
+			if = { 
+				limit = { 
+					country_exists = KSC
+					ROOT = { NOT = { original_tag = KSC } }
+				}
+				declare_war_on = {
+					target = KSC
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists = KSZ
+					ROOT = { NOT = { original_tag = KSZ }  }
+				}
+				declare_war_on = {
+					target = KSZ
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = { 
+					country_exists = LOT
+					ROOT = { NOT = { original_tag = LOT } }
+				}
+				declare_war_on = {
+					target = LOT
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = { 
+					country_exists = CZL
+					ROOT = { NOT = { original_tag = CZL } }
+				}
+				declare_war_on = {
+					target = CZL
+					type = annex_everything
+				}
+			}			
+		}
+	}
+
+pom_war_great_north = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = PGF
+				original_tag = SVG
+				original_tag = RLE
+				original_tag = GAY
+			}
+			OR = {
+				PGF = { exists = yes }
+				SVG = { exists = yes }
+				RLE = { exists = yes }
+				GAY = { exists = yes }
+			}
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_great_north"
+			if = { 
+				limit = { 
+					country_exists = PGF
+					ROOT = { NOT = { original_tag = PGF } } 
+				}
+				declare_war_on = {
+					target = PGF
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	SVG
+					ROOT = { NOT = { original_tag = SVG } } 
+				}
+				declare_war_on = {
+					target = SVG
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	RLE
+					ROOT = { NOT = { original_tag = RLE } } 
+				}
+				declare_war_on = {
+					target = RLE
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	GAY
+					ROOT = { NOT = { original_tag = GAY } } 
+				}
+				declare_war_on = {
+					target = GAY
+					type = annex_everything
+				}
+			}
+		}
+	}
+pom_war_kociewie_north = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_pomerelia = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = LOT
+				original_tag = LTT
+				original_tag = LTS
+			}
+			OR = {
+				LOT = { exists = yes }
+				LTT = { exists = yes }
+				LTS = { exists = yes }
+
+			}
+			OR = {
+				LOT = {
+					OR = {
+						is_neighbor_of = LTT
+						is_neighbor_of = LTS
+					}
+				}
+				LTT = {
+					OR = {
+						is_neighbor_of = LOT
+						is_neighbor_of = LTS
+					}
+				}
+				LTS = {
+					OR = {
+						is_neighbor_of = LOT
+						is_neighbor_of = LTT
+					}
+				}
+			}
+			NOT = { has_war = yes }
+			date > 2028.01.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision pom_war_kociewie_north"
+			if = { 
+				limit = { 
+					country_exists = LTT
+					ROOT = { NOT = { original_tag = LTT } } 
+				}
+				declare_war_on = {
+					target = LTT
+					type = annex_everything
+				}
+			}
+			if = { 
+				limit = { 
+					country_exists =	LTS
+					ROOT = { NOT = { original_tag = LTS } } 
+				}
+				declare_war_on = {
+					target = LTS
 					type = annex_everything
 				}
 			}
@@ -7374,7 +7564,7 @@ pom_war_tricity_sopot = {
 					target = KIE
 					type = annex_everything
 				}
-				}
+			}
 		}
 	}
 	
