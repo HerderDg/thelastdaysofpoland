@@ -1,3 +1,5 @@
+### firearms ###
+
 generic_firearms_mio = {
 	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
 	allowed = {
@@ -633,6 +635,347 @@ anti_armor_firearms_mio = {
 			ap_attack = 0.15
 			hard_attack = 0.05
 			build_cost_ic = 0.05
+		}
+	}
+}
+
+### melee - will be analogue to firearms ###
+
+### artillery ###
+
+generic_artillery_mio = {
+	icon = GFX_idea_generic_artillery_manufacturer_2
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		light_artillery_equipment
+		heavy_artillery_equipment
+		rocket_artillery_equipment
+		anti_air_equipment
+	}
+	research_categories = {
+		artillery
+	}
+	trait = {
+		token = basic_foundry_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_foundry
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { smiths_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = smiths_employment
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { mechanization_of_foundry }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_foundry
+		parent = {
+			traits = { mechanization_of_foundry }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_metalworkers
+		parent = {
+			traits = { smiths_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_artillery_calibres
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			air_attack = 0.025
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = lightened_limbers
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { splinter_shields }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = splinter_shields
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { lightened_limbers }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_firing_calculations
+		parent = {
+			traits = { lightened_limbers }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_shell_ballistics
+		parent = {
+			traits = { splinter_shields }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
+}
+
+light_artillery_mio = {
+	icon = GFX_idea_generic_artillery_manufacturer_2
+	include = generic_artillery_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+
+	trait = {
+		token = strenghened_mortar_barrels
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+
+	trait = {
+		token = fin_stablised_mortar_shells
+		parent = {
+			traits = { strenghened_mortar_barrels }
+		}
+		mutually_exclusive = {
+			bigger_mortar_charges
+		}
+		position = { 
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+
+	trait = {
+		token = bigger_mortar_charges
+		parent = {
+			traits = { strenghened_mortar_barrels }
+		}
+		mutually_exclusive = {
+			fin_stablised_mortar_shells
+		}
+		position = { 
+			x = 8
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			reliability = -0.1
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+}
+
+at_mio = {
+	icon = GFX_idea_generic_artillery_manufacturer_2
+	include = generic_artillery_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			hard_attack = 0.05
+			ap_attack = 0.05
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+
+	trait = {
+		token = tandem_heat_charges
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+			ap_attack = 0.025
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+
+	trait = {
+		token = retrofitting_saclos_guidance
+		parent = {
+			traits = { tandem_heat_charges }
+		}
+		mutually_exclusive = {
+			bigger_heat_charges
+		}
+		position = { 
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.025
+			hard_attack = -0.025
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+
+	trait = {
+		token = bigger_heat_charges
+		parent = {
+			traits = { tandem_heat_charges }
+		}
+		mutually_exclusive = {
+			retrofitting_saclos_guidance
+		}
+		position = { 
+			x = 8
+			y = 2
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+			ap_attack = -0.025
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
 		}
 	}
 }
