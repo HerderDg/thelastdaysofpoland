@@ -257,7 +257,7 @@ reliable_firearms_mio = {
 		}
 		equipment_bonus = {
 			build_cost_ic = -0.05
-			reliability_factor = -0.05
+			reliability_factor = -0.025
 		}
 	}
 
@@ -309,7 +309,7 @@ cheap_firearms_mio = {
 		}
 		equipment_bonus = {
 			build_cost_ic = -0.05
-			reliability_factor = 0.05
+			reliability_factor = -0.05
 		}
 	}
 
@@ -640,7 +640,397 @@ anti_armor_firearms_mio = {
 }
 
 ### melee - will be analogue to firearms ###
+generic_melee_mio = {
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
 
+	equipment_type = { melee_equipment }
+
+	trait = {
+		token = basic_forging_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_forgeworks
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { two_shift_forge_workdays }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = two_shift_forge_workdays
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { mechanization_of_forgeworks }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_forgeworks
+		parent = {
+			traits = { mechanization_of_forgeworks }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = pushing_forges_to_the_limit
+		parent = {
+			traits = { two_shift_forge_workdays }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_melee_arms
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = sharpening_the_blades
+		parent = {
+			traits = { standarisation_of_melee_arms }
+		}
+		mutually_exclusive = { basic_booby_trapping_training }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = basic_booby_trapping_training
+		parent = {
+			traits = { standarisation_of_melee_arms }
+		}
+		mutually_exclusive = { sharpening_the_blades }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = additional_serrations
+		parent = {
+			traits = { sharpening_the_blades }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = advanced_booby_trap_training
+		parent = {
+			traits = { basic_booby_trapping_training }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+}
+
+reliable_melee_mio = {
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	include = generic_melee_mio
+	equipment_type = { melee_equipment }
+
+	initial_trait = {
+		equipment_bonus = {
+			reliability_factor = 0.1
+		}
+	}
+	remove_trait = {
+		basic_forging_equipment
+		two_shift_forge_workdays
+		pushing_forges_to_the_limit
+		mechanization_of_forgeworks
+		robotization_of_forgeworks
+	}
+
+	trait = {
+		token = rudimentary_quality_standards
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = new_presses
+		parent = {
+			traits = { rudimentary_quality_standards }
+		}
+		mutually_exclusive = { better_metals }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = better_metals
+		parent = {
+			traits = { rudimentary_quality_standards }
+		}
+		mutually_exclusive = { new_presses }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = thinned_blades
+		parent = {
+			traits = { new_presses }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = even_better_metals
+		parent = {
+			traits = { better_metals }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.025
+		}
+	}
+
+}
+
+cheap_melee_mio = {
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	include = generic_melee_mio
+	equipment_type = { melee_equipment }
+
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = -0.1
+		}
+	}
+	remove_trait = {
+		basic_forging_equipment
+		two_shift_forge_workdays
+		pushing_forges_to_the_limit
+		mechanization_of_forgeworks
+		robotization_of_forgeworks
+	}
+
+	trait = {
+		token = abandoning_quality_standards
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = a
+		parent = {
+			traits = { abandoning_quality_standards }
+		}
+		mutually_exclusive = { b }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = b
+		parent = {
+			traits = { abandoning_quality_standards }
+		}
+		mutually_exclusive = { a }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = c
+		parent = {
+			traits = { a }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = d
+		parent = {
+			traits = { b }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.025
+		}
+	}
+}
+
+offensive_melee_mio = {
+	
+}
+
+defensive_melee_mio = {
+	
+}
+
+anti_armor_melee_mio = {
+
+}
 ### artillery ###
 
 generic_artillery_mio = {
