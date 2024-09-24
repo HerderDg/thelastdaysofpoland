@@ -800,7 +800,7 @@ generic_melee_mio = {
 	}
 
 	trait = {
-		token = advanced_booby_trap_training
+		token = advanced_booby_trapping_training
 		parent = {
 			traits = { basic_booby_trapping_training }
 		}
@@ -957,11 +957,11 @@ cheap_melee_mio = {
 	}
 
 	trait = {
-		token = a
+		token = recycling_old_weapons
 		parent = {
 			traits = { abandoning_quality_standards }
 		}
-		mutually_exclusive = { b }
+		mutually_exclusive = { abandoning_antirust_coatings }
 		position = { 
 			x = 0
 			y = 2
@@ -973,30 +973,16 @@ cheap_melee_mio = {
 	}
 
 	trait = {
-		token = b
+		token = abandoning_antirust_coatings
 		parent = {
 			traits = { abandoning_quality_standards }
 		}
-		mutually_exclusive = { a }
+		mutually_exclusive = { recycling_old_weapons }
 		position = { 
 			x = 2
 			y = 2
 		}
 
-		equipment_bonus = {
-			reliability_factor = 0.05
-		}
-	}
-
-	trait = {
-		token = c
-		parent = {
-			traits = { a }
-		}
-		position = { 
-			x = 0
-			y = 4
-		}
 		equipment_bonus = {
 			build_cost_ic = -0.05
 			reliability_factor = -0.05
@@ -1004,9 +990,23 @@ cheap_melee_mio = {
 	}
 
 	trait = {
-		token = d
+		token = screwed_on_blades
 		parent = {
-			traits = { b }
+			traits = { recycling_old_weapons }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = returning_to_iron_blades
+		parent = {
+			traits = { abandoning_antirust_coatings }
 		}
 		position = { 
 			x = 2
@@ -1014,22 +1014,274 @@ cheap_melee_mio = {
 		}
 
 		equipment_bonus = {
-			reliability_factor = 0.05
-			build_cost_ic = 0.025
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
 		}
 	}
 }
 
 offensive_melee_mio = {
-	
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_melee_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+	remove_trait = {
+		standarisation_of_melee_arms
+		sharpening_the_blades
+		basic_booby_trapping_training
+		advanced_booby_trapping_training
+		additional_serrations
+	}
+
+	trait = {
+		token = triangle_shaped_blades
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = karambit_knives
+		parent = {
+			traits = { triangle_shaped_blades }
+		}
+		mutually_exclusive = { battle_axes }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+		}
+	}
+
+	trait = {
+		token = battle_axes
+		parent = {
+			traits = { triangle_shaped_blades }
+		}
+		mutually_exclusive = { karambit_knives }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+			defense = -0.05
+		}
+	}
+
+	trait = {
+		token = poisoned_blades
+		parent = {
+			traits = { karambit_knives }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+		}
+	}
+
+	trait = {
+		token = portable_chainsaws
+		parent = {
+			traits = { battle_axes }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+			defense = -0.05
+		}
+	}
 }
 
 defensive_melee_mio = {
-	
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_melee_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+	remove_trait = {
+		standarisation_of_melee_arms
+		sharpening_the_blades
+		basic_booby_trapping_training
+		advanced_booby_trapping_training
+		additional_serrations
+	}
+
+	trait = {
+		token = new_chainmails
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = kevlar_helmets
+		parent = {
+			traits = { new_chainmails }
+		}
+		mutually_exclusive = { armor_steel_helmets }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = armor_steel_helmets
+		parent = {
+			traits = { new_chainmails }
+		}
+		mutually_exclusive = { kevlar_helmets }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			soft_attack = -0.05
+			breakthrough = -0.05
+		}
+	}
+
+	trait = {
+		token = kevlar_shields
+		parent = {
+			traits = { kevlar_helmets }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = armor_steel_shields
+		parent = {
+			traits = { armor_steel_helmets }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.05
+			soft_attack = -0.05
+			breakthrough = -0.05
+		}
+	}
 }
 
 anti_armor_melee_mio = {
+	include = generic_melee_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			ap_attack = 0.1
+		}
+	}
 
+	trait = {
+		token = lunge_mines
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			ap_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = lunge_javelins
+		parent = {
+			traits = { lunge_mines }
+		}
+		mutually_exclusive = { heavy_lunge_mines }
+		position = {
+			x = 6 
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.05
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = heavy_lunge_mines
+		parent = {
+			traits = { lunge_mines }
+		}
+		mutually_exclusive = { lunge_javelins }
+		position = {
+			x = 8 
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.15
+			hard_attack = 0.05
+			build_cost_ic = 0.05
+		}
+	}
 }
 ### artillery ###
 
