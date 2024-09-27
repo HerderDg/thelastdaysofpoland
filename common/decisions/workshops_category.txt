@@ -1,4 +1,43 @@
 workshops_category = {
+	debug_workshops = {
+		visible = {
+			NOT = {
+				OR = {
+					has_global_flag = EKS_collapsed
+					has_country_flag = poland_mountain
+					has_country_flag = unified_supregional
+					has_country_flag = unified_regional
+					has_country_flag = unified_voivodeship
+					and = {
+						original_tag = ATM
+						has_war_with = BBW
+					}
+				}
+			}
+			is_debug = yes
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = "Can setup more workshops (in 25% of states)"
+				NOT = {
+					has_country_flag = workshop_limit
+				}
+			}
+		}
+		state_target = any_owned_state
+		on_map_mode = map_only
+		complete_effect = {
+			every_state = {
+				limit = {
+					is_in_array = {
+						array = ROOT.owned_states
+						value = THIS
+					}
+				}
+				log = "[THIS.GetName]"
+			}
+		}
+	}
 	setup_workshops = {
 		visible = {
 			NOT = {
@@ -23,8 +62,12 @@ workshops_category = {
 				}
 			}
 		}
-		state_target = yes
-		target_array = ROOT.owned_states
+		state_target = any_owned_state
+		# target_trigger = { # jakby nie znikały po dniu to odkomentować
+		# 	FROM = {
+		# 		is_owned_by = ROOT
+		# 	}
+		# }
 		on_map_mode = map_only
 		cost = 10
 		days_remove = 365
