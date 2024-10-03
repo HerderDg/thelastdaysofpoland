@@ -1534,7 +1534,7 @@ light_artillery_mio = {
 		}
 		equipment_bonus = {
 			soft_attack = 0.05
-			reliability = -0.1
+			reliability_factor = -0.1
 		}
 		limit_to_equipment_type = {
 			light_artillery_equipment
@@ -1625,15 +1625,479 @@ at_mio = {
 ### motorized ###
 
 generic_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		motorized_equipment
+	}
+	trait = {
+		token = steel_frames
+		mutually_exclusive = {
+			wooden_frames
+		}
+		position = {
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.05
+		}
+	}
 
+	trait = {
+		token = wooden_frames
+		mutually_exclusive = {
+			steel_frames
+		}
+		position = {
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = -0.05
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = thicker_panels
+		parent = {
+			traits = { 
+				steel_frames
+			}
+		}
+		position = {
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_resource_need_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = recycled_panels
+		parent = {
+			traits = { 
+				wooden_frames
+			}
+		}
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_resource_need_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = turbodiesel_engines
+		parent = {
+			traits = { 
+				thicker_panels
+			}
+		}
+		position = {
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = liquid_petrol_gas_engines
+		parent = {
+			traits = { 
+				recycled_panels
+			}
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.05
+			fuel_consumption_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = def1
+		mutually_exclusive = {
+			atk1
+		}
+		position = {
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = atk1
+		mutually_exclusive = {
+			def1
+		}
+		position = {
+			x = 6
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = def2
+		parent = {
+			traits = { 
+				def1
+			}
+		}
+		position = {
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk2
+		parent = {
+			traits = { 
+				atk1
+			}
+		}
+		position = {
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = def3
+		parent = {
+			traits = { 
+				def2
+			}
+		}
+		position = {
+			x = 4
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk3
+		parent = {
+			traits = { 
+				atk2
+			}
+		}
+		position = {
+			x = 6
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
 }
 
-reliable_motorized_mio = {
 
+
+reliable_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	include = generic_motorized_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+	}
+	remove_trait = {
+		steel_frames
+		wooden_frames
+		thicker_panels
+		recycled_panels
+		turbodiesel_engines
+		liquid_petrol_gas_engines
+	}
+
+	trait = {
+		token = refreshing_truck_blueprints
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = oversized_engines
+		mutually_exclusive = {
+			simplified_suspension
+		}
+		parent = {
+			traits = { 
+				refreshing_truck_blueprints
+			}
+		}
+		position = {
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+
+	trait = {
+		token = innovative_welding
+		parent = {
+			traits = { 
+				oversized_engines
+			}
+		}
+		position = {
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+
+	trait = {
+		token = simplified_suspension
+		mutually_exclusive = {
+			oversized_engines
+		}
+		parent = {
+			traits = { 
+				refreshing_truck_blueprints
+			}
+		}
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = using_hyperglue
+		parent = {
+			traits = { 
+				simplified_suspension
+			}
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
 }
 
 cheap_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	include = generic_motorized_mio
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = -0.05
+		}
+	}
+	remove_trait = {
+		steel_frames
+		wooden_frames
+		thicker_panels
+		recycled_panels
+		turbodiesel_engines
+		liquid_petrol_gas_engines
+	}
 
+	trait = {
+		token = rationalizing_truck_blueprints
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			fuel_consumption_factor = -0.1
+			reliability_factor = -0.05
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = retrofitting_carburators
+		mutually_exclusive = {
+			fuel_additives
+		}
+		parent = {
+			traits = { 
+				rationalizing_truck_blueprints
+			}
+		}
+		position = {
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = wooden_part_replacements
+		parent = {
+			traits = { 
+				retrofitting_carburators
+			}
+		}
+		position = {
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = fuel_additives
+		mutually_exclusive = {
+			retrofitting_carburators
+		}
+		parent = {
+			traits = { 
+				rationalizing_truck_blueprints
+			}
+		}
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			fuel_consumption_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = hybrid_engines
+		parent = {
+			traits = { 
+				fuel_additives
+			}
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			fuel_consumption_factor = -0.025
+		}
+	}
+}
+
+purpose_built_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	allowed = {
+		tag = GER
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		motorized_equipment
+		armored_car_equipment
+	}
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = 0.05
+			defense = 0.05
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = general_models_assesment
+		position = { 
+			x = 0
+			y = 0
+		}
+		production_bonus = {
+			production_capacity_factor = 0.1
+			production_efficiency_gain_factor = 0.1
+		}
+	}
 }
 
 ### light armor ###
