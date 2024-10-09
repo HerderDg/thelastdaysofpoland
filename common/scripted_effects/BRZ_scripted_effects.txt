@@ -380,6 +380,15 @@ BRZ_calculate_stats = {
 		zwkp_atk = zwkp_atk_bonus
 	}
 	set_temp_variable = {
+		zwkp_mid_bonus = 1
+	}
+	add_to_temp_variable = {
+		zwkp_mid_bonus = modifier@football_team_midfield_factor
+	}
+	multiply_variable = {
+		zwkp_mid = zwkp_mid_bonus
+	}
+	set_temp_variable = {
 		zwkp_def_bonus = 1
 	}
 	add_to_temp_variable = {
@@ -1063,6 +1072,555 @@ clear_team_ui_flags = {
 		clr_character_flag = ready_to_field
 	}
 	clear_array = available_reserve
+}
+
+national_team_test = {
+	set_variable = {
+		enemy_team = JWK
+	}
+	set_variable = {
+		home_advantage = 1
+	}
+
+	set_temp_variable = {
+		enemy_mid_inf_modifier = 1
+	}
+	add_to_temp_variable = {
+		enemy_mid_inf_modifier = modifier@football_enemy_team_midfield_factor
+	}
+
+	set_temp_variable = {
+		enemy_def_modifier = 1
+	}
+	add_to_temp_variable = {
+		enemy_def_modifier = modifier@football_enemy_team_defence_factor
+	}
+
+	set_variable = {
+		BRZ_goals = 0
+	}
+	set_variable = {
+		enemy_goals = 0
+	}
+	set_temp_variable = {
+		BRZ_effectivness_base = zwkp_atk
+	}
+	set_temp_variable = {
+		BRZ_mid_inf = zwkp_mid
+	}
+	var:enemy_team = {
+		set_temp_variable = {
+			ROOT.enemy_def = THIS.fb_def
+		}
+		divide_temp_variable = {
+			ROOT.BRZ_mid_inf = THIS.fb_mid
+		}
+		set_temp_variable = {
+			ROOT.enemy_effectivness_base = THIS.fb_atk
+		}
+		set_temp_variable = {
+			ROOT.enemy_mid_inf = THIS.fb_mid
+		}
+	}
+	multiply_temp_variable = {
+		enemy_def = enemy_def_modifier
+	}
+	divide_temp_variable = {
+		BRZ_effectivness_base = enemy_def
+	}
+	
+	multiply_temp_variable = {
+		BRZ_effectivness_base = BRZ_mid_inf
+	}
+	if = {
+		limit = {
+			check_variable = {
+				home_advantage = 1
+			}
+		}
+		multiply_temp_variable = {
+			BRZ_effectivness_base = 1.05
+		}
+	}
+	else = {
+		multiply_temp_variable = {
+			enemy_effectivness_base = 1.05
+		}
+	}
+	set_temp_variable_to_random = {
+		var = BRZ_rand
+		min = 0.95
+		max = 1.05
+	}
+	multiply_temp_variable = {
+		BRZ_effectivness_base = BRZ_rand
+	}
+
+	divide_temp_variable = {
+		enemy_effectivness_base = zwkp_def
+	}
+	divide_temp_variable = {
+		enemy_mid_inf = zwkp_mid
+	}
+	multiply_temp_variable = {
+		enemy_mid_inf = enemy_mid_inf_modifier
+	}
+	multiply_temp_variable = {
+		enemy_effectivness_base = enemy_mid_inf
+	}
+	set_temp_variable_to_random = {
+		var = enemy_rand
+		min = 0.95
+		max = 1.05
+	}
+	multiply_temp_variable = {
+		enemy_effectivness_base = enemy_rand
+	}
+	log = "[?BRZ_effectivness_base]"
+	log = "[?enemy_effectivness_base]"
+	################ a teraz właściwy mecz ###############
+
+	set_temp_variable = {
+		roll = 1
+	}
+	set_temp_variable = {
+		BRZ_stamina_coeff = 1
+	}
+	set_temp_variable = {
+		enemy_stamina_coeff = 1
+	}
+	while_loop_effect = {
+		limit = {
+			check_variable = {
+				var = roll
+				value = 6
+			}
+		}
+		set_temp_variable = {
+			BRZ_effectivness = BRZ_effectivness_base
+		}
+		multiply_temp_variable = {
+			BRZ_effectivness = BRZ_stamina_coeff
+		}
+		if = {
+			limit = {
+				check_variable = {
+					BRZ_effectivness > 1.5
+				}
+			}
+			random_list = {
+				70 = {
+					add_to_variable = {
+						BRZ_goals = 1
+					}
+				}
+				30 = {
+
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					BRZ_effectivness > 1
+				}
+			}
+			random_list = {
+				50 = {
+					add_to_variable = {
+						BRZ_goals = 1
+					}
+				}
+				50 = {
+
+				}
+			}
+		}
+		else = {
+			random_list = {
+				30 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				70 = {
+
+				}
+			}
+		}
+		set_temp_variable = {
+			enemy_effectivness = enemy_effectivness_base
+		}
+		multiply_temp_variable = {
+			enemy_effectivness = enemy_stamina_coeff
+		}
+		if = {
+			limit = {
+				check_variable = {
+					enemy_effectivness > 1.5
+				}
+			}
+			random_list = {
+				70 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				30 = {
+
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					enemy_effectivness > 1
+				}
+			}
+			random_list = {
+				50 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				50 = {
+
+				}
+			}
+		}
+		else = {
+			random_list = {
+				30 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				70 = {
+
+				}
+			}
+		}
+		if ={
+			limit = {
+				check_variable = {
+					roll = 3
+				}
+			}
+			add_to_temp_variable = {
+				BRZ_stamina_coeff = 0.15
+			}
+			add_to_temp_variable = {
+				enemy_stamina_coeff = 0.15
+			}
+		}
+		else = {
+			set_temp_variable = {
+				BRZ_stamina_loss = 0.1
+			}
+			set_temp_variable = {
+				BRZ_stamina_loss_mult = 1
+			}
+			add_to_temp_variable = {
+				BRZ_stamina_loss_mult = modifier@football_team_effectiveness_loss_factor
+			}
+			multiply_temp_variable = {
+				BRZ_stamina_loss = BRZ_stamina_loss_mult
+			}
+			subtract_from_temp_variable = {
+				BRZ_stamina_coeff = BRZ_stamina_loss
+			}
+			set_temp_variable = {
+				enemy_stamina_loss = 0.1
+			}
+			set_temp_variable = {
+				enemy_stamina_loss_mult = 1
+			}
+			add_to_temp_variable = {
+				enemy_stamina_loss_mult = modifier@football_enemy_team_effectiveness_loss_factor
+			}
+			multiply_temp_variable = {
+				enemy_stamina_loss = enemy_stamina_loss_mult
+			}
+			subtract_from_temp_variable = {
+				enemy_stamina_coeff = enemy_stamina_loss
+			}
+		}
+		add_to_temp_variable = {
+			roll = 1
+		}
+	}
+
+	log = "[?BRZ_goals]:[?enemy_goals]"
+}
+
+national_team_match = {
+	set_temp_variable = {
+		enemy_mid_inf_modifier = 1
+	}
+	add_to_temp_variable = {
+		enemy_mid_inf_modifier = modifier@football_enemy_team_midfield_factor
+	}
+
+	set_temp_variable = {
+		enemy_def_modifier = 1
+	}
+	add_to_temp_variable = {
+		enemy_def_modifier = modifier@football_enemy_team_defence_factor
+	}
+
+	set_variable = {
+		BRZ_goals = 0
+	}
+	set_variable = {
+		enemy_goals = 0
+	}
+	set_temp_variable = {
+		BRZ_effectivness_base = zwkp_atk
+	}
+	set_temp_variable = {
+		BRZ_mid_inf = zwkp_mid
+	}
+	var:enemy_team = {
+		set_temp_variable = {
+			ROOT.enemy_def = THIS.fb_def
+		}
+		divide_temp_variable = {
+			ROOT.BRZ_mid_inf = THIS.fb_mid
+		}
+		set_temp_variable = {
+			ROOT.enemy_effectivness_base = THIS.fb_atk
+		}
+		set_temp_variable = {
+			ROOT.enemy_mid_inf = THIS.fb_mid
+		}
+	}
+	multiply_temp_variable = {
+		enemy_def = enemy_def_modifier
+	}
+	divide_temp_variable = {
+		BRZ_effectivness_base = enemy_def
+	}
+	
+	multiply_temp_variable = {
+		BRZ_effectivness_base = BRZ_mid_inf
+	}
+	if = {
+		limit = {
+			check_variable = {
+				home_advantage = 1
+			}
+		}
+		multiply_temp_variable = {
+			BRZ_effectivness_base = 1.05
+		}
+	}
+	else = {
+		multiply_temp_variable = {
+			enemy_effectivness_base = 1.05
+		}
+	}
+	set_temp_variable_to_random = {
+		var = BRZ_rand
+		min = 0.95
+		max = 1.05
+	}
+	multiply_temp_variable = {
+		BRZ_effectivness_base = BRZ_rand
+	}
+
+	divide_temp_variable = {
+		enemy_effectivness_base = zwkp_def
+	}
+	divide_temp_variable = {
+		enemy_mid_inf = zwkp_mid
+	}
+	multiply_temp_variable = {
+		enemy_mid_inf = enemy_mid_inf_modifier
+	}
+	multiply_temp_variable = {
+		enemy_effectivness_base = enemy_mid_inf
+	}
+	set_temp_variable_to_random = {
+		var = enemy_rand
+		min = 0.95
+		max = 1.05
+	}
+	multiply_temp_variable = {
+		enemy_effectivness_base = enemy_rand
+	}
+	log = "[?BRZ_effectivness_base]"
+	log = "[?enemy_effectivness_base]"
+	################ a teraz właściwy mecz ###############
+
+	set_temp_variable = {
+		roll = 1
+	}
+	set_temp_variable = {
+		BRZ_stamina_coeff = 1
+	}
+	set_temp_variable = {
+		enemy_stamina_coeff = 1
+	}
+	while_loop_effect = {
+		limit = {
+			check_variable = {
+				var = roll
+				value = 6
+			}
+		}
+		set_temp_variable = {
+			BRZ_effectivness = BRZ_effectivness_base
+		}
+		multiply_temp_variable = {
+			BRZ_effectivness = BRZ_stamina_coeff
+		}
+		if = {
+			limit = {
+				check_variable = {
+					BRZ_effectivness > 1.5
+				}
+			}
+			random_list = {
+				70 = {
+					add_to_variable = {
+						BRZ_goals = 1
+					}
+				}
+				30 = {
+
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					BRZ_effectivness > 1
+				}
+			}
+			random_list = {
+				50 = {
+					add_to_variable = {
+						BRZ_goals = 1
+					}
+				}
+				50 = {
+
+				}
+			}
+		}
+		else = {
+			random_list = {
+				30 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				70 = {
+
+				}
+			}
+		}
+		set_temp_variable = {
+			enemy_effectivness = enemy_effectivness_base
+		}
+		multiply_temp_variable = {
+			enemy_effectivness = enemy_stamina_coeff
+		}
+		if = {
+			limit = {
+				check_variable = {
+					enemy_effectivness > 1.5
+				}
+			}
+			random_list = {
+				70 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				30 = {
+
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					enemy_effectivness > 1
+				}
+			}
+			random_list = {
+				50 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				50 = {
+
+				}
+			}
+		}
+		else = {
+			random_list = {
+				30 = {
+					add_to_variable = {
+						enemy_goals = 1
+					}
+				}
+				70 = {
+
+				}
+			}
+		}
+		if ={
+			limit = {
+				check_variable = {
+					roll = 3
+				}
+			}
+			add_to_temp_variable = {
+				BRZ_stamina_coeff = 0.15
+			}
+			add_to_temp_variable = {
+				enemy_stamina_coeff = 0.15
+			}
+		}
+		else = {
+			set_temp_variable = {
+				BRZ_stamina_loss = 0.1
+			}
+			set_temp_variable = {
+				BRZ_stamina_loss_mult = 1
+			}
+			add_to_temp_variable = {
+				BRZ_stamina_loss_mult = modifier@football_team_effectiveness_loss_factor
+			}
+			multiply_temp_variable = {
+				BRZ_stamina_loss = BRZ_stamina_loss_mult
+			}
+			subtract_from_temp_variable = {
+				BRZ_stamina_coeff = BRZ_stamina_loss
+			}
+			set_temp_variable = {
+				enemy_stamina_loss = 0.1
+			}
+			set_temp_variable = {
+				enemy_stamina_loss_mult = 1
+			}
+			add_to_temp_variable = {
+				enemy_stamina_loss_mult = modifier@football_enemy_team_effectiveness_loss_factor
+			}
+			multiply_temp_variable = {
+				enemy_stamina_loss = enemy_stamina_loss_mult
+			}
+			subtract_from_temp_variable = {
+				enemy_stamina_coeff = enemy_stamina_loss
+			}
+		}
+		add_to_temp_variable = {
+			roll = 1
+		}
+	}
 }
 
 ##liga
