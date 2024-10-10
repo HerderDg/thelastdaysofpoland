@@ -187,7 +187,7 @@ reliable_firearms_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -281,7 +281,7 @@ cheap_firearms_mio = {
 	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
 	include = generic_firearms_mio
 	allowed = {
-		always = yes
+		always = no
 	}
 	visible = {
 		always = yes
@@ -381,7 +381,7 @@ offensive_firearms_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -484,7 +484,7 @@ defensive_firearms_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -583,7 +583,7 @@ anti_armor_firearms_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -820,7 +820,7 @@ reliable_melee_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -923,7 +923,7 @@ cheap_melee_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -1027,7 +1027,7 @@ offensive_melee_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -1130,7 +1130,7 @@ defensive_melee_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -1228,7 +1228,7 @@ anti_armor_melee_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -1472,7 +1472,7 @@ light_artillery_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -1549,7 +1549,7 @@ at_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -1630,7 +1630,11 @@ generic_motorized_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		FROM = {
+			not = {
+				tag = BBW
+			}
+		}
 	}
 	available = {
 		always = yes
@@ -1838,28 +1842,16 @@ generic_motorized_mio = {
 
 reliable_motorized_mio = {
 	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
-	include = generic_motorized_mio
 	allowed = {
-		always = yes
+		always = no
 	}
-	visible = {
-		always = yes
-	}
-	available = {
-		always = yes
+	equipment_type = {
+		motorized_equipment
 	}
 	initial_trait = {
 		equipment_bonus = {
 			reliability_factor = 0.05
 		}
-	}
-	remove_trait = {
-		steel_frames
-		wooden_frames
-		thicker_panels
-		recycled_panels
-		turbodiesel_engines
-		liquid_petrol_gas_engines
 	}
 
 	trait = {
@@ -1947,6 +1939,99 @@ reliable_motorized_mio = {
 			build_cost_ic = -0.025
 		}
 	}
+
+	trait = {
+		token = def1
+		mutually_exclusive = {
+			atk1
+		}
+		position = {
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = atk1
+		mutually_exclusive = {
+			def1
+		}
+		position = {
+			x = 6
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = def2
+		parent = {
+			traits = { 
+				def1
+			}
+		}
+		position = {
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk2
+		parent = {
+			traits = { 
+				atk1
+			}
+		}
+		position = {
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = def3
+		parent = {
+			traits = { 
+				def2
+			}
+		}
+		position = {
+			x = 4
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk3
+		parent = {
+			traits = { 
+				atk2
+			}
+		}
+		position = {
+			x = 6
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
 }
 
 cheap_motorized_mio = {
@@ -1956,7 +2041,7 @@ cheap_motorized_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -2069,7 +2154,7 @@ purpose_built_motorized_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -2250,7 +2335,7 @@ heavy_transporter_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -2481,7 +2566,7 @@ offensive_transporter_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -2595,7 +2680,7 @@ heavy_tank_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
@@ -2824,7 +2909,7 @@ offensive_tank_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		always = no
 	}
 	available = {
 		always = yes
