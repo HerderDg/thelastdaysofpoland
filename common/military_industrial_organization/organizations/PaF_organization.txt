@@ -6,7 +6,11 @@ generic_firearms_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		FROM = {
+			NOT = {
+				tag = CAL
+			}
+		}
 	}
 	available = {
 		always = yes
@@ -731,7 +735,11 @@ generic_melee_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		FROM = {
+			NOT = {
+				tag = CAL
+			}
+		}
 	}
 	available = {
 		always = yes
@@ -1800,6 +1808,7 @@ generic_motorized_mio = {
 		FROM = {
 			not = {
 				tag = BBW
+				tag = KRS
 			}
 		}
 	}
@@ -2203,7 +2212,6 @@ reliable_motorized_mio = {
 
 cheap_motorized_mio = {
 	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
-	include = generic_motorized_mio
 	allowed = {
 		always = yes
 	}
@@ -2218,15 +2226,10 @@ cheap_motorized_mio = {
 			build_cost_ic = -0.05
 		}
 	}
-	remove_trait = {
-		steel_frames
-		wooden_frames
-		thicker_panels
-		recycled_panels
-		turbodiesel_engines
-		liquid_petrol_gas_engines
-	}
 
+	equipment_type = {
+		motorized_equipment
+	}
 	trait = {
 		token = rationalizing_truck_blueprints
 		position = {
@@ -2311,6 +2314,99 @@ cheap_motorized_mio = {
 		equipment_bonus = {
 			reliability_factor = -0.025
 			fuel_consumption_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = def1
+		mutually_exclusive = {
+			atk1
+		}
+		position = {
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = atk1
+		mutually_exclusive = {
+			def1
+		}
+		position = {
+			x = 6
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = def2
+		parent = {
+			traits = { 
+				def1
+			}
+		}
+		position = {
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk2
+		parent = {
+			traits = { 
+				atk1
+			}
+		}
+		position = {
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = def3
+		parent = {
+			traits = { 
+				def2
+			}
+		}
+		position = {
+			x = 4
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk3
+		parent = {
+			traits = { 
+				atk2
+			}
+		}
+		position = {
+			x = 6
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
 		}
 	}
 }
@@ -2969,7 +3065,11 @@ fast_tank_mio = {
 		always = yes
 	}
 	visible = {
-		always = yes
+		FROM = {
+			NOT = {
+				tag = KRS
+			}
+		}
 	}
 	available = {
 		always = yes
