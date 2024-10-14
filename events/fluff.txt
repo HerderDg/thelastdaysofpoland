@@ -2,6 +2,184 @@ add_namespace = fluff_usa
 add_namespace = fluff_usa_news
 add_namespace = fluff_ukraine
 add_namespace = fluff_germany
+add_namespace = fluff_france
+add_namespace = fluff_france_news
+
+country_event = {
+	id = fluff_france.1 # Wybory Francja Prezydent '27
+	title = fluff_france.1.t
+	desc = fluff_france.1.desc
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_france.1"
+	}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		ai_chance = { base = 50 } #LePen
+		name = fluff_france.1.a
+		set_country_flag = FRA_27_LEPEN
+		every_country = {
+			limit = { is_ai = no }
+			news_event = {
+				id = fluff_france_news.1
+			}
+		}
+		country_event = {
+			id = fluff_france.2
+			days = 18
+		}
+	}
+	option = {
+		ai_chance = { base = 30 } #Melenchon
+		name = fluff_france.1.b
+		set_country_flag = FRA_27_MELENCHON
+		every_country = {
+			limit = { is_ai = no }
+			news_event = {
+				id = fluff_france_news.2
+			}
+		}
+		country_event = {
+			id = fluff_france.2
+			days = 18
+		}
+	}
+	option = {
+		ai_chance = { base = 20 } #Zemmour
+		name = fluff_france.1.c
+		set_country_flag = FRA_27_ZEMMOUR
+		every_country = {
+			limit = { is_ai = no }
+			news_event = {
+				id = fluff_france_news.3
+			}
+		}
+		country_event = {
+			id = fluff_france.2
+			days = 18
+		}
+	}
+}
+
+news_event = { #'27 - Le Pen Wygrywa
+	id = fluff_france_news.1
+	fire_only_once = yes
+	is_triggered_only = yes
+	title = fluff_france_news.1.t
+	desc = fluff_france_news.1.desc
+	picture = GFX_fluff_france_news_1
+	option = {
+		name = fluff_france_news.1.a
+	}
+}
+
+news_event = { #'27 - Melenchon Wygrywa
+	id = fluff_france_news.2
+	fire_only_once = yes
+	is_triggered_only = yes
+	title = fluff_france_news.2.t
+	desc = fluff_france_news.2.desc
+	picture = GFX_fluff_france_news_2
+	option = {
+		name = fluff_france_news.2.a
+	}
+}
+
+news_event = { #'27 - Zemmour Wygrywa
+	id = fluff_france_news.3
+	fire_only_once = yes
+	is_triggered_only = yes
+	title = fluff_france_news.3.t
+	desc = fluff_france_news.3.desc
+	picture = GFX_fluff_france_news_3
+	option = {
+		name = fluff_france_news.3.a
+	}
+}
+
+country_event = {
+	id = fluff_france.2 # Inauguracja Francja 27
+	title = fluff_france.2.t
+	desc = fluff_france.2.desc
+	immediate = {
+		FRA = {
+			if = {
+				limit = {
+					has_country_flag = FRA_27_LEPEN
+				}
+				set_politics = {
+					ruling_party = neonationalism
+				}
+				set_political_party = {
+					ideology = neonationalism
+					popularity = 49
+				}
+				
+			}
+			if = {
+				limit = {
+					has_country_flag = FRA_27_MELENCHON
+				}
+				set_politics = {
+					ruling_party = socialdemocrature
+				}
+				set_political_party = {
+					ideology = socialdemocrature
+					popularity = 49
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = FRA_27_ZEMMOUR
+				}
+				set_politics = {
+					ruling_party = reactionary
+				}
+				set_political_party = {
+					ideology = reactionary
+					popularity = 49
+				}
+			}
+		}
+		log = "[GetDateText]: [ROOT.GetName] fires fluff_france.2"
+	}
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = fluff_france.2.a
+		every_country = {
+			limit = { is_ai = no }
+			news_event = {
+				id = fluff_france_news.4
+				days = 7
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+}
+
+news_event = { #FRA - Nowy Prezydent Potępia Niemców
+	id = fluff_france_news.4
+	fire_only_once = yes
+	title = fluff_france_news.4.t
+	desc = fluff_france_news.4.desc
+	picture = GFX_fluff_france_news_4
+	option = {
+		name = fluff_france_news.4.a
+		FRA = {
+		diplomatic_relation = {
+			country = GER
+			relation = non_aggression_pact
+			active = no
+		}
+		}
+	}
+
+}
+
+
 
 country_event = {
 	id = fluff_usa.1 # prawybory '28 u demokratów
