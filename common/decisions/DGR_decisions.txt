@@ -7,9 +7,13 @@ DGR_lore_category = {
 		allowed = { 
 			original_tag = DGR
 			}
-		
 		available = {
-			PRK = { has_country_flag = ziobro_start_war_lose }		
+			PRK = { has_country_flag = ziobro_start_war_lose }	
+			has_country_flag = DGR_AW_victory
+			PRK = { owns_state = 825 }
+			DGR = {
+				NOT = { owns_state = 825 }
+			}
 		}
 
 		cost = 10
@@ -360,6 +364,7 @@ DGR_district_wars_category = {
 		complete_effect = {
 			set_country_flag = DGR_operation_bien
 			log = "[GetDateText]: Decision DGR_operation_bien"
+			add_ideas = DGR_pharaohs
 		}
 	}
 
@@ -725,6 +730,13 @@ DGR_district_wars_category = {
 					owns_state = 736
 					}
 				}
+		480 = {
+			create_unit = {
+				division = "name = \"1 Regiment Sławkowski\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7755
+			}
+		}
 			start_border_war = {
 				change_state_after_war = yes
 				attacker = {
@@ -737,13 +749,6 @@ DGR_district_wars_category = {
 					num_provinces = 1
 				}
 			}
-		480 = {
-			create_unit = {
-				division = "name = \"1 Regiment Sławkowski\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
-				owner = DGA
-				prioritize_location = 7755
-			}
-		}
 		}
 		else_if = {
 			limit = {
@@ -751,6 +756,13 @@ DGR_district_wars_category = {
 					owns_state = 775
 					}
 				}
+		480 = {
+			create_unit = {
+				division = "name = \"1 Regiment Sławkowski\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+				owner = DGA
+				prioritize_location = 7755
+			}
+		}
 			start_border_war = {
 				change_state_after_war = yes
 				attacker = {
@@ -763,13 +775,7 @@ DGR_district_wars_category = {
 					num_provinces = 1
 				}
 			}
-		480 = {
-			create_unit = {
-				division = "name = \"1 Regiment Sławkowski\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
-				owner = DGA
-				prioritize_location = 7755
-			}
-		}
+
 		}			
 		}
 	}
@@ -874,12 +880,19 @@ DGR_district_wars_category = {
 					var = DGR_op_piwowar
 					value = 15
 					}
+				country_event = {
+					id =  dgr_district.2
+				}
 			log = "[GetDateText]: Decision DGR_OP_envoy_to_metallurgists"
 		}
 	}
 	
 	DGR_OP_deal_with_devil = {
-		visible = { has_country_flag = DGR_operation_piwowar }
+		visible = { has_country_flag = DGR_operation_piwowar
+				check_variable = {
+				DGR_op_piwowar > 14
+			}
+		}
 		available = {
 			check_variable = {
 				DGR_op_piwowar > 14
@@ -905,11 +918,20 @@ DGR_district_wars_category = {
 				var = DGR_op_piwowar
 				value = 15
 			}
+			add_stability = -10
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.05
+			}
 		}
 	}
 	
 	DGR_OP_approve_joint_strike = {
-		visible = { has_country_flag = DGR_operation_piwowar }
+		visible = { has_country_flag = DGR_operation_piwowar
+			check_variable = {
+				DGR_op_piwowar > 29
+			}
+		}
 		available = {
 			check_variable = {
 				DGR_op_piwowar > 29
@@ -935,11 +957,17 @@ DGR_district_wars_category = {
 				var = DGR_op_piwowar
 				value = 15
 			}
+			add_command_power = 20
+			army_experience = 10
 		}
 	}
 	
 	DGR_OP_secure_industrial_zone = {
 		visible = { has_country_flag = DGR_operation_piwowar 
+			check_variable = {
+				DGR_op_piwowar > 29
+			}		
+
 					}
 		available = {
 			check_variable = {
@@ -966,11 +994,18 @@ DGR_district_wars_category = {
 				var = DGR_op_piwowar
 				value = 15
 			}
+			add_victory_points = {
+				province = 7750
+				value = 3
+			}
 		}
 	}
 	
 	DGR_OP_siege_big_squat = {
 		visible = { has_country_flag = DGR_operation_piwowar 
+					check_variable = {
+				DGR_op_piwowar > 29
+			}
 					}
 		available = {
 			check_variable = {
@@ -1023,6 +1058,9 @@ DGR_district_wars_category = {
 	
 	DGR_OP_forced_indoctrination = {
 		visible = { has_country_flag = DGR_operation_piwowar 
+					check_variable = {
+				DGR_op_piwowar > 29
+			}
 					}
 		available = {
 			check_variable = {
@@ -1071,6 +1109,9 @@ DGR_district_wars_category = {
 	
 	DGR_OP_incorporation_of_nationalists = {
 		visible = { has_country_flag = DGR_operation_piwowar 
+					check_variable = {
+				DGR_op_piwowar > 29
+			}
 					}
 		available = {
 			check_variable = {
@@ -1112,25 +1153,6 @@ DGR_district_wars_category = {
 				prioritize_location = 3198
 			}
 		}
-			add_advisor_role = {
-				character = DGR_bargieła
-				advisor = {
-					slot = minister_of_war
-					cost = 100
-					idea_token = DGR_min_bargieła
-					traits = {
-					}
-				}
-			}
-			add_corps_commander_role = {
-				character = DGR_bargieła
-				skill = 2
-				traits = { commando ambusher }
-				attack_skill = 3
-				defense_skill = 3
-				planning_skill = 4
-				logistics_skill = 2
-			}
 		}
 	}
 	
@@ -1191,6 +1213,7 @@ DGR_district_wars_category = {
 					value = 30
 					}
 			log = "[GetDateText]: Decision DGR_OM_assess_situation"
+			add_command_power = 15
 		}
 	}
 	
@@ -1221,6 +1244,14 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 30
 			}
+			add_intel = {
+				target = DGA
+				civilian_intel = 3
+				army_intel = 2
+			}
+			random_unit_leader = {
+				add_maneuver = 1
+				}
 		}
 	}
 	
@@ -1248,6 +1279,8 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 10
 			}
+			add_manpower = -95
+			army_experience = 9
 		}
 	}
 	
@@ -1275,6 +1308,8 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 10
 			}
+			add_manpower = -64
+			army_experience = 6
 		}
 	}
 	
@@ -1302,6 +1337,8 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 10
 			}
+			add_manpower = -122
+			army_experience = 12
 		}
 	}
 	
@@ -1329,7 +1366,9 @@ DGR_district_wars_category = {
 			add_to_variable = {
 				var = DGR_op_morcinek
 				value = 10
-			}			
+			}
+			add_manpower = -156
+			army_experience = 15
 		}
 	}
 	
@@ -1469,6 +1508,7 @@ DGR_district_wars_category = {
 		visible = { has_country_flag = DGR_operation_adamiecki }
 		cost = 10
 		days_remove = 3
+		icon = GFX_decision_generic_fortification
 		fire_only_once = yes	
 		ai_will_do = {
 			base = 100
@@ -1485,6 +1525,16 @@ DGR_district_wars_category = {
 					var = DGR_op_adamiecki
 					value = 25
 					}
+				735 = {
+				add_province_modifier = {
+					static_modifiers = { active_decryption_modifier }
+					province = 7754
+				}
+				add_province_modifier = {
+					static_modifiers = { active_decryption_modifier }
+					province = 7748
+				}
+				}
 			log = "[GetDateText]: Decision DGR_OA_around_korczak_line"
 		}
 	}
@@ -1500,6 +1550,7 @@ DGR_district_wars_category = {
 
 			}
 		cost = 20
+		icon = GFX_decision_SOV_place_hq
 		days_remove = 7
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1550,6 +1601,7 @@ DGR_district_wars_category = {
 			}
 		}
 		cost = 20
+		icon = GFX_decision_generic_ignite_civil_war
 		days_remove = 7
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1595,10 +1647,11 @@ DGR_district_wars_category = {
 					}
 		available = {
 			check_variable = {
-				DGR_op_adamiecki > 94
+				DGR_op_adamiecki > 89
 			}
 		}
 		cost = 20
+		icon = GFX_decision_generic_assassination
 		days_remove = 7
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1615,7 +1668,7 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OA_hunt_leaders"
 			add_to_variable = {
 				var = DGR_op_adamiecki
-				value = 5
+				value = 10
 			}
 			DGA = {
 			delete_units = {
@@ -1636,6 +1689,7 @@ DGR_district_wars_category = {
 			
 		}
 		days_remove = 14
+		icon = GFX_decision_eng_propaganda_campaigns
 		cost = 25
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1657,6 +1711,15 @@ DGR_district_wars_category = {
 				division = "name = \"Batalion 'Reden'\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
 					owner = DGR
 					prioritize_location = 7754
+				}
+
+				remove_province_modifier = {
+					static_modifiers = { active_decryption_modifier }
+					province = 7754
+				}
+				remove_province_modifier = {
+					static_modifiers = { active_decryption_modifier }
+					province = 7748
 				}
 			}
 		}
@@ -1698,6 +1761,7 @@ DGR_district_wars_category = {
 		complete_effect = {
 			set_country_flag = DGR_operation_zawadzki
 			log = "[GetDateText]: Decision DGR_operation_zawadzki"
+			add_ideas = DGR_rastafari
 		}
 	}
 	
@@ -1705,6 +1769,7 @@ DGR_district_wars_category = {
 		visible = { has_country_flag = DGR_operation_zawadzki }
 		cost = 10
 		days_remove = 3
+		icon = GFX_decision_SOV_place_hq
 		fire_only_once = yes	
 		ai_will_do = {
 			base = 100
@@ -1721,6 +1786,8 @@ DGR_district_wars_category = {
 					var = DGR_op_zawadzki
 					value = 25
 					}
+				add_stability = 10
+				add_political_power = 50
 			log = "[GetDateText]: Decision DGR_OZ_retake_pkz"
 		}
 	}
@@ -1734,6 +1801,7 @@ DGR_district_wars_category = {
 			}
 		cost = 10
 		days_remove = 3
+		icon = GFX_decision_oppression
 		fire_only_once = yes	
 		ai_will_do = {
 			base = 100
@@ -1763,6 +1831,7 @@ DGR_district_wars_category = {
 		}
 		cost = 20
 		days_remove = 7
+		icon = GFX_decision_generic_scorched_earth
 		fire_only_once = yes	
 		ai_will_do = {
 			base = 100
@@ -1835,6 +1904,7 @@ DGR_district_wars_category = {
 			}
 		}
 		cost = 20
+		icon = GFX_decision_generic_assassination
 		days_remove = 7
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1872,6 +1942,7 @@ DGR_district_wars_category = {
 			
 		}
 		cost = 25
+		icon = GFX_decision_eng_propaganda_campaigns
 		days_remove = 14
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1930,6 +2001,7 @@ DGR_district_wars_category = {
 	DGR_AW_zolnierska_street = {
 		visible = { has_country_flag = DGR_action_windrose }
 		cost = 10
+		icon = GFX_decision_generic_motorized
 		days_remove = 3
 		fire_only_once = yes	
 		ai_will_do = {
@@ -1952,6 +2024,7 @@ DGR_district_wars_category = {
 				DGR_aw_windrose > 49
 			}
 		}
+		icon = GFX_decision_infiltrate_state
 		days_remove = 3
 		cost = 10
 		fire_only_once = yes	
@@ -1976,6 +2049,7 @@ DGR_district_wars_category = {
 			}
 			
 		}
+		icon = GFX_decision_hol_exchange_intelligence_data
 		cost = 20
 		days_remove = 3
 		fire_only_once = yes	
@@ -2028,6 +2102,7 @@ DGR_district_wars_category = {
 	DGR_AS_secure_ujejsce = {
 		visible = { has_country_flag = DGR_action_sunflower }
 		cost = 10
+		icon = GFX_decision_infiltrate_state
 		days_remove = 3
 		fire_only_once = yes	
 		ai_will_do = {
@@ -2047,9 +2122,10 @@ DGR_district_wars_category = {
 					}
 		available = {
 			check_variable = {
-				DGR_aw_sunflower > 49
+				DGR_as_sunflower > 49
 			}
 		}
+		icon = GFX_decision_generic_forestry
 		cost = 10
 		days_remove = 3
 		fire_only_once = yes	
@@ -2074,6 +2150,7 @@ DGR_district_wars_category = {
 			}
 			
 		}
+		icon = GFX_decision_generic_merge_plant_materiel
 		cost = 20
 		days_remove = 14
 		fire_only_once = yes	
@@ -2125,6 +2202,7 @@ DGR_district_wars_category = {
 					}
 		cost = 10
 		days_remove = 1
+		icon = GFX_decision_eng_trade_unions_demand
 		fire_only_once = yes	
 		ai_will_do = {
 			base = 100
@@ -2133,6 +2211,7 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_AH_centralplan_trzebieslawice"
 			set_country_flag = DGR_AH_victory
 			clr_country_flag = DGR_action_hendrix
+			country_event = dgr_district.3
 		}
 	}	
 
