@@ -1,0 +1,221 @@
+﻿add_namespace = eksrozpad
+add_namespace = eksrozpadnews
+
+country_event = {
+	id = eksrozpad.1 #Copper Basin Revolt
+	title = eksrozpad.1.t
+	desc = eksrozpad.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.1"
+		hidden_effect = {
+		every_country = {
+			limit = { is_ai = no }
+			news_event = {
+				id = eksrozpadnews.1
+			}		
+		}
+		EKS_collapse_copper_revolt = yes
+		EKS = {
+			country_event = {
+				id = eksrozpad.3
+				days = 20
+			}
+			end_puppet = ZAG
+		}
+		EKS = {
+			set_capital = { state = 345 }
+			leave_faction = yes
+		}
+		EKW = {
+			leave_faction = yes
+		}
+		GDA = {
+			leave_faction = yes
+		}
+		KSZ = {
+			leave_faction = yes
+		}
+		FRA = {
+			leave_faction = yes
+		}
+		MNI = {
+			leave_faction = yes
+		}		
+		}
+	}
+	option = {
+		name = eksrozpad.1.b
+	}
+}
+
+country_event = {
+	id = eksrozpad.2 #Copper Basin Revolt Crushed
+	title = eksrozpad.2.t
+	desc = eksrozpad.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.1"
+		hidden_effect = {
+		every_country = {
+			limit = { is_ai = no }
+			news_event = {
+				id = eksrozpadnews.2
+			}		
+		}
+		KGH = {
+			get_current_government_type = yes
+		}
+		EKS = {
+			set_autonomy = {
+				target = KGH
+				autonomous_state = autonomy_euromandat
+				freedom_level = 0.4
+			}
+		}
+		KGH = {
+			restore_previous_government_type = yes
+		}
+		}
+	}
+	option = {
+		name = eksrozpad.1.b
+	}
+}
+
+news_event = {
+	id = eksrozpadnews.1 #Copper Basin Revolt - News
+	title = eksrozpadnews.1.t
+	desc = eksrozpadnews.1.desc
+	picture = GFX_news_event_zagan
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires eksrozpadnews.1"}
+	
+	option = {
+		name = eksrozpadnews.1.a
+	}
+}
+
+news_event = {
+	id = eksrozpadnews.2 #Copper Basin Revolt Crushed - News
+	title = eksrozpadnews.2.t
+	desc = eksrozpadnews.2.desc
+	picture = GFX_news_event_zagan
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires eksrozpadnews.2"}
+	
+	option = {
+		name = eksrozpadnews.2.a
+	}
+}
+
+country_event = {
+	id = eksrozpad.3 #Żagań Mutiny
+	title = eksrozpad.3.t
+	desc = eksrozpad.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.3"
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 293
+						state = 313
+						state = 308
+						state = 894
+					}
+				}
+				remove_core_of = EKS
+				add_claim_by = EKS
+			}
+			EKS_collapse_ZAG = yes			
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = eksrozpadnews.3 }
+			}
+			TOU = {
+				country_event = {
+					id = eksrozpad.4
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = eksrozpad.3.a
+		ZAG = {
+			change_tag_from = EKS
+		}
+	}
+	option = {
+		name = eksrozpad.3.b
+	}
+}
+
+news_event = {
+	id = eksrozpadnews.3 #Mutiny in Żagań
+	title = eksrozpadnews.3.t
+	desc = eksrozpadnews.3.desc
+	picture = GFX_news_event_zagan
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires eksrozpadnews.3"}
+	
+	option = {
+		name = eksrozpadnews.3.a
+	}
+}
+
+
+country_event = {
+	id = eksrozpad.4 #Touristenstaat Neutrality
+	title = eksrozpad.4.t
+	desc = eksrozpad.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.4"
+		hidden_effect = {
+			TOU = {
+				leave_faction = yes
+			}		
+			TOU = {
+				country_event = {
+					id = tou.1 
+					days = 7
+				}
+			}
+		}
+	}
+	option = {
+		name = eksrozpad.4.a
+		TOU = {
+			change_tag_from = EKS
+		}
+	}
+	option = {
+		name = eksrozpad.4.b
+	}
+}
+
