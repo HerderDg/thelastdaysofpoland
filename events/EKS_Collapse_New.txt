@@ -22,7 +22,7 @@ country_event = {
 		EKS = {
 			country_event = {
 				id = eksrozpad.3
-				days = 20
+				days = 46
 			}
 			end_puppet = ZAG
 		}
@@ -153,19 +153,24 @@ country_event = {
 			TOU = {
 				country_event = {
 					id = eksrozpad.4
-					days = 1
 				}
 			}
+			WRO = {
+				country_event = {
+					id = eksrozpad.6
+					days = 14
+				}
+			}
+			EKS = {
+				country_event = {
+					id = eksrozpad.8
+					days = 35
+				}				
+			}			
 		}
 	}
 	option = {
 		name = eksrozpad.3.a
-		ZAG = {
-			change_tag_from = EKS
-		}
-	}
-	option = {
-		name = eksrozpad.3.b
 	}
 }
 
@@ -199,23 +204,198 @@ country_event = {
 		hidden_effect = {
 			TOU = {
 				leave_faction = yes
-			}		
+				drop_cosmetic_tag = yes
+			}
+			EKS = { end_puppet = TOU }		
 			TOU = {
 				country_event = {
 					id = tou.1 
 					days = 7
 				}
+				country_event = {
+					id = eksrozpad.5 
+					days = 3
+				}				
 			}
 		}
 	}
 	option = {
 		name = eksrozpad.4.a
-		TOU = {
-			change_tag_from = EKS
-		}
-	}
-	option = {
-		name = eksrozpad.4.b
 	}
 }
 
+country_event = {
+	id = eksrozpad.5 #Waldenburg Secession
+	title = eksrozpad.5.t
+	desc = eksrozpad.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.5"
+		hidden_effect = {
+			EKS_collapse_ZUL = yes
+		}
+	}
+	option = {
+		name = eksrozpad.5.a
+		ZUL = {
+			change_tag_from = TOU
+		}
+	}
+	option = {
+		name = eksrozpad.5.b
+	}
+}
+
+country_event = {
+	id = eksrozpad.6 #Sutryk's Back in Control
+	title = eksrozpad.6.t
+	desc = eksrozpad.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.6"
+		hidden_effect = {
+			EKS_collapse_WRO = yes
+		}
+	}
+	option = {
+		name = eksrozpad.6.a
+		hidden_effect = {
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = eksrozpadnews.4 }
+			}
+			WRO = {
+				country_event = {
+					id = eksrozpad.7
+					days = 5
+				}
+			}			
+		}
+		EKS = {
+			end_puppet = BRE
+		}
+		BRE = {
+			end_puppet = WRO
+		}
+	}
+}
+
+news_event = {
+	id = eksrozpadnews.4 #Sutryk's Back in Control News
+	title = eksrozpadnews.4.t
+	desc = eksrozpadnews.4.desc
+	picture = GFX_news_event_zagan
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires eksrozpadnews.4"}
+	
+	option = {
+		name = eksrozpadnews.4.a
+	}
+}
+
+
+country_event = {
+	id = eksrozpad.7 #Sutryk's WAAAAAAAAAAAAAGH
+	title = eksrozpad.7.t
+	desc = eksrozpad.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.7"
+	}
+	option = {
+		name = eksrozpad.7.a
+		hidden_effect = {
+			WRO = {
+				declare_war_on = {
+					target = BRE
+					type = annex_everything
+				}
+			}			
+		}
+	}
+}
+
+country_event = {
+	id = eksrozpad.8 #Gwóźdź do Trumny
+	title = eksrozpad.8.t
+	desc = eksrozpad.8.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.8"
+		EKS_collapse_KGH = yes
+		EKS = {
+			white_peace = ZAG
+			every_owned_state = {
+				limit = { is_core_of = ZAG }
+				meta_effect = {
+					text = {
+						set_state_name = STATE_[STATE_ID]
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+				ZAG = { transfer_state = PREV }
+			}
+		}
+		FEL = {
+			country_event = {
+				id = felix.1
+				days = 6
+			}
+		}
+		CAL = {
+			country_event = {
+				id = calisia.1
+				days = 8
+			}
+		}	
+	}
+	option = {
+		name = eksrozpad.8.a
+		hidden_effect = {
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = super_misc.2 }
+			}
+			RYB = {
+				country_event = {
+					id = eksrozpad.9
+					days = 4
+				}
+			}
+		
+		}
+	}
+}
+
+country_event = {
+	id = eksrozpad.9 #Gałecki wyrusza na łowy
+	title = eksrozpad.9.t
+	desc = eksrozpad.9.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.9"
+		EKS_collapse_RYB = yes	
+	}
+	option = {
+		name = eksrozpad.9.a
+
+	}
+}
