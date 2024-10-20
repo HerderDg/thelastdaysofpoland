@@ -149,13 +149,19 @@ country_event = {
 			every_country = {
 				limit = { NOT = { is_ai = yes } }
 				news_event = { id = eksrozpadnews.3 }
-			}
+			}		
+		}
+	}
+	option = {
+		name = eksrozpad.3.a
+		hidden_effect = {
 			TOU = {
 				country_event = {
 					id = eksrozpad.4
+					hours = 3
 				}
 			}
-			WRO = {
+			BRE = {
 				country_event = {
 					id = eksrozpad.6
 					days = 14
@@ -164,13 +170,10 @@ country_event = {
 			EKS = {
 				country_event = {
 					id = eksrozpad.8
-					days = 35
+					days = 25
 				}				
-			}			
+			}	
 		}
-	}
-	option = {
-		name = eksrozpad.3.a
 	}
 }
 
@@ -260,6 +263,12 @@ country_event = {
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.6"
 		hidden_effect = {
+			EKS = {
+				end_puppet = BRE
+			}
+			BRE = {
+				end_puppet = WRO
+			}
 			EKS_collapse_WRO = yes
 		}
 	}
@@ -275,13 +284,13 @@ country_event = {
 					id = eksrozpad.7
 					days = 5
 				}
+			}
+			EKS = {
+				country_event = {
+					id = eksrozpad.10
+					days = 2
+				}
 			}			
-		}
-		EKS = {
-			end_puppet = BRE
-		}
-		BRE = {
-			end_puppet = WRO
 		}
 	}
 }
@@ -322,6 +331,7 @@ country_event = {
 					target = BRE
 					type = annex_everything
 				}
+				drop_cosmetic_tag = yes
 			}			
 		}
 	}
@@ -337,9 +347,13 @@ country_event = {
 	
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.8"
+		hidden_effect = {
 		EKS_collapse_KGH = yes
-		EKS = {
+		every_country = {
+			limit = { has_war_with = ZAG }
 			white_peace = ZAG
+		}
+		EKS = {
 			every_owned_state = {
 				limit = { is_core_of = ZAG }
 				meta_effect = {
@@ -362,7 +376,8 @@ country_event = {
 				id = calisia.1
 				days = 8
 			}
-		}	
+		}
+	}	
 	}
 	option = {
 		name = eksrozpad.8.a
@@ -392,10 +407,32 @@ country_event = {
 	
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.9"
+		hidden_effect = {
 		EKS_collapse_RYB = yes	
+		}
 	}
 	option = {
 		name = eksrozpad.9.a
+	}
+}
 
+
+country_event = {
+	id = eksrozpad.10 #Depuppetyzacja Kesselbergu i Czechośląska
+	title = eksrozpad.10.t
+	desc = eksrozpad.10.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.10"
+	}
+	option = {
+		name = eksrozpad.10.a
+		EKS = {
+			end_puppet = KES
+			end_puppet = SLE
+		}
 	}
 }

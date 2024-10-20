@@ -87,6 +87,28 @@ EKS_collapse_ZUL = {
 
 EKS_collapse_WRO = {
 	hidden_effect = {
+		if = {
+			limit = {
+				BRE = {
+					has_war_with = ZAG
+				}
+			}
+			BRE = {
+				white_peace = ZAG
+			}
+		}
+
+		if = {
+			limit = {
+				BRE = {
+					has_war_with = COP
+				}
+			}
+			BRE = {
+				white_peace = COP
+			}
+		}		
+
 		WRO = {
 			add_state_core = 376			
 			add_state_core = 388			
@@ -119,6 +141,9 @@ EKS_collapse_WRO = {
 
 		WRO = {
 			load_oob = "WRO_2027"
+			set_capital = {
+				state = 608
+			}
 		}
 
 	}
@@ -138,10 +163,13 @@ EKS_collapse_KGH = {
 			add_state_core = 356
 			add_state_core = 725
 			add_state_core = 727
+			add_state_core = 1098
+			add_state_core = 1095
 		}
 		
 		KGH = {
 			delete_eurokom_templates = yes
+			drop_cosmetic_tag = yes
 		}
 		if = {
 			limit = {
@@ -152,6 +180,19 @@ EKS_collapse_KGH = {
 					target = COP
 				}
 			}
+		}
+
+		if = {
+			limit = {
+				KGH = { is_puppet_of = EKS }
+			}
+			EKS = {
+				end_puppet = KGH
+			}
+		}
+
+		EKS = {
+			end_puppet = BRG
 		}
 
 		every_owned_state = {
@@ -181,28 +222,13 @@ EKS_collapse_RYB = {
 			add_state_core = 369
 		}
 
-
-		every_owned_state = {
-			limit = {
-					OR = {
-						state = 312
-						state = 324
-						state = 334
-						state = 344
-						state = 338
-					}
-				}
-				meta_effect = {
-					text = {
-						set_state_name = STATE_[STATE_ID]
-					}
-					STATE_ID = "[?THIS.GetID]"
-				}
-			RYB = { transfer_state = PREV }
-		}
-
 		RYB = {
 			load_oob = "RYB_2027"
+			declare_war_on = {
+				target = BRE
+				type = annex_everything
+			}
+			drop_cosmetic_tag = yes
 		}
 
 	}
