@@ -1,0 +1,3283 @@
+### firearms ###
+
+generic_firearms_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	allowed = {
+		always = no
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+
+	equipment_type = { ranged_equipment }
+
+	research_categories = {
+		ranged_weapons
+	}
+
+	trait = {
+		token = basic_gunsmith_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_armory
+		parent = {
+			traits = { basic_gunsmith_equipment }
+		}
+		mutually_exclusive = { journeymen_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = journeymen_employment
+		parent = {
+			traits = { basic_gunsmith_equipment }
+		}
+		mutually_exclusive = { mechanization_of_armory }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_armory
+		parent = {
+			traits = { mechanization_of_armory }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_gunsmiths
+		parent = {
+			traits = { journeymen_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_cartridges
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = dum_dum_rounds
+		parent = {
+			traits = { standarisation_of_cartridges }
+		}
+		mutually_exclusive = { at_rifle_grenades }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = at_rifle_grenades
+		parent = {
+			traits = { standarisation_of_cartridges }
+		}
+		mutually_exclusive = { dum_dum_rounds }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = anti_infantry_mines
+		parent = {
+			traits = { dum_dum_rounds }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = anti_tank_mines
+		parent = {
+			traits = { at_rifle_grenades }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+}
+
+reliable_firearms_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_firearms_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			reliability_factor = 0.1
+		}
+	}
+	remove_trait = {
+		basic_gunsmith_equipment
+		army_of_gunsmiths
+		journeymen_employment
+		mechanization_of_armory
+		robotization_of_armory
+	}
+	trait = {
+		token = quality_assurance
+		position = { 
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = innovative_production_methods
+		parent = {
+			traits = { quality_assurance }
+		}
+		mutually_exclusive = { standarisation_of_firearm_parts }
+		position = {
+			x = 0 
+			y = 2
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_firearm_parts
+		parent = {
+			traits = { quality_assurance }
+		}
+		mutually_exclusive = { innovative_production_methods }
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = three_d_printers
+		parent = {
+			traits = { innovative_production_methods }
+		}
+		position = {
+			x = 0 
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = super_durable_materials
+		parent = {
+			traits = { standarisation_of_firearm_parts }
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.025
+		}
+	}
+}
+
+cheap_firearms_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_firearms_mio
+	allowed = {
+		always = no
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = -0.1
+		}
+	}
+	remove_trait = {
+		basic_gunsmith_equipment
+		army_of_gunsmiths
+		journeymen_employment
+		mechanization_of_armory
+		robotization_of_armory
+	}
+	trait = {
+		token = loosening_quality_standards
+		position = { 
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = advanced_material_blending
+		parent = {
+			traits = { loosening_quality_standards }
+		}
+		mutually_exclusive = { recycling_substandard_parts }
+		position = {
+			x = 0 
+			y = 2
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = recycling_substandard_parts
+		parent = {
+			traits = { loosening_quality_standards }
+		}
+		mutually_exclusive = { advanced_material_blending }
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = reusable_rifle_butts
+		parent = {
+			traits = { advanced_material_blending }
+		}
+		position = {
+			x = 0 
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = emergency_firearm_designs
+		parent = {
+			traits = { recycling_substandard_parts }
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+}
+
+offensive_firearms_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_firearms_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+	remove_trait = {
+		standarisation_of_cartridges
+		dum_dum_rounds
+		anti_infantry_mines
+		at_rifle_grenades
+		anti_tank_mines
+	}
+
+	trait = {
+		token = rifle_barrels_remodeling
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = optimization_of_firing_cycle
+		parent = {
+			traits = { rifle_barrels_remodeling }
+		}
+		mutually_exclusive = { light_rifle_barrels }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+		}
+	}
+
+	trait = {
+		token = light_rifle_barrels
+		parent = {
+			traits = { rifle_barrels_remodeling }
+		}
+		mutually_exclusive = { optimization_of_firing_cycle }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+			defense = -0.05
+		}
+	}
+
+	trait = {
+		token = sidearm_shotguns
+		parent = {
+			traits = { optimization_of_firing_cycle }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+		}
+	}
+
+	trait = {
+		token = sidearm_smgs
+		parent = {
+			traits = { light_rifle_barrels }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+			defense = -0.05
+		}
+	}
+}
+
+defensive_firearms_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	equipment_type = { ranged_equipment }
+
+	
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	research_categories = {
+		ranged_weapons
+	}
+
+	trait = {
+		token = basic_gunsmith_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_armory
+		parent = {
+			traits = { basic_gunsmith_equipment }
+		}
+		mutually_exclusive = { journeymen_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = journeymen_employment
+		parent = {
+			traits = { basic_gunsmith_equipment }
+		}
+		mutually_exclusive = { mechanization_of_armory }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_armory
+		parent = {
+			traits = { mechanization_of_armory }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_gunsmiths
+		parent = {
+			traits = { journeymen_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = new_tripods
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = high_capacity_magazines
+		parent = {
+			traits = { new_tripods }
+		}
+		mutually_exclusive = { high_firerate_lmg }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = high_firerate_lmg
+		parent = {
+			traits = { new_tripods }
+		}
+		mutually_exclusive = { high_capacity_magazines }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			soft_attack = -0.05
+			breakthrough = -0.05
+		}
+	}
+
+	trait = {
+		token = improved_mortar_rounds
+		parent = {
+			traits = { high_capacity_magazines }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = automatic_mortar
+		parent = {
+			traits = { high_firerate_lmg }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.05
+			soft_attack = -0.05
+			breakthrough = -0.05
+		}
+	}
+}
+
+anti_armor_firearms_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_firearms_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			ap_attack = 0.1
+		}
+	}
+
+	trait = {
+		token = anti_tank_rifle
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			ap_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = semi_auto_at_rifle
+		parent = {
+			traits = { anti_tank_rifle }
+		}
+		mutually_exclusive = { single_shot_at_launcher }
+		position = {
+			x = 6 
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.05
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = single_shot_at_launcher
+		parent = {
+			traits = { anti_tank_rifle }
+		}
+		mutually_exclusive = { semi_auto_at_rifle }
+		position = {
+			x = 8 
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.15
+			hard_attack = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+}
+
+### melee - will be analogue to firearms ###
+generic_melee_mio = {
+	allowed = {
+		always = no
+	}
+	visible = {
+		FROM = {
+			NOT = {
+				tag = CAL
+				tag = WML
+				tag = ZYD
+			}
+		}
+	}
+	available = {
+		always = yes
+	}
+
+	equipment_type = { melee_equipment }
+
+	trait = {
+		token = basic_forging_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_forgeworks
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { two_shift_forge_workdays }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = two_shift_forge_workdays
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { mechanization_of_forgeworks }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_forgeworks
+		parent = {
+			traits = { mechanization_of_forgeworks }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = pushing_forges_to_the_limit
+		parent = {
+			traits = { two_shift_forge_workdays }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_melee_arms
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = sharpening_the_blades
+		parent = {
+			traits = { standarisation_of_melee_arms }
+		}
+		mutually_exclusive = { basic_booby_trapping_training }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = basic_booby_trapping_training
+		parent = {
+			traits = { standarisation_of_melee_arms }
+		}
+		mutually_exclusive = { sharpening_the_blades }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = additional_serrations
+		parent = {
+			traits = { sharpening_the_blades }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = advanced_booby_trapping_training
+		parent = {
+			traits = { basic_booby_trapping_training }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+}
+
+reliable_melee_mio = {
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	include = generic_melee_mio
+	equipment_type = { melee_equipment }
+
+	initial_trait = {
+		equipment_bonus = {
+			reliability_factor = 0.1
+		}
+	}
+	remove_trait = {
+		basic_forging_equipment
+		two_shift_forge_workdays
+		pushing_forges_to_the_limit
+		mechanization_of_forgeworks
+		robotization_of_forgeworks
+	}
+
+	trait = {
+		token = rudimentary_quality_standards
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = new_presses
+		parent = {
+			traits = { rudimentary_quality_standards }
+		}
+		mutually_exclusive = { better_metals }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = better_metals
+		parent = {
+			traits = { rudimentary_quality_standards }
+		}
+		mutually_exclusive = { new_presses }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = thinned_blades
+		parent = {
+			traits = { new_presses }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = even_better_metals
+		parent = {
+			traits = { better_metals }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.025
+		}
+	}
+
+}
+
+cheap_melee_mio = {
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	include = generic_melee_mio
+	equipment_type = { melee_equipment }
+
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = -0.1
+		}
+	}
+	remove_trait = {
+		basic_forging_equipment
+		two_shift_forge_workdays
+		pushing_forges_to_the_limit
+		mechanization_of_forgeworks
+		robotization_of_forgeworks
+	}
+
+	trait = {
+		token = abandoning_quality_standards
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = recycling_old_weapons
+		parent = {
+			traits = { abandoning_quality_standards }
+		}
+		mutually_exclusive = { abandoning_antirust_coatings }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = abandoning_antirust_coatings
+		parent = {
+			traits = { abandoning_quality_standards }
+		}
+		mutually_exclusive = { recycling_old_weapons }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = screwed_on_blades
+		parent = {
+			traits = { recycling_old_weapons }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = returning_to_iron_blades
+		parent = {
+			traits = { abandoning_antirust_coatings }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.05
+			reliability_factor = -0.05
+		}
+	}
+}
+
+offensive_melee_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	include = generic_melee_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+	remove_trait = {
+		standarisation_of_melee_arms
+		sharpening_the_blades
+		basic_booby_trapping_training
+		advanced_booby_trapping_training
+		additional_serrations
+	}
+
+	trait = {
+		token = triangle_shaped_blades
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = karambit_knives
+		parent = {
+			traits = { triangle_shaped_blades }
+		}
+		mutually_exclusive = { battle_axes }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+		}
+	}
+
+	trait = {
+		token = battle_axes
+		parent = {
+			traits = { triangle_shaped_blades }
+		}
+		mutually_exclusive = { karambit_knives }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+			defense = -0.05
+		}
+	}
+
+	trait = {
+		token = poisoned_blades
+		parent = {
+			traits = { karambit_knives }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+		}
+	}
+
+	trait = {
+		token = portable_chainsaws
+		parent = {
+			traits = { battle_axes }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+			defense = -0.05
+		}
+	}
+}
+
+defensive_melee_mio = {
+	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = { melee_equipment }
+	initial_trait = {
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = basic_forging_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_forgeworks
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { two_shift_forge_workdays }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = two_shift_forge_workdays
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { mechanization_of_forgeworks }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_forgeworks
+		parent = {
+			traits = { mechanization_of_forgeworks }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = pushing_forges_to_the_limit
+		parent = {
+			traits = { two_shift_forge_workdays }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = new_chainmails
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = kevlar_helmets
+		parent = {
+			traits = { new_chainmails }
+		}
+		mutually_exclusive = { armor_steel_helmets }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = armor_steel_helmets
+		parent = {
+			traits = { new_chainmails }
+		}
+		mutually_exclusive = { kevlar_helmets }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			soft_attack = -0.05
+			breakthrough = -0.05
+		}
+	}
+
+	trait = {
+		token = kevlar_shields
+		parent = {
+			traits = { kevlar_helmets }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = armor_steel_shields
+		parent = {
+			traits = { armor_steel_helmets }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.05
+			soft_attack = -0.05
+			breakthrough = -0.05
+		}
+	}
+}
+
+anti_armor_melee_mio = {
+	include = generic_melee_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			ap_attack = 0.1
+		}
+	}
+
+	trait = {
+		token = lunge_mines
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			ap_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = lunge_javelins
+		parent = {
+			traits = { lunge_mines }
+		}
+		mutually_exclusive = { heavy_lunge_mines }
+		position = {
+			x = 6 
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.05
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = heavy_lunge_mines
+		parent = {
+			traits = { lunge_mines }
+		}
+		mutually_exclusive = { lunge_javelins }
+		position = {
+			x = 8 
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.15
+			hard_attack = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+}
+### artillery ###
+
+generic_artillery_mio = {
+	icon = GFX_idea_generic_artillery_manufacturer_2
+	allowed = {
+		always = no
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		light_artillery_equipment
+		heavy_artillery_equipment
+		rocket_artillery_equipment
+		anti_air_equipment
+	}
+	research_categories = {
+		artillery
+	}
+	trait = {
+		token = basic_foundry_equipment
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_foundry
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { smiths_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = smiths_employment
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { mechanization_of_foundry }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_foundry
+		parent = {
+			traits = { mechanization_of_foundry }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_metalworkers
+		parent = {
+			traits = { smiths_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_artillery_calibres
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			air_attack = 0.025
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = lightened_limbers
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { splinter_shields }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = splinter_shields
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { lightened_limbers }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_firing_calculations
+		parent = {
+			traits = { lightened_limbers }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_shell_ballistics
+		parent = {
+			traits = { splinter_shields }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
+}
+
+light_artillery_mio = {
+	icon = GFX_idea_generic_artillery_manufacturer_2
+	include = generic_artillery_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+
+	trait = {
+		token = strenghened_mortar_barrels
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+
+	trait = {
+		token = fin_stablised_mortar_shells
+		parent = {
+			traits = { strenghened_mortar_barrels }
+		}
+		mutually_exclusive = {
+			bigger_mortar_charges
+		}
+		position = { 
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+
+	trait = {
+		token = bigger_mortar_charges
+		parent = {
+			traits = { strenghened_mortar_barrels }
+		}
+		mutually_exclusive = {
+			fin_stablised_mortar_shells
+		}
+		position = { 
+			x = 8
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			reliability_factor = -0.1
+		}
+		limit_to_equipment_type = {
+			light_artillery_equipment
+		}
+	}
+}
+
+at_mio = {
+	icon = GFX_idea_generic_artillery_manufacturer_2
+	include = generic_artillery_mio
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			hard_attack = 0.05
+			ap_attack = 0.05
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+
+	trait = {
+		token = tandem_heat_charges
+		position = { 
+			x = 7
+			y = 0
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+			ap_attack = 0.025
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+
+	trait = {
+		token = retrofitting_saclos_guidance
+		parent = {
+			traits = { tandem_heat_charges }
+		}
+		mutually_exclusive = {
+			bigger_heat_charges
+		}
+		position = { 
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			ap_attack = 0.025
+			hard_attack = -0.025
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+
+	trait = {
+		token = bigger_heat_charges
+		parent = {
+			traits = { tandem_heat_charges }
+		}
+		mutually_exclusive = {
+			retrofitting_saclos_guidance
+		}
+		position = { 
+			x = 8
+			y = 2
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+			ap_attack = -0.025
+		}
+		limit_to_equipment_type = {
+			inf_anti_tank_equipment
+		}
+	}
+}
+
+### motorized ###
+
+generic_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	allowed = {
+		always = no
+	}
+	visible = {
+		FROM = {
+			not = {
+				tag = BBW
+				tag = KRS
+				tag = WML
+				tag = ZYD
+			}
+		}
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		motorized_equipment
+	}
+	trait = {
+		token = steel_frames
+		mutually_exclusive = {
+			wooden_frames
+		}
+		position = {
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = wooden_frames
+		mutually_exclusive = {
+			steel_frames
+		}
+		position = {
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = -0.05
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = thicker_panels
+		parent = {
+			traits = { 
+				steel_frames
+			}
+		}
+		position = {
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_resource_need_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = recycled_panels
+		parent = {
+			traits = { 
+				wooden_frames
+			}
+		}
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_resource_need_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = turbodiesel_engines
+		parent = {
+			traits = { 
+				thicker_panels
+			}
+		}
+		position = {
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = liquid_petrol_gas_engines
+		parent = {
+			traits = { 
+				recycled_panels
+			}
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.05
+			fuel_consumption_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = def1
+		mutually_exclusive = {
+			atk1
+		}
+		position = {
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = atk1
+		mutually_exclusive = {
+			def1
+		}
+		position = {
+			x = 6
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = def2
+		parent = {
+			traits = { 
+				def1
+			}
+		}
+		position = {
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk2
+		parent = {
+			traits = { 
+				atk1
+			}
+		}
+		position = {
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = def3
+		parent = {
+			traits = { 
+				def2
+			}
+		}
+		position = {
+			x = 4
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk3
+		parent = {
+			traits = { 
+				atk2
+			}
+		}
+		position = {
+			x = 6
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+}
+
+
+
+reliable_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	allowed = {
+		always = no
+	}
+	equipment_type = {
+		motorized_equipment
+	}
+	initial_trait = {
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = refreshing_truck_blueprints
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = oversized_engines
+		mutually_exclusive = {
+			simplified_suspension
+		}
+		parent = {
+			traits = { 
+				refreshing_truck_blueprints
+			}
+		}
+		position = {
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+
+	trait = {
+		token = innovative_welding
+		parent = {
+			traits = { 
+				oversized_engines
+			}
+		}
+		position = {
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+
+	trait = {
+		token = simplified_suspension
+		mutually_exclusive = {
+			oversized_engines
+		}
+		parent = {
+			traits = { 
+				refreshing_truck_blueprints
+			}
+		}
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = using_hyperglue
+		parent = {
+			traits = { 
+				simplified_suspension
+			}
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = def1
+		mutually_exclusive = {
+			atk1
+		}
+		position = {
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = atk1
+		mutually_exclusive = {
+			def1
+		}
+		position = {
+			x = 6
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = def2
+		parent = {
+			traits = { 
+				def1
+			}
+		}
+		position = {
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk2
+		parent = {
+			traits = { 
+				atk1
+			}
+		}
+		position = {
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = def3
+		parent = {
+			traits = { 
+				def2
+			}
+		}
+		position = {
+			x = 4
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk3
+		parent = {
+			traits = { 
+				atk2
+			}
+		}
+		position = {
+			x = 6
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+}
+
+cheap_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = -0.05
+		}
+	}
+
+	equipment_type = {
+		motorized_equipment
+	}
+	trait = {
+		token = rationalizing_truck_blueprints
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			fuel_consumption_factor = -0.1
+			reliability_factor = -0.05
+			build_cost_ic = -0.05
+		}
+	}
+
+	trait = {
+		token = retrofitting_carburators
+		mutually_exclusive = {
+			fuel_additives
+		}
+		parent = {
+			traits = { 
+				rationalizing_truck_blueprints
+			}
+		}
+		position = {
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = wooden_part_replacements
+		parent = {
+			traits = { 
+				retrofitting_carburators
+			}
+		}
+		position = {
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			build_cost_ic = -0.025
+		}
+	}
+
+	trait = {
+		token = fuel_additives
+		mutually_exclusive = {
+			retrofitting_carburators
+		}
+		parent = {
+			traits = { 
+				rationalizing_truck_blueprints
+			}
+		}
+		position = {
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			fuel_consumption_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = hybrid_engines
+		parent = {
+			traits = { 
+				fuel_additives
+			}
+		}
+		position = {
+			x = 2
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = -0.025
+			fuel_consumption_factor = -0.025
+		}
+	}
+
+	trait = {
+		token = def1
+		mutually_exclusive = {
+			atk1
+		}
+		position = {
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = atk1
+		mutually_exclusive = {
+			def1
+		}
+		position = {
+			x = 6
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = def2
+		parent = {
+			traits = { 
+				def1
+			}
+		}
+		position = {
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk2
+		parent = {
+			traits = { 
+				atk1
+			}
+		}
+		position = {
+			x = 6
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = def3
+		parent = {
+			traits = { 
+				def2
+			}
+		}
+		position = {
+			x = 4
+			y = 4
+		}
+		equipment_bonus = {
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = atk3
+		parent = {
+			traits = { 
+				atk2
+			}
+		}
+		position = {
+			x = 6
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+}
+
+purpose_built_motorized_mio = {
+	icon = GFX_idea_generic_motorized_equipment_manufacturer_2
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		motorized_equipment
+		armored_car_equipment
+	}
+	initial_trait = {
+		equipment_bonus = {
+			build_cost_ic = 0.05
+			defense = 0.05
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = general_models_assesment
+		position = { 
+			x = 3
+			y = 0
+		}
+		production_bonus = {
+			production_capacity_factor = 0.1
+			production_efficiency_gain_factor = 0.1
+		}
+	}
+
+	trait = {
+		token = mobile_transport_focus
+		parent = {
+			traits = { 
+				general_models_assesment
+			}
+		}
+		mutually_exclusive = {
+			combat_truck_focus
+			recon_car_focus
+		}
+		position = { 
+			x = 1
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.025
+			maximum_speed = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = combat_truck_focus
+		parent = {
+			traits = { 
+				general_models_assesment
+			}
+		}
+		mutually_exclusive = {
+			mobile_transport_focus
+			recon_car_focus
+		}
+		position = { 
+			x = 3
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = recon_car_focus
+		parent = {
+			traits = { 
+				general_models_assesment
+			}
+		}
+		mutually_exclusive = {
+			mobile_transport_focus
+			combat_truck_focus
+		}
+		position = { 
+			x = 5
+			y = 2
+		}
+		equipment_bonus = {
+			recon = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = all_wheel_drive
+		position = { 
+			x = 0
+			y = 4
+		}
+		parent = {
+			traits = {
+				mobile_transport_focus
+				combat_truck_focus
+				recon_car_focus
+			}
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = additional_armor_panels
+		position = { 
+			x = 2
+			y = 4
+		}
+		parent = {
+			traits = {
+				mobile_transport_focus
+				combat_truck_focus
+				recon_car_focus
+			}
+		}
+		equipment_bonus = {
+			defense = 0.025
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = remote_machine_gun
+		position = { 
+			x = 4
+			y = 4
+		}
+		parent = {
+			traits = {
+				mobile_transport_focus
+				combat_truck_focus
+				recon_car_focus
+			}
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = additional_radio_equipment
+		position = { 
+			x = 6
+			y = 4
+		}
+		parent = {
+			traits = {
+				mobile_transport_focus
+				combat_truck_focus
+				recon_car_focus
+			}
+		}
+		equipment_bonus = {
+			recon = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+}
+
+### light armor ###
+
+heavy_transporter_mio = {
+	icon = GFX_idea_generic_tank_manufacturer_1
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		apc_equipment
+		ifv_chassis
+	}
+	initial_trait = {
+		equipment_bonus = {
+			armor_value = 0.05
+			hard_attack = 0.025
+		}
+	}
+	trait = {
+		token = targeting_system_review
+		position = { 
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = digital_targeting_system
+		parent = {
+			traits = {
+				targeting_system_review
+			}
+		}
+		position = { 
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+			ap_attack = 0.1
+		}
+	}
+
+	trait = {
+		token = night_vision_tank_sights
+		parent = {
+			traits = {
+				targeting_system_review
+			}
+		}
+		position = { 
+			x = 1
+			y = 1
+		}
+		equipment_bonus = {
+			night_penalty = -0.1
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = soft_kill_aps
+		position = { 
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = hard_kill_aps
+		parent = {
+			traits = {
+				soft_kill_aps
+			}
+		}
+		position = { 
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = blow_out_panels
+		position = { 
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			armor_value = 0.05
+		}
+	}
+
+	trait = {
+		token = emergency_generators
+		parent = {
+			traits = {
+				blow_out_panels
+			}
+		}
+		position = { 
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			fuel_consumption_factor = 0.05
+		}
+	}
+}
+
+fast_transporter_mio = {
+	icon = GFX_idea_generic_tank_manufacturer_2
+	allowed = {
+		always = no
+	}
+	visible = {
+		always = yes
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		apc_equipment
+		ifv_chassis
+	}
+	initial_trait = {
+		equipment_bonus = {
+			maximum_speed = 0.05
+			build_cost_ic = -0.025
+		}
+	}
+	trait = {
+		token = oscilating_turrets
+		position = { 
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			maximum_speed = 0.025
+			armor_value = -0.1
+		}
+	}
+
+	trait = {
+		token = unmanned_oscilating_turrets
+		parent = {
+			traits = {
+				oscilating_turrets
+			}
+		}
+		position = { 
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			maximum_speed = 0.025
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = engine_tune_up
+		position = { 
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			fuel_consumption_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = hybrid_tank_engines
+		parent = {
+			traits = {
+				engine_tune_up
+			}
+		}
+		position = { 
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = era
+		position = { 
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			armor_value = 0.025
+		}
+	}
+
+	trait = {
+		token = improved_era
+		parent = {
+			traits = {
+				era
+			}
+		}
+		position = { 
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			armor_value = 0.025
+			reliability_factor = -0.025
+		}
+	}
+}
+
+offensive_transporter_mio = {
+	icon = GFX_idea_generic_tank_manufacturer_3
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		apc_equipment
+		ifv_chassis
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+			breakthrough = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+	trait = {
+		token = loading_system_assesment
+		position = { 
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = improved_autoloader
+		parent = {
+			traits = {
+				loading_system_assesment
+			}
+		}
+		position = { 
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			hard_attack = 0.05
+			breakthrough = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+
+	trait = {
+		token = hesh_rounds
+		position = { 
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = gun_launched_atgms
+		parent = {
+			traits = {
+				hesh_rounds
+			}
+		}
+		position = { 
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_transmission
+		position = { 
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = widened_tracks
+		parent = {
+			traits = {
+				improved_transmission
+			}
+		}
+		position = { 
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+}
+
+### heavy armor ###
+
+heavy_tank_mio = {
+	icon = GFX_idea_generic_tank_manufacturer_1
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		mbt_chassis
+	}
+	initial_trait = {
+		equipment_bonus = {
+			armor_value = 0.05
+			hard_attack = 0.025
+		}
+	}
+	trait = {
+		token = targeting_system_review
+		position = { 
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = digital_targeting_system
+		parent = {
+			traits = {
+				targeting_system_review
+			}
+		}
+		position = { 
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			hard_attack = 0.025
+			ap_attack = 0.1
+		}
+	}
+
+	trait = {
+		token = night_vision_tank_sights
+		parent = {
+			traits = {
+				targeting_system_review
+			}
+		}
+		position = { 
+			x = 1
+			y = 1
+		}
+		equipment_bonus = {
+			night_penalty = -0.1
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = soft_kill_aps
+		position = { 
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = hard_kill_aps
+		parent = {
+			traits = {
+				soft_kill_aps
+			}
+		}
+		position = { 
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = blow_out_panels
+		position = { 
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			armor_value = 0.05
+		}
+	}
+
+	trait = {
+		token = emergency_generators
+		parent = {
+			traits = {
+				blow_out_panels
+			}
+		}
+		position = { 
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+			fuel_consumption_factor = 0.05
+		}
+	}
+}
+
+fast_tank_mio = {
+	icon = GFX_idea_generic_tank_manufacturer_1
+	allowed = {
+		always = no
+	}
+	visible = {
+		FROM = {
+			NOT = {
+				tag = KRS
+				tag = SAP
+			}
+		}
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		mbt_chassis
+	}
+	initial_trait = {
+		equipment_bonus = {
+			maximum_speed = 0.05
+			build_cost_ic = -0.025
+		}
+	}
+	trait = {
+		token = oscilating_turrets
+		position = { 
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			maximum_speed = 0.025
+			armor_value = -0.1
+		}
+	}
+
+	trait = {
+		token = unmanned_oscilating_turrets
+		parent = {
+			traits = {
+				oscilating_turrets
+			}
+		}
+		position = { 
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			maximum_speed = 0.025
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = engine_tune_up
+		position = { 
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			fuel_consumption_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = hybrid_tank_engines
+		parent = {
+			traits = {
+				engine_tune_up
+			}
+		}
+		position = { 
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			maximum_speed = 0.05
+			reliability_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = era
+		position = { 
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			armor_value = 0.025
+		}
+	}
+
+	trait = {
+		token = improved_era
+		parent = {
+			traits = {
+				era
+			}
+		}
+		position = { 
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			armor_value = 0.025
+			reliability_factor = -0.025
+		}
+	}
+}
+
+offensive_tank_mio = {
+	icon = GFX_idea_generic_tank_manufacturer_1
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = no
+	}
+	available = {
+		always = yes
+	}
+	equipment_type = {
+		mbt_chassis
+	}
+	initial_trait = {
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+			breakthrough = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+	trait = {
+		token = loading_system_assesment
+		position = { 
+			x = 0
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = improved_autoloader
+		parent = {
+			traits = {
+				loading_system_assesment
+			}
+		}
+		position = { 
+			x = 0
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			hard_attack = 0.05
+			breakthrough = 0.025
+			build_cost_ic = 0.025
+		}
+	}
+
+	trait = {
+		token = hesh_rounds
+		position = { 
+			x = 2
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = gun_launched_atgms
+		parent = {
+			traits = {
+				hesh_rounds
+			}
+		}
+		position = { 
+			x = 2
+			y = 2
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_transmission
+		position = { 
+			x = 4
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = widened_tracks
+		parent = {
+			traits = {
+				improved_transmission
+			}
+		}
+		position = { 
+			x = 4
+			y = 2
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+}

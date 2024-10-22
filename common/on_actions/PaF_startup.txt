@@ -1,9 +1,14 @@
 on_actions = {
 	on_startup = {
 		effect = {
+			every_country = {
+				limit = { has_idea = observer_country }
+				add_offsite_building = { type = arms_factory level = 10 }
+			}
 			CAL = {
 				scoped_play_song = "calisia"
 			}
+
 			ALP = {
 				scoped_play_song = "legio"
 			}			
@@ -442,6 +447,17 @@ on_actions = {
 			WYM = {
 				change_vp_name_to_silesian = yes
 			}
+			FRA = {
+				country_event = {
+					id = fluff_france.1
+					days = 55
+				}
+				diplomatic_relation = {
+					country = GER
+					relation = non_aggression_pact
+					active = yes
+				}
+			}
 			EKS = {
 				country_lock_all_division_template = yes
 				country_event = {
@@ -645,6 +661,21 @@ on_actions = {
 			DUR = { change_vp_name_to_silesian = yes }
 			JSW = { change_vp_name_to_silesian = yes }
 			RUD = { change_vp_name_to_silesian = yes }
+			KES = {
+				delete_eurokom_templates = yes
+				if = {
+					limit = { 
+						any_country = {
+							AND = {
+							is_southern_greater_poland = yes
+							is_ai = no
+							}
+							}
+						}
+					KES = { load_oob = "KES_2027" }
+					else = { KES = { load_oob = "KES_2027_AI" } }
+				}
+			}
 		}
 	}
 	on_daily = {
@@ -748,7 +779,6 @@ on_actions = {
 				}
 				clr_country_flag = getting_ready_to_war
 			}
-			reset_vp_name = yes
 			public_buildings_effect = yes
 		}
 	}
@@ -1452,6 +1482,11 @@ on_actions = {
 	on_monthly_ALP = {
 		effect = {
 			change_vp_name_to_latin = yes
+		}
+	}
+	on_weekly = {
+		effect = {
+			reset_vp_name = yes
 		}
 	}	
 	on_monthly_CZE = {
