@@ -17,7 +17,7 @@ country_event = {
 		hidden_effect = {
 			country_event = {
 				id = swiecie.2
-				days = 7
+				days = 10
 			}
 		}
 	}
@@ -102,6 +102,123 @@ country_event = {
 		name = swiecie.3.b
 		ai_chance = {
 			base = 1
+			modifier = {
+				has_country_flag = accepted_krajna_help
+				factor = 9
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = accepted_krajna_help
+			}
+			KUJ = {
+				add_to_faction = SWC
+			}
+			hidden_effect = {
+				BYD = {
+					country_event = swiecie.4
+				}
+			}
+		}
+		else = {
+			BYD = {
+				declare_war_on = {
+					target = SWC
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.4
+	title = swiecie.4.t
+	desc = swiecie.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.4" }
+
+	option = {
+		name = swiecie.4.a
+		ai_chance = {
+			base = 1
+		}
+		declare_war_on = {
+			target = SWC
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = KUJ
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = PLK
+			type = annex_everything
+		}
+		hidden_effect = {
+			NED = {
+				country_event = swiecie.5
+			}
+			FMT = {
+				country_event = swiecie.5
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.4.b
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.5
+	title = swiecie.5.t
+	desc = swiecie.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.5" }
+
+	option = {
+		name = swiecie.5.a
+		ai_chance = {
+			base = 1
+		}
+		give_military_access = KUJ
+		give_military_access = PLK
+	}
+
+	option = {
+		name = swiecie.5.b
+		ai_chance = {
+			base = 1	
+		}
+		set_country_flag = refused_to_give_access
+		if = {
+			limit = {
+				or = {
+					and = {
+						original_tag = FMT
+						NED = {
+							has_country_flag = refused_to_give_access
+						}
+					}
+					and = {
+						original_tag = NED
+						FMT = {
+							has_country_flag = refused_to_give_access
+						}
+					}
+				}
+			}
+			set_global_flag = swiecie_is_trapped
 		}
 	}
 }
