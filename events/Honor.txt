@@ -9,12 +9,43 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = { 
-		DUR_collapse_WOD = yes 
+
 		log = "[GetDateText]: [ROOT.GetName] fires honor.1" 
 	}
 
 	option = {
 		name = honor.1.a
+		DUR = { drop_cosmetic_tag = yes }
+		MNI = {
+		diplomatic_relation = {
+				country = DUR
+				relation = puppet
+				active = no
+			}
+		}
+		GER = { remove_from_faction = DUR }
+		country_event = {
+			id = honor.2
+			days = 13
+		}
+	}
+}
+
+country_event = {
+	id = honor.2 #rewolucja w durś
+	title = honor.2.t
+	desc = honor.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		DUR_collapse_WOD = yes 
+		log = "[GetDateText]: [ROOT.GetName] fires honor.2" 
+	}
+
+	option = {
+		name = honor.2.a
 		DUR = { 
 			declare_war_on = {
 				target = WOD
@@ -23,7 +54,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = honor.1.b
+		name = honor.2.b
 		WOD = {
 			change_tag_from = DUR
 		}
