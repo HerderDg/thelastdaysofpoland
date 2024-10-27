@@ -416,7 +416,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            country_event = felix.10		
 		}
 	}
 	
@@ -426,7 +427,7 @@ focus_tree = {
 		prerequisite = { focus = FEL_colonel_in_the_rawicz }
 		mutually_exclusive = { focus = FEL_more_controll_less_loyalty }
 		available = {
-		
+		    has_country_flag = FEL_less_control_more_loyalty
 		}
 		
 		bypass = {
@@ -437,7 +438,15 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            add_ideas = FEL_lisowczyks_free_hands	
+            LIS = {
+                add_ideas = LIS_lisowczyks_free_hands
+				add_opinion_modifier = {
+                    target = FEL
+                    modifier = free_hand
+                }
+            }				
 		}
 	}
 	
@@ -447,7 +456,7 @@ focus_tree = {
 		prerequisite = { focus = FEL_colonel_in_the_rawicz }
 		mutually_exclusive = { focus = FEL_less_control_more_loyalty }
 		available = {
-		
+		    has_country_flag = FEL_more_control_less_loyalty
 		}
 		
 		bypass = {
@@ -458,7 +467,15 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {
+            add_ideas = FEL_lisowczyks_hetman_commissar
+            LIS = {
+                add_ideas = LIS_lisowczyks_hetman_commissar
+				add_opinion_modifier = {
+                    target = FEL
+                    modifier = hetman_commissar
+                }
+            }				
 		}
 	}
 	
@@ -478,7 +495,15 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            if = {
+                has_country_flag = FEL_more_control_less_loyalty		
+		        country_event = felix.12
+			}
+			if = {
+                has_country_flag = FEL_less_control_more_loyalty
+		        country_event = felix.11
+			}
 		}
 	}
 	
@@ -498,7 +523,16 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            every_owned_state = {
+				limit = {
+					NOT = {
+						is_core_of = FEL
+					}
+				}
+				add_compliance = 50
+			}
+			country_event = felix.18		
 		}
 	}
 	
@@ -518,7 +552,9 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {
+            add_stability = 0.05
+            add_political_power = -50		
 		}
 	}
 	
@@ -538,7 +574,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            country_event = felix.19		
 		}
 	}
 	
@@ -558,7 +595,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            country_event = felix.20		
 		}
 	}
 	
@@ -660,7 +698,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            country_event = felix.21	
+            hidden_effect = {
+				257 = {
+					create_unit = {
+						division = "division_template = \"Batalion Piechoty\" start_experience_factor = 0.2s start_equipment_factor = 1.0"
+						owner = FEL
+					}
+				}
+				271 = {
+					create_unit = {
+						division = "division_template = \"Batalion Piechoty\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+						owner = FEL
+					}
+				}
+			}			
 		}
 	}
 	
@@ -680,14 +733,29 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 1000
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 50
+				producer = KES
+			}
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_2
+				amount = 1
+				producer = GER
+			}		
 		}
 	}
 	
 	focus = {
 		id = FEL_once_he_was_crawling_arround_like_carrion
 		relative_position_id = FEL_levee_en_masse_of_new_lands
-		prerequisite = { focus = FEL_levee_en_masse_of_new_lands }
+		prerequisite = { focus = FEL_sarmatians_and_their_rifles }
 		available = {
 		
 		}
@@ -700,7 +768,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = {		
+		completion_reward = {	
+            swap_ideas = { 
+				remove_idea = training_battle 
+				add_idea = training_basic 
+			}		
 		}
 	}
 	
