@@ -1,0 +1,515 @@
+add_namespace = swiecie
+
+country_event = {
+	id = swiecie.1
+	title = swiecie.1.t
+	desc = swiecie.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires swiecie.1" 
+		hidden_effect = {
+			country_event = {
+				id = swiecie.2
+				days = 10
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.1.a
+		ai_chance = { base = 50 }
+		99 = {
+			create_unit = {
+				division = "name = \"Ochotnicy\" division_template = \"Bojówka Partyzancka\" location = 15303 start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = SWC
+			}
+		}
+		set_country_flag = accepted_bydgoszcz_help
+		log = "[GetDateText]: [ROOT.GetName] called [BYD.GetName] help" 
+	}
+	option = {
+		name = swiecie.1.b
+		ai_chance = { base = 50 }
+	}
+}
+
+country_event = {
+	id = swiecie.2
+	title = swiecie.2.t
+	desc = swiecie.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.2" }
+
+	option = {
+		name = swiecie.2.a
+
+		ai_chance = { base = 80 }
+		add_equipment_to_stockpile = {
+			type = ranged_equipment
+			amount = 100
+			producer = KUJ
+		}
+		set_country_flag = accepted_krajna_help
+		log = "[GetDateText]: [ROOT.GetName] called [KUJ.GetName] help" 
+	}
+	option = {
+		name = swiecie.2.b
+
+		ai_chance = { base = 20 }
+	}
+}
+
+country_event = {
+	id = swiecie.3
+	title = swiecie.3.t
+	desc = swiecie.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.3" }
+
+	option = {
+		name = swiecie.3.a
+		ai_chance = {
+			base = 3
+		}
+		BYD = {
+			set_autonomy = {
+				target = SWC
+				autonomy_state = autonomy_puppet
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.3.b
+		ai_chance = {
+			base = 1
+			modifier = {
+				has_country_flag = accepted_krajna_help
+				factor = 9
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = accepted_krajna_help
+			}
+			KUJ = {
+				add_to_faction = SWC
+			}
+			hidden_effect = {
+				BYD = {
+					country_event = swiecie.4
+				}
+			}
+		}
+		else = {
+			BYD = {
+				declare_war_on = {
+					target = SWC
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.4
+	title = swiecie.4.t
+	desc = swiecie.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.4" }
+
+	option = {
+		name = swiecie.4.a
+		ai_chance = {
+			base = 1
+		}
+		declare_war_on = {
+			target = SWC
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = KUJ
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = PLK
+			type = annex_everything
+		}
+		hidden_effect = {
+			NED = {
+				country_event = swiecie.5
+			}
+			FMT = {
+				country_event = swiecie.5
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.4.b
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.5
+	title = swiecie.5.t
+	desc = swiecie.5.desc
+
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.5" }
+
+	option = {
+		name = swiecie.5.a
+		ai_chance = {
+			base = 1
+		}
+		give_military_access = KUJ
+		give_military_access = PLK
+	}
+
+	option = {
+		name = swiecie.5.b
+		ai_chance = {
+			base = 1	
+		}
+		set_country_flag = refused_to_give_access
+		if = {
+			limit = {
+				or = {
+					and = {
+						original_tag = FMT
+						NED = {
+							has_country_flag = refused_to_give_access
+						}
+					}
+					and = {
+						original_tag = NED
+						FMT = {
+							has_country_flag = refused_to_give_access
+						}
+					}
+				}
+			}
+			set_global_flag = swiecie_is_trapped
+		}
+	}
+}
+country_event = {
+	id = swiecie.6
+	title = swiecie.6.t
+	desc = swiecie.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.6"	}
+
+	option = {
+		name = swiecie.6.a
+		ai_chance = {
+			base = 17
+		}
+		KUJ = {
+			add_to_faction = SWC
+		}
+		hidden_effect = {
+			country_event = {
+				id = swiecie.8
+				days = 14
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.6.b
+		ai_chance = {
+			base = 3	
+		}
+		hidden_effect = {
+			country_event = {
+				id = swiecie.7
+				days = 14
+			}
+		}
+	}
+}
+country_event = {
+	id = swiecie.7
+	title = swiecie.7.t
+	desc = swiecie.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.7" }
+
+	option = {
+		name = swiecie.7.a
+		ai_chance = {
+			base = 1
+		}
+		LOT = {
+			set_autonomy = {
+				target = SWC
+				autonomy_state = autonomy_puppet
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.7.b
+		ai_chance = {
+			base = 3	
+		}
+		LOT = {
+			declare_war_on = {
+				target = SWC
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.8
+	title = swiecie.8.t
+	desc = swiecie.8.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.8" }
+
+	option = {
+		name = swiecie.8.a
+		ai_chance = {
+			base = 1
+			modifier = {
+				is_subject_of = BYD
+				factor = 0
+			}
+			
+		}
+		1058 = {
+			transfer_state_to = LOT
+		}
+	}
+
+	option = {
+		name = swiecie.8.b
+		ai_chance = {
+			base = 3	
+		}
+		if = {
+			limit = {
+				is_subject_of = BYD
+			}
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 853
+					num_provinces = 2
+					on_win = swiecie.10
+					on_lose = swiecie.11
+				}
+				defender = {
+					state = 1058
+					num_provinces = 2
+					on_win = swiecie.9
+					on_lose = swiecie.9
+				}
+			}
+		}
+		else = {
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 853
+					num_provinces = 2
+					on_win = swiecie.10
+					on_lose = swiecie.11
+				}
+				defender = {
+					state = 1058
+					num_provinces = 2
+					on_win = swiecie.12
+					on_lose = swiecie.13
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.9
+	title = swiecie.9.t
+	desc = swiecie.9.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.9" }
+
+	option = {
+		name = swiecie.9.a
+		BYD = {
+			country_event = swiecie.14
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.10
+	title = swiecie.10.t
+	desc = swiecie.10.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.10" }
+
+	option = {
+		name = swiecie.10.a
+		1058 = {
+			transfer_state_to = LOT
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.11
+	title = swiecie.11.t
+	desc = swiecie.11.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.11" }
+
+	option = {
+		name = swiecie.11.a
+		add_war_support = -0.1
+	}
+}
+
+country_event = {
+	id = swiecie.12
+	title = swiecie.12.t
+	desc = swiecie.12.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.12" }
+
+	option = {
+		name = swiecie.12.a
+		add_war_support = 0.1
+	}
+}
+
+country_event = {
+	id = swiecie.13
+	title = swiecie.13.t
+	desc = swiecie.13.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.13" }
+
+	option = {
+		name = swiecie.13.a
+		add_war_support = -0.1
+	}
+}
+
+country_event = {
+	id = swiecie.14
+	title = swiecie.14.t
+	desc = swiecie.14.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.14" }
+
+	option = {
+		name = swiecie.14.a
+		ai_chance = {
+			base = 3
+		}
+		declare_war_on = {
+			target = LOT
+			type = annex_everything
+		}
+		add_to_war = {
+			targeted_alliance = SWC
+			enemy = LOT
+		}
+	}
+	option = {
+		name = swiecie.14.b
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+country_event = {
+	id = swiecie.15
+	title = swiecie.15.t
+	desc = swiecie.15.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		tag = LOT
+		has_war_with = SWC
+		SWC = {
+			is_puppet_of = BYD
+		}
+		surrender_progress > 0.5
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.15" }
+
+	option = {
+		name = swiecie.15.a
+		white_peace = SWC
+		white_peace = BYD
+		
+		if = {
+			limit = {
+				1058 = {
+					NOT = {
+						is_owned_by = SWC
+					}
+				}	
+			}
+			1058 = {
+				transfer_state_to = SWC
+			}
+		}
+		853 = {
+			transfer_state_to = SWC
+		}
+	}
+}
