@@ -1,0 +1,2641 @@
+ai_war_decisions = {
+
+	
+#██████╗░███████╗░██████╗██╗░░██╗██╗██████╗░███████╗██╗░░██╗██╗███████╗
+#██╔══██╗██╔════╝██╔════╝██║░██╔╝██║██╔══██╗╚════██║██║░██╔╝██║██╔════╝
+#██████╦╝█████╗░░╚█████╗░█████═╝░██║██║░░██║░░███╔═╝█████═╝░██║█████╗░░
+#██╔══██╗██╔══╝░░░╚═══██╗██╔═██╗░██║██║░░██║██╔══╝░░██╔═██╗░██║██╔══╝░░
+#██████╦╝███████╗██████╔╝██║░╚██╗██║██████╔╝███████╗██║░╚██╗██║███████╗
+#╚═════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
+#BESKIDZKIE - FAZA PIERWSZA
+
+ SCZ_LEM_war = {
+ 
+ 	icon = GFX_decision_generic_prepare_civil_war
+ 	allowed = {
+ 		is_tatry_region = yes
+ 			}
+ 
+ 	visible = {
+ 		original_tag = SCZ
+ 		date > 2027.12.12
+ 	}
+ 
+ 	cost = 1
+ 
+ 	ai_will_do = {
+ 		factor = 100
+ 		modifier = {
+ 			factor = -1
+ 			surrender_progress > 0.25
+ 		}
+ 	}
+ 	fire_only_once = yes
+ 	days_remove = 3
+ 	war_with_on_remove = LEM
+ 	remove_effect  = {
+ 		log = "[GetDateText]: Decision lososina_war"
+ 		set_war_support = 0.7
+ 		declare_war_on = {
+ 			target = LEM
+ 			type = annex_everything
+ 		}
+ 	}
+ 	cancel_trigger = {
+ 		SCZ = {
+ 			has_war_with = LEM
+ 		}
+ 	}
+ }
+
+
+#BESKIDZKIE - FAZA DRUGA
+
+ GUR_ZGR_war = {
+ 
+ 	icon = GFX_decision_generic_prepare_civil_war
+ 	
+ 	allowed = {
+		is_tatry_region = yes
+			}
+
+	visible = {
+		original_tag = GUR
+		date > 2028.09.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 3
+	war_with_on_remove = ZGR
+	remove_effect  = {
+		log = "[GetDateText]: Decision podhale_war"
+		set_war_support = 0.7
+		declare_war_on = {
+			target = ZGR
+			type = annex_everything
+		}
+	}
+	cancel_trigger = {
+		GUR = {
+			has_war_with = ZGR
+		}
+	}
+ }
+
+ SCZ_TYM_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_tatry_region = yes
+			}
+
+	visible = {
+		original_tag = SCZ
+		date > 2028.09.12
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 3
+	war_with_on_remove = TYM
+	remove_effect  = {
+		log = "[GetDateText]: Decision SCZ_TYM_war"
+		set_war_support = 0.7
+		declare_war_on = {
+			target = TYM
+			type = annex_everything
+		}
+	}
+	cancel_trigger = {
+		SCZ = {
+			has_war_with = TYM
+		}
+	}
+ }
+
+ beskidzkie_second_war_east = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_tatry_region = yes
+			}
+			
+	visible = {
+			OR = {
+			original_tag = SCZ
+			original_tag = LEM
+			original_tag = GUR
+			}
+			count_triggers = {
+				amount = 3
+					SCZ = { exists = no }
+					GUR = { exists = no }
+					LEM = { exists = no }
+					ZGR = { exists = no }
+					TYM = { exists = no }
+				}
+			NOT = { has_war = yes }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 28
+	remove_effect  = {
+		log = "[GetDateText]: Decision tatry3_war"
+		if = {
+			limit = {
+				country_exists = GUR
+				ROOT = { NOT = { original_tag = GUR } }
+				NOT = {
+					has_war_with = GUR
+				}
+			}
+			declare_war_on = {
+				target = GUR
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = SCZ
+				ROOT = { NOT = { original_tag = SCZ } }
+				NOT = {
+					has_war_with = SCZ
+				}
+			}
+			declare_war_on = {
+				target = SCZ
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = ZGR
+				ROOT = { NOT = { original_tag = ZGR } }
+				NOT = {
+					has_war_with = ZGR
+				}
+			}
+			declare_war_on = {
+				target = ZGR
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = TYM
+				ROOT = { NOT = { original_tag = TYM } }
+				NOT = {
+					has_war_with = TYM
+				}
+			}
+			declare_war_on = {
+				target = TYM
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = LEM
+				ROOT = { NOT = { original_tag = LEM } }
+				NOT = {
+					has_war_with = LEM
+				}
+			}
+			declare_war_on = {
+				target = LEM
+				type = annex_everything
+			}
+		}		
+	}
+ }
+
+#BESKIDZKIE - FAZA OSTATECZNA
+
+ beskidzkie_final_war_east = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_tatry_region = yes
+			}
+			
+	visible = {
+			OR = {
+			original_tag = SCZ
+			original_tag = LEM
+			original_tag = GUR
+			}
+			count_triggers = {
+				amount = 4
+					SCZ = { exists = no }
+					GUR = { exists = no }
+					LEM = { exists = no }
+					ZGR = { exists = no }
+					TYM = { exists = no }
+				}
+			NOT = { has_war = yes }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 28
+	remove_effect  = {
+		log = "[GetDateText]: Decision tatry3_war"
+		if = { 
+			limit = { country_exists = BSK }
+			declare_war_on = {
+				target = BSK
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = CIE }
+			declare_war_on = {
+				target = CIE
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = BBA }
+			declare_war_on = {
+				target = BBA
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = WYM }
+			declare_war_on = {
+				target = WYM
+				type = annex_everything
+			}
+		}
+	}
+ }
+
+ 
+ beskidzkie_final_war_west = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_tatry_region = yes
+			}
+			
+	visible = {
+			OR = {
+			original_tag = BSK
+			original_tag = CIE
+			original_tag = BBA
+			}
+			OR = {
+				BSK = { exists = no }
+				CIE = { exists = no }
+			}
+			count_triggers = {
+				amount = 3
+					SCZ = { exists = no }
+					GUR = { exists = no }
+					LEM = { exists = no }
+					ZGR = { exists = no }
+					TYM = { exists = no }
+			}
+			NOT = { has_war = yes }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 28
+	remove_effect  = {
+		log = "[GetDateText]: Decision tatry3_war"
+		if = { 
+			limit = { country_exists = GUR }
+			declare_war_on = {
+				target = GUR
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = ZGR }
+			declare_war_on = {
+				target = ZGR
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = TYM }
+			declare_war_on = {
+				target = TYM
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = SCZ }
+			declare_war_on = {
+				target = SCZ
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = LEM }
+			declare_war_on = {
+				target = LEM
+				type = annex_everything
+			}
+		}
+		if = { 
+			limit = { country_exists = ZKP }
+			declare_war_on = {
+				target = ZKP
+				type = annex_everything
+			}
+		}				
+	}
+ }
+
+
+#███████╗░█████╗░░██████╗░██╗░░░░░███████╗██████╗░██╗███████╗  ██╗ ░░░░░██╗██╗░░░██╗██████╗░░█████╗░
+#╚════██║██╔══██╗██╔════╝░██║░░░░░██╔════╝██╔══██╗██║██╔════╝  ██║ ░░░░░██║██║░░░██║██╔══██╗██╔══██╗
+#░░███╔═╝███████║██║░░██╗░██║░░░░░█████╗░░██████╦╝██║█████╗░░  ██║ ░░░░░██║██║░░░██║██████╔╝███████║
+#██╔══╝░░██╔══██║██║░░╚██╗██║░░░░░██╔══╝░░██╔══██╗██║██╔══╝░░  ██║ ██╗░░██║██║░░░██║██╔══██╗██╔══██║
+#███████╗██║░░██║╚██████╔╝███████╗███████╗██████╦╝██║███████╗  ██║ ╚█████╔╝╚██████╔╝██║░░██║██║░░██║
+#╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚══════╝╚═════╝░╚═╝╚══════╝  ╚═╝ ░╚════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝
+#ZAGŁĘBIE I JURA - FAZA PIERWSZA
+#ZAGŁĘBIE I JURA - FAZA DRUGA
+#ZAGŁĘBIE I JURA - FAZA OSTATECZNA
+
+ invade_zaglebie_puppets = {
+	visible = {
+		OR = {
+			original_tag = DGR
+			original_tag = SOS
+			original_tag = JAW
+			original_tag = ZAW
+			original_tag = JUR
+			original_tag = JWK
+			original_tag = CCH
+			original_tag = BRZ
+		}
+		count_triggers = {
+			amount = 4
+			DGR = { exists = no }
+			SOS = { exists = no }
+			JAW = { exists = no }
+			ZAW = { exists = no }
+			JUR = { exists = no }
+			JWK = { exists = no }	
+			CCH = { exists = no }
+			BRZ = { exists = no }
+		}
+	}
+	available = {
+		count_triggers = {
+			amount = 7
+			DGR = { exists = no }
+			SOS = { exists = no }
+			JAW = { exists = no }
+			ZAW = { exists = no }
+			JUR = { exists = no }
+			JWK = { exists = no }	
+			CCH = { exists = no }
+			BRZ = { exists = no }
+		}
+	}
+	fire_only_once = yes
+	days_remove = 30
+	cost = 50
+	ai_will_do = {
+		base = 1000
+	}
+	remove_effect = {
+		if = {
+			limit = { BED = { exists = yes } }
+			
+		declare_war_on = {
+			target = BED
+			type = annex_everything
+		}
+		}
+		if = {
+			limit = { SIE = { exists = yes } }
+			
+		declare_war_on = {
+			target = SIE
+			type = annex_everything
+		}
+		}
+	}
+ }
+
+
+#░██████╗░░█████╗░██████╗░███╗░░██╗██╗░░░██╗  ░██████╗██╗░░░░░░█████╗░░██████╗██╗░░██╗
+#██╔════╝░██╔══██╗██╔══██╗████╗░██║╚██╗░██╔╝  ██╔════╝██║░░░░░██╔══██╗██╔════╝██║░██╔╝
+#██║░░██╗░██║░░██║██████╔╝██╔██╗██║░╚████╔╝░  ╚█████╗░██║░░░░░███████║╚█████╗░█████═╝░
+#██║░░╚██╗██║░░██║██╔══██╗██║╚████║░░╚██╔╝░░  ░╚═══██╗██║░░░░░██╔══██║░╚═══██╗██╔═██╗░
+#╚██████╔╝╚█████╔╝██║░░██║██║░╚███║░░░██║░░░  ██████╔╝███████╗██║░░██║██████╔╝██║░╚██╗
+#░╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝░░░╚═╝░░░  ╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝
+#GÓRNY ŚLĄSK - FAZA PIERWSZA
+#GÓRNY ŚLĄSK - FAZA DRUGA
+#GÓRNY ŚLĄSK - FAZA OSTATECZNA
+
+ silesian_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_upper_silesian_unifier = yes
+		NOT = {
+			is_opolskie = yes
+		}
+		
+	}
+	
+	target_array = global.silesian_factions
+	target_trigger = {
+		FROM = {
+			is_upper_silesia = yes
+		}
+	}
+
+	visible = {
+			AND = {
+				OR = {
+					original_tag = GLI
+					original_tag = RAS
+					original_tag = CHO
+					original_tag = JSW
+					original_tag = SOL
+					original_tag = SBW
+					original_tag = KAT
+					original_tag = DUR
+					original_tag = WOD
+				}
+				ROOT = { any_neighbor_country = { is_upper_silesia = yes } }
+				FROM = { is_neighbor_of = ROOT }
+				FROM = { exists = yes }
+				date > 2028.04.01
+				NOT = {
+					has_war = yes
+					has_country_flag = slask_wojna
+				}
+				has_global_flag = chosen_silesian_behemoth
+			}
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	complete_effect = {
+		hidden_effect = {
+			set_country_flag = slask_wojna
+		}
+	}
+	remove_effect  = {
+		log = "[GetDateText]: [ROOT.GetName] fires decision podlasie_plemiona"
+		hidden_effect = {
+			clr_country_flag = slask_wojna
+		}
+		ROOT = {
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+	}
+ }	
+
+
+#███╗░░░███╗░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░░░░░██████╗██╗░░██╗██╗███████╗
+#████╗░████║██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔════╝██║░██╔╝██║██╔════╝
+#██╔████╔██║███████║██║░░░░░██║░░██║██████╔╝██║░░██║██║░░░░░╚█████╗░█████═╝░██║█████╗░░
+#██║╚██╔╝██║██╔══██║██║░░░░░██║░░██║██╔═══╝░██║░░██║██║░░░░░░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░╚═╝░██║██║░░██║███████╗╚█████╔╝██║░░░░░╚█████╔╝███████╗██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░░░░░╚════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#MAŁOPOLSKIE - FAZA PIERWSZA
+#MAŁOPOLSKIE - FAZA DRUGA
+#MAŁOPOLSKIE - FAZA OSTATECZNA
+#██████╗░░█████╗░██████╗░██╗░░██╗░█████╗░██████╗░██████╗░░█████╗░░█████╗░██╗░░██╗██╗███████╗
+#██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██║██╔════╝
+#██████╔╝██║░░██║██║░░██║█████═╝░███████║██████╔╝██████╔╝███████║██║░░╚═╝█████═╝░██║█████╗░░
+#██╔═══╝░██║░░██║██║░░██║██╔═██╗░██╔══██║██╔══██╗██╔═══╝░██╔══██║██║░░██╗██╔═██╗░██║██╔══╝░░
+#██║░░░░░╚█████╔╝██████╔╝██║░╚██╗██║░░██║██║░░██║██║░░░░░██║░░██║╚█████╔╝██║░╚██╗██║███████╗
+#╚═╝░░░░░░╚════╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#PODKARPACKIE - FAZA PIERWSZA
+
+ CHR_LEZ_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+		original_tag = CHR
+		NOT = { has_war = yes }
+		country_exists = LEZ
+		date > 2027.09.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision lezajsk_wypij_do_dna"
+			if = { limit = { country_exists = LEZ }
+			declare_war_on = {
+				target = LEZ
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ KRO_JSO_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+		original_tag = KRO
+		NOT = { has_war = yes }
+		country_exists = JSO
+		date > 2027.07.13
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wino_wino_wypij_do_dna"
+			if = { limit = { country_exists = JSO }
+			declare_war_on = {
+				target = JSO
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ BSC_ANC_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+		original_tag = BSC
+		NOT = { has_war = yes }
+		country_exists = ANC
+		date > 2027.07.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision bieszczady_war"
+			if = { limit = { country_exists = ANC }
+			declare_war_on = {
+				target = ANC
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ TAR_KOL_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+		original_tag = TAR
+		NOT = { has_war = yes }
+		country_exists = KOL
+		date > 2027.08.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision tarnobrzeg_kolbuszowa"
+			if = { limit = { country_exists = KOL }
+			declare_war_on = {
+				target = KOL
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+#PODKARPACKIE - FAZA DRUGA
+
+ mielec_debica = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+		OR = {
+		original_tag = DBI
+		}
+		NOT = { has_war = yes }
+		date > 2028.04.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 1
+	remove_effect  = {
+		log = "[GetDateText]: Decision mielec_debica"
+			if = { limit = { country_exists = MIE }
+			declare_war_on = {
+				target = MIE
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ podkarpacie_TAR = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = KRO
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_KRO
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = TAR } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_TAR"
+			if = { limit = { country_exists = TAR }
+			declare_war_on = {
+				target = TAR
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = KOL }
+			declare_war_on = {
+				target = KOL
+				type = annex_everything
+			}
+			}				
+	}
+ }
+
+ podkarpacie_BSC = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = KRO
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = BSC } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_BSC"
+			if = { limit = { country_exists = BSC }
+			declare_war_on = {
+				target = BSC
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = ANC }
+			declare_war_on = {
+				target = ANC
+				type = annex_everything
+			}
+			}			
+	}
+ }
+
+ podkarpacie_KOZ = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KRO
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = KOZ } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_KOZ"
+			if = { limit = { country_exists = KOZ }
+			declare_war_on = {
+				target = KOZ
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ podkarpacie_RZE = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = KRO
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = RZE } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_RZE"
+			if = { limit = { country_exists = RZE }
+			declare_war_on = {
+				target = RZE
+				type = annex_everything
+			}
+		}
+	}
+ }
+
+ podkarpacie_CHR = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = KRO
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = CHR } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_CHR"
+			if = { limit = { country_exists = CHR }
+			declare_war_on = {
+				target = CHR
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = LEZ }
+			declare_war_on = {
+				target = LEZ
+				type = annex_everything
+			}
+			}				
+	}
+ }
+
+ podkarpacie_UPA = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = KRO
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = UPA } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_UPA"
+			if = { limit = { country_exists = UPA }
+			declare_war_on = {
+				target = UPA
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ podkarpacie_UHR = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = KRO
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = UHR } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_UHR"
+			if = { limit = { country_exists = UHR }
+			declare_war_on = {
+				target = UHR
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = LCZ }
+			declare_war_on = {
+				target = LCZ
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ podkarpacie_LGP = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = KRO
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_KRO
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = LGP } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_LGP"
+			if = { limit = { country_exists = LGP }
+			declare_war_on = {
+				target = LGP
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = LCZ }
+			declare_war_on = {
+				target = LCZ
+				type = annex_everything
+			}
+			}				
+	}
+ }
+
+ podkarpacie_KRO = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+			}
+			NOT = { 
+				OR = {
+						has_decision = podkarpacie_LGP
+						has_decision = podkarpacie_UHR
+						has_decision = podkarpacie_UPA
+						has_decision = podkarpacie_CHR
+						has_decision = podkarpacie_RZE
+						has_decision = podkarpacie_KOZ
+						has_decision = podkarpacie_BSC
+						has_decision = podkarpacie_TAR
+					}
+				}
+			ROOT = { any_neighbor_country = { original_tag = KRO } }
+			NOT = { has_war = yes }
+			date > 2028.04.20
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_KRO"
+			if = { limit = { country_exists = KRO }
+			declare_war_on = {
+				target = KRO
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = JSO }
+			declare_war_on = {
+				target = JSO
+				type = annex_everything
+			}
+			}				
+	}
+ }
+
+ tarnobrzeg_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+		original_tag = TAR
+		NOT = { has_war = yes }
+		date > 2028.03.01
+		KOL = { exists = no }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 18
+	remove_effect  = {
+		log = "[GetDateText]: Decision tarnobrzeg_war"
+			if = { limit = { country_exists = CHR }
+			declare_war_on = {
+				target = CHR
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = KOZ }
+			declare_war_on = {
+				target = KOZ
+				type = annex_everything
+			}
+			}
+	}
+ }
+#PODKARPACKIE - FAZA OSTATECZNA
+
+ heart_of_darkness = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	available = {
+		NOT = { has_war = yes }
+		count_triggers = {
+			amount = 14
+			KOL = { exists = no }
+			LEZ = { exists = no }
+			ANC = { exists = no }
+			JSO = { exists = no }
+			KRO = { exists = no }
+			TAR = { exists = no }	
+			UPA = { exists = no }
+			KOZ = { exists = no }
+			BSC = { exists = no }
+			UHR = { exists = no }
+			LGP = { exists = no }
+			CHR = { exists = no }	
+			RZE = { exists = no }	
+			DBI = { exists = no }	
+			MIE = { exists = no }	
+			LCZ = { exists = no }
+		}
+	}
+
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+				original_tag = KRO
+			}
+
+			ROOT = { any_neighbor_country = { original_tag = BEX } }		
+
+			
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision heart_of_darkness"
+			if = { limit = { country_exists = BEX }
+			annex_country = {
+				target = BEX
+				transfer_troops = no
+			}
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = {
+					id = sanok.1
+				}
+			}
+			}
+	}
+ }
+
+ podkarpacie_mielec_debica = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	available = {
+		OR = {
+			ROOT = { any_neighbor_country = { original_tag = DBI } }
+			ROOT = { any_neighbor_country = { original_tag = MIE } }				
+			}
+			NOT = { has_war = yes }
+			count_triggers = {
+				amount = 12
+				KOL = { exists = no }
+				LEZ = { exists = no }
+				ANC = { exists = no }
+				JSO = { exists = no }
+				KRO = { exists = no }
+				TAR = { exists = no }	
+				UPA = { exists = no }
+				KOZ = { exists = no }
+				BSC = { exists = no }
+				UHR = { exists = no }
+				LGP = { exists = no }
+				CHR = { exists = no }	
+				RZE = { exists = no }							
+			}
+	}
+
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = LGP
+				original_tag = UHR
+				original_tag = UPA
+				original_tag = CHR
+				original_tag = RZE
+				original_tag = KOZ
+				original_tag = BSC
+				original_tag = TAR
+				original_tag = KRO
+			}
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision podkarpacie_mielec_debica"
+			if = { limit = { country_exists = DBI }
+			declare_war_on = {
+				target = DBI
+				type = annex_everything
+			}
+			}
+			if = { limit = { country_exists = MIE }
+			declare_war_on = {
+				target = MIE
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ rozpierdol_lubaczow = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+	OR = {
+		original_tag = UHR
+		original_tag = UPA
+		original_tag = LGP
+		original_tag = TAR
+		original_tag = BSC
+		original_tag = RZE
+		original_tag = KOZ
+		original_tag = KRO
+		original_tag = CHR
+		}
+		NOT = { has_war = yes }
+		country_exists = LCZ
+		date > 2028.09.01
+		ROOT = { any_neighbor_country = { original_tag = LCZ } }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision rozpierdol_lubaczow"
+			if = { limit = { country_exists = LCZ }
+			declare_war_on = {
+				target = LCZ
+				type = annex_everything
+			}
+			}
+	}
+ }
+
+ lezajsk_final_destination = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_subcarpathia = yes
+			}
+
+	visible = {
+	OR = {
+		original_tag = UHR
+		original_tag = UPA
+		original_tag = LGP
+		original_tag = TAR
+		original_tag = BSC
+		original_tag = RZE
+		original_tag = KOZ
+		original_tag = KRO
+		original_tag = CHR
+		}
+		NOT = { has_war = yes }
+		country_exists = LEZ
+		date > 2028.09.01
+		ROOT = { any_neighbor_country = { original_tag = LEZ } }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision rozpierdol_lezajsk"
+			if = { limit = { country_exists = LEZ }
+			declare_war_on = {
+				target = LEZ
+				type = annex_everything
+			}
+			}
+	}
+ }
+#██╗░░██╗░█████╗░██╗░░░░░██╗░░░██╗  ░█████╗░██████╗░░█████╗░░██████╗░██████╗
+#██║░░██║██╔══██╗██║░░░░░╚██╗░██╔╝  ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝
+#███████║██║░░██║██║░░░░░░╚████╔╝░  ██║░░╚═╝██████╔╝██║░░██║╚█████╗░╚█████╗░
+#██╔══██║██║░░██║██║░░░░░░░╚██╔╝░░  ██║░░██╗██╔══██╗██║░░██║░╚═══██╗░╚═══██╗
+#██║░░██║╚█████╔╝███████╗░░░██║░░░  ╚█████╔╝██║░░██║╚█████╔╝██████╔╝██████╔╝
+#╚═╝░░╚═╝░╚════╝░╚══════╝░░░╚═╝░░░  ░╚════╝░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+#ŚWIĘTOKRZYSKIE - FAZA PIERWSZA
+#ŚWIĘTOKRZYSKIE - FAZA DRUGA
+#ŚWIĘTOKRZYSKIE - FAZA OSTATECZNA
+#██╗░░░░░██╗░░░██╗██████╗░███████╗██╗░░░░░░██████╗██╗░░██╗██╗███████╗
+#██║░░░░░██║░░░██║██╔══██╗██╔════╝██║░░░░░██╔════╝██║░██╔╝██║██╔════╝
+#██║░░░░░██║░░░██║██████╦╝█████╗░░██║░░░░░╚█████╗░█████═╝░██║█████╗░░
+#██║░░░░░██║░░░██║██╔══██╗██╔══╝░░██║░░░░░░╚═══██╗██╔═██╗░██║██╔══╝░░
+#███████╗╚██████╔╝██████╦╝███████╗███████╗██████╔╝██║░╚██╗██║███████╗
+#╚══════╝░╚═════╝░╚═════╝░╚══════╝╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#LUBELSKIE - FAZA PIERWSZA
+#LUBELSKIE - FAZA DRUGA
+#LUBELSKIE - FAZA OSTATECZNA
+#██████╗░░█████╗░██████╗░░█████╗░███╗░░░███╗░██████╗██╗░░██╗██╗███████╗
+#██╔══██╗██╔══██╗██╔══██╗██╔══██╗████╗░████║██╔════╝██║░██╔╝██║██╔════╝
+#██████╔╝███████║██║░░██║██║░░██║██╔████╔██║╚█████╗░█████═╝░██║█████╗░░
+#██╔══██╗██╔══██║██║░░██║██║░░██║██║╚██╔╝██║░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░░██║██║░░██║██████╔╝╚█████╔╝██║░╚═╝░██║██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#RADOMSKIE - FAZA PIERWSZA
+#RADOMSKIE - FAZA DRUGA
+#RADOMSKIE - FAZA OSTATECZNA
+#██╗░░░░░░█████╗░██████╗░███████╗██╗░░██╗██╗███████╗
+#██║░░░░░██╔══██╗██╔══██╗╚════██║██║░██╔╝██║██╔════╝
+#██║░░░░░██║░░██║██║░░██║░░███╔═╝█████═╝░██║█████╗░░
+#██║░░░░░██║░░██║██║░░██║██╔══╝░░██╔═██╗░██║██╔══╝░░
+#███████╗╚█████╔╝██████╔╝███████╗██║░╚██╗██║███████╗
+#╚══════╝░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
+#ŁÓDZKIE - FAZA PIERWSZA
+#ŁÓDZKIE - FAZA DRUGA
+#ŁÓDZKIE - FAZA OSTATECZNA
+#░██╗░░░░░░░██╗░█████╗░██████╗░░██████╗███████╗░█████╗░░██╗░░░░░░░██╗░█████╗░
+#░██║░░██╗░░██║██╔══██╗██╔══██╗██╔════╝╚════██║██╔══██╗░██║░░██╗░░██║██╔══██╗
+#░╚██╗████╗██╔╝███████║██████╔╝╚█████╗░░░███╔═╝███████║░╚██╗████╗██╔╝███████║
+#░░████╔═████║░██╔══██║██╔══██╗░╚═══██╗██╔══╝░░██╔══██║░░████╔═████║░██╔══██║
+#░░╚██╔╝░╚██╔╝░██║░░██║██║░░██║██████╔╝███████╗██║░░██║░░╚██╔╝░╚██╔╝░██║░░██║
+#░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝
+#WARSZAWA - FAZA PIERWSZA
+#WARSZAWA - FAZA DRUGA
+#WARSZAWA - FAZA OSTATECZNA
+#██████╗░░█████╗░██████╗░██╗░░░░░░█████╗░░██████╗██╗███████╗
+#██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔════╝██║██╔════╝
+#██████╔╝██║░░██║██║░░██║██║░░░░░███████║╚█████╗░██║█████╗░░
+#██╔═══╝░██║░░██║██║░░██║██║░░░░░██╔══██║░╚═══██╗██║██╔══╝░░
+#██║░░░░░╚█████╔╝██████╔╝███████╗██║░░██║██████╔╝██║███████╗
+#╚═╝░░░░░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝╚══════╝
+#PODLASIE - FAZA PIERWSZA
+ end_of_popular_front = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+		original_tag = AGR
+			}
+		}
+
+	visible = {
+		OR = {
+		original_tag = AGR
+		}
+		date > 2028.05.16
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision end_of_popular_front"
+		AGR = {
+		leave_faction = yes
+		declare_war_on = {
+			target = SDL
+			type = annex_everything
+		}
+		}
+	}
+ }
+#PODLASIE - FAZA DRUGA
+#PODLASIE - FAZA OSTATECZNA
+#██████╗░██╗░░░░░███╗░░██╗  ███╗░░░███╗░█████╗░███████╗░█████╗░░██╗░░░░░░░██╗░██████╗███████╗███████╗
+#██╔══██╗██║░░░░░████╗░██║  ████╗░████║██╔══██╗╚════██║██╔══██╗░██║░░██╗░░██║██╔════╝╚════██║██╔════╝
+#██████╔╝██║░░░░░██╔██╗██║  ██╔████╔██║███████║░░███╔═╝██║░░██║░╚██╗████╗██╔╝╚█████╗░░░███╔═╝█████╗░░
+#██╔═══╝░██║░░░░░██║╚████║  ██║╚██╔╝██║██╔══██║██╔══╝░░██║░░██║░░████╔═████║░░╚═══██╗██╔══╝░░██╔══╝░░
+#██║░░░░░███████╗██║░╚███║  ██║░╚═╝░██║██║░░██║███████╗╚█████╔╝░░╚██╔╝░╚██╔╝░██████╔╝███████╗███████╗
+#╚═╝░░░░░╚══════╝╚═╝░░╚══╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═════╝░╚══════╝╚══════╝
+#PÓŁNOCNOMAZOWIECKIE - FAZA PIERWSZA
+#PÓŁNOCNOMAZOWIECKIE - FAZA DRUGA
+#PÓŁNOCNOMAZOWIECKIE - FAZA OSTATECZNA
+#░██╗░░░░░░░██╗░█████╗░██████╗░███╗░░░███╗██╗░█████╗░░░░░░░███╗░░░███╗░█████╗░███████╗██╗░░░██╗██████╗░██╗░░░██╗
+#░██║░░██╗░░██║██╔══██╗██╔══██╗████╗░████║██║██╔══██╗░░░░░░████╗░████║██╔══██╗╚════██║██║░░░██║██╔══██╗╚██╗░██╔╝
+#░╚██╗████╗██╔╝███████║██████╔╝██╔████╔██║██║███████║█████╗██╔████╔██║███████║░░███╔═╝██║░░░██║██████╔╝░╚████╔╝░
+#░░████╔═████║░██╔══██║██╔══██╗██║╚██╔╝██║██║██╔══██║╚════╝██║╚██╔╝██║██╔══██║██╔══╝░░██║░░░██║██╔══██╗░░╚██╔╝░░
+#░░╚██╔╝░╚██╔╝░██║░░██║██║░░██║██║░╚═╝░██║██║██║░░██║░░░░░░██║░╚═╝░██║██║░░██║███████╗╚██████╔╝██║░░██║░░░██║░░░
+#░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═╝░░╚═╝░░░░░░╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░
+#WARMIŃSKO-MAZURSKIE - FAZA PIERWSZA
+#WARMIŃSKO-MAZURSKIE - FAZA DRUGA
+#WARMIŃSKO-MAZURSKIE - FAZA OSTATECZNA
+#██████╗░░█████╗░███╗░░░███╗░█████╗░██████╗░░██████╗██╗░░██╗██╗███████╗
+#██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝██║░██╔╝██║██╔════╝
+#██████╔╝██║░░██║██╔████╔██║██║░░██║██████╔╝╚█████╗░█████═╝░██║█████╗░░
+#██╔═══╝░██║░░██║██║╚██╔╝██║██║░░██║██╔══██╗░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░░░░░╚█████╔╝██║░╚═╝░██║╚█████╔╝██║░░██║██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░░░░░╚════╝░╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#POMORSKIE - FAZA PIERWSZA
+#POMORSKIE - FAZA DRUGA
+#POMORSKIE - FAZA OSTATECZNA
+#██╗░░██╗██╗░░░██╗░░░░░██╗░█████╗░░██╗░░░░░░░██╗░██████╗██╗░░██╗██╗███████╗
+#██║░██╔╝██║░░░██║░░░░░██║██╔══██╗░██║░░██╗░░██║██╔════╝██║░██╔╝██║██╔════╝
+#█████═╝░██║░░░██║░░░░░██║███████║░╚██╗████╗██╔╝╚█████╗░█████═╝░██║█████╗░░
+#██╔═██╗░██║░░░██║██╗░░██║██╔══██║░░████╔═████║░░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░╚██╗╚██████╔╝╚█████╔╝██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░╚═╝░╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#KUJAWSKIE - FAZA PIERWSZA
+#KUJAWSKIE - FAZA DRUGA
+#KUJAWSKIE - FAZA OSTATECZNA
+#███████╗░█████╗░░█████╗░██╗░░██╗░░░  ██████╗░░█████╗░███╗░░░███╗░█████╗░██████╗░░██████╗██╗░░██╗██╗███████╗
+#╚════██║██╔══██╗██╔══██╗██║░░██║░░░  ██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝██║░██╔╝██║██╔════╝
+#░░███╔═╝███████║██║░░╚═╝███████║░░░  ██████╔╝██║░░██║██╔████╔██║██║░░██║██████╔╝╚█████╗░█████═╝░██║█████╗░░
+#██╔══╝░░██╔══██║██║░░██╗██╔══██║░░░  ██╔═══╝░██║░░██║██║╚██╔╝██║██║░░██║██╔══██╗░╚═══██╗██╔═██╗░██║██╔══╝░░
+#███████╗██║░░██║╚█████╔╝██║░░██║██╗  ██║░░░░░╚█████╔╝██║░╚═╝░██║╚█████╔╝██║░░██║██████╔╝██║░╚██╗██║███████╗
+#╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝  ╚═╝░░░░░░╚════╝░╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#ZACHODNIOPOMORSKIE - FAZA PIERWSZA
+#ZACHODNIOPOMORSKIE - FAZA DRUGA
+#ZACHODNIOPOMORSKIE - FAZA OSTATECZNA
+#██████╗░░█████╗░███████╗███╗░░██╗░█████╗░███╗░░██╗░██████╗██╗░░██╗██╗███████╗
+#██╔══██╗██╔══██╗╚════██║████╗░██║██╔══██╗████╗░██║██╔════╝██║░██╔╝██║██╔════╝
+#██████╔╝██║░░██║░░███╔═╝██╔██╗██║███████║██╔██╗██║╚█████╗░█████═╝░██║█████╗░░
+#██╔═══╝░██║░░██║██╔══╝░░██║╚████║██╔══██║██║╚████║░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░░░░░╚█████╔╝███████╗██║░╚███║██║░░██║██║░╚███║██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░░░░░╚════╝░╚══════╝╚═╝░░╚══╝╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#POZNAŃSKIE - FAZA PIERWSZA
+
+POZ_poznan_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = POZ
+			date > 2028.04.10
+			country_exists = SYJ
+			country_exists = SLU
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SLU
+		war_with_on_remove = SYJ
+		remove_effect  = {
+			log = "[GetDateText]: Decision POZ_poznan_war"
+			declare_war_on = {
+				target = SLU
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = SYJ
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			POZ = {
+				has_war_with = SLU
+			}
+		}
+		cancel_trigger = {
+			POZ = {
+				has_war_with = SYJ
+			}
+		}
+	}
+	
+SLU_poznan_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = SLU
+			date > 2028.04.10
+			country_exists = SYJ
+			country_exists = POZ
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = POZ
+		war_with_on_remove = SYJ
+		remove_effect  = {
+			log = "[GetDateText]: Decision SLU_poznan_war"
+			declare_war_on = {
+				target = POZ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = SYJ
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			SLU = {
+				has_war_with = POZ
+			}
+		}
+		cancel_trigger = {
+			SLU = {
+				has_war_with = SYJ
+			}
+		}
+	}
+	
+SYJ_poznan_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = SYJ
+			date > 2028.04.10
+			country_exists = POZ
+			country_exists = SLU
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SLU
+		war_with_on_remove = POZ
+		remove_effect  = {
+			log = "[GetDateText]: Decision SYJ_poznan_war"
+			declare_war_on = {
+				target = SLU
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = POZ
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			SYJ = {
+				has_war_with = SLU
+			}
+		}
+		cancel_trigger = {
+			SYJ = {
+				has_war_with = POZ
+			}
+		}
+	}
+	
+NAC_SUS_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = NAC
+			date > 2028.05.20
+			country_exists = SUS
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = SUS
+		remove_effect  = {
+			log = "[GetDateText]: Decision NAC_SUS_war"
+			declare_war_on = {
+				target = SUS
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			NAC = {
+				has_war_with = SUS
+			}
+		}
+	}
+	
+SUS_NAC_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = SUS
+			date > 2028.05.20
+			country_exists = NAC
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = NAC
+		remove_effect  = {
+			log = "[GetDateText]: Decision SUS_NAC_war"
+			declare_war_on = {
+				target = NAC
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			SUS = {
+				has_war_with = NAC
+			}
+		}
+	}
+	
+PIL_WRT_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = PIL
+			date > 2028.05.20
+			country_exists = WRT
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = WRT
+		remove_effect  = {
+			log = "[GetDateText]: Decision PIL_WRT_war"
+			declare_war_on = {
+				target = WRT
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			PIL = {
+				has_war_with = WRT
+			}
+		}
+	}
+	
+WRT_PIL_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = WRT
+			date > 2028.05.20
+			country_exists = PIL
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = PIL
+		remove_effect  = {
+			log = "[GetDateText]: Decision WRT_PIL_war"
+			declare_war_on = {
+				target = PIL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			WRT = {
+				has_war_with = PIL
+			}
+		}
+	}
+	
+KAM_MOT_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = KAM
+			date > 2028.05.20
+			country_exists = MOT
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = MOT
+		remove_effect  = {
+			log = "[GetDateText]: Decision KAM_MOT_war"
+			declare_war_on = {
+				target = MOT
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			KAM = {
+				has_war_with = MOT
+			}
+		}
+	}
+	
+MOT_KAM_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_northern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = MOT
+			date > 2028.05.20
+			country_exists = KAM
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = KAM
+		remove_effect  = {
+			log = "[GetDateText]: Decision MOT_KAM_war"
+			declare_war_on = {
+				target = KAM
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			MOT = {
+				has_war_with = KAM
+			}
+		}
+	}
+#POZNAŃSKIE - FAZA DRUGA
+#POZNAŃSKIE - FAZA OSTATECZNA
+#██╗░░██╗░█████╗░██╗░░░░░██╗░██████╗██╗░░██╗██╗███████╗
+#██║░██╔╝██╔══██╗██║░░░░░██║██╔════╝██║░██╔╝██║██╔════╝
+#█████═╝░███████║██║░░░░░██║╚█████╗░█████═╝░██║█████╗░░
+#██╔═██╗░██╔══██║██║░░░░░██║░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░╚██╗██║░░██║███████╗██║██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#KALISKIE - FAZA PIERWSZA
+
+FEL_leszno_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = FEL
+			date > 2028.07.01
+			country_exists = LSZ
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = LSZ
+		remove_effect  = {
+			log = "[GetDateText]: Decision FEL_leszno_war"
+			declare_war_on = {
+				target = LSZ
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			FEL = {
+				has_war_with = LSZ
+			}
+		}
+	}
+	
+	CAL_gniezno_cleanup = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = CAL
+			date > 2028.09.01
+			NOT = {
+				country_exists = GNI
+			}
+			OR = {
+				country_exists = KNN
+				AND = {
+					country_exists = KLO
+					KLO = {
+						is_subject = no
+					}
+				}
+			}
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = KLO
+		war_with_on_remove = KNN
+		remove_effect  = {
+			log = "[GetDateText]: Decision CAL_gniezno_cleanup"
+			if = {
+				limit = {
+					country_exists = KNN
+				}
+				declare_war_on = {
+					target = KNN
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					country_exists = KLO
+				}
+				declare_war_on = {
+					target = KLO
+					type = annex_everything
+				}
+			}
+		}
+	}
+
+	GNI_kalisz_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = GNI
+			date > 2028.09.01
+			country_exists = CAL
+			has_war = no
+		}
+
+		cost = 2
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = CAL
+		remove_effect  = {
+			log = "[GetDateText]: Decision GNI_kalisz_war"
+			declare_war_on = {
+				target = CAL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			GNI = {
+				has_war_with = CAL
+			}
+		}
+	}
+	
+	
+	LSZ_sroda_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = LSZ
+			date > 2029.02.16
+			country_exists = FEL
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = FEL
+		remove_effect  = {
+			log = "[GetDateText]: Decision LSZ_sroda_war"
+			declare_war_on = {
+				target = FEL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			LSZ = {
+				has_war_with = FEL
+			}
+		}
+	}
+	
+#KALISKIE - FAZA OSTATECZNA
+
+FEL_kalisz_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = FEL
+			date > 2029.09.01
+			country_exists = CAL
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = CAL
+		remove_effect  = {
+			log = "[GetDateText]: Decision FEL_kalisz_war"
+			declare_war_on = {
+				target = CAL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			FEL = {
+				has_war_with = CAL
+			}
+		}
+	}
+	
+	
+	FEL_gniezno_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = FEL
+			date > 2029.09.01
+			country_exists = GNI
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = GNI
+		remove_effect  = {
+			log = "[GetDateText]: Decision FEL_gniezno_war"
+			declare_war_on = {
+				target = GNI
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			FEL = {
+				has_war_with = GNI
+			}
+		}
+	}
+	
+    GNI_sroda_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = GNI
+			date > 2029.09.01
+			country_exists = FEL
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = FEL
+		remove_effect  = {
+			log = "[GetDateText]: Decision GNI_sroda_war"
+			declare_war_on = {
+				target = FEL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			GNI = {
+				has_war_with = FEL
+			}
+		}
+	}
+	
+	
+	GNI_leszno_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = GNI
+			date > 2029.09.01
+		    country_exists = LSZ
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = LSZ
+		remove_effect  = {
+			log = "[GetDateText]: Decision GNI_leszno_war"
+			declare_war_on = {
+				target = LSZ
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			GNI = {
+				has_war_with = LSZ
+			}
+		}
+	}
+	
+	
+	LSZ_kalisz_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = LSZ
+			date > 2029.09.01
+			country_exists = CAL
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = CAL
+		remove_effect  = {
+			log = "[GetDateText]: Decision LSZ_kalisz_war"
+			declare_war_on = {
+				target = CAL
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			LSZ = {
+				has_war_with = CAL
+			}
+		}
+	}
+	
+	
+	LSZ_gniezno_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		visible = {
+			original_tag = LSZ
+			date > 2029.09.01
+			country_exists = GNI
+			has_war = no
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = GNI
+		remove_effect  = {
+			log = "[GetDateText]: Decision LSZ_gniezno_war"
+			declare_war_on = {
+				target = GNI
+				type = annex_everything
+			}
+		}
+		cancel_trigger = {
+			LSZ = {
+				has_war_with = GNI
+			}
+		}
+	}
+	
+#██╗░░░░░███████╗░██████╗░███╗░░██╗██╗░█████╗░██╗░░██╗██╗███████╗
+#██║░░░░░██╔════╝██╔════╝░████╗░██║██║██╔══██╗██║░██╔╝██║██╔════╝
+#██║░░░░░█████╗░░██║░░██╗░██╔██╗██║██║██║░░╚═╝█████═╝░██║█████╗░░
+#██║░░░░░██╔══╝░░██║░░╚██╗██║╚████║██║██║░░██╗██╔═██╗░██║██╔══╝░░
+#███████╗███████╗╚██████╔╝██║░╚███║██║╚█████╔╝██║░╚██╗██║███████╗
+#╚══════╝╚══════╝░╚═════╝░╚═╝░░╚══╝╚═╝░╚════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#LEGNICKIE - FAZA PIERWSZA
+#LEGNICKIE - FAZA DRUGA
+#LEGNICKIE - FAZA OSTATECZNA
+#░██╗░░░░░░░██╗██████╗░░█████╗░░█████╗░██╗░░░░░░█████╗░░██╗░░░░░░░██╗░██████╗██╗░░██╗██╗███████╗
+#░██║░░██╗░░██║██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔══██╗░██║░░██╗░░██║██╔════╝██║░██╔╝██║██╔════╝
+#░╚██╗████╗██╔╝██████╔╝██║░░██║██║░░╚═╝██║░░░░░███████║░╚██╗████╗██╔╝╚█████╗░█████═╝░██║█████╗░░
+#░░████╔═████║░██╔══██╗██║░░██║██║░░██╗██║░░░░░██╔══██║░░████╔═████║░░╚═══██╗██╔═██╗░██║██╔══╝░░
+#░░╚██╔╝░╚██╔╝░██║░░██║╚█████╔╝╚█████╔╝███████╗██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝██║░╚██╗██║███████╗
+#░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#WROCŁAWSKIE - FAZA PIERWSZA
+#WROCŁAWSKIE - FAZA DRUGA
+#WROCŁAWSKIE - FAZA OSTATECZNA
+#███╗░░██╗██╗░░░██╗░██████╗██╗░░██╗██╗███████╗
+#████╗░██║╚██╗░██╔╝██╔════╝██║░██╔╝██║██╔════╝
+#██╔██╗██║░╚████╔╝░╚█████╗░█████═╝░██║█████╗░░
+#██║╚████║░░╚██╔╝░░░╚═══██╗██╔═██╗░██║██╔══╝░░
+#██║░╚███║░░░██║░░░██████╔╝██║░╚██╗██║███████╗
+#╚═╝░░╚══╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
+#NYSKIE - FAZA PIERWSZA
+#NYSKIE - FAZA DRUGA
+#NYSKIE - FAZA OSTATECZNA
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
