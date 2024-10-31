@@ -236,39 +236,6 @@ country_event = {
 }
 
 country_event = {
-	id = aievent.7 #brzeczek clubism
-	title = aievent.7.t
-	desc = aievent.7.desc
-
-	fire_only_once = yes
-	trigger = { 
-		original_tag = BRZ
-		date > 2027.06.30
-	}
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.7 "}
-	option = {
-		name = aievent.7.a #dźwig
-		set_politics = {
-			ruling_party = marxism_cranism
-			}
-		set_popularities = {
-			marxism_cranism	= 56
-			squattism = 14
-			socialdemocrature = 15
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 4
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 8
-			reactionary = 3
-			postpolonism = 0
-		}
-		log = "[GetDateText]: brzęczek został operatorem dźwigu"
-	}
-}
-
-country_event = {
 	id = aievent.8 #czestochowa
 	title = aievent.8.t
 	desc = aievent.8.desc
@@ -497,14 +464,6 @@ country_event = {
 		KRK = { 
 			country_event = {
 				id = aievent.12
-				}
-			country_event = {
-				id = aievent.25
-				days = 2
-				}	
-			country_event = {
-				id = aievent.26
-				days = 3
 				}				
 		}
 		log = "[GetDateText]: republika krakowska"
@@ -539,10 +498,13 @@ country_event = {
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.12"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.12"
+	KRK_cw_KRA = yes
+	KRK_cw_BRK = yes
+	KRK_cw_WND = yes
+}
 	option = {
 		name = aievent.12.a #demokracja
-		KRK_cw_KRA = yes
 		KRA = {
 			if = {
 				limit = {
@@ -584,7 +546,6 @@ country_event = {
 	}
 	option = {
 		name = aievent.12.b #demokracja
-		KRK_cw_KRA = yes
 		KRA = {
 			if = {
 				limit = {
@@ -623,6 +584,93 @@ country_event = {
 		}
 		log = "[GetDateText]: republika krakowska zdechła switch"
 	}
+	option = {
+		name = aievent.12.c #demokracja
+		KRA = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = BRK
+					}
+					country_exists = BRK
+				}
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = WND
+					}
+					country_exists = WND
+				}
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+			}
+		}
+		BRK = {
+			change_tag_from = KRK
+		}
+		log = "[GetDateText]: republika krakowska zdechła"
+	}
+	option = {
+		name = aievent.12.d #demokracja
+		KRA = {
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = KRK
+					}
+				}
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = BRK
+					}
+				}
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = WND
+					}
+				}
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+			}
+		}
+		WND = {
+			change_tag_from = KRK
+		}
+		log = "[GetDateText]: republika krakowska zdechła switch"
+	}
+	
 }
 
 country_event = {
@@ -858,35 +906,6 @@ country_event = {
 			postpolonism = 0
 		}
 		log = "[GetDateText]: Sandomierz żyje"
-	}
-}
-
-country_event = {
-	id = aievent.20 #bochnia
-	title = aievent.20.t
-	desc = aievent.20.desc
-
-	fire_only_once = yes
-	trigger = { 
-		original_tag = UMN
-		date > 2027.10.20
-	}
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.20"}
-	option = {
-		name = aievent.20.a
-		UMN = {
-			declare_war_on = { 
-				target = BOH
-				type = annex_everything 
-				}
-			}
-		TRN = {
-			declare_war_on = { 
-				target = BOH
-				type = annex_everything 
-				}
-			}
-		log = "[GetDateText]: Bochnia w ogniu"
 	}
 }
 
@@ -1144,190 +1163,6 @@ country_event = {
 
 
 country_event = {
-	id = aievent.25 #kraków cw switcharoo
-	title = aievent.25.t
-	desc = aievent.25.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.25"}
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = {
-		name = aievent.25.a
-		log = "[GetDateText]: czas zaorac socjalizm - krakow ediszion"
-		KRK_cw_BRK = yes
-		BRK = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
-	}
-	option = {
-		name = aievent.25.b
-		log = "[GetDateText]: czas zaorac socjalizm - krakow ediszion"
-		KRK_cw_BRK = yes
-		BRK = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-					country_exists = WND
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-			change_tag_from = KRK
-		}
-	}
-}
-
-country_event = {
-	id = aievent.26 #kraków cw switcharoo
-	title = aievent.26.t
-	desc = aievent.26.desc
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.26"}
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = {
-		name = aievent.26.a
-		log = "[GetDateText]: dont switch to Wanda"
-		KRK_cw_WND = yes
-		WND = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-		}
-	}
-	option = {
-		name = aievent.26.b
-		log = "[GetDateText]: switch to Wanda"
-		KRK_cw_WND = yes
-		WND = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRA
-					}
-				}
-				declare_war_on = {
-					target = KRA
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-					country_exists = BRK
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			change_tag_from = KRK
-		}
-	}	
-}
-
-country_event = {
 	id = aievent.27 #brzydgoszcz
 	title = aievent.27.t
 	desc = aievent.27.desc
@@ -1339,7 +1174,7 @@ country_event = {
 	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.27"}
 	option = {
-		name = aievent.17.a #buski
+		name = aievent.27.a #buski
 		ai_chance = { base = 25 }
 		set_politics = {
 			ruling_party = euroliberalism
@@ -1360,7 +1195,7 @@ country_event = {
 		log = "[GetDateText]: buski"
 	}
 	option = {
-		name = aievent.17.c #prezes
+		name = aievent.27.b #prezes
 		ai_chance = { base = 20 }
 		set_politics = {
 			ruling_party = paternal_conservatism
@@ -1381,7 +1216,7 @@ country_event = {
 		log = "[GetDateText]: prezes"
 	}
 	option = {
-		name = aievent.17.d #kneblewski
+		name = aievent.27.c #kneblewski
 		ai_chance = { base = 20 }
 		set_politics = {
 			ruling_party = neonationalism
@@ -1478,7 +1313,7 @@ country_event = {
 		log = "[GetDateText]: scheuring"
 	}
 	option = {
-		name = aievent.17.c #schreiberowa
+		name = aievent.29.b #schreiberowa
 		ai_chance = { base = 30 }
 		set_politics = {
 			ruling_party = squattism
@@ -1499,7 +1334,7 @@ country_event = {
 		log = "[GetDateText]: schreiberowa"
 	}
 	option = {
-		name = aievent.17.d #kulczykowa
+		name = aievent.29.c #kulczykowa
 		ai_chance = { base = 30 }
 		set_politics = {
 			ruling_party = corporativism
