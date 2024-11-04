@@ -1,12 +1,12 @@
 ### GENERIC IDEOLOGICZNE ###
 ### EUROLIB GENERIC ###
-generic_decisions_eurolib_category = {
+generic_decisions_category = {
 
-	eurolib_pro_federalist_propaganda = {
+	generic_decision_stability = {
 		
 		modifier = {	
-			stability_weekly = 0.003
-			political_power_gain = -0.15
+			stability_weekly = 0.01
+			political_power_gain = -0.1
 		}
 		
 		cost = 75
@@ -17,39 +17,39 @@ generic_decisions_eurolib_category = {
 		}
 		
 		remove_effect = {
-			log = "[GetDateText]: Decision eurolib_pro_federalist_propaganda"
+			log = "[GetDateText]: Decision generic_decision_stability"
 			random_list = {
-			15 = {
+			25 = {
 				add_popularity = {
-				ideology = euroliberalism
+				ideology = ROOT
 				popularity = 0.01
 				}
 				add_political_power = 5
 				}
-			15 = {
+			20 = {
 				add_popularity = {
-				ideology = euroliberalism
+				ideology = ROOT
 				popularity = 0.02
 				}
 				add_political_power = 10
 				}
 			15 = {
 				add_popularity = {
-				ideology = euroliberalism
+				ideology = ROOT
 				popularity = 0.03
 				}
 				add_political_power = 15
 				}
 			10 = {
 				add_popularity = {
-				ideology = euroliberalism
+				ideology = ROOT
 				popularity = 0.04
 				}
 				add_political_power = 20
 				}
 			5 = {
 				add_popularity = {
-				ideology = euroliberalism
+				ideology = ROOT
 				popularity = 0.05
 				}
 				add_political_power = 50
@@ -59,11 +59,11 @@ generic_decisions_eurolib_category = {
 		}
 	}
 	
-	eurolib_complicate_bureaucracy = {
+	generic_decision_recruitment = {
 		
 		modifier = {	
 			stability_weekly = -0.001
-			political_power_gain = 0.75
+			political_power_gain = -0.1
 		}
 		
 		cost = 75
@@ -71,30 +71,30 @@ generic_decisions_eurolib_category = {
 		days_remove = 75
 		complete_effect = {
 			
-		}
-		
+		}		
 		remove_effect = {
 		log = "[GetDateText]: Decision eurolib_complicate_bureaucracy"
 			random_list = {
-			5 = {
-				add_popularity = {
-				ideology = euroliberalism
-				popularity = -0.01
-				}
+			25 = {
+				add_manpower = 500
 				}
 			15 = {
+				add_manpower = 300
 				}
+			10 = {
+				add_manpower = 150
+				}				
 			}
-			add_political_power = 45
+			add_war_support = 0.025
 		}
 	}
 	
-	eurolib_taxes_increase = {
+	generic_decision_propaganda = {
 		
 		modifier = {	
-			stability_weekly = -0.005
-			political_power_gain = -0.15
-			consumer_goods_factor = -0.075
+			war_support_weekly = 0.015
+			political_power_gain = -0.2
+			training_time_factor = -0.1
 		}
 		
 		cost = 75
@@ -102,59 +102,44 @@ generic_decisions_eurolib_category = {
 		days_remove = 75
 		complete_effect = {
 			
-		}
-		
-		remove_effect = {
-		log = "[GetDateText]: Decision eurolib_taxes_increase"
-			random_list = {
-			10 = {
-				add_popularity = {
-				ideology = euroliberalism
-				popularity = -0.02
-				}
-				}
-			5 = {
-				add_popularity = {
-				ideology = euroliberalism
-				popularity = -0.03
-				}
-				}
-			15 = {
-				}
-			}
-			add_political_power = 15
-		}
+		}	
+
 	}
 	
-	eurolib_agricultural_funds = {
+	generic_decision_food = {
 		
 		modifier = {	
-			monthly_population = 0.5
-			political_power_gain = -0.15
-			consumer_goods_factor = 0.025
+			political_power_gain = -0.05
+			consumer_goods_factor = -0.05
 		}
-		
+		#available = {
+			#żarełko większe niż X
+		#}		
 		cost = 75
 		days_re_enable = 45
-		days_remove = 90
+		days_remove = 30
 		complete_effect = {
-			
+			#żarełko na minus
 		}
 		
 		remove_effect = {
 		log = "[GetDateText]: Decision eurolib_agricultural_funds"
-			add_stability = 0.03
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.02
+			}
+			add_stability = 0.025
 		}
 	}
 	
-	eurolib_public_works_funds = {
+	generic_decision_public_works = {
 		
 		modifier = {	
 			production_speed_buildings_factor = 0.2
 			political_power_gain = -0.15
 			consumer_goods_factor = 0.025
 		}
-		
+
 		cost = 75
 		days_re_enable = 35
 		days_remove = 70
@@ -164,7 +149,7 @@ generic_decisions_eurolib_category = {
 		
 		remove_effect = {
 		log = "[GetDateText]: Decision eurolib_public_works_funds"
-			add_stability = 0.03
+			add_stability = 0.01
 		}
 	}
 	
@@ -177,7 +162,9 @@ generic_decisions_eurolib_category = {
 			consumer_goods_factor = 0.01
 			research_speed_factor = 0.05
 		}
-		
+		visible = {
+			has_government = euroliberalism
+		}		
 		cost = 100
 		days_re_enable = 35
 		days_remove = 70
@@ -210,7 +197,9 @@ generic_decisions_eurolib_category = {
 			war_support_weekly = -0.003
 			political_power_gain = -0.25
 		}
-		
+		visible = {
+			has_government = euroliberalism
+		}		
 		cost = 75
 		days_re_enable = 35
 		days_remove = 25
@@ -259,120 +248,14 @@ generic_decisions_eurolib_category = {
 		}
 	}
 	
-	eurolib_offensive_war_propaganda = {
-		available = {  
-			if = {
-				ROOT = { 
-					has_offensive_war = yes
-				}  
-			}
-		}
-		modifier = {	
-			war_support_weekly = 0.003
-			stability_weekly = -0.005
-			political_power_gain = -0.2
-			weekly_manpower = 50
-		}
-		
-		cost = 75
-		days_re_enable = 15
-		days_remove = 70
-		complete_effect = {
-		}
-		
-		remove_effect = {
-		log = "[GetDateText]: Decision eurolib_offensive_war_propaganda"
-		random_list = {
-			15 = {
-				add_war_support = 0.01
-				add_manpower = 250
-				}
-			10 = {
-				add_war_support = 0.03
-				add_manpower = 1000
-				}
-			10 = {
-				add_war_support = 0.05
-				add_manpower = 2000
-				}
-			}
-		}
-	}
-	
-	eurolib_defensive_war_propaganda = {
-		available = {  
-			if = {
-				ROOT = { 
-					has_defensive_war = yes
-				}  
-			}
-		}
-		modifier = {	
-			war_support_weekly = 0.01
-			political_power_gain = 0.25
-			weekly_manpower = 125
-		}
-		
-		cost = 50
-		days_re_enable = 25
-		days_remove = 70
-		complete_effect = {
-			
-		}
-		
-		remove_effect = {
-		log = "[GetDateText]: Decision eurolib_defensive_war_propaganda"
-		random_list = {
-			15 = {
-				add_war_support = 0.03
-				add_manpower = 1500
-				}
-			15 = {
-				add_war_support = 0.05
-				add_manpower = 2000
-				}
-			15 = {
-				add_war_support = 0.1
-				add_manpower = 3500
-				}
-			}
-		}
-	}
-	
-	
-	
-}
-
-	####SQUATTISM GENERIC####
-
-generic_decisions_squat_category = {
-	squat_blunt_of_peace = {
-		modifier = {	
-			stability_weekly = 0.005
-			war_support_weekly = -0.01
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-		remove_effect = {
-		log = "[GetDateText]: Decision squat_blunt_of_peace"
-			add_popularity = {
-				ideology = squattism
-				popularity = 0.02
-			}
-		}
-	}
 	
 	squat_get_some_baseball_bats = {
 		modifier = {	
 			industrial_capacity_factory = -0.10
 		}
-		
+		visible = {
+			has_government = squattism
+		}			
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -393,7 +276,9 @@ generic_decisions_squat_category = {
 		modifier = {	
 			conscription_factor = -0.10
 		}
-		
+		visible = {
+			has_government = squattism
+		}		
 		cost = 150
 		days_re_enable = 365
 		days_remove = 30
@@ -406,38 +291,15 @@ generic_decisions_squat_category = {
 			add_war_support = 0.10
 		}
 	}
-}
 
-	####GOD DAMN COMMIES GENERIC#####
-
-generic_decisions_cranism_category = {
-	cranism_central_commitee_meeting = {
-		modifier = {	
-			consumer_goods_factor = 0.05
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-		remove_effect = {
-		log = "[GetDateText]: Decision cranism_central_commitee_meeting"
-			add_popularity = {
-				ideology = marxism_cranism
-				popularity = 0.02
-			}
-		}
-	}
-	
 	cranism_military_parade = {
 		modifier = {	
 			conscription_factor = -0.10
 			industrial_capacity_factory = -0.10
 		}
-		
+		visible = {
+			has_government = marxism_cranism
+		}		
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -457,7 +319,9 @@ generic_decisions_cranism_category = {
 			conscription_factor = -0.20
 			production_speed_buildings_factor = -0.20
 		}
-		
+		visible = {
+			has_government = marxism_cranism
+		}			
 		cost = 150
 		days_re_enable = 365
 		days_remove = 30
@@ -489,39 +353,15 @@ generic_decisions_cranism_category = {
 			}
 		}
 	}
-}
-
-	####SOCIAL DEMOCRATIC GENERIC####
-
-generic_decisions_succdem_category = {
-	succdem_promise_safety_net = {
-		modifier = {	
-			consumer_goods_factor = 0.025
-			stability_factor = -0.1
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: Decision succdem_promise_safety_net"
-			add_popularity = {
-				ideology = socialdemocrature
-				popularity = 0.02
-			}
-		}
-	}
 	
 	succdem_self_defence_courses = {
 		modifier = {	
 			conscription_factor = -0.10
 			consumer_goods_factor = 0.05
 		}
-		
+		visible = {
+			has_government = socialdemocrature
+		}			
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -546,7 +386,9 @@ remove_effect = { log = "[GetDateText]: Decision succdem_self_defence_courses "
 		modifier = {	
 			consumer_goods_factor = 0.1
 		}
-		
+		visible = {
+			has_government = socialdemocrature
+		}	
 		cost = 150
 		days_re_enable = 365
 		days_remove = 30
@@ -560,38 +402,17 @@ remove_effect = { log = "[GetDateText]: Decision succdem_fund_national_businesse
 			}
 		}
 	}
-}
 
 	####FREEMARKETISM GENERIC####
-
-generic_decisions_freemarket_category = {
-	freemarket_cut_down_taxes = {
-		modifier = {	
-			consumer_goods_factor = 0.1
-			war_support_factor = -0.1
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision freemarket_cut_down_taxes "
-			add_popularity = {
-				ideology = freemarketism
-				popularity = 0.05
-			}
-		}
-	}
 	
 	freemarket_print_3d_guns = {
 		modifier = {
 			industrial_capacity_factory = -0.1
 			production_speed_buildings_factor = -0.1
 		}
-		
+		visible = {
+			has_government = freemarketism
+		}		
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -599,7 +420,7 @@ remove_effect = { log = "[GetDateText]: Decision freemarket_cut_down_taxes "
 			
 		}
 		
-remove_effect = { log = "[GetDateText]: Decision freemarket_print_3d_guns "
+		remove_effect = { log = "[GetDateText]: Decision freemarket_print_3d_guns "
 			add_equipment_to_stockpile = {
 				type = ranged_equipment
 				amount = 250
@@ -611,7 +432,9 @@ remove_effect = { log = "[GetDateText]: Decision freemarket_print_3d_guns "
 		modifier = {	
 			consumer_goods_factor = 0.15
 		}
-		
+		visible = {
+			has_government = freemarketism
+		}				
 		cost = 150
 		days_re_enable = 365
 		days_remove = 30
@@ -619,44 +442,22 @@ remove_effect = { log = "[GetDateText]: Decision freemarket_print_3d_guns "
 			
 		}
 		fixed_random_seed = no
-remove_effect = { log = "[GetDateText]: Decision freemarket_fund_small_businesses "
+		remove_effect = { log = "[GetDateText]: Decision freemarket_fund_small_businesses "
 			random_owned_state = {
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 		}
 	}
-}
 
-	####PATERNAL CONSERVATISM GENERIC#####
-
-generic_decisions_patcon_category = {
-	patcon_organize_a_grand_mass = {
-		modifier = {	
-			consumer_goods_factor = 0.1
-			stability_factor = -0.1
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision patcon_organize_a_grand_mass "
-			add_popularity = {
-				ideology = paternal_conservatism
-				popularity = 0.05
-			}
-		}
-	}
 	
 	patcon_gather_the_guns = {
 		modifier = {
 			consumer_goods_factor = 0.1
 			conscription_factor = -0.2
 		}
-		
+		visible = {
+			has_government = paternal_conservatism
+		}			
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -664,7 +465,7 @@ remove_effect = { log = "[GetDateText]: Decision patcon_organize_a_grand_mass "
 			
 		}
 		
-remove_effect = { log = "[GetDateText]: Decision patcon_gather_the_guns "
+		remove_effect = { log = "[GetDateText]: Decision patcon_gather_the_guns "
 			add_equipment_to_stockpile = {
 				type = ranged_equipment
 				amount = 150
@@ -676,7 +477,9 @@ remove_effect = { log = "[GetDateText]: Decision patcon_gather_the_guns "
 		modifier = {	
 			stability_factor = -0.2
 		}
-		
+		visible = {
+			has_government = paternal_conservatism
+		}			
 		cost = 150
 		days_re_enable = 365
 		days_remove = 30
@@ -684,43 +487,21 @@ remove_effect = { log = "[GetDateText]: Decision patcon_gather_the_guns "
 			
 		}
 		fixed_random_seed = no
-remove_effect = { log = "[GetDateText]: Decision patcon_fund_church_owned_businesses "
+		remove_effect = { log = "[GetDateText]: Decision patcon_fund_church_owned_businesses "
 			random_owned_state = {
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 		}
 	}
-}
 
-####AUTOCRATIC GENERIC####
-
-generic_decisions_autocrat_category = {
-	autocrat_get_army_on_streets = {
-		modifier = {	
-			stability_factor = -0.2
-			war_support_factor = -0.1
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision autocrat_get_army_on_streets "
-			add_popularity = {
-				ideology = autocracy
-				popularity = 0.05
-			}
-		}
-	}
 	
 	autocrat_take_guns_from_people = {
 		modifier = {
 			stability_weekly = -0.025
 		}
-		
+		visible = {
+			has_government = autocracy
+		}			
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -728,7 +509,7 @@ remove_effect = { log = "[GetDateText]: Decision autocrat_get_army_on_streets "
 			
 		}
 		
-remove_effect = { log = "[GetDateText]: Decision autocrat_take_guns_from_people "
+		remove_effect = { log = "[GetDateText]: Decision autocrat_take_guns_from_people "
 			add_equipment_to_stockpile = {
 				type = ranged_equipment
 				amount = 150
@@ -748,52 +529,20 @@ remove_effect = { log = "[GetDateText]: Decision autocrat_take_guns_from_people 
 		complete_effect = {
 			
 		}
+		visible = {
+			has_government = autocracy
+		}	
 		fixed_random_seed = no
-remove_effect = { log = "[GetDateText]: Decision autocrat_force_people_to_work "
+		remove_effect = { log = "[GetDateText]: Decision autocrat_force_people_to_work "
 			add_manpower = -100
 			add_to_variable = {
 				casualtiesFromEvents = 0.100
 			}
 		}
 	}
-}
-
-####CORPOTATIVISM GENERIC####
-
-generic_decisions_corporate_category = {
 	
-	corp_depoliticize_population  = {
-		modifier = {	
-			stability_weekly = 0.002
-			political_power_gain = 0.15
-			war_support_weekly = -0.001
-		}
-		
-		cost = 70
-		days_re_enable = 10
-		days_remove = 70
-		complete_effect = {
-			
-		}
-remove_effect = { log = "[GetDateText]: Decision corp_depoliticize_population "
-		}
-	}
 	
-	corp_increase_population_comfort  = {
-		modifier = {	
-			stability_weekly = 0.003
-			consumer_goods_factor = 0.1
-			monthly_population = 0.05
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {	
-		}
-remove_effect = { log = "[GetDateText]: Decision corp_increase_population_comfort "
-		}
-	}
+
 	
 	corp_lower_quotas  = {
 		modifier = {	
@@ -802,14 +551,16 @@ remove_effect = { log = "[GetDateText]: Decision corp_increase_population_comfor
 			industrial_capacity_dockyard = -0.15
 			production_factory_efficiency_gain_factor = -0.30
 		}
-		
+		visible = {
+			has_government = corporativism
+		}			
 		cost = 75
 		days_re_enable = 10
 		days_remove = 90
 		complete_effect = {	
 		}
 		
-remove_effect = { log = "[GetDateText]: Decision corp_lower_quotas "
+		remove_effect = { log = "[GetDateText]: Decision corp_lower_quotas "
 			random_list = {
 				1 = {
 				add_stability = 0.05
@@ -830,14 +581,16 @@ remove_effect = { log = "[GetDateText]: Decision corp_lower_quotas "
 			production_factory_efficiency_gain_factor = 0.15
 			production_factory_max_efficiency_factor = 0.05
 		}
-		
+		visible = {
+			has_government = corporativism
+		}			
 		cost = 100
 		days_re_enable = 10
 		days_remove = 90
 		complete_effect = {	
 		}
 		
-remove_effect = { log = "[GetDateText]: Decision corp_crank_up_quotas "
+		remove_effect = { log = "[GetDateText]: Decision corp_crank_up_quotas "
 		
 			random_list = {
 				2 = {
@@ -878,294 +631,27 @@ remove_effect = { log = "[GetDateText]: Decision corp_crank_up_quotas "
 			war_support_weekly = -0.002
 			stability_weekly = -0.004
 		}
-		
+		visible = {
+			has_government = corporativism
+		}			
 		cost = 75
 		days_re_enable = 50
 		days_remove = 56
 		complete_effect = {	
 		}
-remove_effect = { log = "[GetDateText]: Decision corp_lower_the_costs "
+		remove_effect = { log = "[GetDateText]: Decision corp_lower_the_costs "
 		}
 	}
 	
-	corp_expand_security_forces = {
-		modifier = {
-			political_power_gain = -0.15
-			consumer_goods_factor = 0.05
-			experience_gain_army_factor = 0.20
-		}
-		
-		cost = 75
-		days_re_enable = 5
-		days_remove = 35
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  corp_expand_security_forces"
-		custom_effect_tooltip = corpo_random_eq_tt
-			random_list = {
-				2 = {
-				add_equipment_to_stockpile = {
-				type = ranged_equipment
-				amount = 500
-					}
-				}
-				2 = {
-				add_equipment_to_stockpile = {
-				type = support_equipment
-				amount = 75
-					}
-				}
-				2 = {
-				add_equipment_to_stockpile = {
-				type = light_artillery_equipment
-				amount = 25
-					}
-				}
-			}
-			custom_effect_tooltip = corpo_soldiers_random_tt
-			random_list = {
-				2 = {
-				add_manpower = 1000
-				army_experience = 5
-				}
-				2 = {
-				add_manpower = 2000
-				army_experience = 10
-				}
-				2 = {
-				add_manpower = 3000
-				army_experience = 15
-				}
-			}
-		}
-	}
-	
-	corp_encite_military_service = {
-	available = {  
-			if = {
-				has_war = yes
-			}
-		}
-		
-		modifier = {
-			political_power_gain = -0.15
-			consumer_goods_factor = 0.075
-			army_org_factor = 0.15
-			army_org_regain = 0.10
-			army_defence_factor = 0.05
-			recruitable_population_factor = 0.10
-		}
-		
-		cost = 115
-		days_re_enable = 15
-		days_remove = 180
-		complete_effect = {
-		add_manpower = 1000
-		}
-remove_effect = { log = "[GetDateText]: Decision  corp_encite_military_service"
-		}
-	}
-	
-	corp_lend_out_monopoles = {
-		modifier = {
-			political_power_gain = 0.25
-			consumer_goods_factor = 0.10
-			industrial_capacity_factory = 0.10
-			industrial_capacity_dockyard = 0.10
-			stability_weekly = 0.001
-		}
-		
-		cost = 50
-		days_re_enable = 360
-		days_remove = 56
-		complete_effect = {	
-		
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  corp_lend_out_monopoles"
-			custom_effect_tooltip = corpo_monopoles_tt
-			add_popularity = {
-				ideology = corporativism
-				popularity = 0.01
-			}
-			random_list = {
-				15 = {
-					random_owned_state = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes	
-						}
-					}
-				}
-				15 = {
-					random_owned_state = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = arms_factory
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				15 = {
-					random_owned_state = {
-						add_manpower = 1000
-						add_extra_state_shared_building_slots = 5
-					}
-				}
-				15 = {
-					random_owned_controlled_state = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	corp_crush_the_unions = {
-		available = {
-			custom_trigger_tooltip = {
-			tooltip = corp_commie_danger_tt
-			OR = {
-				marxism_cranism > 0.05
-				squattism > 0.05
-				socialdemocrature > 0.05
-				}
-			}
-		}
-		
-		modifier = {
-			stability_weekly = -0.005
-			war_support_weekly = -0.002
-			monthly_population = -0.15
-		}
-		
-		cost = 75
-		days_re_enable = 30
-		days_remove = 35
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  corp_crush_the_unions"
-		custom_effect_tooltip = corpo_lefties_crush_tt
-			IF = {
-			limit = {
-			marxism_cranism > 0.05
-				}
-				random_list = {
-					3 = {
-					add_popularity = {
-						ideology = marxism_cranism
-						popularity = -0.01
-						}
-					}
-					2 = {
-					add_popularity = {
-						ideology = marxism_cranism
-						popularity = -0.025
-						}
-					}
-					1 = {
-					add_popularity = {
-						ideology = marxism_cranism
-						popularity = -0.05
-						}
-					}
-				}
-			}
-			IF = {
-			limit = {
-			squattism > 0.05
-				}
-				random_list = {
-					3 = {
-					add_popularity = {
-						ideology = squattism
-						popularity = -0.01
-						}
-					}
-					2 = {
-					add_popularity = {
-						ideology = squattism
-						popularity = -0.025
-						}
-					}
-					1 = {
-					add_popularity = {
-						ideology = squattism
-						popularity = -0.05
-						}
-					}
-				}
-			}
-			IF = {
-			limit = {
-			socialdemocrature > 0.05
-				}
-				random_list = {
-						3 = {
-						add_popularity = {
-							ideology = socialdemocrature
-							popularity = -0.01
-							}
-						}
-						2 = {
-						add_popularity = {
-							ideology = socialdemocrature
-							popularity = -0.025
-							}
-						}
-						1 = {
-						add_popularity = {
-						ideology = socialdemocrature
-						popularity = -0.05
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
- ###NEONATIONALIST GENERIC####
-generic_decisions_neonat_category = {
-	neonat_organize_patriotic_demonstration = {
-		modifier = {	
-			stability_factor = -0.05
-			weekly_manpower = -50
-		}
-		
-		cost = 75
-		days_re_enable = 90
-		days_remove = 30
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  neonat_organize_patriotic_demonstration"
-			add_popularity = {
-				ideology = neonationalism
-				popularity = 0.05
-			}
-		}
-	}
 	
 	neonat_train_patrotic_youth = {
 		modifier = {
 			consumer_goods_factor = 0.1
 			conscription_factor = -0.1
 		}
-		
+		visible = {
+			has_government = neonationalism
+		}		
 		cost = 100
 		days_re_enable = 180
 		days_remove = 30
@@ -1173,7 +659,7 @@ remove_effect = { log = "[GetDateText]: Decision  neonat_organize_patriotic_demo
 			
 		}
 		
-remove_effect = { log = "[GetDateText]: Decision  neonat_train_patrotic_youth"
+		remove_effect = { log = "[GetDateText]: Decision  neonat_train_patrotic_youth"
 			add_equipment_to_stockpile = {
 				type = melee_equipment
 				amount = 100
@@ -1187,7 +673,9 @@ remove_effect = { log = "[GetDateText]: Decision  neonat_train_patrotic_youth"
 			stability_factor = -0.1
 			weekly_manpower = -25
 		}
-		
+		visible = {
+			has_government = neonationalism
+		}		
 		cost = 150
 		days_re_enable = 365
 		days_remove = 30
@@ -1196,154 +684,13 @@ remove_effect = { log = "[GetDateText]: Decision  neonat_train_patrotic_youth"
 		}
 		fixed_random_seed = no
 		fixed_random_seed = no
-remove_effect = { log = "[GetDateText]: Decision  neonat_build_work_camps"
+		remove_effect = { log = "[GetDateText]: Decision  neonat_build_work_camps"
 			random_owned_state = {
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 		}
 	}
-}
-
-####REACTIONARY GENERIC####
-
-generic_decisions_react_category = {
-	react_rewrite_unfavorable_history= {
-		modifier = {	
-			war_support_weekly = -0.001
-			stability_weekly = -0.002
-			political_power_gain = 0.15
-		}
-		
-		cost = 150
-		days_re_enable = 64
-		days_remove = 140
-		
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  react_rewrite_unfavorable_history"
-		
-		random_list = {
-			15 = {
-				add_manpower = 100
-				add_political_power = 75
-				add_stability = 0.05
-				}
-			15 = {
-				add_manpower = 500
-				add_political_power = 35
-				add_stability = 0.10
-				}
-				15 = {
-				add_manpower = 2000
-				add_political_power = 35
-				add_war_support = 0.15
-				}
-			}	
-		}
-	}
 	
-	react_exploit_nostalgy = {
-		modifier = {
-			stability_weekly = 0.005
-			political_power_gain = -0.05
-			war_support_weekly = -0.003
-		}
-		
-		cost = 50
-		days_re_enable = 35
-		days_remove = 70
-
-		complete_effect = {
-
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_exploit_nostalgy"
-
-		}
-	}
-	
-	react_tell_people_what_they_want_to_hear = {
-		modifier = {
-			political_power_gain = 0.25
-			war_support_weekly = -0.002
-		}
-		
-		cost = 25
-		days_re_enable = 35
-		days_remove = 70
-
-		complete_effect = {
-
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_tell_people_what_they_want_to_hear"
-			add_political_power = 15
-			add_stability = 0.03
-		}
-	}
-	
-	react_rebuild_the_good_old_days = {
-		modifier = {	
-			stability_weekly = -0.005
-			political_power_gain = -0.15
-			research_speed_factor = -0.10
-			production_speed_buildings_factor = 0.10
-		}
-		
-		cost = 100
-		days_re_enable = 30
-		days_remove = 49
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  react_rebuild_the_good_old_days"
-			random_list = {
-				15 = {
-					random_owned_state = {	
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				15 = {
-					random_owned_state = {
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = arms_factory
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				15 = {
-					random_owned_state = {
-					add_extra_state_shared_building_slots = 3
-					}
-				}
-				15 = {
-					random_owned_controlled_state = {
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				
-					random_owned_controlled_state = {
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-			}	
-		}
-	}
 	
 	react_return_to_old_ways = {
 		modifier = {
@@ -1351,6 +698,9 @@ remove_effect = { log = "[GetDateText]: Decision  react_rebuild_the_good_old_day
 			consumer_goods_factor = -0.05
 			war_support_weekly = 0.003
 			stability_weekly = -0.001
+		}
+		visible = {
+			has_government = reactionary
 		}
 		
 		cost = 100
@@ -1360,7 +710,7 @@ remove_effect = { log = "[GetDateText]: Decision  react_rebuild_the_good_old_day
 		complete_effect = {
 
 		}
-remove_effect = { log = "[GetDateText]: Decision  react_return_to_old_ways"
+		remove_effect = { log = "[GetDateText]: Decision  react_return_to_old_ways"
 			add_stability = -0.05
 		}
 	}
@@ -1373,54 +723,17 @@ remove_effect = { log = "[GetDateText]: Decision  react_return_to_old_ways"
 			weekly_manpower = 100
 			experience_gain_army_factor = 0.10
 		}
-		
-		cost = 100
-		days_re_enable = 56
-		days_remove = 70
-
-		complete_effect = {
-
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_warriors_of_great_past"
-			random_list = {
-				15 = {
-				army_experience = 15
-					add_manpower = 1500
-				}
-				15 = {
-				army_experience = 10
-					add_manpower = 2500
-				}
-				10 = {
-					army_experience = 5
-					add_manpower = 5000
-				}
-			}
-		}
-	}
-	
-	react_warriors_of_great_past_wrt = {
-	
 		visible = {
 			has_government = reactionary
-			original_tag = WRT
-		}
-	
-		modifier = {
-			political_power_gain = -0.1
-			war_support_weekly = 0.005
-			stability_weekly = -0.003
-			weekly_manpower = 100
-			experience_gain_army_factor = 0.10
-		}
-		
+		}		
 		cost = 100
 		days_re_enable = 56
 		days_remove = 70
+
 		complete_effect = {
 
 		}
-remove_effect = { log = "[GetDateText]: Decision  react_warriors_of_great_past_wrt"
+		remove_effect = { log = "[GetDateText]: Decision  react_warriors_of_great_past"
 			random_list = {
 				15 = {
 				army_experience = 15
@@ -1435,197 +748,6 @@ remove_effect = { log = "[GetDateText]: Decision  react_warriors_of_great_past_w
 					add_manpower = 5000
 				}
 			}
-		}
-	}
-}
-
-####GENERIC REACTIONARY SHIZO########
-
-generic_decisions_react_shizo_category = {
-	react_shizo_rewrite_unfavorable_history= {
-		modifier = {	
-			war_support_weekly = -0.001
-			stability_weekly = -0.002
-			political_power_gain = 0.15
-		}
-		
-		cost = 150
-		days_re_enable = 64
-		days_remove = 140
-		complete_effect = {
-			
-		}
-		
-remove_effect = { log = "[GetDateText]: Decision  react_shizo_rewrite_unfavorable_history"
-		
-			random_list = {
-				15 = {
-					add_manpower = 100
-					add_political_power = 75
-					add_stability = 0.05
-					}
-				15 = {
-					add_manpower = 500
-					add_political_power = 35
-					add_stability = 0.10
-					}
-				15 = {
-					add_manpower = 2000
-					add_political_power = 35
-					add_war_support = 0.15
-					}
-			}	
-		}
-	}
-	
-	react_shizo_exploit_nostalgy = {
-		modifier = {
-			stability_weekly = 0.005
-			political_power_gain = -0.05
-			war_support_weekly = -0.003
-		}
-		
-		cost = 50
-		days_re_enable = 35
-		days_remove = 70
-
-		complete_effect = {
-
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_shizo_exploit_nostalgy"
-
-		}
-	}
-	
-	react_shizo_tell_people_what_they_want_to_hear = {
-		modifier = {
-			political_power_gain = 0.25
-			war_support_weekly = -0.002
-		}
-		
-		cost = 25
-		days_re_enable = 35
-		days_remove = 70
-		complete_effect = {
-
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_shizo_tell_people_what_they_want_to_hear"
-			add_political_power = 15
-			add_stability = 0.03
-		}
-	}
-	
-	react_shizo_rebuild_the_good_old_days = {
-		modifier = {	
-				stability_weekly = -0.005
-				political_power_gain = -0.15
-				research_speed_factor = -0.10
-				production_speed_buildings_factor = 0.10
-		}
-			
-		cost = 100
-		days_re_enable = 30
-		days_remove = 49
-		complete_effect = {
-				
-		}
-			
-remove_effect = { log = "[GetDateText]: Decision  react_shizo_rebuild_the_good_old_days"
-			random_list = {
-				15 = {
-					random_owned_state = {
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				15 = {
-					random_owned_state = {
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = arms_factory
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				15 = {
-					random_owned_state = {
-					add_extra_state_shared_building_slots = 3
-					}
-				}
-				15 = {
-					random_owned_controlled_state = {
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-					
-					random_owned_controlled_state = {
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-			}
-		}	
-	}
-	
-	react_shizo_return_to_old_ways = {
-		
-		modifier = {
-			political_power_gain = 0.15
-			consumer_goods_factor = -0.05
-			war_support_weekly = 0.003
-			stability_weekly = -0.001
-		}
-		
-		cost = 100
-		days_re_enable = 70
-		days_remove = 70
-		complete_effect = {
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_shizo_return_to_old_ways"
-			add_stability = -0.05
-		}
-	}
-	
-	react_shizo_warriors_of_great_past = {
-		modifier = {
-			political_power_gain = -0.1
-			war_support_weekly = 0.005
-			stability_weekly = -0.003
-			weekly_manpower = 100
-			experience_gain_army_factor = 0.10
-		}
-		
-		cost = 100
-		days_re_enable = 56
-		days_remove = 70
-		complete_effect = {
-		}
-remove_effect = { log = "[GetDateText]: Decision  react_shizo_warriors_of_great_past"
-		random_list = {
-			15 = {
-			army_experience = 15
-				add_manpower = 1500
-			}
-			15 = {
-			army_experience = 10
-				add_manpower = 2500
-			}
-			10 = {
-				army_experience = 5
-				add_manpower = 5000
-			}
-		}
 		}
 	}
 	
@@ -1638,6 +760,10 @@ remove_effect = { log = "[GetDateText]: Decision  react_shizo_warriors_of_great_
 				has_war = yes
 			}
 			}
+		}
+
+		visible = {
+			has_government = reactionary
 		}
 		
 		cost = 250
@@ -1655,7 +781,7 @@ remove_effect = { log = "[GetDateText]: Decision  react_shizo_warriors_of_great_
 			}
 		}
 	}
-	
+
 }
 
 
