@@ -1,12 +1,12 @@
 get_taxes = {
-	set_temp_variable = {
+	set_variable = {
 		tax = max_manpower_k #w tys. żeby się nie przelało
 	}
-	multiply_temp_variable = {
+	multiply_variable = {
 		tax = 450
 	}
-	round_temp_variable = tax
-	multiply_temp_variable = {
+	round_variable = tax
+	multiply_variable = {
 		tax = 0.015 # podzielone przez 1M żeby się nie przelało
 	}
 	set_temp_variable = {
@@ -15,7 +15,7 @@ get_taxes = {
 	add_to_temp_variable = {
 		tax_rate_multiplier = modifier@tax_rate
 	}
-	multiply_temp_variable = {
+	multiply_variable = {
 		tax = tax_rate_multiplier
 	}
 	if = {
@@ -24,4 +24,19 @@ get_taxes = {
 		}
 		log = "U hnesza jest [?tax]M moniaków"
 	}
+	get_netto = yes
+	#W = tax * (1 - [xh] - [xs] - [xsw])
+}
+
+get_netto = {
+	set_variable = {
+		budget = 1
+	}
+	subtract_from_variable = {
+		budget = modifier@budget_spendings
+	}
+	multiply_variable = {
+		budget = tax
+	}
+	log = "[?budget]M"
 }
