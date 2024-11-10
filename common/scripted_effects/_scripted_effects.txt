@@ -47,12 +47,7 @@ upgrade_military_law = {
 }
 
 
-
-
-#building effects
-public_buildings_effect = {
-	#liczenie
-
+count_buildings = {
 	set_temp_variable = {
 		num_of_cathedrals_temp = 0
 	}
@@ -68,6 +63,33 @@ public_buildings_effect = {
 	set_temp_variable = {
 		num_of_januszexes_temp = 0
 	}
+	set_temp_variable = {
+		num_of_bootleg_pits_temp = 0
+	}
+	set_temp_variable = {
+		num_of_dockyards_temp = 0
+	}
+	set_temp_variable = {
+		num_of_synthethic_refineries_temp = 0
+	}
+	set_temp_variable = {
+		num_of_fuel_siloes_temp = 0
+	}
+	set_temp_variable = {
+		num_of_high_tech_complexes_temp = 0
+	}
+	set_temp_variable = {
+		num_of_power_plants_temp = 0
+	}
+	set_temp_variable = {
+		num_of_wind_farms_temp = 0
+	}
+	set_temp_variable = {
+		num_of_recycling_plants_temp = 0
+	}
+	set_temp_variable = {
+		num_of_steel_works_temp = 0
+	}
 	every_controlled_state = {
 		limit = {
 			always = yes
@@ -77,6 +99,15 @@ public_buildings_effect = {
 		add_to_temp_variable = { PREV.num_of_hospitals_temp = building_level@hospital }
 		add_to_temp_variable = { PREV.num_of_prisons_temp = building_level@prison }
 		add_to_temp_variable = { PREV.num_of_januszexes_temp = building_level@januszex }
+		add_to_temp_variable = { PREV.num_of_bootleg_pits_temp = building_level@bootleg_pit }
+		add_to_temp_variable = { PREV.num_of_dockyards_temp = building_level@dockyard }
+		add_to_temp_variable = { PREV.num_of_synthethic_refineries_temp = building_level@synthetic_refinery }
+		add_to_temp_variable = { PREV.num_of_fuel_siloes_temp = building_level@fuel_silo }
+		add_to_temp_variable = { PREV.num_of_high_tech_complexes_temp = building_level@high_tech_complex }
+		add_to_temp_variable = { PREV.num_of_power_plants_temp = building_level@power_plant }
+		add_to_temp_variable = { PREV.num_of_wind_farms_temp = building_level@wind_farm }
+		add_to_temp_variable = { PREV.num_of_recycling_plants_temp = building_level@recycling_plant }
+		add_to_temp_variable = { PREV.num_of_steel_works_temp = building_level@steel_works }
 	}
 	set_variable = {
 		num_of_cathedrals = num_of_cathedrals_temp
@@ -93,6 +124,37 @@ public_buildings_effect = {
 	set_variable = {
 		num_of_januszexes = num_of_januszexes_temp
 	}
+	set_variable = {
+		num_of_bootleg_pits = num_of_januszexes_temp
+	}
+	set_variable = {
+		num_of_dockyards = num_of_dockyards_temp
+	}
+	set_variable = {
+		num_of_synthethic_refineries = num_of_synthethic_refineries_temp
+	}
+	set_variable = {
+		num_of_fuel_siloes = num_of_fuel_siloes_temp
+	}
+	set_variable = {
+		num_of_high_tech_complexes = num_of_high_tech_complexes_temp
+	}
+	set_variable = {
+		sum_of_power_plants = num_of_power_plants_temp
+	}
+	set_variable = {
+		sum_of_wind_farms = num_of_wind_farms_temp
+	}
+	set_variable = {
+		num_of_recycling_plants = num_of_recycling_plants_temp
+	}
+	set_variable = {
+		num_of_steel_works = num_of_steel_works_temp
+	}
+}
+
+#building effects
+public_buildings_effect = {
 	#limitowanie
 	if = {
 		limit = {
@@ -281,7 +343,7 @@ public_buildings_effect = {
 	}
 	
 	#wyliczanie modyfikatorów
-	set_variable = { cathedral_effect_stab = num_of_cathedrals_temp }
+	set_variable = { cathedral_effect_stab = num_of_cathedrals }
 	multiply_variable = {
 		cathedral_effect_stab = 0.001
 	}
@@ -298,7 +360,7 @@ public_buildings_effect = {
 	if = {
 		limit = {
 			check_variable = {
-				num_of_cathedrals_temp > 0
+				num_of_cathedrals > 0
 			}
 		}
 		add_dynamic_modifier = {
@@ -320,13 +382,13 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_cathedrals
-				value = num_of_cathedrals_temp
+				value = num_of_cathedrals
 				compare = less_than_or_equals
 			}
 		}
 		set_variable = { cathedral_effect_correction_stab = max_effective_cathedrals }
 		subtract_from_variable = { 
-			cathedral_effect_correction_stab = num_of_cathedrals_temp
+			cathedral_effect_correction_stab = num_of_cathedrals
 		}
 		multiply_variable = {
 			cathedral_effect_correction_stab = 0.001
@@ -348,14 +410,14 @@ public_buildings_effect = {
 		}
 	}
 
-	set_variable = { university_effect = num_of_universities_temp }
+	set_variable = { university_effect = num_of_universities }
 	multiply_variable = {
 		university_effect = 0.01
 	}
 	if = {
 		limit = {
 			check_variable = {
-				num_of_universities_temp > 0
+				num_of_universities > 0
 			}
 		}
 		add_dynamic_modifier = {
@@ -376,13 +438,13 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_universities
-				value = num_of_universities_temp
+				value = num_of_universities
 				compare = less_than_or_equals
 			}
 		}
 		set_variable = { university_effect_correction = max_effective_universities }
 		subtract_from_variable = { 
-			university_effect_correction = num_of_universities_temp
+			university_effect_correction = num_of_universities
 		}
 		multiply_variable = {
 			university_effect_correction = 0.01
@@ -408,7 +470,7 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_hospitals
-				value = num_of_hospitals_temp
+				value = num_of_hospitals
 				compare = less_than_or_equals
 			}
 		}
@@ -428,14 +490,14 @@ public_buildings_effect = {
 			}
 		}
 	}
-	set_variable = { prison_effect = num_of_prisons_temp }
+	set_variable = { prison_effect = num_of_prisons }
 	multiply_variable = {
 		prison_effect = 0.001
 	}
 	if = {
 		limit = {
 			check_variable = {
-				num_of_prisons_temp > 0
+				num_of_prisons > 0
 			}
 		}
 		add_dynamic_modifier = {
@@ -456,7 +518,7 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_prisons
-				value = num_of_prisons_temp
+				value = num_of_prisons
 				compare = less_than_or_equals
 			}
 		}
@@ -479,14 +541,14 @@ public_buildings_effect = {
 		}
 	}
 
-	set_variable = { januszex_effect_prod = num_of_januszexes_temp }
+	set_variable = { januszex_effect_prod = num_of_januszexes }
 	multiply_variable = {
 		januszex_effect_prod = 0.001
 	}
 	if = {
 		limit = {
 			check_variable = {
-				num_of_januszexes_temp > 0
+				num_of_januszexes > 0
 			}
 		}
 		add_dynamic_modifier = {
@@ -507,13 +569,13 @@ public_buildings_effect = {
 		limit = {
 			check_variable = {
 				var = max_effective_januszexes
-				value = num_of_januszexes_temp
+				value = num_of_januszexes
 				compare = less_than_or_equals
 			}
 		}
 		set_variable = { januszex_effect_correction_prod = max_effective_januszexes }
 		subtract_from_variable = { 
-			januszex_effect_correction_prod = num_of_januszexes_temp
+			januszex_effect_correction_prod = num_of_januszexes
 		}
 		multiply_variable = {
 			januszex_effect_correction_prod = 0.001
