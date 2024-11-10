@@ -18,14 +18,14 @@ get_taxes = {
 	multiply_variable = {
 		tax = tax_rate_multiplier
 	}
-	if = {
-		limit = {
-			tag = SLE
-		}
-		log = "U hnesza jest [?tax]M moniaków"
-	}
+	# if = {
+	# 	limit = {
+	# 		tag = SLE
+	# 	}
+	# 	log = "U hnesza jest [?tax]M moniaków"
+	# }
 	get_netto = yes
-	#W = tax * (1 - [xh] - [xs] - [xsw])
+	
 }
 
 get_netto = {
@@ -37,6 +37,42 @@ get_netto = {
 	}
 	multiply_variable = {
 		budget = tax
+	}
+	get_consumer_payments = yes
+}
+
+get_consumer_payments = {
+	#wiedząc że utrzymanie fabryki kosztuje 1mln, można to pominąć co opłaty daje nam liczba_fabryk * (1+socjal+ekonomia)
+	set_temp_variable = {
+		consumer_payments = 1
+	}
+	add_to_temp_variable = {
+		consumer_payments = modifier@consumer_goods_expected_value
+	}
+	if = {
+		limit = {
+			has_idea = basic_income 
+		}
+		add_to_temp_variable = {
+			consumer_payments = 0.08
+		}
+	}
+	else_if = {
+		limit = { 
+			or = {
+				has_idea = civil_industry_subsidies
+				has_idea = military_industry_subsidies
+			}
+		}
+		add_to_temp_variable = {
+			consumer_payments = 0.035
+		}
+	}
+	multiply_temp_variable = {
+		consumer_payments = num_of_civilian_factories
+	}
+	subtract_from_variable = {
+		budget = consumer_payments
 	}
 	log = "[?budget]M"
 }
