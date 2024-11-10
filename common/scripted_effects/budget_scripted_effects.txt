@@ -18,14 +18,14 @@ get_taxes = {
 	multiply_variable = {
 		tax = tax_rate_multiplier
 	}
-	if = {
-		limit = {
-			tag = SLE
-		}
-		log = "U hnesza jest [?tax]M moniaków"
-	}
+	# if = {
+	# 	limit = {
+	# 		tag = SLE
+	# 	}
+	# 	log = "U hnesza jest [?tax]M moniaków"
+	# }
 	get_netto = yes
-	#W = tax * (1 - [xh] - [xs] - [xsw])
+	
 }
 
 get_netto = {
@@ -38,5 +38,178 @@ get_netto = {
 	multiply_variable = {
 		budget = tax
 	}
-	log = "[?budget]M"
+	get_consumer_payments = yes
+}
+
+get_consumer_payments = {
+	#wiedząc że utrzymanie fabryki kosztuje 1mln, można to pominąć co opłaty daje nam liczba_fabryk * (1+socjal+ekonomia)
+	set_temp_variable = {
+		consumer_payments = 1
+	}
+	add_to_temp_variable = {
+		consumer_payments = modifier@consumer_goods_expected_value
+	}
+	if = {
+		limit = {
+			has_idea = basic_income 
+		}
+		add_to_temp_variable = {
+			consumer_payments = 0.08
+		}
+	}
+	else_if = {
+		limit = { 
+			or = {
+				has_idea = civil_industry_subsidies
+				has_idea = military_industry_subsidies
+			}
+		}
+		add_to_temp_variable = {
+			consumer_payments = 0.035
+		}
+	}
+	multiply_temp_variable = {
+		consumer_payments = num_of_civilian_factories
+	}
+	subtract_from_variable = {
+		budget = consumer_payments
+	}
+	get_building_payments = yes
+	
+}
+
+get_building_payments = {
+	set_temp_variable = {
+		building_payments = num_of_civilian_factories
+	}
+	add_to_temp_variable = {
+		building_payments = num_of_military_factories
+	}
+	add_to_temp_variable = {
+		building_payments = num_of_dockyards
+	}
+	set_temp_variable = {
+		payments_for_synthethic_refineries = 1.5
+	}
+	multiply_temp_variable = {
+		payments_for_synthethic_refineries = num_of_synthethic_refineries
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_synthethic_refineries
+	}
+	set_temp_variable = {
+		payments_for_high_tech_complexes = 2.5
+	}
+	multiply_temp_variable = {
+		payments_for_synthethic_refineries = num_of_high_tech_complexes
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_high_tech_complexes
+	}
+	set_temp_variable = {
+		payments_for_fuel_siloes = 1.25
+	}
+	multiply_temp_variable = {
+		payments_for_fuel_siloes = num_of_fuel_siloes
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_fuel_siloes
+	}
+	set_temp_variable = {
+		payments_for_power_plants = 3.5
+	}
+	multiply_temp_variable = {
+		payments_for_power_plants = sum_of_power_plants
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_power_plants
+	}
+	set_temp_variable = {
+		payments_for_wind_farms = 2.5
+	}
+	multiply_temp_variable = {
+		payments_for_wind_farms = sum_of_wind_farms
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_wind_farms
+	}
+	set_temp_variable = {
+		payments_for_recycling_plants = 1.5
+	}
+	multiply_temp_variable = {
+		payments_for_recycling_plants = num_of_recycling_plants
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_recycling_plants
+	}
+	set_temp_variable = {
+		payments_for_steel_works = 2.5
+	}
+	multiply_temp_variable = {
+		payments_for_steel_works = num_of_steel_works
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_steel_works
+	}
+	set_temp_variable = {
+		payments_for_bootleg_pits = 2.25
+	}
+	multiply_temp_variable = {
+		payments_for_bootleg_pits = num_of_bootleg_pits
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_bootleg_pits
+	}
+	set_temp_variable = {
+		payments_for_temples = 0.5
+	}
+	multiply_temp_variable = {
+		payments_for_temples = num_of_cathedrals
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_temples
+	}
+	set_temp_variable = {
+		payments_for_universities = 0.25
+	}
+	multiply_temp_variable = {
+		payments_for_universities = num_of_universities
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_universities
+	}
+	set_temp_variable = {
+		payments_for_hospitals = 0.325
+	}
+	multiply_temp_variable = {
+		payments_for_steel_works = num_of_steel_works
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_steel_works
+	}
+	set_temp_variable = {
+		payments_for_prisons = 0.155
+	}
+	multiply_temp_variable = {
+		payments_for_prisons = num_of_prisons
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_prisons
+	}
+	set_temp_variable = {
+		payments_for_januszexes = 2.5
+	}
+	multiply_temp_variable = {
+		payments_for_januszexes = num_of_januszexes
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_januszexes
+	}
+	subtract_from_variable = {
+		budget = building_payments
+	}
+	divide_variable = {
+		budget = 12
+	}
+	log = "[ROOT.GetName]: [?budget]M"
 }
