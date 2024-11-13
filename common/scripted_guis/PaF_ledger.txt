@@ -5,7 +5,13 @@ scripted_gui = {
 		window_name = "after_idea_entry"
 		effects = {
 			show_ledger_click = {
-				set_country_flag = ledger_ui_visible		
+				if = {
+					limit = { has_variable = global.PaF_EconomyLedger }
+					clear_variable = global.PaF_EconomyLedger
+				}
+				else = {
+					set_variable = { global.PaF_EconomyLedger = 1 }
+				}	
 			}
 		}
 	}
@@ -14,11 +20,11 @@ scripted_gui = {
 		context_type = player_context
 		window_name = "ledger_container"
 		visible = {
-			has_country_flag = ledger_ui_visible
+			has_variable = global.PaF_EconomyLedger
 		}
 		effects = {
 			close_ledger_click = {
-				clr_country_flag = ledger_ui_visible		
+				clear_variable = global.PaF_EconomyLedger	
 			}
 		}
 	}
