@@ -2,28 +2,8 @@ import string;
 
 
 vp = open("victory_points_l_english.yml","r",encoding="utf_8_sig",newline='\r\n')
-# latin = open("change_vp_name_to_latin.txt","w",newline='\r\n')
-# czepanese = open("change_vp_name_to_czepanese.txt","w",newline='\r\n')
-# german = open("change_vp_name_to_german.txt","w",newline='\r\n')
-# nordic = open("change_vp_name_to_nordic.txt","w",newline='\r\n')
-# lechite = open("change_vp_name_to_lechite.txt","w",newline='\r\n')
-# russian = open("change_vp_name_to_russian.txt","w",newline='\r\n')
-# kolonkish = open("change_vp_name_to_kolonkish.txt","w",newline='\r\n')
-# kashubian = open("change_vp_name_to_kashubian.txt","w",newline='\r\n')
-# notthatprussian = open("change_vp_name_to_notthatprussian.txt","w",newline='\r\n')
-# silesian = open("change_vp_name_to_silesian.txt","w",newline='\r\n')
-# polish = open("reset_vp_name.txt","w",newline='\r\n')
-# czepanese.write("change_vp_name_to_czepanese = {\n")
-# kashubian.write("change_vp_name_to_kashubian = {\n")
-# german.write("change_vp_name_to_german = {\n")
-# nordic.write("change_vp_name_to_nordic = {\n")
-# latin.write("change_vp_name_to_latin = {\n")
-# lechite.write("change_vp_name_to_lechite = {\n")
-# russian.write("change_vp_name_to_russian = {\n")
-# kolonkish.write("change_vp_name_to_kolonkish = {\n")
-# notthatprussian.write("change_vp_name_to_notthatprussian = {\n")
-# silesian.write("change_vp_name_to_silesian = {\n")
-# polish.write("reset_vp_name = {\n")
+vp_new = open("victory_points_l_english_new.yml","w",encoding="utf_8_sig",newline='\n')
+vp_new.write("l_english:\n")
 
 while True:
     line = vp.readline();
@@ -35,35 +15,97 @@ while True:
             language = line.split(':')[0].split('_')[3];
         else: language = "POL";
         if language == "CAL":
-            #print(line.split(':')[0].split('_'))
-            print(language+"_"+line.split(':')[0].split('_')[:2])
-        #print(language);
-        # if language == "POL":
-        #     polish.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"\n\t\t}\n\t}\n");
-        # elif language == "CAL":
-        #     if province_id in ["13760","13763","13771"]:
-        #         latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t\tNOT = {\n\t\t\t\thas_global_flag = CAL_"+province_id+"_alt_name\n\t\t\t}\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");
-        #     else:
-        #         latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");
-        # elif language == "CAL2":
-        #     latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t\thas_global_flag = CAL_"+province_id+"_alt_name\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL2\n\t\t}\n\t}\n");
-        # elif language == "CZE":
-        #     czepanese.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CZE\n\t\t}\n\t}\n");
-        # elif language == "GER":   
-        #     german.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_GER\n\t\t}\n\t}\n");
-        # elif language == "JOM":
-        #     nordic.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_JOM\n\t\t}\n\t}\n");
-        # elif language == "LEH":
-        #     lechite.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_LEH\n\t\t}\n\t}\n");
-        # elif language == "UKROS":
-        #     russian.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_UKROS\n\t\t}\n\t}\n");
-        # elif language == "USP":
-        #     kolonkish.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_USP\n\t\t}\n\t}\n");
-        # elif language == "KSZ":
-        #     kashubian.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_KSZ\n\t\t}\n\t}\n");
-        # elif language == "PRU":
-        #     notthatprussian.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_PRU\n\t\t}\n\t}\n");
-        # elif language == "SIL":
-        #     silesian.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_SIL\n\t\t}\n\t}\n");
+            for tag in ['CAL','ALP','PRT']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "JOM":
+            for tag in ['JOM','JUT']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "PRU":
+            for tag in ['PRU','AES','GAL']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "KSZ":
+            for tag in ['KSZ','KSC']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "CZE":
+            vp_new.write(' CZE_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "GER":
+            for tag in ['GER', 'KAM', 'MNI', 'RAS', 'WRT', 
+                        'POM', 'KES', 'KOS', 'TEU', 'BRG', 
+                        'BRE', 'KLB', 'OST', 'WIZ', 'FRK',
+                        'VAN', 'SAX', 'EKS', 'EKW', 'TOU', 'BOG', 'LUB']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "UKROS":
+            for tag in ['UPA', 'KOZ', 'UHR', 'BEL', 'ROS', 'RUS', 'RMA', 'UKR', 'LEM']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "LEH":
+            for tag in ['LEH', 'LCH', 'WAN', 'JAS', 'SNF', 'BOR', 'STG', 'STR']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "SIL":
+            for tag in [ 'CHO', 'GLI', 'FER', 'RUD', 'JSW', 'TRC', 'DUR', 'SBW', 'WYM']:
+                vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "USP":
+            vp_new.write(' USP_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "POL":
+            vp_new.write(' '+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "CAL2":
+            vp_new.write(' '+'CAL_'.split(':')[0].replace('_'+language,'_ALT')+':'+line.split(':')[1])
+        else:
+            print(line)
 vp.close();
+vp_new.close()
+
+s = open("state_names_l_english.yml","r",encoding="utf_8_sig",newline='\r\n')
+s_new = open("state_names_l_english_new.yml","w",encoding="utf_8_sig",newline='\n')
+
+
+s_new.write("l_english:\n")
+
+while True:
+    line = s.readline();
+    if not line:
+        break
+    elif "\"" in line:
+        if len(line.split(':')[0].split('_')) == 3:
+            language = line.split(':')[0].split('_')[2];
+        else: language = "POL";
+        if language == "CAL":
+            for tag in ['CAL','ALP','PRT']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "JOM":
+            for tag in ['JOM','JUT']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "PRU":
+            for tag in ['PRU','AES','GAL']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "KSZ":
+            for tag in ['KSZ','KSC']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "CZE":
+            s_new.write(' CZE_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "GER":
+            for tag in ['GER', 'KAM', 'MNI', 'RAS', 'WRT', 
+                        'POM', 'KES', 'KOS', 'TEU', 'BRG', 
+                        'BRE', 'KLB', 'OST', 'WIZ', 'FRK',
+                        'VAN', 'SAX', 'EKS', 'EKW', 'TOU', 'BOG', 'LUB']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "UKROS":
+            for tag in ['UPA', 'KOZ', 'UHR', 'BEL', 'ROS', 'RUS', 'RMA', 'UKR', 'LEM']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "LEH":
+            for tag in ['LEH', 'LCH', 'WAN', 'JAS', 'SNF', 'BOR', 'STG', 'STR']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "SIL":
+            for tag in [ 'CHO', 'GLI', 'FER', 'RUD', 'JSW', 'TRC', 'DUR', 'SBW', 'WYM']:
+                s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "USP":
+            s_new.write(' USP_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        elif language == "POL":
+            s_new.write(' '+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+        else:
+            s_new.write(' '+language+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
+
+s.close()
+s_new.close()
+
+
 
