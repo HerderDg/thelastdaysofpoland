@@ -22,6 +22,7 @@ lechite.write("change_vp_name_to_lechite = {\n")
 russian.write("change_vp_name_to_russian = {\n")
 kolonkish.write("change_vp_name_to_kolonkish = {\n")
 notthatprussian.write("change_vp_name_to_notthatprussian = {\n")
+silesian.write("change_vp_name_to_silesian = {\n")
 polish.write("reset_vp_name = {\n")
 
 while True:
@@ -38,7 +39,6 @@ while True:
             polish.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"\n\t\t}\n\t}\n");
         elif language == "CAL":
             if province_id in ["13760","13763","13771"]:
-                print(province_id)
                 latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t\tNOT = {\n\t\t\t\thas_global_flag = CAL_"+province_id+"_alt_name\n\t\t\t}\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");
             else:
                 latin.write("\tif = {\n\t\tlimit = {\n\t\t\tcontrols_province = "+province_id+"\n\t\t}\n\t\tset_province_name = {\n\t\t\tid = "+province_id+"\n\t\t\tname = VICTORY_POINTS_"+province_id+"_CAL\n\t\t}\n\t}\n");

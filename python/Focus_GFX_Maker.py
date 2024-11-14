@@ -11,8 +11,8 @@ get_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 print(get_path)
 
-focus_gfx = os.path.join(get_path, r"interface\PaF_goals.gfx")
-focus_shine = os.path.join(get_path, r"interface\PaF_goals_shine.gfx")
+focus_gfx = os.path.join(get_path, r"interface\goals.gfx")
+focus_shine = os.path.join(get_path, r"interface\goals_shine.gfx")
 
 class App(tk.Frame):
 	def __init__(self, master=None):
