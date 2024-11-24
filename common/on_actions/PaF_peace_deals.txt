@@ -178,7 +178,155 @@ on_actions = {
 				}
 				set_global_flag = winning_country_multiple
 			}
-			add_to_variable = { global.peace_popup_dirty = 1 }			
+			add_to_variable = { global.peace_popup_dirty = 1 }
+				if = {
+					limit = {
+						ROOT = {
+							original_tag = GSW
+						}
+						FROM = {
+							original_tag = SWC
+						} 
+					}
+					if = {
+						limit = {
+							has_country_flag = accepted_bydgoszcz_help
+						}
+						country_event = {
+							id = swiecie.3
+							days = 7
+						}
+					}
+					else_if = {
+						limit = {
+							has_country_flag = accepted_krajna_help
+						}
+						country_event = {
+							id = swiecie.3
+							days = 7
+						}
+					}
+					else = {
+						country_event = {
+							id = swiecie.7
+							days = 14
+						}
+					}
+					set_global_flag = skip_default_capitulation
+				}
+				if = {
+					limit = {
+						ROOT = {
+							original_tag = RMA
+						}
+					}
+				log = "[GetDateText]: ITS OVER FOR RUSSIA BROS"
+				every_country = {
+					limit = { is_ai = no }
+					news_event = {
+						id = rosja.2
+					}
+				}
+				40 = {
+					add_core_of = TEU
+					transfer_state_to = TEU
+				}
+				log = "[GetDateText]: [TEU.GetName] cores [40.GetName]"
+				993 = {
+					add_core_of = TEU
+					transfer_state_to = TEU
+				}
+				log = "[GetDateText]: [TEU.GetName] cores [993.GetName]"
+				42 = {
+					add_core_of = WRM
+					transfer_state_to = WRM
+				}
+				log = "[GetDateText]: [WRM.GetName] cores [42.GetName]"
+				47 = {
+					add_core_of = WRM
+					transfer_state_to = WRM
+				}
+				log = "[GetDateText]: [WRM.GetName] cores [47.GetName]"
+				51 = {
+					add_core_of = MRG
+					transfer_state_to = MRG
+				}
+				log = "[GetDateText]: [MRG.GetName] cores [51.GetName]"
+				994 = {
+					add_core_of = MRG
+					transfer_state_to = MRG
+				}
+				log = "[GetDateText]: [MRG.GetName] cores [994.GetName]"
+				875 = {
+					add_core_of = PZW
+					transfer_state_to = PZW
+				}
+				log = "[GetDateText]: [PZW.GetName] cores [875.GetName]"
+				46 = {
+					add_core_of = PZW
+					transfer_state_to = PZW
+				}
+
+				log = "[GetDateText]: [PZW.GetName] cores [46.GetName]"
+				ROS = {
+					white_peace = WRM
+				}
+				ROS = {
+					white_peace = MAL
+				}
+				ROS = {
+					white_peace = PRU
+				}
+				ROS = {
+					white_peace = PZW
+				}
+				ROS = {
+					white_peace = TEU
+				}		
+				PZW = { leave_faction = yes }
+				log = "[GetDateText]: [PZW.GetName] quits faction"
+				TEU = { leave_faction = yes }
+				log = "[GetDateText]: [TEU.GetName] quits faction"
+				WRM = { dismantle_faction = yes }
+				log = "[GetDateText]: [WRM.GetName] dismantles faction"
+				random_list = {
+					1 = {
+						every_country = {
+							limit = {  is_ai = no  }
+							news_event = { 
+								id = rosja.4
+								days = 9
+							}
+						}
+					}
+					1 = {
+						every_country = {
+							limit = {  is_ai = no  }
+							news_event = { 
+								id = rosja.5
+								days = 2
+							}
+						}
+					}
+				}
+			}
+				if = {
+					limit = {
+						ROOT = {
+							original_tag = SWC
+							is_subject_of = BYD
+						}
+						FROM = {
+							original_tag = LOT
+						}
+					}
+					annex_country = {
+						target = SWC
+						transfer_troops = no
+					}
+					white_peace = BYD
+					set_global_flag = skip_default_capitulation
+				}			
 				if = {
 					limit = {
 						ROOT = {
@@ -388,6 +536,39 @@ on_actions = {
 				}
 				set_global_flag = skip_default_capitulation
 			}
+			if = {
+					limit = {
+						ROOT = {
+							original_tag = BRE
+						}
+						FROM = {
+							OR = {
+								original_tag = WRO
+								original_tag = RYB
+							}
+						}
+					}
+
+					FROM = {
+						white_peace = ROOT
+						WRO = {
+							transfer_state = 606
+							transfer_state = 387
+							transfer_state = 371
+							transfer_state = 369
+							transfer_state = 806
+							transfer_state = 343
+						}
+						RYB = {
+							transfer_state = 338
+							transfer_state = 344
+							transfer_state = 334
+							transfer_state = 324
+						}
+					}
+					log = "[GetDateText]: Breslau ded"
+					set_global_flag = skip_default_capitulation
+				}			
 			if = {
 					limit = {
 						ROOT = {

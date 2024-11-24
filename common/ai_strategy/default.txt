@@ -902,7 +902,175 @@ default_spyplanes_production = {
 	}
 }
 
+### SPECIAL PROJECT STRATEGIES
+default_build_a_nl_facility = {
+	enable = {
+		has_country_flag = unified_regional
+		num_of_civilian_factories > 25
+		num_of_military_factories > 25 # Even if we have the base tech, let's wait until we have some kind of capacity
+		nuclear_facility < 1  # one is enough
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = nuclear_facility
+		value = 100
+	}
+}
 
+default_build_a_civ_facility = {
+	enable = {
+		has_country_flag = unified_regional
+		num_of_civilian_factories > 25
+		num_of_military_factories > 25 # Even if we have the base tech, let's wait until we have some kind of capacity
+		civilian_facility < 1  # one is enough
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = civilian_facility
+		value = 100
+	}
+}
+
+default_build_a_golem_facility = {
+	enable = {
+		has_country_flag = unified_regional
+		num_of_civilian_factories > 50
+		num_of_military_factories > 50 # Even if we have the base tech, let's wait until we have some kind of capacity
+		golem_facility < 1  # one is enough
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = golem_facility
+		value = 100
+	}
+}
+
+default_build_a_nav_facility = {
+	enable = {
+		has_country_flag = unified_regional
+		num_of_naval_factories > 25 # Only Naval Powers should bother with these unless specifically told to do otherwise
+		naval_facility < 1 # one is enough
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = naval_facility
+		value = 100
+	}
+}
+
+# TODO MANU or THOMAS
+default_build_a_gun_emplacement = {
+	enable = {
+		is_major = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = mega_gun_emplacement
+		value = 1
+	}
+}
+
+default_build_a_lw_facility = {
+	enable = {
+		is_major = yes
+		num_of_civilian_factories > 40
+		num_of_military_factories > 40
+		has_country_flag = unified_regional
+		land_facility < 1 # one is enough
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = land_facility
+		value = 1
+	}
+}
+
+default_build_an_air_facility = {
+	allowed = {
+		NOT = { original_tag = GER } # Germany uses own strat 
+	}
+	enable = {
+		num_of_military_factories > 40 
+		has_country_flag = unified_regional
+		air_facility < 1 # one is enough
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = build_building
+		id = air_facility
+		value = 1
+	}
+}
+
+
+default_recruit_land_scientist = {
+	enable = {
+		land_facility > 0
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = recruit_scientist
+		id = specialization_land
+		value = 100
+	}
+}
+
+default_recruit_nuclear_scientist = {
+	enable = {
+		nuclear_facility > 0
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = recruit_scientist
+		id = specialization_nuclear
+		value = 100
+	}
+}
+
+default_recruit_naval_scientist = {
+	enable = {
+		naval_facility > 0
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = recruit_scientist
+		id = specialization_naval
+		value = 100
+	}
+}
+
+default_recruit_air_scientist = {
+	enable = {
+		air_facility > 0
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = recruit_scientist
+		id = specialization_air
+		value = 100
+	}
+}
+
+#default_produce_some_trucks_for_buffer = {
+#	enable = {
+#		num_of_military_factories > 12
+#		has_tech = tech_trucks
+#		has_equipment = { motorized_equipment < 3000 }
+#	}
+#	abort_when_not_enabled = yes
+#
+#	ai_strategy = {
+#		type = equipment_production_min_factories_archetype
+#		id = motorized_equipment
+#		value = 1
+#	}
+#}
 default_produce_floating_harbors = {
 	enable = {
 		is_historical_focus_on = no
@@ -1407,4 +1575,20 @@ produce_weapons_on_export = {
 		id = ranged_equipment
 		value = 1000
 	}
+}
+
+ZAG_garrison_lusatia = {
+    allowed = {
+        original_tag = ZAG
+    }
+    enable = {
+		NOT = { has_country_flag = eurokom_has_fallen }
+    }
+    abort_when_not_enabled = yes
+	ai_strategy = {
+		type = area_priority
+		id = lusatia
+		value = 1000
+	}
+
 }
