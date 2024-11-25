@@ -1,0 +1,813 @@
+﻿add_namespace = LEH_COLLAPSE
+add_namespace = MNI_BORDER_COLLAPSE
+
+country_event = {
+	id = LEH_COLLAPSE.1 #przejęcie Otmuchowa
+	title = LEH_COLLAPSE.1.t
+	desc = LEH_COLLAPSE.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.1"
+		LEH = { transfer_state = 802 }
+		802 = { set_demilitarized_zone = no }
+	 }
+
+	option = {
+		name = LEH_COLLAPSE.1.a
+		country_event = {
+			id = LEH_COLLAPSE.2
+			days = 3
+		}
+		802 = {
+			add_core_of = LEH
+			create_unit = {
+				division = "name = \"JSM Odmuchów\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				owner = LEH
+				prioritize_location = 2508
+			}
+			create_unit = {
+				division = "name = \"JSM Pakosławice\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 9299
+			}	
+			create_unit = {
+				division = "name = \"JSM Kubinów\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				owner = LEH
+				prioritize_location = 9311
+			}					
+		}
+		load_oob = LCH_2027
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.2 #przejęcie Korfantowa
+	title = LEH_COLLAPSE.2.t
+	desc = LEH_COLLAPSE.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.2" 
+		LEH = { transfer_state = 446 }
+		446 = { set_demilitarized_zone = no }
+	}
+
+	option = {
+		name = LEH_COLLAPSE.2.a
+		country_event = {
+			id = LEH_COLLAPSE.3
+			days = 3
+		}
+		446 = {
+			add_core_of = LEH
+			create_unit = {
+				division = "name = \"JSM Opolanów\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				owner = LEH
+				prioritize_location = 829
+			}				
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.3 #przejęcie Paczkowa
+	title = LEH_COLLAPSE.3.t
+	desc = LEH_COLLAPSE.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.3" 
+			LEH = { transfer_state = 439 }
+			439 = { set_demilitarized_zone = no }
+	}
+
+	option = {
+		name = LEH_COLLAPSE.3.a
+		country_event = {
+			id = LEH_COLLAPSE.4
+			days = 3
+		}
+		439 = {
+			add_core_of = LEH
+			create_unit = {
+				division = "name = \"JSM Paczków\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				owner = LEH
+				prioritize_location = 3969
+			}				
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.4 #przejęcie Prudnika
+	title = LEH_COLLAPSE.4.t
+	desc = LEH_COLLAPSE.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.4" 
+		LEH = { transfer_state = 449 }
+		449 = { set_demilitarized_zone = no }
+	}
+
+	option = {
+		name = LEH_COLLAPSE.4.a
+		load_oob = WAN_2027
+		449 = {
+			add_core_of = LEH
+			create_unit = {
+				division = "name = \"JSM Prądnik\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				owner = LEH
+				prioritize_location = 129
+			}
+			create_unit = {
+				division = "name = \"JSM Kozia Szyja\" division_template=\"Grupy Szturmowe JSM\""
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 867
+			}					
+		}
+		hidden_effect = {
+			set_country_flag = LEH_opole_border_wars_start
+			activate_mission = LEH_border_war_krapkowice
+			MNI = {
+				add_ideas = MNI_lechitic_invasion
+			}
+			BRG = {
+				add_ideas = MNI_lechitic_invasion
+			}			
+		}
+		#country_event = { # TODO
+		#	id = LEH_COLLAPSE.5 #rozpoczynamy border wary - może te focusy co same się robią albo misje???
+		#}
+		#country_event = {
+		#	id = OPO_COLLAPSE.1 #kowalski czuje krew i idzie na Lubszę
+		#}		
+	}
+}
+
+
+country_event = {
+	id = LEH_COLLAPSE.5 #przejęcie Krapkowic - zwyciestwo
+	title = LEH_COLLAPSE.5.t
+	desc = LEH_COLLAPSE.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.5" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.5.a
+		LEH = { transfer_state = 450 }
+		450 = { add_core_of = LEH }
+		hidden_effect = {
+			activate_mission = LEH_border_war_renska_wies
+		}
+		add_war_support = 0.05	
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.6 #przejęcie Krapkowic - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.6.t
+	desc = LEH_COLLAPSE.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.6" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.6.a
+		LEH = { transfer_state = 450 }
+		450 = { add_core_of = LEH }
+		hidden_effect = {
+			activate_mission = LEH_border_war_renska_wies
+		}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.1 #przejęcie Krapkowic - MNI event
+	title = MNI_BORDER_COLLAPSE.1.t
+	desc = MNI_BORDER_COLLAPSE.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.1" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.1.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+
+country_event = {
+	id = LEH_COLLAPSE.7 #przejęcie Renskiej Wsi - zwyciestwo
+	title = LEH_COLLAPSE.7.t
+	desc = LEH_COLLAPSE.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.7" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.7.a
+		LEH = { transfer_state = 463 }
+		463 = { add_core_of = LEH }
+		hidden_effect = {
+			activate_mission = LEH_border_war_grodkow
+		}
+		add_war_support = 0.05	
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.8 #przejęcie Renskiej Wsi - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.8.t
+	desc = LEH_COLLAPSE.8.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.8" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.8.a
+		LEH = { transfer_state = 463 }
+		463 = { add_core_of = LEH }
+		hidden_effect = {
+			activate_mission = LEH_border_war_grodkow
+		}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.2 #przejęcie Renskiej Wsi - MNI event
+	title = MNI_BORDER_COLLAPSE.2.t
+	desc = MNI_BORDER_COLLAPSE.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.2" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.2.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+
+country_event = {
+	id = LEH_COLLAPSE.9 #przejęcie Grodkowa - zwyciestwo
+	title = LEH_COLLAPSE.9.t
+	desc = LEH_COLLAPSE.9.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.9" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.9.a
+		410 = { add_core_of = LEH }
+		LEH = { transfer_state = 410 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_glubczyce
+		}
+		add_war_support = 0.05	
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.10 #przejęcie Grodkowa - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.10.t
+	desc = LEH_COLLAPSE.10.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.10" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.10.a
+		410 = { add_core_of = LEH }
+		LEH = { transfer_state = 410 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_glubczyce
+		}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.3 #przejęcie Grodkowa - MNI event
+	title = MNI_BORDER_COLLAPSE.3.t
+	desc = MNI_BORDER_COLLAPSE.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.3" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.3.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.11 #przejęcie Glubczyc - zwyciestwo
+	title = LEH_COLLAPSE.11.t
+	desc = LEH_COLLAPSE.11.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.11" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.11.a
+		478 = { add_core_of = LEH }
+		LEH = { transfer_state = 478 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_brzeg
+		}
+		add_war_support = 0.05	
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.12 #przejęcie Glubczyc - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.12.t
+	desc = LEH_COLLAPSE.12.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.12" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.12.a
+		478 = { add_core_of = LEH }
+		LEH = { transfer_state = 478 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_brzeg
+		}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.4 #przejęcie Glubczyc - MNI event
+	title = MNI_BORDER_COLLAPSE.4.t
+	desc = MNI_BORDER_COLLAPSE.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.4" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.4.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.13 #przejęcie Brzegu - zwyciestwo
+	title = LEH_COLLAPSE.13.t
+	desc = LEH_COLLAPSE.13.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.13" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.13.a
+		402 = { add_core_of = LEH }
+		LEH = { transfer_state = 402 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_kedzierzyn
+		}
+		add_war_support = 0.05	
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.14 #przejęcie Brzegu - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.14.t
+	desc = LEH_COLLAPSE.14.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.14" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.14.a
+		402 = { add_core_of = LEH }
+		LEH = { transfer_state = 402 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_kedzierzyn
+		}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.5 #przejęcie Brzegu - MNI event
+	title = MNI_BORDER_COLLAPSE.5.t
+	desc = MNI_BORDER_COLLAPSE.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.5" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.5.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.15 #przejęcie Kedzierzyna - zwyciestwo
+	title = LEH_COLLAPSE.15.t
+	desc = LEH_COLLAPSE.15.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.15" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.15.a
+		467 = { add_core_of = LEH }
+		LEH = { transfer_state = 467 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_niemodlin
+		}
+		add_war_support = 0.05	
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.16 #przejęcie Kedzierzyna - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.16.t
+	desc = LEH_COLLAPSE.16.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.16" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.16.a
+		467 = { add_core_of = LEH }
+		LEH = { transfer_state = 467 }
+		hidden_effect = {
+			activate_mission = LEH_border_war_niemodlin
+		}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.6 #przejęcie Kedzierzyna - MNI event
+	title = MNI_BORDER_COLLAPSE.6.t
+	desc = MNI_BORDER_COLLAPSE.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.6" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.6.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.17 #przejęcie Niemodlina - zwyciestwo
+	title = LEH_COLLAPSE.17.t
+	desc = LEH_COLLAPSE.17.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.17" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.17.a
+		427 = { add_core_of = LEH }
+		LEH = { transfer_state = 427 }
+		add_war_support = 0.05	
+		hidden_effect = {
+			clr_country_flag = LEH_opole_border_wars_start
+			set_country_flag = LEH_opole_border_wars_finish
+		}
+	}
+}
+
+country_event = {
+	id = LEH_COLLAPSE.18 #przejęcie Niemodlina - pyrrusowe zwyciestwo
+	title = LEH_COLLAPSE.18.t
+	desc = LEH_COLLAPSE.18.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.18" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.18.a
+		427 = { add_core_of = LEH }
+		LEH = { transfer_state = 427 }
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+		hidden_effect = {
+			set_country_flag = LEH_opole_border_wars_finish
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.7 #przejęcie Niemodlina - MNI event
+	title = MNI_BORDER_COLLAPSE.7.t
+	desc = MNI_BORDER_COLLAPSE.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.7" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.7.a
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+	}
+}
+
+
+country_event = {
+	id = LEH_COLLAPSE.19 #bitwa o Opole
+	title = LEH_COLLAPSE.19.t
+	desc = LEH_COLLAPSE.19.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires LEH_COLLAPSE.19" 
+	}
+
+	option = {
+		name = LEH_COLLAPSE.19.a
+		LEH = { transfer_state = 797 }
+		797 = { add_core_of = LEH }
+		OPO = { transfer_state = 428 }
+		428 = { add_core_of = OPO
+				remove_core_of = MNI 
+				}
+		if = {
+			limit = {
+			manpower < 200
+			}
+			add_manpower = -200
+			add_war_support = -0.1
+			add_stability = -0.1
+		}
+		else = {
+			add_manpower = -200
+			add_war_support = -0.05
+			add_stability = -0.05
+		}
+		hidden_effect = {
+			set_country_flag = LEH_opole_border_wars_finish
+		}
+	}
+}
+
+country_event = {
+	id = MNI_BORDER_COLLAPSE.10 #bitwa o Opole - MNI event
+	title = MNI_BORDER_COLLAPSE.10.t
+	desc = MNI_BORDER_COLLAPSE.10.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires MNI_BORDER_COLLAPSE.7" 
+	}
+
+	option = {
+		name = MNI_BORDER_COLLAPSE.7.a
+			add_manpower = -300
+			add_war_support = -0.1
+			add_stability = -0.15
+	}
+}
