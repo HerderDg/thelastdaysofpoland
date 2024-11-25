@@ -1,11 +1,39 @@
 scripted_gui = {
 	
-	BRZ_football_gui = {
-		window_name = "GFX_PaF_football"
+	# BRZ_football_gui = { zakomentowane ze względu na nadchodzące przeróbki
+	# 	window_name = "GFX_PaF_football"
+	# 	context_type = decision_category
+	# 	parent_window_token = decision_tab
+
+	# 	# dynamic_lists = {
+	# 	# 	BRZ_league_standings = {
+	# 	# 		array = league_standings
+	# 	# 		index = league_standings_position
+	# 	# 		value = league_standings_team
+	# 	# 		entry_container = "BRZ_league_team"
+	# 	# 	}
+	# 	# }
+
+	# 	# effects = {
+	# 	# 	BRZ_edit_team_button_click = {
+	# 	# 		set_country_flag = team_editor_shown
+	# 	# 	}
+	# 	# }
+	# }
+
+	BRZ_league_gui = {
+		window_name = "GFX_PaF_football_league"
 		context_type = decision_category
 		parent_window_token = decision_tab
 
-		
+		dynamic_lists = {
+			BRZ_league_standings = {
+				array = league_standings
+				index = league_standings_position
+				value = league_standings_team
+				entry_container = "BRZ_league_team"
+			}
+		}
 	}
 
 	BRZ_team_management_gui = {
@@ -294,6 +322,42 @@ scripted_gui = {
 					current_team_setup = 343
 			   }
 			}
+			BRZ_swap_footballer_visible = {
+				check_variable = {
+					available_reserve^num > 0
+				}
+			}
+			BRZ_swap_values_visible = {
+				check_variable = {
+					available_reserve^num > 0
+				}
+			}
+			BRZ_swap_footballer_click_enabled = {
+				any_character = {
+					has_character_flag = ready_to_field
+				}
+			}
+			BRZ_change_team_stance_left_click_enabled = {
+				check_variable = {
+					team_stance > -1
+				}
+			}
+			BRZ_change_team_stance_right_click_enabled = {
+				check_variable = {
+					team_stance < 1
+				}
+			}
+			BRZ_train_team_visible = {
+				has_completed_focus = BRZ_first_training_camp
+			}
+			BRZ_train_team_click_enabled = {
+				not = {
+					has_country_flag = {
+						flag = recent_training
+						value = 0
+					}
+				}
+			}
 		}
 
 		effects = {
@@ -350,6 +414,21 @@ scripted_gui = {
 				clear_array = available_reserve
 			}
 
+			BRZ_change_team_stance_right_click={
+				add_to_variable = {
+					team_stance = 1
+				}
+				BRZ_calculate_stats = yes
+			}
+
+			BRZ_change_team_stance_left_click={
+				subtract_from_variable = {
+					team_stance = 1
+				}
+				BRZ_calculate_stats = yes
+			}
+
+
 			BRZ_goalkeeper_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = gk_chosen
@@ -358,18 +437,42 @@ scripted_gui = {
 			BRZ_team_2_left_atk_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_atk_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_atk
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_atk_in_reserve = yes
 			}
 
 			BRZ_team_2_right_atk_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_atk_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_atk
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_atk_in_reserve = yes
 			}
 
 			BRZ_team_4_left_mid_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_mid
+						not = {
+							has_character_flag = center_mid
+						}
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_mid_in_reserve = yes
 			}
 
@@ -377,6 +480,14 @@ scripted_gui = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_mid_chosen
 				set_country_flag = center_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_mid
+						has_character_flag = center_mid
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_mid_in_reserve = yes
 			}
 
@@ -384,18 +495,46 @@ scripted_gui = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_mid_chosen
 				set_country_flag = center_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_mid
+						has_character_flag = center_mid
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_mid_in_reserve = yes
 			}
 
 			BRZ_team_4_right_mid_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_mid
+						not = {
+							has_character_flag = center_mid
+						}
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_mid_in_reserve = yes
 			}
 
 			BRZ_team_4_left_def_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_def
+						not = {
+							has_character_flag = center_def
+						}
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
@@ -403,6 +542,14 @@ scripted_gui = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_def_chosen
 				set_country_flag = center_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_def
+						has_character_flag = center_def
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
@@ -410,65 +557,147 @@ scripted_gui = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_def_chosen
 				set_country_flag = center_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_def
+						has_character_flag = center_def
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
 			BRZ_team_4_right_def_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_def
+						not = {
+							has_character_flag = center_def
+						}
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
 			BRZ_team_3_left_atk_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_atk_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_atk
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_atk_in_reserve = yes
 			}
 
 			BRZ_team_3_center_atk_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = center_atk_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = center_atk
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_atk_in_reserve = yes
 			}
 
 			BRZ_team_3_right_atk_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_atk_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_atk
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_atk_in_reserve = yes
 			}
 
 			BRZ_team_3_left_mid_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_mid
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_mid_in_reserve = yes
 			}
 
 			BRZ_team_3_center_mid_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = center_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = center_mid
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_mid_in_reserve = yes
 			}
 
 			BRZ_team_3_right_mid_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_mid_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = right_mid
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
+				show_mid_in_reserve = yes
 			}
 
 			BRZ_team_3_left_def_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = left_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = left_def
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
 			BRZ_team_3_center_def_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = center_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = center_def
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
 			BRZ_team_3_right_def_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = right_def_chosen
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = center_def
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power}
+				}
 				show_def_in_reserve = yes
 			}
 
@@ -478,8 +707,44 @@ scripted_gui = {
 						is_character = chosen_reserve
 					}
 					set_character_flag = ready_to_field
+					set_variable = { ROOT.fb_power_in = THIS.fb_power}
 				}
 				log = "[?available_reserve^available_reserve_index.GetTokenValue]"
+			}
+
+			BRZ_swap_footballer_click = {
+				swap_footballer = yes
+			}
+
+			BRZ_train_team_click = {
+				hidden_effect = {
+					set_country_flag = {
+						flag = recent_training
+						days = 30
+					}
+					every_character = {
+						limit = {
+							has_character_flag = is_footballer
+						}
+						random_list = {
+							1 = {
+		
+							}
+							1 = {
+								add_to_variable = {
+									THIS.fb_power = 1
+								}
+							}
+							1 = {
+								add_to_variable = {
+									THIS.fb_power = 2
+								}
+							}
+						}
+						
+					}
+					BRZ_calculate_stats = yes
+				}
 			}
 		}
 	}

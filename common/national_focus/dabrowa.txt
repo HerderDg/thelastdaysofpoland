@@ -32,7 +32,7 @@ focus_tree = {
 		y = 0
 		
 		cost = 1
-		search_filters = {}
+		
 		completion_reward = { 
 			add_political_power = 50
 			country_event = {
@@ -57,7 +57,7 @@ focus_tree = {
 		y = 1
 		
 		cost = 1
-		search_filters = {}
+		
 		completion_reward = { 
 			country_event = {
 				id = dgr.2
@@ -81,7 +81,7 @@ focus_tree = {
 		y = 1
 		
 		cost = 1
-		search_filters = {}
+		
 		completion_reward = { 
 				if = {
 					limit = {
@@ -719,6 +719,7 @@ focus_tree = {
 					}
 				}
 			}
+			add_ideas = DGR_min_bargieła
 			add_corps_commander_role = {
 				character = DGR_bargieła
 				skill = 2
@@ -882,8 +883,8 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 2
-		
+		y = 3
+	
 		cost = 4.3
 		search_filters = { }
 		completion_reward = {	
@@ -1298,7 +1299,28 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_command_power = 40
+			create_corps_commander = {
+				name = "Adam Abrahamowicz"
+				picture = "Portrait_Adam_Abrahamowicz.dds"
+				traits = { trickster brilliant_strategist ranger }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			create_corps_commander = {
+				name = "Dominik Kondratowicz"
+				picture = "Portrait_Dominik_Kondratowicz.dds"
+				traits = { trickster commando scavenger }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 5
+				logistics_skill = 1
+			}		
 		}
 	}	
 	
@@ -1320,6 +1342,27 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			add_political_power = 50
+			create_corps_commander = {
+				name = "Michał Czyżewski"
+				picture = "Portrait_Michal_Czyzewski.dds"
+				traits = { politically_connected urban_assault_specialist fortress_buster }
+				skill = 3
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 2
+			}
+			create_corps_commander = {
+				name = "Wojciech Zimmermann"
+				picture = "Portrait_Wojciech_Zimmermann.dds"
+				traits = { trickster politically_connected harsh_leader }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 4
+				logistics_skill = 3
+			}
 		}
 	}
 	
@@ -1340,7 +1383,17 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_partisan
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_warsaw_pact
+			}			
 		}
 	}
 	
@@ -1350,6 +1403,7 @@ focus_tree = {
 	focus = {
 		id = DGR_revenge_at_czarzasty
 		icon = DGR_revenge_at_czarzasty
+		will_lead_to_war_with = SOS
 		available = {
 		has_country_flag = DGR_temp_war
 			NOT = {
@@ -1383,6 +1437,7 @@ focus_tree = {
 	focus = {
 		id = DGR_strike_back_at_antifa
 		icon = DGR_strike_back_at_antifa
+		will_lead_to_war_with = JAW
 		available = {
 		has_country_flag = DGR_temp_war
 			NOT = {
@@ -1420,7 +1475,10 @@ focus_tree = {
 		relative_position_id = DGR_revenge_at_czarzasty
 		prerequisite = { focus = DGR_revenge_at_czarzasty }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = SOS }
+				798 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1431,7 +1489,17 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_state_core = 798
+			add_manpower = 350
+			add_resource = {
+				type = coal
+				amount = 5
+				state = 798
+			}
+			798 = {
+				set_state_name = "DG-Zagórze"
+			}
 		}
 	}
 
@@ -1441,7 +1509,11 @@ focus_tree = {
 		relative_position_id = DGR_revenge_at_czarzasty
 		prerequisite = { focus = DGR_revenge_at_czarzasty }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = SOS }
+				NOT = { country_exists = SIE }
+				730 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1453,6 +1525,22 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			build_railway = {
+			  level = 1
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
+
+				modifier = {
+				  tag = DGR
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 3993 1273 7793 7792 }
+			  start_province = 3993
+			  target_province = 7792
+			}
 		}
 	}	
 	
@@ -1462,7 +1550,11 @@ focus_tree = {
 		relative_position_id = DGR_revenge_at_czarzasty
 		prerequisite = { focus = DGR_revenge_at_czarzasty }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = BED }
+				NOT = { country_exists = SOS }
+				453 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1474,6 +1566,19 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			453 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 3
+				state = 453
+			}
 		}
 	}
 
@@ -1494,7 +1599,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.12
 		}
 	}	
 	
@@ -1504,7 +1610,10 @@ focus_tree = {
 		relative_position_id = DGR_strike_back_at_antifa
 		prerequisite = { focus = DGR_strike_back_at_antifa }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JAW }
+				487 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1516,6 +1625,18 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			487 = { 
+				add_manpower = -2000
+				add_compliance = 50
+			}
+			733 = { 
+				add_manpower = -240
+				add_compliance = 40
+			}
+			734 = { 
+				add_manpower = -160
+				add_compliance = 30
+			}			
 		}
 	}
 
@@ -1525,7 +1646,13 @@ focus_tree = {
 		relative_position_id = DGR_strike_back_at_antifa
 		prerequisite = { focus = DGR_strike_back_at_antifa }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JAW }
+				487 = { is_controlled_by = DGR }
+				734 = { is_controlled_by = DGR }
+				761 = { is_controlled_by = DGR }
+				502 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1537,6 +1664,22 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			build_railway = {
+			  level = 1
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
+
+				modifier = {
+				  tag = DGR
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 7801 7809 3129 7798 7820 4040 7825 7827 4046 7826 }
+			  start_province = 7801 
+			  target_province = 7826
+			}
 		}
 	}	
 	
@@ -1546,7 +1689,10 @@ focus_tree = {
 		relative_position_id = DGR_strike_back_at_antifa
 		prerequisite = { focus = DGR_strike_back_at_antifa }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JAW }
+				487 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1557,7 +1703,20 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			487 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_resource = {
+				type = electronics
+				amount = 3
+				state = 487
+			}		
 		}
 	}
 
@@ -1578,7 +1737,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.13
 		}
 	}	
 	
@@ -1589,7 +1749,13 @@ focus_tree = {
 		prerequisite = { focus = DGR_question_of_councils }
 		prerequisite = { focus = DGR_question_of_leadership }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = SOS }
+				NOT = { country_exists = JAW }
+				NOT = { country_exists = SIE }
+				NOT = { country_exists = BED }
+				DGR = { has_war = no }
+			}
 		}
 		
 		bypass = {
@@ -1600,7 +1766,37 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+				if = { limit = { country_exists = JUR } 
+				declare_war_on = {
+					target = JUR
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = CCH } 
+				declare_war_on = {
+					target = CCH
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = JWK } 
+				declare_war_on = {
+					target = JWK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = BRZ } 
+				declare_war_on = {
+					target = BRZ
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ZAW } 
+				declare_war_on = {
+					target = ZAW
+					type = annex_everything
+				}
+				}				
 		}
 	}
 
@@ -1610,7 +1806,10 @@ focus_tree = {
 		relative_position_id = DGR_reclaim_greater_zaglebie
 		prerequisite = { focus = DGR_reclaim_greater_zaglebie }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = CCH }
+				592 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1621,7 +1820,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_ideas = DGR_red_star_over_church
 		}
 	}	
 
@@ -1631,7 +1831,12 @@ focus_tree = {
 		relative_position_id = DGR_reclaim_greater_zaglebie
 		prerequisite = { focus = DGR_reclaim_greater_zaglebie }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = JUR }
+				NOT = { country_exists = ZAW }
+				738 = { is_controlled_by = DGR }
+				739 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1642,7 +1847,31 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			741 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			739 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+			}
+			738 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -1652,7 +1881,13 @@ focus_tree = {
 		relative_position_id = DGR_reclaim_greater_zaglebie
 		prerequisite = { focus = DGR_reclaim_greater_zaglebie }
 		available = {
-		
+			AND = {
+				NOT = { country_exists = BRZ }
+				390 = { is_controlled_by = DGR }
+				591 = { is_controlled_by = DGR }
+				746 = { is_controlled_by = DGR }
+				400 = { is_controlled_by = DGR }
+			}
 		}
 		
 		bypass = {
@@ -1663,7 +1898,36 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			390 = {
+				add_dynamic_modifier = {
+					modifier = BRZ_ultras
+					days = 180
+				}	
+			}
+			591 = {
+				add_dynamic_modifier = {
+					modifier = BRZ_ultras
+					days = 180
+				}	
+			}			
+			746 = {
+				add_dynamic_modifier = {
+					modifier = BRZ_ultras
+					days = 180
+				}	
+			}	
+			400 = {
+				add_dynamic_modifier = {
+					modifier = BRZ_ultras
+					days = 180
+				}	
+			}	
+			add_equipment_to_stockpile = {
+				type = melee_equipment_0
+				amount = 2500
+				producer = BRZ
+			}			
 		}
 	}	
 
@@ -1684,7 +1948,20 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			421 = {
+				add_dynamic_modifier = {
+					modifier = JWK_partisans
+					days = 90
+				}	
+			}
+			745 = {
+				add_dynamic_modifier = {
+					modifier = JWK_partisans
+					days = 90
+				}	
+			}
+			army_experience = 50
 		}
 	}	
 	
@@ -1705,7 +1982,19 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_manpower = -500
+			add_war_support = -0.1
+			add_equipment_to_stockpile = {
+				type = ranged_equipment_5
+				amount = 300
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = special_forces_equipment_2
+				amount = 500
+				producer = JWK
+			}			
 		}
 	}
 	
@@ -1727,6 +2016,7 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			country_event = dgr.15
 		}
 	}
 
@@ -1747,7 +2037,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.14
 		}
 	}
 	
@@ -1769,6 +2060,10 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_industrial_heart4
+				add_idea = DGR_industrial_heart5
+			}
 		}
 	}
 	
@@ -1793,7 +2088,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.16
 		}
 	}
 
@@ -1813,7 +2109,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.17
 		}
 	}
 		
@@ -1835,8 +2132,10 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
-		}
+		completion_reward = {
+			country_event = dgr.18
+
+		}  
 	}
 	
 
@@ -1857,7 +2156,18 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.025
+			}
+			add_command_power = 50
+			add_political_power = 50
+			
 		}
 	}
 
@@ -1879,6 +2189,10 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_red_heritage
+				add_idea = DGR_red_heritage2
+			}
 		}
 	}
 
@@ -1899,7 +2213,9 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions
+			country_event = dgr.19
 		}
 	}	
 	
@@ -1920,7 +2236,9 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions
+			country_event = dgr.20
 		}
 	}
 	
@@ -1941,7 +2259,9 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions
+			country_event = dgr.21
 		}
 	}
 	
@@ -1965,6 +2285,8 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			custom_effect_tooltip = DGR_bop_new_decisions
+			country_event = dgr.22
 		}
 	}
 	
@@ -1987,7 +2309,9 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions	
+			country_event = dgr.23			
 		}
 	}
 	
@@ -2009,13 +2333,14 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions		
 		}
 	}
 	
 	focus = {
-		id = DGR_government_reconstruction
-		icon = DGR_government_reconstruction
+		id = DGR_5_year_plan
+		icon = DGR_5_year_plan
 		relative_position_id = DGR_civilian_rule_under_army
 		prerequisite = { focus = DGR_civilian_rule_under_army }
 		available = {
@@ -2031,284 +2356,10 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_silesian_faction
-		icon = DGR_silesian_faction
-		relative_position_id = DGR_government_reconstruction
-		prerequisite = { focus = DGR_government_reconstruction }
-		mutually_exclusive = { focus = DGR_partisans_faction }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-
-	focus = {
-		id = DGR_cult_of_gierek
-		icon = DGR_cult_of_gierek
-		relative_position_id = DGR_silesian_faction
-		prerequisite = { focus = DGR_silesian_faction }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_partisans_faction
-		icon = DGR_partisans_faction
-		relative_position_id = DGR_government_reconstruction
-		prerequisite = { focus = DGR_government_reconstruction }
-		mutually_exclusive = { focus = DGR_silesian_faction }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_civilian_apparatus
-		icon = DGR_civilian_apparatus
-		relative_position_id = DGR_silesian_faction
-		prerequisite = { focus = DGR_silesian_faction }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_wide_socialist_front
-		icon = DGR_wide_socialist_front
-		relative_position_id = DGR_civilian_apparatus
-		prerequisite = { focus = DGR_civilian_apparatus}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_progress_fund
-		icon = DGR_progress_fund
-		relative_position_id = DGR_civilian_apparatus
-		prerequisite = { focus = DGR_civilian_apparatus }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_national_socialism
-		icon = DGR_national_socialism
-		relative_position_id = DGR_wide_socialist_front
-		prerequisite = { focus = DGR_wide_socialist_front }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_cult_of_moczar
-		icon = DGR_cult_of_moczar
-		relative_position_id = DGR_partisans_faction
-		prerequisite = { focus = DGR_partisans_faction }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_military_government
-		icon = DGR_military_government
-		relative_position_id = DGR_partisans_faction
-		prerequisite = { focus = DGR_partisans_faction }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_ideological_purity
-		icon = DGR_ideological_purity
-		relative_position_id = DGR_military_government
-		prerequisite = { focus = DGR_military_government }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-	
-	focus = {
-		id = DGR_army_lobbying
-		icon = DGR_army_lobbying
-		relative_position_id = DGR_military_government
-		prerequisite = { focus = DGR_military_government }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}
-
-	focus = {
-		id = DGR_national_bolshevism
-		icon = DGR_national_bolshevism
-		relative_position_id = DGR_ideological_purity
-		prerequisite = { focus = DGR_ideological_purity }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
-		}
-	}	
-	
-	
-	focus = {
-		id = DGR_5_year_plan
-		icon = DGR_5_year_plan
-		relative_position_id = DGR_civilian_rule_under_army
-		prerequisite = { focus = DGR_security_service }
-		prerequisite = { focus = DGR_national_bolshevism 
-						focus = DGR_national_socialism }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 7
-		
-		cost = 4
-		search_filters = { }
-		completion_reward = {	
+			add_timed_idea = {
+				idea = DGR_5_year_plan_idea
+				years = 5
+			}
 		}
 	}	
 	
@@ -2330,7 +2381,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions		
 		}
 	}
 	
@@ -2375,6 +2427,7 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			custom_effect_tooltip = DGR_bop_new_decisions
 		}
 	}
 	
@@ -2418,7 +2471,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = DGR_bop_new_decisions		
 		}
 	}
 	
@@ -2445,12 +2499,12 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = DGR_green_utopia
-		icon = DGR_green_utopia
-		relative_position_id = DGR_5_year_plan
-		prerequisite = { focus = DGR_collectivisation }
+		id = DGR_wait_and_see
+		icon = DGR_wait_and_see
+		relative_position_id = DGR_real_estate_crash
 		prerequisite = { focus = DGR_real_estate_crash }
 		prerequisite = { focus = DGR_restore_defunct_plants }
+		prerequisite = { focus = DGR_collectivisation }
 
 		available = {
 		
@@ -2460,11 +2514,416 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 3
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.24
+		}
+	}
+
+	focus = {
+		id = DGR_government_reconstruction
+		icon = DGR_government_reconstruction
+		relative_position_id = DGR_civilian_rule_under_army
+		prerequisite = { focus = DGR_security_service }
+		prerequisite = { focus = DGR_wait_and_see}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 6
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.25		
+		}
+	}
+	
+	focus = {
+		id = DGR_silesian_faction
+		icon = DGR_silesian_faction
+		relative_position_id = DGR_government_reconstruction
+		prerequisite = { focus = DGR_government_reconstruction }
+		mutually_exclusive = { focus = DGR_partisans_faction }
+		available = {
+			is_power_balance_in_range = {
+				id = DGR_power_balance
+				range < DGR_gierek_medium_control_range
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			remove_all_power_balance_modifiers = {
+				id = DGR_power_balance
+			}		
+		}
+	}
+
+	focus = {
+		id = DGR_cult_of_gierek
+		icon = DGR_cult_of_gierek
+		relative_position_id = DGR_silesian_faction
+		prerequisite = { focus = DGR_silesian_faction }
+		available = {
+			is_power_balance_in_range = {
+				id = DGR_power_balance
+				range < DGR_gierek_high_control_range
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.26	
+			add_ideas = DGR_gierek_idea
+		}
+	}
+	
+	focus = {
+		id = DGR_partisans_faction
+		icon = DGR_partisans_faction
+		relative_position_id = DGR_government_reconstruction
+		prerequisite = { focus = DGR_government_reconstruction }
+		mutually_exclusive = { focus = DGR_silesian_faction }
+		available = {
+			is_power_balance_in_range = {
+				id = DGR_power_balance
+				range > DGR_moczar_medium_control_range
+			}		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
 		
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			remove_all_power_balance_modifiers = {
+				id = DGR_power_balance
+			}
+		}
+	}
+	
+	focus = {
+		id = DGR_civilian_apparatus
+		icon = DGR_civilian_apparatus
+		relative_position_id = DGR_silesian_faction
+		prerequisite = { focus = DGR_silesian_faction }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {	
+		}
+	}
+	
+	focus = {
+		id = DGR_wide_socialist_front
+		icon = DGR_wide_socialist_front
+		relative_position_id = DGR_civilian_apparatus
+		prerequisite = { focus = DGR_civilian_apparatus}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = DGR_red_heritage2
+				add_idea = DGR_red_heritage3
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.05
+			}			
+		}
+	}
+	
+	focus = {
+		id = DGR_progress_fund
+		icon = DGR_progress_fund
+		relative_position_id = DGR_civilian_apparatus
+		prerequisite = { focus = DGR_civilian_apparatus }
+		available = {
+			is_power_balance_in_range = {
+				id = DGR_power_balance
+				range > DGR_moczar_medium_control_range
+			}		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.27
+			swap_ideas = {
+				remove_idea = no_subsidies
+				add_idea = civil_industry_subsidies
+			}						
+		}
+	}
+	
+	focus = {
+		id = DGR_national_socialism
+		icon = DGR_national_socialism
+		relative_position_id = DGR_wide_socialist_front
+		prerequisite = { focus = DGR_wide_socialist_front }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+				add_country_leader_role = {
+					character = DGR_krzysztof_szwej
+					promote_leader = yes
+					country_leader = {
+						ideology = neonationalism_national_bolshevism_subtype
+					}
+				}
+				set_party_name = {
+					ideology = neonationalism
+					long_name = "KPP - Pax"
+					name = "KPP - Pax"
+				}
+				set_party_name = {
+					ideology = marxism_cranism
+					long_name = "KPP"
+					name = "KPP"
+				}
+			country_event = dgr.28				
+		}
+	}
+	
+	focus = {
+		id = DGR_cult_of_moczar
+		icon = DGR_cult_of_moczar
+		relative_position_id = DGR_partisans_faction
+		prerequisite = { focus = DGR_partisans_faction }
+		available = {
+			is_power_balance_in_range = {
+				id = DGR_power_balance
+				range > DGR_moczar_high_control_range
+			}	
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.29
+			add_ideas = DGR_moczar_idea
+		}
+	}
+	
+	focus = {
+		id = DGR_military_government
+		icon = DGR_military_government
+		relative_position_id = DGR_partisans_faction
+		prerequisite = { focus = DGR_partisans_faction }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {	
+		}
+	}
+	
+	focus = {
+		id = DGR_ideological_purity
+		icon = DGR_ideological_purity
+		relative_position_id = DGR_military_government
+		prerequisite = { focus = DGR_military_government }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = DGR_red_heritage2
+				add_idea = DGR_red_heritage3
+			}	
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.1
+			}			
+		}
+	}
+	
+	focus = {
+		id = DGR_army_lobbying
+		icon = DGR_army_lobbying
+		relative_position_id = DGR_military_government
+		prerequisite = { focus = DGR_military_government }
+		available = {
+			is_power_balance_in_range = {
+				id = DGR_power_balance
+				range > DGR_moczar_high_control_range
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.30	
+			swap_ideas = {
+				remove_idea = no_subsidies
+				add_idea = military_industry_subsidies
+			}			
+		}
+	}
+
+	focus = {
+		id = DGR_national_bolshevism
+		icon = DGR_national_bolshevism
+		relative_position_id = DGR_ideological_purity
+		prerequisite = { focus = DGR_ideological_purity }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+				add_country_leader_role = {
+					character = DGR_krzysztof_szwej
+					promote_leader = yes
+					country_leader = {
+						ideology = neonationalism_national_bolshevism_subtype
+					}
+				}
+				set_politics = {
+					ruling_party = neonationalism
+				}
+				set_party_name = {
+					ideology = neonationalism
+					long_name = "NLPP - Frakcja Partyzantów"
+					name = "NLPP - Partisans Faction"
+				}
+				set_party_name = {
+					ideology = marxism_cranism
+					long_name = "NLPP - Frakcja Śląska"
+					name = "NLPP - Silesian Faction"
+				}
+			country_event = dgr.31				
+		}
+	}	
+	
+	
+	focus = {
+		id = DGR_green_utopia
+		icon = DGR_green_utopia
+		relative_position_id = DGR_government_reconstruction
+		prerequisite = { focus = DGR_national_bolshevism
+						 focus = DGR_national_socialism 
+						 }
+
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 5
+		
+		cost = 4
+		search_filters = { }
+		completion_reward = {
+			country_event = dgr.32		
 		}
 	}
 	
@@ -2487,6 +2946,11 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			country_event = dgr.33
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.05
+			}
 		}
 	}
 	
@@ -2495,6 +2959,7 @@ focus_tree = {
 		icon = DGR_appease_them
 		relative_position_id = DGR_legalizacja_teraz_legalizacja_tu
 		prerequisite = { focus = DGR_legalizacja_teraz_legalizacja_tu }
+		mutually_exclusive = { focus = DGR_komu_to_potrzebne }
 
 		available = {
 		
@@ -2509,6 +2974,10 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = drugs_illegal_unenforced
+				add_idea = drugs_decriminalised
+			}
 		}
 	}
 	
@@ -2531,7 +3000,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.34		
 		}
 	}
 	
@@ -2553,7 +3023,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.35		
 		}
 	}
 	
@@ -2620,7 +3091,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.36		
 		}
 	}
 	
@@ -2629,6 +3101,7 @@ focus_tree = {
 		icon = DGR_komu_to_potrzebne
 		relative_position_id = DGR_legalizacja_teraz_legalizacja_tu
 		prerequisite = { focus = DGR_legalizacja_teraz_legalizacja_tu }
+		mutually_exclusive = { focus = DGR_appease_them }
 
 		available = {
 		
@@ -2643,6 +3116,10 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = drugs_illegal_unenforced
+				add_idea = drugs_harsh_penalised
+			}
 		}
 	}
 	
@@ -2664,7 +3141,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.37		
 		}
 	}
 	
@@ -2687,6 +3165,11 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			deactivate_advisor = DGR_min_bastajpan
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.1
+			}	
 		}
 	}
 	
@@ -2708,7 +3191,16 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			add_ideas = DGR_district_wars2
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.15
+			}		
 		}
 	}
 	
@@ -2731,7 +3223,8 @@ focus_tree = {
 		
 		cost = 4
 		search_filters = { }
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr.38		
 		}
 	}
 	
@@ -2754,6 +3247,7 @@ focus_tree = {
 		cost = 4
 		search_filters = { }
 		completion_reward = {	
+			country_event = dgr.39
 		}
 	}
 	

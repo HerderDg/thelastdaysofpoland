@@ -104,7 +104,10 @@ focus_tree = {
 		cost = 2
 		search_filters = {}
 		completion_reward = { 
-			
+			country_event = {
+				id = buzzer.3
+			}
+			custom_effect_tooltip = BRZ_created_a_football_team
 		}
 	}
 	
@@ -126,7 +129,10 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
-			
+			custom_effect_tooltip = BRZ_creation_of_nsfl_tt
+			hidden_effect = {
+				initialize_standings = yes
+			}
 		}
 	}
 	
@@ -148,7 +154,16 @@ focus_tree = {
 		cost = 3
 		search_filters = {}
 		completion_reward = { 
-			
+			591 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_victory_points = {
+					province = 8480 #zrobić na przedmieściach?
+					value = 5
+				}
+			}
 		}
 	}
 	
@@ -169,7 +184,35 @@ focus_tree = {
 		
 		cost = 3
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			custom_effect_tooltip = BRZ_first_training_camp_tt
+			hidden_effect = {
+				set_country_flag = {
+					flag = recent_training
+					days = 30
+				}
+				every_character = {
+					limit = {
+						has_character_flag = is_footballer
+					}
+					random_list = {
+						1 = {
+	
+						}
+						1 = {
+							add_to_variable = {
+								THIS.fb_power = 1
+							}
+						}
+						1 = {
+							add_to_variable = {
+								THIS.fb_power = 2
+							}
+						}
+					}
+					
+				}
+			}
 			
 		}
 	}
@@ -195,7 +238,7 @@ focus_tree = {
 		cost = 0.5
 		search_filters = {}
 		completion_reward = { 
-			
+			country_event = buzzer.8
 		}
 	}
 	
@@ -217,7 +260,8 @@ focus_tree = {
 		cost = 4
 		search_filters = {}
 		completion_reward = { 
-			
+			add_political_power = -10
+			add_stability = 0.05
 		}
 	}
 	
@@ -238,8 +282,19 @@ focus_tree = {
 		
 		cost = 2
 		search_filters = {}
-		completion_reward = { 
-			
+		completion_reward = {
+			custom_effect_tooltip = BRZ_match_liswarta_krzepice_tt
+			hidden_effect = {
+				random_list = {
+					1 = {
+						set_country_flag = krzepice_kickoff_victory
+					}
+					1 = {
+	
+					}
+				}
+				country_event = buzzer.4
+			}
 		}
 	}
 
@@ -260,8 +315,20 @@ focus_tree = {
 		
 		cost = 2
 		search_filters = {}
-		completion_reward = { 
 			
+		completion_reward = {
+			custom_effect_tooltip = BRZ_match_znicz_klobuck_tt
+			hidden_effect = {
+				random_list = {
+					1 = {
+						set_country_flag = klobuck_kickoff_victory
+					}
+					1 = {
+	
+					}
+				}
+				country_event = buzzer.5
+			}
 		}
 	}
 	
@@ -283,8 +350,16 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
-			
+		completion_reward = {
+			custom_effect_tooltip = BRZ_nsfl_starts_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						is_ai = no
+					}
+					nsfl_start = yes
+				}
+			}
 		}
 	}
 	
@@ -447,7 +522,7 @@ focus_tree = {
 		cost = 2
 		search_filters = {}
 		completion_reward = { 
-			
+			country_event = buzzer.6
 		}
 	}
 	
@@ -469,7 +544,10 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
-			
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}
 		}
 	}
 	
@@ -501,6 +579,7 @@ focus_tree = {
 				}
 			add_stability = 0.1
 			add_political_power = 100
+			country_event = buzzer.13
 		}
 	}
 	
@@ -531,7 +610,7 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}			
-				}
+			}
 		}
 	}
 	
@@ -557,6 +636,7 @@ focus_tree = {
 				remove_idea = training_battle
 				add_idea = training_basic
 			}
+			country_event = buzzer.14
 		}
 	}
 	
@@ -713,15 +793,16 @@ focus_tree = {
 		cost = 2
 		search_filters = {}
 		completion_reward = { 
-		add_popularity = {
-			ideology = marxism_cranism
-			popularity = 0.2
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.2
 			}
-		set_politics = {
-			ruling_party = marxism_cranism
-		}
-		add_stability = 0.1
-		add_political_power = 50
+			set_politics = {
+				ruling_party = marxism_cranism
+			}
+			add_stability = 0.1
+			add_political_power = 50
+			country_event = buzzer.7
 		}
 	}
 	
@@ -742,8 +823,48 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
-			
+		completion_reward = {
+			set_variable = {
+				enemy_team = JWK
+			}
+			set_variable = {
+				home_advantage = 1
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] JWK: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				set_country_flag = lubliniec_kickoff_victory
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				set_country_flag = lubliniec_kickoff_defeat
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							set_country_flag = lubliniec_kickoff_victory
+						}
+						1 = {
+							set_country_flag = lubliniec_kickoff_defeat
+						}
+					}
+				}
+				
+			}
+			custom_effect_tooltip = BRZ_match_day_tt
+			hidden_effect = {
+				country_event = buzzer.9
+			}
 		}
 	}
 	
@@ -754,7 +875,7 @@ focus_tree = {
 		prerequisite = { focus = BRZ_match_day }
 		mutually_exclusive = { focus = BRZ_we_will_get_them_anyway }
 		available = {
-		
+			has_country_flag = lubliniec_kickoff_victory
 		}
 		
 		bypass = {
@@ -766,7 +887,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
-			
+			country_event = buzzer.10
 		}
 	}
 	
@@ -777,7 +898,7 @@ focus_tree = {
 		prerequisite = { focus = BRZ_match_day }
 		mutually_exclusive = { focus = BRZ_truskolasy_top }
 		available = {
-		
+			has_country_flag = lubliniec_kickoff_defeat
 		}
 		
 		bypass = {
@@ -789,7 +910,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
-			
+			country_event = buzzer.11
 		}
 	}
 	
@@ -812,7 +933,12 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
-			
+			every_state = {
+				limit = {
+					is_owned_by = JWK
+				}
+				add_claim_by = BRZ
+			}
 		}
 	}
 	
@@ -834,7 +960,9 @@ focus_tree = {
 		cost = 3
 		search_filters = {}
 		completion_reward = { 
-			
+			JWK = {
+				add_ideas = BRZ_hooligan_raids
+			}
 		}
 	}
 	
@@ -855,11 +983,12 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
-					declare_war_on = {
+		completion_reward = {
+			declare_war_on = {
 				target = JWK
 				type = annex_everything
 			}
+			country_event = buzzer.12
 		}
 	}
 	
@@ -870,7 +999,9 @@ focus_tree = {
 		id = BRZ_lubliniec_training_camp #drzewko wojenne
 		icon = BRZ_lubliniec_training_camp
 		available = {
-		
+			not = {
+				country_exists = JWK
+			}
 		}
 		
 		bypass = {
@@ -882,6 +1013,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.15
 		}
 	}
 	
@@ -902,7 +1034,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			declare_war_on = {
+				target = JUR
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -923,7 +1059,64 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_variable = {
+				enemy_team = ZAW
+			}
+			set_variable = {
+				home_advantage = 1
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] ZAW: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				ZAW = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							ZAW = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+				
+			}
+			declare_war_on = {
+				target = ZAW
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -933,7 +1126,10 @@ focus_tree = {
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
-		
+			not = {
+				country_exists = JUR
+				country_exists = ZAW
+			}
 		}
 		
 		bypass = {
@@ -945,6 +1141,15 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			every_owned_state = {
+				limit = {
+					or = {
+						is_core_of = JUR
+						is_core_of = ZAW
+					}
+				}
+				add_compliance = 40
+			}
 		}
 	}
 	
@@ -954,7 +1159,10 @@ focus_tree = {
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
-		
+			not = {
+				country_exists = JUR
+				country_exists = ZAW
+			}
 		}
 		
 		bypass = {
@@ -966,6 +1174,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.16
 		}
 	}
 
@@ -1007,7 +1216,63 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_variable = {
+				enemy_team = CCH
+			}
+			set_variable = {
+				home_advantage = 0
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] CCH: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				CCH = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							CCH = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = CCH
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1017,7 +1282,9 @@ focus_tree = {
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
-		
+			not = {
+				country_exists = CCH
+			}
 		}
 		
 		bypass = {
@@ -1049,7 +1316,9 @@ focus_tree = {
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
-		
+			not = {
+				country_exists = CCH
+			}
 		}
 		
 		bypass = {
@@ -1061,6 +1330,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.17
 		}
 	}
 
@@ -1081,7 +1351,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			declare_war_on = {
+				target = SIE
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1103,6 +1377,11 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 50
+				producer = JWK
+			}
 		}
 	}
 	
@@ -1124,6 +1403,16 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 200
+				producer = JWK
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 10
+				producer = JWK
+			}
 		}
 	}
 	
@@ -1144,7 +1433,63 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_variable = {
+				enemy_team = DGR
+			}
+			set_variable = {
+				home_advantage = 0
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] DGR: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				DGR = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							DGR = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = DGR
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1165,7 +1510,63 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_variable = {
+				enemy_team = SOS
+			}
+			set_variable = {
+				home_advantage = 0
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] SOS: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				SOS = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							SOS = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = SOS
+				type = annex_everything
+			}
 		}
 	}
 	
@@ -1186,7 +1587,63 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			set_variable = {
+				enemy_team = JAW
+			}
+			set_variable = {
+				home_advantage = 0
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] JAW: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 14
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				JAW = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 14
+							}
+						}
+						1 = {
+							JAW = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 14
+								}
+							}
+						}
+					}
+				}
+			} 
+			declare_war_on = {
+				target = JAW
+				type = annex_everything
+			}
 		}
 	}
 
@@ -1196,7 +1653,9 @@ focus_tree = {
 		relative_position_id = BRZ_zaglebie_sosnowiec_match
 		prerequisite = { focus = BRZ_zaglebie_sosnowiec_match }
 		available = {
-		
+			NOT = {
+				country_exists = SOS
+			}
 		}
 		
 		bypass = {
@@ -1218,7 +1677,9 @@ focus_tree = {
 		relative_position_id = BRZ_unia_dg_match
 		prerequisite = { focus = BRZ_unia_dg_match }
 		available = {
-		
+			NOT = {
+				country_exists = DGR
+			}
 		}
 		
 		bypass = {
@@ -1239,7 +1700,9 @@ focus_tree = {
 		relative_position_id = BRZ_szczakowianka_jaworzno_match
 		prerequisite = { focus = BRZ_szczakowianka_jaworzno_match }
 		available = {
-		
+			NOT = {
+				country_exists = JAW
+			}
 		}
 		
 		bypass = {
@@ -1251,6 +1714,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			
 		}
 	}
 
@@ -1274,6 +1738,16 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = JAW
+						is_core_of = DGR
+						is_core_of = SOS
+					}
+				}
+				add_compliance = 40
+			}
 		}
 	}
 	
@@ -1295,6 +1769,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.18
 		}
 	}
 
@@ -1314,7 +1789,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.19
 		}
 	}
 	
@@ -1335,7 +1811,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					or = {
+						state = 460
+						state = 739
+						state = 870
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			country_event = buzzer.20
 		}
 	}
 	
@@ -1345,7 +1836,7 @@ focus_tree = {
 		relative_position_id = BRZ_rebuilding_stadiums
 		prerequisite = { focus = BRZ_rebuilding_stadiums }
 		available = {
-		
+			owns_state = 460
 		}
 		
 		bypass = {
@@ -1357,6 +1848,13 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			460 = {
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	
@@ -1366,7 +1864,7 @@ focus_tree = {
 		relative_position_id = BRZ_rebuilding_stadiums
 		prerequisite = { focus = BRZ_rebuilding_stadiums }
 		available = {
-		
+			owns_state = 739
 		}
 		
 		bypass = {
@@ -1377,7 +1875,14 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			739 = {
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	
@@ -1387,7 +1892,7 @@ focus_tree = {
 		relative_position_id = BRZ_rebuilding_stadiums
 		prerequisite = { focus = BRZ_rebuilding_stadiums }
 		available = {
-		
+			owns_state = 870
 		}
 		
 		bypass = {
@@ -1398,7 +1903,14 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			870 = {
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	
@@ -1421,7 +1933,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.21
 		}
 	}
 	
@@ -1443,7 +1956,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
 		}
 	}
 	
@@ -1464,7 +1988,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
 		}
 	}
 	
@@ -1486,7 +2021,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
 		}
 	}
 	
@@ -1507,7 +2053,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
 		}
 	}
 
@@ -1529,6 +2086,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.22
 		}
 	}
 
@@ -1575,6 +2133,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.23
 		}
 	}
 	
@@ -1596,7 +2155,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
 		}
 	}
 	
@@ -1618,7 +2188,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
 		}
 	}
 	
@@ -1663,7 +2244,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
 		}
 	}
 	
@@ -1685,7 +2277,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
 		}
 	}
 	
@@ -1729,7 +2332,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_untamed_hooligans
+			add_ideas = BRZ_dinosaurs_in_club_managements
+			add_ideas = BRZ_decadent_footballers
+			country_event = buzzer.24
 		}
 	}
 	
@@ -1771,7 +2378,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = autocensorship
+				add_idea = state_press
+			}
 		}
 	}
 
@@ -1792,7 +2403,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_from_junior_to_leader
 		}
 	}	
 	
@@ -1813,7 +2425,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			
 		}
 	}
 	
@@ -1857,7 +2470,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.25
 		}
 	}
 	
@@ -1878,7 +2492,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.26
 		}
 	}
 	
@@ -1921,7 +2536,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.27
 		}
 	}
 	
@@ -1943,7 +2559,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_dinosaurs_in_club_managements
+				add_idea = BRZ_dinosaurs_in_club_managements_2
+			}
 		}
 	}
 	
@@ -1965,7 +2596,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_dinosaurs_in_club_managements
+				add_idea = BRZ_dinosaurs_in_club_managements_2
+			}
 		}
 	}
 	
@@ -1989,7 +2635,23 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_dinosaurs_in_club_managements_2
+				add_idea = BRZ_dinosaurs_in_club_managements_3
+			}
+			country_event = buzzer.28
 		}
 	}
 	
@@ -2013,7 +2675,23 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_dinosaurs_in_club_managements_2
+				add_idea = BRZ_dinosaurs_in_club_managements_3
+			}
+			country_event = buzzer.29
 		}
 	}
 
@@ -2055,7 +2733,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.30
 		}
 	}
 	
@@ -2077,7 +2756,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_decadent_footballers
+				add_idea = BRZ_decadent_footballers_2
+			} 
 		}
 	}
 	
@@ -2099,7 +2793,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_decadent_footballers
+				add_idea = BRZ_decadent_footballers_2
+			} 
 		}
 	}
 	
@@ -2123,7 +2832,23 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_decadent_footballers_2
+				add_idea = BRZ_decadent_footballers_3
+			} 
+			country_event = buzzer.31
 		}
 	}
 	
@@ -2147,7 +2872,23 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_decadent_footballers_2
+				add_idea = BRZ_decadent_footballers_3
+			} 
+			country_event = buzzer.32
 		}
 	}
 
@@ -2189,7 +2930,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.32
 		}
 	}
 	
@@ -2211,7 +2953,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_untamed_hooligans
+				add_idea = BRZ_untamed_hooligans_2
+			} 
 		}
 	}
 	
@@ -2233,7 +2990,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_untamed_hooligans
+				add_idea = BRZ_untamed_hooligans_2
+			}
 		}
 	}
 	
@@ -2257,7 +3029,23 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = -0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_untamed_hooligans_2
+				add_idea = BRZ_untamed_hooligans_3
+			}
+			country_event = buzzer.32
 		}
 	}
 	
@@ -2281,7 +3069,23 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = BRZ_power_balance
+					value = 0.1
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_untamed_hooligans_2
+				add_idea = BRZ_untamed_hooligans_3
+			}
+			country_event = buzzer.33
 		}
 	}
 	
@@ -2304,7 +3108,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			remove_ideas = BRZ_dinosaurs_in_club_managements_3 
 		}
 	}
 	
@@ -2327,7 +3132,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			remove_ideas = BRZ_decadent_footballers_3 
 		}
 	}
 	
@@ -2350,7 +3156,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			remove_ideas = BRZ_untamed_hooligans_3 
 		}
 	}
 	
@@ -2397,6 +3204,7 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.34
 		}
 	}
 	
@@ -2418,6 +3226,8 @@ focus_tree = {
 		cost = 1
 		search_filters = {}
 		completion_reward = { 
+			country_event = buzzer.35
+			
 		}
 	}
 	
@@ -2438,7 +3248,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_defence_of_czestochowa
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
 		}
 	}
 	
@@ -2461,7 +3275,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_laga
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_buzzliner_mod
+				}
+			}
 		}
 	}
 	
@@ -2482,7 +3311,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_crosses_crosses_everywhere
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_buzzliner_mod
+				}
+			}
 		}
 	}
 	
@@ -2503,7 +3347,22 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BRZ_laga
+				add_idea = BRZ_brexit_football
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_buzzliner_mod
+				}
+			}
 		}
 	}
 	
@@ -2526,7 +3385,11 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_tiki_taka
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
 		}
 	}
 	
@@ -2547,7 +3410,14 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BRZ_tiki_taka
+				add_idea = BRZ_catenaccio
+			}
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
 		}
 	}
 	
@@ -2570,7 +3440,19 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_total_football
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_reformist_mod
+				}
+			}
 		}
 	}
 
@@ -2591,7 +3473,19 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = BRZ_gegenpress
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_reformist_mod
+				}
+			}
 		}
 	}
 	
@@ -2612,7 +3506,25 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BRZ_total_football
+				add_idea = BRZ_panic_playing
+			}
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_reformist_mod
+				}
+			}
 		}
 	}
 
@@ -2636,7 +3548,8 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = {}
-		completion_reward = { 
+		completion_reward = {
+			country_event = buzzer.36
 		}
 	}
 	
