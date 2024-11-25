@@ -7,15 +7,14 @@ ziobro_war = {
 		}
 
 		available = {
-			date < 2027.06.01
 			has_war = no
 			NOT = {
 				AND = {
 					country_exists = STA
 					country_exists = SND
-					}
 				}
 			}
+		}
 
 		icon = mission_icon   
 		fire_only_once = yes
@@ -26,53 +25,45 @@ ziobro_war = {
 			set_country_flag = ziobro_start_war_victory
 			every_country = {
 				limit = { NOT = { is_ai = yes } }
-				news_event = { id = ziobro.1 }
-				}
+				news_event = { id = ziobro.22 }
+			}
 		}
 		timeout_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war lose"
-			if = {
+			if = { # to jest wygrana
 				limit = { 
-					OR = { 
-						STA = { num_of_controlled_states < 1 }
-						SND = { num_of_controlled_states < 1 }
-						}
-					NOT = {
-						AND = { 
-							STA = { num_of_controlled_states < 1 }
-							SND = { num_of_controlled_states < 1 }	
-							}
-						}
-					}
+					STA = { num_of_controlled_states < 1 }
+					SND = { num_of_controlled_states < 1 }	
+				}	
 				clr_country_flag = ziobro_start_war
 				set_country_flag = ziobro_start_war_victory
 				every_country = {
-					limit = { NOT = { is_ai = yes } }
-					news_event = { id = ziobro.1 }
+					limit = {
+						NOT = { is_ai = yes }
 					}
+					news_event = { id = ziobro.1 }
+				}
 				every_country = {
-					limit = { has_war_with = PRK }
+					limit = {
+						has_war_with = PRK
+					}
 					add_to_variable = {
 						global.deadPolacksFromPastWars = this.casualties_k
 					}
 					white_peace = PRK
-					}					
+				}					
 				PRK = {
 					add_to_variable = {
 						global.deadPolacksFromPastWars = this.casualties_k
 					}
 					end_puppet = OSW
-					end_puppet = BOH
+					end_puppet = CHW
 				}
 				OSW = { drop_cosmetic_tag = yes }				
 			}
-			else = {		
+			else = { # to jest stalemate
 				clr_country_flag = ziobro_start_war
 				set_country_flag = ziobro_start_war_lose
-				every_country = {
-					limit = { NOT = { is_ai = yes } }
-					news_event = { id = ziobro.2 }
-					}
 				SND = {
 					add_to_variable = {
 						global.deadPolacksFromPastWars = this.casualties_k
@@ -83,21 +74,48 @@ ziobro_war = {
 						global.deadPolacksFromPastWars = this.casualties_k
 					}
 				}
-				ROOT = {
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
+				PRK = {
+					country_event = { 
+						id = ziobro.17
 					}
-					white_peace = SND
-					white_peace = STA
-					end_puppet = OSW
-					end_puppet = BOH
+					ROOT = {
+						add_to_variable = {
+							global.deadPolacksFromPastWars = this.casualties_k
+						}
+					}
+					CHW = { drop_cosmetic_tag = yes }
+					OSW = { drop_cosmetic_tag = yes }
 				}
-				BOH = { drop_cosmetic_tag = yes }
-				OSW = { drop_cosmetic_tag = yes }
 			}
 		}
 	}
-	
 
-
+	ziobro_holy_war_2 = {
+		allowed = {
+			always = no
+		}
+		available = {
+			has_war = no
+			NOT = {
+				AND = {
+					country_exists = STA
+					country_exists = SND
+				}
+			}
+		}
+		days_mission_timeout = 30
+		complete_effect = { # wygrana
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = ziobro.22 }
+			}
+		}
+		timeout_effect = { # rozpierdol
+			PRK = {
+				country_event = { 
+					id = ziobro.19
+				}
+			}
+		}
+	}
 }
