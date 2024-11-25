@@ -38,7 +38,7 @@ while True:
             for tag in ['UPA', 'KOZ', 'UHR', 'BEL', 'ROS', 'RUS', 'RMA', 'UKR', 'LEM']:
                 vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
         elif language == "LEH":
-            for tag in ['LEH', 'LCH', 'WAN', 'JAS', 'SNF', 'BOR', 'STG', 'STR']:
+            for tag in ['LEH', 'LCH', 'WAN', 'JAS', 'SNF', 'BOR', 'STR']:
                 vp_new.write(' '+tag+'_'+line.split(':')[0].replace('_'+language,'')+':'+line.split(':')[1])
         elif language == "SIL":
             for tag in [ 'CHO', 'GLI', 'FER', 'RUD', 'JSW', 'TRC', 'DUR', 'SBW', 'WYM']:
@@ -92,7 +92,7 @@ vp_new.close()
 #             for tag in ['UPA', 'KOZ', 'UHR', 'BEL', 'ROS', 'RUS', 'RMA', 'UKR', 'LEM']:
 #                 s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
 #         elif language == "LEH":
-#             for tag in ['LEH', 'LCH', 'WAN', 'JAS', 'SNF', 'BOR', 'STG', 'STR']:
+#             for tag in ['LEH', 'LCH', 'WAN', 'JAS', 'SNF', 'BOR', 'STR']:
 #                 s_new.write(' '+tag+'_'+line.split(':')[0].strip().replace('_'+language,'')+':'+line.split(':')[1])
 #         elif language == "SIL":
 #             for tag in [ 'CHO', 'GLI', 'FER', 'RUD', 'JSW', 'TRC', 'DUR', 'SBW', 'WYM']:
