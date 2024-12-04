@@ -128,27 +128,27 @@ country_event = {
 	option = {
 		ai_chance = { base = 80 } #jestesmy-frajerami-dajemy-hajs
 		name = procesja_west.2.a
-		country_event = {
-			id = procesja_west.3
-			days = 14
-			}
-		305 = {
-			HOR = { transfer_state = PREV }
-		}
-		198 = {
-			AMA = { transfer_state = PREV }
-		}
-		AMA = {
-			add_state_core = 198
-			set_capital = { state = 198 }
-		}
+		# 191 = {
+		# 	HOR = { transfer_state = PREV }
+		# }
+		# 198 = {
+		# 	AMA = { transfer_state = PREV }
+		# }
+		# AMA = {
+		# 	add_state_core = 198
+		# 	set_capital = { state = 198 }
+		# }
 		196 = {
-			BRO = { transfer_state = PREV }
+			HOG = { transfer_state = PREV }
 		}
+		HOG = {
+			add_state_core = 196
+		}
+		activate_mission = go_to_warta
 		country_event = {
 			id = procesja_west.3
-			days = 14
-			}		
+			days = 18
+		}		
 	}
 	option = {
 		ai_chance = { base = 20 } #albo-jednak-spierdalamy
@@ -196,11 +196,17 @@ country_event = {
 	option = {
 		ai_chance = { base = 80 } #zhp-sie-zgadza
 		name = procesja_west.4.a
-		370 = {
-			HOR = { transfer_state = PREV }
+		HOR = {
+			transfer_state = 680
 		}
-		305 = {
-			KRS = { transfer_state = PREV }
+		TIG = {
+			transfer_state = 305
+		}
+		# 370 = {
+		# 	HOR = { transfer_state = PREV }
+		# }
+		HOR = {
+			activate_mission = go_to_radomsko
 		}
 		HOR = { 
 			country_event = {
@@ -236,7 +242,7 @@ country_event = {
 		name = procesja_west.5.a
 		country_event = {
 			id = procesja_west.6
-			days = 1
+			days = 3
 		}
 	}
 }
@@ -253,11 +259,12 @@ country_event = {
 
 	option = {
 		name = procesja_west.6.a
-		592 = {
+		activate_mission = go_to_jasna_gora
+		400 = {
 			HOR = { transfer_state = PREV }
 		}
 		370 = {
-			ZHP = { transfer_state = PREV }
+			RDM = { transfer_state = PREV }
 		}
 		HOR = { 
 			country_event = {
@@ -300,12 +307,13 @@ country_event = {
 
 	option = {
 		name = procesja_west.8.a
-		740 = {
+		869 = {
 			HOR = { transfer_state = PREV }
 		}
 		592 = {
 			CCH = { transfer_state = PREV }
 		}
+		activate_mission = go_to_zawiercie
 		HOR = { 
 			country_event = {
 				id = procesja_west.9
@@ -348,7 +356,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_west.10" }
 
 	option = {
-		ai_chance = { base = 60 } #ziobro-sie-zgadza-bezwarunkowo
+		ai_chance = { base = 60 } #ziobro-sie-zgadza
 		name = procesja_west.10.a
 		HOR = { 
 			country_event = {
@@ -382,51 +390,57 @@ country_event = {
 
 	option = {
 		name = procesja_west.11.a
-		declare_war_on = {
-			target = SKW
-			type = annex_everything 
-		}
 		country_event = {
 			id = procesja_west.12
 			days = 3
 			}
-		PRK = { give_military_access = HOR }
-		898 = {
-			HOR = { transfer_state = PREV }
-			add_core_of = HOR
-		}
-		519 = {		
-			create_unit = {
-				division = "name = \"Święta Dywersja\" division_template = \"Pielgrzymi\" start_experience_factor = 0.1"
-				allow_spawning_on_enemy_provs = yes				
-				prioritize_location = 3204		
-				owner = HOR
-			}
-		}
+		
+		# 519 = {		
+		# 	create_unit = {
+		# 		division = "name = \"Święta Dywersja\" division_template = \"Pielgrzymi\" start_experience_factor = 0.1"
+		# 		allow_spawning_on_enemy_provs = yes				
+		# 		prioritize_location = 3204		
+		# 		owner = HOR
+		# 	}
+		# }
+		
 		if = { 
 			limit = {
 				HOR = { controls_state = 740 }
-				}
-					740 = { 
-						ZAW = { transfer_state = PREV }
-						}
-					}
+			}
+			826 = {
+				HOR = { transfer_state = PREV }
+				#add_core_of = HOR
+			}
+			740 = { 
+				ZAW = { transfer_state = PREV }
+			}
+			activate_mission = go_to_rzesotary_from_zawiercie
+		}
 		if = { 
 			limit = {
 				HOR = { controls_state = 472 }
-				}
-					472 = { 
-						TRN = { transfer_state = PREV }
-						}
-					}
+			}
+			491 = {
+				HOR = { transfer_state = PREV }
+			}
+			472 = { 
+				TRN = { transfer_state = PREV }
+			}
+			activate_mission = go_to_rzesotary_from_dabrowa_tarnowska
+		}
 		if = { 
 			limit = {
 				HOR = { controls_state = 417 }
-				}
-					417 = { 
-						SND = { transfer_state = PREV }
-						}
-					}					
+			}
+			952 = {
+				HOR = { transfer_state = PREV }
+			}
+			417 = { 
+				SND = { transfer_state = PREV }
+			}
+			activate_mission = go_to_rzesotary_from_koprzywnica
+		}					
 	}
 }
 
@@ -442,19 +456,6 @@ country_event = {
 
 	option = {
 		name = procesja_west.12.a
-		delete_units = {
-			division_template = "Ochotnicy"
-			disband = yes
-		}
-		delete_units = {
-			division_template = "Pielgrzymi"
-			disband = yes
-		}
-		delete_units = {
-			division_template = "Wieczna Procesja"
-			disband = yes
-		}	
-		load_oob = "HOR_skawina"
 	}
 }
 
@@ -472,37 +473,47 @@ country_event = {
 
 	option = {
 		name = procesja_west.13.a
-		800 = {
-			HOR = { transfer_state = PREV }
-		}
+		
 		if = { 
 			limit = {
 				HOR = { controls_state = 740 }
-				}
-					740 = { 
-						ZAW = { transfer_state = PREV }
-						}
-					}
+			}
+			825 = {
+				HOR = { transfer_state = PREV }
+			}
+			740 = { 
+				ZAW = { transfer_state = PREV }
+			}
+			activate_mission = go_to_zator_from_zawiercie
+		}
 		if = { 
 			limit = {
 				HOR = { controls_state = 472 }
-				}
-					472 = { 
-						TRN = { transfer_state = PREV }
-						}
-					}
+			}
+			937 = {
+				HOR = { transfer_state = PREV }
+			}
+			472 = { 
+				TRN = { transfer_state = PREV }
+			}
+			activate_mission = go_to_zator_from_dabrowa_tarnowska
+		}
 		if = { 
 			limit = {
 				HOR = { controls_state = 417 }
-				}
-					417 = { 
-						SND = { transfer_state = PREV }
-						}
-					}	
+			}
+			952 = {
+				HOR = { transfer_state = PREV }
+			}
+			417 = { 
+				SND = { transfer_state = PREV }
+			}
+			activate_mission = go_to_zator_from_koprzywnica
+		}	
 		country_event = {
 			id = procesja_west.14
-			days = 4
-			}
+			days = 14
+		}
 	}
 }
 
@@ -518,19 +529,6 @@ country_event = {
 
 	option = {
 		name = procesja_west.14.a
-		delete_units = {
-			division_template = "Ochotnicy"
-			disband = yes
-		}
-		delete_units = {
-			division_template = "Pielgrzymi"
-			disband = yes
-		}
-		delete_units = {
-			division_template = "Wieczna Procesja"
-			disband = yes
-		}	
-		load_oob = "HOR_zator"
 		declare_war_on = {
 			target = WDW
 			type = annex_everything 
@@ -574,29 +572,47 @@ country_event = {
 
 	option = {
 		name = procesja_east.2.a
-		305 = {
-			KRS = { transfer_state = PREV }
-		}
-		192 = {
-			HOR = { transfer_state = PREV }
-		}
-		198 = {
-			AMA = { transfer_state = PREV }
-		}
-		AMA = {
-			add_state_core = 198
-			set_capital = { state = 198 }
-		}
-		196 = {
-			BRO = { transfer_state = PREV }
-		}
-		BRO = { add_state_core = 196 }
-		HOR = { 
-			country_event = {
-				id = procesja_east.3
-				days = 9
+		if = {
+			limit = {
+				HOR ={
+					owns_state = 198 #sytuacja startowa
+				}
+			}
+			198 = {
+				AMA = { transfer_state = PREV }
+			}
+			AMA = { 
+				add_state_core = 198
+				set_capital = {
+					state = 198
+					remember_old_capital = no
+				}
+			}
+			
+			HOR = { 
+				activate_mission = go_to_duninow
+				country_event = {
+					id = procesja_east.3
+					days = 9
+				}
 			}
 		}
+		else = {
+			283 = {
+				transfer_state_to = HOR
+			}
+			305 = {
+				transfer_state_to = TIG
+			}
+			HOR = { 
+				activate_mission = fallback_to_duninow
+				country_event = {
+					id = procesja_east.3
+					days = 15
+				}
+			}
+		}
+		
 	}
 }
 
@@ -631,12 +647,13 @@ country_event = {
 
 	option = {
 		name = procesja_east.4.a
-		214 = {
+		643 = {
 			HOR = { transfer_state = PREV }
 		}
 		192 = {
 			ORL = { transfer_state = PREV }
 		}
+		activate_mission = go_to_modlin
 		HOR = { 
 			country_event = {
 				id = procesja_east.5
@@ -678,16 +695,17 @@ country_event = {
 
 	option = {
 		name = procesja_east.6.a
-		836 = {
+		216 = {
 			HOR = { transfer_state = PREV }
 		}
 		214 = {
 			POL = { transfer_state = PREV }
 		}
+		activate_mission = go_to_mrozy
 		HOR = { 
 			country_event = {
 				id = procesja_east.7
-				days = 9
+				days = 12
 			}
 		}
 	}
@@ -757,7 +775,8 @@ country_event = {
 
 	option = {
 		name = procesja_east.8.a
-		660 = {
+		activate_mission = go_to_janowiec
+		1019 = {
 			HOR = { transfer_state = PREV }
 		}
 		836 = {
@@ -814,23 +833,27 @@ country_event = {
 
 	option = {
 		name = procesja_east.10.a
-		417 = {
-			HOR = { transfer_state = PREV }
-		}
-		if = { limit = { HOR = { controls_state = 660 } } 
-		660 = {
-			PUL = { transfer_state = PREV }
-		}
+		
+		set_country_flag = go_to_koprzywnica
+		if = { limit = { HOR = { controls_state = 660 } }
+			346 = {
+				HOR = { transfer_state = PREV }
+			}
+			activate_mission = go_to_lipsko
+			660 = {
+				PUL = { transfer_state = PREV }
+			}
 		}
 		if = { limit = { HOR = { controls_state = 366 } }		
-		366 = {
-			SKA = { transfer_state = PREV }
+			366 = {
+				SKA = { transfer_state = PREV }
 			}
+			activate_mission = go_to_koprzywnica
 		}
 		HOR = { 
 			country_event = {
 				id = procesja_east.15
-				days = 20
+				days = 30
 			}
 		}
 	}
@@ -868,16 +891,17 @@ country_event = {
 
 	option = {
 		name = procesja_east.12.a
-		654 = {
+		1019 = {
 			HOR = { transfer_state = PREV }
 		}
 		836 = {
 			WOW = { transfer_state = PREV }
 		}
+		activate_mission = go_to_pionki
 		HOR = { 
 			country_event = {
 				id = procesja_east.13
-				days = 6
+				days = 12
 			}
 		}
 	}
@@ -915,12 +939,13 @@ country_event = {
 
 	option = {
 		name = procesja_east.14.a
-		366 = {
+		346 = {
 			HOR = { transfer_state = PREV }
 		}
 		654 = {
 			GAR = { transfer_state = PREV }
 		}
+		activate_mission = go_to_lipsko
 		HOR = { 
 			country_event = {
 				id = procesja_east.9
@@ -962,16 +987,17 @@ country_event = {
 
 	option = {
 		name = procesja_east.16.a
-		472 = {
+		952 = {
 			HOR = { transfer_state = PREV }
 		}
 		417 = {
 			SND = { transfer_state = PREV }
 		}
+		activate_mission = go_to_dabrowa_tarnowska
 		HOR = { 
 			country_event = {
 				id = procesja_west.9
-				days = 10
+				days = 14
 			}
 		}
 	}
