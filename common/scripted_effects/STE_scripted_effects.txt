@@ -48,3 +48,92 @@ STE_minus10_chemiewerke = {
 	add_to_variable = { STE_chemiewerke_loyalty = -10 }
 	custom_effect_tooltip = STE_minus10_chemiewerke
 }
+#> 40 disloyal# 40-60 obedient # >60 loyal#
+STE_pzm_loyalty_status = {	
+	if = {
+		limit = {
+			check_variable = { STE_pzm_loyalty < 40 }
+		}
+		set_variable = { STE_pzm_converted_loyalty = -1 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { STE_pzm_loyalty > 59 }
+		}
+		set_variable = { STE_pzm_converted_loyalty = 1 }
+	}
+	else = {
+		set_variable = { STE_pzm_converted_loyalty = 0 }
+	}
+}
+STE_netto_loyalty_status = {	
+	if = {
+		limit = {
+			check_variable = { STE_netto_loyalty < 40 }
+		}
+		set_variable = { STE_netto_converted_loyalty = -1 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { STE_netto_loyalty > 59 }
+		}
+		set_variable = { STE_netto_converted_loyalty = 1 }
+	}
+	else = {
+		set_variable = { STE_netto_converted_loyalty = 0 }
+	}
+}
+STE_chemiewerke_loyalty_status = {	
+	if = {
+		limit = {
+			check_variable = { STE_chemiewerke_loyalty < 40 }
+		}
+		set_variable = { STE_chemiewerke_converted_loyalty = -1 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { STE_chemiewerke_loyalty > 59 }
+		}
+		set_variable = { STE_chemiewerke_converted_loyalty = 1 }
+	}
+	else = {
+		set_variable = { STE_chemiewerke_converted_loyalty = 0 }
+	}
+}
+STE_calculate_total_loyalty = {
+	STE_pzm_loyalty_status = yes
+	STE_netto_loyalty_status = yes
+	STE_chemiewerke_loyalty_status = yes
+	set_variable = { STE_total_loyalty = 0 }
+	add_to_variable = { STE_total_loyalty = STE_pzm_converted_loyalty }
+	add_to_variable = { STE_total_loyalty = STE_netto_converted_loyalty }
+	add_to_variable = { STE_total_loyalty = STE_chemiewerke_converted_loyalty }
+}
+	
+STE_loyalty_check = {
+	if = {
+		limit = {
+			check_variable = { STE_total_loyalty = -1 }
+		}
+		remove_ideas = STE_guild_loyal
+		remove_ideas = STE_guild_obedient
+		add_ideas = STE_guild_disloyal
+	}
+	else_if = {
+		limit = {
+			check_variable = { STE_total_loyalty = 1 }
+		}
+		remove_ideas = STE_guild_obedient
+		remove_ideas = STE_guild_disloyal
+		add_ideas = STE_guild_loyal
+	}
+	else_if = {
+		limit = {
+			check_variable = { STE_total_loyalty = 0 }
+		}
+		remove_ideas = STE_guild_loyal
+		remove_ideas = STE_guild_disloyal
+		add_ideas = STE_guild_obedient
+	}
+	
+}
