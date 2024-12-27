@@ -28,6 +28,18 @@ ziobro_war = {
 				news_event = { id = ziobro.22 }
 			}
 		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
+		}
 		timeout_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war lose"
 			if = { # to jest wygrana
@@ -101,6 +113,18 @@ ziobro_war = {
 					country_exists = STA
 					country_exists = SND
 				}
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
 			}
 		}
 		days_mission_timeout = 30
@@ -185,6 +209,7 @@ ziobro_uprising = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = ziobro.21 }
 				}
+				set_country_flag = PRK_ziobro_won_revolt
 			}
 		}
 		remove_effect = {
@@ -192,6 +217,64 @@ ziobro_uprising = {
 			add_state_core = 416
 			add_state_core = 914
 			set_capital = 416
+		}
+	}
+	
+	ziobro_starachowice_attack = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_prerequisite = {
+				has_war = no
+			}
+			PRK = {
+				owns_state = 416
+				has_country_flag = PRK_ziobro_won_revolt
+			}
+			country_exists = STA
+		}
+		visible = {
+			country_exists = STA
+			has_country_flag = PRK_ziobro_won_revolt
+		}
+		days_remove = 14
+		remove_effect = {
+			PRK = {
+				declare_war_on = {
+					target = STA
+					type = annex_everything
+				}
+			}
+		}
+	}
+	
+	ziobro_sandomierz_attack = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_prerequisite = {
+				has_war = no
+			}
+			country_exists = SND
+			PRK = {
+				owns_state = 416
+				has_country_flag = PRK_ziobro_won_revolt
+			}
+		}
+		visible = {
+			country_exists = SND
+			has_country_flag = PRK_ziobro_won_revolt
+		}
+		days_remove = 14
+		remove_effect = {
+			PRK = {
+				declare_war_on = {
+					target = SND
+					type = annex_everything
+				}
+			}
 		}
 	}
 	
@@ -218,7 +301,6 @@ ziobro_uprising = {
 				owns_state = 377
 				is_puppet_of = PRK
 			}
-			has_war = no
 		}
 		highlight_states = {
 			highlight_state_targets = { 
@@ -272,7 +354,6 @@ ziobro_uprising = {
 				owns_state = 670
 				is_puppet_of = PRK
 			}
-			has_war = no
 		}
 		highlight_states = {
 			highlight_state_targets = { 
@@ -324,7 +405,6 @@ ziobro_uprising = {
 				owns_state = 392
 				is_puppet_of = PRK
 			}
-			has_war = no
 		}
 		highlight_states = {
 			highlight_state_targets = { 
@@ -376,7 +456,6 @@ ziobro_uprising = {
 				owns_state = 389
 				is_puppet_of = PRK
 			}
-			has_war = no
 		}
 		highlight_states = {
 			highlight_state_targets = { 
@@ -405,4 +484,5 @@ ziobro_uprising = {
 			add_state_core = 389
 		}
 	}
+	
 }
