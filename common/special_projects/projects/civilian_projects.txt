@@ -223,6 +223,12 @@ sp_maglev = {
 	specialization = specialization_civilian
 	icon = GFX_sp_maglev
 
+	available = {
+		FROM = {
+			has_tech = railways_good_tech_3
+		}
+	}
+
 	prototype_time = 180
 	complexity = sp_complexity.large
 
@@ -382,7 +388,19 @@ sp_stonka = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				custom_effect_tooltip = stonka_effect_lar
+				set_country_flag = enable_stonka_lar
+			}
+			else = {
+				custom_effect_tooltip = stonka_effect
+				set_country_flag = enable_stonka
+			}
+		}
 	}
 }
 
@@ -409,7 +427,11 @@ sp_gnojowka = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			add_dynamic_modifier = {
+				modifier = enhanced_crop_yields
+			}
+		}
 	}
 }
 
@@ -443,9 +465,9 @@ sp_gmo = {
 
 	project_output = {
 		country_effects = {
-			# add_dynamic_modifier = {
-			# 	modifier = sp_land_stronghold_network_collapse_workers_drafted
-			# }
+			add_dynamic_modifier = {
+				modifier = genetic_modified_crops
+			}
 		}
 	}
 }
@@ -475,12 +497,14 @@ sp_extremely_low_frequency = {
 	}
 
 	project_output = {
+		sub_unit_bonus = {
+			submarine = {
+				convoy_raiding_coordination = 0.25
+			}
+		}
 		country_effects = {
-			hidden_effect = {
-				custom_effect_tooltip = "tutej będzie wpisany bonus"
-				set_technology = {
-					elf_radio = 1
-				}
+			add_dynamic_modifier = {
+				modifier = elf_radio_side_effects
 			}
 		}
 	}
