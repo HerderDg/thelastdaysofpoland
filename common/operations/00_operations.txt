@@ -2951,16 +2951,87 @@ operation_steal_tech_airforce = { ### 18 3/55
 	}
 }
 
-# operation_disrupt_crop_growth = { do dokończenia później
-# 	icon = GFX_observer_flag_overlay
-# 	map_icon = GFX_observer_flag_overlay
-# 	name = "Disruption of Crop Growth"
-# 	desc = "We will use our operatives for destruction of enemy's crop yield"
-# 	days = 60
-# 	visible = {
-# 		has_country_flag = enable_stonka_lar
-# 	}
-# 	operatives = x
-# 	network_strength = x
-# 	phases = { }
-# }
+operation_disrupt_crop_growth = {
+	icon = GFX_observer_flag_overlay
+	map_icon = GFX_observer_flag_overlay
+	name = "Disruption of Crop Growth"
+	desc = "We will use our operatives for destruction of enemy's crop yield"
+	days = 60
+	visible = {
+		has_country_flag = enable_stonka_lar
+	}
+	operatives = 1
+	network_strength = 50
+	phases = {
+		infiltration_border = { base = 25 }
+		infiltration_submarine = { 
+			base = 25
+			modifier = {
+				FROM = {
+					all_owned_state = {
+						is_coastal = no
+					}
+				}
+				factor = 0
+			}
+		}
+		infiltration_paradrop = { 
+			base = 25 
+			modifier = {
+				ROOT = { 
+					has_equipment = {
+						transport_equipment < 1
+					}
+				}
+				factor = 0
+			}
+		}
+		infiltration_diplomatic = {
+			base = 25
+			modifier = {
+				factor = 20
+				ROOT = { has_war = no }
+				FROM = {
+					has_war = no
+				}
+			}
+			modifier = {
+				FROM = {
+					has_war_with = ROOT
+				}
+				factor = 0
+			}
+		}
+	}
+	phases = {
+		crop_disruption_bribe_official = { base = 50 }
+		crop_disruption_steal_agricultural_plane = { base = 20 }
+		crop_disruption_blow_toxic_sewage_pipe = { base = 30 }
+	}
+	phases = {
+		exfiltration_air_pickup = { 
+			base = 15 
+			modifier = {
+				ROOT = { 
+					has_equipment = {
+						transport_equipment < 1
+					}
+				}
+				factor = 0
+			}
+		}
+		exfiltration_border = { base = 30 }
+		exfiltration_go_to_ground = { base = 30 }
+		exfiltration_submarine_pickup = { 
+			base = 25
+			modifier = {
+				FROM = {
+					all_owned_state = {
+						is_coastal = no
+					}
+				}
+				factor = 0
+			}
+		}
+	}
+}
