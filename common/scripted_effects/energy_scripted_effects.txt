@@ -48,7 +48,7 @@ calculate_generated_energy = {
 	}
 	set_variable = { generated_energy = num_of_power_plants }
 	set_variable = {lack_of_coal_modifier = 1}
-	multiply_variable = { generated_energy = 1350 }
+	multiply_variable = { generated_energy = 1500 }
 	if = {
 		limit = {
 			check_variable = {
@@ -69,7 +69,7 @@ calculate_generated_energy = {
 	
 	multiply_variable = { generated_energy = lack_of_coal_modifier }
 	set_temp_variable = { energy_from_wind_farms = num_of_wind_farms }
-	multiply_temp_variable = { energy_from_wind_farms = 675 }
+	multiply_temp_variable = { energy_from_wind_farms = 750 }
 	add_to_variable = { generated_energy = energy_from_wind_farms }
 	set_variable = { bonus_from_ideas = 1.0}
 	add_to_variable = {bonus_from_ideas = modifier@energy_modifer}
@@ -101,7 +101,6 @@ calculate_used_energy = {
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@high_tech_complex }
 		add_to_temp_variable = { PREV.energy_for_industry = workshops_count }
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@air_base }
-		add_to_temp_variable = { PREV.energy_for_industry = building_level@rail_way }
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@dockyard }
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@radar_station }
 		add_to_temp_variable = { PREV.energy_for_industry = building_level@nuclear_facility }
@@ -119,6 +118,18 @@ calculate_used_energy = {
 	}
 	multiply_temp_variable = { energy_for_industry = 100 }
 	add_to_variable = { used_energy = energy_for_industry }
+
+	set_temp_variable = { energy_from_infrastructure = num_of_supply_nodes }
+	every_controlled_state = {
+		limit = {
+			always = yes
+		}
+		add_to_temp_variable = { PREV.energy_from_infrastructure = building_level@rail_way }
+		add_to_temp_variable = { PREV.energy_from_infrastructure = building_level@infrastructure }
+	}
+	multiply_temp_variable = { energy_from_infrastructure = 25 }
+	add_to_variable = { used_energy = energy_from_infrastructure }
+
 	if = {
 		limit = {
 			has_country_flag = importing_energy
