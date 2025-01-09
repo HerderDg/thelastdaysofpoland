@@ -1,0 +1,450 @@
+
+##########################
+# GERMANY #
+##########################
+
+# Panzer I Ausf.B
+entity = {
+	name = "GER_light_flame_tank_entity"
+	pdxmesh = "GER_light_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.5
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+
+#Panzerkampfwagen III (flamm)
+entity = {
+	name = "GER_medium_flame_tank_entity"
+	pdxmesh = "GER_medium_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 animation_speed = 0.8
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 animation_speed = 0.5
+		event = { time = 0 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 0 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 5 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 5 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 10 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 10 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  animation_speed = 0.8
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = no sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+
+##########################
+# ENGLAND #
+##########################
+
+entity = {
+	name = "ENG_heavy_flame_tank_entity"
+	pdxmesh = "ENG_heavy_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+##########################
+# FRANCE #
+##########################
+
+entity = {
+	name = "FRA_heavy_flame_tank_entity"
+	pdxmesh = "FRA_heavy_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 0 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 5 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 5 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 10 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 10 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+##########################
+# JAPAN #
+##########################
+
+entity = {
+	name = "JAP_light_flame_tank_entity"
+	pdxmesh = "JAP_light_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+##########################
+# ITALY #
+##########################
+
+entity = {
+	name = "ITA_light_flame_tank_entity"
+	pdxmesh = "ITA_light_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+
+##########################
+# SOVIET #
+##########################
+
+entity = {
+	name = "SOV_light_flame_tank_entity"
+	pdxmesh = "SOV_light_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 0 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 5 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 5 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 10 node="mg" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 10 node="mg" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+
+##########################
+# USA #
+##########################
+
+entity = {
+	name = "USA_light_flame_tank_entity"
+	pdxmesh = "USA_light_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 0 node="barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 5 node="barrel" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 5 node="barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+		event = { time = 10 node="barrel" particle = "mg_muzzle_particle"  keep_particle = yes sound = { soundeffect = infantry_mg_attack } } 
+		event = { time = 10 node="barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
+
+
+entity = {
+	name = "USA_medium_flame_tank_entity"
+	pdxmesh = "USA_medium_flame_tank_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks_wagon" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0.1 node="flamethrower" particle = "flamethrower_particle" sound = { soundeffect = flamethrower_start }} 
+		event = { time = 0.2 node="flamethrower_smoke" particle = "flamethrower_smoke_effect"  keep_particle = yes sound = { soundeffect = flamethrower_main }} 
+		event = { time = 9.8 sound = { soundeffect = flamethrower_end }} 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.6
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
+}
