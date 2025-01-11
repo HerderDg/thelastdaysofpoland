@@ -84,379 +84,69 @@ BBW_blackout_category = {
 }
 
 BBW_industrial_missions_category = {
-	
-	BBW_industrial_mission1 = {
-		icon = GFX_decision_generic_form_nation
-		
-		days_mission_timeout = 140
-		is_good = yes
-		available = { 
-		if = {
-			limit = { 
-				is_ai = yes
-			}  
-		}
-		else = {
-			custom_trigger_tooltip = {
-					tooltip = BBW_coal_production_tt
-					BBW = {
-					check_variable = { resource_produced@coal > 59 }
-					}
-				}
-			}
-		}
-		
-		activation = {
-		always = no
-		}
-		
-		allowed = {
-			original_tag = BBW
-		}
 
-		ai_will_do = {
-			factor = 0
-		}
-		
-		fire_only_once = yes
-		
-		 complete_effect = {
-			log = "[GetDateText]: Decision BBW_industrial_mission1"
-			custom_effect_tooltip = BBW_industrial_mission_win_tt
-			hidden_effect = {
-			add_ideas = BBW_industrial_capabilities
-			}
-			add_offsite_building = { type = industrial_complex level = 1 }
-			341 = {
-				add_building_construction = {
-				type = infrastructure
-				level = 1
-				instant_build = yes
-				}
-			}
-			hidden_effect = {
-			country_event = {
-				id = belchatow.28}
-				}
-				add_to_variable = {
-				var_industrial_missions_completed = 1
-				}
-			}
-		timeout_effect = {
-		custom_effect_tooltip = BBW_industrial_mission_lose_tt
-		hidden_effect = {
-			country_event = {
-				id = belchatow.27}
-			}
-		}
-	}
-	
-	BBW_industrial_mission2 = {
-		icon = GFX_decision_generic_form_nation
-		
-		days_mission_timeout = 140
-		is_good = yes
-		available = {  
-		if = {
-			limit = { 
-				is_ai = yes
-			}  
-		}
-		else = {
-			custom_trigger_tooltip = {
-				tooltip = BBW_capital_buildup_tt
-					341 = {
-						infrastructure > 7
-					}
-				}
-			}
-		}
-		
-		activation = {
-		always = no
-		}
-		
-		allowed = {
-			original_tag = BBW
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-		
-		fire_only_once = yes
-		
-		complete_effect = {
-		log = "[GetDateText]: Decision BBW_industrial_mission2"
-		custom_effect_tooltip = BBW_industrial_mission_win_tt
-		if = {
-			limit = { 
-				BBW = { has_idea = BBW_industrial_capabilities }
+	BBW_steam_trams_development = {
+		state_target = yes
+		cost = 60
+		icon = GFX_decision_generic_train
+		visible = {
+			is_special_project_completed = sp:sp_steam_trams
+				not = { has_dynamic_modifier = {
+				    modifier = steam_tram_network
 				} 
-			hidden_effect = {
-			swap_ideas = {
-					add_idea = BBW_industrial_capabilities2
-					remove_idea = BBW_industrial_capabilities
-				}
-			}
-		}
-		else = {
-		hidden_effect = {
-			add_ideas = BBW_industrial_capabilities
-			}
-		}
-			add_offsite_building = { type = industrial_complex level = 1 }
-			341 = {
-				add_extra_state_shared_building_slots = 4
-				add_manpower = 25000
-				}
-			hidden_effect = {
-			country_event = {
-				id = belchatow.28}
-			}
-			add_to_variable = {
-			var_industrial_missions_completed = 1
-			}
-		}
-	
-		timeout_effect = {
-		custom_effect_tooltip = BBW_industrial_mission_lose_tt
-		hidden_effect = {
-			country_event = {
-				id = belchatow.27}
-			}
-		}
-	}
-			
-	BBW_industrial_mission3 = {
-		icon = GFX_decision_generic_form_nation
-		
-		days_mission_timeout = 140
-		is_good = yes
-		available = {  
-		if = {
-			limit = { 
-				is_ai = yes
-			}  
-		}
-		else = {
-			custom_trigger_tooltip = {
-				tooltip = BBW_industrial_test_tt
-					BBW = {
-					check_variable = { num_of_owned_factories > 20 }
+				}			
+    		FROM = {
+				or = {
+    		        has_state_category = megalopolis
+    		        has_state_category = metropolis
+    		        has_state_category = large_city
+					and = {
+						is_lodz_state = yes
+						or = {
+							has_state_category = city
+    		       			has_state_category = megalopolis
+    		       			has_state_category = metropolis
+    		       			has_state_category = large_city						
+						}
 					}
+    		        }
+				}	
+		}
+	   	target_trigger = {
+	   	    FROM = {
+	   	        is_owned_by = ROOT
+				not = { has_dynamic_modifier = {
+				    modifier = steam_tram_network
 				}
-			}
-		}
-		
-		activation = {
-		always = no
-		}
-		
-		allowed = {
-			original_tag = BBW
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-		
-		fire_only_once = yes
-		
-		complete_effect = {
-		log = "[GetDateText]: Decision BBW_industrial_mission3"
-		if = {
-			limit = { 
-			BBW = { has_idea = BBW_industrial_capabilities }
-			} 
-			hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities2
-				remove_idea = BBW_industrial_capabilities
-				}
-			}
-		}
-		if = {
-			limit = { 
-			BBW = { has_idea = BBW_industrial_capabilities2 }
-			}
-			hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities3
-				remove_idea = BBW_industrial_capabilities2
-				}
-			}
-		}
-		else = {
-		hidden_effect = {
-		add_ideas = BBW_industrial_capabilities
-			}
-		}
-			custom_effect_tooltip = BBW_industrial_mission_win_tt
-			country_event = {
-			id = belchatow.28}	
-			add_to_variable = {
-			var_industrial_missions_completed = 1
-			}
-		}
-	
-		timeout_effect = {
-			country_event = {
-			id = belchatow.27}
-		}
-	}
-	
-	
-	BBW_industrial_mission4 = {
-		icon = GFX_decision_generic_form_nation
-		
-		days_mission_timeout = 140
-		is_good = yes
-		available = {  
-		if = {
-			limit = { 
-				is_ai = yes
-			}  
-		}
-		else = {
-			custom_trigger_tooltip = {
-				tooltip = BBW_military_factories_count_tt
-					BBW = {
-					check_variable = { num_of_military_factories > 15 }
+				} 
+				or = {
+    			    has_state_category = megalopolis
+    			    has_state_category = metropolis
+    			    has_state_category = large_city
+					and = {
+						is_lodz_state = yes
+						or = {
+							has_state_category = city
+    		       			has_state_category = megalopolis
+    		       			has_state_category = metropolis
+    		       			has_state_category = large_city						
+						}
 					}
-				}
-			}
+    			}				
+	   	    }
 		}
-		
-		activation = {
-		always = no
+		modifier = {
+			civilian_factory_use = 3
 		}
-		
-		allowed = {
-			original_tag = BBW
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-		
-		fire_only_once = yes
-		
+		days_remove = 60
 		complete_effect = {
-		log = "[GetDateText]: Decision BBW_industrial_mission4"
-		if = {
-			limit = { 
-				BBW = { has_idea = BBW_industrial_capabilities3 }
-			} 
-			hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities4
-				remove_idea = BBW_industrial_capabilities3
-				}
+			log = "[GetDateText]: Decision BBW_energy_deal"
+			FROM = {
+    	    	add_dynamic_modifier = {
+    	    	    modifier = steam_tram_network
+    	    	}
 			}
-		}
-		if = {
-			limit = { 
-				BBW = { has_idea = BBW_industrial_capabilities2 }
-			} 
-			hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities3
-				remove_idea = BBW_industrial_capabilities2
-				}
-			}
-		}
-		else = {
-		hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities2
-				remove_idea = BBW_industrial_capabilities
-				}
-			}
-		}
-			custom_effect_tooltip = BBW_industrial_mission_win_tt
-			hidden_effect = {
-			country_event = {
-				id = belchatow.28}
-			}
-		}
-	
-		timeout_effect = {
-		custom_effect_tooltip = BBW_industrial_mission_lose_tt
-		hidden_effect = {
-			country_event = {
-				id = belchatow.27}
-			}
-		}
-	}
-
-}
-	
-	#### JAK COŚ TO MA TO I TAK NA RAZIE NIE DZIAŁAĆ - JEST NA PRZYSZŁOŚĆ ######
-	
-#Odblokowane dopiero po zjednoczeniu wojewódzctwa 
-BBW_industrial_rush_category = {
-	BBW_industrial_rush = {
-		allowed = {
-			original_tag = BBW
-			}
-			
-		target_root_trigger = {
-			has_country_flag = BBW_voivodship_united
-			NOT = {
-				check_variable = { var_industrial_missions_completed > var_industrial_missions_started }
-			}
-		}
-
-		
-		modifier = {	
-			consumer_goods_factor = 0.05
-			stability_weekly = -0.01
-			war_support_weekly = -0.005
-		}
-		
-		cost = 225
-		days_re_enable = 10
-		days_remove = 28
-		complete_effect = {
-			
-		}
-		
-		remove_effect = {
-			log = "[GetDateText]: Decision BBW_industrial_rush"
-			#Pozwala zwiększyć poziom industrializacji jeśli jesteśmy w tyle
-			
-		if = {
-			limit = { 
-				BBW = { has_idea = BBW_industrial_capabilities3 }
-			} 
-			hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities4
-				remove_idea = BBW_industrial_capabilities3
-				}
-			}
-		}
-		if = {
-			limit = { 
-				BBW = { has_idea = BBW_industrial_capabilities2 }
-			} 
-			hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities3
-				remove_idea = BBW_industrial_capabilities2
-				}
-			}
-		}
-		else = {
-		hidden_effect = {
-				swap_ideas = {
-				add_idea = BBW_industrial_capabilities2
-				remove_idea = BBW_industrial_capabilities
-				}
-			}
-		}
-		
 		}
 	}
 }
+
