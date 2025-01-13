@@ -1463,49 +1463,322 @@ ai_war_decisions = {
 	}
 
 
-# MPOL_015_GREAT_NIEPOLOMICE_AUCTION_BID = {    #WORK IN PROGRESS - TO BE REFINED LATER
-#
-#		icon = GFX_decision_generic_prepare_civil_war
-#		
-#		allowed = {
-#			is_lesser_poland = yes
-#			}
-#
-#		visible = {
-#			OR = {
-#				original_tag = UMN
-#				original_tag = BOH
-#				original_tag = BRS
-#				original_tag = SKW
-#			}
-#			has_global_flag = NPL_auction_active
-#		}
-#
-#    	available = {
-#    	    political_power > 20
-#    	}
-#
-#		cost = 20
-#		days_remove = 3
-#		days_re_enable = 3
-#
-#		ai_will_do = {
-#			factor = 100
-#		}
-#
-#		remove_effect  = {
-#			log = "[GetDateText]: Decision wielka licytacja niepolomicka"
-#		}
-#		cancel_trigger = {
-#			ROOT = {
-#				has_war = yes
-#			}
-#		}
-#	}	
+#MPOL_015_GREAT_NIEPOLOMICE_AUCTION_BID = {    #WORK IN PROGRESS - TO BE REFINED LATER
+ #
+ #		icon = GFX_decision_generic_prepare_civil_war
+ #		
+ #		allowed = {
+ #			is_lesser_poland = yes
+ #			}
+ #
+ #		visible = {
+ #			OR = {
+ #				original_tag = UMN
+ #				original_tag = BOH
+ #				original_tag = BRS
+ #				original_tag = SKW
+ #			}
+ #			has_global_flag = NPL_auction_active
+ #		}
+ #
+ #    	available = {
+ #    	    political_power > 20
+ #    	}
+ #
+ #		cost = 20
+ #		days_remove = 3
+ #		days_re_enable = 3
+ #
+ #		ai_will_do = {
+ #			factor = 100
+ #		}
+ #
+ #		remove_effect  = {
+ #			log = "[GetDateText]: Decision wielka licytacja niepolomicka"
+ #		}
+ #		cancel_trigger = {
+ #			ROOT = {
+ #				has_war = yes
+ #			}
+ #		}
+ #	}	
 
 
 #MAŁOPOLSKIE - FAZA DRUGA
+ MPOL_02_SIEGE_OF_KRAKOW = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = PRK
+	}
+
+	available = {
+		NOT = { has_war = yes }
+		date > 2028.10.10
+		owns_state = 459
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision oblezenie krakowa"
+		every_country = { limit = { is_krakow_tag = yes }
+			ROOT = {
+				declare_war_on = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+ MPOL_02_AGRARIAN_REVOLUTION = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = OSP
+		original_tag = TRN
+		original_tag = NPL
+		original_tag = BRS
+		original_tag = SKW
+		original_tag = UMN
+		original_tag = BOH
+	}
+
+	available = {
+		NOT = { has_war = yes }
+		date > 2028.11.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na tarnowszczyznie"
+		if = { limit = { country_exists = OSP
+						 ROOT = { NOT = { original_tag = OSP 
+						 is_in_faction_with = OSP } } }
+		declare_war_on = {
+			target = OSP
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = TRN
+						 ROOT = { NOT = { original_tag = TRN 
+						 is_in_faction_with = TRN } } }
+		declare_war_on = {
+			target = TRN
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = TRW
+						 ROOT = { NOT = { original_tag = TRW
+						 is_in_faction_with = TRW } } }
+		declare_war_on = {
+			target = TRW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = BRS
+						 ROOT = { NOT = { original_tag = BRS 
+						 is_in_faction_with = BRS } } }
+		declare_war_on = {
+			target = BRS
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = SKW
+						 ROOT = { NOT = { original_tag = SKW 
+						 is_in_faction_with = SKW } } }
+		declare_war_on = {
+			target = SKW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = UMN
+						 ROOT = { NOT = { original_tag = UMN
+						 is_in_faction_with = UMN } } }
+		declare_war_on = {
+			target = UMN
+			type = annex_everything
+		}
+		}	
+		if = { limit = { country_exists = BOH
+						 ROOT = { NOT = { original_tag = BOH 
+						 is_in_faction_with = BOH } } }
+		declare_war_on = {
+			target = BOH
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = NPL
+						 ROOT = { NOT = { original_tag = NPL
+						 is_in_faction_with = NPL } } }
+		declare_war_on = {
+			target = NPL
+			type = annex_everything
+		}
+		}		
+						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+
+ MPOL_02_IN_THE_NAME_OF_POPE = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = MSL
+		original_tag = HOR
+		original_tag = WDW
+		original_tag = OSW
+		original_tag = CHW
+	}
+
+	available = {
+		NOT = { has_war = yes }
+		date > 2028.10.05
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na papajszczyźnie"
+		if = { limit = { country_exists = OSW
+						 ROOT = { NOT = { original_tag = OSW 
+						 is_in_faction_with = OSW } } }
+		declare_war_on = {
+			target = OSW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = WDW
+						 ROOT = { NOT = { original_tag = WDW 
+						 is_in_faction_with = WDW } } }
+		declare_war_on = {
+			target = WDW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = CHW
+						 ROOT = { NOT = { original_tag = CHW
+						 is_in_faction_with = CHW } } }
+		declare_war_on = {
+			target = CHW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = HOR
+						 ROOT = { NOT = { original_tag = HOR 
+						 is_in_faction_with = HOR } } }
+		declare_war_on = {
+			target = HOR
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = MSL
+						 ROOT = { NOT = { original_tag = MSL 
+						 is_in_faction_with = MSL } } }
+		declare_war_on = {
+			target = MSL
+			type = annex_everything
+		}
+		}		
+						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
 #MAŁOPOLSKIE - FAZA OSTATECZNA
+
+ MPOL_03_GALICIAN_CLUSTERFUCK = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_lesser_poland_unifier = yes
+	}
+
+	available = {
+		NOT = { has_war = yes }
+		count_triggers = {
+			amount = 19
+			OSW = { exists = no }
+			OSP = { exists = no }
+			BRS = { exists = no }
+			NPL = { exists = no }
+			CHW = { exists = no }
+			MSL = { exists = no }	
+			WDW = { exists = no }
+			KRK = { exists = no }
+			NHT = { exists = no }
+			PRK = { exists = no }
+			SKW = { exists = no }
+			UMN = { exists = no }	
+			BOH = { exists = no }	
+			TRN = { exists = no }	
+			KRA = { exists = no }	
+			WND = { exists = no }
+			BRK = { exists = no }
+			UJG = { exists = no }
+			AGH = { exists = no }
+			HAB = { exists = no }
+			HOR = { exists = no }
+			TRW = { exists = no }
+		}
+		NOT = { has_country_flag = unified_voivodeship }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	days_re_enable = 30
+	remove_effect  = {
+		log = "[GetDateText]: Decision raban galicyjski"
+		random_neighbor_country = { limit = { is_lesser_poland = yes }
+			ROOT = {
+				declare_war_on = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
 #██████╗░░█████╗░██████╗░██╗░░██╗░█████╗░██████╗░██████╗░░█████╗░░█████╗░██╗░░██╗██╗███████╗
 #██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██║██╔════╝
 #██████╔╝██║░░██║██║░░██║█████═╝░███████║██████╔╝██████╔╝███████║██║░░╚═╝█████═╝░██║█████╗░░
