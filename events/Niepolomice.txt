@@ -1,0 +1,374 @@
+﻿add_namespace = glory
+add_namespace = glory_auction
+
+country_event = {
+	id = glory_auction.1 #start aukcji
+	title = glory_auction.1.t
+	desc = glory_auction.1.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = NPL
+		has_global_flag = MPOL_there_is_only_one_salt
+		has_global_flag = MPOL_there_is_only_one_brzesko
+	}
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires glory_auction.1" 
+		set_global_flag = NPL_auction_active
+	}
+
+	option = {
+		name = glory_auction.1.a #niech wygra kapitalizm
+		#set_variable = {
+		#    var = NPL_auction_bid
+		#    value = 0
+		#}
+		country_event = {
+			id = glory_auction.2
+			days = 3
+		}
+	}
+
+}
+
+country_event = {
+	id = glory_auction.2 #reewaluacja bidów
+	title = glory_auction.2.t
+	desc = glory_auction.2.desc
+
+	fire_only_once = yes
+	#trigger = {
+	#	original_tag = NPL
+	#	has_global_flag = NPL_auction_active
+	#	check_variable = {
+	#	    NPL_auction_bid > 100
+	#	}
+	#}
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires glory_auction.2" 
+		clr_global_flag = NPL_auction_active
+	}
+
+	option = {
+		name = glory_auction.2.a #idziemy z solniczkami do końca
+		ai_chance = { base = 20 }
+		set_country_flag = NPL_earned_their_autonomy
+		if = {
+			limit = { UMN = { country_exists = yes } }
+			UMN = {
+				create_faction = "Galician Corporate Alliance"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { BRS = { country_exists = yes }}
+					declare_war_on = {
+						target = BRS
+						type = annex_everything 
+					}
+				}
+				if = { limit = { SKW = { country_exists = yes }}
+					declare_war_on = {
+						target = SKW
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+		if = {
+			limit = { BOH = { country_exists = yes } }
+			BOH = {
+				create_faction = "Galician Corporate Alliance"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { BRS = { country_exists = yes }}
+					declare_war_on = {
+						target = BRS
+						type = annex_everything 
+					}
+				}
+				if = { limit = { SKW = { country_exists = yes }}
+					declare_war_on = {
+						target = SKW
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+
+	}
+
+	option = {
+		name = glory_auction.2.b #idziemy z brzeszczotami do końca
+		ai_chance = { base = 20 }
+		set_country_flag = NPL_earned_their_autonomy
+		if = {
+			limit = { BRS = { country_exists = yes } }
+			BRS = {
+				create_faction = "Trade Federation"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { UMN = { country_exists = yes }}
+					declare_war_on = {
+						target = UMN
+						type = annex_everything 
+					}
+				}
+				if = { limit = { BOH = { country_exists = yes }}
+					declare_war_on = {
+						target = BOH
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+		if = {
+			limit = { SKW = { country_exists = yes } }
+			SKW = {
+				create_faction = "Ravagers"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { UMN = { country_exists = yes }}
+					declare_war_on = {
+						target = UMN
+						type = annex_everything 
+					}
+				}
+				if = { limit = { BOH = { country_exists = yes }}
+					declare_war_on = {
+						target = BOH
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+	}	
+
+	option = {
+		name = glory_auction.2.c #idziemy z solniczkami a potem na nich też
+		ai_chance = { base = 20 }
+		if = {
+			limit = { UMN = { country_exists = yes } }
+			UMN = {
+				create_faction = "Galician Corporate Alliance"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { BRS = { country_exists = yes }}
+					declare_war_on = {
+						target = BRS
+						type = annex_everything 
+					}
+				}
+				if = { limit = { SKW = { country_exists = yes }}
+					declare_war_on = {
+						target = SKW
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+		if = {
+			limit = { BOH = { country_exists = yes } }
+			BOH = {
+				create_faction = "Galician Corporate Alliance"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { BRS = { country_exists = yes }}
+					declare_war_on = {
+						target = BRS
+						type = annex_everything 
+					}
+				}
+				if = { limit = { SKW = { country_exists = yes }}
+					declare_war_on = {
+						target = SKW
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+		NPL = { 
+			country_event = {
+				id = glory_auction.3
+				days = 21
+			}
+		}
+	}		
+
+	option = {
+		name = glory_auction.2.d #idziemy z brzeszczotami a potem na nich też
+		ai_chance = { base = 20 }
+		if = {
+			limit = { BRS = { country_exists = yes } }
+			BRS = {
+				create_faction = "Trade Federation"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { UMN = { country_exists = yes }}
+					declare_war_on = {
+						target = UMN
+						type = annex_everything 
+					}
+				}
+				if = { limit = { BOH = { country_exists = yes }}
+					declare_war_on = {
+						target = BOH
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+		if = {
+			limit = { SKW = { country_exists = yes } }
+			SKW = {
+				create_faction = "Ravagers"
+				add_to_faction = NPL
+				diplomatic_relation = {
+					country = NPL
+					relation = puppet
+					active = yes
+				}
+				if = { limit = { UMN = { country_exists = yes }}
+					declare_war_on = {
+						target = UMN
+						type = annex_everything 
+					}
+				}
+				if = { limit = { BOH = { country_exists = yes }}
+					declare_war_on = {
+						target = BOH
+						type = annex_everything 
+					}
+				}				
+			}
+		}
+		NPL = { 
+			country_event = {
+				id = glory_auction.3
+				days = 21
+			}
+		}
+	}	
+
+	option = {
+		name = glory_auction.2.e #WOLLT IHR DEN TOTALEN KRIEG?
+		ai_chance = { base = 20 }
+		if = { limit = { UMN = { country_exists = yes }}
+			declare_war_on = {
+				target = UMN
+				type = annex_everything 
+			}
+		}
+		if = { limit = { BOH = { country_exists = yes }}
+			declare_war_on = {
+				target = BOH
+				type = annex_everything 
+			}
+		}
+		if = { limit = { UMN = { country_exists = yes }}
+			declare_war_on = {
+				target = UMN
+				type = annex_everything 
+			}
+		}
+		if = { limit = { BOH = { country_exists = yes }}
+			declare_war_on = {
+				target = BOH
+				type = annex_everything 
+			}
+		}	
+	}		
+
+}
+
+
+country_event = {
+	id = glory_auction.3 #lekki trolaż
+	title = glory_auction.3.t
+	desc = glory_auction.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires glory_auction.3" 
+	}
+
+	option = {
+		name = glory_auction.3.a
+		if = {
+			limit = { NPL = { is_puppet_of = UMN }}
+			UMN = {
+				end_puppet = NPL
+			}
+			leave_faction = yes
+			declare_war_on = {
+				target = UMN
+				type = annex_everything 
+			}		
+		}
+		if = {
+			limit = { NPL = { is_puppet_of = BOH }}
+			BOH = {
+				end_puppet = NPL
+			}
+			leave_faction = yes
+			declare_war_on = {
+				target = BOH
+				type = annex_everything 
+			}		
+		}
+		if = {
+			limit = { NPL = { is_puppet_of = BRS }}
+			BRS = {
+				end_puppet = NPL
+			}
+			leave_faction = yes
+			declare_war_on = {
+				target = BRS
+				type = annex_everything 
+			}		
+		}
+		if = {
+			limit = { NPL = { is_puppet_of = SKW }}
+			SKW = {
+				end_puppet = NPL
+			}
+			leave_faction = yes
+			declare_war_on = {
+				target = SKW
+				type = annex_everything 
+			}		
+		}		
+	}
+
+}
