@@ -1090,6 +1090,380 @@ ai_war_decisions = {
 #██║░╚═╝░██║██║░░██║███████╗╚█████╔╝██║░░░░░╚█████╔╝███████╗██████╔╝██║░╚██╗██║███████╗
 #╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░░░░░╚════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
 #MAŁOPOLSKIE - FAZA PIERWSZA
+
+ MPOL_01_SALT_HYPERWAR = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_lesser_poland = yes
+		}
+
+	visible = {
+			OR = {
+				original_tag = BOH
+				original_tag = UMN
+			}
+			NOT = { has_war = yes }
+			date > 2028.04.11
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = UMN }
+					country_exists = BOH 
+					}
+			declare_war_on = {
+				target = BOH
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BOH }
+					country_exists = UMN 
+					}
+			declare_war_on = {
+				target = UMN
+				type = annex_everything
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
+ MPOL_01_TOTAL_ABORDAGE = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+			}
+
+		visible = {
+			OR = {
+				original_tag = BRS
+				original_tag = SKW
+			}
+			NOT = { has_war = yes }
+			date > 2028.03.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect  = {
+			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BRS }
+					country_exists = SKW 
+					}
+			declare_war_on = {
+				target = SKW
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = SKW }
+					country_exists = BRS 
+					}
+			declare_war_on = {
+				target = BRS
+				type = annex_everything
+			}
+			}
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+ }
+
+
+ MPOL_01_ELEVENTH_CRUSADE = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = MSL
+				original_tag = WDW
+			}
+			NOT = { has_war = yes }
+			HOR = { country_exists = no }
+			date > 2028.05.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WDW }
+					country_exists = MSL 
+					}
+			declare_war_on = {
+				target = MSL
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MSL }
+					country_exists = WDW 
+					}
+			declare_war_on = {
+				target = WDW
+				type = annex_everything
+			}
+			}
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+ }
+
+
+ MPOL_01_AUSCHWITZ_KRENAU = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+		}
+
+		visible = {
+			OR = {
+				original_tag = CHW
+				original_tag = OSW
+			}
+			NOT = { has_war = yes }
+			HOR = { country_exists = no }
+			date > 2028.05.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = OSW }
+					country_exists = CHW 
+					}
+			declare_war_on = {
+				target = CHW
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CHW }
+					country_exists = OSW 
+					}
+			declare_war_on = {
+				target = OSW
+				type = annex_everything
+			}
+			}
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+ } 
+
+
+ MPOL_01_FINAL_SOLUTION_OF_HUTA_PROBLEM = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+			}
+
+		visible = {
+				OR = {
+					original_tag = BRK
+					original_tag = KRK 
+					original_tag = KRA
+					original_tag = WND
+					original_tag = UJG
+					original_tag = AGH
+					original_tag = HAB
+				}
+				count_triggers = {
+					amount = 6
+					KRK = { exists = no }
+					KRA = { exists = no }
+					BRK = { exists = no }
+					WND = { exists = no }
+					UJG = { exists = no }
+					AGH = { exists = no }
+					HAB = { exists = no }
+				}
+				NHT = { num_of_controlled_states > 1 }
+				NOT = { has_war_with = NHT }
+				date > 2028.02.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 5
+		remove_effect  = {
+			log = "[GetDateText]: Decision krakow_walka_na_maczety2"
+				if = { limit = { country_exists = NHT
+								 ROOT = { NOT = { original_tag = NHT } } }
+				declare_war_on = {
+					target = NHT
+					type = annex_everything
+				}
+				}			
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+	}
+
+ MPOL_01_NAL_HUTTA_STRIKES_BACK = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+				}
+
+		visible = {
+				original_tag = NHT
+				OR = {	
+					KRK = { num_of_controlled_states > 1 }
+					KRA = { num_of_controlled_states > 1 }
+					BRK = { num_of_controlled_states > 1 }
+					WND = { num_of_controlled_states > 1 }
+					UJG = { num_of_controlled_states > 1 }
+					AGH = { num_of_controlled_states > 1 }
+					HAB = { num_of_controlled_states > 1 }
+				}
+				NOT = { has_war = yes }
+				date > 2028.03.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: Decision krakow_walka_na_maczety"
+				if = { limit = { country_exists = KRK
+								 ROOT = { NOT = { original_tag = KRK } } }
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = KRA
+						 ROOT = { NOT = { original_tag = KRA } } }
+				declare_war_on = {
+					target = KRA
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = BRK
+								 ROOT = { NOT = { original_tag = BRK } } }
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = WND 
+						 ROOT = { NOT = { original_tag = WND } } }
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = UJG 
+						 ROOT = { NOT = { original_tag = UJG } } }
+				declare_war_on = {
+					target = UJG
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = AGH 
+						 ROOT = { NOT = { original_tag = AGH } } }
+				declare_war_on = {
+					target = AGH
+					type = annex_everything
+				}
+				}	
+				if = { limit = { country_exists = HAB 
+						 ROOT = { NOT = { original_tag = HAB } } }
+				declare_war_on = {
+					target = HAB
+					type = annex_everything
+				}
+				}				
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+	}
+
+
+
 #MAŁOPOLSKIE - FAZA DRUGA
 #MAŁOPOLSKIE - FAZA OSTATECZNA
 #██████╗░░█████╗░██████╗░██╗░░██╗░█████╗░██████╗░██████╗░░█████╗░░█████╗░██╗░░██╗██╗███████╗

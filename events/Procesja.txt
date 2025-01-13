@@ -1,8 +1,104 @@
 ﻿add_namespace = procesja
 add_namespace = procesja_west
+add_namespace = procesja_final
 add_namespace = procesja_east
 add_namespace = procesja_west_flavor
 add_namespace = procesja_east_flavor
+
+country_event = {
+	id = procesja_final.1 #we are in rzeszotary - what now
+	title = procesja_final.1.t
+	desc = procesja_final.1.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = HOR
+		HOR = {
+			owns_state = 898
+		}
+		MSL = { country_exists = yes }
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.1" }
+
+	option = {
+		name = procesja_final.1.a
+		add_state_core = 898
+		add_stability = 0.1
+		MSL = {
+			country_event = {
+				id = procesja_final.2
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.2 #anioly z nieba
+	title = procesja_final.2.t
+	desc = procesja_final.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.2" }
+
+	option = {
+		name = procesja_final.2.a
+		HOR = {
+			create_faction = "Tenth Crusade"
+			add_to_faction = MSL
+			country_event = {
+				id = procesja_final.3
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.3 #endkrieg
+	title = procesja_final.3.t
+	desc = procesja_final.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.3.a
+		declare_war_on = {
+			target = WDW
+			type = annex_everything 
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.4 #WDW-MSL ceasefire
+	title = procesja_final.4.t
+	desc = procesja_final.4.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = MSL
+		MSL = { 
+			has_war_with = WDW
+			any_war_score < 20
+		}
+		HOR = { has_capitulated = yes }
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.3.a
+		white_peace = WDW
+		leave_faction = yes
+	}
+}
 
 country_event = {
 	id = procesja.1 #ruszamy
@@ -79,6 +175,8 @@ news_event = {
 			}
 	}
 }
+
+
 
 
 country_event = {
@@ -533,12 +631,14 @@ country_event = {
 			target = WDW
 			type = annex_everything 
 		}
-		OSW = {
-			create_faction = "Papal Crusaders"
-			add_to_faction = HOR
-		}
+		#OSW = {
+		#	create_faction = "Papal Crusaders"
+		#	add_to_faction = HOR
+		#}
 	}
 }
+
+
 
 
 country_event = {
