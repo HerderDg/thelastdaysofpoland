@@ -14,11 +14,12 @@ ai_war_decisions = {
  	icon = GFX_decision_generic_prepare_civil_war
  	allowed = {
  		is_tatry_region = yes
- 			}
+ 	}
  
- 	visible = {
+ 	available = {
  		original_tag = SCZ
  		date > 2027.12.12
+		has_war = no
  	}
  
  	cost = 1
@@ -42,9 +43,9 @@ ai_war_decisions = {
  		}
  	}
  	cancel_trigger = {
- 		SCZ = {
- 			has_war_with = LEM
- 		}
+			ROOT = {
+				has_war = yes
+			}
  	}
  }
 
@@ -59,19 +60,17 @@ ai_war_decisions = {
 		is_tatry_region = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = GUR
-		date > 2028.09.01
+		date > 2028.05.01
+		has_war = no
 	}
 
 	cost = 1
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 3
@@ -84,11 +83,11 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
-	cancel_trigger = {
-		GUR = {
-			has_war_with = ZGR
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
 		}
-	}
+ 	}
  }
 
  SCZ_TYM_war = {
@@ -99,19 +98,17 @@ ai_war_decisions = {
 		is_tatry_region = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = SCZ
-		date > 2028.09.12
+		has_war = no
+		date > 2028.05.12
 	}
 
 	cost = 1
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 3
@@ -124,11 +121,11 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
-	cancel_trigger = {
-		SCZ = {
-			has_war_with = TYM
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
 		}
-	}
+ 	}
  }
 
  beskidzkie_second_war_east = {
@@ -139,7 +136,7 @@ ai_war_decisions = {
 		is_tatry_region = yes
 			}
 			
-	visible = {
+	available = {
 			OR = {
 			original_tag = SCZ
 			original_tag = LEM
@@ -153,17 +150,13 @@ ai_war_decisions = {
 					ZGR = { exists = no }
 					TYM = { exists = no }
 				}
-			NOT = { has_war = yes }
+			has_war = no
 	}
 
 	cost = 1
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 28
@@ -173,9 +166,7 @@ ai_war_decisions = {
 			limit = {
 				country_exists = GUR
 				ROOT = { NOT = { original_tag = GUR } }
-				NOT = {
-					has_war_with = GUR
-				}
+				ROOT = { NOT = { is_in_faction_with = GUR } }
 			}
 			declare_war_on = {
 				target = GUR
@@ -184,11 +175,20 @@ ai_war_decisions = {
 		}
 		if = {
 			limit = {
+				country_exists = ZKP
+				ROOT = { NOT = { original_tag = ZKP } }
+				ROOT = { NOT = { is_in_faction_with = ZKP } }
+			}
+			declare_war_on = {
+				target = ZKP
+				type = annex_everything
+			}
+		}		
+		if = {
+			limit = {
 				country_exists = SCZ
 				ROOT = { NOT = { original_tag = SCZ } }
-				NOT = {
-					has_war_with = SCZ
-				}
+				ROOT = { NOT = { is_in_faction_with = SCZ } }
 			}
 			declare_war_on = {
 				target = SCZ
@@ -199,9 +199,7 @@ ai_war_decisions = {
 			limit = {
 				country_exists = ZGR
 				ROOT = { NOT = { original_tag = ZGR } }
-				NOT = {
-					has_war_with = ZGR
-				}
+				ROOT = { NOT = { is_in_faction_with = ZGR } }
 			}
 			declare_war_on = {
 				target = ZGR
@@ -212,9 +210,7 @@ ai_war_decisions = {
 			limit = {
 				country_exists = TYM
 				ROOT = { NOT = { original_tag = TYM } }
-				NOT = {
-					has_war_with = TYM
-				}
+				ROOT = { NOT = { is_in_faction_with = TYM } }
 			}
 			declare_war_on = {
 				target = TYM
@@ -225,9 +221,7 @@ ai_war_decisions = {
 			limit = {
 				country_exists = LEM
 				ROOT = { NOT = { original_tag = LEM } }
-				NOT = {
-					has_war_with = LEM
-				}
+				ROOT = { NOT = { is_in_faction_with = LEM } }
 			}
 			declare_war_on = {
 				target = LEM
@@ -235,6 +229,12 @@ ai_war_decisions = {
 			}
 		}		
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 #BESKIDZKIE - FAZA OSTATECZNA
@@ -247,7 +247,7 @@ ai_war_decisions = {
 		is_tatry_region = yes
 			}
 			
-	visible = {
+	available = {
 			OR = {
 			original_tag = SCZ
 			original_tag = LEM
@@ -261,51 +261,65 @@ ai_war_decisions = {
 					ZGR = { exists = no }
 					TYM = { exists = no }
 				}
-			NOT = { has_war = yes }
+			has_war = no
 	}
 
 	cost = 1
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 28
 	remove_effect  = {
 		log = "[GetDateText]: Decision tatry3_war"
 		if = { 
-			limit = { country_exists = BSK }
+			limit = { country_exists = BSK
+			ROOT = { NOT = { original_tag = BSK }}
+			ROOT = { NOT = { is_in_faction_with = BSK }}
+			 }
 			declare_war_on = {
 				target = BSK
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = CIE }
+			limit = { country_exists = CIE 
+			ROOT = { NOT = { original_tag = CIE }}
+			ROOT = { NOT = { is_in_faction_with = CIE }}
+			}
 			declare_war_on = {
 				target = CIE
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = BBA }
+			limit = { country_exists = BBA
+			ROOT = { NOT = { original_tag = BBA }}
+			ROOT = { NOT = { is_in_faction_with = BBA }}
+			 }
 			declare_war_on = {
 				target = BBA
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = WYM }
+			limit = { country_exists = WYM
+			ROOT = { NOT = { original_tag = WYM }}
+			ROOT = { NOT = { is_in_faction_with = WYM }}	
+			 }
 			declare_war_on = {
 				target = WYM
 				type = annex_everything
 			}
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  
@@ -317,7 +331,7 @@ ai_war_decisions = {
 		is_tatry_region = yes
 			}
 			
-	visible = {
+	available = {
 			OR = {
 			original_tag = BSK
 			original_tag = CIE
@@ -335,65 +349,86 @@ ai_war_decisions = {
 					ZGR = { exists = no }
 					TYM = { exists = no }
 			}
-			NOT = { has_war = yes }
+			has_war = no
 	}
 
 	cost = 1
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 28
 	remove_effect  = {
 		log = "[GetDateText]: Decision tatry3_war"
 		if = { 
-			limit = { country_exists = GUR }
+			limit = { country_exists = GUR
+			ROOT = { NOT = { original_tag = GUR }}
+			ROOT = { NOT = { is_in_faction_with = GUR }}
+			 }
 			declare_war_on = {
 				target = GUR
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = ZGR }
+			limit = { country_exists = ZGR
+			ROOT = { NOT = { original_tag = ZGR }}
+			ROOT = { NOT = { is_in_faction_with = ZGR }}
+			 }
 			declare_war_on = {
 				target = ZGR
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = TYM }
+			limit = { country_exists = TYM
+			ROOT = { NOT = { original_tag = TYM }}
+			ROOT = { NOT = { is_in_faction_with = TYM }}
+			 }
 			declare_war_on = {
 				target = TYM
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = SCZ }
+			limit = { country_exists = SCZ
+			ROOT = { NOT = { original_tag = SCZ }}
+			ROOT = { NOT = { is_in_faction_with = SCZ }}
+			 }
 			declare_war_on = {
 				target = SCZ
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = LEM }
+			limit = { country_exists = LEM
+			ROOT = { NOT = { original_tag = LEM }}
+			ROOT = { NOT = { is_in_faction_with = LEM }}
+			 }
 			declare_war_on = {
 				target = LEM
 				type = annex_everything
 			}
 		}
 		if = { 
-			limit = { country_exists = ZKP }
+			limit = { country_exists = ZKP
+			ROOT = { NOT = { original_tag = ZKP }}
+			ROOT = { NOT = { is_in_faction_with = ZKP }}
+			 }
 			declare_war_on = {
 				target = ZKP
 				type = annex_everything
 			}
 		}				
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -414,7 +449,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JUR
 				original_tag = BRZ
@@ -428,7 +463,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = JWK } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -436,10 +471,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -453,6 +484,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  jura_JUR = {
@@ -463,7 +500,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JWK
 				original_tag = BRZ
@@ -477,7 +514,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = JUR } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -485,10 +522,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -502,6 +535,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  jura_BRZ = {
@@ -512,7 +551,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JWK
 				original_tag = JUR
@@ -526,7 +565,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = BRZ } }
-			NOT = { has_war = yes }
+			has_war = no
 			NOT = { has_war_with = BRZ}
 			date > 2028.02.14
 	}
@@ -535,10 +574,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -552,6 +587,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -563,7 +604,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JWK
 				original_tag = JUR
@@ -577,7 +618,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = CCH } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -585,10 +626,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -602,6 +640,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  zaglebie_DGR = {
@@ -612,7 +656,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JAW
 				original_tag = ZAW
@@ -626,7 +670,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = DGR } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -634,10 +678,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -650,7 +690,19 @@ ai_war_decisions = {
 				type = annex_everything
 			}
 			}
+			if = { limit = { country_exists = DGA }
+			declare_war_on = {
+				target = DGA
+				type = annex_everything
+			}
+			}			
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  zaglebie_JAW = {
@@ -661,7 +713,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = DGR
 				original_tag = ZAW
@@ -675,7 +727,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = JAW } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -683,10 +735,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -700,6 +748,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  zaglebie_SOS = {
@@ -708,9 +762,9 @@ ai_war_decisions = {
 	
 	allowed = {
 		is_zaglebie_and_jura = yes
-			}
+		}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JAW
 				original_tag = ZAW
@@ -724,7 +778,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = SOS } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -732,10 +786,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -749,6 +799,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  zaglebie_ZAW = {
@@ -759,7 +815,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = JAW
 				original_tag = SOS
@@ -773,7 +829,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = ZAW } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.02.14
 	}
 
@@ -781,10 +837,6 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -798,6 +850,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 #ZAGŁĘBIE I JURA - FAZA DRUGA
@@ -811,7 +869,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = BRZ
 				original_tag = JWK
@@ -832,40 +890,55 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 21
 	remove_effect  = {	
 		log = "[GetDateText]: Decision zaglebie_war_1"
-			if = { limit = { country_exists = DGR } 
+			if = { limit = { country_exists = DGR
+			ROOT = { NOT = { original_tag = DGR }}
+			ROOT = { NOT = { is_in_faction_with = DGR }}
+			 } 
 			declare_war_on = {
 				target = DGR
 				type = annex_everything
 			}
 			}
-			if = { limit = { country_exists = SOS } 
+			if = { limit = { country_exists = SOS 
+			ROOT = { NOT = { original_tag = SOS }}
+			ROOT = { NOT = { is_in_faction_with = SOS }}			
+			} 
 			declare_war_on = {
 				target = SOS
 				type = annex_everything
 			}
 			}
-			if = { limit = { country_exists = JAW } 
+			if = { limit = { country_exists = JAW
+			ROOT = { NOT = { original_tag = JAW }}
+			ROOT = { NOT = { is_in_faction_with = JAW }}			
+			 } 
 			declare_war_on = {
 				target = JAW
 				type = annex_everything
 			}
 			}
-			if = { limit = { country_exists = ZAW } 
+			if = { limit = { country_exists = ZAW
+			ROOT = { NOT = { original_tag = ZAW }}
+			ROOT = { NOT = { is_in_faction_with = ZAW }}			
+			 } 
 			declare_war_on = {
 				target = ZAW
 				type = annex_everything
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  zaglebie_war_2 = {
@@ -876,7 +949,7 @@ ai_war_decisions = {
 		is_zaglebie_and_jura = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = SOS
 				original_tag = JAW
@@ -897,10 +970,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 21
@@ -931,6 +1001,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 #ZAGŁĘBIE I JURA - FAZA OSTATECZNA
 
@@ -995,6 +1071,12 @@ ai_war_decisions = {
 		}
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -1027,7 +1109,7 @@ ai_war_decisions = {
 		}
 	}
 
-	visible = {
+	available = {
 			AND = {
 				OR = {
 					original_tag = GLI
@@ -1056,10 +1138,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1080,6 +1159,12 @@ ai_war_decisions = {
 			}
 		}
 	}
+
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
  }	
 
 
@@ -1090,8 +1175,691 @@ ai_war_decisions = {
 #██║░╚═╝░██║██║░░██║███████╗╚█████╔╝██║░░░░░╚█████╔╝███████╗██████╔╝██║░╚██╗██║███████╗
 #╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░░░░░╚════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
 #MAŁOPOLSKIE - FAZA PIERWSZA
+
+ MPOL_01_SALT_HYPERWAR = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_lesser_poland = yes
+		}
+
+	available = {
+			OR = {
+				original_tag = BOH
+				original_tag = UMN
+			}
+			has_war = no
+			date > 2028.04.11
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = UMN }
+					country_exists = BOH 
+					}
+			declare_war_on = {
+				target = BOH
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BOH }
+					country_exists = UMN 
+					}
+			declare_war_on = {
+				target = UMN
+				type = annex_everything
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
+ MPOL_01_TOTAL_ABORDAGE = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+			}
+
+		available = {
+			OR = {
+				original_tag = BRS
+				original_tag = SKW
+			}
+			has_war = no
+			date > 2028.03.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect  = {
+			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BRS }
+					country_exists = SKW 
+					}
+			declare_war_on = {
+				target = SKW
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = SKW }
+					country_exists = BRS 
+					}
+			declare_war_on = {
+				target = BRS
+				type = annex_everything
+			}
+			}
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+ }
+
+
+ MPOL_01_ELEVENTH_CRUSADE = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+		}
+
+		available = {
+			OR = {
+				original_tag = MSL
+				original_tag = WDW
+			}
+			has_war = no
+			HOR = { country_exists = no }
+			date > 2028.05.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WDW }
+					country_exists = MSL 
+					}
+			declare_war_on = {
+				target = MSL
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MSL }
+					country_exists = WDW 
+					}
+			declare_war_on = {
+				target = WDW
+				type = annex_everything
+			}
+			}
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+ }
+
+
+ MPOL_01_AUSCHWITZ_KRENAU = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+		}
+
+		available = {
+			OR = {
+				original_tag = CHW
+				original_tag = OSW
+			}
+			has_war = no
+			date > 2028.05.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 3
+		remove_effect  = {
+			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = OSW }
+					country_exists = CHW 
+					}
+			declare_war_on = {
+				target = CHW
+				type = annex_everything
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CHW }
+					country_exists = OSW 
+					}
+			declare_war_on = {
+				target = OSW
+				type = annex_everything
+			}
+			}
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+ } 
+
+
+ MPOL_01_FINAL_SOLUTION_OF_HUTA_PROBLEM = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+			}
+
+		available = {
+				OR = {
+					original_tag = BRK
+					original_tag = KRK 
+					original_tag = KRA
+					original_tag = WND
+					original_tag = UJG
+					original_tag = AGH
+					original_tag = HAB
+				}
+				count_triggers = {
+					amount = 6
+					KRK = { exists = no }
+					KRA = { exists = no }
+					BRK = { exists = no }
+					WND = { exists = no }
+					UJG = { exists = no }
+					AGH = { exists = no }
+					HAB = { exists = no }
+				}
+				NHT = { num_of_controlled_states > 1 }
+				NOT = { has_war_with = NHT }
+				date > 2028.02.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+
+		}
+		fire_only_once = yes
+		days_remove = 5
+		remove_effect  = {
+			log = "[GetDateText]: Decision krakow_walka_na_maczety2"
+				if = { limit = { country_exists = NHT
+								 ROOT = { NOT = { original_tag = NHT } } }
+				declare_war_on = {
+					target = NHT
+					type = annex_everything
+				}
+				}			
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+	}
+
+ MPOL_01_NAL_HUTTA_STRIKES_BACK = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_lesser_poland = yes
+				}
+
+		available = {
+				original_tag = NHT
+				OR = {	
+					KRK = { num_of_controlled_states > 1 }
+					KRA = { num_of_controlled_states > 1 }
+					BRK = { num_of_controlled_states > 1 }
+					WND = { num_of_controlled_states > 1 }
+					UJG = { num_of_controlled_states > 1 }
+					AGH = { num_of_controlled_states > 1 }
+					HAB = { num_of_controlled_states > 1 }
+				}
+				has_war = no
+				date > 2028.03.01
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: Decision krakow_walka_na_maczety"
+				if = { limit = { country_exists = KRK
+								 ROOT = { NOT = { original_tag = KRK } } }
+				declare_war_on = {
+					target = KRK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = KRA
+						 ROOT = { NOT = { original_tag = KRA } } }
+				declare_war_on = {
+					target = KRA
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = BRK
+								 ROOT = { NOT = { original_tag = BRK } } }
+				declare_war_on = {
+					target = BRK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = WND 
+						 ROOT = { NOT = { original_tag = WND } } }
+				declare_war_on = {
+					target = WND
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = UJG 
+						 ROOT = { NOT = { original_tag = UJG } } }
+				declare_war_on = {
+					target = UJG
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = AGH 
+						 ROOT = { NOT = { original_tag = AGH } } }
+				declare_war_on = {
+					target = AGH
+					type = annex_everything
+				}
+				}	
+				if = { limit = { country_exists = HAB 
+						 ROOT = { NOT = { original_tag = HAB } } }
+				declare_war_on = {
+					target = HAB
+					type = annex_everything
+				}
+				}				
+		}
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+		}
+	}
+
+
+#MPOL_015_GREAT_NIEPOLOMICE_AUCTION_BID = {    #WORK IN PROGRESS - TO BE REFINED LATER
+ #
+ #		icon = GFX_decision_generic_prepare_civil_war
+ #		
+ #		allowed = {
+ #			is_lesser_poland = yes
+ #			}
+ #
+ #		available = {
+ #			OR = {
+ #				original_tag = UMN
+ #				original_tag = BOH
+ #				original_tag = BRS
+ #				original_tag = SKW
+ #			}
+ #			has_global_flag = NPL_auction_active
+ #		}
+ #
+ #    	available = {
+ #    	    political_power > 20
+ #    	}
+ #
+ #		cost = 20
+ #		days_remove = 3
+ #		days_re_enable = 3
+ #
+ #		ai_will_do = {
+ #			factor = 100
+ #		}
+ #
+ #		remove_effect  = {
+ #			log = "[GetDateText]: Decision wielka licytacja niepolomicka"
+ #		}
+ #		cancel_trigger = {
+ #			ROOT = {
+ #				has_war = yes
+ #			}
+ #		}
+ #	}	
+
+
 #MAŁOPOLSKIE - FAZA DRUGA
+   MPOL_02_SIEGE_OF_KRAKOW = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = PRK
+	}
+
+	available = {
+		has_war = no
+		date > 2028.10.10
+		owns_state = 459
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision oblezenie krakowa"
+		every_country = { limit = { is_krakow_tag = yes }
+			ROOT = {
+				declare_war_on = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+  }
+
+ MPOL_02_AGRARIAN_REVOLUTION = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = OSP
+		original_tag = TRN
+		original_tag = NPL
+		original_tag = BRS
+		original_tag = SKW
+		original_tag = UMN
+		original_tag = BOH
+	}
+
+	available = {
+		has_war = no
+		date > 2028.11.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na tarnowszczyznie"
+		if = { limit = { country_exists = OSP
+						 ROOT = { NOT = { original_tag = OSP 
+						 is_in_faction_with = OSP } } }
+		declare_war_on = {
+			target = OSP
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = TRN
+						 ROOT = { NOT = { original_tag = TRN 
+						 is_in_faction_with = TRN } } }
+		declare_war_on = {
+			target = TRN
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = TRW
+						 ROOT = { NOT = { original_tag = TRW
+						 is_in_faction_with = TRW } } }
+		declare_war_on = {
+			target = TRW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = BRS
+						 ROOT = { NOT = { original_tag = BRS 
+						 is_in_faction_with = BRS } } }
+		declare_war_on = {
+			target = BRS
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = SKW
+						 ROOT = { NOT = { original_tag = SKW 
+						 is_in_faction_with = SKW } } }
+		declare_war_on = {
+			target = SKW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = UMN
+						 ROOT = { NOT = { original_tag = UMN
+						 is_in_faction_with = UMN } } }
+		declare_war_on = {
+			target = UMN
+			type = annex_everything
+		}
+		}	
+		if = { limit = { country_exists = BOH
+						 ROOT = { NOT = { original_tag = BOH 
+						 is_in_faction_with = BOH } } }
+		declare_war_on = {
+			target = BOH
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = NPL
+						 ROOT = { NOT = { original_tag = NPL
+						 is_in_faction_with = NPL } } }
+		declare_war_on = {
+			target = NPL
+			type = annex_everything
+		}
+		}		
+						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
+
+ MPOL_02_IN_THE_NAME_OF_POPE = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = MSL
+		original_tag = HOR
+		original_tag = WDW
+		original_tag = OSW
+		original_tag = CHW
+	}
+
+	available = {
+		has_war = no
+		date > 2028.10.05
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na papajszczyźnie"
+		if = { limit = { country_exists = OSW
+						 ROOT = { NOT = { original_tag = OSW 
+						 is_in_faction_with = OSW } } }
+		declare_war_on = {
+			target = OSW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = WDW
+						 ROOT = { NOT = { original_tag = WDW 
+						 is_in_faction_with = WDW } } }
+		declare_war_on = {
+			target = WDW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = CHW
+						 ROOT = { NOT = { original_tag = CHW
+						 is_in_faction_with = CHW } } }
+		declare_war_on = {
+			target = CHW
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = HOR
+						 ROOT = { NOT = { original_tag = HOR 
+						 is_in_faction_with = HOR } } }
+		declare_war_on = {
+			target = HOR
+			type = annex_everything
+		}
+		}
+		if = { limit = { country_exists = MSL
+						 ROOT = { NOT = { original_tag = MSL 
+						 is_in_faction_with = MSL } } }
+		declare_war_on = {
+			target = MSL
+			type = annex_everything
+		}
+		}		
+						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
 #MAŁOPOLSKIE - FAZA OSTATECZNA
+
+ MPOL_03_GALICIAN_CLUSTERFUCK = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_lesser_poland = yes
+	}
+
+	available = {
+		has_war = no
+		count_triggers = {
+			amount = 19
+			OSW = { exists = no }
+			OSP = { exists = no }
+			BRS = { exists = no }
+			NPL = { exists = no }
+			CHW = { exists = no }
+			MSL = { exists = no }	
+			WDW = { exists = no }
+			KRK = { exists = no }
+			NHT = { exists = no }
+			PRK = { exists = no }
+			SKW = { exists = no }
+			UMN = { exists = no }	
+			BOH = { exists = no }	
+			TRN = { exists = no }	
+			KRA = { exists = no }	
+			WND = { exists = no }
+			BRK = { exists = no }
+			UJG = { exists = no }
+			AGH = { exists = no }
+			HAB = { exists = no }
+			HOR = { exists = no }
+			TRW = { exists = no }
+		}
+		NOT = { has_country_flag = unified_voivodeship }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	days_re_enable = 30
+	remove_effect  = {
+		log = "[GetDateText]: Decision raban galicyjski"
+		random_neighbor_country = { limit = { is_lesser_poland = yes }
+			ROOT = {
+				declare_war_on = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
 #██████╗░░█████╗░██████╗░██╗░░██╗░█████╗░██████╗░██████╗░░█████╗░░█████╗░██╗░░██╗██╗███████╗
 #██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██║██╔════╝
 #██████╔╝██║░░██║██║░░██║█████═╝░███████║██████╔╝██████╔╝███████║██║░░╚═╝█████═╝░██║█████╗░░
@@ -1108,9 +1876,9 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = CHR
-		NOT = { has_war = yes }
+		has_war = no
 		country_exists = LEZ
 		date > 2027.09.01
 	}
@@ -1119,10 +1887,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -1135,6 +1900,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  KRO_JSO_war = {
@@ -1145,9 +1916,9 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = KRO
-		NOT = { has_war = yes }
+		has_war = no
 		country_exists = JSO
 		date > 2027.07.13
 	}
@@ -1156,10 +1927,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -1172,6 +1940,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  BSC_ANC_war = {
@@ -1182,9 +1956,9 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = BSC
-		NOT = { has_war = yes }
+		has_war = no
 		country_exists = ANC
 		date > 2027.07.01
 	}
@@ -1193,10 +1967,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -1209,6 +1980,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  TAR_KOL_war = {
@@ -1219,9 +1996,9 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = TAR
-		NOT = { has_war = yes }
+		has_war = no
 		country_exists = KOL
 		date > 2027.08.01
 	}
@@ -1230,10 +2007,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -1246,6 +2020,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 #PODKARPACKIE - FAZA DRUGA
@@ -1258,11 +2038,11 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 		OR = {
 		original_tag = DBI
 		}
-		NOT = { has_war = yes }
+		has_war = no
 		date > 2028.04.01
 	}
 
@@ -1270,10 +2050,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 1
@@ -1286,6 +2063,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_TAR = {
@@ -1296,7 +2079,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1320,7 +2103,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = TAR } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1328,10 +2111,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1350,6 +2130,12 @@ ai_war_decisions = {
 			}
 			}				
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_BSC = {
@@ -1360,7 +2146,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1384,7 +2170,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = BSC } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1392,10 +2178,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1414,6 +2197,12 @@ ai_war_decisions = {
 			}
 			}			
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_KOZ = {
@@ -1424,7 +2213,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1448,7 +2237,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = KOZ } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1456,10 +2245,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1472,6 +2258,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_RZE = {
@@ -1482,7 +2274,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1506,7 +2298,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = RZE } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1514,10 +2306,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1530,6 +2319,12 @@ ai_war_decisions = {
 			}
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_CHR = {
@@ -1540,7 +2335,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1564,7 +2359,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = CHR } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1572,10 +2367,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1594,6 +2386,12 @@ ai_war_decisions = {
 			}
 			}				
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_UPA = {
@@ -1604,7 +2402,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1628,7 +2426,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = UPA } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1636,10 +2434,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1652,6 +2447,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_UHR = {
@@ -1662,7 +2463,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = KRO
@@ -1686,7 +2487,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = UHR } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1694,10 +2495,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1716,6 +2514,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_LGP = {
@@ -1726,7 +2530,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = KRO
 				original_tag = UHR
@@ -1750,7 +2554,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = LGP } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1758,10 +2562,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1780,6 +2581,12 @@ ai_war_decisions = {
 			}
 			}				
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_KRO = {
@@ -1790,7 +2597,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LGP
 				original_tag = UHR
@@ -1814,7 +2621,7 @@ ai_war_decisions = {
 					}
 				}
 			ROOT = { any_neighbor_country = { original_tag = KRO } }
-			NOT = { has_war = yes }
+			has_war = no
 			date > 2028.04.20
 	}
 
@@ -1822,10 +2629,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -1844,6 +2648,12 @@ ai_war_decisions = {
 			}
 			}				
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  tarnobrzeg_war = {
@@ -1854,9 +2664,9 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 		original_tag = TAR
-		NOT = { has_war = yes }
+		has_war = no
 		date > 2028.03.01
 		KOL = { exists = no }
 	}
@@ -1865,10 +2675,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 18
@@ -1887,6 +2694,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 #PODKARPACKIE - FAZA OSTATECZNA
 
@@ -1895,7 +2708,7 @@ ai_war_decisions = {
 	icon = GFX_decision_generic_prepare_civil_war
 	
 	available = {
-		NOT = { has_war = yes }
+		has_war = no
 		count_triggers = {
 			amount = 14
 			KOL = { exists = no }
@@ -1961,6 +2774,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  podkarpacie_mielec_debica = {
@@ -1972,7 +2791,7 @@ ai_war_decisions = {
 			ROOT = { any_neighbor_country = { original_tag = DBI } }
 			ROOT = { any_neighbor_country = { original_tag = MIE } }				
 			}
-			NOT = { has_war = yes }
+			has_war = no
 			count_triggers = {
 				amount = 12
 				KOL = { exists = no }
@@ -2013,10 +2832,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 10
@@ -2035,6 +2851,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  rozpierdol_lubaczow = {
@@ -2045,7 +2867,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 	OR = {
 		original_tag = UHR
 		original_tag = UPA
@@ -2057,7 +2879,7 @@ ai_war_decisions = {
 		original_tag = KRO
 		original_tag = CHR
 		}
-		NOT = { has_war = yes }
+		has_war = no
 		country_exists = LCZ
 		date > 2028.09.01
 		ROOT = { any_neighbor_country = { original_tag = LCZ } }
@@ -2067,10 +2889,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2083,6 +2902,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  lezajsk_final_destination = {
@@ -2093,7 +2918,7 @@ ai_war_decisions = {
 		is_subcarpathia = yes
 			}
 
-	visible = {
+	available = {
 	OR = {
 		original_tag = UHR
 		original_tag = UPA
@@ -2105,7 +2930,7 @@ ai_war_decisions = {
 		original_tag = KRO
 		original_tag = CHR
 		}
-		NOT = { has_war = yes }
+		has_war = no
 		country_exists = LEZ
 		date > 2028.09.01
 		ROOT = { any_neighbor_country = { original_tag = LEZ } }
@@ -2115,10 +2940,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2131,6 +2953,12 @@ ai_war_decisions = {
 			}
 			}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 #██╗░░██╗░█████╗░██╗░░░░░██╗░░░██╗  ░█████╗░██████╗░░█████╗░░██████╗░██████╗
 #██║░░██║██╔══██╗██║░░░░░╚██╗░██╔╝  ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝
@@ -2154,7 +2982,7 @@ ai_war_decisions = {
 
 	fire_only_once = yes
 
-	visible = { is_lubelskie = yes 
+	available = { is_lubelskie = yes 
 		is_ai = no
 	}
 	
@@ -2189,10 +3017,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 15
@@ -2225,6 +3050,12 @@ ai_war_decisions = {
 			}
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2251,10 +3082,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2266,6 +3094,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2289,10 +3123,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2304,6 +3135,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2330,10 +3167,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2345,6 +3179,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2368,10 +3208,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 15
@@ -2383,6 +3220,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2406,10 +3249,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2421,6 +3261,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  ZUK_bilgoraj_war = {
@@ -2457,6 +3303,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  BIL_zuk_war = {
@@ -2479,10 +3331,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 15
@@ -2494,6 +3343,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  LEN_swidnik_war = {
@@ -2517,10 +3372,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 15
@@ -2532,6 +3384,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2555,10 +3413,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 15
@@ -2570,6 +3425,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  TEN_biala_podlaska_war = {
@@ -2597,10 +3458,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2612,6 +3470,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 #LUBELSKIE - FAZA DRUGA
@@ -2635,10 +3499,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2665,6 +3526,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  CRN_buff = {
@@ -2721,10 +3588,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2751,6 +3615,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2807,10 +3677,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2837,6 +3704,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  KSN_buff = {
@@ -2891,10 +3764,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2911,6 +3781,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -2935,10 +3811,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -2960,6 +3833,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  SWD_buff1 = {
@@ -3012,10 +3891,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3032,6 +3908,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -3056,10 +3938,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3081,6 +3960,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  ZUK_buff1 = {
@@ -3133,10 +4018,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3153,6 +4035,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -3177,10 +4065,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3202,6 +4087,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  BIL_buff1 = {
@@ -3285,10 +4176,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3305,6 +4193,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -3329,10 +4223,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3354,6 +4245,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  TEN_northeast_lublin_war = {
@@ -3375,10 +4272,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3395,6 +4289,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  TEN_buff1 = {
@@ -3449,10 +4349,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3474,6 +4371,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  BPD_northeast_lublin_war = {
@@ -3495,10 +4398,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3515,6 +4415,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  BPD_buff1 = {
@@ -3572,10 +4478,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3597,6 +4500,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 #LUBELSKIE - FAZA OSTATECZNA
  CRN_north_lublin_war = {
@@ -3623,10 +4532,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3643,6 +4549,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  PUL_north_lublin_war = {
@@ -3669,10 +4581,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3689,6 +4598,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  KSN_north_lublin_war = {
@@ -3715,10 +4630,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3735,6 +4647,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  SWD_north_lublin_war = {
@@ -3761,10 +4679,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3781,6 +4696,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  SWD_buff2 = {
@@ -3843,10 +4764,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3863,6 +4781,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  ZUK_buff2 = {
@@ -3925,10 +4849,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -3945,6 +4866,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
 
@@ -4008,10 +4935,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -4028,6 +4952,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  LEN_buff2 = {
@@ -4063,10 +4993,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
  }
 
@@ -4094,10 +5021,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -4114,6 +5038,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  TEN_buff2 = {
@@ -4176,10 +5106,7 @@ ai_war_decisions = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -4196,6 +5123,12 @@ ai_war_decisions = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 
  BPD_buff2 = {
@@ -4249,7 +5182,7 @@ ai_war_decisions = {
 #███████╗╚█████╔╝██████╔╝███████╗██║░╚██╗██║███████╗
 #╚══════╝░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #ŁÓDZKIE - FAZA PIERWSZA
-cleanup_lodzig_wars = {
+cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
 		or = {
@@ -4264,7 +5197,7 @@ cleanup_lodzig_wars = {
 		}
 	}
 
-	visible = {
+	available = {
 		date > "2028.03.01"
 	}
 
@@ -4285,6 +5218,12 @@ cleanup_lodzig_wars = {
 			type = annex_everything
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
 }
 #ŁÓDZKIE - FAZA DRUGA
 #ŁÓDZKIE - FAZA OSTATECZNA
@@ -4314,7 +5253,7 @@ cleanup_lodzig_wars = {
 			}
 		}
 
-	visible = {
+	available = {
 		OR = {
 		original_tag = AGR
 		}
@@ -4325,10 +5264,7 @@ cleanup_lodzig_wars = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -4342,6 +5278,12 @@ cleanup_lodzig_wars = {
 		}
 		}
 	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
  }
 #PODLASIE - FAZA DRUGA
 #PODLASIE - FAZA OSTATECZNA
@@ -4406,7 +5348,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = POZ
 			date > 2028.05.10
 			country_exists = SYJ
@@ -4418,10 +5360,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4438,16 +5377,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = SLU
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = SYJ
-			}
-		}
+ 		}
 	}
 	
  SLU_poznan_war = {
@@ -4458,7 +5392,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = SLU
 			date > 2028.05.10
 			country_exists = SYJ
@@ -4470,10 +5404,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4490,16 +5421,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = POZ
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = SYJ
-			}
-		}
+ 		}
 	}
 	
  SYJ_poznan_war = {
@@ -4510,7 +5436,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = SYJ
 			date > 2028.05.10
 			country_exists = POZ
@@ -4522,10 +5448,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4542,16 +5465,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = SLU
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = POZ
-			}
-		}
+ 		}
 	}
 	
  NAC_SUS_war = {
@@ -4562,7 +5480,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = NAC
 			date > 2028.05.22
 			country_exists = SUS
@@ -4573,10 +5491,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4588,11 +5503,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = SUS
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
  SUS_NAC_war = {
@@ -4603,7 +5518,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = SUS
 			date > 2028.05.22
 			country_exists = NAC
@@ -4614,10 +5529,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4629,11 +5541,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = NAC
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
  PIL_WRT_war = {
@@ -4644,7 +5556,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = PIL
 			date > 2028.05.29
 			country_exists = WRT
@@ -4655,10 +5567,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4670,11 +5579,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = WRT
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
  WRT_PIL_war = {
@@ -4685,7 +5594,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = WRT
 			date > 2028.05.29
 			country_exists = PIL
@@ -4696,10 +5605,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4711,11 +5617,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = PIL
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
  KAM_MOT_war = {
@@ -4726,7 +5632,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = KAM
 			date > 2028.06.04
 			country_exists = MOT
@@ -4737,10 +5643,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4752,11 +5655,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = MOT
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
  MOT_KAM_war = {
@@ -4767,7 +5670,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = MOT
 			date > 2028.06.04
 			country_exists = KAM
@@ -4778,10 +5681,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4793,11 +5693,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = KAM
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 #POZNAŃSKIE - FAZA DRUGA
@@ -4810,7 +5710,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 		    OR = {
 			original_tag = POZ
 			original_tag = SYJ
@@ -4828,10 +5728,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4848,36 +5745,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = WRT
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = PIL
-			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = WRT
-			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = PIL
-			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = WRT
-			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = PIL
-			}
-		}
+ 		}
 	}
 	
  pila_poznan_war = {
@@ -4888,7 +5760,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 		    OR = {
 			original_tag = PIL
 			original_tag = WRT
@@ -4906,10 +5778,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -4931,36 +5800,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = POZ
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = SLU
-			}
-		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = SYJ
-			}
-		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = POZ
-			}
-		}
-		cancel_trigger = {
-		    WRT = {
-				has_war_with = SLU
-			}
-		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = SYJ
-			}
-		}
+ 		}
 	}
 	
  nac_gorzow_war = {
@@ -4971,7 +5815,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 		    OR = {
 			original_tag = SUS
 			original_tag = NAC
@@ -4988,10 +5832,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5008,26 +5849,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = MOT
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = MOT
-			}
-		}
+ 		}
 	}
 	
  gorzow_nac_war = {
@@ -5038,7 +5864,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 		    OR = {
 			original_tag = MOT
 			original_tag = KAM
@@ -5055,10 +5881,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5075,26 +5898,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = NAC
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = SUS
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = NAC
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = SUS
-			}
-		}
+ 		}
 	}
 	
 #POZNAŃSKIE - FAZA OSTATECZNA
@@ -5107,7 +5915,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 		    OR = {
 			original_tag = SUS
 			original_tag = NAC
@@ -5129,10 +5937,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5164,106 +5969,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = POZ
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = SLU
-			}
-		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = SYJ
-			}
-		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = PIL
-			}
-		}
-		cancel_trigger = {
-			MOT = {
-				has_war_with = WRT
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = POZ
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = SLU
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = SYJ
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = PIL
-			}
-		}
-		cancel_trigger = {
-			KAM = {
-				has_war_with = WRT
-			}
-		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = POZ
-			}
-		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = SLU
-			}
-		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = SYJ
-			}
-		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = PIL
-			}
-		}
-		cancel_trigger = {
-			SUS = {
-				has_war_with = WRT
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = POZ
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = SLU
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = SYJ
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = PIL
-			}
-		}
-		cancel_trigger = {
-			NAC = {
-				has_war_with = WRT
-			}
-		}
+ 		}
 	}
 	
  poznan_gorzow_war = {
@@ -5274,7 +5984,7 @@ cleanup_lodzig_wars = {
 			is_northern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 		    OR = {
 			original_tag = POZ
 			original_tag = SLU
@@ -5296,10 +6006,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5326,106 +6033,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = MOT
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = SUS
-			}
-		}
-		cancel_trigger = {
-			POZ = {
-				has_war_with = NAC
-			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = MOT
-			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = SUS
-			}
-		}
-		cancel_trigger = {
-			SLU = {
-				has_war_with = NAC
-			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = MOT
-			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = SUS
-			}
-		}
-		cancel_trigger = {
-			SYJ = {
-				has_war_with = NAC
-			}
-		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = MOT
-			}
-		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = SUS
-			}
-		}
-		cancel_trigger = {
-			PIL = {
-				has_war_with = NAC
-			}
-		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = MOT
-			}
-		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = KAM
-			}
-		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = SUS
-			}
-		}
-		cancel_trigger = {
-			WRT = {
-				has_war_with = NAC
-			}
-		}
+ 		}
 
 	}
 #██╗░░██╗░█████╗░██╗░░░░░██╗░██████╗██╗░░██╗██╗███████╗
@@ -5444,7 +6056,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = FEL
 			date > 2028.07.01
 			country_exists = LSZ
@@ -5454,10 +6066,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5469,11 +6078,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			FEL = {
-				has_war_with = LSZ
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 	CAL_gniezno_cleanup = {
@@ -5484,7 +6093,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = CAL
 			date > 2028.09.01
 			NOT = {
@@ -5506,10 +6115,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5536,6 +6142,12 @@ cleanup_lodzig_wars = {
 				}
 			}
 		}
+
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
 	}
 
 	GNI_kalisz_war = {
@@ -5546,7 +6158,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = GNI
 			date > 2028.09.01
 			country_exists = CAL
@@ -5557,10 +6169,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5572,11 +6181,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			GNI = {
-				has_war_with = CAL
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 	
@@ -5588,7 +6197,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = LSZ
 			date > 2029.02.16
 			country_exists = FEL
@@ -5598,10 +6207,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5613,11 +6219,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			LSZ = {
-				has_war_with = FEL
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 #KALISKIE - FAZA OSTATECZNA
@@ -5630,7 +6236,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = FEL
 			date > 2029.09.01
 			country_exists = CAL
@@ -5641,10 +6247,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5656,11 +6259,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			FEL = {
-				has_war_with = CAL
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 	
@@ -5672,7 +6275,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = FEL
 			date > 2029.09.01
 			country_exists = GNI
@@ -5683,10 +6286,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5698,11 +6298,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			FEL = {
-				has_war_with = GNI
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
     GNI_sroda_war = {
@@ -5713,7 +6313,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = GNI
 			date > 2029.09.01
 			country_exists = FEL
@@ -5724,10 +6324,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5739,11 +6336,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			GNI = {
-				has_war_with = FEL
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 	
@@ -5755,7 +6352,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = GNI
 			date > 2029.09.01
 		    country_exists = LSZ
@@ -5766,10 +6363,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5781,11 +6375,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			GNI = {
-				has_war_with = LSZ
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 	
@@ -5797,7 +6391,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = LSZ
 			date > 2029.09.01
 			country_exists = CAL
@@ -5808,10 +6402,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5823,11 +6414,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			LSZ = {
-				has_war_with = CAL
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 	
@@ -5839,7 +6430,7 @@ cleanup_lodzig_wars = {
 			is_southern_greater_poland = yes
 				}
 
-		visible = {
+		available = {
 			original_tag = LSZ
 			date > 2029.09.01
 			country_exists = GNI
@@ -5850,10 +6441,7 @@ cleanup_lodzig_wars = {
 
 		ai_will_do = {
 			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
+
 		}
 		fire_only_once = yes
 		days_remove = 14
@@ -5865,11 +6453,11 @@ cleanup_lodzig_wars = {
 				type = annex_everything
 			}
 		}
-		cancel_trigger = {
-			LSZ = {
-				has_war_with = GNI
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
 			}
-		}
+ 		}
 	}
 	
 #██╗░░░░░███████╗░██████╗░███╗░░██╗██╗░█████╗░██╗░░██╗██╗███████╗
@@ -5905,7 +6493,7 @@ cleanup_lodzig_wars = {
 		is_opolskie = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = NYS
 				original_tag = LEH
@@ -5917,10 +6505,7 @@ cleanup_lodzig_wars = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 11
@@ -5943,6 +6528,12 @@ cleanup_lodzig_wars = {
 			}
 			}
 	}
+
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
  }
 
  opole_war_lechici_kukiz = {
@@ -5953,7 +6544,7 @@ cleanup_lodzig_wars = {
 		is_opolskie = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = LCH
 				original_tag = OPO
@@ -5965,10 +6556,7 @@ cleanup_lodzig_wars = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 11
@@ -5991,6 +6579,12 @@ cleanup_lodzig_wars = {
 			}
 			}
 	}
+
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
  }
 
  opole_war_wandale_niemcy = {
@@ -6001,7 +6595,7 @@ cleanup_lodzig_wars = {
 		is_opolskie = yes
 			}
 
-	visible = {
+	available = {
 			OR = {
 				original_tag = WAN
 				original_tag = MNI
@@ -6013,10 +6607,7 @@ cleanup_lodzig_wars = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 11
@@ -6039,6 +6630,12 @@ cleanup_lodzig_wars = {
 			}
 			}
 	}
+
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
  }
 #NYSKIE - FAZA DRUGA
 #NYSKIE - FAZA OSTATECZNA
@@ -6050,7 +6647,7 @@ cleanup_lodzig_wars = {
 		is_opolskie = yes
 			}
 
-	visible = {
+	available = {
 		OR = {
 			AND = {
 				date > 2029.06.01
@@ -6084,10 +6681,7 @@ cleanup_lodzig_wars = {
 
 	ai_will_do = {
 		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
+
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -6142,6 +6736,12 @@ cleanup_lodzig_wars = {
 			}
 			}
 	}
+
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
  }
 
 

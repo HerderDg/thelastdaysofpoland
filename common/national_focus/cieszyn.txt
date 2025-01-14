@@ -1200,7 +1200,9 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = { }
+		completion_reward = {
+			drop_cosmetic_tag = yes
+		 }
 	}
 	
 	focus = {
@@ -1522,10 +1524,16 @@ focus_tree = {
 		relative_position_id = CIE_mobilizing_for_inevitable
 		prerequisite = { focus = CIE_mobilizing_for_inevitable }
 		available = {
-		
+			has_war = no
+			BSK = { country_exists = no }
 		}
 		
 		bypass = {
+			AND = {
+				GUR = { country_exists = no }
+				ZGR = { country_exists = no }
+				ZKP = { country_exists = no }
+			}
 		}
 		
 		x = -5
@@ -1534,10 +1542,27 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
+			if = { 
+				limit = { GUR = { country_exists = yes } }
 			declare_war_on = {
 				target = GUR
 				type = annex_everything
 			}
+			}
+			if = { 
+				limit = { ZKP = { country_exists = yes } }
+			declare_war_on = {
+				target = ZKP
+				type = annex_everything
+			}
+			}	
+			if = { 
+				limit = { ZGR = { country_exists = yes } }
+			declare_war_on = {
+				target = ZGR
+				type = annex_everything
+			}
+			}						
 		}
 	}
 	
@@ -1607,10 +1632,17 @@ focus_tree = {
 		relative_position_id = CIE_mobilizing_for_inevitable
 		prerequisite = { focus = CIE_mobilizing_for_inevitable }
 		available = {
-		
+			has_war = no
+			GUR = { country_exists = no }
+			ZGR = { country_exists = no }
+			ZKP = { country_exists = no }
 		}
 		
 		bypass = {
+			AND = {
+				SCZ = { country_exists = no }
+				LEM = { country_exists = no }
+			}
 		}
 		
 		x = 5
@@ -1619,10 +1651,20 @@ focus_tree = {
 		cost = 1
 		search_filters = { }
 		completion_reward = {
+			if = { 
+				limit = { SCZ = { country_exists = yes } }
 			declare_war_on = {
 				target = SCZ
 				type = annex_everything
 			}
+			}
+			if = { 
+				limit = { LEM = { country_exists = yes } }
+			declare_war_on = {
+				target = LEM
+				type = annex_everything
+			}
+			}			
 		}
 	}
 	
@@ -1632,7 +1674,7 @@ focus_tree = {
 		relative_position_id = CIE_dive_into_sacz_land
 		prerequisite = { focus = CIE_dive_into_sacz_land }
 		available = {
-		
+			has_war = no
 		}
 		
 		bypass = {
@@ -1643,7 +1685,18 @@ focus_tree = {
 		
 		cost = 1
 		search_filters = { }
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					TYM = { country_exists = yes }
+				}
+				diplomatic_relation = {
+					country = TYM
+					relation = puppet
+					active = yes
+				}
+			}
+		}
 	}
 	
 	focus = {

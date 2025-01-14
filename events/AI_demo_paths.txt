@@ -1,4 +1,5 @@
 ﻿add_namespace = aievent
+add_namespace = aievent_tarnow
 
 country_event = {
 	id = aievent.1 #twardoch ścieżka
@@ -505,170 +506,44 @@ country_event = {
 }
 	option = {
 		name = aievent.12.a #demokracja
-		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-					country_exists = BRK
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-					country_exists = WND
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		log = "[GetDateText]: republika krakowska zdechła"
 	}
 	option = {
 		name = aievent.12.b #demokracja
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
 		change_tag_from = KRK
 		}
-		log = "[GetDateText]: republika krakowska zdechła switch"
+		log = "[GetDateText]: republika krakowska zdechła switch gibała"
 	}
 	option = {
 		name = aievent.12.c #demokracja
-		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-					country_exists = BRK
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-					country_exists = WND
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		BRK = {
 			change_tag_from = KRK
 		}
-		log = "[GetDateText]: republika krakowska zdechła"
+		log = "[GetDateText]: republika krakowska zdechła switch berko"
 	}
 	option = {
 		name = aievent.12.d #demokracja
-		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		WND = {
 			change_tag_from = KRK
 		}
-		log = "[GetDateText]: republika krakowska zdechła switch"
+		log = "[GetDateText]: republika krakowska zdechła switch rokita"
 	}
 	
 }
@@ -1357,4 +1232,267 @@ country_event = {
 }
 
 
+country_event = {
+	id = aievent.30 #chrzanow coup
+	title = aievent.30.t
+	desc = aievent.30.desc
 
+	fire_only_once = yes
+	trigger = { 
+		original_tag = CHW
+		CHW = {
+			NOT = { is_puppet = yes }
+			NOT = { is_in_faction_with = PRK }
+		}
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.30"}
+	option = {
+		name = aievent.30.a 
+		set_politics = {
+			ruling_party = euroliberalism
+		}
+		add_popularity = {
+		    ideology = euroliberalism
+		    popularity = 0.2
+		}
+		if = {
+			limit = { HOR = { country_exists = yes }}
+			set_nationality = {
+			    target_country = HOR
+			    character = CHW_piotrowicz
+			}
+			remove_country_leader_role = {
+			    character = CHW_piotrowicz
+			    ideology = autocracy_subtype
+			}
+		}
+		log = "[GetDateText]: tarcie chrzanu"
+	}
+}
+
+
+country_event = {
+	id = aievent.31 #gurale coup
+	title = aievent.31.t
+	desc = aievent.31.desc
+
+	fire_only_once = yes
+	trigger = { 
+		original_tag = GUR
+		date > 2027.07.01
+		has_war_with = ZKP
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.31"}
+	option = {
+		name = aievent.31.a 
+		set_politics = {
+			ruling_party = paternal_conservatism
+		}
+		white_peace = ZKP
+		ZKP = { transfer_state = 943 }
+			diplomatic_relation = {
+				country = ZKP
+				relation = puppet
+				active = yes
+			}
+		log = "[GetDateText]: hej panocku spierdalaj z makumgórki"
+	}
+}
+
+
+
+
+
+country_event = {
+	id = aievent_tarnow.1 #przyszlosc tarnowa - WKK decyduje
+	title = aievent_tarnow.1.t
+	desc = aievent_tarnow.1.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = TRN
+		date > 2028.06.01 
+		}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_tarnow.1" }
+	option = {
+		name = aievent_tarnow.1.a #troche folkloru, troche fosforu
+		ai_chance = { base = 40 }
+		log = "[GetDateText]: auth wkk"
+		country_event = {
+			id = aievent_tarnow.2
+			days = 7
+		}
+	}
+	option = {
+		name = aievent_tarnow.1.b #dialog tm
+		ai_chance = { base = 25 }
+		log = "[GetDateText]: trzecia droga"
+		country_event = {
+			id = aievent_tarnow.3
+			days = 7
+		}		
+	}
+	option = {
+		name = aievent_tarnow.1.c #wyjebane, nic nie robimy
+		ai_chance = { base = 35 }
+		log = "[GetDateText]: narodowy agraryzm"
+		OSP = {
+			country_event = {
+				id = aievent_tarnow.4
+				days = 7
+			}
+		}			
+	}	
+}
+
+country_event = {
+	id = aievent_tarnow.2 #troche folkloru, troche fosforu
+	title = aievent_tarnow.2.t
+	desc = aievent_tarnow.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_tarnow.2" }
+	option = {
+		name = aievent_tarnow.2.a #tssssssssssssssssssssssssssssssssss
+		OSP = {
+			retire_character = OSP_waldemar_pawlak
+			add_country_leader_role = {
+			    character = OSP_nowak
+			    promote_leader = yes
+			    country_leader = {
+			        ideology = neonationalism_national_agrarianism_subtype
+			    }
+			}
+			damage_units = {
+			   region = 51
+			   limit = { original_tag = OSP }
+			   damage = 0.5
+			   org_damage = 0.5
+			   str_damage = 0.5
+			   ratio = yes
+			   army = yes
+			}
+		}
+		935 = {
+			damage_building = {
+			    type = infrastructure
+			    damage = 2
+			}
+			damage_building = {
+			    type = synthetic_refinery
+			    damage = 2
+			}
+			TRN = { transfer_state = PREV }	
+		}
+		add_stability = -0.2
+		add_popularity = {
+		    ideology = autocracy
+		    popularity = 0.1
+		}
+		add_popularity = {
+		    ideology = neonationalism
+		    popularity = 0.2
+		}	
+		declare_war_on = {
+			target = OSP
+			type = annex_everything 
+		}	
+		log = "[GetDateText]: pawlak is dissolving in acid"
+	}
+}
+
+country_event = {
+	id = aievent_tarnow.3 #dialog tm
+	title = aievent_tarnow.3.t
+	desc = aievent_tarnow.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_tarnow.3" }
+	option = {
+		name = aievent_tarnow.3.a #front ludowy - kompromis
+		OSP = { set_cosmetic_tag = OSP_front
+			set_capital = {
+				state = 492
+			}
+		 }
+		935 = {
+			TRW = { transfer_state = PREV }	
+		}
+		512 = {
+			TRW = { transfer_state = PREV }	
+		}
+		TRW = {
+			load_oob = TRW_2027
+		}
+		TRN = {
+			create_faction = "Polish Coalition"
+			add_to_faction = OSP
+			add_to_faction = TRW
+			set_capital = {
+				state = 472
+				remember_old_capital = yes
+			}
+			diplomatic_relation = {
+				country = TRW
+				relation = puppet
+				active = yes
+			}
+		}
+		set_global_flag = PSL_polish_coalition_formed	
+		log = "[GetDateText]: dialog zwyciezyl po raz kolejny - ludowa edycja"
+	}
+}
+
+
+country_event = {
+	id = aievent_tarnow.4 #wyjebane, nic nie robimy
+	title = aievent_tarnow.4.t
+	desc = aievent_tarnow.4.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_tarnow.4" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent_tarnow.4.a #nadszedl czas agrarnej dominacji
+		log = "[GetDateText]: combat waldek pawlak"
+		TRN = {
+			set_capital = {
+				state = 472
+				remember_old_capital = yes
+			}
+		}
+		512 = {
+			damage_building = {
+			    type = infrastructure
+			    damage = 3
+			}
+			damage_building = {
+			    type = industrial_complex
+			    damage = 2
+			}
+			OSP = { transfer_state = PREV }	
+		}
+		TRN = {
+			damage_units = {
+			   region = 51
+			   limit = { original_tag = TRN }
+			   damage = 0.5
+			   org_damage = 0.5
+			   str_damage = 0.5
+			   ratio = yes
+			   army = yes
+			}
+		}
+		add_war_support = 0.2
+		add_popularity = {
+		    ideology = neonationalism
+		    popularity = 0.1
+		}	
+		declare_war_on = {
+			target = TRN
+			type = annex_everything 
+		}	
+	}
+}
