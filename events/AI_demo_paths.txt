@@ -506,170 +506,44 @@ country_event = {
 }
 	option = {
 		name = aievent.12.a #demokracja
-		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-					country_exists = BRK
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-					country_exists = WND
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		log = "[GetDateText]: republika krakowska zdechła"
 	}
 	option = {
 		name = aievent.12.b #demokracja
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
 		change_tag_from = KRK
 		}
-		log = "[GetDateText]: republika krakowska zdechła switch"
+		log = "[GetDateText]: republika krakowska zdechła switch gibała"
 	}
 	option = {
 		name = aievent.12.c #demokracja
-		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-					country_exists = BRK
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-					country_exists = WND
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		BRK = {
 			change_tag_from = KRK
 		}
-		log = "[GetDateText]: republika krakowska zdechła"
+		log = "[GetDateText]: republika krakowska zdechła switch berko"
 	}
 	option = {
 		name = aievent.12.d #demokracja
-		KRA = {
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = KRK
-					}
-				}
-				declare_war_on = {
-					target = KRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = BRK
-					}
-				}
-				declare_war_on = {
-					target = BRK
-					type = annex_everything
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = WND
-					}
-				}
-				declare_war_on = {
-					target = WND
-					type = annex_everything
-				}
-			}
-		}
+		KRA = {	KRK_cw_declare_wars = yes }
+		BRK = {	KRK_cw_declare_wars = yes }
+		WND = {	KRK_cw_declare_wars = yes }
+		KRK = {	KRK_cw_declare_wars = yes }
 		WND = {
 			change_tag_from = KRK
 		}
-		log = "[GetDateText]: republika krakowska zdechła switch"
+		log = "[GetDateText]: republika krakowska zdechła switch rokita"
 	}
 	
 }
@@ -1354,6 +1228,44 @@ country_event = {
 			postpolonism = 0
 		}
 		log = "[GetDateText]: kulczykowa"
+	}
+}
+
+
+country_event = {
+	id = aievent.30 #chrzanow coup
+	title = aievent.30.t
+	desc = aievent.30.desc
+
+	fire_only_once = yes
+	trigger = { 
+		CHW = {
+			NOT = { is_puppet = yes }
+			NOT = { is_in_faction_with = PRK }
+		}
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.30"}
+	option = {
+		name = aievent.30.a 
+		set_politics = {
+			ruling_party = euroliberalism
+		}
+		add_popularity = {
+		    ideology = euroliberalism
+		    popularity = 0.2
+		}
+		if = {
+			limit = { HOR = { country_exists = yes }}
+			set_nationality = {
+			    target_country = HOR
+			    character = CHW_piotrowicz
+			}
+			remove_country_leader_role = {
+			    character = CHW_piotrowicz
+			    ideology = autocracy_subtype
+			}
+		}
+		log = "[GetDateText]: tarcie chrzanu"
 	}
 }
 
