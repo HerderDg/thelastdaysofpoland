@@ -20,6 +20,18 @@ news_event = {
 					days = 30
 				}
 			}
+			if = {
+				limit = {
+					PRK = {
+						has_idea = PRK_war_extend1
+					}
+				}
+				remove_ideas = PRK_war_extend1
+				add_timed_idea = {
+					idea = PRK_war_extend1
+					days = 45
+				}
+			}
 		}
 	}
 }
@@ -42,6 +54,18 @@ news_event = {
 				country_event = { 
 					id = ziobro.5
 					days = 14
+				}
+			}
+			if = {
+				limit = {
+					PRK = {
+						has_idea = PRK_war_extend1
+					}
+				}
+				remove_ideas = PRK_war_extend1
+				add_timed_idea = {
+					idea = PRK_war_extend1
+					days = 45
 				}
 			}
 		}
@@ -78,11 +102,10 @@ news_event = {
 	}
 }
 
-news_event = {
-	id = ziobro.4 #UNUSED
+country_event = {
+	id = ziobro.4 #KIELCE SIĘ ZGADZA
 	title = ziobro.4.t
 	desc = ziobro.4.desc
-	picture = GFX_news_event_ziobro_revolt
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -91,20 +114,14 @@ news_event = {
 
 	option = {
 		name = ziobro.4.a
-        set_global_flag = Super_Event_Visible
-        set_global_flag = ZERO_super_visible
-
+		custom_effect_tooltip = "kielce_annex"
 		hidden_effect = {
-			if ={
-				limit = {
-					NOT = {
-						has_global_flag = superevents_muted
-					}
-				}
-			sound_effect = "ZERO_super"
-			play_song = "cisza45"
+			annex_country = {
+				target = KIE
+				transfer_troops = yes
 			}
 		}
+		
 	}
 }
 
@@ -260,6 +277,7 @@ country_event = {
 		hidden_effect = {
 			PRK_revolt_KIE = yes
 			set_country_flag = PRK_ziobro_can_explode
+			set_capital = 459
 		}
 	}
 
@@ -276,7 +294,7 @@ country_event = {
 
 
 country_event = {
-	id = ziobro.10 #bukowno win
+	id = ziobro.10 #bukowno lose
 	title = ziobro.10.t
 	desc = ziobro.10.desc
 
@@ -297,7 +315,7 @@ country_event = {
 }
 
 country_event = {
-	id = ziobro.11 #bukowno lose
+	id = ziobro.11 #bukowno win
 	title = ziobro.11.t
 	desc = ziobro.11.desc
 
@@ -378,49 +396,25 @@ country_event = {
 	}
 }
 
-#country_event = {
-#	id = ziobro.14 #OJCIEC MATEUSZ
-#	title = ziobro.14.t
-#	desc = ziobro.14.desc
-#
-#	fire_only_once = yes
-#	is_triggered_only = yes
-#
-#	immediate = { 
-#		log = "[GetDateText]: [ROOT.GetName] fires ziobro.14"
-#		hidden_effect = {
-#			if = {
-#				limit = { has_country_flag = ziobro_start_war_victory }
-#				PRK_revolt_minor_SND = yes
-#			}
-#			else_if = {
-#				limit = { has_country_flag = ziobro_start_war_lose }
-#				PRK_revolt_major_SND = yes
-#			}
-#		}
-#	}
-#
-#	option = {
-#		name = ziobro.14.a
-#		SND = {
-#			change_tag_from = PRK
-#			declare_war_on = {
-#				target = PRK
-#				type = annex_everything
-#			}
-#		}
-#	}
-#	
-#	option = {
-#		name = ziobro.14.b
-#		SND = {
-#			declare_war_on = {
-#				target = PRK
-#				type = annex_everything
-#			}
-#		}
-#	}
-#}
+country_event = {
+	id = ziobro.14 #kielce refuse
+	title = ziobro.14.t
+	desc = ziobro.14.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires ziobro.14" }
+
+	option = {
+		name = ziobro.14.a
+		declare_war_on = {
+			target = KIE
+			type = annex_everything
+		}
+	}
+}
+
 
 country_event = {
 	id = ziobro.15 #ZIOBRO SPIERDALA DO MAŁOPOLSKI
@@ -431,14 +425,17 @@ country_event = {
 
 	fire_only_once = yes
 	trigger = {
-		has_country_flag = PRK_ziobro_can_explode
-		AND = {
+		PRK = {
+			has_country_flag = PRK_ziobro_can_explode
+		}
+		PRK = {
 			OR = {
-			PRK = { 
-				num_of_controlled_states < 15
-			}
-			PRK = {
-				surrender_progress > 0.35
+				PRK = { 
+					num_of_controlled_states < 30
+				}
+				PRK = {
+					surrender_progress > 0.50
+				}
 			}
 		}
 		NOT = {
@@ -455,8 +452,8 @@ country_event = {
 		NOT = {
 			has_war_with = OSW
 		}
-		}
 	}
+}
 
 	option = {
 		name = ziobro.15.a
@@ -576,7 +573,10 @@ country_event = {
 		news_event = { id = ziobro.20 days = 9}
 		swap_ideas = {
 			remove_idea = PRK_war_extend1
-			add_idea = PRK_war_extend2
+			add_timed_idea = {
+				PRK_war_extend2
+				days = 45
+			}
 		}
 		hidden_effect = {
 			PRK = {
@@ -610,30 +610,24 @@ news_event = {
 	title = ziobro.21.t
 	desc = ziobro.21.desc
 	picture = GFX_news_event_ziobro_win
-	
+
 	trigger = {
-		has_country_flag = PRK_ziobro_can_explode
-		NOT = {
-			has_war_with = STO
-			has_war_with = KEL
-			has_war_with = NSZ
-			has_war_with = NRA
-			has_war_with = SND
-			has_war_with = STA
+		tag = PRK
+		PRK = {
+			owns_state = 416
+			has_country_flag = PRK_ziobro_can_explode
 		}
 	}
-
+	
 	fire_only_once = yes
-	is_triggered_only = yes
-
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires ziobro.21" }
 
 	option = {
 		name = ziobro.21.a
-		clr_country_flag = PRK_ziobro_can_explode
 		hidden_effect = {
 			PRK = {
 				PRK_holycross_puppets = yes
+				clr_country_flag = PRK_ziobro_can_explode
 			}
 		}
 	}
@@ -704,6 +698,7 @@ country_event = {
 			set_state_controller = 673
 			country_event = starachowice.1
 		}
+		set_country_flag = PRK_ziobro_end_mission
 	}
 }
 
@@ -720,9 +715,6 @@ country_event = {
 		set_country_flag = PRK_ziobro_lost
 		}
 	}
-	
-
-	
 	option = {
 		name = ziobro.24.a
 	}
@@ -763,5 +755,160 @@ country_event = {
 	option = {
 		name = ziobro.25.a 
 		custom_effect_tooltip = "ziobro_borderless"
+	}
+}
+
+country_event = {
+	id = ziobro.26 #KOSY NA SZTORC
+	title = ziobro.26.t
+	desc = ziobro.26.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.26"
+		PRK_revolt_PRO = yes
+		hidden_effect = {
+			news_event = {
+				id = ziobro.30
+				days = 2
+			}
+		}	
+	}
+	option = {
+		name = ziobro.26.a
+		PRO = {
+			change_tag_from = PRK
+		}
+	}
+	option = {
+		name = ziobro.26.b
+	}
+}
+
+country_event = {
+	id = ziobro.27 #GARIBALDCZYCY 2 
+	title = ziobro.27.t
+	desc = ziobro.27.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.27"
+		PRK_revolt_GRB = yes
+	}
+	option = {
+		name = ziobro.27.a
+		GRB = {
+			change_tag_from = PRK
+		}
+	}
+	option = {
+		name = ziobro.27.b
+	}
+}
+
+country_event = {
+	id = ziobro.28 #BOŻEGO GROBU BRONIĆ TRZEBA PRZED ZERAMI
+	title = ziobro.28.t
+	desc = ziobro.28.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.28"
+		PRK_revolt_BGR = yes
+	}
+	option = {
+		name = ziobro.28.a
+		BGR = {
+			change_tag_from = PRK
+		}
+	}
+	option = {
+		name = ziobro.28.b
+	}
+}
+
+country_event = {
+	id = ziobro.29 #UGA BUGA FAJNE TE SKAŁY
+	title = ziobro.29.t
+	desc = ziobro.29.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.29"
+		PRK_revolt_ROK = yes
+	}
+	option = {
+		name = ziobro.29.a
+	}
+}
+
+news_event = {
+	id = ziobro.30 #RUNDA DRUGA 
+	title = ziobro.30.t
+	desc = ziobro.30.desc
+	picture = GFX_news_event_ziobro_lose
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires ziobro.2" }
+
+	option = {
+		name = ziobro.30.a
+	}
+}
+
+country_event = {
+	id = ziobro.31 #Rewolta łączy siły!
+	title = ziobro.31.t
+	desc = ziobro.31.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.31"
+	}
+	option = {
+		name = ziobro.31.a
+		hidden_effect = {
+			PRO = {
+				create_faction  = PRK_uprising_faction
+				add_to_faction = BGR
+				add_to_faction = GRB
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ziobro.32 #Rewolta się zaczyna! (zapomniałem tego zrobić xD)
+	title = ziobro.32.t
+	desc = ziobro.32.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.32"
+	}
+	option = {
+		name = ziobro.32.a
+		hidden_effect = {
+			PRK = {
+				country_event = { 
+					id = ziobro.26
+					days = 7
+				}
+			}
+		}
 	}
 }

@@ -28,6 +28,18 @@ ziobro_war = {
 				news_event = { id = ziobro.22 }
 			}
 		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
+		}
 		timeout_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war lose"
 			if = { # to jest wygrana
@@ -63,7 +75,6 @@ ziobro_war = {
 			}
 			else = { # to jest stalemate
 				clr_country_flag = ziobro_start_war
-				set_country_flag = ziobro_start_war_lose
 				SND = {
 					add_to_variable = {
 						global.deadPolacksFromPastWars = this.casualties_k
@@ -103,6 +114,18 @@ ziobro_war = {
 				}
 			}
 		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
+		}
 		days_mission_timeout = 30
 		complete_effect = { # wygrana
 			every_country = {
@@ -118,4 +141,347 @@ ziobro_war = {
 			}
 		}
 	}
+}
+
+ziobro_uprising = {
+	ziobro_kielce_attack = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_prerequisite = {
+				PRK = {
+					has_country_flag = PRK_ziobro_can_explode
+				}
+				has_war = no
+			}
+			country_exists = KIE
+		}
+		visible = {
+			country_exists = KIE
+			has_war = no		
+		}
+		days_remove = 14
+		remove_effect = {
+			KIE = {
+				country_event = { 
+					id = kielce.1 
+				}
+			}
+		}
+	}
+	ziobro_kielce_integrate = { #Ziobro tworzy Underhold pod Kielcami i zakłada klan Ziobrit Claw
+		allowed = {
+			always = yes
+		}
+		available = {
+			PRK = {
+				owns_state = 915
+				owns_state = 914
+				owns_state = 416
+			}
+		}
+		visible = {
+			PRK = {
+				owns_state = 915
+				owns_state = 914
+				owns_state = 416
+			}
+			NOT = {
+				416 = {
+					is_core_of = PRK
+				}
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 416
+				state = 914
+				state = 915
+			}
+		}
+		cost = 75
+		days_remove = 14
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+				set_country_flag = PRK_ziobro_won_revolt
+			}
+		}
+		remove_effect = {
+			add_state_core = 915
+			add_state_core = 416
+			add_state_core = 914
+			set_capital = 416
+		}
+	}
+	
+	ziobro_starachowice_attack = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_prerequisite = {
+				has_war = no
+			}
+			PRK = {
+				owns_state = 416
+				has_country_flag = PRK_ziobro_won_revolt
+			}
+			country_exists = STA
+		}
+		visible = {
+			country_exists = STA
+			has_country_flag = PRK_ziobro_won_revolt
+		}
+		days_remove = 14
+		remove_effect = {
+			PRK = {
+				declare_war_on = {
+					target = STA
+					type = annex_everything
+				}
+			}
+		}
+	}
+	
+	ziobro_sandomierz_attack = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_prerequisite = {
+				has_war = no
+			}
+			country_exists = SND
+			PRK = {
+				owns_state = 416
+				has_country_flag = PRK_ziobro_won_revolt
+			}
+		}
+		visible = {
+			country_exists = SND
+			has_country_flag = PRK_ziobro_won_revolt
+		}
+		days_remove = 14
+		remove_effect = {
+			PRK = {
+				declare_war_on = {
+					target = SND
+					type = annex_everything
+				}
+			}
+		}
+	}
+	
+	ziobro_starachowice_integrate = { #STARACHOWICE
+		allowed = {
+			always = yes
+		}
+		available = {
+			STA = { 
+				owns_state = 377
+				is_puppet_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_sandomierz_integrate
+					has_decision = ziobro_ostrowiec_integrate
+					has_decision = ziobro_opatow_integrate
+				}
+			}
+		}
+		visible = {
+			STA = { 
+				owns_state = 377
+				is_puppet_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 377
+				state = 958
+				state = 673
+				state = 899
+				state = 962
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = STA
+				}
+			}
+			add_state_core = 377
+		}
+	}
+	
+	ziobro_sandomierz_integrate = { #SANDOMIERZ
+		allowed = {
+			always = yes
+		}
+		available = {
+			SND = { 
+				owns_state = 670
+				is_puppet_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_starachowice_integrate
+					has_decision = ziobro_ostrowiec_integrate
+					has_decision = ziobro_opatow_integrate
+				}
+			}
+		}
+		visible = {
+			SND = { 
+				owns_state = 670
+				is_puppet_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 670
+				state = 671
+				state = 672
+				state = 960
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = SND
+				}
+			}
+			add_state_core = 670			
+		}
+	}
+	ziobro_ostrowiec_integrate = { #OSTROWIEC
+		allowed = {
+			always = yes
+		}
+		available = {
+			OSS = { 
+				owns_state = 392
+				is_puppet_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_starachowice_integrate
+					has_decision = ziobro_sandomierz_integrate
+					has_decision = ziobro_opatow_integrate
+				}
+			}
+		}
+		visible = {
+			OSS = { 
+				owns_state = 392
+				is_puppet_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 392
+				state = 859
+				state = 858
+				state = 959
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = OSS
+				}
+			}	
+			add_state_core = 392			
+		}
+	}
+	ziobro_opatow_integrate = { #OPATÓW
+		allowed = {
+			always = yes
+		}
+		available = {
+			OPT = { 
+				owns_state = 389
+				is_puppet_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_starachowice_integrate
+					has_decision = ziobro_ostrowiec_integrate
+					has_decision = ziobro_sandomierz_integrate
+				}
+			}
+		}
+		visible = {
+			OPT = { 
+				owns_state = 389
+				is_puppet_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 389
+				state = 966
+				state = 967
+				state = 417
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = OPT
+				}
+			}
+			add_state_core = 389
+		}
+	}
+	
 }
