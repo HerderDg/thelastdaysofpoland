@@ -31,6 +31,7 @@ country_event = {
 				days = 3
 			}
 		}
+		set_country_flag = HOR_procession_has_landed
 	}
 }
 
@@ -119,29 +120,54 @@ country_event = {
 		original_tag = HOR
 	}
 	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.1" }
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.1"
+	
+		WDW = {
+			declare_war_on = {
+				target = HOR
+				type = civil_war
+			}
+			add_civil_war_target = HOR
+		}
+		ENG = { add_to_faction = HOR }
+		519 = { set_state_owner_to = HOR }
+		HOR = {
+			set_capital = { state = 519 }
+			add_ideas = HOR_eternal_procession_idea
+		}
+	 }
 	
 	option = {
-		ai_chance = { base = 65 }
 		name = procesja.1.a
-		set_country_flag = procesja_good 
 		every_country = {
 			limit = { NOT = { is_ai = yes } }
 			news_event = {
 				id = procesja.3
 				}
-			}
+		}
+		196 = { transfer_state_to = HOG }
+		198 = { transfer_state_to = AMA }
+		country_event = {
+			id = procesja.2
+			days = 2
+		}
 	}
+}
+
+country_event = {
+	id = procesja.2 #setting up government in exile
+	title = procesja.2.t
+	desc = procesja.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.1"
+	 }
+	
 	option = {
-		ai_chance = { base = 35 }
-		name = procesja.1.b
-		set_country_flag = procesja_bad 
-		every_country = {
-			limit = { NOT = { is_ai = yes } }
-			news_event = {
-				id = procesja.3
-				}
-			}
+		name = procesja.2.a
+		HOR = { become_exiled_in = { target = ENG legitimacy = 10 } }
 	}
 }
 
