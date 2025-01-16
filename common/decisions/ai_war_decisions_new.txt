@@ -5285,6 +5285,105 @@ cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 		}
  	}
  }
+	
+
+	podlasie_plemiona = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_podlasie = yes
+			NOT = {
+				is_podlasie_tribe = yes
+				original_tag = AGR
+				original_tag = SDL
+			}
+		}
+		
+		target_array = global.podlasie_tribes
+		target_trigger = {
+			FROM = {
+				is_podlasie_tribe = yes
+			}
+		}
+
+		visible = {
+			OR = {
+				AND = {
+					OR = {
+						original_tag = BOM
+						original_tag = KON
+						original_tag = TAT
+						original_tag = BEL
+						original_tag = SAN
+						original_tag = LMZ
+					}
+					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
+					FROM = { is_neighbor_of = ROOT }
+					FROM = { exists = yes }
+					date > 2027.10.01
+					NOT = {
+						has_war = yes
+						has_country_flag = podlasie_wojna
+					}
+				}
+				AND = {
+					OR = {
+						original_tag = SDL
+						original_tag = AGR
+						}
+					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
+					FROM = { is_neighbor_of = ROOT }
+					FROM = { exists = yes }	
+					count_triggers = {
+							amount = 7
+							TAT = {exists = no}
+							SAN = {exists = no}
+							LMZ = {exists = no}
+							BEL = {exists = no}
+							BOM = {exists = no}
+							KON = {exists = no}
+							SDL = {exists = no}
+							AGR = {exists = no}
+					}
+					NOT = {
+						has_war = yes
+						has_country_flag = podlasie_wojna
+					}	
+				}
+			}
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		complete_effect = {
+			hidden_effect = {
+				set_country_flag = podlasie_wojna
+			}
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] fires decision podlasie_plemiona"
+			hidden_effect = {
+				clr_country_flag = podlasie_wojna
+			}
+			ROOT = {
+				declare_war_on = {
+					target = FROM
+					type = voivodeship_war
+				}
+			}
+		}
+	}	
+#PODLASIE - FAZA DRUGA
 
 	podlasie_traktor_boss = {
 
@@ -5766,105 +5865,6 @@ cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 				}
 		}
 	}
-	
-
-	podlasie_plemiona = {
-
-		icon = GFX_decision_generic_prepare_civil_war
-		
-		allowed = {
-			is_podlasie = yes
-			NOT = {
-				is_podlasie_tribe = yes
-				original_tag = AGR
-				original_tag = SDL
-			}
-		}
-		
-		target_array = global.podlasie_tribes
-		target_trigger = {
-			FROM = {
-				is_podlasie_tribe = yes
-			}
-		}
-
-		visible = {
-			OR = {
-				AND = {
-					OR = {
-						original_tag = BOM
-						original_tag = KON
-						original_tag = TAT
-						original_tag = BEL
-						original_tag = SAN
-						original_tag = LMZ
-					}
-					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
-					FROM = { is_neighbor_of = ROOT }
-					FROM = { exists = yes }
-					date > 2027.10.01
-					NOT = {
-						has_war = yes
-						has_country_flag = podlasie_wojna
-					}
-				}
-				AND = {
-					OR = {
-						original_tag = SDL
-						original_tag = AGR
-						}
-					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
-					FROM = { is_neighbor_of = ROOT }
-					FROM = { exists = yes }	
-					count_triggers = {
-							amount = 7
-							TAT = {exists = no}
-							SAN = {exists = no}
-							LMZ = {exists = no}
-							BEL = {exists = no}
-							BOM = {exists = no}
-							KON = {exists = no}
-							SDL = {exists = no}
-							AGR = {exists = no}
-					}
-					NOT = {
-						has_war = yes
-						has_country_flag = podlasie_wojna
-					}	
-				}
-			}
-		}
-
-		cost = 1
-
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				factor = -1
-				surrender_progress > 0.25
-			}
-		}
-		fire_only_once = yes
-		days_remove = 10
-		complete_effect = {
-			hidden_effect = {
-				set_country_flag = podlasie_wojna
-			}
-		}
-		remove_effect  = {
-			log = "[GetDateText]: [ROOT.GetName] fires decision podlasie_plemiona"
-			hidden_effect = {
-				clr_country_flag = podlasie_wojna
-			}
-			ROOT = {
-				declare_war_on = {
-					target = FROM
-					type = voivodeship_war
-				}
-			}
-		}
-	}	
-#PODLASIE - FAZA DRUGA
 #PODLASIE - FAZA OSTATECZNA
 
 	last_battle_of_podlasie = {
