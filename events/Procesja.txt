@@ -171,7 +171,7 @@ country_event = {
 		HOG = { set_faction_leader = yes }
 		HOR = { become_exiled_in = { target = HOG legitimacy = 10 } }
 		add_to_array = { global.procession_hosted = HOG }
-		HOR_procession_targets = yes
+		HOR_procession_targets_closed = yes
 		HOR_procession_targets_open = yes
 		HOR_procession_targets_negotiating = yes
 	}
@@ -204,7 +204,7 @@ news_event = {
 }
 
 country_event = {
-	id = procesja.4 #procesja u bram
+	id = procesja.4 #procesja u bram - przyjmujemy
 	title = procesja.4.t
 	desc = procesja.4.desc
 
@@ -223,15 +223,27 @@ country_event = {
 		#	leave_faction = yes
 		#}
 		clr_country_flag = HOR_procession_envoy_sent
+		HOR = { clr_country_flag = HOR_procession_envoy_sent }
 		add_to_array = { global.procession_hosted = FROM }
 		HOR = { become_exiled_in = { target = ROOT legitimacy = 10 } }
 	}
+	
+}
 
+country_event = {
+	id = procesja.5 #procesja u bram - warunki
+	title = procesja.5.t
+	desc = procesja.5.desc
+
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.5" }
+	
 	option = { #warunki
-		name = procesja.4.b
+		name = procesja.5.b
 		HOR = {
 			country_event = {
-				id = procesja.5
+				id = procesja.6
 				days = 1
 			}
 		}
@@ -240,9 +252,9 @@ country_event = {
 }
 
 country_event = {
-	id = procesja.5 
-	title = procesja.5.t
-	desc = procesja.5.desc
+	id = procesja.6 
+	title = procesja.6.t
+	desc = procesja.6.desc
 
 	is_triggered_only = yes
 	
@@ -250,20 +262,21 @@ country_event = {
 	 }
 	
 	option = { #okej zgadzamy sie
-		name = procesja.5.a
+		name = procesja.6.a
 		for_each_scope_loop = {
 		    array = global.procession_negotiating
 			PAP = { add_to_faction = PREV }
 			set_faction_leader = yes 
 			add_to_array = { global.procession_hosted = PREV }
 			HOR = { become_exiled_in = { target = PREV legitimacy = 10 } }	
-			clr_country_flag = HOR_procession_envoy_sent	
+			clr_country_flag = HOR_procession_envoy_sent
+			HOR = { clr_country_flag = HOR_procession_envoy_sent }	
 		}
 		clear_array = global.procession_negotiating
 	}
 
 	option = { #poszukamy innej drogi
-		name = procesja.5.b
+		name = procesja.6.b
 		for_each_scope_loop = {
 		    array = global.procession_negotiating
 			set_country_flag = HOR_procession_negotiation_failed

@@ -8,10 +8,10 @@ HOR_pilgrimage = {
 			original_tag = HOR
 		}
 		
-		target_array = global.procession_targets
+		target_array = global.countries
 		target_trigger = {
 			FROM = {
-			every_neighbor_country = {
+			any_neighbor_country = {
 				is_hosting_exile = HOR
 			}
 			}
@@ -21,12 +21,13 @@ HOR_pilgrimage = {
 			original_tag = HOR
 			is_government_in_exile = yes
 			FROM = {
-			any_neighbor_country = {
+			every_neighbor_country = {
 				is_hosting_exile = HOR
 			}
 			}
 			NOT = {
 				is_in_array = { global.procession_hosted = FROM }
+				is_in_array = { global.procession_targets_closed = FROM }
 			}
 		}
 
@@ -42,6 +43,7 @@ HOR_pilgrimage = {
 				is_in_array = { global.procession_hosted = FROM }
 			}
 			any_country = { NOT = { has_country_flag = HOR_procession_envoy_sent } }
+			NOT = { HOR = { has_country_flag = HOR_procession_envoy_sent } }
 		}
 
 		cost = 1
@@ -56,16 +58,31 @@ HOR_pilgrimage = {
 				FROM = {
 					set_country_flag = HOR_procession_envoy_sent
 				}
+				set_country_flag = HOR_procession_envoy_sent
 			}
 		}
 		remove_effect  = {
 			log = "[GetDateText]: [ROOT.GetName] fires decision podlasie_plemiona"
-			FROM = {
-				country_event = {
-					id = procesja.4
+			if = {
+				limit = {
+					FROM = { is_in_array = { global.procession_targets_open = FROM } }
+				}
+				FROM = {
+					country_event = {
+						id = procesja.4
+					}
 				}
 			}
-			add_to_array = { global.procession_hosted = FROM }
+			if = {
+				limit = {
+					FROM = { is_in_array = { global.procession_targets_negotiating = FROM } }
+				}
+				FROM = {
+					country_event = {
+						id = procesja.5
+					}
+				}
+			}			
 		}
 	}	
 
