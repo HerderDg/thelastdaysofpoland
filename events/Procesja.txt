@@ -154,8 +154,8 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = procesja.2 #setting up government in exile
+country_event = { 
+	id = procesja.2 #setting up government in exile - HOG
 	title = procesja.2.t
 	desc = procesja.2.desc
 
@@ -167,7 +167,13 @@ country_event = {
 	
 	option = {
 		name = procesja.2.a
-		HOR = { become_exiled_in = { target = PAP legitimacy = 10 } }
+		PAP = { add_to_faction = HOG }
+		HOG = { set_faction_leader = yes }
+		HOR = { become_exiled_in = { target = HOG legitimacy = 10 } }
+		add_to_array = { global.procession_hosted = HOG }
+		HOR_procession_targets = yes
+		HOR_procession_targets_open = yes
+		HOR_procession_targets_negotiating = yes
 	}
 }
 
@@ -197,7 +203,74 @@ news_event = {
 	}
 }
 
+country_event = {
+	id = procesja.4 #procesja u bram
+	title = procesja.4.t
+	desc = procesja.4.desc
 
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.4"
+	 
+	 }
+	
+	option = { #przyjmujemy
+		name = procesja.4.a
+		PAP = { add_to_faction = ROOT }
+		ROOT = { set_faction_leader = yes }
+		for_each_scope_loop = {
+		    array = global.procession_hosted
+			leave_faction = yes
+		}
+		clr_country_flag = HOR_procession_envoy_sent
+		add_to_array = { global.procession_hosted = FROM }
+		HOR = { become_exiled_in = { target = ROOT legitimacy = 10 } }
+	}
+
+	option = { #warunki
+		name = procesja.4.b
+		HOR = {
+			country_event = {
+				id = procesja.5
+				days = 1
+			}
+		}
+		add_to_array = { global.procession_negotiating = THIS }
+	}	
+}
+
+country_event = {
+	id = procesja.5 
+	title = procesja.5.t
+	desc = procesja.5.desc
+
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.4"
+	 }
+	
+	option = { #okej zgadzamy sie
+		name = procesja.5.a
+		for_each_scope_loop = {
+		    array = global.procession_negotiating
+			PAP = { add_to_faction = PREV }
+			set_faction_leader = yes 
+			add_to_array = { global.procession_hosted = PREV }
+			HOR = { become_exiled_in = { target = PREV legitimacy = 10 } }	
+			clr_country_flag = HOR_procession_envoy_sent	
+		}
+		clear_array = global.procession_negotiating
+	}
+
+	option = { #poszukamy innej drogi
+		name = procesja.5.b
+		for_each_scope_loop = {
+		    array = global.procession_negotiating
+			set_country_flag = HOR_procession_negotiation_failed
+		}
+		clear_array = global.procession_negotiating
+	}	
+}
 
 
 #country_event = {
