@@ -23,12 +23,10 @@ country_event = {
 
 	option = {
 		name = procesja_final.1.a
-		add_state_core = 898
 		add_stability = 0.1
 		MSL = {
 			country_event = {
 				id = procesja_final.2
-				days = 3
 			}
 		}
 		set_country_flag = HOR_procession_has_landed
@@ -52,7 +50,6 @@ country_event = {
 			add_to_faction = MSL
 			country_event = {
 				id = procesja_final.3
-				days = 3
 			}
 		}
 	}
@@ -70,9 +67,14 @@ country_event = {
 
 	option = {
 		name = procesja_final.3.a
+		if = { 
+			limit = {
+				HOR = { NOT = { has_war_with = WDW }}
+			}
 		declare_war_on = {
 			target = WDW
 			type = annex_everything 
+		}
 		}
 		MSL = {
 			add_to_war = {
@@ -240,7 +242,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.5" }
 	
 	option = { #warunki
-		name = procesja.5.b
+		name = procesja.5.a
 		HOR = {
 			country_event = {
 				id = procesja.6
@@ -251,7 +253,7 @@ country_event = {
 	}	
 }
 
-country_event = {
+country_event = { #procesja u bram - odpowiedz na warunki
 	id = procesja.6 
 	title = procesja.6.t
 	desc = procesja.6.desc
@@ -285,6 +287,41 @@ country_event = {
 	}	
 }
 
+country_event = {
+	id = procesja.7 #AI teleport do Rzeszotar
+	title = procesja.7.t
+	desc = procesja.7.desc
+
+	trigger = {
+		has_global_flag = {
+		    flag = procesja_lets_go
+		    days > 120
+		}
+		original_tag = HOR
+		is_ai = yes
+	}
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.5" }
+	
+	option = { #warunki
+		name = procesja.7.a
+
+		clear_array = global.procession_negotiating
+		clear_array = global.procession_targets_negotiating
+		clear_array = global.procession_hosted
+		clear_array = global.procession_targets_open
+		clear_array = global.procession_targets_closed
+		898 = {
+			transfer_state_to = HOR
+			add_core_of = HOR
+		}
+		set_capital = {state = 898}
+		load_oob = HOR_skawina
+		clr_global_flag = procesja_lets_go
+		end_exile = yes
+		country_event = procesja_final.1
+	}	
+}
 
 #country_event = {
 #	id = procesja_west.1 #pytanko-krosniewice
