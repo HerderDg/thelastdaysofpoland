@@ -366,6 +366,7 @@ country_event = {
 		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.8"
 		hidden_effect = {
 		EKS_collapse_KGH = yes
+		set_country_flag = eurokom_has_fallen
 		every_country = {
 			limit = { has_war_with = ZAG }
 			white_peace = ZAG
@@ -388,6 +389,12 @@ country_event = {
 				days = 6
 			}
 		}
+		TOU = {
+			country_event = {
+				id = eksrozpad.23
+				days = 7
+			}
+		}		
 		CAL = {
 			country_event = {
 				id = calisia.1
@@ -632,7 +639,11 @@ country_event = {
 				}
 				remove_core_of = EKS
 				add_claim_by = EKS
-			}		
+			}	
+			country_event = {
+				id = eksrozpad.18
+				days = 3
+			}	
 		}
 	}
 	option = {
@@ -806,5 +817,91 @@ country_event = {
 		name = eksrozpad.22.a
 		leave_faction = yes
 		GER = { end_puppet = TSZ }
+	}
+}
+
+country_event = {
+	id = eksrozpad.23 #Cyganie pędzą z wiatrem z Ahornstadtu
+	title = eksrozpad.23.t
+	desc = eksrozpad.23.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.23"
+		CYG = { transfer_state = 381
+		load_oob = CYG_2027
+		delete_eurokom_templates = yes
+		}
+		KGH = {
+			country_event = {
+				id = eksrozpad.24
+				days = 14
+			}
+		}
+	}
+	option = {
+		name = eksrozpad.23.a
+		CYG = {
+			change_tag_from = TOU
+		}
+	}
+	option = {
+		name = eksrozpad.23.b
+	}
+}
+
+country_event = {
+	id = eksrozpad.24 #Ore ore szabadabada
+	title = eksrozpad.24.t
+	desc = eksrozpad.24.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.24"
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 729
+						state = 367
+						state = 381
+						state = 356
+						state = 725
+					}
+				}
+				remove_core_of = KGH
+				add_claim_by = KGH
+			}
+			EKS_collapse_CYG = yes
+			CYG = {
+				declare_war_on = {
+					target = KGH
+					type = annex_everything
+					}
+				}
+			KGH = {
+				load_oob = "KGH_2027"
+				delete_eurokom_templates = yes
+				country_event = {
+					id = kghm.2 
+					days = 3
+				}
+			}
+		}
+	}
+
+	option = {
+		name = eksrozpad.24.a
+		CYG = {
+			change_tag_from = KGH
+		}
+	}
+	
+	option = {
+		name = eksrozpad.24.b
 	}
 }
