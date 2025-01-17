@@ -6,109 +6,6 @@ add_namespace = procesja_west_flavor
 add_namespace = procesja_east_flavor
 
 country_event = {
-	id = procesja_final.1 #we are in rzeszotary - what now
-	title = procesja_final.1.t
-	desc = procesja_final.1.desc
-
-	fire_only_once = yes
-	trigger = {
-		original_tag = HOR
-		HOR = {
-			controls_state = 898
-		}
-		MSL = { country_exists = yes }
-	}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.1" }
-
-	option = {
-		name = procesja_final.1.a
-		add_state_core = 898
-		add_stability = 0.1
-		MSL = {
-			country_event = {
-				id = procesja_final.2
-				days = 3
-			}
-		}
-		set_country_flag = HOR_procession_has_landed
-	}
-}
-
-country_event = {
-	id = procesja_final.2 #anioly z nieba
-	title = procesja_final.2.t
-	desc = procesja_final.2.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.2" }
-
-	option = {
-		name = procesja_final.2.a
-		HOR = {
-			create_faction = "Tenth Crusade"
-			add_to_faction = MSL
-			country_event = {
-				id = procesja_final.3
-				days = 3
-			}
-		}
-	}
-}
-
-country_event = {
-	id = procesja_final.3 #endkrieg
-	title = procesja_final.3.t
-	desc = procesja_final.3.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
-
-	option = {
-		name = procesja_final.3.a
-		declare_war_on = {
-			target = WDW
-			type = annex_everything 
-		}
-		MSL = {
-			add_to_war = {
-			    targeted_alliance = HOR
-			    enemy = WDW
-			    hostility_reason = asked_to_join
-			}
-		}
-	}
-}
-
-country_event = {
-	id = procesja_final.4 #WDW-MSL ceasefire
-	title = procesja_final.4.t
-	desc = procesja_final.4.desc
-
-	fire_only_once = yes
-	trigger = {
-		original_tag = MSL
-		MSL = { 
-			has_war_with = WDW
-			any_war_score < 20
-		}
-		HOR = { has_capitulated = yes }
-	}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
-
-	option = {
-		name = procesja_final.3.a
-		white_peace = WDW
-		leave_faction = yes
-	}
-}
-
-country_event = {
 	id = procesja.1 #ruszamy
 	title = procesja.1.t
 	desc = procesja.1.desc
@@ -171,7 +68,7 @@ country_event = {
 		HOG = { set_faction_leader = yes }
 		HOR = { become_exiled_in = { target = HOG legitimacy = 10 } }
 		add_to_array = { global.procession_hosted = HOG }
-		HOR_procession_targets = yes
+		HOR_procession_targets_closed = yes
 		HOR_procession_targets_open = yes
 		HOR_procession_targets_negotiating = yes
 	}
@@ -204,7 +101,7 @@ news_event = {
 }
 
 country_event = {
-	id = procesja.4 #procesja u bram
+	id = procesja.4 #procesja u bram - przyjmujemy
 	title = procesja.4.t
 	desc = procesja.4.desc
 
@@ -223,15 +120,27 @@ country_event = {
 		#	leave_faction = yes
 		#}
 		clr_country_flag = HOR_procession_envoy_sent
+		HOR = { clr_country_flag = HOR_procession_envoy_sent }
 		add_to_array = { global.procession_hosted = FROM }
 		HOR = { become_exiled_in = { target = ROOT legitimacy = 10 } }
 	}
+	
+}
 
+country_event = {
+	id = procesja.5 #procesja u bram - warunki
+	title = procesja.5.t
+	desc = procesja.5.desc
+
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.5" }
+	
 	option = { #warunki
-		name = procesja.4.b
+		name = procesja.5.a
 		HOR = {
 			country_event = {
-				id = procesja.5
+				id = procesja.6
 				days = 1
 			}
 		}
@@ -239,10 +148,10 @@ country_event = {
 	}	
 }
 
-country_event = {
-	id = procesja.5 
-	title = procesja.5.t
-	desc = procesja.5.desc
+country_event = { #procesja u bram - odpowiedz na warunki
+	id = procesja.6 
+	title = procesja.6.t
+	desc = procesja.6.desc
 
 	is_triggered_only = yes
 	
@@ -250,20 +159,21 @@ country_event = {
 	 }
 	
 	option = { #okej zgadzamy sie
-		name = procesja.5.a
+		name = procesja.6.a
 		for_each_scope_loop = {
 		    array = global.procession_negotiating
 			PAP = { add_to_faction = PREV }
 			set_faction_leader = yes 
 			add_to_array = { global.procession_hosted = PREV }
 			HOR = { become_exiled_in = { target = PREV legitimacy = 10 } }	
-			clr_country_flag = HOR_procession_envoy_sent	
+			clr_country_flag = HOR_procession_envoy_sent
+			HOR = { clr_country_flag = HOR_procession_envoy_sent }	
 		}
 		clear_array = global.procession_negotiating
 	}
 
 	option = { #poszukamy innej drogi
-		name = procesja.5.b
+		name = procesja.6.b
 		for_each_scope_loop = {
 		    array = global.procession_negotiating
 			set_country_flag = HOR_procession_negotiation_failed
@@ -272,6 +182,176 @@ country_event = {
 	}	
 }
 
+country_event = {
+	id = procesja.7 #AI teleport do Rzeszotar
+	title = procesja.7.t
+	desc = procesja.7.desc
+
+	trigger = {
+		has_global_flag = {
+		    flag = procesja_lets_go
+		    days > 120
+		}
+		original_tag = HOR
+		is_ai = yes
+	}
+	fire_only_once = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.5" }
+	
+	option = { #warunki
+		name = procesja.7.a
+		for_each_scope_loop = {
+		    array = global.procession_hosted
+			end_exile = HOR
+		}
+		clear_array = global.procession_negotiating
+		clear_array = global.procession_targets_negotiating
+		clear_array = global.procession_hosted
+		clear_array = global.procession_targets_open
+		clear_array = global.procession_targets_closed
+		HOR = { become_exiled_in = { target = MSL legitimacy = 10 } }
+		898 = {
+			transfer_state_to = HOR
+			add_core_of = HOR
+		}
+		load_oob = HOR_skawina
+		clr_global_flag = procesja_lets_go
+		HOR = {
+			country_event = {
+				id = procesja_final.1
+			}
+		}
+	}	
+}
+
+country_event = {
+	id = procesja_final.1 #we are in rzeszotary - what now
+	title = procesja_final.1.t
+	desc = procesja_final.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.1" }
+
+	option = {
+		name = procesja_final.1.a
+		add_stability = 0.1
+		MSL = {
+			country_event = {
+				id = procesja_final.2
+			}
+		}
+		set_country_flag = HOR_procession_has_landed
+	}
+}
+
+country_event = {
+	id = procesja_final.2 #anioly z nieba
+	title = procesja_final.2.t
+	desc = procesja_final.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.2" }
+
+	option = {
+		name = procesja_final.2.a
+		HOR = {
+			create_faction = "Tenth Crusade"
+			add_to_faction = MSL
+			country_event = {
+				id = procesja_final.3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.3 #endkrieg
+	title = procesja_final.3.t
+	desc = procesja_final.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.3.a
+		if = { 
+			limit = {
+				HOR = { NOT = { has_war_with = WDW }}
+			}
+		declare_war_on = {
+			target = WDW
+			type = annex_everything 
+		}
+		}
+		MSL = {
+			add_to_war = {
+			    targeted_alliance = HOR
+			    enemy = WDW
+			    hostility_reason = asked_to_join
+			}
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.4 #WDW-MSL ceasefire
+	title = procesja_final.4.t
+	desc = procesja_final.4.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = MSL
+		MSL = { 
+			has_war_with = WDW
+			any_war_score < 20
+		}
+		HOR = { 
+			NOT = { country_exists = HOR }
+			NOT = { controls_state = 898 }
+		}
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.4.a
+		white_peace = WDW
+		leave_faction = yes
+	}
+}
+
+country_event = {
+	id = procesja_final.5 #HOR annexation
+	title = procesja_final.5.t
+	desc = procesja_final.5.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = WDW
+		MSL = { 
+			NOT = { has_war_with = WDW }
+		}
+		HOR = { num_of_controlled_states < 1 }
+		HOR = { has_country_flag = HOR_procession_has_landed }
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.5.a
+		annex_country = {
+		    target = HOR
+		    transfer_troops = no
+		}
+	}
+}
 
 #country_event = {
 #	id = procesja_west.1 #pytanko-krosniewice
