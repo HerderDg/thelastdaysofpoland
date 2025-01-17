@@ -6,111 +6,6 @@ add_namespace = procesja_west_flavor
 add_namespace = procesja_east_flavor
 
 country_event = {
-	id = procesja_final.1 #we are in rzeszotary - what now
-	title = procesja_final.1.t
-	desc = procesja_final.1.desc
-
-	fire_only_once = yes
-	trigger = {
-		original_tag = HOR
-		HOR = {
-			controls_state = 898
-		}
-		MSL = { country_exists = yes }
-	}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.1" }
-
-	option = {
-		name = procesja_final.1.a
-		add_stability = 0.1
-		MSL = {
-			country_event = {
-				id = procesja_final.2
-			}
-		}
-		set_country_flag = HOR_procession_has_landed
-	}
-}
-
-country_event = {
-	id = procesja_final.2 #anioly z nieba
-	title = procesja_final.2.t
-	desc = procesja_final.2.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.2" }
-
-	option = {
-		name = procesja_final.2.a
-		HOR = {
-			create_faction = "Tenth Crusade"
-			add_to_faction = MSL
-			country_event = {
-				id = procesja_final.3
-			}
-		}
-	}
-}
-
-country_event = {
-	id = procesja_final.3 #endkrieg
-	title = procesja_final.3.t
-	desc = procesja_final.3.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
-
-	option = {
-		name = procesja_final.3.a
-		if = { 
-			limit = {
-				HOR = { NOT = { has_war_with = WDW }}
-			}
-		declare_war_on = {
-			target = WDW
-			type = annex_everything 
-		}
-		}
-		MSL = {
-			add_to_war = {
-			    targeted_alliance = HOR
-			    enemy = WDW
-			    hostility_reason = asked_to_join
-			}
-		}
-	}
-}
-
-country_event = {
-	id = procesja_final.4 #WDW-MSL ceasefire
-	title = procesja_final.4.t
-	desc = procesja_final.4.desc
-
-	fire_only_once = yes
-	trigger = {
-		original_tag = MSL
-		MSL = { 
-			has_war_with = WDW
-			any_war_score < 20
-		}
-		HOR = { has_capitulated = yes }
-	}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
-
-	option = {
-		name = procesja_final.3.a
-		white_peace = WDW
-		leave_faction = yes
-	}
-}
-
-country_event = {
 	id = procesja.1 #ruszamy
 	title = procesja.1.t
 	desc = procesja.1.desc
@@ -300,27 +195,133 @@ country_event = {
 		original_tag = HOR
 		is_ai = yes
 	}
+	fire_only_once = yes
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja.5" }
 	
 	option = { #warunki
 		name = procesja.7.a
-
+		for_each_scope_loop = {
+		    array = global.procession_hosted
+			end_exile = HOR
+		}
 		clear_array = global.procession_negotiating
 		clear_array = global.procession_targets_negotiating
 		clear_array = global.procession_hosted
 		clear_array = global.procession_targets_open
 		clear_array = global.procession_targets_closed
+		HOR = { become_exiled_in = { target = MSL legitimacy = 10 } }
 		898 = {
 			transfer_state_to = HOR
 			add_core_of = HOR
 		}
-		set_capital = {state = 898}
 		load_oob = HOR_skawina
 		clr_global_flag = procesja_lets_go
-		end_exile = yes
-		country_event = procesja_final.1
+		HOR = {
+			country_event = {
+				id = procesja_final.1
+			}
+		}
 	}	
+}
+
+country_event = {
+	id = procesja_final.1 #we are in rzeszotary - what now
+	title = procesja_final.1.t
+	desc = procesja_final.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.1" }
+
+	option = {
+		name = procesja_final.1.a
+		add_stability = 0.1
+		MSL = {
+			country_event = {
+				id = procesja_final.2
+			}
+		}
+		set_country_flag = HOR_procession_has_landed
+	}
+}
+
+country_event = {
+	id = procesja_final.2 #anioly z nieba
+	title = procesja_final.2.t
+	desc = procesja_final.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.2" }
+
+	option = {
+		name = procesja_final.2.a
+		HOR = {
+			create_faction = "Tenth Crusade"
+			add_to_faction = MSL
+			country_event = {
+				id = procesja_final.3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.3 #endkrieg
+	title = procesja_final.3.t
+	desc = procesja_final.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.3.a
+		if = { 
+			limit = {
+				HOR = { NOT = { has_war_with = WDW }}
+			}
+		declare_war_on = {
+			target = WDW
+			type = annex_everything 
+		}
+		}
+		MSL = {
+			add_to_war = {
+			    targeted_alliance = HOR
+			    enemy = WDW
+			    hostility_reason = asked_to_join
+			}
+		}
+	}
+}
+
+country_event = {
+	id = procesja_final.4 #WDW-MSL ceasefire
+	title = procesja_final.4.t
+	desc = procesja_final.4.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = MSL
+		MSL = { 
+			has_war_with = WDW
+			any_war_score < 20
+		}
+		HOR = { has_capitulated = yes }
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.3" }
+
+	option = {
+		name = procesja_final.3.a
+		white_peace = WDW
+		leave_faction = yes
+	}
 }
 
 #country_event = {
