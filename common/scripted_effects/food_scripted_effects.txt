@@ -1,0 +1,78 @@
+lower_the_rations = {
+	if = {
+		limit = {
+			has_idea = diet_full_calories
+		}
+		add_ideas = diet_no_limits
+	}
+	else_if = {
+		limit = {
+			has_idea = diet_no_limits
+		}
+		add_ideas = diet_rationing
+	}
+	else_if = {
+		limit = {
+			has_idea = diet_rationing
+		}
+		add_ideas = diet_hunger
+	}
+	else_if = {
+		limit = {
+			has_idea = diet_hunger
+		}
+		add_ideas = diet_holodomor
+	}
+}
+
+
+
+calculate_food_balance = {
+	calculate_used_food = yes
+	set_variable = { current_food_balance = resource_produced@food }
+	subtract_from_variable = { current_food_balance = used_food }
+}
+
+
+calculate_used_food = {
+	set_variable = { used_food = max_manpower_k	}
+	divide_variable = { used_food = 10 }
+	round_variable = used_food	
+}
+
+calculate_food_effects = {
+	if = {
+		limit = {
+			check_variable = { current_food_balance < 0 }
+			OR = {
+				has_idea = diet_full_calories
+				has_idea = diet_no_limits
+				has_idea = diet_rationing
+				has_idea = diet_hunger
+			}
+		}
+		lower_the_rations = yes
+	}
+	if = {
+		limit = {
+			check_variable = { current_food_balance < 0 }
+			ROOT = { has_idea = diet_holodomor }
+		}
+		add_dynamic_modifier = {
+			modifier = hunger_modifier
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { current_food_balance > 0 }
+			ROOT = { has_idea = diet_holodomor }
+			has_dynamic_modifier = {
+				modifier = hunger_modifier
+				scope = ROOT
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = hunger_modifier
+		}
+	}
+}
