@@ -5189,16 +5189,19 @@ ai_war_decisions = {
 cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
+	AND = {
 		or = {
 			tag = BBW
 			tag = KRS
-			tag = POG
-			tag = RUT
 			tag = SAP
 			tag = WML
 			tag = ZHP
 			tag = ZYD
 		}
+		NOT = {
+         is_ally_with = ROOT
+     }
+	 }
 	}
 
 	available = {
@@ -5206,7 +5209,8 @@ cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 	}
 
 	targets = {
-		KAR TIG AMW RDM LKS
+		KAR TIG AMW RDM LKS RUT POG
+		type = voivodeship_war
 	}
 
 	target_trigger = {
@@ -5924,8 +5928,270 @@ cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 #██║░░░░░███████╗██║░╚███║  ██║░╚═╝░██║██║░░██║███████╗╚█████╔╝░░╚██╔╝░╚██╔╝░██████╔╝███████╗███████╗
 #╚═╝░░░░░╚══════╝╚═╝░░╚══╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═════╝░╚══════╝╚══════╝
 #PÓŁNOCNOMAZOWIECKIE - FAZA PIERWSZA
+	potezny_sasin_masakruje_kurpie = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_mazovia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = SAS
+				}
+			date > 2027.11.01
+				NOT = { has_war = yes
+						has_decision = potezny_sasin_masakruje_zawkrze }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: Decision potezny_sasin_masakruje_kurpie"
+				if = { limit = { country_exists = KUR
+								 ROOT = { NOT = { original_tag = KUR } } }
+				declare_war_on = {
+					target = KUR
+					type = annex_everything
+				}
+				}
+		}
+	}
+	potezny_sasin_masakruje_zawkrze = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_mazovia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = SAS
+				}
+			date > 2027.11.15
+				NOT = { has_war = yes
+						has_decision = potezny_sasin_masakruje_zawkrze }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: Decision potezny_sasin_masakruje_zawkrze"
+				if = { limit = { country_exists = ZWK
+								 ROOT = { NOT = { original_tag = ZWK } } }
+				declare_war_on = {
+					target = ZWK
+					type = annex_everything
+				}
+				}
+		}
+	}
+mariawici_civil_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_mazovia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = MAR
+				}
+			date > 2027.11.01
+				NOT = { has_war = yes
+						has_decision = mariawici_civil_war }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: mariawici_civil_war"
+				if = { limit = { country_exists = PLO
+								 ROOT = { NOT = { original_tag = PLO } } }
+				declare_war_on = {
+					target = PLO
+					type = annex_everything
+				}
+				}
+		}
+	}
+	potezny_obajtek_masakruje_gostynin = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_mazovia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = ORL
+				}
+			date > 2027.11.01
+				NOT = { has_war = yes
+						has_decision = potezny_obajtek_masakruje_gostynin }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: potezny_obajtek_masakruje_gostynin"
+				if = { limit = { country_exists = GOS
+								 ROOT = { NOT = { original_tag = GOS } } }
+				declare_war_on = {
+					target = GOS
+					type = annex_everything
+				}
+				}
+		}
+	}
 #PÓŁNOCNOMAZOWIECKIE - FAZA DRUGA
 #PÓŁNOCNOMAZOWIECKIE - FAZA OSTATECZNA
+north_mazovia_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_mazovia = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = POL
+					original_tag = ORL
+					original_tag = SAS
+					original_tag = MAR
+				}
+				date > 2028.04.01
+				NOT = { has_war = yes }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 4
+		remove_effect  = {
+			log = "[GetDateText]: Decision north_mazovia_war"
+				if = { limit = { country_exists = ORL
+								NOT = { has_war_with = ORL }
+								 ROOT = { NOT = { original_tag = ORL } } }
+				declare_war_on = {
+					target = ORL
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = POL
+							NOT = { has_war_with = POL }
+						 ROOT = { NOT = { original_tag = POL } } }
+				declare_war_on = {
+					target = POL
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = SAS
+							NOT = { has_war_with = SAS }
+								 ROOT = { NOT = { original_tag = SAS } } }
+				declare_war_on = {
+					target = SAS
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = KUR 
+						NOT = { has_war_with = KUR }
+						 ROOT = { NOT = { original_tag = KUR } } }
+				declare_war_on = {
+					target = KUR
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = ZWK
+							NOT = { has_war_with = ZWK } 
+						 ROOT = { NOT = { original_tag = ZWK } } }
+				declare_war_on = {
+					target = ZWK
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = MAR
+							NOT = { has_war_with = MAR } 
+						 ROOT = { NOT = { original_tag = MAR } } }
+				declare_war_on = {
+					target = MAR
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = PLO
+							NOT = { has_war_with = PLO } 
+						 ROOT = { NOT = { original_tag = PLO } } }
+				declare_war_on = {
+					target = PLO
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = GOS
+							NOT = { has_war_with = GOS } 
+						 ROOT = { NOT = { original_tag = GOS } } }
+				declare_war_on = {
+					target = GOS
+					type = annex_everything
+				}
+				}
+				if = { limit = { country_exists = SRP
+							NOT = { has_war_with = SRP } 
+						 ROOT = { NOT = { original_tag = SRP } } }
+				declare_war_on = {
+					target = SRP
+					type = annex_everything
+				}
+				}
+		}
+	}
 #░██╗░░░░░░░██╗░█████╗░██████╗░███╗░░░███╗██╗░█████╗░░░░░░░███╗░░░███╗░█████╗░███████╗██╗░░░██╗██████╗░██╗░░░██╗
 #░██║░░██╗░░██║██╔══██╗██╔══██╗████╗░████║██║██╔══██╗░░░░░░████╗░████║██╔══██╗╚════██║██║░░░██║██╔══██╗╚██╗░██╔╝
 #░╚██╗████╗██╔╝███████║██████╔╝██╔████╔██║██║███████║█████╗██╔████╔██║███████║░░███╔═╝██║░░░██║██████╔╝░╚████╔╝░
