@@ -23,6 +23,7 @@ lower_the_rations = {
 		}
 		add_ideas = diet_holodomor
 	}
+	calculate_used_food = yes
 }
 
 
@@ -37,7 +38,73 @@ calculate_food_balance = {
 calculate_used_food = {
 	set_variable = { used_food = max_manpower_k	}
 	divide_variable = { used_food = 10 }
-	round_variable = used_food	
+	if = {
+		limit = {
+			OR = {
+			has_idea = diet_hunger
+			has_idea = diet_holodomor
+			}
+		}
+		set_variable = { used_food_modifier = 0.25 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}
+	if = {
+		limit = {
+			has_idea = diet_rationing
+		}
+		set_variable = { used_food_modifier = 0.5 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}
+	if = {
+		limit = {
+			has_idea = diet_no_limits
+		}
+		set_variable = { used_food_modifier = 1 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}
+	if = {
+		limit = {
+			has_idea = diet_full_calories
+		}
+		set_variable = { used_food_modifier = 1.5 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}
+	if = {
+		limit = {
+			has_idea = diet_meat
+		}
+		set_variable = { used_food_modifier = 1.25 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}
+	if = {
+		limit = {
+			has_idea = diet_vegetarian
+		}
+		set_variable = { used_food_modifier = 0.8 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}	
+	if = {
+		limit = {
+			has_idea = diet_vegan
+		}
+		set_variable = { used_food_modifier = 0.8 }
+		multiply_variable = {
+			used_food = used_food_modifier
+		}
+	}
+	round_variable = used_food					
 }
 
 calculate_food_effects = {
