@@ -53,3 +53,110 @@ country_event = {
 	}
 
 }
+
+country_event = {
+	id = config.3 #aktualizacja depozytow
+	title = config.3.t
+	desc = config.3.desc
+
+	is_triggered_only = yes
+	hidden = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires config.2" }
+
+	option = {
+		name = config.3.a
+		every_country = {
+			limit = {
+				any_controlled_state = {
+					has_state_flag = coal_deposit_found
+				}
+			}
+			country_event = {
+				id = config.3
+				days = 365
+			}
+		}
+		every_state = {
+			limit = {
+				has_resources_amount = {
+					resource = coal
+					amount > 0
+				}
+				is_owned_and_controlled_by = ROOT
+			}
+			meta_effect = {	
+				text = {
+					[STATE_ID] = { subtract_from_variable = { global.coal_deposit_level_[STATE_ID] = [STATE_ID].resource@coal } }
+				}
+				STATE_ID = "[?THIS.GetID]"
+			}
+		}
+
+		if = {
+			limit = {
+				any_controlled_state = {
+					has_resources_amount = {
+						resource = coal
+						amount > 0
+					}
+					is_owned_and_controlled_by = ROOT
+					meta_trigger = {	
+						text = {
+							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 0 } }
+						}
+						STATE_ID = "[?THIS.GetID]"
+					}
+				}
+			}
+			ROOT = { country_event = config.4 }			
+		}
+
+	}
+
+}
+
+
+country_event = {
+	id = config.4 #to węgloniec
+	title = config.4.t
+	desc = config.4.desc
+
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires config.2" }
+
+	option = {
+		name = config.4.a
+		every_state = {
+			limit = {
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 0 } }
+						[STATE_ID] = { is_owned_and_controlled_by = ROOT }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}			
+			}
+			meta_effect = {	
+				text = {
+					[STATE_ID] = { 
+						clear_variable = global.coal_deposit_level_[STATE_ID] 
+						remove_dynamic_modifier = { modifier = coal_deposit_modifier_[STATE_ID] }
+						clr_state_flag = coal_deposit_found 
+						clr_state_flag = coal_deposit_unlock_1
+						clr_state_flag = coal_deposit_unlock_2
+						clr_state_flag = coal_deposit_unlock_3
+						add_extra_state_shared_building_slots = 1
+						set_temp_variable = { ligniteballs = 0 }
+						subtract_from_temp_variable = { ligniteballs = [STATE_ID].resource@coal }
+						add_resource = {
+							type = coal
+							amount = ligniteballs
+						}
+					}
+				}
+				STATE_ID = "[?THIS.GetID]"
+			}
+		}
+	}
+}
