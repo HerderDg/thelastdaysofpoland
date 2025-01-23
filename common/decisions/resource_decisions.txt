@@ -576,7 +576,98 @@ resource_decisions = {
 				add_mine_extraction = yes
 			}
 		}
-	}	
+	}
+	
+	kop_kurwa_ten_wegiel_small = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			is_poland_unifier = yes
+		}
+		
+		target_array = global.coal_deposits_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				has_state_flag = coal_only_voivodeship
+				has_state_flag = coal_deposit_found
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+		}
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			OR = {
+				has_idea = energy_coal_based
+				has_idea = energy_full_emission
+				has_idea = energy_sustainable_mix
+			}
+		}
+
+		available = {
+			ROOT = {
+				if = {
+					limit = { has_idea = energy_sustainable_mix }
+					custom_trigger_tooltip = {
+						check_variable = {
+							sum_of_wind_farms > sum_of_power_plants
+						}					
+						tooltip = check_power_plants_tooltip
+					}
+				}
+				else = {
+					always = yes
+				}
+				if = {
+					limit = {
+						FROM = { 
+						OR = {
+							is_western_poland_state = yes
+							is_silesia_state = yes
+						}
+					}
+					}
+					has_tech = improved_coalstuff
+				}
+				else = {
+					has_tech = advanced_coalstuff
+				}				
+				
+			}
+		}
+
+		cost = 60
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine lvl 3"
+			FROM = {
+				set_state_flag = mine_lvl_1
+				set_state_flag = mine_lvl_2
+				set_state_flag = mine_lvl_3
+				add_mine_extraction = yes
+				add_mine_extraction = yes
+				add_mine_extraction = yes
+			}
+		}
+	}
 
 	BBW_kop_kurwa_ten_wegiel = {
 		icon = GFX_decision_generic_pickandhammer

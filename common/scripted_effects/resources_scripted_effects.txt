@@ -69,6 +69,22 @@ add_mine_extraction = {
 	if = { limit = { FROM = { state = 267 } } add_resource = { type = coal amount = 32 state = THIS } }
 	if = { limit = { FROM = { state = 109 } } add_resource = { type = coal amount = 85 state = THIS } }
 	if = { limit = { FROM = { state = 326 } } add_resource = { type = coal amount = 29 state = THIS } }
+	if = { limit = { FROM = { state = 434 } } add_resource = { type = coal amount = 10 state = THIS } }
+	if = { limit = { FROM = { state = 352 } } add_resource = { type = coal amount = 2 state = THIS } }
+	if = { limit = { FROM = { state = 361 } } add_resource = { type = coal amount = 4 state = THIS } }
+	if = { limit = { FROM = { state = 681 } } add_resource = { type = coal amount = 3 state = THIS } }
+	if = { limit = { FROM = { state = 266 } } add_resource = { type = coal amount = 3 state = THIS } }
+	if = { limit = { FROM = { state = 260 } } add_resource = { type = coal amount = 11 state = THIS } }
+	if = { limit = { FROM = { state = 219 } } add_resource = { type = coal amount = 10 state = THIS } }
+	if = { limit = { FROM = { state = 155 } } add_resource = { type = coal amount = 12 state = THIS } }
+	if = { limit = { FROM = { state = 293 } } add_resource = { type = coal amount = 15 state = THIS } }
+	if = { limit = { FROM = { state = 297 } } add_resource = { type = coal amount = 15 state = THIS } }
+	if = { limit = { FROM = { state = 992 } } add_resource = { type = coal amount = 4 state = THIS } }
+	if = { limit = { FROM = { state = 703 } } add_resource = { type = coal amount = 4 state = THIS } }
+	if = { limit = { FROM = { state = 852 } } add_resource = { type = coal amount = 4 state = THIS } }
+	if = { limit = { FROM = { state = 200 } } add_resource = { type = coal amount = 2 state = THIS } }
+	if = { limit = { FROM = { state = 136 } } add_resource = { type = coal amount = 11 state = THIS } }
+	if = { limit = { FROM = { state = 1039 } } add_resource = { type = coal amount = 13 state = THIS } }
 }
 
 coal_deposit_level_1 = {
@@ -245,7 +261,7 @@ coal_deposit_level_3 = {
 
 recalculate_deposit_levels = {
 	for_loop_effect = {
-	end = 3
+	end = 7
 	start = 1
 	value = temp
 	if = {
@@ -267,7 +283,26 @@ recalculate_deposit_levels = {
 		force_update_dynamic_modifier = yes
 	}
 	}
-	else_if = {
+	if = {
+		limit = {
+			ROOT = {
+				has_tech = basic_coalstuff
+				has_tech = improved_coalstuff
+				NOT = { has_tech = advanced_coalstuff }
+			 }
+		 }
+		every_state = {
+			limit = {
+				is_owned_and_controlled_by = ROOT
+				NOT = { has_state_flag = coal_deposit_unlock_1 }
+				NOT = { has_state_flag = coal_deposit_unlock_2 }
+			}
+			coal_deposit_level_1 = yes
+			set_state_flag = coal_deposit_unlock_1
+			force_update_dynamic_modifier = yes
+		}		 
+	}
+	if = {
 		limit = {
 			ROOT = {
 				has_tech = basic_coalstuff
@@ -286,7 +321,46 @@ recalculate_deposit_levels = {
 			force_update_dynamic_modifier = yes
 		}		 
 	}
-	else_if = {
+	if = {
+		limit = {
+			ROOT = {
+				has_tech = basic_coalstuff
+				has_tech = improved_coalstuff
+				has_tech = advanced_coalstuff
+			 }
+		 }
+		every_state = {
+			limit = {
+				is_owned_and_controlled_by = ROOT
+				NOT = { has_state_flag = coal_deposit_unlock_1 }
+				NOT = { has_state_flag = coal_deposit_unlock_2 }
+				NOT = { has_state_flag = coal_deposit_unlock_3 }
+			}
+			coal_deposit_level_1 = yes
+			set_state_flag = coal_deposit_unlock_1
+			force_update_dynamic_modifier = yes
+		}		 
+	}	
+	if = {
+		limit = {
+			ROOT = {
+				has_tech = basic_coalstuff
+				has_tech = improved_coalstuff
+				has_tech = advanced_coalstuff
+			 }
+		 }
+		every_state = {
+			limit = {
+				is_owned_and_controlled_by = ROOT
+				NOT = { has_state_flag = coal_deposit_unlock_2 }
+				NOT = { has_state_flag = coal_deposit_unlock_3 }
+			}
+			coal_deposit_level_2 = yes
+			set_state_flag = coal_deposit_unlock_2
+			force_update_dynamic_modifier = yes
+		}		 
+	}	
+	if = {
 		limit = {
 			ROOT = {
 				has_tech = basic_coalstuff
