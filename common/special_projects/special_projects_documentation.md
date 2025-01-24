@@ -75,7 +75,7 @@ special_project_id = {
 		# If resource requirement isn't met then a linear speed penalty will be applied
 		resources = {
 			steel = INT
-			chromium = INT
+			aluminium = INT
 			...
 		}
 	}
