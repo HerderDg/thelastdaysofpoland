@@ -130,6 +130,16 @@ sp_civilian_implants = {
 
 	project_tags = sp_tag_civilian
 
+	resource_cost = {
+		resources = { electronics = 5 synthetic_materials = 5 }
+	}
+
+	available = { 
+		FROM = {
+			has_tech = imported_mainframes
+		}
+	}
+
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
 		sp_civilian_generic_reward_scientist_xp_2
@@ -145,8 +155,18 @@ sp_civilian_implants = {
 
 	project_output = {
 		country_effects = {
-			add_dynamic_modifier = {
-				modifier = civilian_neuro_implants
+			if = {
+				limit = {
+					ROOT = { original_tag = BBW }
+				}
+				add_dynamic_modifier = {
+					modifier = BBW_civilian_neuro_implants
+				}				
+			}
+			else = {
+				add_dynamic_modifier = {
+					modifier = civilian_neuro_implants
+				}
 			}
 		}
 	}
