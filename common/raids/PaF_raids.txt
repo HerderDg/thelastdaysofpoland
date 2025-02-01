@@ -1,0 +1,231 @@
+types = {
+
+	watykanczyk_exe = {
+		days_to_prepare = 30
+
+		category = infrastructure_hacking
+
+		command_power = 40 # command power allocation cost
+		ai_will_do = {
+			base = 1
+			modifier = {
+				# Don't target anyone who is not a potential enemy
+				factor = 0
+				NOT = {
+					is_in_array = {
+						array = potential_and_current_enemies
+						value = FROM  # Target country
+					}
+				}
+			}
+		}
+
+		allowed = {
+			
+		}
+		# Raid Type is visible
+		visible = {
+			is_special_project_completed = sp:sp_watykanczyk
+		}
+		# Specific Target is visible
+		show_target = {
+			NOT = {
+				is_in_faction_with = FROM
+			}
+		}
+
+		# Can prepare
+		available = {
+			has_war_with = FROM
+		}
+		launchable = {
+			has_war_with = FROM
+		}
+
+		launch_sound = raid_launch_watykanczyk
+
+		target_type = {
+			building = {
+				type = power_plant
+			}
+		}
+		target_icon = GFX_other_target_icon
+
+		unit_requirements = {
+			equipment = {
+				type = { ucav_equipment }
+				amount = { min = 10 }
+			}
+		}
+
+		essential_equipment = {
+			uav_equipment = 50
+		}
+
+		starting_point = {
+		    types = { air_base }
+		}
+
+		arrow = {
+			type = ballistic
+		}
+
+        unit_model = {
+            type = equipment
+        }
+
+		success_factors = {
+			success = {
+				base = 0.5
+				experience = {
+					weight = 0.1
+					start_weight = -0.1
+					reference = 1.0
+				}
+				air_defence = {
+					reference = 100
+					start_weight = -0.05
+					weight = 0.05
+				}
+				air_agility = {
+					reference = 100
+					start_weight = -0.1
+					weight = 0.1
+				}
+				reliability = {
+					start_weight = -0.1
+					weight = 0.1
+				}
+
+
+
+				air_superiority = {
+					reference = 1.0
+					start_weight = -0.25
+					weight = 0.25
+				}
+
+
+
+				# Target
+				interception = {
+					reference = 10
+					weight = -0.25
+				}
+				anti_air = {
+					weight = -0.05
+				}
+				radar = {
+					weight = -0.05
+				}
+				intel = {
+					weight = 0.2
+					#start_reference = 50
+					reference = 100
+				}
+			}
+		}
+
+		success_levels = {
+			failure = {
+				actor_effects = {
+					var:actor_country = {
+						custom_effect_tooltip = raid_aborted_tt
+						add_political_power = -50
+					}
+					raid_damage_units = {
+						plane_loss = 0.75
+						ratio = yes
+					}
+				}
+			}
+			limited_success = {
+				actor_effects = {
+					raid_damage_units = {
+						plane_loss = 0.5
+						ratio = yes
+					}
+					raid_add_unit_experience = 0.1
+				}
+				victim_effects = {
+					var:victim_country= {
+						add_dynamic_modifier = {
+							modifier = watykanczyk_light_damage_modifier
+							days = 30
+						}
+					}					
+				}
+			}
+			success = {
+			    custom_sound = raid_launch_watykanczyk
+				actor_effects = {
+					raid_damage_units = {
+						plane_loss = 0.1
+						ratio = yes
+					}
+					raid_add_unit_experience = 0.35
+				}
+				victim_effects = {
+					var:target_state = {
+						custom_effect_tooltip = raid_watykanczyk_strike_tt
+						damage_building = {
+							type = power_plant
+							damage = 1
+							repair_speed_modifier = 0.5
+						}
+					}
+					var:victim_country= {
+						add_dynamic_modifier = {
+							modifier = watykanczyk_damage_modifier
+							days = 45
+						}
+					}
+				}
+			}
+			critical_success = {
+			    custom_sound = raid_launch_watykanczyk
+				actor_effects = {
+					raid_add_unit_experience = 0.5
+				}
+				victim_effects = {
+					var:target_state = {
+						custom_effect_tooltip = raid_watykanczyk_strike_tt
+						damage_building = {
+							type = power_plant
+							damage = 1
+							repair_speed_modifier = 0.5
+						}
+						if = {
+							limit = {
+								arms_factory > 0
+							}
+							damage_building = {
+								type = arms_factory
+								damage = 1
+								repair_speed_modifier = 0.5
+							}							
+						}
+						else_if = {
+							limit = {
+								industrial_complex > 0
+							}
+							damage_building = {
+								type = industrial_complex
+								damage = 1
+								repair_speed_modifier = 0.5
+							}							
+						}
+					}
+					var:victim_country= {
+						add_dynamic_modifier = {
+							modifier = watykanczyk_critical_damage_modifier
+							days = 60
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+}
