@@ -5,10 +5,10 @@ sp_smog_bricks = {
 	}
 	available = {
 		FROM = {
-		has_country_flag = unified_regional
+			has_country_flag = unified_regional #teoretycznie w lore jest dosc pozno
 		}
 	}
-	prototype_time = 60
+	prototype_time = 45
 	complexity = sp_complexity.medium
 
 	breakthrough_cost = {
@@ -37,8 +37,16 @@ sp_smog_bricks = {
 
 	project_output = {
 		country_effects = {
-			set_technology = {
-				smog_bricks = 1
+			custom_effect_tooltip = smog_bricks_tooltip
+			hidden_effect = {
+				set_technology = {
+					smog_bricks = 1
+					popup = no
+				}
+			}
+			add_opinion_modifier = {
+				target = CHI
+				modifier = aided_industry
 			}
 		}
 	}
@@ -90,7 +98,7 @@ sp_steam_trams = {
 	}
 }
 
-sp_estrogenisation_of_water = {
+sp_estrogenisation_of_water = { #na później
 	specialization = specialization_civilian
 	allowed = {
 		original_tag = AMA
@@ -114,8 +122,12 @@ sp_estrogenisation_of_water = {
 
 	project_output = {
 		country_effects = {
-			set_technology = {
-				estrogenisation_of_water = 1
+			#custom_effect_tooltip = estrogenisation_tooltip
+			hidden_effect = {
+				set_technology = {
+					estrogenisation_of_water = 1
+					popup = no
+				}
 			}
 		}
 	}
@@ -125,13 +137,17 @@ sp_civilian_implants = {
 	specialization = specialization_civilian
 	icon = GFX_sp_civilian_implants
 
-	prototype_time = 180
+	prototype_time = 90
 	complexity = sp_complexity.large
 
 	project_tags = sp_tag_civilian
 
 	resource_cost = {
 		resources = { electronics = 5 synthetic_materials = 5 }
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 2
 	}
 
 	available = { 
@@ -176,15 +192,24 @@ sp_5g_towers = {
 	specialization = specialization_civilian
 	icon = GFX_sp_5g_towers
 
-	prototype_time = 180
-	complexity = sp_complexity.large
+	prototype_time = sp_time.prototype.short
+	complexity = sp_complexity.medium
 
 	project_tags = sp_tag_radar
 
+	resource_cost = {
+		resources = { electronics = 5 aluminium = 5 }
+	}
+
 	available = {
 		FROM = {
-			has_tech = battlefield_management_systems
+			has_tech = radio
+			NOT = { is_szur_faction = yes }
 		}
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 1
 	}
 
 	generic_prototype_rewards = {
@@ -202,8 +227,11 @@ sp_5g_towers = {
 
 	project_output = {
 		country_effects = {
-			set_technology = {
-				five_g_network = 1
+			custom_effect_tooltip = five_g_tooltip
+			hidden_effect = {
+				set_technology = {
+					five_g_network = 1
+				}
 			}
 		}
 	}
@@ -213,10 +241,18 @@ sp_exoskeletons = {
 	specialization = specialization_civilian
 	icon = GFX_sp_exoskeletons
 
-	prototype_time = 180
-	complexity = sp_complexity.large
+	prototype_time = sp_time.prototype.medium
+	complexity = sp_complexity.medium
 
 	project_tags = sp_tag_civilian
+
+	breakthrough_cost = {
+		specialization_civilian = 1
+	}
+
+	resource_cost = {
+		resources = { electronics = 3 aluminium = 7 }
+	}
 
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
@@ -232,7 +268,15 @@ sp_exoskeletons = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			hidden_effect = {
+				set_technology = {
+					civilian_exoskeletons = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = civilian_exoskeletons_tooltip
+		}
 	}
 }
 
@@ -240,10 +284,18 @@ sp_shackled_ai = {
 	specialization = specialization_civilian
 	icon = GFX_sp_shackled_ai
 
-	prototype_time = 180
+	prototype_time = sp_time.prototype.very_long
 	complexity = sp_complexity.large
 
 	project_tags = sp_tag_civilian
+
+	resource_cost = {
+		resources = { electronics = 20 }
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 3
+	}
 
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
@@ -386,10 +438,20 @@ sp_watykanczyk = {
 	specialization = specialization_civilian
 	icon = GFX_sp_watykanczyk
 
-	prototype_time = 180
-	complexity = sp_complexity.large
+	prototype_time = sp_time.prototype.short
+	complexity = sp_complexity.medium
 
 	project_tags = sp_tag_civilian
+
+	resource_cost = {
+		resources = { 
+			electronics = 10
+		}
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 2
+	}
 
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
@@ -409,6 +471,7 @@ sp_watykanczyk = {
 			add_dynamic_modifier = {
 				modifier = modern_malware
 			}
+			custom_effect_tooltip = watykanczyk_raid_tooltip	
 		}
 	}
 }
@@ -418,10 +481,18 @@ sp_supercomputer = {
 	specialization = specialization_civilian
 	icon = GFX_sp_supercomputer
 
-	prototype_time = 180
+	prototype_time = sp_time.prototype.long
 	complexity = sp_complexity.large
 
 	project_tags = sp_tag_civilian
+
+	resource_cost = {
+		resources = { electronics = 15 }
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 2
+	}
 
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
@@ -449,8 +520,19 @@ sp_haarp = {
 	specialization = specialization_civilian
 	icon = GFX_sp_haarp
 
-	prototype_time = 180
+	prototype_time = sp_time.prototype.very_long
 	complexity = sp_complexity.large
+
+	resource_cost = {
+		resources = { 
+			electronics = 15
+			coal = 10
+		}
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 3
+	}
 
 	project_tags = sp_tag_civilian
 
@@ -468,18 +550,31 @@ sp_haarp = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = haarp_tooltip	
+		}		
 	}
 }
 
 sp_stonka = { 
 	specialization = specialization_civilian
-	icon = GFX_sp_
+	icon = GFX_sp_stonka
 
-	prototype_time = 180
-	complexity = sp_complexity.large
+	prototype_time = 30
+	complexity = sp_complexity.small
 
 	project_tags = sp_tag_biological
+
+	resource_cost = {
+		resources = { 
+			food = 10
+			synthetic_materials = 10
+		}
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 1
+	}
 
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
@@ -496,29 +591,29 @@ sp_stonka = {
 
 	project_output = {
 		country_effects = {
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = stonka_effect_lar
-				set_country_flag = enable_stonka_lar
-			}
-			else = {
-				custom_effect_tooltip = stonka_effect
-				set_country_flag = enable_stonka
-			}
+			custom_effect_tooltip = stonka_effect
 		}
 	}
 }
 
 sp_gnojowka = { 
 	specialization = specialization_civilian
-	icon = GFX_sp_
+	icon = GFX_sp_gnojowka
 
-	prototype_time = 180
-	complexity = sp_complexity.large
+	prototype_time = 45
+	complexity = sp_complexity.medium
 
 	project_tags = sp_tag_biological
+
+	resource_cost = {
+		resources = { food = 10
+		synthetic_materials = 10
+		}
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 2
+	}
 
 	generic_prototype_rewards = {
 		sp_civilian_generic_reward_scientist_xp_1
@@ -535,8 +630,11 @@ sp_gnojowka = {
 
 	project_output = {
 		country_effects = {
-			add_dynamic_modifier = {
-				modifier = enhanced_crop_yields
+			ROOT = {
+				custom_effect_tooltip = gnojowka_tooltip				
+				hidden_effect = {
+					country_event = config.5
+				}
 			}
 		}
 	}
@@ -545,12 +643,22 @@ sp_gnojowka = {
 
 sp_gmo = { 
 	specialization = specialization_civilian
-	#icon = GFX_sp_
+	icon = GFX_sp_gmo
 
-	prototype_time = 180
+	prototype_time = 60
 	complexity = sp_complexity.large
 
 	project_tags = sp_tag_civilian
+
+	resource_cost = {
+		resources = { food = 20
+		synthetic_materials = 20
+		}
+	}
+
+	breakthrough_cost = {
+		specialization_civilian = 3
+	}
 
 	special_project_parent = {
 		sp_stonka
@@ -572,8 +680,11 @@ sp_gmo = {
 
 	project_output = {
 		country_effects = {
-			add_dynamic_modifier = {
-				modifier = genetic_modified_crops
+			ROOT = {
+				custom_effect_tooltip = gmo_tooltip				
+				hidden_effect = {
+					country_event = config.6
+				}
 			}
 		}
 	}
