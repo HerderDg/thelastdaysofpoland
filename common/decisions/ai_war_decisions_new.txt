@@ -5234,6 +5234,435 @@ cleanup_lodzig_wars = { #to kurwa nawet chyba nie działa xd
 #░░╚██╔╝░╚██╔╝░██║░░██║██║░░██║██████╔╝███████╗██║░░██║░░╚██╔╝░╚██╔╝░██║░░██║
 #░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝
 #WARSZAWA - FAZA PIERWSZA
+
+WARSZAWA_TV_HYPERWAR = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+			OR = {
+				original_tag = TVP
+				original_tag = TVN
+			}
+		}
+
+	available = {
+			OR = {
+				original_tag = TVP
+				original_tag = TVN
+			}
+			has_war = no
+			date > 2028.04.11 #Nie wiem kiedy dobrze by było zacząć, więc roboczo jest tutaj
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_TV_HYPERWAR"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = TVN 
+					}
+			declare_war_on = {
+				target = TVN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVN }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_vroom_vroom = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		original_tag = WRC
+		}
+
+	available = {
+			original_tag = WRC
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_vroom_vroom"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRC }
+					country_exists = FSO 
+					}
+			declare_war_on = {
+				target = FSO
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_gospodarka_niemiecka = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		original_tag = ZIE
+		}
+
+	available = {
+			original_tag = ZIE
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_gospodarka_niemiecka"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZIE }
+					country_exists = ATO 
+					}
+			declare_war_on = {
+				target = ATO
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_legia_podzielona = { #murem nienawiści
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = PLC
+			original_tag = BLO
+		}
+	}
+
+	available = {
+			OR = {
+				original_tag = PLC
+				original_tag = BLO
+			}
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_legia_podzielona"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = LEG 
+					}
+				declare_war_on = {
+					target = LEG
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BLO }
+					country_exists = LEG 
+					}
+				declare_war_on = {
+					target = LEG
+					type = voivodeship_war
+				}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_chcialby_pan_porozmawiac = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		original_tag = JEH
+		}
+
+	available = {
+			original_tag = JEH
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_chcialby_pan_porozmawiac"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = GRD 
+					}
+			declare_war_on = {
+				target = GRD
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_stan_wojenny = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		original_tag = ZYR
+		}
+
+	available = {
+			original_tag = ZYR
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_stan_wojenny "
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_czersk_vs_dupa = { #nie miałem pomysłu na nazwę
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = CZR
+			original_tag = DUP
+		}
+	}
+
+	available = {
+			OR = {
+				original_tag = CZR
+				original_tag = DUP
+			}
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_czersk_vs_dupa"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CZR }
+					country_exists = DUP 
+					}
+				declare_war_on = {
+					target = DUP
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = CZR 
+					}
+				declare_war_on = {
+					target = CZR
+					type = voivodeship_war
+				}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_zlomowanie = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		original_tag = MAF
+		}
+
+	available = {
+			original_tag = MAF
+			has_war = no
+			date > 2028.04.11 #tu to samo
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_zlomowanie "
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = OKE 
+					}
+			declare_war_on = {
+				target = OKE
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_pozew = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	visible = {
+		WRS = { is_in_faction = yes }
+		original_tag = WRS
+	}
+	allowed = {
+		is_capital_district = yes
+		original_tag = WRS
+		WRS = { is_in_faction = yes }
+		}
+
+	available = {
+			original_tag = WRS
+			has_war = no
+			date > 2030.04.11 #tu to samo
+			WRS = { is_in_faction = yes }
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_pozew "
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRS }
+					country_exists = WRC 
+					}
+			declare_war_on = {
+				target = WRC
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
 #WARSZAWA - FAZA DRUGA
 #WARSZAWA - FAZA OSTATECZNA
 #██████╗░░█████╗░██████╗░██╗░░░░░░█████╗░░██████╗██╗███████╗

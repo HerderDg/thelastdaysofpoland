@@ -1,0 +1,68 @@
+add_namespace = zimna_wojna
+
+country_event = { #Wybór sojuszu przez niezdecydowanych
+	id = zimna_wojna.1
+	title = zimna_wojna.1.t
+	desc = zimna_wojna.1.desc
+
+	trigger = {
+		date > 2028.12.02
+		is_undecided_warsaw = yes
+		NOT = { has_country_flag = decided_about_faction }
+		is_in_faction = no
+	}
+	
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires zimna_wojna.1" 
+		set_country_flag = decided_about_faction
+	}
+
+	option = {
+		name = zimna_wojna.1.a 
+		TRZ = {
+			add_to_faction = ROOT
+		}
+		ai_chance = {
+			base = 45
+		}
+    }
+	option = {
+		name = zimna_wojna.1.b
+		WRC = {
+			add_to_faction = ROOT
+		}
+		ai_chance = {
+			base = 45
+		}
+    }
+	option = {
+		name = zimna_wojna.1.c
+		ai_chance = {
+			base = 10
+		}
+    }	
+}
+
+country_event = { #Scripted Peace Deal Lewica
+	id = zimna_wojna.2
+	title = zimna_wojna.2.t
+	desc = zimna_wojna.2.desc
+
+	trigger = {
+		WOW = { exists = no }
+		WRC = { exists = no }
+		IPN = { exists = no }
+		KCZ = { exists = no }
+		GAR = { exists = no }
+		has_country_flag = lewica_boss
+	}
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires zimna_wojna.2" }
+
+	option = {
+		name = zimna_wojna.2.a
+		clr_country_flag = lewica_boss
+		peace_deal_warszawa_lewica = yes
+    }	
+}
