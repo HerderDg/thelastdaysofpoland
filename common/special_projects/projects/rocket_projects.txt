@@ -24,33 +24,21 @@ sp_rockets_flying_bomb = {
 		resources = { 
 			steel = 8
 			aluminium = 8
-			#electronics = 2
+			electronics = 2
 		 }
 	}
 
 	ai_will_do = {
 		base = 1
-		modifier = {
-			factor = 3
-			ROOT = { tag = GER }
-		}
-		modifier = {
-			factor = 0.5
-			ROOT = { is_major = no }
-		}
-		# modifier = {
-		# 	factor = 0.5 # Play a bit safe until we have radar
-		# 	ROOT = { NOT = { has_tech = radio_detection } }
-		# }
 	}
 
 	complexity = sp_complexity.medium
 
 	available = {
 		always = yes
-		# FROM = {
-		# 	has_tech = experimental_rockets
-		# }
+		FROM = {
+			has_tech = rocket_artillery2
+		}
 	}
 
 	
@@ -58,18 +46,20 @@ sp_rockets_flying_bomb = {
 
 	project_output = {
 		country_effects = {
-			custom_effect_tooltip = {
-				localization_key = SP_UNLOCK_TECH
-				TECH = sp_rockets_improved_guidance	
-			}
 			if = { 
 				limit = {
-					has_dlc = "By Blood Alone"
+					has_dlc = "Gotterdammerung"
 				}
 				custom_effect_tooltip = {
-					localization_key = SP_UNLOCK_TECH
-					TECH = sp_rockets_rocket_bomber	
-				}		
+					localization_key = SP_ROCKET_AND_SUBMARINE_SITE_REMINDER_PROJECT
+					PROJECT = sp_rockets_flying_bomb
+				}				
+			}
+			else = {
+				custom_effect_tooltip = {
+					localization_key = SP_ROCKET_SITE_REMINDER_PROJECT
+					PROJECT = sp_rockets_flying_bomb
+				}
 			}
 		}
 		enable_equipments = {
@@ -326,6 +316,10 @@ sp_rockets_ballistic_missile = {
 	
 	icon = GFX_sp_rockets_ballistic_missile
 	
+	special_project_parent = {
+		sp_rockets_flying_bomb
+	}
+
 	project_tags = sp_tag_rocket
 
 	complexity = sp_complexity.large
@@ -334,36 +328,42 @@ sp_rockets_ballistic_missile = {
 		resources = {
 			steel = 9 
 			aluminium = 9
-			#aluminium = 9
+			electronics = 4
 		}
 	}
 
 	available = {
 		always = yes
-		# FROM = {
-		# 	has_tech = experimental_rockets
-		# }
+		FROM = {
+			has_tech = rocket_artillery3
+		}
 	}
 
 	ai_will_do = {
 		base = 1
-		modifier = {
-			factor = 2
-			ROOT = { tag = GER }
-		}
-		modifier = {
-			factor = 0.5
-			ROOT = { is_major = no }
-		}
-		# modifier = {
-		# 	factor = 0.5 # Play a bit safe until we have radar
-		# 	ROOT = { NOT = { has_tech = radio_detection } }
-		# }
 	}
 	
 	prototype_time = sp_time.prototype.medium
 
 	project_output = {
+		country_effects = {
+			if = { 
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
+				custom_effect_tooltip = {
+					localization_key = SP_ROCKET_AND_SUBMARINE_SITE_REMINDER_PROJECT
+					PROJECT = sp_rockets_ballistic_missile
+				}				
+			}
+			else = {
+				custom_effect_tooltip = {
+					localization_key = SP_ROCKET_SITE_REMINDER_PROJECT
+					PROJECT = sp_rockets_ballistic_missile
+				}
+			}		
+		}
+
 		enable_equipments = {
 			limit = {
 				has_dlc = "Gotterdammerung"
@@ -447,10 +447,6 @@ sp_rockets_ballistic_missile = {
 
 			weight = {
 				base = 10
-				modifier = {
-					factor = 10
-					FROM = { original_tag = GER }
-				}
 			}
 
 			option = {
@@ -540,7 +536,7 @@ sp_rockets_medium_range_ballistic_missile = {
 		resources = {
 			steel = 12 
 			aluminium = 9
-			#aluminium = 9
+			electronics = 5
 		}
 	}
 
@@ -559,6 +555,23 @@ sp_rockets_medium_range_ballistic_missile = {
 	prototype_time = sp_time.prototype.medium	
 
 	project_output = {
+		country_effects = {
+			if = { 
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
+				custom_effect_tooltip = {
+					localization_key = SP_ROCKET_AND_SUBMARINE_SITE_REMINDER_PROJECT
+					PROJECT = sp_rockets_medium_range_ballistic_missile
+				}				
+			}
+			else = {
+				custom_effect_tooltip = {
+					localization_key = SP_ROCKET_SITE_REMINDER_PROJECT
+					PROJECT = sp_rockets_medium_range_ballistic_missile
+				}
+			}		
+		}	
 		enable_equipments = {
 			limit = {
 				has_dlc = "Gotterdammerung"
@@ -676,7 +689,7 @@ sp_rockets_long_range_ballistic_missile = {
 		resources = {
 			steel = 12 
 			aluminium = 12
-			#aluminium = 12
+			electronics = 6
 		}
 	}
 	allowed = {
@@ -686,6 +699,7 @@ sp_rockets_long_range_ballistic_missile = {
 	special_project_parent = {
 		sp_rockets_medium_range_ballistic_missile
 		# ICBMs are intended to be only nuclear warhead carriers, so need to be able to do create these in order to complete project
+		# no kurwa chyba nie tylko nie, taktyki wojennej to wyście sie chyba w burdelu uczyli
 		#sp_nuclear_warheads
 	}
 
@@ -698,6 +712,12 @@ sp_rockets_long_range_ballistic_missile = {
 	prototype_time = sp_time.prototype.medium
 
 	project_output = {
+		country_effects = {
+			custom_effect_tooltip = {
+				localization_key = SP_ROCKET_AND_SUBMARINE_SITE_REMINDER_PROJECT
+				PROJECT = sp_rockets_long_range_ballistic_missile
+			}						
+		}
 		enable_equipments = {
 			#ballistic_missile_equipment_3
 			nuclear_missile_equipment_2
@@ -736,12 +756,6 @@ sp_rockets_long_range_ballistic_missile = {
 
 			weight = {
 				base = 50
-				modifier = {
-					factor = 2
-					FROM = {
-						original_tag = USA
-					}
-				}
 			}
 
 			option = {
@@ -765,10 +779,6 @@ sp_rockets_long_range_ballistic_missile = {
 
 			weight = {
 				base = 10
-				# modifier = {
-				# 	factor = 100
-				# 	FROM = { original_tag = SOV }
-				# }
 			}
 
 			option = {
@@ -841,7 +851,7 @@ sp_rockets_ground_to_air_missile = {
 		resources = {
 			steel = 6 
 			aluminium = 9
-			#electronics = 6
+			electronics = 4
 		}
 	}	
 	complexity = sp_complexity.large 
@@ -856,9 +866,6 @@ sp_rockets_ground_to_air_missile = {
 
 	available = {
 		always = yes
-		# FROM = {
-		# 	has_tech = experimental_rockets
-		# }
 	}
 	
 	ai_will_do = {
@@ -868,6 +875,14 @@ sp_rockets_ground_to_air_missile = {
 	prototype_time = sp_time.prototype.medium	 
 
 	project_output = {
+		country_effects = {
+			custom_effect_tooltip = {
+				localization_key = SP_ROCKET_SITE_REMINDER_PROJECT
+				PROJECT = sp_rockets_ground_to_air_missile
+			}
+
+		}
+
 		enable_equipments = {
 			sam_missile_equipment_1
 		}
@@ -1019,91 +1034,6 @@ sp_rockets_ground_to_air_missile = {
 	}
 }
 
-
-sp_rocket_interceptor = {
-	specialization = specialization_air 
-	
-	icon = GFX_sp_rockets_rocket_interceptor 
-
-	project_tags = {
-		sp_tag_rocket
-	}
-
-	complexity = sp_complexity.large
-	resource_cost = {
-		resources = {
-			#electronics = 6 
-			aluminium = 12
-			#aluminium = 6
-		}
-	}
-
-	available = { 
-		# FROM = {
-		# 	has_tech = experimental_rockets
-		# }
-	}
-
-	ai_will_do = {
-		base = 1
-		modifier = {
-			factor = 3
-			ROOT = { tag = GER }
-		}
-		modifier = {
-			factor = 0.5
-			ROOT = { is_major = no }
-		}
-	}
-	
-	prototype_time = sp_time.prototype.medium
-
-	project_output = {
-		country_effects = {
-			custom_effect_tooltip = {
-				localization_key = SP_UNLOCK_TECH
-				TECH = improved_rocket_engines	
-			}
-			custom_effect_tooltip = {
-				localization_key = SP_UNLOCK_TECH
-				TECH = advanced_rocket_engines	
-			}		
-		}
-		enable_equipments = {
-			rocket_interceptor_equipment_1
-		}
-		# enable_equipment_modules = {
-		# 	limit = { 
-		# 		has_dlc = "By Blood Alone" 
-		# 	}
-		# 	rocket_engine_1
-		# }
-		
-	}
-
-	generic_prototype_rewards = {
-		sp_rockets_scientist_xp_generic_reward
-		sp_rockets_political_interference_generic_reward
-		sp_rockets_onsite_explosion_generic_reward
-		sp_rockets_generic_major_breakthrough_reward
-		sp_rockets_generic_avionics_advancements_reward
-		sp_air_generic_reward_scientist_xp_1
-		sp_air_generic_reward_scientist_xp_2
-		sp_air_generic_reward_scientist_xp_3
-		sp_air_generic_reward_air_xp_1
-		sp_air_generic_reward_air_xp_2
-		sp_air_generic_reward_air_xp_3
-		sp_air_generic_reward_major_progress_1
-		sp_air_generic_reward_major_progress_2
-		sp_air_generic_reward_major_progress_3
-		sp_air_generic_reward_test_failure_1
-		sp_air_generic_reward_test_failure_2
-		sp_air_generic_reward_test_failure_3		
-	}
-}
-
-
-	
 
 # KOSMOS
 
