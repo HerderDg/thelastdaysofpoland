@@ -60,12 +60,13 @@ country_event = {
 	desc = config.3.desc
 
 	is_triggered_only = yes
+	fire_only_once = yes
 	hidden = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires config.3" }
 
 	option = {
 		name = config.3.a
-		every_country = {
+		random_country = {
 			limit = {
 				any_controlled_state = {
 					has_state_flag = coal_deposit_found
@@ -82,7 +83,6 @@ country_event = {
 					resource = coal
 					amount > 0
 				}
-				is_owned_and_controlled_by = ROOT
 			}
 			meta_effect = {	
 				text = {
@@ -94,9 +94,8 @@ country_event = {
 
 		if = {
 			limit = {
-				any_controlled_state = {
+				any_state = {
 					has_state_flag = coal_deposit_found
-					is_owned_and_controlled_by = ROOT
 					meta_trigger = {	
 						text = {
 							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 0 } }
