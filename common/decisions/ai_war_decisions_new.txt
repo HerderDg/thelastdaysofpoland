@@ -6372,7 +6372,7 @@ ai_war_decisions = {
  
   #WARSZAWA - FAZA POWOJENNA OGÓLNE
  
- WARSZAWA_zielenina = { # komuna vs grodzisk lub jehowi
+ WARSZAWA_komunizacja = { # komuna vs grodzisk lub jehowi
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -6581,7 +6581,7 @@ WARSZAWA_car_cleanup = { #jakby FSO jakoś przetrwało
 	available = {
 			original_tag = WRS
 			has_war = no
-			date > 2028.04.11 #tu to samo
+			date > 2031.07.15 #placeholder
 			has_global_flag = warszawa_lewica_win
 	}
 	highlight_states = {
@@ -7120,6 +7120,63 @@ WARSZAWA_prezydentura_szmezydentura = { # trz vs dup, czr
 	}
 }
 
+WARSZAWA_polcajt = { # kod vs plc
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = KOD
+			original_tag = PLC
+		}
+	}
+
+	available = {
+			OR = {
+				original_tag = PLC
+				original_tag = KOD
+			}
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_lewica_win
+	}
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_recykling"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KOD }
+					country_exists = PLC 
+					}
+				declare_war_on = {
+					target = PLC
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = KOD 
+					}
+				declare_war_on = {
+					target = KOD
+					type = voivodeship_war
+				}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
 
 
 #WARSZAWA - FAZA DRUGA
