@@ -5172,8 +5172,328 @@ ai_war_decisions = {
 #██║░░██║██║░░██║██████╔╝╚█████╔╝██║░╚═╝░██║██████╔╝██║░╚██╗██║███████╗
 #╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
 #RADOMSKIE - FAZA PIERWSZA
+ RADOM_01_BUREAUCRATIC_POETRY = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = SKA
+	}
+
+	available = {
+		original_tag = SKA
+		has_war = no
+		date > 2028.06.11
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision RADOM_01_BUREAUCRATIC_POETRY"
+		declare_war_on = {
+			target = CZA
+			type = voivodeship_war
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
+ RADOM_01_MILITARY_CLASH = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = AIR
+			original_tag = PAB
+		}
+	}
+
+	available = {
+		OR = {
+			original_tag = AIR
+			original_tag = PAB
+		}
+		AND = {
+			country_exists = PAB
+			country_exists = AIR
+		}
+		has_war = no
+		date > 2028.05.05
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision RADOM_01_MILITARY_CLASH"
+		if = { 
+			limit = { 
+				ROOT = { original_tag = AIR }
+				country_exists = PAB 
+				}
+		declare_war_on = {
+			target = PAB
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { 
+				ROOT = { original_tag = PAB }
+				country_exists = AIR 
+				}
+		declare_war_on = {
+			target = AIR
+			type = voivodeship_war
+		}
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+ 
+ RADOM_01_COUNTY_OF_HORTEX = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = APC
+			original_tag = SZY
+		}
+	}
+
+	available = {
+		OR = {
+			original_tag = APC
+			original_tag = SZY
+		}
+		AND = {
+			country_exists = APC
+			country_exists = SZY
+		}
+		has_war = no
+		date > 2028.06.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision RADOM_01_COUNTY_OF_HORTEX"
+		if = { 
+			limit = { 
+				ROOT = { original_tag = APC }
+				country_exists = SZY 
+				}
+		declare_war_on = {
+			target = SZY
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { 
+				ROOT = { original_tag = SZY }
+				country_exists = APC 
+				}
+		declare_war_on = {
+			target = APC
+			type = voivodeship_war
+		}
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ } 
+
 #RADOMSKIE - FAZA DRUGA
+ RADOM_02_EAST_RADOM_WAR = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = AIR
+		original_tag = PAB
+		original_tag = SKA
+		original_tag = CZA
+	}
+
+	available = {
+		has_war = no
+		date > 2028.11.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na wschodniej radomszczyznie"
+		if = { limit = { country_exists = AIR
+						 ROOT = { NOT = { original_tag = AIR 
+						 is_in_faction_with = AIR } } }
+		declare_war_on = {
+			target = AIR
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = PAB
+						 ROOT = { NOT = { original_tag = PAB 
+						 is_in_faction_with = PAB } } }
+		declare_war_on = {
+			target = PAB
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = SKA
+						 ROOT = { NOT = { original_tag = SKA
+						 is_in_faction_with = SKA } } }
+		declare_war_on = {
+			target = SKA
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = CZA
+						 ROOT = { NOT = { original_tag = CZA 
+						 is_in_faction_with = CZA } } }
+		declare_war_on = {
+			target = CZA
+			type = voivodeship_war
+		}
+		}						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+
+ RADOM_02_WEST_RADOM_WAR = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = SAT
+		original_tag = SZY
+		original_tag = APC
+	}
+
+	available = {
+		has_war = no
+		date > 2028.11.01
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na zachodniej radomszczyznie"
+		if = { limit = { country_exists = SAT
+						 ROOT = { NOT = { original_tag = SAT 
+						 is_in_faction_with = SAT } } }
+		declare_war_on = {
+			target = SAT
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = SZY
+						 ROOT = { NOT = { original_tag = SZY 
+						 is_in_faction_with = SZY } } }
+		declare_war_on = {
+			target = SZY
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = APC
+						 ROOT = { NOT = { original_tag = APC
+						 is_in_faction_with = APC } } }
+		declare_war_on = {
+			target = APC
+			type = voivodeship_war
+		}
+		}								
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
+
 #RADOMSKIE - FAZA OSTATECZNA
+ RADOM_03_RADOM_WAR = {
+	
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_radom_province = yes
+	}
+
+	available = {
+		has_war = no
+		date > 2029.05.01
+		RAD = { has_country_flag = radom_committed }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision wojna na radomszczyznie"
+		random_neighbor_country = { limit = { is_radom_province = yes }
+			ROOT = {
+				declare_war_on = {
+					target = FROM
+					type = voivodeship_war
+				}
+			}
+		}								
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
 #██╗░░░░░░█████╗░██████╗░███████╗██╗░░██╗██╗███████╗
 #██║░░░░░██╔══██╗██╔══██╗╚════██║██║░██╔╝██║██╔════╝
 #██║░░░░░██║░░██║██║░░██║░░███╔═╝█████═╝░██║█████╗░░
