@@ -1138,15 +1138,17 @@ ai_war_decisions = {
 	}
 	remove_effect  = {
 		log = "[GetDateText]: [ROOT.GetName] fires decision silesian_war"
-		hidden_effect = {
-			clr_country_flag = slask_wojna
-		}
+		if = { limit = { country_exists = FROM
+						 ROOT = { NOT = { original_tag = FROM
+						 is_in_faction_with = FROM
+						FROM = { is_puppet = yes } } } }
 		ROOT = {
-			declare_war_on = {
-				target = FROM
-				type = voivodeship_war
-			}
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
 		}
+		}
+		}	
 	}
 
 	cancel_trigger = {
