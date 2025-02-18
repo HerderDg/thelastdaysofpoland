@@ -293,9 +293,6 @@ on_actions = {
 				}
 				set_country_flag = curse_of_piu
 			}
-			set_variable = {global.deadPolacks = 0}
-			set_variable = {global.deadMilions = 0}
-			set_variable = {global.deadPolacksFromPastWars = 0}
 			every_country = {
 				limit = {
 					has_idea = podlasie_tribe_idea
@@ -1013,41 +1010,6 @@ on_actions = {
 			# 	}
 			# 	CAL_spawn_slave_revolt = yes
 			# }
-			set_variable = { global.deadPolacksFromLastTick = global.deadPolacks}
-			set_temp_variable = { global.tempDeadPolacks = 0}
-			every_country = {
-				limit = {
-					NOT = {
-						original_tag = ROS
-						original_tag = UPA
-						original_tag = UHR
-					}
-				}
-				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualties_k}
-				add_to_temp_variable = { global.tempDeadPolacks = THIS.casualtiesFromEvents}
-			}
-			add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromPastWars }
-			add_to_temp_variable = { global.tempDeadPolacks = global.deadPolacksFromDeadNations }
-			if = {
-				limit = {
-					check_variable = { global.tempDeadPolacks < 1}
-				}
-				set_variable = {global.deadPolacksSmall = global.tempDeadPolacks} 
-				multiply_variable = {global.deadPolacksSmall = 1000}
-			}
-			set_variable = {global.deadPolacks = global.tempDeadPolacks}
-			set_variable = {global.deadMillions = global.deadPolacks}
-			divide_variable = {global.deadMillions = 1000}
-			if = {
-				limit = {
-					check_variable = {
-						global.deadPolacksFromLastTick > global.deadPolacks
-					}
-				}
-				log = "[GetDateText]: WARNING - SOMETHING IS FUKED UP"
-				log = "current wars + [?global.deadPolacksFromDeadNations] + [?global.deadPolacksFromPastWars]  = [?global.deadPolacks]"
-			}
-		}
 	}
 	on_weekly_ZHP = {
 		effect = {
