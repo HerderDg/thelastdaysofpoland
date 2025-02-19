@@ -28,4 +28,33 @@ misc_category = {
 			custom_effect_tooltip = "Superevents will be unmuted"
 		}
 	}
+	lethal_infection_state_decision = {
+		state_target = any_controlled_state
+		visible = {
+			has_tech  = lethal_infection_tech
+			ROOT = {
+				has_war  = yes
+			}
+		}
+		target_trigger = {
+			FROM = {
+				AND = {
+					is_controlled_by = ROOT
+					NOT = { is_fully_controlled_by = ROOT }
+				}
+			}
+		}
+		on_map_mode = map_only
+		icon = GFX_decision_eng_propaganda_campaigns
+		cost = 25
+		days_re_enable = 90
+		complete_effect = {
+			FROM = {
+				add_dynamic_modifier = {
+					modifier = lethal_infection_state
+					days = 90
+				}
+			}
+		}
+	}
 }
