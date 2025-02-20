@@ -16,44 +16,23 @@ get_taxes = {
 		tax_rate_multiplier = modifier@tax_rate
 	}
 	multiply_variable = {
-		tax = tax_rate_multiplier
-	}
-	set_variable = {
-		monthly_tax = tax
+		tax = tax_rate_multiplier #mnozenie podatku
 	}
 	divide_variable = {
-		monthly_tax = 12
+		tax = 12 #stawka podatku co miesiac liczona
 	}
-	# if = {
-	# 	limit = {
-	# 		tag = SLE
-	# 	}
-	# 	log = "U hnesza jest [?tax]M moniaków"
-	# }
-	get_netto = yes
-}
 
-get_netto = {
+
 	set_variable = {
-		budget = 1
-	}
-	set_variable = {
-		monthly_budget_spendings = tax
+		monthly_admin_spendings = tax #przypisujemy miesięcznym wydatkom kwotę podatku juz miesieczna
 	}
 	multiply_variable = {
-		monthly_budget_spendings = modifier@budget_spendings
-	}
-	divide_variable = {
-		monthly_budget_spendings = 12
-	}
-	subtract_from_variable = {
-		budget = modifier@budget_spendings
-	}
-	multiply_variable = {
-		budget = tax
+		monthly_admin_spendings = modifier@budget_spendings #mnozymy spendingi razy rate wydatkow na administracje
 	}
 	get_consumer_payments = yes
+
 }
+
 
 get_consumer_payments = {
 	#wiedząc że utrzymanie fabryki kosztuje 1mln, można to pominąć co opłaty daje nam liczba_fabryk * (1+socjal+ekonomia)
@@ -83,7 +62,7 @@ get_consumer_payments = {
 		}
 	}
 	multiply_temp_variable = {
-		consumer_payments = num_of_civilian_factories
+		consumer_payments = num_of_civils
 	}
 	set_variable = {
 		monthly_consumer_payments = consumer_payments
@@ -91,16 +70,15 @@ get_consumer_payments = {
 	divide_variable = {
 		monthly_consumer_payments = 12
 	}
-	subtract_from_variable = {
-		budget = consumer_payments
-	}
+
 	get_building_payments = yes
+	get_military_payments = yes
 	
 }
 
 get_building_payments = {
 	set_temp_variable = {
-		building_payments = num_of_civilian_factories
+		building_payments = num_of_civils
 	}
 	add_to_temp_variable = {
 		building_payments = num_of_military_factories
@@ -215,9 +193,6 @@ get_building_payments = {
 	}
 	add_to_temp_variable = {
 		building_payments = payments_for_januszexes
-	}
-	subtract_from_variable = {
-		budget = building_payments
 	}
 	set_variable = {
 		monthly_building_payments = building_payments
@@ -411,43 +386,52 @@ get_resource_payments = {
 		monthly_exports = synthetics_exports
 	}
 
-	divide_variable = {
-		budget = 12
-	}
-	subtract_from_variable = {
-		budget = monthly_imports
-	}
-	add_to_variable = {
-		budget = monthly_exports
-	}
-
-	
-	add_to_variable = {
-		liquidity = budget
-	}
-	get_military_payments = yes
 }
 
-
 get_military_payments = {
-	set_temp_variable = {
+	set_variable = {
 		military_funds = num_battalions
 	}
-	multiply_temp_variable = {
+	multiply_variable = {
 		military_funds = 0.3 
 	}
 	divide_variable = {
 		military_funds = 12
 	}
-	add_to_variable = {
+	add_to_temp_variable = {
 		monthly_military_funds = military_funds
 	}	
-	subtract_from_variable = {
-		budget = monthly_military_funds
-	}
 }
 
-
+get_monthly_budget = {
+	set_temp_variable = {
+		monthly_budget = 1
+	}
+	add_to_temp_variable = {
+		monthly_budget = tax
+	}	
+	subtract_from_temp_variable = {
+		monthly_budget = modifier@budget_spendings
+	}
+	subtract_from_temp_variable = {
+		monthly_budget = consumer_payments
+	}
+	subtract_from_temp_variable = {
+		monthly_budget = monthly_building_payments
+	}
+	subtract_from_temp_variable = {
+		monthly_budget = monthly_imports
+	}
+	add_to_temp_variable = {
+		monthly_budget = monthly_exports
+	}
+	subtract_from_temp_variable = {
+		monthly_budget = monthly_military_funds
+	}
+	add_to_variable = {
+		budget = monthly_budget
+	}
+}
 
 get_building_cost = {
 	count_buildings = yes
@@ -616,12 +600,12 @@ get_building_cost = {
 		}
 		# Civilian Factories
 		if = {
-			limit = { check_variable = { prev_civ_factories < num_of_civilian_factories } }
-				set_variable = { new_civ_factories = num_of_civilian_factories }
+			limit = { check_variable = { prev_civ_factories < num_of_civils } }
+				set_variable = { new_civ_factories = num_of_civils }
 				subtract_from_variable = { new_civ_factories = prev_civ_factories }
 				multiply_variable = { new_civ_factories = cost_for_civilian_factory } # Cost per factory
 				subtract_from_variable = { budget = new_civ_factories }
-				set_variable = { prev_civ_factories = num_of_civilian_factories }
+				set_variable = { prev_civ_factories = num_of_civils }
 		}
 		# Military Factories
 		if = {
