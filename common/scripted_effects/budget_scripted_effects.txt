@@ -29,10 +29,31 @@ get_taxes = {
 	multiply_variable = {
 		monthly_admin_spendings = modifier@budget_spendings #mnozymy spendingi razy rate wydatkow na administracje
 	}
-	get_consumer_payments = yes
+	get_military_payments = yes
 
 }
 
+
+get_military_payments = {
+	set_temp_variable = {
+		military_payments = 1
+	}
+	add_to_temp_variable = {
+		military_payments = num_battalions
+	}
+	multiply_temp_variable = {
+		military_payments = 30
+	}
+	set_variable = {
+		monthly_military_payments = military_payments
+	}
+	divide_variable = {
+		monthly_military_payments = 12
+	}
+
+	get_consumer_payments = yes
+	
+}
 
 get_consumer_payments = {
 	#wiedząc że utrzymanie fabryki kosztuje 1mln, można to pominąć co opłaty daje nam liczba_fabryk * (1+socjal+ekonomia)
@@ -72,7 +93,6 @@ get_consumer_payments = {
 	}
 
 	get_building_payments = yes
-	get_military_payments = yes
 	
 }
 
@@ -388,21 +408,6 @@ get_resource_payments = {
 
 }
 
-get_military_payments = {
-	set_variable = {
-		military_funds = num_battalions
-	}
-	multiply_variable = {
-		military_funds = 0.3 
-	}
-	divide_variable = {
-		military_funds = 12
-	}
-	add_to_temp_variable = {
-		monthly_military_funds = military_funds
-	}	
-}
-
 get_monthly_budget = {
 	set_temp_variable = {
 		monthly_budget = 1
@@ -426,7 +431,7 @@ get_monthly_budget = {
 		monthly_budget = monthly_exports
 	}
 	subtract_from_temp_variable = {
-		monthly_budget = monthly_military_funds
+		monthly_budget = monthly_military_payments
 	}
 	add_to_variable = {
 		budget = monthly_budget
