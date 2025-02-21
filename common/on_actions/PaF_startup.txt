@@ -1,9 +1,100 @@
 on_actions = {
-	on_daily = {
+	on_state_control_changed = {
 		effect = {
-			every_country = {
-				limit = { is_ai = no }
-				get_building_cost = yes
+			ROOT = {
+				count_buildings = yes
+				set_variable = { prev_civ_factories = num_of_civils }
+				set_variable = { prev_mil_factories = num_of_military_factories }
+				set_variable = { prev_dockyards = num_of_dockyards }
+				set_variable = { prev_synths = num_of_synthetic_refineries }
+				set_variable = { prev_hitech = num_of_high_tech_complexes }
+				set_variable = { prev_silos = num_of_fuel_siloes }
+				set_variable = { prev_coal_plants = sum_of_power_plants }
+				set_variable = { prev_wind_farms = sum_of_wind_farms }
+				set_variable = { prev_recycling = num_of_recycling_plants }
+				set_variable = { prev_steel = num_of_steel_works }
+				set_variable = { prev_temples = num_of_cathedrals }
+				set_variable = { prev_universities = num_of_universities }
+				set_variable = { prev_hospitals = num_of_hospitals }
+				set_variable = { prev_prisons = num_of_prisons }
+				set_variable = { prev_januszexes = num_of_januszexes }
+				set_variable = { prev_ports = num_of_ports }
+				set_variable = { prev_facilities = num_of_facilities }
+				set_variable = { prev_reactors = num_of_reactors }
+				set_variable = { prev_rockets = num_of_rockets }
+				set_variable = { prev_dams = num_of_dams }
+				set_variable = { prev_airbase = num_of_airbase }
+				set_variable = { prev_supplyhub = num_of_supplyhub }
+				set_variable = { prev_bunker = num_of_bunker }
+				set_variable = { prev_stronghold = num_of_stronghold }
+				set_variable = { prev_aa = num_of_aa }
+				set_variable = { prev_radar = num_of_radar }	
+			}
+			if = {
+				limit = {
+					OR = {
+						original_tag = ALP
+						original_tag = PRT
+						original_tag = CAL
+						AND = {
+							original_tag = KLO
+							is_subject_of = CAL
+						}
+					}
+				}
+				if = {
+					limit = {
+						original_tag = CAL
+						has_country_flag = CAL_central_imperial_department
+						FROM.FROM = {
+							NOT = {
+								is_core_of = CAL
+							}
+						}
+					}
+					multiply_variable = {
+						FROM.FROM.coring_cost = 0.8
+					}
+					round_variable = FROM.FROM.coring_cost
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						original_tag = EKS
+						original_tag = EKW
+						original_tag = TOU
+						original_tag = BOG
+						original_tag = KLB
+						original_tag = BRG
+					}
+					has_global_flag = eurokom_has_fallen
+				}
+				meta_effect = {
+					text = {
+						FROM.FROM = {
+							set_state_name = STATE_[STATE_ID]
+						}
+					}
+					STATE_ID = "[?FROM.FROM.GetID]"
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = CAL
+						has_country_flag = CAL_central_imperial_department
+					}
+					FROM.FROM = {
+						NOT = {
+							is_core_of = CAL
+						}
+					}
+				}
+				divide_variable = {
+					FROM.FROM.coring_cost = 0.8
+				}
+				round_variable = FROM.FROM.coring_cost
 			}
 		}
 	}
@@ -674,7 +765,10 @@ on_actions = {
 				}
 				count_voi_ownership = yes
 			}
-			
+			every_country = {
+				limit = { is_ai = no }
+				get_building_cost = yes
+			}
 			set_temp_variable = { coreable_temp = 0}
 			every_owned_state = {
 				limit = {
@@ -1745,105 +1839,6 @@ on_actions = {
 					}
 				}
 				log = "[GetDateText]: [FROM.GetName] cancels energy imports"
-			}
-		}
-	}
-
-	on_state_control_changed = {
-		effect = {
-			ROOT = {
-				set_variable = { prev_civ_factories = num_of_civils }
-				set_variable = { prev_mil_factories = num_of_military_factories }
-				set_variable = { prev_dockyards = num_of_dockyards }
-				set_variable = { prev_synths = num_of_synthetic_refineries }
-				set_variable = { prev_hitech = num_of_high_tech_complexes }
-				set_variable = { prev_silos = num_of_fuel_siloes }
-				set_variable = { prev_coal_plants = sum_of_power_plants }
-				set_variable = { prev_wind_farms = sum_of_wind_farms }
-				set_variable = { prev_recycling = num_of_recycling_plants }
-				set_variable = { prev_steel = num_of_steel_works }
-				set_variable = { prev_temples = num_of_cathedrals }
-				set_variable = { prev_universities = num_of_universities }
-				set_variable = { prev_hospitals = num_of_hospitals }
-				set_variable = { prev_prisons = num_of_prisons }
-				set_variable = { prev_januszexes = num_of_januszexes }
-				set_variable = { prev_ports = num_of_ports }
-				set_variable = { prev_facilities = num_of_facilities }
-				set_variable = { prev_reactors = num_of_reactors }
-				set_variable = { prev_rockets = num_of_rockets }
-				set_variable = { prev_dams = num_of_dams }
-				set_variable = { prev_airbase = num_of_airbase }
-				set_variable = { prev_supplyhub = num_of_supplyhub }
-				set_variable = { prev_bunker = num_of_bunker }
-				set_variable = { prev_stronghold = num_of_stronghold }
-				set_variable = { prev_aa = num_of_aa }
-				set_variable = { prev_radar = num_of_radar }	
-			}
-			if = {
-				limit = {
-					OR = {
-						original_tag = ALP
-						original_tag = PRT
-						original_tag = CAL
-						AND = {
-							original_tag = KLO
-							is_subject_of = CAL
-						}
-					}
-				}
-				if = {
-					limit = {
-						original_tag = CAL
-						has_country_flag = CAL_central_imperial_department
-						FROM.FROM = {
-							NOT = {
-								is_core_of = CAL
-							}
-						}
-					}
-					multiply_variable = {
-						FROM.FROM.coring_cost = 0.8
-					}
-					round_variable = FROM.FROM.coring_cost
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-						original_tag = EKS
-						original_tag = EKW
-						original_tag = TOU
-						original_tag = BOG
-						original_tag = KLB
-						original_tag = BRG
-					}
-					has_global_flag = eurokom_has_fallen
-				}
-				meta_effect = {
-					text = {
-						FROM.FROM = {
-							set_state_name = STATE_[STATE_ID]
-						}
-					}
-					STATE_ID = "[?FROM.FROM.GetID]"
-				}
-			}
-			if = {
-				limit = {
-					FROM = {
-						original_tag = CAL
-						has_country_flag = CAL_central_imperial_department
-					}
-					FROM.FROM = {
-						NOT = {
-							is_core_of = CAL
-						}
-					}
-				}
-				divide_variable = {
-					FROM.FROM.coring_cost = 0.8
-				}
-				round_variable = FROM.FROM.coring_cost
 			}
 		}
 	}
