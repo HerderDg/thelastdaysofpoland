@@ -6505,6 +6505,7 @@ ai_war_decisions = {
 		OR = {
 			original_tag = ZYR
 			original_tag = JEH
+			original_tag = CPK
 			original_tag = GRD
 		}
 	}
@@ -6513,6 +6514,7 @@ ai_war_decisions = {
 			OR = {
 				original_tag = ZYR
 				original_tag = JEH
+				original_tag = CPK
 				original_tag = GRD
 			}
 			has_war = no
@@ -6540,6 +6542,16 @@ ai_war_decisions = {
 			if = { 
 				limit = { 
 					ROOT = { original_tag = ZYR }
+					country_exists = CPK 
+					}
+				declare_war_on = {
+					target = CPK
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
 					country_exists = GRD 
 					}
 				declare_war_on = {
@@ -6559,7 +6571,37 @@ ai_war_decisions = {
 			}
 			if = { 
 				limit = { 
-					ROOT = { original_tag = GRD }
+					ROOT = { original_tag = JEH }
+					country_exists = GRD 
+					}
+				declare_war_on = {
+					target = GRD
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = CPK 
+					}
+				declare_war_on = {
+					target = CPK
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = JEH 
+					}
+				declare_war_on = {
+					target = JEH
+					type = voivodeship_war
+				}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
 					country_exists = ZYR 
 					}
 				declare_war_on = {
@@ -6699,14 +6741,19 @@ WARSZAWA_car_cleanup = { #jakby FSO jakoś przetrwało
 	
 	allowed = {
 		is_capital_district = yes
-		original_tag = WRS
+		OR = { 
+			original_tag = WRC
+			original_tag = WRS
+		}
 		}
 
 	available = {
-			original_tag = WRS
+			OR = { 
+				original_tag = WRC
+				original_tag = WRS
+			}
 			has_war = no
 			date > 2031.07.15 #placeholder
-			has_global_flag = warszawa_lewica_win
 	}
 	highlight_states = {
     highlight_state_targets = {
@@ -6727,11 +6774,23 @@ WARSZAWA_car_cleanup = { #jakby FSO jakoś przetrwało
 					ROOT = { original_tag = WRS }
 					country_exists = FSO 
 					}
+					has_global_flag = warszawa_lewica_win
 			declare_war_on = {
 				target = FSO
 				type = voivodeship_war
 			}
 			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRC }
+					country_exists = FSO 
+					}
+					has_global_flag = warszawa_prawica_win
+			declare_war_on = {
+				target = FSO
+				type = voivodeship_war
+			}
+			}	
 	}
 	cancel_trigger = {
 		ROOT = {
@@ -9856,6 +9915,15 @@ WARSZAWA_total_war= { # lewo/prawo
 			type = voivodeship_war
 		}
 		}
+		if = { limit = { country_exists = CPK
+					 ROOT = { NOT = { original_tag = CPK
+					 is_in_faction_with = CPK
+					CPK = { is_puppet = yes } } } }
+		declare_war_on = {
+			target = CPK
+			type = voivodeship_war
+		}
+		}
 		if = { limit = { country_exists = WBG
 					 ROOT = { NOT = { original_tag = WBG
 					 is_in_faction_with = WBG
@@ -9916,6 +9984,15 @@ WARSZAWA_total_war= { # lewo/prawo
 					PLC = { is_puppet = yes } } } }
 		declare_war_on = {
 			target = PLC
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = BLO
+					 ROOT = { NOT = { original_tag = BLO
+					 is_in_faction_with = BLO
+					BLO = { is_puppet = yes } } } }
+		declare_war_on = {
+			target = BLO
 			type = voivodeship_war
 		}
 		}
@@ -10098,9 +10175,2465 @@ WARSZAWA_total_war= { # lewo/prawo
 	}
 }
 
-#WARSZAWA POWOJENNA FAZA 1 PRAWICA
+# WARSZAWA POWOJENNA FAZA 1 PRAWICA
 
+WARSZAWA_jaki_vs_mafia = { #wrc vs wol
 
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = WRC
+			original_tag = WOL
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = WRC
+			original_tag = WOL
+			}
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_jaki_vs_mafia"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRC }
+					country_exists = WOL 
+					}
+			declare_war_on = {
+				target = WOL
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WOL }
+					country_exists = WRC 
+					}
+			declare_war_on = {
+				target = WRC
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_dziurozapychacz = { #blo vs ato
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = 	BLO
+			original_tag = ATO
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = BLO
+			original_tag = ATO
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_jaki_vs_mafia"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BLO }
+					country_exists = ATO 
+					}
+			declare_war_on = {
+				target = ATO
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ATO }
+					country_exists = BLO 
+					}
+			declare_war_on = {
+				target = BLO
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_raiders_of_the_lost_kacz = { #kcz vs plc
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = KCZ
+			original_tag = PLC
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = KCZ
+			original_tag = PLC
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_jaki_vs_mafia"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_watvsipn = { #wat vs ipn
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = 	WAT
+			original_tag = IPN
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = WAT
+			original_tag = IPN
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_dekorowanie_zlomowiska = { #URS VS MAF
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = 	URS
+			original_tag = MAF
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = URS
+			original_tag = MAF
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_dronotestowanie = { #WBG VS LAS
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = 	LAS
+			original_tag = WBG
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = LAS
+			original_tag = WBG
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_napierdalanka_o_centrum = { #KCZ/PLC VS IPN/WAT
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = WAT
+			original_tag = IPN
+			original_tag = KCZ
+			original_tag = PLC
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = WAT
+				original_tag = IPN
+				original_tag = KCZ
+				original_tag = PLC
+			}
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_napierdalanka_o_centropoludnie = { #MAF/URS VS TVP
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = MAF
+			original_tag = URS
+			original_tag = TVP
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = MAF
+				original_tag = URS
+				original_tag = TVP
+			}
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_napierdalanka_o_poludnie = { #JEH/ZYR/CPK VS DUP
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = JEH
+			original_tag = CPK
+			original_tag = ZYR
+			original_tag = DUP
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = JEH
+				original_tag = CPK
+				original_tag = ZYR
+				original_tag = DUP
+			}
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_napierdalanka_o_poludnie"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}	
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_napierdalanka_o_polnoc = { #WBG/LAS VS KCZ/IPN/WAT/URS
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = WBG
+			original_tag = LAS
+			original_tag = KCZ
+			original_tag = IPN
+			original_tag = WAT
+			original_tag = URS
+			original_tag = PLC
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = WBG
+				original_tag = LAS
+				original_tag = KCZ
+				original_tag = IPN
+				original_tag = WAT
+				original_tag = URS
+				original_tag = PLC
+			}
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_napierdalanka_o_poludnie"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}			
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_centrum_vs_south_prawica = { #MAF/TVP/URS VS DUP/JEH/ZYR/CPK
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = MAF
+			original_tag = URS
+			original_tag = TVP
+			original_tag = JEH
+			original_tag = ZYR
+			original_tag = CPK
+			original_tag = DUP
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = MAF
+				original_tag = URS
+				original_tag = TVP
+				original_tag = JEH
+				original_tag = ZYR
+				original_tag = CPK
+				original_tag = DUP
+			}
+			has_war = no
+			date > 2031.09.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_napierdalanka_o_poludnie"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_centrum_vs_north_prawica = { #MAF/TVP/URS VS KCZ/IPN/WAT/PLC/WBG/LAS
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = MAF
+			original_tag = URS
+			original_tag = TVP
+			original_tag = KCZ
+			original_tag = IPN
+			original_tag = WAT
+			original_tag = PLC
+			original_tag = WBG
+			original_tag = LAS
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = MAF
+				original_tag = URS
+				original_tag = TVP
+				original_tag = KCZ
+				original_tag = IPN
+				original_tag = WAT
+				original_tag = PLC
+				original_tag = WBG
+				original_tag = LAS
+			}
+			has_war = no
+			date > 2031.09.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_napierdalanka_o_poludnie"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = MAF }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = URS }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = TVP }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = MAF 
+					}
+			declare_war_on = {
+				target = MAF
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = URS 
+					}
+			declare_war_on = {
+				target = URS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = TVP 
+					}
+			declare_war_on = {
+				target = TVP
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_south_vs_north_prawica = { #MAF/TVP/URS VS KCZ/IPN/WAT/PLC/WBG/LAS
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = ZYR
+			original_tag = JEH
+			original_tag = CPK
+			original_tag = DUP
+			original_tag = KCZ
+			original_tag = IPN
+			original_tag = WAT
+			original_tag = PLC
+			original_tag = WBG
+			original_tag = LAS
+		}
+		}
+
+	available = {
+			OR = {
+				original_tag = ZYR
+				original_tag = JEH
+				original_tag = CPK
+				original_tag = DUP
+				original_tag = KCZ
+				original_tag = IPN
+				original_tag = WAT
+				original_tag = PLC
+				original_tag = WBG
+				original_tag = LAS
+			}
+			has_war = no
+			date > 2031.09.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_napierdalanka_o_poludnie"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = ZYR }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = DUP }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = JEH }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = KCZ 
+					}
+			declare_war_on = {
+				target = KCZ
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = WBG 
+					}
+			declare_war_on = {
+				target = WBG
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = PLC 
+					}
+			declare_war_on = {
+				target = PLC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = WAT 
+					}
+			declare_war_on = {
+				target = WAT
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = LAS 
+					}
+			declare_war_on = {
+				target = LAS
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = CPK }
+					country_exists = IPN 
+					}
+			declare_war_on = {
+				target = IPN
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = KCZ }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = IPN }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WBG }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = PLC }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WAT }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = DUP 
+					}
+			declare_war_on = {
+				target = DUP
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = ZYR 
+					}
+			declare_war_on = {
+				target = ZYR
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = JEH 
+					}
+			declare_war_on = {
+				target = JEH
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = LAS }
+					country_exists = CPK 
+					}
+			declare_war_on = {
+				target = CPK
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_wrc_vs_blo = { #wrc vs blo
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = WRC
+			original_tag = BLO
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = WRC
+			original_tag = BLO
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRC }
+					country_exists = BLO 
+					}
+			declare_war_on = {
+				target = BLO
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BLO }
+					country_exists = WRC 
+					}
+			declare_war_on = {
+				target = WRC
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_wrc_vs_wow = { #wrc vs wow
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = WRC
+			original_tag = WOW
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = WRC
+			original_tag = WOW
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRC }
+					country_exists = WOW 
+					}
+			declare_war_on = {
+				target = WOW
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WOW }
+					country_exists = WRC 
+					}
+			declare_war_on = {
+				target = WRC
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_blo_vs_wow = { #blo vs wow
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = BLO
+			original_tag = WOW
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = BLO
+			original_tag = WOW
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BLO }
+					country_exists = WOW 
+					}
+			declare_war_on = {
+				target = WOW
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WOW }
+					country_exists = BLO 
+					}
+			declare_war_on = {
+				target = BLO
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_gar_vs_wow = { #gar vs wow
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = GAR
+			original_tag = WOW
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = GAR
+			original_tag = WOW
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = GAR }
+					country_exists = WOW 
+					}
+			declare_war_on = {
+				target = WOW
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WOW }
+					country_exists = GAR 
+					}
+			declare_war_on = {
+				target = GAR
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_gar_vs_blo = { #gar vs blo
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = GAR
+			original_tag = BLO
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = GAR
+			original_tag = BLO
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = GAR }
+					country_exists = BLO 
+					}
+			declare_war_on = {
+				target = WOW
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = BLO }
+					country_exists = GAR 
+					}
+			declare_war_on = {
+				target = GAR
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+WARSZAWA_gar_vs_wrc = { #gar vs wrc
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_capital_district = yes
+		OR = {
+			original_tag = GAR
+			original_tag = WRC
+		}
+		}
+
+	available = {
+			OR = {
+			original_tag = GAR
+			original_tag = WRC
+			|
+			has_war = no
+			date > 2031.07.15 #placeholder
+			has_global_flag = warszawa_prawica_win
+	}
+	highlight_states = {
+    highlight_state_targets = {
+        state = 560
+    }
+	}
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision WARSZAWA_watvsipn"
+			if = { 
+				limit = { 
+					ROOT = { original_tag = GAR }
+					country_exists = WRC 
+					has_border_war_with = WRC
+					}
+			declare_war_on = {
+				target = WRC
+				type = voivodeship_war
+			}
+			}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = WRC }
+					country_exists = GAR 
+					has_border_war_with = GAR
+					}
+			declare_war_on = {
+				target = GAR
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
 
 #██████╗░░█████╗░██████╗░██╗░░░░░░█████╗░░██████╗██╗███████╗
 #██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔════╝██║██╔════╝
