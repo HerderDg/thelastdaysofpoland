@@ -14179,6 +14179,114 @@ lake_war = {
 		}
 	}
 
+	lake_war2 = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_warmia_and_masuria = yes
+				}
+	
+		visible = {
+				OR = {
+					original_tag = PZW
+					original_tag = WRM
+					original_tag = RAJ
+					original_tag = GAL
+				}
+				date > 2029.04.01
+				NOT = { has_war_with = MRG }
+				WRM = {
+					NOT = { has_war_with = PZW }
+					NOT = { has_war_with = MRG }
+				}
+				PZW = {
+					NOT = { has_war_with = WRM }
+					NOT = { has_war_with = MRG }
+				}
+				RAJ = {
+					NOT = { has_war_with = GAL }
+					NOT = { has_war_with = MRG }
+				}
+				GAL = {
+					NOT = { has_war_with = RAJ }
+					NOT = { has_war_with = MRG }
+				}
+		}
+	
+		cost = 1
+	
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: Decision lake_war"
+			WRM = {
+				declare_war_on = {
+					target = PZW
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = GAL
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = RAJ
+					type = annex_everything
+				}
+			}
+			PZW = {
+				declare_war_on = {
+					target = WRM
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = GAL
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = RAJ
+					type = annex_everything
+				}
+			}
+			RAJ = {
+				declare_war_on = {
+					target = PZW
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = GAL
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = WRM
+					type = annex_everything
+				}
+			}
+			GAL = {
+				declare_war_on = {
+					target = WRM
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = GAL
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = RAJ
+					type = annex_everything
+				}
+			}
+	
+			}
+		}
+
 
 ################################################################################## WARMIŃSKO-MAZURSKIE - FAZA DRUGA
 ################################################################################## WARMIŃSKO-MAZURSKIE - FAZA OSTATECZNA
