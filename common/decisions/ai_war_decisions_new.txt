@@ -13631,7 +13631,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 #░░████╔═████║░██╔══██║██╔══██╗██║╚██╔╝██║██║██╔══██║╚════╝██║╚██╔╝██║██╔══██║██╔══╝░░██║░░░██║██╔══██╗░░╚██╔╝░░
 #░░╚██╔╝░╚██╔╝░██║░░██║██║░░██║██║░╚═╝░██║██║██║░░██║░░░░░░██║░╚═╝░██║██║░░██║███████╗╚██████╔╝██║░░██║░░░██║░░░
 #░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═╝░░╚═╝░░░░░░╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░
-#WARMIŃSKO-MAZURSKIE - ROSYJSKA INWAZJA NA MAZURY
+################################################################################## WARMIŃSKO-MAZURSKIE - ROSYJSKA INWAZJA NA MAZURY
  russian_invasion = {
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
@@ -14097,10 +14097,92 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 		}
 	}
  }
-#WARMIŃSKO-MAZURSKIE - KRÓLEWSKA WOJNA DOMOWA
-#WARMIŃSKO-MAZURSKIE - FAZA PIERWSZA
-#WARMIŃSKO-MAZURSKIE - FAZA DRUGA
-#WARMIŃSKO-MAZURSKIE - FAZA OSTATECZNA
+################################################################################## WARMIŃSKO-MAZURSKIE - KRÓLEWSKA WOJNA DOMOWA
+
+# nic na razie
+
+################################################################################## WARMIŃSKO-MAZURSKIE - FAZA PIERWSZA
+
+lake_war = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_warmia_and_masuria = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = PZW
+				original_tag = WRM
+				original_tag = RAJ
+				original_tag = GAL
+			}
+			date > 2028.04.01
+			NOT = { has_war_with = ROS }
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 10
+	remove_effect  = {
+		log = "[GetDateText]: Decision lake_war"
+		WRM = {
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MRG
+				type = annex_everything
+			}
+		}
+		PZW = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MRG
+				type = annex_everything
+			}
+		}
+		RAJ = {
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MRG
+				type = annex_everything
+			}
+		}
+		GAL = {
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MRG
+				type = annex_everything
+			}
+		}
+
+		}
+	}
+}
+
+
+################################################################################## WARMIŃSKO-MAZURSKIE - FAZA DRUGA
+################################################################################## WARMIŃSKO-MAZURSKIE - FAZA OSTATECZNA
 #██████╗░░█████╗░███╗░░░███╗░█████╗░██████╗░░██████╗██╗░░██╗██╗███████╗
 #██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝██║░██╔╝██║██╔════╝
 #██████╔╝██║░░██║██╔████╔██║██║░░██║██████╔╝╚█████╗░█████═╝░██║█████╗░░
