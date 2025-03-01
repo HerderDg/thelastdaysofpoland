@@ -14103,7 +14103,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 
 ################################################################################## WARMIŃSKO-MAZURSKIE - FAZA PIERWSZA
 
-lake_war = {
+	lake_war = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -14118,7 +14118,7 @@ lake_war = {
 				original_tag = RAJ
 				original_tag = GAL
 			}
-			date > 2028.07.01
+			date > 2028.04.01
 			NOT = { has_war_with = ROS }
 			country_exists = MRG
 	}
@@ -14180,43 +14180,28 @@ lake_war = {
 		}
 	}
 
-	lake_war2 = {
-
+	great_teutonic_war = {
+    
 		icon = GFX_decision_generic_prepare_civil_war
 		
 		allowed = {
 			is_warmia_and_masuria = yes
 				}
-	
+
 		visible = {
 				OR = {
-					original_tag = PZW
-					original_tag = WRM
-					original_tag = RAJ
-					original_tag = GAL
+					original_tag = MAL
+					original_tag = PRU
+					original_tag = ELB
 				}
-				date > 2030.01.01
-				NOT = { has_war_with = MRG }
-				WRM = {
-					NOT = { has_war_with = PZW }
-					NOT = { has_war_with = MRG }
-				}
-				PZW = {
-					NOT = { has_war_with = WRM }
-					NOT = { has_war_with = MRG }
-				}
-				RAJ = {
-					NOT = { has_war_with = GAL }
-					NOT = { has_war_with = MRG }
-				}
-				GAL = {
-					NOT = { has_war_with = RAJ }
-					NOT = { has_war_with = MRG }
-				}
+				date > 2028.05.01
+				NOT = { has_war_with = ROS }
+				country_exists = TEU
+				country_exists = LUB
 		}
-	
+
 		cost = 1
-	
+
 		ai_will_do = {
 			factor = 100
 			modifier = {
@@ -14225,71 +14210,286 @@ lake_war = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 13
 		remove_effect  = {
-			log = "[GetDateText]: Decision lake_war"
+			log = "[GetDateText]: Decision great_teutonic_war"
+			MAL = {
+				create_faction = "Antiordensztat"
+				add_to_faction = ELB
+				add_to_faction = PRU
+				declare_war_on = {
+					target = TEU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = LUB
+					type = annex_everything
+				}
+			}
+			ELB = {
+				declare_war_on = {
+					target = TEU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = LUB
+					type = annex_everything
+				}
+			}
+			PRU = {
+				declare_war_on = {
+					target = TEU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = LUB
+					type = annex_everything
+				}
+			}
+			TEU = {
+				create_faction = "Tełtonisze Ordensztat"
+				add_to_faction = LUB
+			}
+		}
+	}
+
+################################################################################## WARMIŃSKO-MAZURSKIE - FAZA DRUGA
+
+lake_war2 = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		is_warmia_and_masuria = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = PZW
+				original_tag = WRM
+				original_tag = RAJ
+				original_tag = GAL
+			}
+			date > 2030.01.01
+			NOT = { has_war_with = MRG }
 			WRM = {
-				declare_war_on = {
-					target = PZW
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = GAL
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = RAJ
-					type = annex_everything
-				}
+				NOT = { has_war_with = PZW }
+				NOT = { has_war_with = MRG }
 			}
 			PZW = {
-				declare_war_on = {
-					target = WRM
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = GAL
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = RAJ
-					type = annex_everything
-				}
+				NOT = { has_war_with = WRM }
+				NOT = { has_war_with = MRG }
 			}
 			RAJ = {
-				declare_war_on = {
-					target = PZW
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = GAL
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = WRM
-					type = annex_everything
-				}
+				NOT = { has_war_with = GAL }
+				NOT = { has_war_with = MRG }
 			}
 			GAL = {
-				declare_war_on = {
-					target = WRM
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = GAL
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = RAJ
-					type = annex_everything
-				}
+				NOT = { has_war_with = RAJ }
+				NOT = { has_war_with = MRG }
 			}
-	
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 30
+	remove_effect  = {
+		log = "[GetDateText]: Decision lake_war2"
+		WRM = {
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		PZW = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		RAJ = {
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+		}
+		GAL = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
 			}
 		}
 
+		}
+	}
 
-################################################################################## WARMIŃSKO-MAZURSKIE - FAZA DRUGA
+	great_teutonic_war2 = {
+    
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_warmia_and_masuria = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = MAL
+					original_tag = PRU
+					original_tag = ELB
+				}
+				date > 2029.03.01
+				NOT = { has_war_with = ROS }
+				NOT = { country_exists = TEU }
+				NOT = { country_exists = LUB }
+				country_exists = MAL
+				country_exists = PRU
+				country_exists = ELB
+				
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 7
+		remove_effect  = {
+			log = "[GetDateText]: Decision great_teutonic_war2"
+			ELB = {
+				leave_faction = yes
+				declare_war_on = {
+					target = PRU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = MAL
+					type = annex_everything
+				}
+			}
+			PRU = {
+				leave_faction = yes
+				declare_war_on = {
+					target = MAL
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = ELB
+					type = annex_everything
+				}
+			}
+			MAL = {
+				dismantle_faction = yes
+				declare_war_on = {
+					target = ELB
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = PRU
+					type = annex_everything
+				}
+			}
+		}
+	}
+
+	warmia_reclamation = {
+    
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_warmia_and_masuria = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = OLS
+				}
+				date > 2029.03.01
+				NOT = { has_war_with = ROS }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 20
+		remove_effect  = {
+			log = "[GetDateText]: Decision warmia_reclamation"
+			OLS = {
+				declare_war_on = {
+					target = PRU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = LUB
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = ELB
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = PRU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = MAL
+					type = annex_everything
+				}
+			}
+		}
+	}
+
 ################################################################################## WARMIŃSKO-MAZURSKIE - FAZA OSTATECZNA
 #██████╗░░█████╗░███╗░░░███╗░█████╗░██████╗░░██████╗██╗░░██╗██╗███████╗
 #██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝██║░██╔╝██║██╔════╝
