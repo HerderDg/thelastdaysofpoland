@@ -14363,6 +14363,59 @@ lake_war2 = {
 		}
 	}
 
+	warmia_support = {
+    
+		icon = GFX_decision_generic_prepare_civil_war
+			
+		allowed = {
+			is_warmia_and_masuria = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = OLS
+				}
+				date > 2028.12.01
+				NOT = { has_war_with = ROS }
+				country_exists = TEU
+				country_exists = LUB
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 10
+		remove_effect  = {
+			log = "[GetDateText]: Decision warmia_support"
+			OLS = {
+				declare_war_on = {
+					target = TEU
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = LUB
+					type = annex_everything
+				}
+			MAL = {
+				add_to_faction = OLS
+			}
+			ELB = {
+				add_to_faction = OLS
+			}
+			PRU = {
+				add_to_faction = OLS
+			}
+			}
+		}
+	}
+
 	great_teutonic_war2 = {
     
 		icon = GFX_decision_generic_prepare_civil_war
@@ -14381,10 +14434,6 @@ lake_war2 = {
 				NOT = { has_war_with = ROS }
 				NOT = { country_exists = TEU }
 				NOT = { country_exists = LUB }
-				country_exists = MAL
-				country_exists = PRU
-				country_exists = ELB
-				
 		}
 
 		cost = 1
@@ -14397,7 +14446,7 @@ lake_war2 = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 7
+		days_remove = 20
 		remove_effect  = {
 			log = "[GetDateText]: Decision great_teutonic_war2"
 			ELB = {
@@ -14436,7 +14485,7 @@ lake_war2 = {
 		}
 	}
 
-	warmia_reclamation = {
+	teuton_warmia_war = {
     
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -14446,10 +14495,14 @@ lake_war2 = {
 
 		visible = {
 				OR = {
-					original_tag = OLS
+					original_tag = TEU
 				}
-				date > 2029.03.01
+				date > 2029.01.01
 				NOT = { has_war_with = ROS }
+				NOT = { has_war_with = OLS }
+				NOT = { country_exists = ELB }
+				NOT = { country_exists = MAL }
+				NOT = { country_exists = PRU }
 		}
 
 		cost = 1
@@ -14464,16 +14517,55 @@ lake_war2 = {
 		fire_only_once = yes
 		days_remove = 20
 		remove_effect  = {
+			log = "[GetDateText]: Decision teuton_warmia_war"
+			TEU = {
+				declare_war_on = {
+					target = OLS
+					type = annex_everything
+				}
+			}
+			LUB = {
+				declare_war_on = {
+					target = OLS
+					type = annex_everything
+				}
+			}
+		}
+	}
+
+	warmia_reclamation = {
+    
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_warmia_and_masuria = yes
+				}
+
+		visible = {
+				OR = {
+					original_tag = OLS
+				}
+				date > 2029.03.01
+				NOT = { has_war_with = ROS }
+				NOT = { country_exists = TEU }
+				NOT = { country_exists = LUB }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 32
+		remove_effect  = {
 			log = "[GetDateText]: Decision warmia_reclamation"
 			OLS = {
-				declare_war_on = {
-					target = PRU
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = LUB
-					type = annex_everything
-				}
+				leave_faction = yes
 				declare_war_on = {
 					target = ELB
 					type = annex_everything
@@ -14491,6 +14583,193 @@ lake_war2 = {
 	}
 
 ################################################################################## WARMIŃSKO-MAZURSKIE - FAZA OSTATECZNA
+
+warmia_mazury_lastwar = {
+    
+	icon = GFX_decision_generic_prepare_civil_war
+		
+	allowed = {
+		is_warmia_and_masuria = yes
+			}
+
+	visible = {
+			OR = {
+				original_tag = OLS
+				original_tag = ELB
+				original_tag = MAL
+				original_tag = PRU
+				original_tag = TEU
+				original_tag = WRM
+				original_tag = PZW
+				original_tag = GAL
+				original_tag = RAJ
+			}
+			date > 2030.01.01
+			NOT = { has_war_with = ROS }
+			has_war = no
+	}
+
+	cost = 1
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+	fire_only_once = yes
+	days_remove = 30
+	remove_effect  = {
+		log = "[GetDateText]: Decision warmia_mazury_lastwar"
+		OLS = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		ELB = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		MAL = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		PRU = {
+			declare_war_on = {
+				target = WRM
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PZW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		WRM = {
+			declare_war_on = {
+				target = OLS
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = ELB
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PRU
+				type = annex_everything
+			}
+		}
+		PZW = {
+			declare_war_on = {
+				target = OLS
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = ELB
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PRU
+				type = annex_everything
+			}
+		}
+		GAL = {
+			declare_war_on = {
+				target = OLS
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = ELB
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PRU
+				type = annex_everything
+			}
+		}
+		RAJ = {
+			declare_war_on = {
+				target = OLS
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = ELB
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MAL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = PRU
+				type = annex_everything
+			}
+		}
+	}
+}
+
+
 #██████╗░░█████╗░███╗░░░███╗░█████╗░██████╗░░██████╗██╗░░██╗██╗███████╗
 #██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝██║░██╔╝██║██╔════╝
 #██████╔╝██║░░██║██╔████╔██║██║░░██║██████╔╝╚█████╗░█████═╝░██║█████╗░░
@@ -17699,7 +17978,7 @@ chelminsko_kujawska = {
 						country_exists = JAS
 					}
 					declare_war_on = {
-						target = JAS
+						target = STE
 						type = voivodeship_war
 					}
 				}
