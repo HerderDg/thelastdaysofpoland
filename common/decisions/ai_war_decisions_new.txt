@@ -14103,7 +14103,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 
 ################################################################################## WARMIŃSKO-MAZURSKIE - FAZA PIERWSZA
 
-	lake_war = {
+	lake_war0 = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -14113,8 +14113,6 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 
 	visible = {
 			OR = {
-				original_tag = PZW
-				original_tag = WRM
 				original_tag = RAJ
 				original_tag = GAL
 			}
@@ -14136,26 +14134,6 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 	days_remove = 10
 	remove_effect  = {
 		log = "[GetDateText]: Decision lake_war"
-		WRM = {
-			declare_war_on = {
-				target = PZW
-				type = annex_everything
-			}
-			declare_war_on = {
-				target = MRG
-				type = annex_everything
-			}
-		}
-		PZW = {
-			declare_war_on = {
-				target = WRM
-				type = annex_everything
-			}
-			declare_war_on = {
-				target = MRG
-				type = annex_everything
-			}
-		}
 		RAJ = {
 			declare_war_on = {
 				target = GAL
@@ -14179,6 +14157,60 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 
 		}
 	}
+
+	lake_war1 = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_warmia_and_masuria = yes
+				}
+	
+		visible = {
+				OR = {
+					original_tag = PZW
+					original_tag = WRM
+				}
+				date > 2028.04.01
+				NOT = { has_war_with = ROS }
+				country_exists = MRG
+		}
+	
+		cost = 1
+	
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision lake_war"
+			WRM = {
+				declare_war_on = {
+					target = PZW
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = MRG
+					type = annex_everything
+				}
+			}
+			PZW = {
+				declare_war_on = {
+					target = WRM
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = MRG
+					type = annex_everything
+				}
+			}
+			}
+		}
 
 	great_teutonic_war = {
     
@@ -14595,13 +14627,29 @@ warmia_mazury_lastwar = {
 	visible = {
 			OR = {
 				original_tag = OLS
+			}
+			OR = {
 				original_tag = ELB
+			}
+			OR = {
 				original_tag = MAL
+			}
+			OR = {
 				original_tag = PRU
+			}
+			OR = {
 				original_tag = TEU
+			}
+			OR = {
 				original_tag = WRM
+			}
+			OR = {
 				original_tag = PZW
+			}
+			OR = {
 				original_tag = GAL
+			}
+			OR = {
 				original_tag = RAJ
 			}
 			date > 2030.01.01
