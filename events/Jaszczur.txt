@@ -208,5 +208,52 @@ country_event = { #sendecki czy ten trzeci chuj
 		JAS = { add_to_faction = BOR }
 	}
 }
+country_event = { #unifikacja
+	id = jaszczur.4 
+	title = jaszczur.4.t
+	desc = jaszczur.4.desc
+
+	fire_only_once = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				country_exists = BOR
+				country_exists = SNF
+			}
+		}
+	}
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires jaszczur" 
+	}
+
+	option = { #ten trzeci chuj
+		name = jaszczur.4.a
+		ai_chance = { base = 70 }
+		if = {
+			limit = {
+				JAS = { is_in_faction_with = SNF }
+			}
+			JAS = { 
+				annex_country = {
+					target = SNF
+					transfer_troops = yes
+				} 
+			}
+		}
+		else_if = {
+			limit = {
+				JAS = { is_in_faction_with = BOR }
+			}
+			JAS = { 
+				annex_country = {
+					target = BOR
+					transfer_troops = yes
+				} 
+			}
+		}
+	}
+}
 
 
