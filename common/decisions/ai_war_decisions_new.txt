@@ -17369,7 +17369,7 @@ chelminsko_kujawska = {
 				}
 		}
 	}
-	zachpom_JAS_UNITED = {
+	zachpom_JAS_UNITED_SNF = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -17379,10 +17379,8 @@ chelminsko_kujawska = {
 
 		visible = {
 				original_tag = JAS				
-				OR = {
-					BOR = { exists = no }
-					SNF = { exists = no }
-				}
+				BOR = { exists = no }
+				JAS = { is_in_faction_with = SNF }
 				#date > 2028.01.03
 		}
 
@@ -17398,7 +17396,38 @@ chelminsko_kujawska = {
 		fire_only_once = yes
 		days_remove = 1
 		remove_effect  = {
-			log = "[GetDateText]: Decision zachpom_JAS_UNITED"
+			log = "[GetDateText]: Decision zachpom_JAS_UNITED_SNF"
+				country_event = { id = jaszczur.4 }
+		}
+	}
+	zachpom_JAS_UNITED_BOR = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_west_pomerania = yes
+		}
+
+		visible = {
+				original_tag = JAS				
+				SNF = { exists = no }
+				JAS = { is_in_faction_with = BOR }
+				#date > 2028.01.03
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 1
+		remove_effect  = {
+			log = "[GetDateText]: Decision zachpom_JAS_UNITED_BOR"
 				country_event = { id = jaszczur.4 }
 		}
 	}
