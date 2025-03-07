@@ -4183,101 +4183,212 @@ fast_tank_mio = {
 	equipment_type = {
 		mbt_chassis
 	}
+
+	tree_header_text = {
+		text = mio_header_engine_and_suspension
+		x = 1
+	}
+
+	tree_header_text = {
+		text = mio_header_armor_and_armaments
+		x = 7
+	}
+
 	initial_trait = {
+		name = generic_mio_initial_trait_fast_tanks_designer
+		
+		equipment_bonus = {
+			armor_value = -0.05
+			reliability = -0.05
+			maximum_speed = 0.1
+		}
+	}
+
+	trait = {
+		token = generic_mio_trait_improved_boogies
+		name = generic_mio_trait_improved_boogies
+		icon = GFX_generic_mio_department_icon_tank_general_engine
+
+		position = { x=1 y=0 }
+		
+		equipment_bonus = {
+			maximum_speed = 0.02
+			reliability = 0.05
+		}
+	}
+
+	trait = {
+		token = generic_mio_engine_optimization
+		name = generic_mio_engine_optimization
+		icon = GFX_generic_mio_trait_icon_maximum_speed
+
+		position = { x=-1 y=1 }
+		relative_position_id = generic_mio_trait_improved_boogies
+
+		all_parents = { generic_mio_trait_improved_boogies }
+
+		mutually_exclusive = { generic_mio_reduced_fuel_usage }
+		
 		equipment_bonus = {
 			maximum_speed = 0.05
-			build_cost_ic = -0.025
-		}
-	}
-	trait = {
-		token = fast_tank_mio_oscilating_turrets
-		name = fast_tank_mio_oscilating_turrets
-		position = { 
-			x = 0
-			y = 0
-		}
-		equipment_bonus = {
-			maximum_speed = 0.025
-			armor_value = -0.1
 		}
 	}
 
 	trait = {
-		token = fast_tank_mio_unmanned_oscilating_turrets
-		name = fast_tank_mio_unmanned_oscilating_turrets
-		parent = {
-			traits = {
-				fast_tank_mio_oscilating_turrets
-			}
-		}
-		position = { 
-			x = 0
-			y = 2
-		}
+		token = generic_mio_reduced_fuel_usage
+		name = generic_mio_reduced_fuel_usage
+		icon = GFX_generic_mio_trait_icon_fuel_consumption
+
+		position = { x=1 y=1 }
+		relative_position_id = generic_mio_trait_improved_boogies
+
+		all_parents = { generic_mio_trait_improved_boogies }
+
+		mutually_exclusive = { generic_mio_engine_optimization }
+		
 		equipment_bonus = {
-			maximum_speed = 0.025
-			reliability_factor = -0.05
+			fuel_consumption = -0.05
 		}
 	}
 
 	trait = {
-		token = fast_tank_mio_engine_tune_up
-		name = fast_tank_mio_engine_tune_up
-		position = { 
-			x = 2
-			y = 0
-		}
+		token = generic_mio_improved_ventilation
+		name = generic_mio_improved_ventilation
+		icon = GFX_generic_mio_trait_icon_defense
+
+		position = { x=1 y=1 }
+		relative_position_id = generic_mio_engine_optimization
+
+		any_parent = { generic_mio_engine_optimization generic_mio_reduced_fuel_usage }
+		
 		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = generic_mio_improved_tracks_and_suspension
+		name = generic_mio_improved_tracks_and_suspension
+		icon = GFX_generic_mio_trait_icon_breakthrough
+
+		position = { x=0 y=2 }
+		relative_position_id = generic_mio_improved_ventilation
+
+		all_parents = { generic_mio_improved_ventilation }
+		
+		equipment_bonus = {
+			breakthrough = 0.05
 			maximum_speed = 0.05
-			fuel_consumption_factor = 0.05
 		}
 	}
 
 	trait = {
-		token = fast_tank_mio_hybrid_tank_engines
-		name = fast_tank_mio_hybrid_tank_engines
-		parent = {
-			traits = {
-				fast_tank_mio_engine_tune_up
-			}
-		}
-		position = { 
-			x = 2
-			y = 2
-		}
+		token = generic_mio_sloping_armor
+		name = generic_mio_sloping_armor
+		icon = GFX_generic_mio_trait_icon_defense
+
+		position = { x=6 y=0 }
+		relative_position_id = generic_mio_trait_improved_boogies
+
 		equipment_bonus = {
-			maximum_speed = 0.05
-			reliability_factor = -0.05
+			defense = 0.05
 		}
 	}
 
 	trait = {
-		token = fast_tank_mio_era
-		name = fast_tank_mio_era
-		position = { 
-			x = 4
-			y = 0
-		}
-		equipment_bonus = {
-			armor_value = 0.025
+		token = generic_mio_lighter_materials
+		name = generic_mio_lighter_materials
+		icon = GFX_generic_mio_trait_icon_resources
+
+		position = { x=-1 y=1 }
+		relative_position_id = generic_mio_sloping_armor
+
+		all_parents = { generic_mio_sloping_armor }
+
+		mutually_exclusive = { generic_mio_armor_hardening_process }
+		
+		production_bonus = {
+			production_resource_penalty_factor = -0.1
 		}
 	}
 
 	trait = {
-		token = fast_tank_mio_improved_era
-		name = fast_tank_mio_improved_era
-		parent = {
-			traits = {
-				fast_tank_mio_era
-			}
-		}
-		position = { 
-			x = 4
-			y = 2
-		}
+		token = generic_mio_armor_hardening_process
+		name = generic_mio_armor_hardening_process
+		icon = GFX_generic_mio_trait_icon_armor_value
+
+		position = { x=1 y=1 }
+		relative_position_id = generic_mio_sloping_armor
+
+		all_parents = { generic_mio_sloping_armor }
+
+		mutually_exclusive = { generic_mio_lighter_materials }
+		
 		equipment_bonus = {
-			armor_value = 0.025
-			reliability_factor = -0.025
+			armor_value = 0.05
+		}
+	}
+
+	trait = {
+		token = generic_mio_enlarged_breech
+		name = generic_mio_enlarged_breech
+		icon = GFX_generic_mio_trait_icon_soft_attack
+
+		position = { x=1 y=1 }
+		relative_position_id = generic_mio_lighter_materials
+
+		any_parent = { generic_mio_lighter_materials generic_mio_armor_hardening_process }
+		
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = generic_mio_gunner_sight_improvements
+		name = generic_mio_gunner_sight_improvements
+		icon = GFX_generic_mio_department_icon_tank_general_quality
+
+		position = { x=0 y=2 }
+		relative_position_id = generic_mio_enlarged_breech
+
+		all_parents = { generic_mio_enlarged_breech }
+		
+		equipment_bonus = {
+			breakthrough = 0.05
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = generic_mio_quality_assurance_routines
+		name = generic_mio_quality_assurance_routines
+		icon = GFX_generic_mio_trait_icon_reliability
+
+		position = { x=3 y=1 }
+		relative_position_id = generic_mio_trait_improved_boogies
+
+		all_parents = { generic_mio_trait_improved_boogies generic_mio_sloping_armor }
+		
+		equipment_bonus = {
+			reliability = 0.05
+			build_cost_ic = 0.05
+		}
+	}
+
+	trait = {
+		token = generic_mio_streamlined_production
+		name = generic_mio_streamlined_production
+		icon = GFX_generic_mio_department_icon_tank_general_technology		
+
+		position = { x=0 y=2 }
+		relative_position_id = generic_mio_quality_assurance_routines
+
+		all_parents = { generic_mio_quality_assurance_routines generic_mio_improved_ventilation generic_mio_enlarged_breech }
+		
+
+		production_bonus = {
+			production_efficiency_cap_factor = 0.05
 		}
 	}
 }
