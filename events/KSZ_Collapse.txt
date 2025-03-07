@@ -13,6 +13,8 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			country_lock_all_division_template = no
+			KSZ_collapse_CHG = yes
+			KSZ_collapse_LTS = yes
 		}
 		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.1"
 	}
@@ -21,14 +23,8 @@ country_event = {
 		name = kszrozpad.1.a
 		KSZ = {
 			country_event = {
-			id = kszrozpad.2
-			days = 2
-			}
-		}
-		KOS = {
-			country_event = {
-			id = kosrozpad.2
-			days = 2
+				id = kszrozpad.2
+				days = 120
 			}
 		}
 	}
@@ -43,33 +39,128 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.2"
 		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 38
-					}
+			country_lock_all_division_template = no
+			end_puppet = CHG
+			end_puppet = LTS
+			KSZ = {
+				drop_cosmetic_tag = yes
+			}
+			CHG = {
+				drop_cosmetic_tag = yes
+			}
+			LTS = {
+				drop_cosmetic_tag = yes
+			}
+			HEL = {
+				add_state_core = 666
+				transfer_state = 666
+
+				declare_war_on = {
+					target = KSZ
+					type = annex_everything
 				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
+
+				#set_province_controller = 16392
+				#set_province_controller = 11395
+				#set_province_controller = 16394
+				#set_province_controller = 11365
+
+				load_oob = "HEL_2027"
+			}
+			OWS = {
+				add_state_core = 626
+				transfer_state = 626
+
+				declare_war_on = {
+					target = KSZ
+					type = annex_everything
+				}
+
+				#set_province_controller = 16469
+				#set_province_controller = 3246
+				set_province_controller = 16421
+				set_province_controller = 16429
+
+				load_oob = "OWS_2027"
+			}
+			KSC = {
+				add_state_core = 36
+				transfer_state = 36
+
+				declare_war_on = {
+					target = KSZ
+					type = annex_everything
+				}
+
+				#set_province_controller = 16094
+				#set_province_controller = 16114
+				#set_province_controller = 16095
+				set_province_controller = 16083
+				#set_province_controller = 16087
+
+				load_oob = "KSC_2027"
+			}
+			KSZ = {
+				set_province_controller = 1053
+				set_province_controller = 1978
+				set_province_controller = 2405
+				set_province_controller = 3541
+				set_province_controller = 16088
+				set_province_controller = 16089
+				set_province_controller = 16090
+				set_province_controller = 16091
+				set_province_controller = 16092
+				set_province_controller = 16093
+				set_province_controller = 16098
+				set_province_controller = 16099
+				set_province_controller = 16100
+				set_province_controller = 16101
+				set_province_controller = 16102
+				set_province_controller = 16124
+				set_province_controller = 16364
+				set_province_controller = 16393
+				set_province_controller = 16396
+				set_province_controller = 16468
+				set_province_controller = 16470
 			}
 			country_event = {
 				id = kszrozpad.3
-				days = 2
+				days = 7
+			}
+			GDA = {
+				country_event = {
+					id = gdarozpad.2
+					days = 30
+				}
 			}
 		}
-		KSZ_collapse_PGF = yes
+		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.2"
 	}
 
-	option = {
+	option = { # Dziambor
 		name = kszrozpad.2.a
-		PGF = {
+		HEL = {
 			change_tag_from = KSZ
 		}
 	}
-	option = {
+
+	option = { # Owsiak
 		name = kszrozpad.2.b
+		OWS = {
+			change_tag_from = KSZ
+		}
+	}
+
+	option = { # Jednota
+		name = kszrozpad.2.c
+		KSC = {
+			change_tag_from = KSZ
+		}
+	}
+
+	option = { # Nicz
+		name = kszrozpad.2.e
 	}
 }
 
@@ -83,35 +174,20 @@ country_event = {
 
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.3"
-		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 20
-						state = 1073
-						state = 666
-					}
-				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
-			}
-			country_event = {
-				id = kszrozpad.4
-				days = 2
-			}
-		}
-		KSZ_collapse_HEL = yes
 	}
 
 	option = {
 		name = kszrozpad.3.a
-		HEL = {
-			change_tag_from = KSZ
+		PGF = {
+			add_state_core = 38
+			transfer_state = 38
+			set_capital = { state = 38 }
+			country_event = griffin.1
 		}
-	}
-	
-	option = {
-		name = kszrozpad.3.b
+		country_event = {
+			id = kszrozpad.4
+			days = 7
+		}
 	}
 }
 
@@ -126,37 +202,19 @@ country_event = {
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.4"
 		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 89
-					}
-				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
-			}
-			country_event = {
-				id = kszrozpad.5
-				days = 2
-			}
+			white_peace = HEL
+			white_peace = OWS
+			white_peace = KSC
+			KSZ_collapse_HEL = yes
+			KSZ_collapse_OWS = yes
+			KSZ_collapse_KSC = yes
 		}
-		KSZ_collapse_CHG = yes
 	}
 
 	option = {
 		name = kszrozpad.4.a
-		CHG = {
-			change_tag_from = KSZ
-		}
-	}
-	
-	option = {
-		name = kszrozpad.4.b
 	}
 }
-
-
- 
 
 country_event = {
 	id = kszrozpad.5
@@ -168,35 +226,14 @@ country_event = {
 
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.5"
-		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 626
-						state = 712
-						state = 713
-					}
-				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
-			}
-			country_event = {
-				id = kszrozpad.6
-				hours = 6
-			}
-		}
-		KSZ_collapse_OWS = yes
 	}
 
 	option = {
 		name = kszrozpad.5.a
-		OWS = {
-			change_tag_from = KSZ
+		HEL = {
+			add_state_core = 628
+			transfer_state = 628
 		}
-	}
-	
-	option = {
-		name = kszrozpad.5.b
 	}
 }
 
@@ -210,116 +247,300 @@ country_event = {
 
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.6"
-		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 65
-						state = 1081
-					}
-				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
-			}
-			country_event = {
-				id = kszrozpad.7
-				days = 1
-			}
-		}
 		KSZ_collapse_LTT = yes
 	}
 
 	option = {
 		name = kszrozpad.6.a
-		LTT = {
-			change_tag_from = KSZ
-		}
-	}
-	
-	option = {
-		name = kszrozpad.6.b
 	}
 }
 
+#country_event = {
+#	id = kszrozpad.2
+#	title = kszrozpad.2.t
+#	desc = kszrozpad.2.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.2"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 38
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#			country_event = {
+#				id = kszrozpad.3
+#				days = 2
+#			}
+#		}
+#		KSZ_collapse_PGF = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.2.a
+#		PGF = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	option = {
+#		name = kszrozpad.2.b
+#	}
+#}
+#
+#country_event = {
+#	id = kszrozpad.3
+#	title = kszrozpad.3.t
+#	desc = kszrozpad.3.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.3"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 20
+#						state = 1073
+#						state = 666
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#			country_event = {
+#				id = kszrozpad.4
+#				days = 2
+#			}
+#		}
+#		KSZ_collapse_HEL = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.3.a
+#		HEL = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	
+#	option = {
+#		name = kszrozpad.3.b
+#	}
+#}
+#
+#country_event = {
+#	id = kszrozpad.4
+#	title = kszrozpad.4.t
+#	desc = kszrozpad.4.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.4"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 89
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#			country_event = {
+#				id = kszrozpad.5
+#				days = 2
+#			}
+#		}
+#		KSZ_collapse_CHG = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.4.a
+#		CHG = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	
+#	option = {
+#		name = kszrozpad.4.b
+#	}
+#}
+#
+#
+# 
+#
+#country_event = {
+#	id = kszrozpad.5
+#	title = kszrozpad.5.t
+#	desc = kszrozpad.5.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.5"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 626
+#						state = 712
+#						state = 713
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#			country_event = {
+#				id = kszrozpad.6
+#				hours = 6
+#			}
+#		}
+#		KSZ_collapse_OWS = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.5.a
+#		OWS = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	
+#	option = {
+#		name = kszrozpad.5.b
+#	}
+#}
 
-country_event = {
-	id = kszrozpad.7
-	title = kszrozpad.7.t
-	desc = kszrozpad.7.desc
+#country_event = {
+#	id = kszrozpad.6
+#	title = kszrozpad.6.t
+#	desc = kszrozpad.6.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.6"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 65
+#						state = 1081
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#			country_event = {
+#				id = kszrozpad.7
+#				days = 1
+#			}
+#		}
+#		KSZ_collapse_LTT = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.6.a
+#		LTT = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	
+#	option = {
+#		name = kszrozpad.6.b
+#	}
+#}
+#
+#
+#country_event = {
+#	id = kszrozpad.7
+#	title = kszrozpad.7.t
+#	desc = kszrozpad.7.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.7"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 1080
+#						state = 67
+#						state = 629
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#			country_event = {
+#				id = kszrozpad.8
+#				days = 5
+#			}
+#		}
+#		KSZ_collapse_LTS = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.7.a
+#		LTS = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	
+#	option = {
+#		name = kszrozpad.7.b
+#	}	
+#}
 
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = {
-		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.7"
-		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 1080
-						state = 67
-						state = 629
-					}
-				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
-			}
-			country_event = {
-				id = kszrozpad.8
-				days = 5
-			}
-		}
-		KSZ_collapse_LTS = yes
-	}
-
-	option = {
-		name = kszrozpad.7.a
-		LTS = {
-			change_tag_from = KSZ
-		}
-	}
-	
-	option = {
-		name = kszrozpad.7.b
-	}	
-}
-
-country_event = {
-	id = kszrozpad.8
-	title = kszrozpad.8.t
-	desc = kszrozpad.8.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = {
-		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.8"
-		hidden_effect = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						state = 1074
-						state = 1075
-						state = 21
-						state = 1068
-						state = 36
-					}
-				}
-				remove_core_of = KSZ
-				add_claim_by = KSZ
-			}
-		}
-		KSZ_collapse_KSC = yes
-	}
-
-	option = {
-		name = kszrozpad.8.a
-		KSC = {
-			change_tag_from = KSZ
-		}
-	}
-	
-	option = {
-		name = kszrozpad.8.b
-	}	
-}
+#country_event = {
+#	id = kszrozpad.8
+#	title = kszrozpad.8.t
+#	desc = kszrozpad.8.desc
+#
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		log = "[GetDateText]: [ROOT.GetName] fires kszrozpad.8"
+#		hidden_effect = {
+#			every_owned_state = {
+#				limit = {
+#					OR = {
+#						state = 1074
+#						state = 1075
+#						state = 21
+#						state = 1068
+#						state = 36
+#					}
+#				}
+#				remove_core_of = KSZ
+#				add_claim_by = KSZ
+#			}
+#		}
+#		KSZ_collapse_KSC = yes
+#	}
+#
+#	option = {
+#		name = kszrozpad.8.a
+#		KSC = {
+#			change_tag_from = KSZ
+#		}
+#	}
+#	
+#	option = {
+#		name = kszrozpad.8.b
+#	}	
+#}
