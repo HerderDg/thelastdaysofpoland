@@ -11,7 +11,16 @@ generic_firearms_mio = {
 	research_categories = {
 		ranged_weapons
 	}
+	initial_trait = {
+		name = generic_mio_initial_trait_artillery_manufacturer
 
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+		production_bonus = {
+			production_cost_factor = -0.03
+		}
+	}
 	trait = {
 		token = basic_gunsmith_equipment
 		name = generic_firearms_mio_basic_gunsmith_equipment
@@ -974,7 +983,6 @@ defensive_firearms_mio = {
 
 anti_armor_firearms_mio = {
 	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
-	include = generic_firearms_mio
 	allowed = {
 		always = no
 	}
@@ -982,6 +990,186 @@ anti_armor_firearms_mio = {
 	initial_trait = {
 		equipment_bonus = {
 			ap_attack = 0.1
+		}
+	}
+	trait = {
+		token = basic_gunsmith_equipment
+		name = generic_firearms_mio_basic_gunsmith_equipment
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = mechanization_of_armory
+		name = generic_firearms_mio_mechanization_of_armory
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { basic_gunsmith_equipment }
+		}
+		mutually_exclusive = { journeymen_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = journeymen_employment
+		name = generic_firearms_mio_journeymen_employment
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { basic_gunsmith_equipment }
+		}
+		mutually_exclusive = { mechanization_of_armory }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_armory
+		name = generic_firearms_mio_robotization_of_armory
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { mechanization_of_armory }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_gunsmiths
+		name = generic_firearms_mio_army_of_gunsmiths
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { journeymen_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_cartridges
+		name = generic_firearms_mio_standarisation_of_cartridges
+		icon = GFX_generic_mio_trait_icon_supply_consumption
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = dum_dum_rounds
+		name = generic_firearms_mio_dum_dum_rounds
+		icon = GFX_generic_mio_trait_icon_breakthrough
+		parent = {
+			traits = { standarisation_of_cartridges }
+		}
+		mutually_exclusive = { at_rifle_grenades }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = at_rifle_grenades
+		name = generic_firearms_mio_at_rifle_grenades
+		icon = GFX_generic_mio_department_icon_infantry_offense
+		parent = {
+			traits = { standarisation_of_cartridges }
+		}
+		mutually_exclusive = { dum_dum_rounds }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = anti_infantry_mines
+		name = generic_firearms_mio_anti_infantry_mines
+		icon = GFX_generic_mio_department_icon_infantry_offense
+		parent = {
+			traits = { dum_dum_rounds }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = anti_tank_mines
+		name = generic_firearms_mio_anti_tank_mines
+		icon = GFX_generic_mio_department_icon_tank_general_at
+		parent = {
+			traits = { at_rifle_grenades }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
 		}
 	}
 
@@ -2003,7 +2191,6 @@ defensive_melee_mio = {
 }
 
 anti_armor_melee_mio = {
-	include = generic_melee_mio
 	allowed = {
 		always = no
 	}
@@ -2015,7 +2202,186 @@ anti_armor_melee_mio = {
 			ap_attack = 0.1
 		}
 	}
+	trait = {
+		token = basic_forging_equipment
+		name = generic_melee_mio_basic_forging_equipment
+		icon = GFX_generic_mio_trait_icon_hardness
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
 
+	trait = {
+		token = mechanization_of_forgeworks
+		name = generic_melee_mio_mechanization_of_forgeworks
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { two_shift_forge_workdays }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = two_shift_forge_workdays
+		name = generic_melee_mio_two_shift_forge_workdays
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { basic_forging_equipment }
+		}
+		mutually_exclusive = { mechanization_of_forgeworks }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_forgeworks
+		name = generic_melee_mio_robotization_of_forgeworks
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { mechanization_of_forgeworks }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = pushing_forges_to_the_limit
+		name = generic_melee_mio_pushing_forges_to_the_limit
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { two_shift_forge_workdays }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_melee_arms
+		name = generic_melee_mio_standarisation_of_melee_arms
+		icon = GFX_generic_mio_trait_icon_supply_consumption
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = sharpening_the_blades
+		name = generic_melee_mio_sharpening_the_blades
+		icon = GFX_generic_mio_trait_icon_reliability
+		parent = {
+			traits = { standarisation_of_melee_arms }
+		}
+		mutually_exclusive = { basic_booby_trapping_training }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = basic_booby_trapping_training
+		name = generic_melee_mio_basic_booby_trapping_training
+		icon = GFX_generic_mio_trait_icon_mines
+		parent = {
+			traits = { standarisation_of_melee_arms }
+		}
+		mutually_exclusive = { sharpening_the_blades }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
+
+	trait = {
+		token = additional_serrations
+		name = generic_melee_mio_additional_serrations
+		icon = GFX_generic_mio_department_icon_infantry_production
+		parent = {
+			traits = { sharpening_the_blades }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			hard_attack = -0.025
+		}
+	}
+
+	trait = {
+		token = advanced_booby_trapping_training
+		name = generic_melee_mio_advanced_booby_trapping_training
+		icon = GFX_generic_mio_department_icon_tank_general_spg
+		parent = {
+			traits = { basic_booby_trapping_training }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = -0.025
+			hard_attack = 0.025
+		}
+	}
 	trait = {
 		token = anti_armor_melee_mio_lunge_mines
 		name = anti_armor_melee_mio_lunge_mines
@@ -2265,11 +2631,13 @@ generic_artillery_mio = {
 
 mortars_mio = {
 	icon = GFX_idea_generic_artillery_manufacturer_2
-	include = generic_artillery_mio
+
 	allowed = {
 		always = no
 	}
-
+	equipment_type = {
+		light_artillery_equipment
+	}
 	initial_trait = {
 		equipment_bonus = {
 			soft_attack = 0.05
@@ -2278,7 +2646,184 @@ mortars_mio = {
 			light_artillery_equipment
 		}
 	}
+	trait = {
+		token = basic_foundry_equipment
+		name = generic_artillery_mio_basic_foundry_equipment
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
 
+	trait = {
+		token = mechanization_of_foundry
+		name = generic_artillery_mio_mechanization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { smiths_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = smiths_employment
+		name = generic_artillery_mio_smiths_employment
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { mechanization_of_foundry }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_foundry
+		name = generic_artillery_mio_robotization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { mechanization_of_foundry }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_metalworkers
+		name = generic_artillery_mio_army_of_metalworkers
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { smiths_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_artillery_calibres
+		name = generic_artillery_mio_standarisation_of_artillery_calibres
+		icon = GFX_generic_mio_department_icon_artillery_technology
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			air_attack = 0.025
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = lightened_limbers
+		name = generic_artillery_mio_lightened_limbers
+		icon = GFX_generic_mio_department_icon_artillery_materials
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { splinter_shields }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = splinter_shields
+		name = generic_artillery_mio_splinter_shields
+		icon = GFX_generic_mio_department_icon_artillery_production
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { lightened_limbers }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_firing_calculations
+		name = generic_artillery_mio_improved_firing_calculations
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { lightened_limbers }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_shell_ballistics
+		name = generic_artillery_mio_improved_shell_ballistics
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { splinter_shields }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
 	trait = {
 		token = mortars_mio_strenghened_mortar_barrels
 		name = mortars_mio_strenghened_mortar_barrels
@@ -2343,11 +2888,12 @@ mortars_mio = {
 
 howitzers_mio = {
 	icon = GFX_idea_generic_artillery_manufacturer_2
-	include = generic_artillery_mio
 	allowed = {
 		always = no
 	}
-
+	equipment_type = {
+		heavy_artillery_equipment
+	}
 	initial_trait = {
 		equipment_bonus = {
 			soft_attack = 0.05
@@ -2356,7 +2902,184 @@ howitzers_mio = {
 			heavy_artillery_equipment
 		}
 	}
+	trait = {
+		token = basic_foundry_equipment
+		name = generic_artillery_mio_basic_foundry_equipment
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
 
+	trait = {
+		token = mechanization_of_foundry
+		name = generic_artillery_mio_mechanization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { smiths_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = smiths_employment
+		name = generic_artillery_mio_smiths_employment
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { mechanization_of_foundry }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_foundry
+		name = generic_artillery_mio_robotization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { mechanization_of_foundry }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_metalworkers
+		name = generic_artillery_mio_army_of_metalworkers
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { smiths_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_artillery_calibres
+		name = generic_artillery_mio_standarisation_of_artillery_calibres
+		icon = GFX_generic_mio_department_icon_artillery_technology
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			air_attack = 0.025
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = lightened_limbers
+		name = generic_artillery_mio_lightened_limbers
+		icon = GFX_generic_mio_department_icon_artillery_materials
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { splinter_shields }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = splinter_shields
+		name = generic_artillery_mio_splinter_shields
+		icon = GFX_generic_mio_department_icon_artillery_production
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { lightened_limbers }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_firing_calculations
+		name = generic_artillery_mio_improved_firing_calculations
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { lightened_limbers }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_shell_ballistics
+		name = generic_artillery_mio_improved_shell_ballistics
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { splinter_shields }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
 	trait = {
 		token = howitzers_mio_strenghened_mortar_barrels
 		name = howitzers_mio_strenghened_mortar_barrels
@@ -2421,11 +3144,12 @@ howitzers_mio = {
 
 rocket_artillery_mio = {
 	icon = GFX_idea_generic_artillery_manufacturer_2
-	include = generic_artillery_mio
 	allowed = {
 		always = no
 	}
-
+	equipment_type = {
+		rocket_artillery_equipment
+	}
 	initial_trait = {
 		equipment_bonus = {
 			soft_attack = 0.05
@@ -2434,7 +3158,184 @@ rocket_artillery_mio = {
 			rocket_artillery_equipment
 		}
 	}
+	trait = {
+		token = basic_foundry_equipment
+		name = generic_artillery_mio_basic_foundry_equipment
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
 
+	trait = {
+		token = mechanization_of_foundry
+		name = generic_artillery_mio_mechanization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { smiths_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = smiths_employment
+		name = generic_artillery_mio_smiths_employment
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { mechanization_of_foundry }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_foundry
+		name = generic_artillery_mio_robotization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { mechanization_of_foundry }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_metalworkers
+		name = generic_artillery_mio_army_of_metalworkers
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { smiths_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_artillery_calibres
+		name = generic_artillery_mio_standarisation_of_artillery_calibres
+		icon = GFX_generic_mio_department_icon_artillery_technology
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			air_attack = 0.025
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = lightened_limbers
+		name = generic_artillery_mio_lightened_limbers
+		icon = GFX_generic_mio_department_icon_artillery_materials
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { splinter_shields }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = splinter_shields
+		name = generic_artillery_mio_splinter_shields
+		icon = GFX_generic_mio_department_icon_artillery_production
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { lightened_limbers }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_firing_calculations
+		name = generic_artillery_mio_improved_firing_calculations
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { lightened_limbers }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_shell_ballistics
+		name = generic_artillery_mio_improved_shell_ballistics
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { splinter_shields }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
 	trait = {
 		token = rocket_art_mio_strenghened_mortar_barrels
 		name = rocket_art_mio_strenghened_mortar_barrels
@@ -2497,23 +3398,201 @@ rocket_artillery_mio = {
 	}
 }
 
-anti_tank_heavy_weapons_mio = {
+anti_air_heavy_weapons_mio = {
 	icon = GFX_idea_generic_artillery_manufacturer_2
-	include = generic_artillery_mio
 	allowed = {
 		always = no
 	}
-
+	equipment_type = {
+		anti_air_equipment
+	}
 	initial_trait = {
 		equipment_bonus = {
 			hard_attack = 0.05
 			ap_attack = 0.05
 		}
 		limit_to_equipment_type = {
-			inf_anti_tank_equipment
+			anti_air_equipment
+		}
+	}
+	trait = {
+		token = basic_foundry_equipment
+		name = generic_artillery_mio_basic_foundry_equipment
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		position = {
+			x = 1
+			y = 0
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
 		}
 	}
 
+	trait = {
+		token = mechanization_of_foundry
+		name = generic_artillery_mio_mechanization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { smiths_employment }
+		position = { 
+			x = 0
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = smiths_employment
+		name = generic_artillery_mio_smiths_employment
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { basic_foundry_equipment }
+		}
+		mutually_exclusive = { mechanization_of_foundry }
+		position = { 
+			x = 2
+			y = 2
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = robotization_of_foundry
+		name = generic_artillery_mio_robotization_of_foundry
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		parent = {
+			traits = { mechanization_of_foundry }
+		}
+		position = { 
+			x = 0
+			y = 4
+		}
+		equipment_bonus = {
+			reliability_factor = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = -0.05
+		}
+	}
+
+	trait = {
+		token = army_of_metalworkers
+		name = generic_artillery_mio_army_of_metalworkers
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		parent = {
+			traits = { smiths_employment }
+		}
+		position = { 
+			x = 2
+			y = 4
+		}
+
+		equipment_bonus = {
+			reliability_factor = -0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+
+	trait = {
+		token = standarisation_of_artillery_calibres
+		name = generic_artillery_mio_standarisation_of_artillery_calibres
+		icon = GFX_generic_mio_department_icon_artillery_technology
+		position = {
+			x = 4 
+			y = 0
+		}
+		equipment_bonus = {
+			soft_attack = 0.025
+			breakthrough = 0.025
+			air_attack = 0.025
+			defense = 0.025
+		}
+	}
+
+	trait = {
+		token = lightened_limbers
+		name = generic_artillery_mio_lightened_limbers
+		icon = GFX_generic_mio_department_icon_artillery_materials
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { splinter_shields }
+		position = {
+			x = 3 
+			y = 2
+		}
+		equipment_bonus = {
+			breakthrough = 0.05
+		}
+	}
+
+	trait = {
+		token = splinter_shields
+		name = generic_artillery_mio_splinter_shields
+		icon = GFX_generic_mio_department_icon_artillery_production
+		parent = {
+			traits = { standarisation_of_artillery_calibres }
+		}
+		mutually_exclusive = { lightened_limbers }
+		position = {
+			x = 5 
+			y = 2
+		}
+		equipment_bonus = {
+			defense = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_firing_calculations
+		name = generic_artillery_mio_improved_firing_calculations
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { lightened_limbers }
+		}
+		position = {
+			x = 3 
+			y = 4
+		}
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+	}
+
+	trait = {
+		token = improved_shell_ballistics
+		name = generic_artillery_mio_improved_shell_ballistics
+		icon = GFX_generic_mio_department_icon_artillery_line_efficiency
+		parent = {
+			traits = { splinter_shields }
+		}
+		position = {
+			x = 5 
+			y = 4
+		}
+		equipment_bonus = {
+			hard_attack = 0.05
+		}
+	}
 	trait = {
 		token = anti_tank_heavy_weapons_mio_tandem_heat_charges
 		name = anti_tank_heavy_weapons_mio_tandem_heat_charges
@@ -2526,9 +3605,7 @@ anti_tank_heavy_weapons_mio = {
 			hard_attack = 0.025
 			ap_attack = 0.025
 		}
-		limit_to_equipment_type = {
-			inf_anti_tank_equipment
-		}
+
 	}
 
 	trait = {
@@ -2549,9 +3626,7 @@ anti_tank_heavy_weapons_mio = {
 			ap_attack = 0.025
 			hard_attack = -0.025
 		}
-		limit_to_equipment_type = {
-			inf_anti_tank_equipment
-		}
+
 	}
 
 	trait = {
@@ -2572,9 +3647,7 @@ anti_tank_heavy_weapons_mio = {
 			hard_attack = 0.025
 			ap_attack = -0.025
 		}
-		limit_to_equipment_type = {
-			inf_anti_tank_equipment
-		}
+
 	}
 }
 
