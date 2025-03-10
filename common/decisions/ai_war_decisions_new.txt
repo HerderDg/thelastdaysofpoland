@@ -9,6 +9,76 @@ ai_war_decisions = {
 #╚═════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #BESKIDZKIE - FAZA PIERWSZA
 
+annex_podbeskidzie = {
+	allowed = {
+		is_tatry_region = yes
+		NOT = {
+			original_tag = BBA
+			original_tag = WYM
+		}
+	}
+	available = {
+		count_triggers = {
+			amount = 7
+			NOT = { country_exists = LEM }
+			NOT = { country_exists = SCZ }
+			NOT = { country_exists = TYM }
+			NOT = { country_exists = ZGR }
+			NOT = { country_exists = GUR }
+			NOT = { country_exists = ZKP }
+			NOT = { country_exists = CIE }
+			NOT = { country_exists = BSK }
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	ai_will_do = {
+		base = 1000
+	}
+	remove_effect = {
+		if = {
+			limit = {
+				country_exists = BBA
+				BBA = { is_puppet_of = ROOT }
+			}
+		annex_country = {
+			target = BBA
+			transfer_troops = yes
+		}
+		}
+		if = {
+			limit = {
+				country_exists = BBA
+				BBA = { NOT = { is_puppet_of = ROOT } }
+			}
+			declare_war_on = {
+				target = BBA
+				type = voivodeship_war
+			}
+		}
+		if = {
+			limit = {
+				country_exists = WYM
+				WYM = { is_puppet_of = ROOT }
+			}
+		annex_country = {
+			target = WYM
+			transfer_troops = yes
+		}
+		}
+		if = {
+			limit = {
+				country_exists = WYM
+				WYM = { NOT = { is_puppet_of = ROOT } }
+			}
+			declare_war_on = {
+				target = WYM
+				type = voivodeship_war
+			}
+		}				
+	}
+}
+
  SCZ_LEM_war = {
  
  	icon = GFX_decision_generic_prepare_civil_war
@@ -1117,7 +1187,7 @@ ai_war_decisions = {
 				date > 2028.04.01
 				NOT = {
 					has_war = yes
-					has_country_flag = slask_wojna
+					has_global_flag = slask_wojna
 				}
 				has_global_flag = chosen_silesian_behemoth
 			}
@@ -1133,7 +1203,7 @@ ai_war_decisions = {
 	days_remove = 10
 	complete_effect = {
 		hidden_effect = {
-			set_country_flag = slask_wojna
+			set_global_flag = slask_wojna
 		}
 	}
 	remove_effect  = {
@@ -2856,6 +2926,7 @@ ai_war_decisions = {
 		country_exists = LCZ
 		date > 2028.09.01
 		ROOT = { any_neighbor_country = { original_tag = LCZ } }
+		NOT = { has_country_flag = unified_voivodeship }
 	}
 
 	
@@ -2864,7 +2935,7 @@ ai_war_decisions = {
 		factor = 100
 
 	}
-	fire_only_once = yes
+	days_re_enable = 60
 	days_remove = 14
 	remove_effect  = {
 		log = "[GetDateText]: Decision rozpierdol_lubaczow"
