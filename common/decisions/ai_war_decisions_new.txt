@@ -119,422 +119,47 @@ annex_podbeskidzie = {
 	}
 }
 
- SCZ_LEM_war = {
- 
- 	icon = GFX_decision_generic_prepare_civil_war
- 	allowed = {
- 		is_tatry_region = yes
- 	}
- 
- 	available = {
- 		original_tag = SCZ
- 		date > 2027.12.12
-		has_war = no
- 	}
- 
- 	ai_will_do = {
- 		factor = 100
- 		modifier = {
- 			factor = -1
- 			surrender_progress > 0.25
- 		}
- 	}
- 	fire_only_once = yes
- 	days_remove = 3
- 	war_with_on_remove = LEM
- 	remove_effect  = {
- 		log = "[GetDateText]: Decision lososina_war"
- 		set_war_support = 0.7
- 		declare_war_on = {
- 			target = LEM
- 			type = voivodeship_war
- 		}
- 	}
- 	cancel_trigger = {
-			ROOT = {
-				has_war = yes
-			}
- 	}
- }
-
 
 #BESKIDZKIE - FAZA DRUGA
+carpathian_wars = { #
+icon = GFX_decision_generic_prepare_civil_war
+allowed = {
+	is_tatry_region = yes
+}
 
- GUR_ZGR_war = {
- 
- 	icon = GFX_decision_generic_prepare_civil_war
- 	
- 	allowed = {
-		is_tatry_region = yes
-			}
+ai_will_do = {
+	factor = 100
+}
 
-	available = {
-		original_tag = GUR
-		date > 2028.05.01
-		has_war = no
+available = {
+	date > 2028.02.01
+	has_war = no
+}
+
+targets = {
+	BBA WYM CIE BSK GUR ZKP ZGR LEM SCZ TYM
+}
+
+target_trigger = {
+	FROM = {
+		is_neighbor_of = ROOT
 	}
+}
 
-	ai_will_do = {
-		factor = 100
+days_remove = 14
+remove_effect = {
+	declare_war_on = {
+		target = FROM
+		type = voivodeship_war
+	}
+}
 
+ cancel_trigger = {
+	ROOT = {
+		has_war = yes
 	}
-	fire_only_once = yes
-	days_remove = 3
-	war_with_on_remove = ZGR
-	remove_effect  = {
-		log = "[GetDateText]: Decision podhale_war"
-		set_war_support = 0.7
-		declare_war_on = {
-			target = ZGR
-			type = voivodeship_war
-		}
-	}
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
  }
-
- SCZ_TYM_war = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-
-	available = {
-		original_tag = SCZ
-		has_war = no
-		date > 2028.05.12
-	}
-
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 3
-	war_with_on_remove = TYM
-	remove_effect  = {
-		log = "[GetDateText]: Decision SCZ_TYM_war"
-		set_war_support = 0.7
-		declare_war_on = {
-			target = TYM
-			type = voivodeship_war
-		}
-	}
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- beskidzkie_second_war_east = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-			
-	available = {
-			OR = {
-			original_tag = SCZ
-			original_tag = LEM
-			original_tag = GUR
-			}
-			count_triggers = {
-				amount = 3
-					SCZ = { exists = no }
-					GUR = { exists = no }
-					LEM = { exists = no }
-					ZGR = { exists = no }
-					TYM = { exists = no }
-				}
-			has_war = no
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-	}
-	days_re_enable = 20
-	days_remove = 28
-	remove_effect  = {
-		log = "[GetDateText]: Decision tatry3_war"
-		if = {
-			limit = {
-				country_exists = GUR
-				ROOT = { NOT = { original_tag = GUR } }
-				ROOT = { NOT = { is_in_faction_with = GUR } }
-			}
-			declare_war_on = {
-				target = GUR
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = ZKP
-				ROOT = { NOT = { original_tag = ZKP } }
-				ROOT = { NOT = { is_in_faction_with = ZKP } }
-			}
-			declare_war_on = {
-				target = ZKP
-				type = voivodeship_war
-			}
-		}		
-		if = {
-			limit = {
-				country_exists = SCZ
-				ROOT = { NOT = { original_tag = SCZ } }
-				ROOT = { NOT = { is_in_faction_with = SCZ } }
-			}
-			declare_war_on = {
-				target = SCZ
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = ZGR
-				ROOT = { NOT = { original_tag = ZGR } }
-				ROOT = { NOT = { is_in_faction_with = ZGR } }
-			}
-			declare_war_on = {
-				target = ZGR
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = TYM
-				ROOT = { NOT = { original_tag = TYM } }
-				ROOT = { NOT = { is_in_faction_with = TYM } }
-			}
-			declare_war_on = {
-				target = TYM
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = LEM
-				ROOT = { NOT = { original_tag = LEM } }
-				ROOT = { NOT = { is_in_faction_with = LEM } }
-			}
-			declare_war_on = {
-				target = LEM
-				type = voivodeship_war
-			}
-		}		
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
-#BESKIDZKIE - FAZA OSTATECZNA
-
- beskidzkie_final_war_east = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-			
-	available = {
-			OR = {
-			original_tag = SCZ
-			original_tag = LEM
-			original_tag = GUR
-			}
-			count_triggers = {
-				amount = 4
-					SCZ = { exists = no }
-					GUR = { exists = no }
-					LEM = { exists = no }
-					ZGR = { exists = no }
-					TYM = { exists = no }
-				}
-			has_war = no
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 28
-	remove_effect  = {
-		log = "[GetDateText]: Decision tatry3_war"
-		if = { 
-			limit = { country_exists = BSK
-			ROOT = { NOT = { original_tag = BSK }}
-			ROOT = { NOT = { is_in_faction_with = BSK }}
-			 }
-			declare_war_on = {
-				target = BSK
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = CIE 
-			ROOT = { NOT = { original_tag = CIE }}
-			ROOT = { NOT = { is_in_faction_with = CIE }}
-			}
-			declare_war_on = {
-				target = CIE
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = BBA
-			ROOT = { NOT = { original_tag = BBA }}
-			ROOT = { NOT = { is_in_faction_with = BBA }}
-			 }
-			declare_war_on = {
-				target = BBA
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = WYM
-			ROOT = { NOT = { original_tag = WYM }}
-			ROOT = { NOT = { is_in_faction_with = WYM }}	
-			 }
-			declare_war_on = {
-				target = WYM
-				type = voivodeship_war
-			}
-		}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- 
- beskidzkie_final_war_west = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-			
-	available = {
-			OR = {
-			original_tag = BSK
-			original_tag = CIE
-			original_tag = BBA
-			}
-			OR = {
-				BSK = { exists = no }
-				CIE = { exists = no }
-			}
-			count_triggers = {
-				amount = 3
-					SCZ = { exists = no }
-					GUR = { exists = no }
-					LEM = { exists = no }
-					ZGR = { exists = no }
-					TYM = { exists = no }
-			}
-			has_war = no
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 28
-	remove_effect  = {
-		log = "[GetDateText]: Decision tatry3_war"
-		if = { 
-			limit = { country_exists = GUR
-			ROOT = { NOT = { original_tag = GUR }}
-			ROOT = { NOT = { is_in_faction_with = GUR }}
-			 }
-			declare_war_on = {
-				target = GUR
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = ZGR
-			ROOT = { NOT = { original_tag = ZGR }}
-			ROOT = { NOT = { is_in_faction_with = ZGR }}
-			 }
-			declare_war_on = {
-				target = ZGR
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = TYM
-			ROOT = { NOT = { original_tag = TYM }}
-			ROOT = { NOT = { is_in_faction_with = TYM }}
-			 }
-			declare_war_on = {
-				target = TYM
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = SCZ
-			ROOT = { NOT = { original_tag = SCZ }}
-			ROOT = { NOT = { is_in_faction_with = SCZ }}
-			 }
-			declare_war_on = {
-				target = SCZ
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = LEM
-			ROOT = { NOT = { original_tag = LEM }}
-			ROOT = { NOT = { is_in_faction_with = LEM }}
-			 }
-			declare_war_on = {
-				target = LEM
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = ZKP
-			ROOT = { NOT = { original_tag = ZKP }}
-			ROOT = { NOT = { is_in_faction_with = ZKP }}
-			 }
-			declare_war_on = {
-				target = ZKP
-				type = voivodeship_war
-			}
-		}				
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
+}
 
 
 #███████╗░█████╗░░██████╗░██╗░░░░░███████╗██████╗░██╗███████╗  ██╗ ░░░░░██╗██╗░░░██╗██████╗░░█████╗░
