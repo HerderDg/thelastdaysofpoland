@@ -1808,34 +1808,7 @@ ai_war_decisions = {
 
 	available = {
 		has_war = no
-		or = {
-		count_triggers = {
-			amount = 18
-			OSW = { exists = no }
-			OSP = { exists = no }
-			BRS = { exists = no }
-			NPL = { exists = no }
-			CHW = { exists = no }
-			MSL = { exists = no }	
-			WDW = { exists = no }
-			KRK = { exists = no }
-			NHT = { exists = no }
-			PRK = { exists = no }
-			SKW = { exists = no }
-			UMN = { exists = no }	
-			BOH = { exists = no }	
-			TRN = { exists = no }	
-			KRA = { exists = no }	
-			WND = { exists = no }
-			BRK = { exists = no }
-			UJG = { exists = no }
-			AGH = { exists = no }
-			HAB = { exists = no }
-			HOR = { exists = no }
-			TRW = { exists = no }
-		}
 		date > 2031.03.01
-		}
 		NOT = { has_country_flag = unified_voivodeship }
 	}
 
@@ -1847,12 +1820,14 @@ ai_war_decisions = {
 	days_re_enable = 30
 	remove_effect  = {
 		log = "[GetDateText]: Decision raban galicyjski"
-		random_neighbor_country = { limit = { is_lesser_poland = yes }
-			ROOT = {
-				declare_war_on = {
-					target = FROM
-					type = voivodeship_war
-				}
+		every_neighbor_country = { 
+			limit = { 
+				is_lesser_poland = yes
+				NOT = { has_war_with = FROM }
+			}
+			declare_war_on = {
+				target = FROM
+				type = voivodeship_war
 			}
 		}
 	}
