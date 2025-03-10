@@ -1,0 +1,56 @@
+TSB_decisions_category = {
+
+	zeslij_raka_kutasa = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			original_tag = TSB
+		}
+		
+		target_array = global.countries
+		target_trigger = {
+			FROM = {
+				is_ai = yes
+				has_war = yes
+				has_idea = AI_bridge_crossing_idea	
+			}
+		}
+
+		available = {
+			FROM = {
+				is_ai = yes
+				has_war = yes
+				longest_war_length > 6
+				has_idea = AI_bridge_crossing_idea
+				NOT = {
+					any_enemy_country = {
+						has_idea = wojnorozpierdalacz
+					}
+				}
+				NOT = { 
+					has_idea = wojnorozpierdalacz
+				}		
+			}
+			NOT = { has_country_flag = zsylanie_klatwy }
+		}
+		complete_effect = {
+			set_country_flag = zsylanie_klatwy
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		days_remove = 3
+
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] zsyla raka kutasa na [FROM.GetName]"
+			FROM = { 
+				add_ideas = wojnorozpierdalacz
+			}
+			clr_country_flag = zsylanie_klatwy			
+		}
+	}	
+
+}
