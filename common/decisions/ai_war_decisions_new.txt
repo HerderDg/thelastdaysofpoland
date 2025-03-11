@@ -17703,6 +17703,11 @@ chelminsko_kujawska = {
 					original_tag = JAS	
 					original_tag = NOR	
 				}
+				OR = {
+					ROOT = { any_neighbor_country = { original_tag = USP } }
+					ROOT = { any_neighbor_country = { original_tag = JAS } }
+					ROOT = { any_neighbor_country = { original_tag = NOR } }
+				}
 				#NOT = { 
 				#	OR = {
 				#		has_decision = zachpom_
@@ -17797,6 +17802,11 @@ chelminsko_kujawska = {
 					original_tag = STE	
 				}
 				country_exists = JOM
+				OR = {
+					ROOT = { any_neighbor_country = { original_tag = EKW } }
+					ROOT = { any_neighbor_country = { original_tag = JOM } }
+					ROOT = { any_neighbor_country = { original_tag = STE } }
+				}
 				#NOT = { 
 				#	OR = {
 				#		has_decision = zachpom_
@@ -17889,6 +17899,11 @@ chelminsko_kujawska = {
 					original_tag = EKW	
 					original_tag = SWI	
 					original_tag = STE	
+				}
+				OR = {
+					ROOT = { any_neighbor_country = { original_tag = EKW } }
+					ROOT = { any_neighbor_country = { original_tag = SWI } }
+					ROOT = { any_neighbor_country = { original_tag = STE } }
 				}
 				country_exists = SWI
 				#NOT = { 
@@ -17987,17 +18002,38 @@ chelminsko_kujawska = {
 					original_tag = NOR	
 				}
 				OR = {
-					country_exists = SWI
-					country_exists = JOM
-					country_exists = EKW
-					country_exists = STE
-				}
-				OR = {
 					ROOT = { any_neighbor_country = { original_tag = EKW } }
 					ROOT = { any_neighbor_country = { original_tag = SWI } }
 					ROOT = { any_neighbor_country = { original_tag = JOM } }
 					ROOT = { any_neighbor_country = { original_tag = STE } }
 				}
+				OR = {
+					AND = {
+						country_exists = SWI
+						NOT = { country_exists = STE }
+						NOT = { country_exists = JOM }
+						NOT = { country_exists = EKW }
+					}
+					AND = {
+						country_exists = STE
+						NOT = { country_exists = SWI }
+						NOT = { country_exists = JOM }
+						NOT = { country_exists = EKW }
+					}
+					AND = {
+						country_exists = EKW
+						NOT = { country_exists = STE }
+						NOT = { country_exists = JOM }
+						NOT = { country_exists = SWI }
+					}
+					AND = {
+						country_exists = JOM
+						NOT = { country_exists = STE }
+						NOT = { country_exists = SWI }
+						NOT = { country_exists = EKW }
+					}
+				}
+					
 				NOT = { has_war = yes }
 				date > 2030.12.03
 		}
@@ -18083,14 +18119,26 @@ chelminsko_kujawska = {
 					original_tag = STE
 				}
 				OR = {
-					country_exists = USP	
-					country_exists = JAS	
-					country_exists = NOR
-				}
-				OR = {
 					ROOT = { any_neighbor_country = { original_tag = USP } }
 					ROOT = { any_neighbor_country = { original_tag = JAS } }
 					ROOT = { any_neighbor_country = { original_tag = NOR } }
+				}
+				OR = {
+					AND = {
+						country_exists = USP
+						NOT = { country_exists = JAS }
+						NOT = { country_exists = NOR }
+					}
+					AND = {
+						country_exists = JAS
+						NOT = { country_exists = USP }
+						NOT = { country_exists = NOR }
+					}
+					AND = {
+						country_exists = NOR
+						NOT = { country_exists = JAS }
+						NOT = { country_exists = USP }
+					}
 				}
 				NOT = { has_war = yes }
 				date > 2030.12.03
@@ -18147,6 +18195,246 @@ chelminsko_kujawska = {
 					}
 					declare_war_on = {
 						target = STE
+						type = voivodeship_war
+					}
+				}
+		}	
+	}
+	zachpom_final_fix = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_west_pomerania = yes
+			}
+
+		visible = {
+				OR = {	
+					original_tag = SWI
+					original_tag = JOM
+					original_tag = EKW
+					original_tag = STE
+					original_tag = USP	
+					original_tag = JAS	
+					original_tag = NOR	
+				}
+				OR = {
+					ROOT = { any_neighbor_country = { original_tag = USP } }
+					ROOT = { any_neighbor_country = { original_tag = JAS } }
+					ROOT = { any_neighbor_country = { original_tag = NOR } }
+					ROOT = { any_neighbor_country = { original_tag = STE } }
+					ROOT = { any_neighbor_country = { original_tag = EKW } }
+					ROOT = { any_neighbor_country = { original_tag = JOM } }
+					ROOT = { any_neighbor_country = { original_tag = SWI } }
+				}
+				NOT = { has_war = yes }
+				date > 2031.02.02
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision zachpom_final_fix"
+				if = { 
+					limit = { 
+						is_neighbor_of  = USP
+					}
+					declare_war_on = {
+						target = USP
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = JOM
+					}
+					declare_war_on = {
+						target = JOM
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = STE
+					}
+					declare_war_on = {
+						target = STE
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = JAS
+					}
+					declare_war_on = {
+						target = JAS
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = SWI
+					}
+					declare_war_on = {
+						target = SWI
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						original_tag = EKW
+						is_neighbor_of  = NOR
+					}
+					annex_country = {
+						target = NOR
+						transfer_troops = no
+					}
+				}
+				else_if = {
+					limit = { 
+						original_tag = NOR
+						is_neighbor_of  = EKW
+					}
+					EKW = {
+						annex_country = {
+							target = NOR
+							transfer_troops = no
+						}
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = NOR
+					}
+					declare_war_on = {
+						target = NOR
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = EKW
+					}
+					declare_war_on = {
+						target = EKW
+						type = voivodeship_war
+					}
+				}
+		}	
+	}
+	zachpom_minor_solution = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_west_pomerania = yes
+			}
+
+		visible = {
+				OR = {	
+					original_tag = SWI
+					original_tag = JOM
+					original_tag = EKW
+					original_tag = STE
+					original_tag = USP	
+					original_tag = JAS	
+					original_tag = NOR	
+				}
+				OR = {
+					ROOT = { any_neighbor_country = { original_tag = STR } }
+					ROOT = { any_neighbor_country = { original_tag = KLB } }
+					ROOT = { any_neighbor_country = { original_tag = LIG } }
+					ROOT = { any_neighbor_country = { original_tag = FRE } }
+					ROOT = { any_neighbor_country = { original_tag = BOR } }
+					ROOT = { any_neighbor_country = { original_tag = SNF } }
+					ROOT = { any_neighbor_country = { original_tag = CHE } }
+				}
+				NOT = { has_war = yes }
+				date > 2031.02.02
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision zachpom_minor_solution"
+				if = { 
+					limit = { 
+						is_neighbor_of  = STR
+					}
+					declare_war_on = {
+						target = STR
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = KLB
+					}
+					declare_war_on = {
+						target = KLB
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = LIG
+					}
+					declare_war_on = {
+						target = LIG
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = FRE
+					}
+					declare_war_on = {
+						target = FRE
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = BOR
+					}
+					declare_war_on = {
+						target = BOR
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = SNF
+					}
+					declare_war_on = {
+						target = SNF
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of  = CHE
+					}
+					declare_war_on = {
+						target = CHE
 						type = voivodeship_war
 					}
 				}
