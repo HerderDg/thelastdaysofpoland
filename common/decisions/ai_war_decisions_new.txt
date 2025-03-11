@@ -125,6 +125,9 @@ carpathian_wars = { #
 icon = GFX_decision_generic_prepare_civil_war
 allowed = {
 	is_tatry_region = yes
+	NOT = {
+		original_tag = TSZ
+	}
 }
 
 ai_will_do = {
@@ -166,6 +169,9 @@ remove_effect = {
 	ROOT = {
 		has_war = yes
 	}
+ }
+ cancel_effect = {
+	clr_country_flag = declaring_war
  }
 }
 
@@ -822,83 +828,62 @@ remove_effect = {
 #GÓRNY ŚLĄSK - FAZA DRUGA
 #GÓRNY ŚLĄSK - FAZA OSTATECZNA
 
- silesian_war = {
+silesian_war = { #
+icon = GFX_decision_generic_prepare_civil_war
 
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_upper_silesian_unifier = yes
-		NOT = {
-			is_opolskie = yes
-		}
-		
+allowed = {
+	is_upper_silesia = yes
+	NOT = { has_idea = podlasie_tribe_idea }
+}
+ai_will_do = {
+	factor = 100
+}
+
+visible = {
+	NOT = { has_country_flag = unified_voivodeship }
+}
+available = {
+	date > 2028.04.01
+	has_war = no
+	FROM = {
+		is_neighbor_of = ROOT
 	}
+	NOT = { has_country_flag = declaring_war }
+	has_global_flag = chosen_silesian_behemoth
+}
 
-	visible = {
-		NOT = { has_country_flag = unified_voivodeship }
+targets = {
+	ASG RAS CHO RUD FER GLI TRC KAT SBW SOL DUR TYS JSW WOD
+}
+
+target_trigger = {
+	FROM = {
+		is_neighbor_of = ROOT
+		NOT = { is_in_faction_with = ROOT }
 	}
-	
-	target_array = global.silesian_factions
-	target_trigger = {
-		FROM = {
-			is_upper_silesia = yes
-		}
+}
+
+days_remove = 14
+complete_effect = {
+	set_country_flag = declaring_war
+}
+remove_effect = {
+	declare_war_on = {
+		target = FROM
+		type = voivodeship_war
 	}
+	clr_country_flag = declaring_war
+}
 
-	available = {
-			AND = {
-				OR = {
-					original_tag = GLI
-					original_tag = RAS
-					original_tag = CHO
-					original_tag = JSW
-					original_tag = SOL
-					original_tag = SBW
-					original_tag = KAT
-					original_tag = DUR
-					original_tag = WOD
-				}
-				ROOT = { any_neighbor_country = { is_upper_silesia = yes } }
-				FROM = { is_neighbor_of = ROOT }
-				FROM = { exists = yes }
-				date > 2028.04.01
-				NOT = {
-					has_war = yes
-				}
-				has_global_flag = chosen_silesian_behemoth
-			}
+ cancel_trigger = {
+	ROOT = {
+		has_war = yes
 	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	
-	days_remove = 10
-
-	remove_effect  = {
-		log = "[GetDateText]: [ROOT.GetName] fires decision silesian_war"
-		if = { limit = { country_exists = FROM
-						 ROOT = { NOT = { original_tag = FROM
-						 is_in_faction_with = FROM
-						FROM = { is_puppet = yes } } } }
-		ROOT = {
-		declare_war_on = {
-			target = FROM
-			type = voivodeship_war
-		}
-		}
-		}	
-	}
-
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
- }	
+ }
+ cancel_effect = {
+	clr_country_flag = declaring_war
+ }
+}
 
 
 #███╗░░░███╗░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░░░░░██████╗██╗░░██╗██╗███████╗
@@ -5771,6 +5756,9 @@ remove_effect = {
 			has_war = yes
 		}
  	}
+	 cancel_effect = {
+		clr_country_flag = declaring_war
+	 }
  }
 #ŁÓDZKIE - FAZA DRUGA
 #ŁÓDZKIE - FAZA OSTATECZNA
