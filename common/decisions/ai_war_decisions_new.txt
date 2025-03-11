@@ -122,67 +122,61 @@ annex_podbeskidzie = {
 
 #BESKIDZKIE - FAZA DRUGA
 carpathian_wars = { #
-icon = GFX_decision_generic_prepare_civil_war
-allowed = {
-	is_tatry_region = yes
-	NOT = {
-		original_tag = TSZ
-	}
-}
-
-ai_will_do = {
-	factor = 100
-	modifier = {
-		factor = -110
-		FROM = {
-			original_tag = LEM
-		}
-		ROOT = { original_tag = GUR }
-		SCZ = { exists = yes }
-	}
-}
-
-available = {
-	date > 2028.02.01
-	has_war = no
-	FROM = {
-		is_neighbor_of = ROOT
-	}
-	ROOT = { NOT = { has_country_flag = declaring_war } }
-}
-
-targets = {
-	BBA WYM CIE BSK GUR ZKP ZGR LEM SCZ TYM
-}
-
-target_trigger = {
-	FROM = {
-		is_neighbor_of = ROOT
-	}
-}
-war_with_target_on_complete = yes
-days_remove = 7
-
-complete_effect = {
-	ROOT = { set_country_flag = declaring_war }
-}
-remove_effect = {
-	declare_war_on = {
-		target = FROM
-		type = voivodeship_war
-	}
-	ROOT = { clr_country_flag = declaring_war }
-}
-
- cancel_trigger = {
-	ROOT = {
-		has_war = yes
-	}
-	FROM = { exists = no }
+ icon = GFX_decision_generic_prepare_civil_war
+ allowed = {
+ 	is_tatry_region = yes
+ 	NOT = {
+ 		original_tag = TSZ
+ 	}
  }
- cancel_effect = {
-	ROOT = { clr_country_flag = declaring_war }
+ 
+ ai_will_do = {
+ 	factor = 100
+ 	modifier = {
+ 		factor = -110
+ 		FROM = {
+ 			original_tag = LEM
+ 		}
+ 		ROOT = { original_tag = GUR }
+ 		SCZ = { exists = yes }
+ 	}
  }
+ 
+ available = {
+ 	date > 2028.02.01
+ 	has_war = no
+ 	FROM = {
+ 		is_neighbor_of = ROOT
+ 	}
+ 	ROOT = { NOT = { has_idea = cooldown } }
+ }
+ 
+ targets = {
+ 	BBA WYM CIE BSK GUR ZKP ZGR LEM SCZ TYM
+ }
+ 
+ target_trigger = {
+ 	FROM = {
+ 		is_neighbor_of = ROOT
+ 	}
+ }
+ war_with_target_on_complete = yes
+ days_remove = 7
+ 
+ complete_effect = {
+ 	ROOT = { add_timed_idea = {
+ 		idea = cooldown
+ 		days = 9
+ 	}
+  }
+ }
+ remove_effect = {
+ 	declare_war_on = {
+ 		target = FROM
+ 		type = voivodeship_war
+ 	}
+ }
+
 }
 
 
@@ -838,7 +832,7 @@ remove_effect = {
 #GÓRNY ŚLĄSK - FAZA DRUGA
 #GÓRNY ŚLĄSK - FAZA OSTATECZNA
 
-silesian_war = { #
+silesian_war = { 
 icon = GFX_decision_generic_prepare_civil_war
 
 allowed = {
@@ -857,8 +851,8 @@ available = {
 	FROM = {
 		is_neighbor_of = ROOT
 	}
-	ROOT = { NOT = { has_country_flag = declaring_war } }
 	has_global_flag = chosen_silesian_behemoth
+	ROOT = { NOT = { has_idea = cooldown }}
 }
 
 targets = {
@@ -874,25 +868,19 @@ target_trigger = {
 war_with_target_on_complete = yes
 days_remove = 7
 complete_effect = {
-	ROOT = { set_country_flag = declaring_war }
+	ROOT = { add_timed_idea = {
+		idea = cooldown
+		days = 9
+	}
+ }
 }
 remove_effect = {
 	declare_war_on = {
 		target = FROM
 		type = voivodeship_war
 	}
-	ROOT = { clr_country_flag = declaring_war }
 }
 
- cancel_trigger = {
-	ROOT = {
-		has_war = yes
-	}
-	FROM = { exists = no }
- }
- cancel_effect = {
-	ROOT = { clr_country_flag = declaring_war }
- }
 }
 
 
@@ -5698,7 +5686,7 @@ remove_effect = {
 #███████╗╚█████╔╝██████╔╝███████╗██║░╚██╗██║███████╗
 #╚══════╝░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #ŁÓDZKIE - FAZA PIERWSZA
- cleanup_lodzig_wars = { #
+ cleanup_lodzig_wars = { 
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
 		or = {
@@ -5737,7 +5725,7 @@ remove_effect = {
 		FROM = {
 			is_neighbor_of = ROOT
 		}
-		NOT = { has_country_flag = declaring_war }
+		ROOT = { NOT = { has_idea = cooldown } }
 	}
 
 	targets = {
@@ -5751,26 +5739,20 @@ remove_effect = {
 	}
 	war_with_target_on_complete = yes
 	complete_effect = {
-		ROOT = { set_country_flag = declaring_war }
-	}	
+		ROOT = { add_timed_idea = {
+			idea = cooldown
+			days = 9
+		}
+	 }
+	}
 	days_remove = 7
 	remove_effect = {
 		declare_war_on = {
 			target = FROM
 			type = voivodeship_war
 		}
-		ROOT = { clr_country_flag = declaring_war }
 	}
 
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-		FROM = { exists = no }
- 	}
-	 cancel_effect = {
-		ROOT = { clr_country_flag = declaring_war }
-	 }
  }
 #ŁÓDZKIE - FAZA DRUGA
 #ŁÓDZKIE - FAZA OSTATECZNA
