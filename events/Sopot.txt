@@ -5,32 +5,123 @@
 
 add_namespace = sopot
 
-#Karnowski dołącza do Dulczi
-#country_event = {
-#	id = sopot.1
-#	title = sopot.1.t
-#	desc = sopot.1.desc
-#
-#	fire_only_once = yes
-#	is_triggered_only = yes
-#
-#	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sopot.1"}
-#
-#	option = { #
-#		name = sopot.1.a
-#		SOP = {
-#			get_current_government_type = yes
-#		}
-#		puppet = SOP
-#		set_autonomy = {
-#			target = SOP
-#			autonomy_state = autonomy_satellite
-#			end_wars = no
-#			end_civil_wars = no
-#		}
-#		SOP = {
-#			restore_previous_government_type = yes
-#		}
-#	}
-#}
-#
+#Dulczi czy Gdynia?
+country_event = {
+	id = sopot.1
+	title = sopot.1.t
+	desc = sopot.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sopot.1"}
+
+	option = { # Dulczi
+		name = sopot.1.a
+		GDA = {
+			country_event = {
+				id = sopot.2
+				days = 7
+			}
+		}
+	}
+
+	option = { # Gdynia
+		name = sopot.1.a
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 709
+				num_provinces = 1
+				on_win = sopot.3
+				on_lose = sopot.4
+				modifier = 0.1
+				dig_in_factor = 0
+				terrain_factor = 0
+			}	
+			defender = {
+				state = 34
+				num_provinces = 1
+				on_win = arka_exodus.4
+				on_lose = arka_exodus.3
+			}
+		}
+	}
+}
+
+#Sopot dołącza do Gdańska
+country_event = {
+	id = sopot.2
+	title = sopot.2.t
+	desc = sopot.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sopot.2"}
+
+	option = {
+		name = sopot.2.a
+		SOP = {
+			get_current_government_type = yes
+		}
+		puppet = SOP
+		set_autonomy = {
+			target = SOP
+			autonomy_state = autonomy_satellite
+			end_wars = no
+			end_civil_wars = no
+		}
+		SOP = {
+			restore_previous_government_type = yes
+		}
+	}
+}
+
+#Sopot zbiera łupy
+country_event = {
+	id = sopot.3
+	title = sopot.3.t
+	desc = sopot.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sopot.3"}
+
+	option = {
+		name = sopot.3.a
+		#coś się wymyśli jak będzie trzeba
+		GDA = {
+			country_event = {
+				id = sopot.2
+				days = 7
+			}
+		}
+	}
+}
+
+#Sopot przejebuje, Karnowski spierdala
+country_event = {
+	id = sopot.4
+	title = sopot.4.t
+	desc = sopot.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sopot.4"}
+
+	option = {
+		name = sopot.4.a
+		SOP_magdalena_czarzynska_jachim = {
+			promote_character = euroliberalism
+		}
+		GDA = {
+			country_event = {
+				id = sopot.2
+				days = 7
+			}
+		}
+	}
+}
