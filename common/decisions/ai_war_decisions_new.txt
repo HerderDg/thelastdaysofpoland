@@ -9,6 +9,46 @@ ai_war_decisions = {
 #╚═════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #BESKIDZKIE - FAZA PIERWSZA
 
+invade_teschin = {
+	allowed = {
+		is_tatry_region = yes
+	}
+	available = {
+		count_triggers = {
+			amount = 9
+			LEM = { exists = no }
+			SCZ = { exists = no }
+			TYM = { exists = no }
+			ZGR = { exists = no }
+			GUR = { exists = no }
+			ZKP = { exists = no }
+			CIE = { exists = no }
+			BSK = { exists = no }
+			BBA = { exists = no }
+			WYM = { exists = no }
+		}
+		country_exists = TSZ
+		OR = {
+			TSZ = { controls_state = 522 }
+			TSZ = { controls_state = 925 }
+			TSZ = { controls_state = 749 }
+			TSZ = { controls_state = 784 }
+			TSZ = { controls_state = 785 }
+		}
+	}
+	fire_only_once = yes
+	days_remove = 14
+	ai_will_do = {
+		base = 1000
+	}
+	remove_effect = {
+		declare_war_on = {
+			target = TSZ
+			type = voivodeship_war
+		}			
+	}
+}
+
 annex_podbeskidzie = {
 	allowed = {
 		is_tatry_region = yes
@@ -20,14 +60,14 @@ annex_podbeskidzie = {
 	available = {
 		count_triggers = {
 			amount = 7
-			NOT = { country_exists = LEM }
-			NOT = { country_exists = SCZ }
-			NOT = { country_exists = TYM }
-			NOT = { country_exists = ZGR }
-			NOT = { country_exists = GUR }
-			NOT = { country_exists = ZKP }
-			NOT = { country_exists = CIE }
-			NOT = { country_exists = BSK }
+			LEM = { exists = no }
+			SCZ = { exists = no }
+			TYM = { exists = no }
+			ZGR = { exists = no }
+			GUR = { exists = no }
+			ZKP = { exists = no }
+			CIE = { exists = no }
+			BSK = { exists = no }
 		}
 	}
 	fire_only_once = yes
@@ -79,422 +119,70 @@ annex_podbeskidzie = {
 	}
 }
 
- SCZ_LEM_war = {
- 
- 	icon = GFX_decision_generic_prepare_civil_war
- 	allowed = {
- 		is_tatry_region = yes
- 	}
- 
- 	available = {
- 		original_tag = SCZ
- 		date > 2027.12.12
-		has_war = no
- 	}
- 
- 	ai_will_do = {
- 		factor = 100
- 		modifier = {
- 			factor = -1
- 			surrender_progress > 0.25
- 		}
- 	}
- 	fire_only_once = yes
- 	days_remove = 3
- 	war_with_on_remove = LEM
- 	remove_effect  = {
- 		log = "[GetDateText]: Decision lososina_war"
- 		set_war_support = 0.7
- 		declare_war_on = {
- 			target = LEM
- 			type = voivodeship_war
- 		}
- 	}
- 	cancel_trigger = {
-			ROOT = {
-				has_war = yes
-			}
- 	}
- }
-
 
 #BESKIDZKIE - FAZA DRUGA
-
- GUR_ZGR_war = {
- 
- 	icon = GFX_decision_generic_prepare_civil_war
- 	
- 	allowed = {
-		is_tatry_region = yes
-			}
-
-	available = {
-		original_tag = GUR
-		date > 2028.05.01
-		has_war = no
+carpathian_wars = { #
+icon = GFX_decision_generic_prepare_civil_war
+allowed = {
+	is_tatry_region = yes
+	NOT = {
+		original_tag = TSZ
 	}
+}
 
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 3
-	war_with_on_remove = ZGR
-	remove_effect  = {
-		log = "[GetDateText]: Decision podhale_war"
-		set_war_support = 0.7
-		declare_war_on = {
-			target = ZGR
-			type = voivodeship_war
-		}
-	}
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- SCZ_TYM_war = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-
-	available = {
-		original_tag = SCZ
-		has_war = no
-		date > 2028.05.12
-	}
-
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 3
-	war_with_on_remove = TYM
-	remove_effect  = {
-		log = "[GetDateText]: Decision SCZ_TYM_war"
-		set_war_support = 0.7
-		declare_war_on = {
-			target = TYM
-			type = voivodeship_war
-		}
-	}
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- beskidzkie_second_war_east = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-			
-	available = {
-			OR = {
-			original_tag = SCZ
+ai_will_do = {
+	factor = 100
+	modifier = {
+		factor = -110
+		FROM = {
 			original_tag = LEM
-			original_tag = GUR
-			}
-			count_triggers = {
-				amount = 3
-					SCZ = { exists = no }
-					GUR = { exists = no }
-					LEM = { exists = no }
-					ZGR = { exists = no }
-					TYM = { exists = no }
-				}
-			has_war = no
+		}
+		ROOT = { original_tag = GUR }
+		SCZ = { exists = yes }
 	}
+}
 
-	
-
-	ai_will_do = {
-		factor = 100
+available = {
+	date > 2028.02.01
+	has_war = no
+	FROM = {
+		is_neighbor_of = ROOT
 	}
-	fire_only_once = yes
-	days_remove = 28
-	remove_effect  = {
-		log = "[GetDateText]: Decision tatry3_war"
-		if = {
-			limit = {
-				country_exists = GUR
-				ROOT = { NOT = { original_tag = GUR } }
-				ROOT = { NOT = { is_in_faction_with = GUR } }
-			}
-			declare_war_on = {
-				target = GUR
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = ZKP
-				ROOT = { NOT = { original_tag = ZKP } }
-				ROOT = { NOT = { is_in_faction_with = ZKP } }
-			}
-			declare_war_on = {
-				target = ZKP
-				type = voivodeship_war
-			}
-		}		
-		if = {
-			limit = {
-				country_exists = SCZ
-				ROOT = { NOT = { original_tag = SCZ } }
-				ROOT = { NOT = { is_in_faction_with = SCZ } }
-			}
-			declare_war_on = {
-				target = SCZ
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = ZGR
-				ROOT = { NOT = { original_tag = ZGR } }
-				ROOT = { NOT = { is_in_faction_with = ZGR } }
-			}
-			declare_war_on = {
-				target = ZGR
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = TYM
-				ROOT = { NOT = { original_tag = TYM } }
-				ROOT = { NOT = { is_in_faction_with = TYM } }
-			}
-			declare_war_on = {
-				target = TYM
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = LEM
-				ROOT = { NOT = { original_tag = LEM } }
-				ROOT = { NOT = { is_in_faction_with = LEM } }
-			}
-			declare_war_on = {
-				target = LEM
-				type = voivodeship_war
-			}
-		}		
-	}
+	NOT = { has_country_flag = declaring_war }
+}
 
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
+targets = {
+	BBA WYM CIE BSK GUR ZKP ZGR LEM SCZ TYM
+}
+
+target_trigger = {
+	FROM = {
+		is_neighbor_of = ROOT
+	}
+}
+war_with_target_on_complete = yes
+days_remove = 7
+
+complete_effect = {
+	set_country_flag = declaring_war
+}
+remove_effect = {
+	declare_war_on = {
+		target = FROM
+		type = voivodeship_war
+	}
+	clr_country_flag = declaring_war
+}
+
+ cancel_trigger = {
+	ROOT = {
+		has_war = yes
+	}
  }
-
-#BESKIDZKIE - FAZA OSTATECZNA
-
- beskidzkie_final_war_east = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-			
-	available = {
-			OR = {
-			original_tag = SCZ
-			original_tag = LEM
-			original_tag = GUR
-			}
-			count_triggers = {
-				amount = 4
-					SCZ = { exists = no }
-					GUR = { exists = no }
-					LEM = { exists = no }
-					ZGR = { exists = no }
-					TYM = { exists = no }
-				}
-			has_war = no
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 28
-	remove_effect  = {
-		log = "[GetDateText]: Decision tatry3_war"
-		if = { 
-			limit = { country_exists = BSK
-			ROOT = { NOT = { original_tag = BSK }}
-			ROOT = { NOT = { is_in_faction_with = BSK }}
-			 }
-			declare_war_on = {
-				target = BSK
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = CIE 
-			ROOT = { NOT = { original_tag = CIE }}
-			ROOT = { NOT = { is_in_faction_with = CIE }}
-			}
-			declare_war_on = {
-				target = CIE
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = BBA
-			ROOT = { NOT = { original_tag = BBA }}
-			ROOT = { NOT = { is_in_faction_with = BBA }}
-			 }
-			declare_war_on = {
-				target = BBA
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = WYM
-			ROOT = { NOT = { original_tag = WYM }}
-			ROOT = { NOT = { is_in_faction_with = WYM }}	
-			 }
-			declare_war_on = {
-				target = WYM
-				type = voivodeship_war
-			}
-		}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
+ cancel_effect = {
+	clr_country_flag = declaring_war
  }
-
- 
- beskidzkie_final_war_west = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_tatry_region = yes
-			}
-			
-	available = {
-			OR = {
-			original_tag = BSK
-			original_tag = CIE
-			original_tag = BBA
-			}
-			OR = {
-				BSK = { exists = no }
-				CIE = { exists = no }
-			}
-			count_triggers = {
-				amount = 3
-					SCZ = { exists = no }
-					GUR = { exists = no }
-					LEM = { exists = no }
-					ZGR = { exists = no }
-					TYM = { exists = no }
-			}
-			has_war = no
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 28
-	remove_effect  = {
-		log = "[GetDateText]: Decision tatry3_war"
-		if = { 
-			limit = { country_exists = GUR
-			ROOT = { NOT = { original_tag = GUR }}
-			ROOT = { NOT = { is_in_faction_with = GUR }}
-			 }
-			declare_war_on = {
-				target = GUR
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = ZGR
-			ROOT = { NOT = { original_tag = ZGR }}
-			ROOT = { NOT = { is_in_faction_with = ZGR }}
-			 }
-			declare_war_on = {
-				target = ZGR
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = TYM
-			ROOT = { NOT = { original_tag = TYM }}
-			ROOT = { NOT = { is_in_faction_with = TYM }}
-			 }
-			declare_war_on = {
-				target = TYM
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = SCZ
-			ROOT = { NOT = { original_tag = SCZ }}
-			ROOT = { NOT = { is_in_faction_with = SCZ }}
-			 }
-			declare_war_on = {
-				target = SCZ
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = LEM
-			ROOT = { NOT = { original_tag = LEM }}
-			ROOT = { NOT = { is_in_faction_with = LEM }}
-			 }
-			declare_war_on = {
-				target = LEM
-				type = voivodeship_war
-			}
-		}
-		if = { 
-			limit = { country_exists = ZKP
-			ROOT = { NOT = { original_tag = ZKP }}
-			ROOT = { NOT = { is_in_faction_with = ZKP }}
-			 }
-			declare_war_on = {
-				target = ZKP
-				type = voivodeship_war
-			}
-		}				
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
+}
 
 
 #███████╗░█████╗░░██████╗░██╗░░░░░███████╗██████╗░██╗███████╗  ██╗ ░░░░░██╗██╗░░░██╗██████╗░░█████╗░
@@ -1108,7 +796,7 @@ annex_podbeskidzie = {
 		}
 	}
 	fire_only_once = yes
-	days_remove = 30
+	days_remove = 14
 	ai_will_do = {
 		base = 1000
 	}
@@ -1149,83 +837,61 @@ annex_podbeskidzie = {
 #GÓRNY ŚLĄSK - FAZA DRUGA
 #GÓRNY ŚLĄSK - FAZA OSTATECZNA
 
- silesian_war = {
+silesian_war = { #
+icon = GFX_decision_generic_prepare_civil_war
 
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		is_upper_silesian_unifier = yes
-		NOT = {
-			is_opolskie = yes
-		}
-		
+allowed = {
+	is_upper_silesia = yes
+}
+ai_will_do = {
+	factor = 100
+}
+
+visible = {
+	NOT = { has_country_flag = unified_voivodeship }
+}
+available = {
+	date > 2028.04.01
+	has_war = no
+	FROM = {
+		is_neighbor_of = ROOT
 	}
+	NOT = { has_country_flag = declaring_war }
+	has_global_flag = chosen_silesian_behemoth
+}
 
-	visible = {
-		NOT = { has_country_flag = unified_voivodeship }
+targets = {
+	ASG RAS CHO RUD FER GLI TRC KAT SBW SOL DUR TYS JSW WOD
+}
+
+target_trigger = {
+	FROM = {
+		is_neighbor_of = ROOT
+		NOT = { is_in_faction_with = ROOT }
 	}
-	
-	target_array = global.silesian_factions
-	target_trigger = {
-		FROM = {
-			is_upper_silesia = yes
-		}
+}
+war_with_target_on_complete = yes
+days_remove = 7
+complete_effect = {
+	set_country_flag = declaring_war
+}
+remove_effect = {
+	declare_war_on = {
+		target = FROM
+		type = voivodeship_war
 	}
+	clr_country_flag = declaring_war
+}
 
-	available = {
-			AND = {
-				OR = {
-					original_tag = GLI
-					original_tag = RAS
-					original_tag = CHO
-					original_tag = JSW
-					original_tag = SOL
-					original_tag = SBW
-					original_tag = KAT
-					original_tag = DUR
-					original_tag = WOD
-				}
-				ROOT = { any_neighbor_country = { is_upper_silesia = yes } }
-				FROM = { is_neighbor_of = ROOT }
-				FROM = { exists = yes }
-				date > 2028.04.01
-				NOT = {
-					has_war = yes
-				}
-				has_global_flag = chosen_silesian_behemoth
-			}
+ cancel_trigger = {
+	ROOT = {
+		has_war = yes
 	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	
-	days_remove = 10
-
-	remove_effect  = {
-		log = "[GetDateText]: [ROOT.GetName] fires decision silesian_war"
-		if = { limit = { country_exists = FROM
-						 ROOT = { NOT = { original_tag = FROM
-						 is_in_faction_with = FROM
-						FROM = { is_puppet = yes } } } }
-		ROOT = {
-		declare_war_on = {
-			target = FROM
-			type = voivodeship_war
-		}
-		}
-		}	
-	}
-
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
- }	
+ }
+ cancel_effect = {
+	clr_country_flag = declaring_war
+ }
+}
 
 
 #███╗░░░███╗░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░░░░░██████╗██╗░░██╗██╗███████╗
@@ -1369,7 +1035,7 @@ annex_podbeskidzie = {
 			factor = 100
 		}
 		fire_only_once = yes
-		days_remove = 3
+		days_remove = 7
 		remove_effect  = {
 			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
 			if = { 
@@ -1424,7 +1090,7 @@ annex_podbeskidzie = {
 			factor = 100
 		}
 		fire_only_once = yes
-		days_remove = 3
+		days_remove = 7
 		remove_effect  = {
 			log = "[GetDateText]: Decision MPOL_01_TOTAL_ABORDAGE"
 			if = { 
@@ -1627,7 +1293,7 @@ annex_podbeskidzie = {
  #    	}
  #
  #		0
- #		days_remove = 3
+ #		days_remove = 7
  #		days_re_enable = 3
  #
  #		ai_will_do = {
@@ -1703,7 +1369,7 @@ annex_podbeskidzie = {
 
 	available = {
 		has_war = no
-		date > 2028.11.01
+		date > 2029.05.01
 	}
 
 	
@@ -1805,7 +1471,7 @@ annex_podbeskidzie = {
 
 	available = {
 		has_war = no
-		date > 2028.10.05
+		date > 2029.03.05
 	}
 
 	
@@ -1877,7 +1543,7 @@ annex_podbeskidzie = {
 
 	available = {
 		has_war = no
-		date > 2031.03.01
+		date > 2030.03.01
 		NOT = { has_country_flag = unified_voivodeship }
 	}
 
@@ -6048,7 +5714,7 @@ annex_podbeskidzie = {
 	}
 
 	available = {
-		date > "2028.03.01"
+		date > 2028.03.01
 		or = {
 			original_tag = BBW
 			original_tag = KRS
@@ -6066,6 +5732,10 @@ annex_podbeskidzie = {
 			original_tag = ZHP
 			original_tag = ZYD
 		}
+		FROM = {
+			is_neighbor_of = ROOT
+		}
+		NOT = { has_country_flag = declaring_war }
 	}
 
 	targets = {
@@ -6077,13 +5747,17 @@ annex_podbeskidzie = {
 			is_neighbor_of = ROOT
 		}
 	}
-	
-	days_remove = 14
+	war_with_target_on_complete = yes
+	complete_effect = {
+		set_country_flag = declaring_war
+	}	
+	days_remove = 7
 	remove_effect = {
 		declare_war_on = {
 			target = FROM
 			type = voivodeship_war
 		}
+		clr_country_flag = declaring_war
 	}
 
  	cancel_trigger = {
@@ -6091,6 +5765,9 @@ annex_podbeskidzie = {
 			has_war = yes
 		}
  	}
+	 cancel_effect = {
+		clr_country_flag = declaring_war
+	 }
  }
 #ŁÓDZKIE - FAZA DRUGA
 #ŁÓDZKIE - FAZA OSTATECZNA
@@ -12801,7 +12478,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 			}
 		}
 		fire_only_once = yes
-		days_remove = 30
+		days_remove = 14
 		remove_effect  = {
 			log = "[GetDateText]: Decision podlasie_traktor_boss"
 				if = { limit = { country_exists = AGR }
@@ -13258,7 +12935,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 		}
 
 		available = {
-			date > "2030.1.1"
+			date > 2030.1.1
 		}
 
 		ai_will_do = {
@@ -14311,7 +13988,7 @@ lake_war2 = {
 		}
 	}
 	fire_only_once = yes
-	days_remove = 30
+	days_remove = 14
 	remove_effect  = {
 		log = "[GetDateText]: Decision lake_war2"
 		WRM = {
@@ -14572,7 +14249,7 @@ lake_war2 = {
 			}
 		}
 		fire_only_once = yes
-		days_remove = 32
+		days_remove = 14
 		remove_effect  = {
 			log = "[GetDateText]: Decision warmia_reclamation"
 			OLS = {
@@ -14630,7 +14307,7 @@ warmia_mazury_lastwar = {
 		}
 	}
 	fire_only_once = yes
-	days_remove = 30
+	days_remove = 14
 	remove_effect  = {
 		log = "[GetDateText]: Decision warmia_mazury_lastwar"
 		if = {
@@ -15562,6 +15239,15 @@ warmia_mazury_lastwar = {
 				target = CZL
 				type = voivodeship_war
 			}
+			if = {
+				limit = {
+					country_exists = CHG
+				}
+				declare_war_on = {
+					target = CHG
+					type = voivodeship_war
+				}
+			}
 		}
 	}
 	cancel_trigger = {
@@ -15884,20 +15570,23 @@ warmia_mazury_lastwar = {
 	}
 
 	available = {
-		count_triggers = {
-			amount = 8
-			HEL = { exists = no }
-			OWS = { exists = no }
-			GAY = { exists = no }
-			RLE = { exists = no }
-			KSZ = { exists = no }
-			KSC = { exists = no }	
-			GDA = { exists = no }
-			BOL = { exists = no }
-			MPR = { exists = no }
-			KOR = { exists = no }
-			CZL = { exists = no }
-			LOT = { exists = no }	
+		OR = {
+			count_triggers = {
+				amount = 8
+				HEL = { exists = no }
+				OWS = { exists = no }
+				GAY = { exists = no }
+				RLE = { exists = no }
+				KSZ = { exists = no }
+				KSC = { exists = no }	
+				GDA = { exists = no }
+				BOL = { exists = no }
+				MPR = { exists = no }
+				KOR = { exists = no }
+				CZL = { exists = no }
+				LOT = { exists = no }	
+			}
+			date > 2029.06.01
 		}
 		NOT = { has_country_flag = unified_voivodeship }
 		#has_war = no
@@ -16187,11 +15876,11 @@ warmia_mazury_lastwar = {
 			}
 		}
 	}
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
+	#cancel_trigger = {
+	#	ROOT = {
+	#		has_war = yes
+	#	}
+	#}
  }
 
 #██╗░░██╗██╗░░░██╗░░░░░██╗░█████╗░░██╗░░░░░░░██╗░██████╗██╗░░██╗██╗███████╗
@@ -18496,7 +18185,7 @@ chelminsko_kujawska = {
 
 		visible = {
 			original_tag = SYJ
-			date > 2028.02.25
+			date > 2028.02.01
 			country_exists = SLU
 			has_war = no
 		}
@@ -18532,7 +18221,7 @@ chelminsko_kujawska = {
 
 		visible = {
 			original_tag = SLU
-			date > 2028.02.25
+			date > 2028.02.01
 			country_exists = SYJ
 			has_war = no
 		}
@@ -19243,7 +18932,7 @@ chelminsko_kujawska = {
 
 		available = {
 			original_tag = FEL
-			date > 2028.07.01
+			date > 2028.11.25
 			country_exists = LSZ
 		}
 
@@ -19258,6 +18947,43 @@ chelminsko_kujawska = {
 		war_with_on_remove = LSZ
 		remove_effect  = {
 			log = "[GetDateText]: Decision FEL_leszno_war"
+			declare_war_on = {
+				target = LSZ
+				type = voivodeship_war
+			}
+		}
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
+	}
+	LIS_leszno_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		available = {
+			original_tag = LIS
+			date > 2028.11.25
+			country_exists = LSZ
+			NOT = { country_exists = FEL }
+		}
+
+		
+
+		ai_will_do = {
+			factor = 100
+
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = LSZ
+		remove_effect  = {
+			log = "[GetDateText]: Decision LIS_leszno_war"
 			declare_war_on = {
 				target = LSZ
 				type = voivodeship_war
@@ -19401,6 +19127,45 @@ chelminsko_kujawska = {
 			log = "[GetDateText]: Decision LSZ_sroda_war"
 			declare_war_on = {
 				target = FEL
+				type = voivodeship_war
+			}
+		}
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
+	}
+	
+	LSZ_LIS_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		available = {
+			original_tag = LSZ
+			date > 2028.11.25
+			country_exists = LIS
+			NOT = { country_exists = FEL }
+			
+		}
+
+		
+
+		ai_will_do = {
+			factor = 100
+
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = LIS
+		remove_effect  = {
+			log = "[GetDateText]: Decision LSZ_LIS_war"
+			declare_war_on = {
+				target = LIS
 				type = voivodeship_war
 			}
 		}
@@ -19594,6 +19359,85 @@ chelminsko_kujawska = {
  		}
 	}
 	
+	LIS_kalisz_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		available = {
+			original_tag = LIS
+			date > 2029.09.01
+			country_exists = CAL
+			NOT = { country_exists = FEL }
+			has_war = no
+		}
+
+		
+
+		ai_will_do = {
+			factor = 100
+
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = CAL
+		remove_effect  = {
+			log = "[GetDateText]: Decision LIS_kalisz_war"
+			declare_war_on = {
+				target = CAL
+				type = voivodeship_war
+			}
+		}
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
+	}
+	
+	
+	LIS_gniezno_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		available = {
+			original_tag = LIS
+			date > 2029.09.01
+			country_exists = GNI
+			NOT = { country_exists = FEL }
+			has_war = no
+		}
+
+		
+
+		ai_will_do = {
+			factor = 100
+
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = GNI
+		remove_effect  = {
+			log = "[GetDateText]: Decision LIS_gniezno_war"
+			declare_war_on = {
+				target = GNI
+				type = voivodeship_war
+			}
+		}
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
+	}
+	
     GNI_sroda_war = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -19622,6 +19466,45 @@ chelminsko_kujawska = {
 			log = "[GetDateText]: Decision GNI_sroda_war"
 			declare_war_on = {
 				target = FEL
+				type = voivodeship_war
+			}
+		}
+ 		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
+	}
+	
+	GNI_LIS_war = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_southern_greater_poland = yes
+				}
+
+		available = {
+			original_tag = GNI
+			date > 2029.09.01
+			country_exists = LIS
+			NOT = { country_exists = FEL }
+			has_war = no
+		}
+
+		
+
+		ai_will_do = {
+			factor = 100
+
+		}
+		fire_only_once = yes
+		days_remove = 14
+		war_with_on_remove = FEL
+		remove_effect  = {
+			log = "[GetDateText]: Decision GNI_LIS_war"
+			declare_war_on = {
+				target = LIS
 				type = voivodeship_war
 			}
 		}
@@ -20692,7 +20575,7 @@ chelminsko_kujawska = {
 		}
 	}
 	fire_only_once = yes
-	days_remove = 3
+	days_remove = 7
 	remove_effect  = {
 		log = "[GetDateText]: ZUL_ANA_MNL_war"
 			if = {
@@ -20833,7 +20716,7 @@ chelminsko_kujawska = {
 
 	visible = {
 		original_tag = WRO
-		NOT = { country_exists = MPK }
+		MPK = { is_puppet_of = WRO }
 		date > 2028.07.01
 	}
 	
@@ -21017,16 +20900,12 @@ chelminsko_kujawska = {
 	visible = {
 		original_tag = RYB
 		WRO = { has_war = yes }
-		NOT = { 
-			BRE = { exists = yes } 
-		}
+		BRE = { exists = no }
 	}
 	
 	allowed = {
 		is_lower_silesia = yes
-			}
-
-	
+	}
 
 	ai_will_do = {
 		factor = 100
@@ -21092,10 +20971,20 @@ chelminsko_kujawska = {
 			}
 
 	available = {
+		OR = {
+			original_tag = NYS
+			original_tag = LEH
 			OR = {
-				original_tag = NYS
-				original_tag = LEH
+				AND = {
+					original_tag = LCH
+					OPO = { exists = no }
+				}
+				AND = {
+					original_tag = OPO
+					LCH = { exists = no }
+				}				
 			}
+		}
 		date > 2028.02.27
 	}
 
@@ -21243,7 +21132,7 @@ chelminsko_kujawska = {
 	
 	allowed = {
 		is_opolskie = yes
-			}
+	}
 
 	available = {
 		OR = {
@@ -21261,7 +21150,7 @@ chelminsko_kujawska = {
 				}
 			}
 			AND = {
-				date > 2029.08.01
+				date > 2028.08.01
 				count_triggers = {
 					amount = 1
 					OPO = { exists = no }
@@ -21281,8 +21170,9 @@ chelminsko_kujawska = {
 		factor = 100
 
 	}
-	fire_only_once = yes
+	
 	days_remove = 14
+	days_re_enable = 30
 	remove_effect  = {
 		log = "[GetDateText]: Decision opole_gotterdammerung"
 			if = { limit = { country_exists = NYS

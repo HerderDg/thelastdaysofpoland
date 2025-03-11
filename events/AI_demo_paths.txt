@@ -176,6 +176,22 @@ country_event = {
 			}
 		set_global_flag = miedzypowiatowka_collapsed
 		log = "[GetDateText]: sosnowiec rozwalił frakcję"
+		every_state = {
+			limit = {
+				OR = {
+					is_controlled_by = SOS
+					is_controlled_by = DGR
+					is_controlled_by = JAW
+					is_controlled_by = BED
+					is_controlled_by = SIE
+				}
+			}
+			teleport_armies = {
+				limit = {
+					is_ai = yes
+				}
+			}
+		}
 	}
 }
 
@@ -190,7 +206,7 @@ country_event = {
 	trigger = { 
 		original_tag = CHO
 		date > 2028.03.01 
-		}
+	}
 
 	option = {
 		name = aievent.6.a
@@ -232,6 +248,17 @@ country_event = {
 			add_to_array = { global.silesian_factions = DUR }
 			add_to_array = { global.silesian_factions = WOD }
 			add_to_array = { global.silesian_factions = JSW }
+
+			every_state = {
+				limit = {
+					is_upper_silesia_state = yes
+				}
+				teleport_armies = {
+					limit = {
+						is_ai = yes
+					}
+				}
+			}
 		log = "[GetDateText]: chorzów rozwalił frakcję"
 	}
 }
@@ -1546,15 +1573,10 @@ country_event = {
 			        ideology = neonationalism_national_agrarianism_subtype
 			    }
 			}
-			damage_units = {
-			   region = 51
-			   limit = { original_tag = OSP }
-			   damage = 0.5
-			   org_damage = 0.5
-			   str_damage = 0.5
-			   ratio = yes
-			   army = yes
-			}
+		delete_unit = {
+			state = 935
+			disband = no 
+		}			
 		}
 		935 = {
 			damage_building = {
@@ -1567,6 +1589,7 @@ country_event = {
 			}
 			TRN = { transfer_state = PREV }	
 		}
+
 		add_stability = -0.2
 		add_popularity = {
 		    ideology = autocracy
@@ -1621,6 +1644,7 @@ country_event = {
 				relation = puppet
 				active = yes
 			}
+			
 		}
 		set_global_flag = PSL_polish_coalition_formed	
 		log = "[GetDateText]: dialog zwyciezyl po raz kolejny - ludowa edycja"
@@ -1657,15 +1681,10 @@ country_event = {
 			OSP = { transfer_state = PREV }	
 		}
 		TRN = {
-			damage_units = {
-			   region = 51
-			   limit = { original_tag = TRN }
-			   damage = 0.5
-			   org_damage = 0.5
-			   str_damage = 0.5
-			   ratio = yes
-			   army = yes
-			}
+			delete_unit = {
+				state = 512
+				disband = no 
+			}	
 		}
 		add_war_support = 0.2
 		add_popularity = {
