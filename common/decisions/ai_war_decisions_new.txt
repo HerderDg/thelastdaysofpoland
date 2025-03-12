@@ -30,12 +30,9 @@ invade_teschin = {
 			WYM = { exists = no }
 		}
 		country_exists = TSZ
-		OR = {
-			TSZ = { controls_state = 522 }
-			TSZ = { controls_state = 925 }
-			TSZ = { controls_state = 749 }
-			TSZ = { controls_state = 784 }
-			TSZ = { controls_state = 785 }
+		any_controlled_state = {
+			is_owned_by = TSZ
+			is_tatry_region_state = yes
 		}
 	}
 	fire_only_once = yes
@@ -891,8 +888,10 @@ zaglebie_ZAW = {
 			CCH = { exists = no }
 			BRZ = { exists = no }
 		}
+		OR = {
 		SIE = { exists = yes }
 		BED = { exists = yes }
+		}
 	}
 	fire_only_once = yes
 	days_remove = 14
@@ -12838,7 +12837,6 @@ potezny_sasin_masakruje_zawkrze = {
 		ai_will_do = {
 			factor = 100
 		}
-		fire_only_once = yes
 		days_remove = 4
 		remove_effect  = {
 			log = "[GetDateText]: Decision north_mazovia_war"
@@ -13032,8 +13030,6 @@ potezny_sasin_masakruje_zawkrze = {
 				type = annex_everything
 			}
 			}
-
-			
 			RMA = {
 				if = { limit = { country_exists = TEU
 								 ROOT = { NOT = { original_tag = TEU } } }
@@ -13114,9 +13110,9 @@ potezny_sasin_masakruje_zawkrze = {
 				}
 			}
 		}
-	}	
-	
 
+}
+	
 
  anti_russian_front = {
 
@@ -13994,12 +13990,14 @@ lake_war2 = {
 					}
 				}
 			}
+		}
 		cancel_trigger = {
 			ROOT = { 
 				has_war = yes
 			}
 		}
 	}
+	
 
 	warmia_reclamation = {
     
@@ -20178,7 +20176,7 @@ chelminsko_kujawska = {
 	available = {
 		date > 2029.01.01
 		count_triggers = {
-				amount = 4
+				amount = 3
 					WRO = { exists = no }
 					RYB = { exists = no }
 					CZE = { exists = no }
@@ -20211,6 +20209,14 @@ chelminsko_kujawska = {
 				type = annex_everything
 			}
 			}
+			if = { limit = { country_exists = MPK 
+			ROOT = { NOT = { original_tag = MPK }}
+		} 
+			declare_war_on = {
+				target = MPK
+				type = annex_everything
+			}
+			}			
 			if = { limit = { country_exists = CZE 
 			ROOT = { NOT = { original_tag = CZE }}
 		} 
