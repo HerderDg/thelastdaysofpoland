@@ -25,8 +25,28 @@ TSB_decisions_category = {
 					AND = {
 					longest_war_length > 4
 					surrender_progress > 0.2
+					NOT = { has_country_flag = unified_voivodeship }
+					NOT = { has_country_flag = unified_regional }
+					NOT = { has_country_flag = unified_supregional }
 					}
-					longest_war_length > 6
+					AND = {
+						longest_war_length > 6
+						NOT = { has_country_flag = unified_voivodeship }
+						NOT = { has_country_flag = unified_regional }
+						NOT = { has_country_flag = unified_supregional }
+					}
+					AND = {
+						has_country_flag = unified_voivodeship
+						longest_war_length > 9
+					}
+					AND = {
+						has_country_flag = unified_regional
+						longest_war_length > 12
+					}
+					AND = {
+						has_country_flag = unified_supregional
+						longest_war_length > 16
+					}										
 				}
 				has_idea = AI_bridge_crossing_idea
 				NOT = {
@@ -41,7 +61,10 @@ TSB_decisions_category = {
 				}				
 				NOT = { 
 					has_idea = wojnorozpierdalacz
-				}		
+				}
+				NOT = { 
+					has_idea = hanys_boss
+				}						
 			}
 			ROOT = { NOT = { has_idea = cooldown } }
 		}
@@ -61,14 +84,20 @@ TSB_decisions_category = {
 		remove_effect  = {
 			log = "[GetDateText]: [ROOT.GetName] zsyla raka kutasa na [FROM.GetName]"
 			FROM = { 
-				add_ideas = wojnorozpierdalacz
+				add_timed_idea = {
+					idea = wojnorozpierdalacz
+					days = 90
+				}
 			}
 			every_country = {
 				limit = {
 					has_war_with = FROM
 					NOT = { has_idea = podlasie_tribe_idea }
 				}
-				add_ideas = wojnozapierdalacz
+				add_timed_idea = {
+					idea = wojnozapierdalacz
+					days = 90
+				}
 			}	
 		}
 	}

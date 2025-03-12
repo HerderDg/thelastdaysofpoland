@@ -12,19 +12,42 @@ coring_effect = {
 	add_core_of = ROOT
 	remove_from_array = { ROOT.noncores_array = THIS.id }
 	set_temp_variable = { coreable_temp = 0}
-	ROOT = {
-		every_owned_state = {
-			limit = {
-				NOT = { is_core_of = ROOT }
-				compliance > 75
-				check_variable = {
-					THIS.coring_cost < ROOT.political_power
-				}
-			}
-			add_to_temp_variable = { coreable_temp = 1}
+	if = { 
+		limit = {
+		ROOT = { is_ai = no }
 		}
-		set_variable = {coreable_number = coreable_temp }
+		ROOT = {
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 75
+					check_variable = {
+						THIS.coring_cost < ROOT.political_power
+					}
+				}
+				add_to_temp_variable = { coreable_temp = 1}
+			}
+			set_variable = {coreable_number = coreable_temp }
+		}
 	}
+	if = { 
+		limit = {
+		ROOT = { is_ai = yes }
+		}
+		ROOT = {
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 50
+					check_variable = {
+						THIS.coring_cost < ROOT.political_power
+					}
+				}
+				add_to_temp_variable = { coreable_temp = 1}
+			}
+			set_variable = {coreable_number = coreable_temp }
+		}
+	}	
 }
 
 auto_coring_effect = {
@@ -34,19 +57,42 @@ auto_coring_effect = {
 	add_core_of = ROOT
 	remove_from_array = { ROOT.noncores_array = THIS.id }
 	set_temp_variable = { coreable_temp = 0}
-	ROOT = {
-		every_owned_state = {
-			limit = {
-				NOT = { is_core_of = ROOT }
-				compliance > 75
-				check_variable = {
-					THIS.coring_cost < ROOT.political_power
+	if = { 
+		limit = {
+		ROOT = { is_ai = no }
+		}	
+		ROOT = {
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 75
+					check_variable = {
+						THIS.coring_cost < ROOT.political_power
+					}
 				}
+				add_to_temp_variable = { coreable_temp = 1}
 			}
-			add_to_temp_variable = { coreable_temp = 1}
+			set_variable = {coreable_number = coreable_temp }
 		}
-		set_variable = {coreable_number = coreable_temp }
 	}
+	if = { 
+		limit = {
+		ROOT = { is_ai = yes }
+		}	
+		ROOT = {
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 50
+					check_variable = {
+						THIS.coring_cost < ROOT.political_power
+					}
+				}
+				add_to_temp_variable = { coreable_temp = 1}
+			}
+			set_variable = {coreable_number = coreable_temp }
+		}
+	}	
 }
 
 open_coring_ui_effect = {
