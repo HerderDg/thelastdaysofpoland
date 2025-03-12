@@ -1399,7 +1399,9 @@ ai_war_decisions = {
 	#			}
 	#	}
 	#}
-	ai_test_aid_eq = {
+
+
+	ai_test_aid_eq_ranged = {
 
 		icon = GFX_decision_generic_prepare_civil_war
 		
@@ -1410,30 +1412,12 @@ ai_war_decisions = {
 		available = {
 			is_ai = yes
 			NOT = {
-				OR = {
-					original_tag = SND
-					original_tag = BBW
-					original_tag = ZHP
-					original_tag = SAP
-					original_tag = WML
-					original_tag = KRS
-					original_tag = ZYD
-					original_tag = PRK
-					original_tag = EKW
-					original_tag = EKS
-					original_tag = BRE
-					original_tag = KOS
-					original_tag = POM
-					original_tag = CAL
-					original_tag = TRN
-					original_tag = LEH
-					original_tag = JAS
-					original_tag = PZW
-					original_tag = WIN
-					original_tag = SUS
-					original_tag = TEU
-					original_tag = LMZ
+				any_enemy_country = {
+					is_ai = no
 				}
+			}
+			has_equipment = {
+				ranged_equipment < 10
 			}
 			date > 2028.03.01
 		}
@@ -1445,7 +1429,7 @@ ai_war_decisions = {
 		ai_will_do = {
 			factor = 100
 		}
-		days_re_enable = 180
+		days_re_enable = 90
 		days_remove = 1
 		remove_effect  = {
 			log = "[GetDateText]: Decision ai_test_aid"
@@ -1453,7 +1437,42 @@ ai_war_decisions = {
 				type = ranged_equipment
 				amount = 1000
 				producer = TSB
+			}		
+		}
+	}
+
+	ai_test_aid_eq_melee = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			is_poland_unifier = yes
+		}
+				
+		available = {
+			is_ai = yes
+			NOT = {
+				any_enemy_country = {
+					is_ai = no
+				}
 			}
+			has_equipment = {
+				melee_equipment < 10
+			}
+			date > 2028.03.01
+		}
+		
+		visible = {
+			is_ai = yes
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		days_re_enable = 90
+		days_remove = 1
+		remove_effect  = {
+			log = "[GetDateText]: Decision ai_test_aid"
 			add_equipment_to_stockpile = {
 				type = melee_equipment
 				amount = 1000
@@ -1461,6 +1480,7 @@ ai_war_decisions = {
 			}			
 		}
 	}
+
 	ai_test_aid = {
 
 		icon = GFX_decision_generic_prepare_civil_war
