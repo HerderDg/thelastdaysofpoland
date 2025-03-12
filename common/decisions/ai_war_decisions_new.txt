@@ -16480,7 +16480,7 @@ chelminsko_kujawska = {
 		available = {
 			#ROOT = { any_neighbor_country = { original_tag = EKW } }
 			has_war = no
-			date > 2028.06.03
+			date > 2028.04.03
 		}
 
 		ai_will_do = {
@@ -16996,32 +16996,32 @@ chelminsko_kujawska = {
 				ROOT = { any_neighbor_country = { original_tag = JOM } }
 				ROOT = { any_neighbor_country = { original_tag = STE } }
 			}
-			OR = {
-				AND = {
-					country_exists = SWI
-					NOT = { country_exists = STE }
-					NOT = { country_exists = JOM }
-					NOT = { country_exists = EKW }
-				}
-				AND = {
-					country_exists = STE
-					NOT = { country_exists = SWI }
-					NOT = { country_exists = JOM }
-					NOT = { country_exists = EKW }
-				}
-				AND = {
-					country_exists = EKW
-					NOT = { country_exists = STE }
-					NOT = { country_exists = JOM }
-					NOT = { country_exists = SWI }
-				}
-				AND = {
-					country_exists = JOM
-					NOT = { country_exists = STE }
-					NOT = { country_exists = SWI }
-					NOT = { country_exists = EKW }
-				}
-			}
+			#OR = {
+			#	AND = {
+			#		country_exists = SWI
+			#		NOT = { country_exists = STE }
+			#		NOT = { country_exists = JOM }
+			#		NOT = { country_exists = EKW }
+			#	}
+			#	AND = {
+			#		country_exists = STE
+			#		NOT = { country_exists = SWI }
+			#		NOT = { country_exists = JOM }
+			#		NOT = { country_exists = EKW }
+			#	}
+			#	AND = {
+			#		country_exists = EKW
+			#		NOT = { country_exists = STE }
+			#		NOT = { country_exists = JOM }
+			#		NOT = { country_exists = SWI }
+			#	}
+			#	AND = {
+			#		country_exists = JOM
+			#		NOT = { country_exists = STE }
+			#		NOT = { country_exists = SWI }
+			#		NOT = { country_exists = EKW }
+			#	}
+			#}
 			has_war = no
 			date > 2030.04.01
 		}
@@ -17107,23 +17107,23 @@ chelminsko_kujawska = {
 					ROOT = { any_neighbor_country = { original_tag = JAS } }
 					ROOT = { any_neighbor_country = { original_tag = NOR } }
 				}
-				OR = {
-					AND = {
-						country_exists = USP
-						NOT = { country_exists = JAS }
-						NOT = { country_exists = NOR }
-					}
-					AND = {
-						country_exists = JAS
-						NOT = { country_exists = USP }
-						NOT = { country_exists = NOR }
-					}
-					AND = {
-						country_exists = NOR
-						NOT = { country_exists = JAS }
-						NOT = { country_exists = USP }
-					}
-				}
+				#OR = {
+				#	AND = {
+				#		country_exists = USP
+				#		NOT = { country_exists = JAS }
+				#		NOT = { country_exists = NOR }
+				#	}
+				#	AND = {
+				#		country_exists = JAS
+				#		NOT = { country_exists = USP }
+				#		NOT = { country_exists = NOR }
+				#	}
+				#	AND = {
+				#		country_exists = NOR
+				#		NOT = { country_exists = JAS }
+				#		NOT = { country_exists = USP }
+				#	}
+				#}
 				has_war = no
 				date > 2030.04.01
 		}
@@ -17209,7 +17209,7 @@ chelminsko_kujawska = {
 				ROOT = { any_neighbor_country = { original_tag = SWI } }
 			}
 			has_war = no
-			date > 2030.12.01
+			date > 2030.06.01
 		}
 
 		ai_will_do = {
@@ -17338,7 +17338,7 @@ chelminsko_kujawska = {
 				ROOT = { any_neighbor_country = { original_tag = CHE } }
 			}
 			has_war = no
-			date > 2030.12.01
+			date > 2029.01.01
 		}
 
 		ai_will_do = {
@@ -17408,6 +17408,120 @@ chelminsko_kujawska = {
 					}
 					declare_war_on = {
 						target = CHE
+						type = voivodeship_war
+					}
+				}
+		}	
+		cancel_trigger = {
+			ROOT = {
+				has_war = yes
+			}
+ 		}
+	}
+	zachpom_minor_solution_reverse = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			OR = {	
+				original_tag = STR
+				original_tag = CHE
+				original_tag = LIG
+				original_tag = FRE
+				#original_tag = BOR	
+				#original_tag = SNF	
+				original_tag = KLB	
+			}			
+		}
+
+		available = {
+			OR = {
+				ROOT = { any_neighbor_country = { original_tag = STE } }
+				ROOT = { any_neighbor_country = { original_tag = EKW } }
+				ROOT = { any_neighbor_country = { original_tag = USP } }
+				ROOT = { any_neighbor_country = { original_tag = JOM } }
+				ROOT = { any_neighbor_country = { original_tag = JAS } }
+				ROOT = { any_neighbor_country = { original_tag = SWI } }
+				ROOT = { any_neighbor_country = { original_tag = NOR } }
+			}
+			has_war = no
+			date > 2029.06.01
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		#fire_only_once = yes
+		days_remove = 14
+		remove_effect  = {
+			log = "[GetDateText]: Decision zachpom_minor_solution_reverse"
+				if = { 
+					limit = { 
+						is_neighbor_of = USP
+						#USP = { has_war = no }
+					}
+					declare_war_on = {
+						target = USP
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = EKW
+						#EKW = { has_war = no }
+					}
+					declare_war_on = {
+						target = EKW
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = STE
+						#STE = { has_war = no }
+					}
+					declare_war_on = {
+						target = STE
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = JOM
+						#JOM = { has_war = no }
+					}
+					declare_war_on = {
+						target = JOM
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = JAS
+						#JAS = { has_war = no }
+					}
+					declare_war_on = {
+						target = JAS
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = SWI
+						#SWI = { has_war = no }
+					}
+					declare_war_on = {
+						target = SWI
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = NOR
+						#NOR = { has_war = no }
+					}
+					declare_war_on = {
+						target = NOR
 						type = voivodeship_war
 					}
 				}
