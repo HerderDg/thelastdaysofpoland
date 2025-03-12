@@ -13379,6 +13379,26 @@ potezny_sasin_masakruje_zawkrze = {
 		log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
 		white_peace = GAL
 		log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+		PZW = { leave_faction = yes }
+		log = "[GetDateText]: [PZW.GetName] quits faction"
+		TEU = { leave_faction = yes }
+		log = "[GetDateText]: [TEU.GetName] quits faction"
+		ELB = { leave_faction = yes }
+		log = "[GetDateText]: [ELB.GetName] quits faction"
+		MRG = { leave_faction = yes }
+		log = "[GetDateText]: [MRG.GetName] quits faction"
+		WRM = { dismantle_faction = yes }
+		log = "[GetDateText]: [WRM.GetName] dismantles faction"
+		ROS = {
+			remove_wargoal = {
+				type = all
+				target = TEU
+			}
+			remove_wargoal = {
+				type = all
+				target = LUB
+			}
+		}	
 		ROS = {
 		random_list = {
 				1 = {
@@ -13706,7 +13726,7 @@ lake_war2 = {
 		}
 
 		available = {
-			date > 2028.12.01
+			date > 2028.10.01
 			NOT = { has_war_with = ROS }
 			country_exists = TEU
 			country_exists = LUB
@@ -13747,63 +13767,165 @@ lake_war2 = {
 		}
 	}
 
-	great_teutonic_war2 = {
+	dissolve_front = {
     
 		icon = GFX_decision_generic_prepare_civil_war
-		
+			
 		allowed = {
-			OR = {
-				original_tag = MAL
-				original_tag = PRU
-				original_tag = ELB
-			}
+			original_tag = MAL
+			original_tag = PRU
+			original_tag = ELB
 		}
 
 		available = {
-				date > 2029.03.01
-				NOT = { has_war_with = ROS }
-				NOT = { country_exists = TEU }
-				NOT = { country_exists = LUB }
+			date > 2028.05.02
+			NOT = { has_war_with = ROS }
+			NOT = { has_war_with = OLS }
+			NOT = { has_war_with = TEU }
+			NOT = { has_war_with = LUB }
+			NOT = { country_exists = TEU }
+			NOT = { country_exists = LUB }
 		}
 
 		ai_will_do = {
 			factor = 100
 		}
 		fire_only_once = yes
-		days_remove = 20
+		days_remove = 10
 		remove_effect  = {
-			log = "[GetDateText]: Decision great_teutonic_war2"
-			ELB = {
+			log = "[GetDateText]: Decision anti-teuton league falls"
+			OLS = {
+				dismantle_faction = yes
 				leave_faction = yes
-				declare_war_on = {
-					target = PRU
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = MAL
-					type = annex_everything
-				}
 			}
-			PRU = {
+			ELB = {
+				dismantle_faction = yes
 				leave_faction = yes
-				declare_war_on = {
-					target = MAL
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = ELB
-					type = annex_everything
-				}
 			}
 			MAL = {
 				dismantle_faction = yes
+				leave_faction = yes
+			}
+			PRU = {
+				dismantle_faction = yes
+				leave_faction = yes
+			}
+		}
+		cancel_trigger = {
+			ROOT = { 
+				has_war = yes
+			}
+		}
+	}
+
+	mal_elb_war = {
+    
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			OR = {
+				original_tag = MAL
+				original_tag = ELB
+			}
+		}
+
+		available = {
+				date > 2029.02.01
+				NOT = { has_war_with = ROS }
+				NOT = { country_exists = TEU }
+				NOT = { country_exists = LUB }
+				country_exists = MAL
+				country_exists = ELB
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 17
+		remove_effect  = {
+			log = "[GetDateText]: Decision great_teutonic_war2"
+			if = {
+				limit = {
+					NOT = {
+						original_tag = MAL
+						has_war_with = MAL
+					}
+				}
+				declare_war_on = {
+					target = MAL
+					type = voivodeship_war
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						original_tag = ELB
+						has_war_with = ELB
+					}
+				}
 				declare_war_on = {
 					target = ELB
-					type = annex_everything
+					type = voivodeship_war
+				}
+			}
+		}
+		cancel_trigger = {
+			ROOT = { 
+				has_war = yes
+			}
+		}
+	}
+
+	pru_ols_war = {
+    
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			OR = {
+				original_tag = OLS
+				original_tag = PRU
+			}
+		}
+
+		available = {
+				date > 2029.02.01
+				NOT = { has_war_with = ROS }
+				NOT = { country_exists = TEU }
+				NOT = { country_exists = LUB }
+				country_exists = PRU
+				country_exists = OLS
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		days_remove = 23
+		remove_effect  = {
+			log = "[GetDateText]: Decision great_teutonic_war2"
+			if = {
+				limit = {
+					NOT = {
+						original_tag = OLS
+						has_war_with = OLS
+					}
+				}
+				declare_war_on = {
+					target = OLS
+					type = voivodeship_war
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						original_tag = PRU
+						has_war_with = PRU
+					}
 				}
 				declare_war_on = {
 					target = PRU
-					type = annex_everything
+					type = voivodeship_war
 				}
 			}
 		}
@@ -13820,6 +13942,7 @@ lake_war2 = {
 		
 		allowed = {
 			original_tag = TEU
+			original_tag = OLS
 		}
 
 		available = {
@@ -13829,6 +13952,7 @@ lake_war2 = {
 			NOT = { country_exists = ELB }
 			NOT = { country_exists = MAL }
 			NOT = { country_exists = PRU }
+			country_exists = OLS
 		}
 
 		ai_will_do = {
@@ -13838,19 +13962,40 @@ lake_war2 = {
 		days_remove = 20
 		remove_effect  = {
 			log = "[GetDateText]: Decision teuton_warmia_war"
-			TEU = {
+			if = {
+				limit = {
+					NOT = {
+						original_tag = TEU
+						has_war_with = TEU
+					}
+				}
 				declare_war_on = {
-					target = OLS
-					type = annex_everything
+					target = TEU
+					type = voivodeship_war
+				}
+				declare_war_on = {
+					target = LUB
+					type = voivodeship_war
 				}
 			}
-			LUB = {
+			if = {
+				limit = {
+					NOT = {
+						original_tag = OLS
+						has_war_with = OLS
+					}
+				}
 				declare_war_on = {
 					target = OLS
-					type = annex_everything
+					type = voivodeship_war
+				}
+				LUB = {
+					declare_war_on = {
+						target = OLS
+						type = voivodeship_war
+					}
 				}
 			}
-		}
 		cancel_trigger = {
 			ROOT = { 
 				has_war = yes
@@ -13864,6 +14009,10 @@ lake_war2 = {
 		
 		allowed = {
 			original_tag = OLS
+			original_tag = ELB
+			original_tag = MAL
+			original_tag = PRU
+			original_tag = TEU
 		}
 
 		available = {
@@ -13881,20 +14030,63 @@ lake_war2 = {
 		days_remove = 14
 		remove_effect  = {
 			log = "[GetDateText]: Decision warmia_reclamation"
-			OLS = {
-				leave_faction = yes
-				declare_war_on = {
-					target = ELB
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = PRU
-					type = annex_everything
-				}
-				declare_war_on = {
-					target = MAL
-					type = annex_everything
-				}
+			if = { limit = { country_exists = OLS
+			ROOT = { NOT = { original_tag = OLS }}
+			ROOT = { NOT = { is_in_faction_with = OLS }}
+			ROOT = { NOT = { is_puppet_of = OLS }}
+			 } 
+			declare_war_on = {
+				target = OLS
+				type = voivodeship_war
+			}
+			}
+			
+			if = { limit = { country_exists = ELB
+			ROOT = { NOT = { original_tag = ELB }}
+			ROOT = { NOT = { is_in_faction_with = ELB }}
+			ROOT = { NOT = { is_puppet_of = ELB }}
+			 } 
+			declare_war_on = {
+				target = ELB
+				type = voivodeship_war
+			}
+			}
+			
+			if = { limit = { country_exists = MAL
+			ROOT = { NOT = { original_tag = MAL }}
+			ROOT = { NOT = { is_in_faction_with = MAL }}
+			ROOT = { NOT = { is_puppet_of = MAL }}
+			 } 
+			declare_war_on = {
+				target = MAL
+				type = voivodeship_war
+			}
+			}
+			
+			if = { limit = { country_exists = PRU
+			ROOT = { NOT = { original_tag = PRU }}
+			ROOT = { NOT = { is_in_faction_with = PRU }}
+			ROOT = { NOT = { is_puppet_of = PRU }}
+			 } 
+			declare_war_on = {
+				target = PRU
+				type = voivodeship_war
+			}
+			}
+			
+			if = { limit = { country_exists = TEU
+			ROOT = { NOT = { original_tag = TEU }}
+			ROOT = { NOT = { is_in_faction_with = TEU }}
+			ROOT = { NOT = { is_puppet_of = TEU }}
+			 } 
+			declare_war_on = {
+				target = TEU
+				type = voivodeship_war
+			}
+			declare_war_on = {
+				target = LUB
+				type = voivodeship_war
+			}
 			}
 		}
 	}
@@ -13984,6 +14176,10 @@ warmia_mazury_lastwar = {
 		 } 
 		declare_war_on = {
 			target = TEU
+			type = voivodeship_war
+		}
+		declare_war_on = {
+			target = LUB
 			type = voivodeship_war
 		}
 		}
