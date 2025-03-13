@@ -1,0 +1,321 @@
+cleanup_category = {
+	
+	invade_teschin = {
+		allowed = {
+			OR = {
+			is_tatry_region = yes
+			original_tag = SLE
+			}
+		}
+		available = {
+			OR = {
+				AND = {
+				ROOT = { is_tatry_region = yes }
+				count_triggers = {
+					amount = 8
+					LEM = { exists = no }
+					SCZ = { exists = no }
+					TYM = { exists = no }
+					ZGR = { exists = no }
+					AND = {
+						GUR = { exists = no }
+						ZKP = { exists = no }
+					}
+					CIE = { exists = no }
+					BSK = { exists = no }
+					BBA = { exists = no }
+					WYM = { exists = no }
+				}
+				country_exists = TSZ
+				any_controlled_state = {
+					is_owned_by = TSZ
+					is_tatry_region_state = yes
+				}
+				}
+				AND = {
+					original_tag = SLE
+					any_country = {
+						is_tatry_region = yes
+						has_country_flag = unified_voivodeship
+					}
+					country_exists = TSZ
+					NOT = {
+						any_controlled_state = {
+							is_owned_by = TSZ
+							is_tatry_region_state = yes
+						}
+					}
+				}
+			}
+		}
+		fire_only_once = yes
+		days_remove = 14
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			declare_war_on = {
+				target = TSZ
+				type = voivodeship_war
+			}
+			TSZ = {
+				delete_unit = {}
+			}			
+		}
+	}
+	
+	annex_radom = {
+		allowed = {
+			is_radom_province = yes
+		}
+		available = {
+			can_unify_radom_province = yes
+			has_subject = RAD
+		}
+		fire_only_once = yes
+		days_remove = 30
+	
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			annex_country = {
+				target = RAD
+				transfer_troops = yes
+			}
+		}
+	 }
+	
+	 annex_radom_puppets = {
+		allowed = {
+			is_radom_province = yes
+		}
+		available = {
+			can_unify_radom_province = yes
+			OR = {
+				has_subject = GRJ
+				has_subject = VRC
+			}
+		}
+		fire_only_once = yes
+		days_remove = 30
+	
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					GRJ = { exists = yes }
+					GRJ = { is_puppet_of = ROOT }
+				}
+				annex_country = {
+					target = GRJ
+				}
+			}
+			if = {
+				limit = {
+					VRC = { exists = yes }
+					VRC = { is_puppet_of = ROOT }
+				}
+				annex_country = {
+					target = VRC
+				}
+			}		
+		}
+	 } 
+	
+
+	annex_silesian_league = {
+		visible = {
+			is_upper_silesia = yes
+			is_faction_leader = yes
+		}
+		available = {
+			count_triggers = {
+				amount = 11
+				WOD = { exists = no }
+				DUR = { exists = no }
+				TYS = { exists = no }
+				JSW = { exists = no }
+				SOL = { exists = no }
+				SBW = { exists = no }	
+				KAT = { exists = no }
+				ASG = { exists = no }
+				GLI = { exists = no }
+				TRC = { exists = no }
+				RUD = { exists = no }
+				FER = { exists = no }	
+				RAS = { exists = no }	
+				CHO = { exists = no }	
+			}
+			has_war = no
+			
+        }
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			every_country = {
+				limit = { is_in_faction_with = ROOT }
+			ROOT = {
+			annex_country = {
+				target = PREV
+				transfer_troops = yes
+			}
+			}
+			}
+		}
+	}
+
+	annex_stalowawola = {
+		visible = {
+			OR = {
+			AND = {
+			original_tag = CHR
+			has_subject = STL
+			}
+			AND = {
+			original_tag = TAR
+			has_subject = STL			
+			}
+			}
+		}
+		available = {
+				count_triggers = {
+					amount = 12
+					KOL = { exists = no }
+					LEZ = { exists = no }
+					ANC = { exists = no }
+					JSO = { exists = no }
+					KRO = { exists = no }
+					TAR = { exists = no }	
+					UPA = { exists = no }
+					KOZ = { exists = no }
+					BSC = { exists = no }
+					UHR = { exists = no }
+					LGP = { exists = no }
+					CHR = { exists = no }	
+					RZE = { exists = no }							
+				}
+        }
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			annex_country = {
+				target = STL
+				transfer_troops = yes
+			}
+		}
+	}
+
+	annex_bedzin = {
+		visible = {
+			original_tag = SOS
+			has_subject = BED
+		}
+		available = {
+            NOT = {
+				country_exists = DGR
+				country_exists = JAW
+				country_exists = ZAW
+				country_exists = JUR
+				country_exists = CCH
+				country_exists = BRZ
+				country_exists = JWK
+			}
+        }
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			annex_country = {
+				target = BED
+				transfer_troops = yes
+			}
+		}
+	}
+	
+
+	
+	annex_siewierz = {
+		visible = {
+			OR = {
+				AND = {
+				original_tag = SOS
+				has_subject = SIE
+				}
+				AND = {
+				original_tag = ZAW
+				country_exists = SIE
+				NOT = { country_exists = SOS }
+				}
+				AND = {
+				original_tag = JUR
+				country_exists = SIE
+				NOT = { country_exists = ZAW }
+				NOT = { country_exists = SOS }
+				}
+			}
+		}
+		available = {
+            OR = {
+				AND = {
+					NOT = {
+						country_exists = DGR
+						country_exists = JAW
+						country_exists = ZAW
+						country_exists = JUR
+						country_exists = CCH
+						country_exists = BRZ
+						country_exists = JWK
+					}
+				}
+				AND = {
+					NOT = {
+						country_exists = DGR
+						country_exists = JAW
+						country_exists = SOS
+						country_exists = JUR
+						country_exists = CCH
+						country_exists = BRZ
+						country_exists = JWK
+					}
+				}
+				AND = {
+					NOT = {
+						country_exists = DGR
+						country_exists = JAW
+						country_exists = SOS
+						country_exists = ZAW
+						country_exists = CCH
+						country_exists = BRZ
+						country_exists = JWK
+					}
+				}
+			}
+        }
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			annex_country = {
+				target = SIE
+				transfer_troops = yes
+			}
+		}
+	}
+}
