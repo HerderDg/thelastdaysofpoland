@@ -5671,6 +5671,7 @@ silesian_war = {
 
 	available = {
 		date > 2028.03.01
+		has_war = no
 		OR = {
 			original_tag = BBW
 			original_tag = KRS
@@ -5704,6 +5705,9 @@ silesian_war = {
 			NOT = { is_puppet_of = ROOT }
 			NOT = { is_in_faction_with = ROOT }
 		}
+		KAR = { NOT = { is_puppet_of = SAP } }
+		RUT = { NOT = { is_in_faction_with = KRS } }
+		POG = { NOT = { is_in_faction_with = KRS } }
 	}
 	war_with_target_on_complete = yes
 	complete_effect = {
@@ -13145,7 +13149,6 @@ potezny_sasin_masakruje_zawkrze = {
 	allowed = {
 		original_tag = ROS
 	}
-
 	available = {
 		OR = {
 			NOT = {
@@ -13174,6 +13177,7 @@ potezny_sasin_masakruje_zawkrze = {
 				}
 			}
 		}
+
 	}
 	ai_will_do = {
 		factor = 100
@@ -13182,6 +13186,7 @@ potezny_sasin_masakruje_zawkrze = {
 		log = "[GetDateText]: PUTIN SIĘ ZESRAŁ I PROSI O ROZEJM"
 	}
 	days_remove = 2
+	fire_only_once = yes
 	remove_effect = {
 		log = "[GetDateText]: ITS NOT OVER YET FOR RUSSIA BROS"
 		if = {
@@ -20075,7 +20080,12 @@ chelminsko_kujawska = {
 
 	available = {
 		date > 2028.05.16	
-		has_war = no	
+		has_war = no
+		OR = {
+			ZUL = { exists = yes }
+			MNL = { exists = yes }
+			ANA = { exists = yes }
+		}	
 	}
 
 	ai_will_do = {
@@ -20205,6 +20215,7 @@ chelminsko_kujawska = {
 		}
 		date > 2028.05.16
 		has_war = no
+		WRO = { exists = yes }
 	}
 	
 	ai_will_do = {
@@ -20290,10 +20301,8 @@ chelminsko_kujawska = {
 	}
 
 	available = {
-		if = {
-			limit = {
-				date > 2029.03.01
-			}
+		OR = {
+		date > 2029.03.01
 		count_triggers = {
 			amount = 2
 			WRO = { exists = no }
@@ -20312,14 +20321,9 @@ chelminsko_kujawska = {
 		}	
 		has_war = no
 		}
-		if = {
-			limit = {
-				date > 2031.06.01
-			}
+		OR = {
+			date > 2031.06.01
 			has_war = no
-		}
-		else = {
-			always = no
 		}		
 	}
 	
