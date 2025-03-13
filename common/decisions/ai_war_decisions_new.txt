@@ -13696,23 +13696,8 @@ lake_war2 = {
 
 	available = {
 		date > 2029.07.01
-		NOT = { has_war_with = MRG }
-		WRM = {
-			NOT = { has_war_with = PZW }
-			NOT = { has_war_with = MRG }
-		}
-		PZW = {
-			NOT = { has_war_with = WRM }
-			NOT = { has_war_with = MRG }
-		}
-		RAJ = {
-			NOT = { has_war_with = GAL }
-			NOT = { has_war_with = MRG }
-		}
-		GAL = {
-			NOT = { has_war_with = RAJ }
-			NOT = { has_war_with = MRG }
-		}
+		NOT = { has_war_with = ROS }
+		has_war = no
 	}
 
 	ai_will_do = {
@@ -13722,59 +13707,51 @@ lake_war2 = {
 	days_remove = 14
 	remove_effect  = {
 		log = "[GetDateText]: Decision lake_war2"
-		WRM = {
+		if = {
+			limit = {
+				NOT = {
+					original_tag = PZW
+					has_war_with = PZW
+				}
+			}
 			declare_war_on = {
 				target = PZW
 				type = voivodeship_war
 			}
-			declare_war_on = {
-				target = GAL
-				type = voivodeship_war
-			}
-			declare_war_on = {
-				target = RAJ
-				type = voivodeship_war
-			}
 		}
-		PZW = {
-			declare_war_on = {
-				target = WRM
-				type = voivodeship_war
-			}
-			declare_war_on = {
-				target = GAL
-				type = voivodeship_war
-			}
-			declare_war_on = {
-				target = RAJ
-				type = voivodeship_war
-			}
-		}
-		RAJ = {
-			declare_war_on = {
-				target = PZW
-				type = voivodeship_war
-			}
-			declare_war_on = {
-				target = GAL
-				type = voivodeship_war
+		if = {
+			limit = {
+				NOT = {
+					original_tag = WRM
+					has_war_with = WRM
+				}
 			}
 			declare_war_on = {
 				target = WRM
 				type = voivodeship_war
 			}
 		}
-		GAL = {
-			declare_war_on = {
-				target = WRM
-				type = voivodeship_war
-			}
-			declare_war_on = {
-				target = GAL
-				type = voivodeship_war
+		if = {
+			limit = {
+				NOT = {
+					original_tag = RAJ
+					has_war_with = RAJ
+				}
 			}
 			declare_war_on = {
 				target = RAJ
+				type = voivodeship_war
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					original_tag = GAL
+					has_war_with = GAL
+				}
+			}
+			declare_war_on = {
+				target = GAL
 				type = voivodeship_war
 			}
 		}
@@ -14018,7 +13995,7 @@ lake_war2 = {
 		}
 
 		available = {
-			date > 2029.01.01
+			date > 2029.03.01
 			NOT = { has_war_with = ROS }
 			NOT = { has_war_with = OLS }
 			NOT = { country_exists = ELB }
