@@ -11,28 +11,50 @@ ai_war_decisions = {
 
 invade_teschin = {
 	allowed = {
+		OR = {
 		is_tatry_region = yes
+		original_tag = SLE
+		}
 	}
 	available = {
-		count_triggers = {
-			amount = 8
-			LEM = { exists = no }
-			SCZ = { exists = no }
-			TYM = { exists = no }
-			ZGR = { exists = no }
+		OR = {
 			AND = {
-				GUR = { exists = no }
-				ZKP = { exists = no }
+			ROOT = { is_tatry_region = yes }
+			count_triggers = {
+				amount = 8
+				LEM = { exists = no }
+				SCZ = { exists = no }
+				TYM = { exists = no }
+				ZGR = { exists = no }
+				AND = {
+					GUR = { exists = no }
+					ZKP = { exists = no }
+				}
+				CIE = { exists = no }
+				BSK = { exists = no }
+				BBA = { exists = no }
+				WYM = { exists = no }
 			}
-			CIE = { exists = no }
-			BSK = { exists = no }
-			BBA = { exists = no }
-			WYM = { exists = no }
-		}
-		country_exists = TSZ
-		any_controlled_state = {
-			is_owned_by = TSZ
-			is_tatry_region_state = yes
+			country_exists = TSZ
+			any_controlled_state = {
+				is_owned_by = TSZ
+				is_tatry_region_state = yes
+			}
+			}
+			AND = {
+				original_tag = SLE
+				any_country = {
+					is_tatry_region = yes
+					has_country_flag = unified_voivodeship
+				}
+				country_exists = TSZ
+				NOT = {
+					any_controlled_state = {
+						is_owned_by = TSZ
+						is_tatry_region_state = yes
+					}
+				}
+			}
 		}
 	}
 	fire_only_once = yes
