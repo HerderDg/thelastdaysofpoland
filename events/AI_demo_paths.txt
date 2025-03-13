@@ -1575,6 +1575,98 @@ country_event = {
 	}	
 }
 
+country_event = {
+	id = aievent.35 #mandat niebios
+	title = aievent.35.t
+	desc = aievent.35.desc
+
+	fire_only_once = yes
+	trigger = { 
+		original_tag = HOR
+		OR = {
+			HOR = { can_unify_lesser_poland = yes }
+			MSL = { can_unify_lesser_poland = yes }
+		}
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.35 - war in heaven"}
+	option = {
+		name = aievent.35.a #nekropolin
+		ai_chance = { base = 15 }	
+		log = "[GetDateText]: FOR THE HORDE"
+		HOR = {
+			dismantle_faction = yes
+		}
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.5
+		}
+		HOR = { load_oob = "szkieletornia" }
+		HOR_szkieletornia = yes	
+		HOR = {
+			declare_war_on = {
+				target = MSL
+				type = voivodeship_war
+			}
+			set_country_flag = MPOL_war_in_heaven
+			set_cosmetic_tag = HOR_horda
+		}
+		MSL = {
+			set_country_flag = MPOL_war_in_heaven
+		}	
+	}
+	option = {
+		name = aievent.35.b #procession-blessed
+		ai_chance = { base = 65 }
+		log = "[GetDateText]: Inba ciągle trwa kiedy papież tańczy"
+		every_state = {
+			limit = {
+				is_lesser_poland_state = yes
+				NOT = {
+					is_core_of = MSL 
+				}
+			}
+			transfer_state_to = HOR
+		}
+		933 = { transfer_state_to = MSL }
+		824 = { transfer_state_to = MSL }	
+		596 = { transfer_state_to = MSL }	
+		523 = { transfer_state_to = MSL }	
+		948 = { transfer_state_to = MSL }	
+		MSL = {
+			set_cosmetic_tag = MSL_HOR
+		}
+		MSL = { get_current_government_type = yes }
+		HOR = {
+			set_autonomy = {
+				target = MSL
+				autonomous_state = autonomy_puppet
+				freedom_level = 0.15 
+			}
+		}	
+		MSL = { restore_previous_government_type = yes }	
+	}	
+	option = {
+		name = aievent.35.c #desant na mordę
+		ai_chance = { base = 20 }
+		HOR = {
+			dismantle_faction = yes
+		}
+		MSL = { set_country_flag = MPOL_war_in_heaven }
+		HOR = { set_country_flag = MPOL_war_in_heaven }
+		MSL = {
+			declare_war_on = {
+				target = HOR
+				type = voivodeship_war
+			}
+		}
+		MSL = { load_oob = "MSL_war_in_heaven" }
+		log = "[GetDateText]: Myślenice wygrywają"
+	}	
+}
+
 
 country_event = {
 	id = aievent_tarnow.1 #przyszlosc tarnowa - WKK decyduje

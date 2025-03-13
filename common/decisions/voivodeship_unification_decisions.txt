@@ -3823,6 +3823,27 @@ lesser_poland_voivodeship_unification = {
 			can_unify_lesser_poland = yes
 		}
 		NOT = { is_puppet = yes }
+		if = {
+			limit = { 
+					original_tag = HOR
+			}
+			OR = {
+				AND = {
+					has_country_flag = MPOL_war_in_heaven
+					MSL = { exists = no }
+				}
+				MSL = { is_puppet_of = HOR }
+			}
+		}
+		if = {
+			limit = { 
+					original_tag = MSL
+			}
+			AND = {
+				has_country_flag = MPOL_war_in_heaven
+				HOR = { exists = no }
+			}
+		}		
 	}
 	
 	fire_only_once = yes
@@ -3962,13 +3983,27 @@ lesser_poland_voivodeship_unification = {
 		}
 		
 		else_if = {
-			limit = { original_tag = HOR }
+			limit = { 
+				OR = {
+					AND = {
+						original_tag = HOR
+						is_in_faction = no
+					}
+					AND = {
+						original_tag = HOR
+						MSL = { is_puppet_of = HOR  }
+					}
+				}			
+			}
 			set_cosmetic_tag = HOR_voivodeship
 
 			hidden_effect = {
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = unification.142 }
+				}
+				HOR = {
+					clr_country_flag = MPOL_war_in_heaven
 				}
 			}
 			
@@ -3989,12 +4024,18 @@ lesser_poland_voivodeship_unification = {
 
 
 		else_if = {
-			limit = { original_tag = MSL }
+			limit = { 
+				original_tag = MSL
+				is_in_faction = no
+			}
 			set_cosmetic_tag = MSL_voivodeship
 			hidden_effect = {
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
 					news_event = { id = unification.41 }
+				}
+				MSL = {
+					clr_country_flag = MPOL_war_in_heaven
 				}
 			}
 			
