@@ -151,6 +151,9 @@ carpathian_wars = { #
  	is_tatry_region = yes
  	NOT = {
  		original_tag = TSZ
+ 		original_tag = WYM
+ 		original_tag = TYM
+ 		original_tag = ZGR
  	}
  }
  
@@ -12126,6 +12129,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 		target_trigger = {
 			FROM = {
 				is_podlasie_tribe = yes
+				exists = yes
 			}
 		}
 
@@ -12199,64 +12203,6 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 		}
 	}	
 #PODLASIE - FAZA DRUGA
-
-	podlasie_traktor_boss = {
-
-		icon = GFX_decision_generic_prepare_civil_war
-		
-		allowed = {
-			OR = {
-				original_tag = BOM
-				original_tag = TAT
-				original_tag = BEL
-				original_tag = SAN
-				original_tag = LMZ
-				original_tag = KON
-			}
-		}
-
-		available = {
-			OR = {
-			ROOT = { any_neighbor_country = { original_tag = AGR } }
-			ROOT = { any_neighbor_country = { original_tag = SDL } }
-			}
-			has_war = no
-				count_triggers = {
-					amount = 5
-						LMZ = { exists = no }
-						BOM = { exists = no }
-						KON = { exists = no }
-						BEL = { exists = no }
-						TAT = { exists = no }
-						SAN = { exists = no }
-			}
-		}
-
-		ai_will_do = {
-			factor = 100
-		}
-		fire_only_once = yes
-		days_remove = 14
-		remove_effect  = {
-			log = "[GetDateText]: Decision podlasie_traktor_boss"
-				if = { limit = { country_exists = AGR }
-				declare_war_on = {
-					target = AGR
-					type = voivodeship_war
-				}
-				}
-				if = { limit = { country_exists = SDL }
-				declare_war_on = {
-					target = SDL
-					type = voivodeship_war
-				}
-				}
-		}
-
-		cancel_trigger = {
-			has_war = yes
-		}
-	}
 
 	podlasie_TAT = {
 
@@ -12660,25 +12606,80 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 	}
 #PODLASIE - FAZA OSTATECZNA
 
+podlasie_traktor_boss = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = BOM
+			original_tag = TAT
+			original_tag = BEL
+			original_tag = SAN
+			original_tag = LMZ
+			original_tag = KON
+		}
+	}
+
+	available = {
+		OR = {
+			SDL = { exists = yes }
+			AGR = { exists = yes }
+		}
+		OR = {
+		ROOT = { any_neighbor_country = { original_tag = AGR } }
+		ROOT = { any_neighbor_country = { original_tag = SDL } }
+		}
+		has_war = no
+		count_triggers = {
+			amount = 5
+				LMZ = { exists = no }
+				BOM = { exists = no }
+				KON = { exists = no }
+				BEL = { exists = no }
+				TAT = { exists = no }
+				SAN = { exists = no }
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision podlasie_traktor_boss"
+			if = { limit = { country_exists = AGR }
+			declare_war_on = {
+				target = AGR
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = SDL }
+			declare_war_on = {
+				target = SDL
+				type = voivodeship_war
+			}
+			}
+	}
+
+	cancel_trigger = {
+		has_war = yes
+	}
+}
+
+
 	last_battle_of_podlasie = {
 		
 		allowed = {
-			is_podlasie_unifier = yes
+			OR = {
+				original_tag = SDL
+				original_tag = AGR
+			}
 		}
 
 		available = {
-			date > 2030.1.1
-			count_triggers = {
-				amount = 6
-				TAT = {exists = no}
-				SAN = {exists = no}
-				LMZ = {exists = no}
-				BEL = {exists = no}
-				BOM = {exists = no}
-				KON = {exists = no}
-				SDL = {exists = no}
-				AGR = {exists = no}
-			}
+			date > 2031.6.1
 		}
 
 		ai_will_do = {
@@ -12689,18 +12690,49 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 		days_remove = 10
 		remove_effect  = {
 			log = "[GetDateText]: last_battle_of_podlasie"
-				every_neighbor_country = {
-					limit = {
-						is_podlasie_unifier = yes
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = voivodeship_war
-						}
-					}
+			if = {
+				limit = { TAT = { exists = yes } }
+				declare_war_on = {
+					target = TAT
+					type = voivodeship_war
 				}
 			}
+			if = {
+				limit = { BEL = { exists = yes } }
+				declare_war_on = {
+					target = BEL
+					type = voivodeship_war
+				}
+			}
+			if = {
+				limit = { LMZ = { exists = yes } }
+				declare_war_on = {
+					target = LMZ
+					type = voivodeship_war
+				}
+			}
+			if = {
+				limit = { KON = { exists = yes } }
+				declare_war_on = {
+					target = KON
+					type = voivodeship_war
+				}
+			}
+			if = {
+				limit = { BOM = { exists = yes } }
+				declare_war_on = {
+					target = BOM
+					type = voivodeship_war
+				}
+			}
+			if = {
+				limit = { SAN = { exists = yes } }
+				declare_war_on = {
+					target = SAN
+					type = voivodeship_war
+				}
+			}															
+		}
 	}
 
 #██████╗░██╗░░░░░███╗░░██╗  ███╗░░░███╗░█████╗░███████╗░█████╗░░██╗░░░░░░░██╗░██████╗███████╗███████╗
