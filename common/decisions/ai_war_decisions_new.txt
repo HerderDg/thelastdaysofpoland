@@ -19955,11 +19955,41 @@ chelminsko_kujawska = {
 	icon = GFX_decision_generic_prepare_civil_war
 	
 	allowed = {
-		original_tag = RYB
+		is_lower_silesia = yes 
+		NOT = {
+			original_tag = OLE
+		}
+		
 	}
 
 	available = {
-		date > 2027.11.01
+		OLE = { exists = yes }
+		OLE = { is_neighbor_of = ROOT }
+		OR = {
+			AND = {
+				date > 2027.11.01
+				original_tag = RYB
+			}
+			AND = {
+				date > 2029.01.01
+				OR = {
+					AND = {
+					original_tag = MPK
+					NOT = { is_puppet_of = WRO }
+					}
+					original_tag = WRO
+				}
+			}
+			AND = {
+				date > 2031.01.01
+				OR = {
+					original_tag = ANA
+					original_tag = MNL
+					original_tag = ZUL
+					original_tag = CZE
+				}
+			}			
+		}
 	}
 
 	ai_will_do = {
