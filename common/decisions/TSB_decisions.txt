@@ -13,14 +13,21 @@ TSB_decisions_category = {
 			FROM = {
 				is_ai = yes
 				has_war = yes
-				has_idea = AI_bridge_crossing_idea	
+				has_idea = AI_bridge_crossing_idea
+				NOT = { has_idea = podlasie_tribe_idea }	
 			}
 		}
 
 		available = {
+			ROOT = { NOT = { has_idea = cooldown } }
 			FROM = {
+				#podstawa
 				is_ai = yes
 				has_war = yes
+				has_idea = AI_bridge_crossing_idea
+				NOT = { has_idea = wojnorozpierdalacz }
+				NOT = { has_idea = cooldown }		
+				#triggery na długość wojny albo surrender progress
 				OR = {
 					surrender_progress > 0.3
 					AND = {
@@ -46,26 +53,23 @@ TSB_decisions_category = {
 						longest_war_length > 16
 					}										
 				}
-				has_idea = AI_bridge_crossing_idea
+				
+				#trigger żeby żaden kraj nie był już przeklęty
 				NOT = {
 					any_enemy_country = {
 						has_idea = wojnorozpierdalacz
 					}
 				}
+
+				#trigger żeby nie przeklinać tych którzy walczą z plemieniami
 				NOT = {
 					all_enemy_country = {
 						has_idea = podlasie_tribe_idea
 					}
-				}				
-				NOT = { 
-					has_idea = wojnorozpierdalacz
 				}
-				NOT = { 
-					has_idea = cooldown
-				}				
-				NOT = { 
-					has_idea = hanys_boss
-				}
+
+				#triggery poszczególnych krajów
+				NOT = { has_idea = hanys_boss }
 				NOT = {
 					AND = {
 						OR = {
@@ -94,7 +98,7 @@ TSB_decisions_category = {
 					has_war_with = SDL
 				}									
 			}
-			ROOT = { NOT = { has_idea = cooldown } }
+			
 		}
 
 		ai_will_do = {
@@ -128,7 +132,7 @@ TSB_decisions_category = {
 				}
 				add_timed_idea = {
 					idea = wojnozapierdalacz
-					days = 30
+					days = 40
 				}
 				add_timed_idea = {
 					idea = cooldown
