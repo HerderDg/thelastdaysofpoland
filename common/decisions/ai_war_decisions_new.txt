@@ -14253,9 +14253,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = GDA
-	war_with_on_remove = MPR
-	war_with_on_remove = BOL
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_gdansk_war"
@@ -14305,8 +14303,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = MPR
-	war_with_on_remove = BOL
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_gdansk_war"
@@ -14442,8 +14439,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = HEL
-	war_with_on_remove = OWS
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_HEL_OWS_war"
@@ -14499,8 +14495,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = KSZ
-	war_with_on_remove = KSC
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_kashubia_war"
@@ -14622,7 +14617,7 @@ warmia_mazury_lastwar = {
 	}
 
 	available = {
-		date > 2028.06.01
+		date > 2028.09.01
 		country_exists = CZL
 		country_exists = LOT
 		has_war = no
@@ -14636,8 +14631,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = CZL
-	war_with_on_remove = LOT
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_borowiacy_kociewie_war"
@@ -14699,7 +14693,7 @@ warmia_mazury_lastwar = {
 	}
 
 	available = {
-		date > 2028.06.01
+		date > 2028.09.01
 		has_war = no
 	}
 
@@ -14711,10 +14705,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = HEL
-	war_with_on_remove = OWS
-	war_with_on_remove = KSZ
-	war_with_on_remove = KSC
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_helows_kaszuby_war"
@@ -14830,7 +14821,7 @@ warmia_mazury_lastwar = {
 	}
 
 	available = {
-		date > 2028.06.01
+		date > 2028.09.01
 		country_exists = GAY
 		country_exists = RLE
 		has_war = no
@@ -14844,8 +14835,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = GAY
-	war_with_on_remove = RLE
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_slupsk_lebork_war"
@@ -14884,7 +14874,7 @@ warmia_mazury_lastwar = {
 	}
 
 	available = {
-		date > 2028.06.01
+		date > 2028.09.01
 		OR = {
 			country_exists = GDA
 			country_exists = BOL
@@ -14901,9 +14891,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = GDA
-	war_with_on_remove = BOL
-	war_with_on_remove = MPR
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_korsarze_invasion_war"
@@ -14956,7 +14944,7 @@ warmia_mazury_lastwar = {
 
 	available = {
 		country_exists = KOR
-		date > 2028.06.01
+		date > 2028.09.01
 		has_war = no
 	}
 
@@ -14968,7 +14956,7 @@ warmia_mazury_lastwar = {
 
 	days_remove = 14
 
-	war_with_on_remove = KOR
+	war_with_target_on_complete = yes
 
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_gdansk_invades_korsarz_war"
@@ -15014,6 +15002,9 @@ warmia_mazury_lastwar = {
 		}
 		NOT = { has_country_flag = unified_voivodeship }
 		has_war = no
+		NOT = {
+			has_country_flag = getting_ready_to_war_pomerelia
+		}
 	}
 
 	ai_will_do = {
@@ -15023,6 +15014,7 @@ warmia_mazury_lastwar = {
 	#fire_only_once = yes
 
 	days_remove = 14
+	war_with_target_on_complete = yes
 
 	target_array = root.neighbors
 	target_trigger = {
@@ -15031,8 +15023,13 @@ warmia_mazury_lastwar = {
 		}
 	}
 
+	complete_effect = {
+		set_country_flag = getting_ready_to_war_pomerelia
+		log = "[GetDateText]: [ROOT.GetName] is getting ready to war in Pomorze..."
+	}
 	remove_effect  = {
 		log = "[GetDateText]: Decision POMGDA_pomorze_jednoczenie_war"
+		clr_country_flag = getting_ready_to_war_pomerelia
 		declare_war_on = {
 			target = FROM
 			type = voivodeship_war
