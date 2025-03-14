@@ -260,3 +260,71 @@ country_event = {
 		name = malysz_start.14.a
 	}
 }
+
+country_event = {
+	id = malysz_start.15 #Fate of Trans-Olza
+	title = malysz_start.15.t
+	desc = malysz_start.15.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.15" }
+
+	option = {
+		name = malysz_start.15.a #Republic of Trans-Olza
+		1006 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = TSZ
+		}
+		588 = { 
+			set_demilitarized_zone = no 
+			transfer_state_to = TSZ
+		}
+		1007 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = TSZ
+		}
+		TSZ = {
+			drop_cosmetic_tag = yes
+		}
+		CIE = {
+			add_to_faction = TSZ
+		}
+	}
+	option = {
+		name = malysz_start.15.b #Autonomy
+		1006 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = TSZ
+		}
+		588 = { 
+			set_demilitarized_zone = no 
+			transfer_state_to = TSZ
+		}
+		1007 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = TSZ
+		}
+		TSZ = {
+			drop_cosmetic_tag = yes
+			get_current_government_type = yes
+		}
+		CIE = {
+			set_autonomy = {
+				target = TSZ
+				autonomy_state = autonomy_puppet
+			}
+			add_to_faction = TSZ
+		}
+		TSZ = {
+			restore_previous_government_type = yes
+		}
+	}
+	option = {
+		name = malysz_start.15.c #Sprzedajmy Pavlowi
+		SLE = {
+			country_event = SLE_TESCHIN.3
+		}
+	}		
+}
