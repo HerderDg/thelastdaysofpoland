@@ -17542,6 +17542,8 @@ chelminsko_kujawska = {
 				ROOT = { any_neighbor_country = { original_tag = BOR } }
 				ROOT = { any_neighbor_country = { original_tag = SNF } }
 				ROOT = { any_neighbor_country = { original_tag = CHE } }
+				ROOT = { any_neighbor_country = { original_tag = POM } }
+				ROOT = { any_neighbor_country = { original_tag = KOS } }
 			}
 			has_war = no
 			date > 2029.01.01
@@ -17554,7 +17556,47 @@ chelminsko_kujawska = {
 		days_remove = 14
 		remove_effect  = {
 			log = "[GetDateText]: Decision zachpom_minor_solution"
-				if = { 
+				
+				if = {
+					limit = {
+						is_neighbor_of = KOS
+						OR = {
+							ROOT = { original_tag = EKW }
+							ROOT = { original_tag = NOR }
+						}
+					}
+					annex_country = {
+						target = KOS
+						transfer_troops = no
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = POM
+						OR = {
+							ROOT = { original_tag = EKW }
+							ROOT = { original_tag = NOR }
+						}
+					}
+					annex_country = {
+						target = POM
+						transfer_troops = no
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = KLB
+						OR = {
+							ROOT = { original_tag = EKW }
+							ROOT = { original_tag = NOR }
+						}
+					}
+					annex_country = {
+						target = KLB
+						transfer_troops = no
+					}
+				}
+				else_if = { 
 					limit = { 
 						is_neighbor_of = STR
 					}
@@ -17617,6 +17659,24 @@ chelminsko_kujawska = {
 						type = voivodeship_war
 					}
 				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = KOS
+					}
+					declare_war_on = {
+						target = KOS
+						type = voivodeship_war
+					}
+				}
+				else_if = {
+					limit = { 
+						is_neighbor_of = POM
+					}
+					declare_war_on = {
+						target = POM
+						type = voivodeship_war
+					}
+				}
 		}	
 		cancel_trigger = {
 			ROOT = {
@@ -17637,6 +17697,8 @@ chelminsko_kujawska = {
 				#original_tag = BOR	
 				#original_tag = SNF	
 				original_tag = KLB	
+				original_tag = KOS
+				original_tag = POM
 			}			
 		}
 
@@ -17675,6 +17737,13 @@ chelminsko_kujawska = {
 					limit = { 
 						is_neighbor_of = EKW
 						#EKW = { has_war = no }
+						NOT = {
+							OR = {
+								ROOT = { original_tag = KLB }
+								ROOT = { original_tag = KOS }
+								ROOT = { original_tag = POM }
+							}
+						}
 					}
 					declare_war_on = {
 						target = EKW
@@ -17725,6 +17794,13 @@ chelminsko_kujawska = {
 					limit = { 
 						is_neighbor_of = NOR
 						#NOR = { has_war = no }
+						NOT = {
+							OR = {
+								ROOT = { original_tag = KLB }
+								ROOT = { original_tag = KOS }
+								ROOT = { original_tag = POM }
+							}
+						}
 					}
 					declare_war_on = {
 						target = NOR
@@ -17737,6 +17813,69 @@ chelminsko_kujawska = {
 				has_war = yes
 			}
  		}
+	}
+	zachpom_JOM_and_USP_fuckup = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			OR = {	
+				original_tag = JOM
+				original_tag = USP
+			}
+		}
+
+		available = {
+			OR = {
+				AND = {
+					USP = { has_war_with = KOS }
+					NOT = { USP = { owns_state = 622 } }
+					ROOT = { original_tag = USP }
+				}
+				AND = {
+					JOM = { has_war_with = POM }
+					NOT = { JOM = { owns_state = 68 } }
+					ROOT = { original_tag = JOM }
+				}
+			}
+			date > 2029.01.01
+			date < 2033.01.01
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		#fire_only_once = yes
+		days_remove = 7
+		remove_effect  = {
+			log = "[GetDateText]: Decision zachpom_JOM_and_USP_fuckup"
+				if = { 
+					limit = { 
+						ROOT = { original_tag = JOM }
+						#JOM = { has_war_with = POM }
+						#NOT = { JOM = { owns_state = 68 } }
+					}
+					DEN = {
+						annex_country = {
+							target = JOM
+							transfer_troops = no
+						}
+					}
+				}
+				else_if = {
+					limit = { 
+						ROOT = { original_tag = USP }
+						#USP = { has_war_with = KOS }
+						#NOT = { USP = { owns_state = 622 } }
+					}
+					USA = {
+						annex_country = {
+							target = USP
+							transfer_troops = no
+						}
+					}
+				}
+		}	
 	}
 
 	
