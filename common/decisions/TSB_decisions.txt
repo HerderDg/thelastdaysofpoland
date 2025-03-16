@@ -29,12 +29,18 @@ TSB_decisions_category = {
 				NOT = { has_idea = cooldown }		
 				#triggery na długość wojny albo surrender progress
 				OR = {
-					surrender_progress > 0.3
+					surrender_progress > 0.4
 					AND = {
-						longest_war_length > 6
+						longest_war_length > 9
 						OR = {
-							surrender_progress > 0.01
-							surrender_progress < 0.01
+							AND = {
+								surrender_progress > 0.01
+								NOT = { surrender_progress > 0.5 }
+							}
+							AND = {
+								surrender_progress < 0.01
+								NOT = { surrender_progress > 0.5 }
+							}
 						}
 						NOT = { has_country_flag = unified_voivodeship }
 						NOT = { has_country_flag = unified_regional }
