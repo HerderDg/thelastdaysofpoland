@@ -1779,8 +1779,132 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = aievent.38 #mysłowice - prosba o interwencje
+	title = aievent.38.t
+	desc = aievent.38.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.4" }
+	fire_only_once = yes
+	trigger = { 
+		original_tag = MYS
+		has_war_with = JAW
+	}
+
+	option = {
+		name = aievent.38.a #hejka katowice
+		ai_chance = { base = 65 }
+		log = "[GetDateText]: antifa jaworzno"
+		KAT = {
+			country_event = aievent.39
+		}
+	}
+	option = {
+		name = aievent.38.b #do chorzowa jedziemy
+		ai_chance = { base = 35 }
+		log = "[GetDateText]: soy jaworzno"
+		CHO = {
+			country_event = aievent.40
+		}
+	}
+}
+
+country_event = {
+	id = aievent.39 #mysłowice - prosba o interwencje - katowice
+	title = aievent.39.t
+	desc = aievent.39.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.39" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.39.a #no spoko
+		ai_chance = { base = 50 }
+		log = "[GetDateText]: katowice interweniują"
+		JAW = {
+			country_event = aievent.41
+		}
+		KAT = {
+			set_country_flag = KAT_helped_myslovitz
+		}
+	}
+	option = {
+		name = aievent.39.b #radźcie se sami
+		ai_chance = { base = 50 }
+		log = "[GetDateText]: katowice odmawiają mysłowicom"
+	}
+}
 
 
+country_event = {
+	id = aievent.40 #mysłowice - prosba o interwencje - chorzów
+	title = aievent.40.t
+	desc = aievent.40.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.40" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.40.a #no spoko
+		ai_chance = { base = 35 }
+		log = "[GetDateText]: chorzów interweniuje"
+		JAW = {
+			country_event = aievent.41
+		}
+		CHO = {
+			set_country_flag = CHO_helped_myslovitz
+		}
+	}
+	option = {
+		name = aievent.40.b #radźcie se sami
+		ai_chance = { base = 65 }
+		log = "[GetDateText]: chorzów odmawia mysłowicom"
+	}
+}
+
+country_event = {
+	id = aievent.41 #mysłowice - prosba o interwencje - jaworzno
+	title = aievent.41.t
+	desc = aievent.41.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.41" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.40.a #KURWA MAĆ
+		log = "[GetDateText]: jaworznu mięknie pała"
+		JAW = {
+			white_peace = MYS
+		}
+		if = {
+			limit = {
+				CHO = {
+					has_country_flag = CHO_helped_myslovitz
+				}
+			}
+			MYS = { get_current_government_type = yes }
+			CHO = {
+				puppet = {
+					target = MYS
+				}
+			}
+			MYS = { restore_previous_government_type = yes }
+		}
+		if = {
+			limit = {
+				KAT = {
+					has_country_flag = KAT_helped_myslovitz
+				}
+			}
+			MYS = { get_current_government_type = yes }
+			KAT = {
+				puppet = {
+					target = MYS
+				}
+			}
+			MYS = { restore_previous_government_type = yes }
+		}		
+	}
+}
 
 
 

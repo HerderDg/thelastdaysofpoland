@@ -82,7 +82,7 @@ annex_podbeskidzie = {
 
 
 #BESKIDZKIE - FAZA DRUGA
-carpathian_wars = { #
+carpathian_wars_puppets = { #
  icon = GFX_decision_generic_prepare_civil_war
  allowed = {
  	is_tatry_region = yes
@@ -413,7 +413,76 @@ jura_JUR = {
 		}
  	}
  }
+ zaglebie_SOS = {
 
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = JAW
+			original_tag = ZAW
+		}		
+	}
+
+	available = {
+			OR = {
+				original_tag = JAW
+				original_tag = ZAW
+			}
+			NOT = { 
+				has_idea = cooldown
+			}
+			ROOT = { any_neighbor_country = { original_tag = SOS } }
+			has_war = no
+			date > 2028.02.14
+	}
+
+	
+
+	ai_will_do = {
+		factor = 100
+	}
+	fire_only_once = yes
+	days_remove = 14
+	war_with_on_remove = SOS
+	complete_effect = {
+		add_timed_idea = {
+			idea = cooldown
+			days = 15
+		}
+	}
+	remove_effect  = {
+		log = "[GetDateText]: Decision zaglebie_SOS"
+			if = { limit = { country_exists = SOS }
+			declare_war_on = {
+				target = SOS
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = BED
+			BED = { is_puppet_of = SOS }
+			}
+			declare_war_on = {
+				target = BED
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = SIE
+			SIE = { is_puppet_of = SOS }
+			}
+			declare_war_on = {
+				target = SIE
+				type = voivodeship_war
+			}
+			}						
+	}
+
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
+ }
  zaglebie_DGR = {
 
 	icon = GFX_decision_generic_prepare_civil_war
@@ -523,77 +592,6 @@ jura_JUR = {
 				type = voivodeship_war
 			}
 			}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- zaglebie_SOS = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = JAW
-			original_tag = ZAW
-		}		
-	}
-
-	available = {
-			OR = {
-				original_tag = JAW
-				original_tag = ZAW
-			}
-			NOT = { 
-				has_idea = cooldown
-			}
-			ROOT = { any_neighbor_country = { original_tag = SOS } }
-			has_war = no
-			date > 2028.02.14
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 14
-	war_with_on_remove = SOS
-	complete_effect = {
-		add_timed_idea = {
-			idea = cooldown
-			days = 15
-		}
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision zaglebie_SOS"
-			if = { limit = { country_exists = SOS }
-			declare_war_on = {
-				target = SOS
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = BED
-			BED = { is_puppet_of = SOS }
-			}
-			declare_war_on = {
-				target = BED
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = SIE
-			SIE = { is_puppet_of = SOS }
-			}
-			declare_war_on = {
-				target = SIE
-				type = voivodeship_war
-			}
-			}						
 	}
 
  	cancel_trigger = {
@@ -2708,6 +2706,64 @@ silesian_war = {
 	}
  }
 
+ holy_cross_SND = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = KIE
+			original_tag = NSZ
+			original_tag = STO
+			original_tag = NRA
+			original_tag = STA
+			original_tag = KEL					
+		}
+	}
+
+	available = {
+		NOT = { 
+			has_idea = cooldown
+		}
+		ROOT = { any_neighbor_country = { original_tag = SND } }
+		has_war = no
+		date > 2028.02.18
+	}
+
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			factor = -1
+			surrender_progress > 0.25
+		}
+	}
+
+	fire_only_once = yes
+	days_remove = 14
+	war_with_on_remove = SND
+	complete_effect = {
+		ROOT = { add_timed_idea = {
+			idea = cooldown
+			days = 15
+		}
+	 }
+	}
+	remove_effect  = {
+		log = "[GetDateText]: Decision holy_cross_SND"
+			if = { limit = { country_exists = SND }
+			declare_war_on = {
+				target = SND
+				type = voivodeship_war
+			}
+			}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
+
  holy_cross_STA = {
 
 	icon = GFX_decision_generic_prepare_civil_war
@@ -2764,18 +2820,18 @@ silesian_war = {
 			has_war = yes
 		}
 	}
- }
+ } 
 
- holy_cross_SND = {
+ holy_cross_NSZ = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
 	allowed = {
 		OR = {
 			original_tag = KIE
-			original_tag = NSZ
-			original_tag = STO
 			original_tag = NRA
+			original_tag = STO
+			original_tag = SND
 			original_tag = STA
 			original_tag = KEL					
 		}
@@ -2784,8 +2840,8 @@ silesian_war = {
 	available = {
 		NOT = { 
 			has_idea = cooldown
-		}
-		ROOT = { any_neighbor_country = { original_tag = SND } }
+			}
+		ROOT = { any_neighbor_country = { original_tag = NSZ } }
 		has_war = no
 		date > 2028.02.18
 	}
@@ -2797,10 +2853,9 @@ silesian_war = {
 			surrender_progress > 0.25
 		}
 	}
-
 	fire_only_once = yes
 	days_remove = 14
-	war_with_on_remove = SND
+	war_with_on_remove = NSZ
 	complete_effect = {
 		ROOT = { add_timed_idea = {
 			idea = cooldown
@@ -2809,10 +2864,10 @@ silesian_war = {
 	 }
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision holy_cross_SND"
-			if = { limit = { country_exists = SND }
+		log = "[GetDateText]: Decision holy_cross_NSZ"
+			if = { limit = { country_exists = NSZ }
 			declare_war_on = {
-				target = SND
+				target = NSZ
 				type = voivodeship_war
 			}
 			}
@@ -2881,14 +2936,14 @@ silesian_war = {
 	}
  }
 
- holy_cross_NSZ = {
+ holy_cross_NRA = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
 	allowed = {
 		OR = {
 			original_tag = KIE
-			original_tag = NRA
+			original_tag = NSZ
 			original_tag = STO
 			original_tag = SND
 			original_tag = STA
@@ -2897,12 +2952,12 @@ silesian_war = {
 	}
 
 	available = {
-		NOT = { 
-			has_idea = cooldown
+			NOT = { 
+				has_idea = cooldown
 			}
-		ROOT = { any_neighbor_country = { original_tag = NSZ } }
-		has_war = no
-		date > 2028.02.18
+			ROOT = { any_neighbor_country = { original_tag = NRA } }
+			has_war = no
+			date > 2028.02.18
 	}
 
 	ai_will_do = {
@@ -2914,19 +2969,19 @@ silesian_war = {
 	}
 	fire_only_once = yes
 	days_remove = 14
-	war_with_on_remove = NSZ
+	war_with_on_remove = NRA
 	complete_effect = {
 		ROOT = { add_timed_idea = {
 			idea = cooldown
 			days = 15
 		}
-	 }
+	 	}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision holy_cross_NSZ"
-			if = { limit = { country_exists = NSZ }
+		log = "[GetDateText]: Decision holy_cross_NRA"
+			if = { limit = { country_exists = NRA }
 			declare_war_on = {
-				target = NSZ
+				target = NRA
 				type = voivodeship_war
 			}
 			}
@@ -2995,63 +3050,6 @@ silesian_war = {
 	}
  }
 
-
- holy_cross_NRA = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = KIE
-			original_tag = NSZ
-			original_tag = STO
-			original_tag = SND
-			original_tag = STA
-			original_tag = KEL					
-		}
-	}
-
-	available = {
-			NOT = { 
-				has_idea = cooldown
-			}
-			ROOT = { any_neighbor_country = { original_tag = NRA } }
-			has_war = no
-			date > 2028.02.18
-	}
-
-	ai_will_do = {
-		factor = 100
-		modifier = {
-			factor = -1
-			surrender_progress > 0.25
-		}
-	}
-	fire_only_once = yes
-	days_remove = 14
-	war_with_on_remove = NRA
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 15
-		}
-	 	}
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision holy_cross_NRA"
-			if = { limit = { country_exists = NRA }
-			declare_war_on = {
-				target = NRA
-				type = voivodeship_war
-			}
-			}
-	}
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
- }
 #ŚWIĘTOKRZYSKIE - FAZA DRUGA
 #ŚWIĘTOKRZYSKIE - FAZA OSTATECZNA
 #██╗░░░░░██╗░░░██╗██████╗░███████╗██╗░░░░░░██████╗██╗░░██╗██╗███████╗
@@ -20238,7 +20236,6 @@ chelminsko_kujawska = {
 		NOT = {
 			original_tag = OLE
 		}
-		
 	}
 
 	available = {
@@ -20269,12 +20266,12 @@ chelminsko_kujawska = {
 				}
 			}			
 		}
+		has_war = no
 	}
 
 	ai_will_do = {
 		factor = 100
 	}
-	fire_only_once = yes
 	days_remove = 14
 	war_with_on_remove = OLE
 	remove_effect  = {
