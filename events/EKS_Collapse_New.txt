@@ -97,7 +97,7 @@ news_event = {
 	id = eksrozpadnews.1 #Copper Basin Revolt - News
 	title = eksrozpadnews.1.t
 	desc = eksrozpadnews.1.desc
-	picture = GFX_news_event_zagan
+	picture = GFX_news_event_copper_revolt
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -113,7 +113,7 @@ news_event = {
 	id = eksrozpadnews.2 #Copper Basin Revolt Crushed - News
 	title = eksrozpadnews.2.t
 	desc = eksrozpadnews.2.desc
-	picture = GFX_news_event_zagan
+	picture = GFX_news_event_copper_revolt_crushed
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -219,6 +219,17 @@ country_event = {
 				leave_faction = yes
 				drop_cosmetic_tag = yes
 			}
+			every_state = {
+				limit = {
+					is_poland_state = yes
+				}
+				teleport_armies = {
+					limit = {
+						original_tag = TOU
+						is_ai = yes
+					}
+				}
+			}
 			EKS = { end_puppet = TOU }		
 			TOU = {
 				country_event = {
@@ -316,7 +327,7 @@ news_event = {
 	id = eksrozpadnews.4 #Sutryk's Back in Control News
 	title = eksrozpadnews.4.t
 	desc = eksrozpadnews.4.desc
-	picture = GFX_news_event_zagan
+	picture = GFX_news_event_sutryk_takesover
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -421,6 +432,16 @@ country_event = {
 					id = eksrozpad.11
 					days = 10
 				}				
+			}
+			every_state = {
+				limit = {
+					is_poland_state = yes
+				}
+				teleport_armies = {
+					limit = {
+						original_tag = GER
+					}
+				}
 			}
 		}
 	}
@@ -730,6 +751,19 @@ country_event = {
 	}
 	option = {
 		name = eksrozpad.18.a
+		hidden_effect = {
+			every_state = {
+				limit = {
+					is_poland_state = yes
+				}
+				teleport_armies = {
+					limit = {
+						original_tag = EKS
+						is_ai = yes
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -789,7 +823,23 @@ country_event = {
 	option = {
 		name = eksrozpad.21.a
 		set_politics = {
-			ruling_party = reactionary
+			ruling_party = autocracy
+		}
+		drop_cosmetic_tag = yes
+		set_party_name = {
+			ideology = euroliberalism
+			long_name = CZH_euroliberalism_party_long
+			name = CZH_euroliberalism_party
+		}
+		hidden_effect = {
+			every_state = {
+				teleport_armies = {
+					limit = {
+						original_tag = SLE
+						is_ai = yes
+					}
+				}
+			}
 		}
 		leave_faction = yes
 		set_global_flag = czechia_dissolution_early
@@ -816,6 +866,16 @@ country_event = {
 	option = {
 		name = eksrozpad.22.a
 		leave_faction = yes
+		hidden_effect = {
+			every_state = {
+				teleport_armies = {
+					limit = {
+						original_tag = TSZ
+						is_ai = yes
+					}
+				}
+			}
+		}
 		GER = { end_puppet = TSZ }
 	}
 }
@@ -903,5 +963,41 @@ country_event = {
 	
 	option = {
 		name = eksrozpad.24.b
+	}
+}
+
+
+country_event = {
+	id = eksrozpad.25 #Czego stoisz na torach?
+	title = eksrozpad.25.t
+	desc = eksrozpad.25.desc
+
+	fire_only_once = yes
+	
+	trigger = {
+		BRE = { num_of_controlled_states < 1 }
+		WRO = { num_of_controlled_states > 1 }		
+		WRO = { has_war = no }
+		date > 2027.09.01
+		original_tag = WRO
+	}
+
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires eksrozpad.20"
+		EKS_collapse_MPK = yes
+	}
+
+	option = {
+		name = eksrozpad.25.a
+		MPK = {
+			change_tag_from = WRO
+			country_event = {
+				id = config.2
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = eksrozpad.25.b
 	}
 }

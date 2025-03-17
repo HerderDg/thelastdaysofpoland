@@ -705,12 +705,7 @@ do_not_waste_pp_if_saving_for_manpower_laws = {
 		manpower_per_military_factory < 500
 		has_war = yes
 	}
-	abort = {
-		OR = {
-			manpower_per_military_factory > 500
-			has_war = no
-		}
-	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = pp_spend_priority
@@ -1089,6 +1084,59 @@ default_produce_floating_harbors = {
 }
 
 
+cejrowski_ty_zasrany_hobbicie = {
+
+	enable = { 
+		original_tag = LOT
+		has_war_with = SWC
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = SWC
+		priority = 100
+		ordertype = front 
+		execution_type = rush 
+		execute_order = yes 
+	}
+	ai_strategy = {
+		type = conquer
+		id = SWC
+		value = 500
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SWC
+		value = 1000
+	}
+}
+
+piton_ty_pierdolona_amebo = {
+
+	enable = { 
+		original_tag = GUR
+		has_war_with = ZKP
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_control
+		tag = ZKP
+		priority = 100
+		ordertype = front 
+		execution_type = rush 
+		execute_order = yes 
+	}
+	ai_strategy = {
+		type = conquer
+		id = ZKP
+		value = 500
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = ZKP
+		value = 1000
+	}
+}
 zandberg_debilu_kryj_front = {
 
 	enable = { 
@@ -1438,29 +1486,6 @@ div_limiter_tribal = {
 	}
 }
 
-piu_default_strategy = {
-	enable = {
-		always = yes
-	}
-	abort_when_not_enabled = yes
-	ai_strategy = {
-		type = ignore_army_incompetence
-		value = 100
-	}
-	ai_strategy = {
-		type = front_control
-		state_trigger = {
-			owner = {
-				is_poland_unifier = yes
-				has_war_with = ROOT
-			}
-		}
-		priority = 80
-		ordertype = front
-		execution_type = rush
-		manual_attack = no
-	}
-}
 
 piu_build_cathedral = {
 	enable = {
@@ -1589,12 +1614,10 @@ ZAG_garrison_lusatia = {
 
 }
 
-
-
-default_market_stockpile_management = {
+TSB_default_market_stockpile_management = {
 	enable = {
 		always = yes
-		# NOT = { original_tag = GER } # commented until actually needs override
+		original_tag = TSB  
 	}
 	abort_when_not_enabled = yes
 
@@ -1612,7 +1635,125 @@ default_market_stockpile_management = {
 	ai_strategy = {
 		type = equipment_market_for_sale_factor
 		id = train
-		value = -50  # put fewer trains up for sale
+		value = -50 # put fewer trains for sale
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = infantry
+		value = 100 
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = armor
+		value = 100 
+	}	
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = mechanized
+		value = 100 
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = fighter
+		value = 100 
+	}	
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = tactical_bomber
+		value = 100 
+	}	
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = artillery
+		value = 100 
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = cas
+		value = 100 
+	}	
+
+	ai_strategy = {
+		type = equipment_market_min_for_sale
+		id = convoy
+		value = 20  # only put up for sale in chunks of 20
+	}
+
+	# Don't let all your planes just fly out the window.
+	# Only sell planes if we have more than one airwing in surplus.
+
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = infantry
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = armor
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = mechanized
+		value = 1
+	}			
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = fighter
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = tactical_bomber
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = artillery
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = cas
+		value = 1
+	}
+}
+
+kupujcie_bron_od_hnesza = {
+	enable = {
+		is_poland_unifier = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_trade_desire
+		id = TSB  # desired trade partner
+		value = 100  # Increases the acceptance and desire values by this
+	}
+}
+
+default_market_stockpile_management = {
+	enable = {
+		always = yes
+		NOT = { original_tag = TSB }
+	}
+	abort_when_not_enabled = yes
+
+	# Hold your trains there, partner
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = train
+		value = 20  # only start considering selling trains if surplus more than 20
+	}
+	ai_strategy = {
+		type = equipment_market_min_for_sale
+		id = train
+		value = 5  # only put up for sale in chunks of 5
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_factor
+		id = train
+		value = -50 
 	}
 
 	# Better not put all your boats up for sail
@@ -1771,6 +1912,216 @@ if_we_can_build_nuclear_missiles_we_want_nuclear_missiles = {
 		id = nuclear_missile_equipment
 		value = 1
 	}
+}
+
+
+dolaczaj_kurwo_do_wojny_POG = {
+	allowed = {
+		is_ai = yes
+	}
+
+	enable = {
+		original_tag = POG
+		any_allied_country = {
+			has_war = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+        type = diplo_action_acceptance
+        id = POG
+        target = join_allies
+        value = 99999
+    }	
+}
+dolaczaj_kurwo_do_wojny_RUT = {
+	allowed = {
+		is_ai = yes
+	}
+
+	enable = {
+		original_tag = RUT
+		any_allied_country = {
+			has_war = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+        type = diplo_action_acceptance
+        id = RUT
+        target = join_allies
+        value = 99999
+    }	
+}
+nie_dolaczaj_kurwo_do_wojny_DGR = {
+	allowed = {
+		is_ai = yes
+	}
+
+	enable = {
+		original_tag = DGR
+		any_allied_country = {
+			has_war = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+        type = diplo_action_acceptance
+        id = DGR
+        target = join_allies
+        value = -99999
+    }	
+}
+nie_dolaczaj_kurwo_do_wojny_SOS = {
+	allowed = {
+		is_ai = yes
+	}
+
+	enable = {
+		original_tag = DGR
+		any_allied_country = {
+			has_war = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+        type = diplo_action_acceptance
+        id = SOS
+        target = join_allies
+        value = -99999
+    }	
+}
+nie_dolaczaj_kurwo_do_wojny_JAW = {
+	allowed = {
+		is_ai = yes
+	}
+
+	enable = {
+		original_tag = JAW
+		any_allied_country = {
+			has_war = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+        type = diplo_action_acceptance
+        id = JAW
+        target = join_allies
+        value = -99999
+    }	
+}
+
+
+tepe_chuje_napierdalac  = {
+	allowed = {
+		is_ai = yes
+	}
+
+	enable = {
+		has_war = yes
+		has_idea = wojnozapierdalacz
+	}
+
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = ignore_army_incompetence
+		value = 100
+	}
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = ROOT
+		}
+		area = central_poland
+		priority = 100
+		ordertype = front
+		execution_type = rush
+	}
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			has_war_with = ROOT
+		}	
+		area = central_poland
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = ROOT
+		}
+		area = pomorze
+		priority = 100
+		ordertype = front
+		execution_type = rush
+	}	
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			has_war_with = ROOT
+		}	
+		area = pomorze
+		value = 1000
+	}
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = ROOT
+		}
+		area = slask
+		priority = 100
+		ordertype = front
+		execution_type = rush
+	}
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			has_war_with = ROOT
+		}	
+		area = slask
+		value = 1000
+	}	
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = ROOT
+		}
+		area = malopolska
+		priority = 100
+		ordertype = front
+		execution_type = rush
+	}
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			has_war_with = ROOT
+		}	
+		area = malopolska
+		value = 1000
+	}	
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = ROOT
+		}
+		area = mazowsze_mazury
+		priority = 100
+		ordertype = front
+		execution_type = rush
+	}	
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			has_war_with = ROOT
+		}	
+		area = mazowsze_mazury
+		value = 1000
+	}	
 }
 
 

@@ -2,20 +2,18 @@ workshops_category = {
 	setup_workshops = {
 		visible = {
 			NOT = {
-				OR = {
-					has_global_flag = EKS_collapsed
-					has_country_flag = poland_mountain
-					has_country_flag = unified_supregional
-					has_country_flag = unified_regional
-					has_country_flag = unified_voivodeship
-					and = {
-						original_tag = ATM
-						has_war_with = BBW
-					}
-					is_somsiad = yes
-					is_ai = yes
-					is_eurozone = yes
+				has_global_flag = EKS_collapsed
+				has_country_flag = poland_mountain
+				has_country_flag = unified_supregional
+				has_country_flag = unified_regional
+				has_country_flag = unified_voivodeship
+				AND = {
+					original_tag = ATM
+					has_war_with = BBW
 				}
+				is_somsiad = yes
+				is_ai = yes
+				is_eurozone = yes
 			}
 		}
 		available = {
@@ -26,17 +24,18 @@ workshops_category = {
 				}
 			}
 		}
-		state_target = any_owned_state
+		state_target = yes
 		target_trigger = { # jakby nie znikały po dniu to odkomentować
 			FROM = {
-				is_owned_by = ROOT
+				is_core_of = ROOT
+				is_owned_and_controlled_by = ROOT
 			}
 		}
 		on_map_mode = map_only
-		cost = 10
+
 		days_remove = 365
 		ai_will_do = {
-			factor = 100
+			base = 100
 		}
 		complete_effect = {
 			custom_effect_tooltip = workshop_explanation_tt
@@ -234,8 +233,16 @@ workshops_category = {
 				}
 			}
 		}
+		ai_will_do = {
+			base = 100
+		}
 		state_target = yes
-		target_array = ROOT.owned_states
+		target_trigger = { # jakby nie znikały po dniu to odkomentować
+			FROM = {
+				is_core_of = ROOT
+				is_owned_and_controlled_by = ROOT
+			}
+		}
 		on_map_mode = map_only
 		cost = 10
 		days_remove = 730

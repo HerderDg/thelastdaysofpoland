@@ -33,14 +33,6 @@ scripted_gui = {
 		visible = {
 			has_global_flag = coring_ui_visible
 		}
-		effects = {
-			add_core_click = {
-				coring_effect = yes
-			}
-			close_button_click = {
-				close_coring_ui_effect = yes
-			}
-		}
 		triggers = {
 			add_core_visible = {
 				NOT = {is_core_of = ROOT}
@@ -49,25 +41,37 @@ scripted_gui = {
 				enable_coring_button = yes
 			}
 		}
-		
+		ai_enabled = {
+			is_poland_unifier = yes
+		}
+
 		ai_test_interval = 168
 		ai_test_variance = 0.2
 		ai_test_scopes = test_self_owned_states
-		#ai_enabled = {
-		#	always = yes
-		#}
+
 		ai_check_scope = {
-			NOT = { is_core_of = ROOT }
-			is_owned_and_controlled_by = ROOT
-			any_neighbor_state = { is_core_of = ROOT }	
+			any_controlled_state = {
+				NOT = { is_core_of = ROOT }
+				is_owned_and_controlled_by = ROOT
+				compliance > 50
+			}
 		}
 		ai_weights = {
 			add_core_click = {
 				ai_will_do = {
-					factor  = 1
+					base = 1
 				}
 			}
 		}
+		effects = {
+			add_core_click = {
+				coring_effect = yes
+			}
+			close_button_click = {
+				close_coring_ui_effect = yes
+			}
+		}
+
 		
 		dynamic_lists = {
 			noncores_gridbox = {

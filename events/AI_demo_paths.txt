@@ -176,6 +176,22 @@ country_event = {
 			}
 		set_global_flag = miedzypowiatowka_collapsed
 		log = "[GetDateText]: sosnowiec rozwalił frakcję"
+		every_state = {
+			limit = {
+				OR = {
+					is_controlled_by = SOS
+					is_controlled_by = DGR
+					is_controlled_by = JAW
+					is_controlled_by = BED
+					is_controlled_by = SIE
+				}
+			}
+			teleport_armies = {
+				limit = {
+					is_ai = yes
+				}
+			}
+		}
 	}
 }
 
@@ -190,7 +206,7 @@ country_event = {
 	trigger = { 
 		original_tag = CHO
 		date > 2028.03.01 
-		}
+	}
 
 	option = {
 		name = aievent.6.a
@@ -232,6 +248,17 @@ country_event = {
 			add_to_array = { global.silesian_factions = DUR }
 			add_to_array = { global.silesian_factions = WOD }
 			add_to_array = { global.silesian_factions = JSW }
+
+			every_state = {
+				limit = {
+					is_upper_silesia_state = yes
+				}
+				teleport_armies = {
+					limit = {
+						is_ai = yes
+					}
+				}
+			}
 		log = "[GetDateText]: chorzów rozwalił frakcję"
 	}
 }
@@ -315,7 +342,7 @@ country_event = {
 
 
 country_event = {
-	id = aievent.9 #zawiercie
+	id = aievent.9 #gowin
 	title = aievent.9.t
 	desc = aievent.9.desc
 
@@ -603,7 +630,7 @@ country_event = {
 		KRK = {
 		set_politics = {
 			ruling_party = autocracy
-			}
+		}
 		}
 		log = "[GetDateText]: krul smogu majchrowski"
 	}
@@ -632,12 +659,36 @@ country_event = {
 	option = {
 		name = aievent.15.a #EKS
 		ai_chance = { base = 50 }
-		EKS = {
-			annex_country = {
-				target = TOU
-				transfer_troops = yes
+		if = { limit = {
+			EKS = {exists = yes}
+		}
+			EKS = {
+				annex_country = {
+					target = TOU
+					transfer_troops = yes
+				}
 			}
 		}
+		if = { limit = {
+			ECO = {exists = yes}
+		}
+			ECO = {
+				annex_country = {
+					target = TOU
+					transfer_troops = yes
+				}
+			}
+		}
+		if = { limit = {
+			BOG = {exists = yes}
+		}
+			BOG = {
+				annex_country = {
+					target = TOU
+					transfer_troops = yes
+				}
+			}
+		}				
 	}			
 	option = {
 		name = aievent.15.b #KGHorCYG
@@ -1337,12 +1388,18 @@ country_event = {
 			ruling_party = paternal_conservatism
 		}
 		white_peace = ZKP
-		ZKP = { transfer_state = 943 }
+		ZKP = { transfer_state = 943 
+		set_cosmetic_tag = ZKP_GUR
+		get_current_government_type = yes
+		}
 			diplomatic_relation = {
 				country = ZKP
 				relation = puppet
 				active = yes
 			}
+		ZKP = {
+			restore_previous_government_type = yes
+		}
 		log = "[GetDateText]: hej panocku spierdalaj z makumgórki"
 	}
 }
@@ -1409,7 +1466,7 @@ country_event = {
 	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.32"}
 	option = {
-		name = aievent.32.a #grujec tak warka nie
+		name = aievent.33.a #grujec tak warka nie
 		ai_chance = { base = 40 }
 		GRJ = { get_current_government_type = yes }
 		SAT = {
@@ -1427,7 +1484,7 @@ country_event = {
 		log = "[GetDateText]: GRJ puppet VRC war"
 	}
 	option = {
-		name = aievent.32.b #grujec tak warka tak
+		name = aievent.33.b #grujec tak warka tak
 		ai_chance = { base = 10 }
 		VRC = { get_current_government_type = yes }
 		GRJ = { get_current_government_type = yes }
@@ -1448,7 +1505,7 @@ country_event = {
 		log = "[GetDateText]: GRJ VRC puppets"
 	}	
 	option = {
-		name = aievent.32.c #grujec nie warka tak
+		name = aievent.33.c #grujec nie warka tak
 		ai_chance = { base = 40 }
 		VRC = { get_current_government_type = yes }
 		SAT = {
@@ -1466,7 +1523,7 @@ country_event = {
 		log = "[GetDateText]: GRJ war VRC puppet"
 	}
 	option = {
-		name = aievent.32.d #grujec nie warka nie
+		name = aievent.33.d #grujec nie warka nie
 		ai_chance = { base = 10 }
 		SAT = {
 			declare_war_on = {
@@ -1482,6 +1539,372 @@ country_event = {
 	}	
 }
 
+country_event = {
+	id = aievent.34 #osrany waldenburg
+	title = aievent.34.t
+	desc = aievent.34.desc
+
+	fire_only_once = yes
+	trigger = { 
+		original_tag = ZUL
+		NOT = { has_cosmetic_tag = ZUL_UE }
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.34 - bumtown elections"}
+	option = {
+		name = aievent.34.a #szełebambo
+		ai_chance = { base = 15 }	
+		log = "[GetDateText]: Szałamacha robi gówno"
+	}
+	option = {
+		name = aievent.34.b #żultek
+		ai_chance = { base = 35 }
+		set_politics = {
+			ruling_party = freemarketism
+		}
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.2
+		}
+		log = "[GetDateText]: Żółtek królem Żuli"
+	}	
+	option = {
+		name = aievent.34.c #pppp
+		ai_chance = { base = 50 }
+		set_politics = {
+			ruling_party = socialdemocrature
+		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.2
+		}
+		log = "[GetDateText]: PPPP wraca na salony"
+	}	
+}
+
+country_event = {
+	id = aievent.35 #mandat niebios
+	title = aievent.35.t
+	desc = aievent.35.desc
+
+	fire_only_once = yes
+	trigger = { 
+		original_tag = HOR
+		OR = {
+			HOR = { can_unify_lesser_poland = yes }
+			MSL = { can_unify_lesser_poland = yes }
+		}
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.35 - war in heaven"}
+	option = {
+		name = aievent.35.a #nekropolin
+		ai_chance = { base = 15 }	
+		log = "[GetDateText]: FOR THE HORDE"
+		HOR = {
+			dismantle_faction = yes
+		}
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.5
+		}
+		HOR = { load_oob = "szkieletornia" }
+		HOR_szkieletornia = yes	
+		HOR = {
+			declare_war_on = {
+				target = MSL
+				type = voivodeship_war
+			}
+			set_country_flag = MPOL_war_in_heaven
+			set_cosmetic_tag = HOR_horda
+		}
+		MSL = {
+			set_country_flag = MPOL_war_in_heaven
+		}	
+	}
+	option = {
+		name = aievent.35.b #procession-blessed
+		ai_chance = { base = 65 }
+		log = "[GetDateText]: Inba ciągle trwa kiedy papież tańczy"
+		every_state = {
+			limit = {
+				is_lesser_poland_state = yes
+				NOT = {
+					is_core_of = MSL 
+				}
+			}
+			transfer_state_to = HOR
+		}
+		933 = { transfer_state_to = MSL }
+		824 = { transfer_state_to = MSL }	
+		596 = { transfer_state_to = MSL }	
+		523 = { transfer_state_to = MSL }	
+		948 = { transfer_state_to = MSL }	
+		MSL = {
+			set_cosmetic_tag = MSL_HOR
+		}
+		MSL = { get_current_government_type = yes }
+		HOR = {
+			set_autonomy = {
+				target = MSL
+				autonomous_state = autonomy_puppet
+				freedom_level = 0.15 
+			}
+		}	
+		MSL = { restore_previous_government_type = yes }	
+	}	
+	option = {
+		name = aievent.35.c #desant na mordę
+		ai_chance = { base = 20 }
+		HOR = {
+			dismantle_faction = yes
+		}
+		MSL = { set_country_flag = MPOL_war_in_heaven }
+		HOR = { set_country_flag = MPOL_war_in_heaven }
+		MSL = {
+			declare_war_on = {
+				target = HOR
+				type = voivodeship_war
+			}
+		}
+		MSL = { load_oob = "MSL_war_in_heaven" }
+		log = "[GetDateText]: Myślenice wygrywają"
+	}	
+}
+
+country_event = {
+	id = aievent.36 #lublyniec
+	title = aievent.36.t
+	desc = aievent.36.desc
+
+	fire_only_once = yes
+	trigger = { 
+		original_tag = JWK
+		date > 2027.11.01
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.36 - lubliniec "}
+	option = {
+		name = aievent.36.a #kukuła wot
+		ai_chance = { base = 40 }
+		add_popularity = {
+			ideology = autocracy
+			popularity = 15
+		}
+		log = "[GetDateText]: JWK - WOT"
+	}
+	option = {
+		name = aievent.36.b #kukuła sparta
+		ai_chance = { base = 30 }
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 40
+		}
+		log = "[GetDateText]: JWK - SPARTAAAAAAAAAAAAAAAAA"
+	}
+	option = {
+		name = aievent.8.c #komandosi
+		ai_chance = { base = 30 }
+		set_politics = {
+			ruling_party = neonationalism
+		}
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 20
+		}
+		log = "[GetDateText]: JWK - Commando Coup"
+	}
+}
+
+
+country_event = {
+	id = aievent.37 #antifa mysłowice
+	title = aievent.37.t
+	desc = aievent.37.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.4" }
+	fire_only_once = yes
+	trigger = { 
+		original_tag = JAW
+		date > 2027.06.01
+	}
+
+	option = {
+		name = aievent.37.a #antifa wjeżdża na rejon
+		ai_chance = { base = 80 }
+		log = "[GetDateText]: antifa jaworzno"
+		486 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = MYS
+		}
+		761 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = MYS
+		}
+		502 = { 
+			transfer_state_to = MYS
+			set_demilitarized_zone = no 
+		}
+		MYS = {
+			load_oob = "MYS_2027"
+		}
+		JAW = {
+			declare_war_on = {
+				target = MYS
+				type = voivodeship_war
+			}
+		}
+	}
+	option = {
+		name = aievent.37.b #dobra niech spierdalaja
+		ai_chance = { base = 20 }
+		log = "[GetDateText]: soy jaworzno"
+		486 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = MYS
+		}
+		761 = { 
+			set_demilitarized_zone = no
+			transfer_state_to = MYS
+		}
+		502 = { 
+			transfer_state_to = MYS
+			set_demilitarized_zone = no 
+		}
+		MYS = {
+			load_oob = "MYS_2027"
+		}
+	}
+}
+
+country_event = {
+	id = aievent.38 #mysłowice - prosba o interwencje
+	title = aievent.38.t
+	desc = aievent.38.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.4" }
+	fire_only_once = yes
+	trigger = { 
+		original_tag = MYS
+		has_war_with = JAW
+	}
+
+	option = {
+		name = aievent.38.a #hejka katowice
+		ai_chance = { base = 65 }
+		log = "[GetDateText]: antifa jaworzno"
+		KAT = {
+			country_event = aievent.39
+		}
+	}
+	option = {
+		name = aievent.38.b #do chorzowa jedziemy
+		ai_chance = { base = 35 }
+		log = "[GetDateText]: soy jaworzno"
+		CHO = {
+			country_event = aievent.40
+		}
+	}
+}
+
+country_event = {
+	id = aievent.39 #mysłowice - prosba o interwencje - katowice
+	title = aievent.39.t
+	desc = aievent.39.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.39" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.39.a #no spoko
+		ai_chance = { base = 50 }
+		log = "[GetDateText]: katowice interweniują"
+		JAW = {
+			country_event = aievent.41
+		}
+		KAT = {
+			set_country_flag = KAT_helped_myslovitz
+		}
+	}
+	option = {
+		name = aievent.39.b #radźcie se sami
+		ai_chance = { base = 50 }
+		log = "[GetDateText]: katowice odmawiają mysłowicom"
+	}
+}
+
+
+country_event = {
+	id = aievent.40 #mysłowice - prosba o interwencje - chorzów
+	title = aievent.40.t
+	desc = aievent.40.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.40" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.40.a #no spoko
+		ai_chance = { base = 35 }
+		log = "[GetDateText]: chorzów interweniuje"
+		JAW = {
+			country_event = aievent.41
+		}
+		CHO = {
+			set_country_flag = CHO_helped_myslovitz
+		}
+	}
+	option = {
+		name = aievent.40.b #radźcie se sami
+		ai_chance = { base = 65 }
+		log = "[GetDateText]: chorzów odmawia mysłowicom"
+	}
+}
+
+country_event = {
+	id = aievent.41 #mysłowice - prosba o interwencje - jaworzno
+	title = aievent.41.t
+	desc = aievent.41.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.41" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.40.a #KURWA MAĆ
+		log = "[GetDateText]: jaworznu mięknie pała"
+		JAW = {
+			white_peace = MYS
+		}
+		if = {
+			limit = {
+				CHO = {
+					has_country_flag = CHO_helped_myslovitz
+				}
+			}
+			MYS = { get_current_government_type = yes }
+			CHO = {
+				puppet = {
+					target = MYS
+				}
+			}
+			MYS = { restore_previous_government_type = yes }
+		}
+		if = {
+			limit = {
+				KAT = {
+					has_country_flag = KAT_helped_myslovitz
+				}
+			}
+			MYS = { get_current_government_type = yes }
+			KAT = {
+				puppet = {
+					target = MYS
+				}
+			}
+			MYS = { restore_previous_government_type = yes }
+		}		
+	}
+}
 
 
 
@@ -1546,15 +1969,10 @@ country_event = {
 			        ideology = neonationalism_national_agrarianism_subtype
 			    }
 			}
-			damage_units = {
-			   region = 51
-			   limit = { original_tag = OSP }
-			   damage = 0.5
-			   org_damage = 0.5
-			   str_damage = 0.5
-			   ratio = yes
-			   army = yes
-			}
+		delete_unit = {
+			state = 935
+			disband = no 
+		}			
 		}
 		935 = {
 			damage_building = {
@@ -1567,6 +1985,7 @@ country_event = {
 			}
 			TRN = { transfer_state = PREV }	
 		}
+
 		add_stability = -0.2
 		add_popularity = {
 		    ideology = autocracy
@@ -1621,6 +2040,7 @@ country_event = {
 				relation = puppet
 				active = yes
 			}
+			
 		}
 		set_global_flag = PSL_polish_coalition_formed	
 		log = "[GetDateText]: dialog zwyciezyl po raz kolejny - ludowa edycja"
@@ -1657,15 +2077,10 @@ country_event = {
 			OSP = { transfer_state = PREV }	
 		}
 		TRN = {
-			damage_units = {
-			   region = 51
-			   limit = { original_tag = TRN }
-			   damage = 0.5
-			   org_damage = 0.5
-			   str_damage = 0.5
-			   ratio = yes
-			   army = yes
-			}
+			delete_unit = {
+				state = 512
+				disband = no 
+			}	
 		}
 		add_war_support = 0.2
 		add_popularity = {
@@ -1678,3 +2093,6 @@ country_event = {
 		}	
 	}
 }
+
+
+

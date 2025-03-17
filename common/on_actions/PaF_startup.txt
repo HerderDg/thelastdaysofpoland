@@ -359,6 +359,18 @@ on_actions = {
 				limit = { has_idea = observer_country }
 				add_offsite_building = { type = arms_factory level = 10 }
 			}
+			every_country = {
+				limit = { is_poland_unifier = yes }
+				give_market_access = TSB
+				add_opinion_modifier = {
+					target = TSB
+					modifier = trade_agreement
+				}
+				add_opinion_modifier = {
+					target = TSB
+					modifier = cheat_opinion_modifier_good
+				}				
+			}
 			CAL = {
 				scoped_play_song = "calisia"
 			}
@@ -387,7 +399,7 @@ on_actions = {
 						tag = BPD
 						tag = ARK
 						tag = TIG
-						
+						tag = KON
 					}
 				}
 				set_country_flag = curse_of_piu
@@ -651,7 +663,7 @@ on_actions = {
 				country_event = {
 					id = ekwrozpad.1
 					days = 180
-					}
+				}
 				country_event = {
 					id = ekw.3
 					days = 1 
@@ -828,10 +840,19 @@ on_actions = {
 			every_owned_state = {
 				limit = {
 					NOT = { is_core_of = ROOT }
-					compliance > 90
+					compliance > 75
+					ROOT = { is_ai = no }
 				}
 				auto_coring_effect = yes
 			}
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+					compliance > 50
+					ROOT = { is_ai = yes }
+				}
+				auto_coring_effect = yes
+			}			
 			every_owned_state = {
 				limit = {
 					NOT = { is_core_of = ROOT }
@@ -1305,8 +1326,16 @@ on_actions = {
 	}
 	on_monthly = {
 		effect = {
-			get_monthly_budget = yes
-			calculate_food_effects = yes
+			if = {
+				limit = { 
+					OR = {
+						is_somsiad = no
+						is_ai = no 
+					}
+				}
+				get_monthly_budget = yes
+				calculate_food_effects = yes
+			}
 		}
 	}
 	on_monthly_ZHR = {
@@ -1812,12 +1841,13 @@ on_actions = {
 			} 
 			}
 			THIS = { add_ideas = AI_bridge_crossing_idea } 
-		}
+		}	
 		}
 	}
 	on_declare_war = {
 		effect = {
 			log = "[?From.casualties] - [?ROOT.casualties_k]"
+			
 			if = {
 				limit = {
 					FROM = {

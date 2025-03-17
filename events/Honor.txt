@@ -32,7 +32,7 @@ country_event = {
 }
 
 country_event = {
-	id = honor.2 #rewolucja w durś
+	id = honor.2 #rewolucja w durś - legion
 	title = honor.2.t
 	desc = honor.2.desc
 
@@ -42,6 +42,12 @@ country_event = {
 	immediate = { 
 		DUR_collapse_WOD = yes 
 		log = "[GetDateText]: [ROOT.GetName] fires honor.2" 
+		DUR = {
+			country_event = {
+				id = honor.3
+				days = 10
+			}
+		}
 	}
 
 	option = {
@@ -68,3 +74,145 @@ country_event = {
 }
 
 
+country_event = {
+	id = honor.3 #rewolucja w durś - rybnik
+	title = honor.3.t
+	desc = honor.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires honor.3 - Rybnik liberated" }
+
+	option = {
+		name = honor.3.a
+		random_list = {
+			60 = {
+				DUR_collapse_RBN_DUR = yes
+			}
+			40 = {
+				DUR_collapse_RBN_WOD = yes
+			}
+		}
+		
+	}
+}
+
+
+country_event = {
+	id = honor.4 #rybnik smaczny i prosty
+	title = honor.4.t
+	desc = honor.4.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = DUR
+		date > 2028.02.01
+		RBN = { 
+			exists= yes 
+			has_government = euroliberalism
+		}
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires honor.4 - zjem Rybniken" }
+
+	option = {
+		name = honor.4.a
+		DUR = {
+			annex_country = {
+				target = RBN
+			}
+		}
+	}
+}
+
+country_event = {
+	id = honor.5 #rybnik rozjebany
+	title = honor.5.t
+	desc = honor.5.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = DUR
+		date > 2028.02.01
+		RBN = { 
+			exists= yes 
+			has_government = postpolonism
+		}
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires honor.5 - zniszczen Rybniken" }
+
+	option = {
+		name = honor.5.a
+		DUR = {
+			declare_war_on = {
+				target = RBN
+				type = voivodeship_war
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = honor.6 #rybnik smaczny i prosty - postpol edition
+	title = honor.6.t
+	desc = honor.6.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = WOD
+		date > 2028.02.01
+		RBN = { 
+			exists= yes 
+			has_government = postpolonism
+		}
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires honor.6 - zjem Rybniken" }
+
+	option = {
+		name = honor.6.a
+		WOD = {
+			annex_country = {
+				target = RBN
+			}
+			set_politics = {
+				ruling_party = postpolonism
+			}
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 30
+			}
+		}
+	}
+}
+
+country_event = {
+	id = honor.7 #rozjebanie rybnika
+	title = honor.7.t
+	desc = honor.7.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = WOD
+		date > 2028.02.01
+		RBN = { 
+			exists= yes 
+			has_government = euroliberalism
+		}
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires honor.7 - zniszczen Rybniken" }
+
+	option = {
+		name = honor.7.a
+		WOD = {
+			declare_war_on = {
+				target = RBN
+				type = voivodeship_war
+			}
+		}
+	}
+}

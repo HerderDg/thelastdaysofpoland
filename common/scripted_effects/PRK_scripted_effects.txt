@@ -30,6 +30,11 @@ PRK_revolt_NRA = {
 			}
 		}
 		NRA = {
+			add_ideas = {
+				NRA_fervor1
+			}
+		}
+		NRA = {
 			load_oob = "NRA_2027"
 			declare_war_on = {
 				target = PRK
@@ -78,6 +83,11 @@ PRK_revolt_NSZ = {
 			}
 		}
 		NSZ = {
+			add_ideas = {
+				NSZ_storm1
+			}
+		}
+		NSZ = {
 			load_oob = "NSZ_2027"
 			declare_war_on = {
 				target = PRK
@@ -118,6 +128,12 @@ PRK_revolt_KEL = {
 			PRK = { 
 				remove_state_core = PREV
 				add_state_claim = PREV
+			}
+		}
+		KEL = {
+			add_ideas = {
+				KEL_bielik
+				KEL_lewak
 			}
 		}
 		KEL = {
@@ -164,6 +180,12 @@ PRK_revolt_STO = {
 			}
 		}
 		STO = {
+			add_ideas = {
+				STO_crusade
+				STO_hate
+			}
+		}
+		STO = {
 			load_oob = "STO_2027"
 			declare_war_on = {
 				target = PRK
@@ -200,6 +222,13 @@ PRK_revolt_KIE = {
 			  state = 459
 			}
 		}
+		KIE = {
+			add_ideas = {
+				KIE_wot
+				KIE_president
+				KIE_anarchy
+			}
+		}
 		every_owned_state = {
 			limit = { is_core_of = KIE }
 			KIE = { transfer_state = PREV }
@@ -232,11 +261,24 @@ PRK_revolt_KIE = {
 
 
 PRK_withdrawal = {
-	set_global_flag = announce_peace
+	#set_global_flag = announce_peace
 	set_global_flag = zero_withdraws
-	add_to_variable = { global.peace_popup_dirty = 1 }
+	#add_to_variable = { global.peace_popup_dirty = 1 }
 	hidden_effect = {
 		###KELTHUZ###
+		every_state = {
+			limit = {
+				OR = {
+					is_holy_cross_state = yes
+				}
+			}
+			teleport_armies = {
+				limit = {
+					original_tag = PRK
+					is_ai = yes
+				}
+			}
+		}
 		443 = {
 			KEL = { transfer_state = PREV}
 			PRK = { 
@@ -266,13 +308,6 @@ PRK_withdrawal = {
 			}
 		}
 		950 = {
-			KEL = { transfer_state = PREV}
-			PRK = { 
-				remove_state_core = PREV
-				add_state_claim = PREV 
-			}
-		}
-		968 = {
 			KEL = { transfer_state = PREV}
 			PRK = { 
 				remove_state_core = PREV
@@ -313,7 +348,7 @@ PRK_withdrawal = {
 					NOT = { has_country_flag = ziobro_crumble }
 				}
 			}
-			996 = {
+			966 = {
 				KEL = { transfer_state = PREV }
 				PRK = { 
 					 remove_state_core = PREV
@@ -440,6 +475,13 @@ PRK_withdrawal = {
 			STO = { transfer_state = PREV }
 			PRK = { 
 				 remove_state_core = PREV
+				add_state_claim = PREV 
+			}
+		}
+		968 = {
+			STO = { transfer_state = PREV}
+			PRK = { 
+				remove_state_core = PREV
 				add_state_claim = PREV 
 			}
 		}
@@ -597,7 +639,17 @@ PRK_withdrawal = {
 			white_peace = NRA
 			white_peace = NSZ
 			white_peace = KEL
-		}	
+		}
+		if = {
+			limit = {
+				STA = {
+					NOT = { owns_state = 378 }
+				}
+			}
+			378 = {
+				transfer_state_to = NRA
+			}
+		}
 	}
 	log = "[GetDateText]: PRK_withdrawal"
 }

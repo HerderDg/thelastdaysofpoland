@@ -132,35 +132,34 @@ on_actions = {
 	}
 	on_capitulation = {
 		effect = {
-			set_global_flag = announce_peace
-			FROM = {
-				save_global_event_target_as = winning_country
-			} 
-			ROOT = {
-				save_global_event_target_as = losing_country
-			}
-			if = {
-				limit = {
-					event_target:losing_country = {
-						any_allied_country = {
-							has_war_together_with = event_target:losing_country
-						}
-					}
-				}
-				set_global_flag = losing_country_multiple
-			}
-
-			if = {
-				limit = {
-					event_target:winning_country = {
-						any_allied_country = {
-							has_war_together_with = event_target:winning_country
-						}
-					}
-				}
-				set_global_flag = winning_country_multiple
-			}
-			add_to_variable = { global.peace_popup_dirty = 1 }
+			#set_global_flag = announce_peace
+			#FROM = {
+			#	save_global_event_target_as = winning_country
+			#} 
+			#ROOT = {
+			#	save_global_event_target_as = losing_country
+			#}
+			#if = {
+			#	limit = {
+			#		event_target:losing_country = {
+			#			any_allied_country = {
+			#				has_war_together_with = event_target:losing_country
+			#			}
+			#		}
+			#	}
+			#	set_global_flag = losing_country_multiple
+			#}
+			#if = {
+			#	limit = {
+			#		event_target:winning_country = {
+			#			any_allied_country = {
+			#				has_war_together_with = event_target:winning_country
+			#			}
+			#		}
+			#	}
+			#	set_global_flag = winning_country_multiple
+			#}
+			#add_to_variable = { global.peace_popup_dirty = 1 }
 				if = {
 					limit = {
 						ROOT = {
@@ -212,41 +211,49 @@ on_actions = {
 				40 = {
 					add_core_of = TEU
 					transfer_state_to = TEU
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [TEU.GetName] cores [40.GetName]"
 				993 = {
 					add_core_of = TEU
 					transfer_state_to = TEU
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [TEU.GetName] cores [993.GetName]"
 				42 = {
 					add_core_of = WRM
 					transfer_state_to = WRM
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [WRM.GetName] cores [42.GetName]"
 				47 = {
 					add_core_of = WRM
 					transfer_state_to = WRM
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [WRM.GetName] cores [47.GetName]"
 				51 = {
 					add_core_of = MRG
 					transfer_state_to = MRG
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [MRG.GetName] cores [51.GetName]"
 				875 = {
 					add_core_of = PZW
 					transfer_state_to = PZW
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [PZW.GetName] cores [875.GetName]"
 				46 = {
 					add_core_of = PZW
 					transfer_state_to = PZW
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [PZW.GetName] cores [46.GetName]"
 				994 = {
 					add_core_of = MRG
 					transfer_state_to = MRG
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [MRG.GetName] cores [994.GetName]"
 				RMA = {
@@ -390,6 +397,35 @@ on_actions = {
 				if = {
 					limit = {
 						ROOT = {
+							OR = {
+								original_tag = HOR
+								AND = {
+									original_tag = MSL
+									original_tag = HOR
+								}
+							}						
+						}
+						FROM = {
+							is_poland_unifier = yes
+							NOT = { original_tag = WDW }
+						}
+					}
+
+					FROM = {
+						white_peace = ROOT
+						annex_country = {
+							target = HOR
+						}
+						annex_country = {
+							target = MSL
+						}						
+					}
+					log = "[GetDateText]: HOR and OSW beaten [ROOT.GetName]"
+					set_global_flag = skip_default_capitulation
+				}				
+				if = {
+					limit = {
+						ROOT = {
 							original_tag = EKW
 						}
 					}
@@ -421,6 +457,8 @@ on_actions = {
 						FROM = {
 							OR = {
 								original_tag = EKS
+								original_tag = ECO
+								original_tag = BOG
 								original_tag = KGH
 							}
 						}
@@ -434,6 +472,18 @@ on_actions = {
 							transfer_troops = yes
 							}
 						}
+						if = { limit = { country_exists = ECO } 
+							annex_country = {
+							target = TOU
+							transfer_troops = yes
+							}
+						}	
+						if = { limit = { country_exists = BOG } 
+							annex_country = {
+							target = TOU
+							transfer_troops = yes
+							}
+						}												
 						if = { limit = { country_exists = KGH } 
 							annex_country = {
 							target = TOU
@@ -700,6 +750,63 @@ on_actions = {
 					log = "[GetDateText]: Słowincy ded"
 					set_global_flag = skip_default_capitulation
 				}
+				if = {
+					limit = {
+						ROOT = {
+							original_tag = KOS
+						}
+						FROM = {
+							OR = {
+								original_tag = GAY
+								original_tag = RLE
+								original_tag = PGF
+								original_tag = USP
+							}
+						}
+					}
+					FROM = {
+						white_peace = ROOT
+						GAY = {
+							add_state_core = 1077
+							transfer_state = 1077
+							add_state_core = 1078
+							transfer_state = 1078
+						}
+						RLE = {
+							add_state_core = 1065
+							transfer_state = 1065
+							add_state_core = 1066
+							transfer_state = 1066
+						}
+						PGF = {
+							add_state_core = 868
+							transfer_state = 868
+						}
+						USP = {
+							transfer_state = 622
+							transfer_state = 53
+							transfer_state = 63
+							transfer_state = 45
+							transfer_state = 33
+						}
+						SVG = {
+							add_state_core = 624
+							add_state_core = 1076
+							add_state_core = 625
+							add_state_core = 627
+							add_state_core = 628
+							transfer_state = 624
+							transfer_state = 1076
+							transfer_state = 625
+							transfer_state = 627
+							transfer_state = 628
+
+							load_oob = "SVG_2027"
+						}
+					}
+					log = "[GetDateText]: Mittelpommern ded"
+					set_global_flag = skip_default_capitulation
+				}
 			if = {
 				limit = {
 					ROOT = {
@@ -935,7 +1042,7 @@ on_actions = {
 						#transfer_troops = no
 					#}
 				}
-				set_global_flag = war_won
+				#set_global_flag = war_won
 				set_global_flag = skip_default_capitulation
 			}
 			

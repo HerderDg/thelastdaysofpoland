@@ -1,4 +1,99 @@
 pomorskie_unification_category = {
+
+	KOR_move_capital = {
+		visible = {
+			original_tag = KOR
+		}
+		available = {
+			owns_state = 1125
+        }
+		fire_only_once = yes
+		days_remove = 14
+		cost = 10
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			KOR = {
+				set_capital = {
+					state = 1125
+				}
+			}
+		}
+	}
+
+	CZL_release_czluchow = {
+		visible = {
+			original_tag = CZL
+		}
+		available = {
+			NOT = {
+				country_exists = CHG
+			}
+			date > 2028.03.05
+        }
+		fire_only_once = yes
+		#days_remove = 14
+		#cost = 10
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			CHG = {
+				transfer_state = 81
+				transfer_state = 1063
+				transfer_state = 1064
+
+				set_politics = {
+					ruling_party = reactionary
+					elections_allowed = no
+					last_election = "1935.12.17"
+					election_frequency = 48
+				}
+
+				set_popularities = {
+					reactionary = 100
+				}
+			}
+			CHG = {
+				get_current_government_type = yes
+			}
+			CZL = {
+				puppet = CHG
+				set_autonomy = {
+					target = CHG
+					autonomy_state = autonomy_satellite
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+			CHG = {
+				restore_previous_government_type = yes
+			}
+		}
+	}
+
+	LOT_move_capital = {
+		visible = {
+			original_tag = LOT
+		}
+		available = {
+			owns_state = 629
+        }
+		fire_only_once = yes
+		days_remove = 14
+		cost = 10
+		ai_will_do = {
+			base = 1000
+		}
+		remove_effect = {
+			LOT = {
+				set_capital = {
+					state = 629
+				}
+			}
+		}
+	}
 	
 	annex_sopot = {
 		visible = {
@@ -7,6 +102,7 @@ pomorskie_unification_category = {
 		}
 		available = {
             NOT = {
+				#country_exists = GDA
 				country_exists = KSZ
 				country_exists = OWS
 				country_exists = LOT
@@ -15,6 +111,9 @@ pomorskie_unification_category = {
 				country_exists = GAY
 				country_exists = HEL
 				country_exists = KOR
+				country_exists = MPR
+				country_exists = RLE
+				country_exists = KSC
 			}
         }
 		fire_only_once = yes
@@ -39,6 +138,8 @@ pomorskie_unification_category = {
 				original_tag = OWS
 				original_tag = GAY
 				original_tag = HEL
+				original_tag = MPR
+				original_tag = BOL
 			}
 			has_subject = GDY
 		}
@@ -48,6 +149,7 @@ pomorskie_unification_category = {
 					original_tag = GDA
 				}
 				NOT = {
+					#country_exists = GDA
 					country_exists = KSZ
 					country_exists = OWS
 					country_exists = LOT
@@ -56,6 +158,9 @@ pomorskie_unification_category = {
 					country_exists = GAY
 					country_exists = HEL
 					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
 				}
 			}
 			else_if = {
@@ -64,6 +169,7 @@ pomorskie_unification_category = {
 				}
 				NOT = {
 					country_exists = GDA
+					#country_exists = KSZ
 					country_exists = OWS
 					country_exists = LOT
 					country_exists = CZL
@@ -71,6 +177,9 @@ pomorskie_unification_category = {
 					country_exists = GAY
 					country_exists = HEL
 					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
 				}
 			}
 			else_if = {
@@ -80,12 +189,16 @@ pomorskie_unification_category = {
 				NOT = {
 					country_exists = GDA
 					country_exists = KSZ
+					#country_exists = OWS
 					country_exists = LOT
 					country_exists = CZL
 					country_exists = BOL
 					country_exists = GAY
 					country_exists = HEL
 					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
 				}
 			}
 			else_if = {
@@ -95,12 +208,16 @@ pomorskie_unification_category = {
 				NOT = {
 					country_exists = GDA
 					country_exists = KSZ
+					country_exists = OWS
 					country_exists = LOT
 					country_exists = CZL
 					country_exists = BOL
 					country_exists = GAY
-					country_exists = OWS
+					#country_exists = HEL
 					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
 				}
 			}
 			else_if = {
@@ -110,12 +227,92 @@ pomorskie_unification_category = {
 				NOT = {
 					country_exists = GDA
 					country_exists = KSZ
+					country_exists = OWS
 					country_exists = LOT
 					country_exists = CZL
 					country_exists = BOL
+					#country_exists = GAY
 					country_exists = HEL
-					country_exists = OWS
 					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
+				}
+			}
+			else_if = {
+				limit = {
+					original_tag = MPR
+				}
+				NOT = {
+					country_exists = GDA
+					country_exists = KSZ
+					country_exists = OWS
+					country_exists = LOT
+					country_exists = CZL
+					country_exists = BOL
+					country_exists = GAY
+					country_exists = HEL
+					country_exists = KOR
+					#country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
+				}
+			}
+			else_if = {
+				limit = {
+					original_tag = RLE
+				}
+				NOT = {
+					country_exists = GDA
+					country_exists = KSZ
+					country_exists = OWS
+					country_exists = LOT
+					country_exists = CZL
+					country_exists = BOL
+					country_exists = GAY
+					country_exists = HEL
+					country_exists = KOR
+					country_exists = MPR
+					#country_exists = RLE
+					country_exists = KSC
+				}
+			}
+			else_if = {
+				limit = {
+					original_tag = KSC
+				}
+				NOT = {
+					country_exists = GDA
+					country_exists = KSZ
+					country_exists = OWS
+					country_exists = LOT
+					country_exists = CZL
+					country_exists = BOL
+					country_exists = GAY
+					country_exists = HEL
+					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					#country_exists = KSC
+				}
+			}
+			else_if = {
+				limit = {
+					original_tag = BOL
+				}
+				NOT = {
+					country_exists = GDA
+					country_exists = KSZ
+					country_exists = OWS
+					country_exists = LOT
+					country_exists = CZL
+					#country_exists = BOL
+					country_exists = GAY
+					country_exists = HEL
+					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
 				}
 			}
         }
@@ -128,6 +325,138 @@ pomorskie_unification_category = {
 		remove_effect = {
 			annex_country = {
 				target = GDY
+				transfer_troops = yes
+			}
+		}
+	}
+
+	annex_griffin = {
+		visible = {
+			OR = {
+				original_tag = RLE
+				original_tag = GAY
+			}
+			has_subject = PGF
+		}
+		available = {
+			if = {
+				limit = {
+					original_tag = GAY
+				}
+				NOT = {
+					country_exists = GDA
+					country_exists = KSZ
+					country_exists = OWS
+					country_exists = LOT
+					country_exists = CZL
+					country_exists = BOL
+					#country_exists = GAY
+					country_exists = HEL
+					country_exists = KOR
+					country_exists = MPR
+					country_exists = RLE
+					country_exists = KSC
+				}
+			}
+			else_if = {
+				limit = {
+					original_tag = RLE
+				}
+				NOT = {
+					country_exists = GDA
+					country_exists = KSZ
+					country_exists = OWS
+					country_exists = LOT
+					country_exists = CZL
+					country_exists = BOL
+					country_exists = GAY
+					country_exists = HEL
+					country_exists = KOR
+					country_exists = MPR
+					#country_exists = RLE
+					country_exists = KSC
+				}
+			}
+        }
+		ai_will_do = {
+			factor = 1000
+		}
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		remove_effect = {
+			annex_country = {
+				target = PGF
+				transfer_troops = yes
+			}
+		}
+	}
+
+	annex_tczew = {
+		visible = {
+			original_tag = LOT
+			has_subject = LTT
+		}
+		available = {
+			NOT = {
+				country_exists = GDA
+				country_exists = KSZ
+				country_exists = OWS
+				#country_exists = LOT
+				country_exists = CZL
+				country_exists = BOL
+				country_exists = GAY
+				country_exists = HEL
+				country_exists = KOR
+				country_exists = MPR
+				country_exists = RLE
+				country_exists = KSC
+			}
+        }
+		ai_will_do = {
+			factor = 1000
+		}
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		remove_effect = {
+			annex_country = {
+				target = LTT
+				transfer_troops = yes
+			}
+		}
+	}
+
+	annex_ug = {
+		visible = {
+			original_tag = BOL
+			has_subject = UGD
+		}
+		available = {
+			NOT = {
+				country_exists = GDA
+				country_exists = KSZ
+				country_exists = OWS
+				country_exists = LOT
+				country_exists = CZL
+				#country_exists = BOL
+				country_exists = GAY
+				country_exists = HEL
+				country_exists = KOR
+				country_exists = MPR
+				country_exists = RLE
+				country_exists = KSC
+			}
+        }
+		ai_will_do = {
+			factor = 1000
+		}
+		fire_only_once = yes
+		days_remove = 30
+		cost = 50
+		remove_effect = {
+			annex_country = {
+				target = UGD
 				transfer_troops = yes
 			}
 		}
