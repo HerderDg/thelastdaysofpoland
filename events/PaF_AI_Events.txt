@@ -120,22 +120,31 @@ country_event = {
 	fire_only_once = yes
 	trigger = { 
 		original_tag = JAW
-		has_war = no
-		can_unify_zaglebie = yes
+		JAW = { exists = yes }
+		MYS = { exists = yes }
+		JAW = { has_war = no }
+		JAW = { NOT = { has_war_with = MYS } }
 	}
 
 	option = {
-		name = aievent.4.a #antifa
-		ai_chance = { base = 70 }
+		name = aievent.4.a #antifa łowcy hifa
+		ai_chance = { base = 30 }
 		log = "[GetDateText]: antifa jaworzno"
+		remove_ideas = JAW_myslovitz
+		add_war_support = -0.2
 	}
 	option = {
 		name = aievent.4.b #razemki
-		ai_chance = { base = 30 }
+		ai_chance = { base = 50 }
+		remove_ideas = JAW_myslovitz
 		JAW = {
 		set_politics = {
 			ruling_party = socialdemocrature
 			}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.25
+		}	
 		set_party_name = { 
 			ideology = socialdemocrature
 			long_name = "Together Party"
@@ -144,6 +153,38 @@ country_event = {
 		}
 		log = "[GetDateText]: soy jaworzno"
 	}
+	option = {
+		name = aievent.4.c #kolaps, wuja wjeżdża na rejon
+		ai_chance = { base = 20 }
+		JAW = {
+		set_politics = {
+			ruling_party = paternal_conservatism
+		}
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.25
+		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.1
+		}		
+		get_current_government_type = yes
+		}
+		SOS = {
+			set_autonomy = {
+				target = JAW
+				autonomy_state = autonomy_satellite
+			}
+		}
+		JAW = { restore_previous_government_type = yes
+		load_focus_tree = generic_focus
+		remove_ideas = JAW_myslovitz
+		remove_ideas = JAW_squat_policy
+		delete_unit = {}
+		load_oob = "JAW_REP"
+		}
+		log = "[GetDateText]: sos jaworzno"
+	}	
 }
 
 country_event = {
@@ -1689,7 +1730,7 @@ country_event = {
 		ai_chance = { base = 40 }
 		add_popularity = {
 			ideology = autocracy
-			popularity = 15
+			popularity = 0.15
 		}
 		log = "[GetDateText]: JWK - WOT"
 	}
@@ -1701,7 +1742,7 @@ country_event = {
 		}
 		add_popularity = {
 			ideology = postpolonism
-			popularity = 40
+			popularity = 0.4
 		}
 		log = "[GetDateText]: JWK - SPARTAAAAAAAAAAAAAAAAA"
 	}
@@ -1713,7 +1754,7 @@ country_event = {
 		}
 		add_popularity = {
 			ideology = neonationalism
-			popularity = 20
+			popularity = 0.2
 		}
 		log = "[GetDateText]: JWK - Commando Coup"
 	}
