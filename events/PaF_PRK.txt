@@ -1,7 +1,7 @@
 ﻿add_namespace = ziobro
 
 news_event = {
-	id = ziobro.1 #ZIOBRO WYGRYWA PIERWSZA WOJNE W SANTA CRUZ
+	id = ziobro.1 #ZIOBRO PRZEDŁUŻA WOJNĘ W SANTA CRUZ
 	title = ziobro.1.t
 	desc = ziobro.1.desc
 	picture = GFX_news_event_ziobro_win
@@ -39,7 +39,7 @@ news_event = {
 }
 
 news_event = {
-	id = ziobro.2 #ZIOBRO DOSTAJE PO PIŹDZIE
+	id = ziobro.2 # DEPRECATED (CHYBA)
 	title = ziobro.2.t
 	desc = ziobro.2.desc
 	picture = GFX_news_event_ziobro_lose
@@ -107,7 +107,7 @@ news_event = {
 }
 
 country_event = {
-	id = ziobro.4 #KIELCE SIĘ ZGADZA
+	id = ziobro.4 #KIELCE SIĘ ZGADZAJĄ
 	title = ziobro.4.t
 	desc = ziobro.4.desc
 
@@ -466,8 +466,24 @@ country_event = {
 
 	option = {
 		name = ziobro.15.a
-			PRK_withdrawal = yes
-			PRK = { clr_country_flag = PRK_ziobro_can_explode }
+		PRK_withdrawal = yes
+		PRK = { clr_country_flag = PRK_ziobro_can_explode }
+		hidden_effect = {
+			if = {
+				limit = {
+					STA = { exists = no }
+					SND = { exists = yes }
+				}
+				release = STA
+			}
+			if = {
+				limit = {
+					STA = { exists = yes }
+						SND = { exists = no }
+				}
+				release = SND
+			}
+		}
 	}
 }
 
@@ -793,10 +809,8 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires ziobro.24"
-		hidden_effect = {
-		set_country_flag = PRK_ziobro_lost
-		}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires ziobro.24"
 	}
 	option = {
 		name = ziobro.24.a
