@@ -30,7 +30,9 @@ TSB_decisions_category = {
 				#triggery na długość wojny albo surrender progress
 				OR = {
 					AND = {
-					surrender_progress > 0.4
+					all_enemy_country = {
+						surrender_progress > 0.5
+					}
 					longest_war_length > 5
 					}
 					AND = {
@@ -38,11 +40,19 @@ TSB_decisions_category = {
 						OR = {
 							AND = {
 								surrender_progress > 0.01
-								NOT = { surrender_progress > 0.5 }
+								NOT = { 
+									all_enemy_country = {
+										surrender_progress > 0.5
+									}
+								}
 							}
 							AND = {
 								surrender_progress < 0.01
-								NOT = { surrender_progress > 0.5 }
+								NOT = { 
+									all_enemy_country = {
+										surrender_progress > 0.5
+									}
+								}
 							}
 						}
 						NOT = { has_country_flag = unified_voivodeship }
@@ -154,7 +164,7 @@ TSB_decisions_category = {
 				}
 				add_timed_idea = {
 					idea = cooldown
-					days = 40
+					days = 60
 				}
 			}
 			every_country = {
@@ -168,7 +178,7 @@ TSB_decisions_category = {
 				}
 				add_timed_idea = {
 					idea = cooldown
-					days = 50
+					days = 80
 				}				
 			}	
 		}
