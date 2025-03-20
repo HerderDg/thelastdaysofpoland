@@ -27,7 +27,7 @@ country_event = {
 	}
 	
 	option = {
-		name = BBA_wybory.1.a #tdrabek - eurolib
+		name = BBA_wybory.1.b #tdrabek - eurolib
 		ai_chance = { base = 50 }
 		set_politics = {
 			ruling_party = euroliberalism
@@ -40,4 +40,76 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = BBA_wybory.2 #reakcja Wilamowic - eurolib win
+	title = BBA_wybory.2.t
+	desc = BBA_wybory.2.desc
 
+	fire_only_once = yes
+	trigger = {
+		BBA = { has_country_flag = BBA_election_eurolib }
+		original_tag = WYM
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires BBA_wybory.2" }
+
+	option = {
+		name = BBA_wybory.2.a #zostajemy z Bielskiem
+		ai_chance = { base = 60 }
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.1
+		}
+	}
+	
+	option = {
+		name = BBA_wybory.2.b #idziemy do Braci
+		ai_chance = { base = 40 }
+		BBA = { end_puppet = WYM }
+		WYM = { get_current_government_type = yes }
+		BSK = {
+			set_autonomy = {
+				target = WYM
+				autonomy_state = autonomy_puppet
+			}
+		}
+		WYM = { restore_previous_government_type = yes }
+	}
+}
+
+country_event = {
+	id = BBA_wybory.3 #reakcja Wilamowic - patcon win
+	title = BBA_wybory.3.t
+	desc = BBA_wybory.3.desc
+
+	fire_only_once = yes
+	trigger = {
+		BBA = { has_country_flag = BBA_election_patcon }
+		original_tag = WYM
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires BBA_wybory.3" }
+
+	option = {
+		name = BBA_wybory.3.a #zostajemy z Bielskiem
+		ai_chance = { base = 30 }
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.1
+		}
+	}
+	
+	option = {
+		name = BBA_wybory.3.b #idziemy do Małysza
+		ai_chance = { base = 70 }
+		BBA = { end_puppet = WYM }
+		WYM = { get_current_government_type = yes }
+		CIE = {
+			set_autonomy = {
+				target = WYM
+				autonomy_state = autonomy_puppet
+			}
+		}
+		WYM = { restore_previous_government_type = yes }
+	}
+}

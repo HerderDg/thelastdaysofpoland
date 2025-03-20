@@ -80,86 +80,429 @@ annex_podbeskidzie = {
 	}
 }
 
+CARPAT_01_GORCE = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = SCZ
+			original_tag = LEM
+			original_tag = GUR
+			original_tag = BSK
+		}
+	}
+
+	available = {
+		if = {
+			limit = {
+				original_tag = GUR
+			}
+		has_war = no
+		date > 2027.10.11
+		ZGR = { exists = yes }			
+		}
+		if = {
+			limit = {
+				OR = {
+					original_tag = SCZ
+					original_tag = LEM
+					original_tag = BSK
+				}
+			}
+		has_war = no
+		date > 2029.02.11
+		ZGR = { exists = yes }	
+		ZGR = { is_neighbor_of = ROOT }			
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
+		declare_war_on = {
+			target = ZGR
+			type = voivodeship_war
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+CARPAT_01_TYMBARK = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = LEM
+			original_tag = GUR
+			original_tag = BSK
+		}
+	}
+
+	available = {
+		has_war = no
+		date > 2029.02.11
+		TYM = { exists = yes }	
+		TYM = { is_subject = no }	
+		TYM = { is_neighbor_of = ROOT }	
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
+		declare_war_on = {
+			target = TYM
+			type = voivodeship_war
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+CARPAT_01_LEMKO = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = SCZ
+			original_tag = LEM
+			original_tag = GUR
+			original_tag = BSK
+		}
+	}
+
+	available = {
+		if = {
+			limit = {
+				original_tag = SCZ
+			}
+		has_war = no
+		date > 2028.05.14
+		LEM = { exists = yes }			
+		}
+		if = {
+			limit = {
+				original_tag = LEM
+			}
+		has_war = no
+		date > 2028.05.14
+		SCZ = { exists = yes }			
+		}		
+		if = {
+			limit = {
+				OR = {
+					original_tag = GUR
+					original_tag = LEM
+					original_tag = BSK
+				}
+			}
+		has_war = no
+		date > 2029.02.11
+		LEM = { exists = yes }	
+		LEM = { is_neighbor_of = ROOT }		
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
+		if = { 
+			limit = { NOT = { original_tag = LEM }}
+		declare_war_on = {
+			target = LEM
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { original_tag = LEM
+			SCZ = { exists = yes }	
+		}
+		declare_war_on = {
+			target = SCZ
+			type = voivodeship_war
+		}
+		}		
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+} 
+
 
 #BESKIDZKIE - FAZA DRUGA
-carpathian_wars_puppets = { #
- icon = GFX_decision_generic_prepare_civil_war
- allowed = {
- 	is_tatry_region = yes
- 	NOT = {
- 		original_tag = TSZ
- 		original_tag = WYM
- 		original_tag = TYM
- 		original_tag = ZGR
- 	}
- }
- 
- ai_will_do = {
- 	factor = 100
- 	modifier = {
- 		factor = -110
- 		FROM = {
- 			original_tag = LEM
- 		}
- 		ROOT = { original_tag = GUR }
- 		SCZ = { exists = yes }
- 	}
- 	modifier = {
- 		factor = -110
- 		FROM = {
- 			original_tag = GUR
- 		}
- 		ROOT = { original_tag = SCZ }
- 		LEM = { exists = yes }
- 	}
- 	modifier = {
- 		factor = -110
- 		FROM = {
- 			original_tag = SCZ
- 		}
- 		ROOT = { original_tag = GUR }
- 		LEM = { exists = yes }
- 	}		
- }
- 
- available = {
- 	date > 2028.02.01
- 	has_war = no
- 	FROM = {
- 		is_neighbor_of = ROOT
- 	}
- 	ROOT = { NOT = { has_idea = cooldown } }
- }
- 
- targets = {
- 	BBA WYM CIE BSK GUR ZKP ZGR LEM SCZ TYM
- }
- 
- target_trigger = {
- 	FROM = {
- 		is_neighbor_of = ROOT
-		 NOT = { is_subject_of = ROOT }
-		 NOT = { is_in_faction_with = ROOT }
- 	}
- }
- war_with_target_on_complete = yes
- days_remove = 7
- 
- complete_effect = {
- 	ROOT = { add_timed_idea = {
- 		idea = cooldown
- 		days = 9
- 	}
-  }
- }
- remove_effect = {
- 	declare_war_on = {
- 		target = FROM
- 		type = voivodeship_war
- 	}
- }
 
+CARPAT_02_EAST = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = SCZ
+			original_tag = LEM
+			original_tag = GUR
+		}
+	}
+
+	available = {
+		if = {
+			limit = {
+				original_tag = SCZ
+			}
+		has_war = no
+		date > 2029.02.14
+		LEM = { exists = no }			
+		}
+		if = {
+			limit = {
+				original_tag = LEM
+			}
+		has_war = no
+		date > 2029.02.14
+		SCZ = { exists = no }			
+		}		
+		if = {
+			limit = {
+				original_tag = GUR
+			}
+		has_war = no
+		date > 2029.02.14
+		ZGR = { exists = no }			
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision CARPAT_02_EAST"
+		if = { 
+			limit = { NOT = { original_tag = LEM }
+			LEM = {exists=yes}
+		}
+		declare_war_on = {
+			target = LEM
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = SCZ }
+			SCZ = {exists=yes}
+		}
+		declare_war_on = {
+			target = SCZ
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = GUR }
+			GUR = {exists=yes}
+		}
+		declare_war_on = {
+			target = GUR
+			type = voivodeship_war
+		}
+		}						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+} 
+
+ 
+CARPAT_02_WEST = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		original_tag = BSK
+	}
+
+	available = {
+		has_war = no
+		date > 2029.07.14
+		CIE = { exists = no }
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision CARPAT_02_WEST"
+		if = { 
+			limit = { NOT = { original_tag = LEM }
+			LEM = {exists=yes}
+		}
+		declare_war_on = {
+			target = LEM
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = TYM }
+			TYM = {exists=yes}
+		}
+		declare_war_on = {
+			target = TYM
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = ZGR }
+			ZGR = {exists=yes}
+		}
+		declare_war_on = {
+			target = ZGR
+			type = voivodeship_war
+		}
+		}				
+		if = { 
+			limit = { NOT = { original_tag = SCZ }
+			SCZ = {exists=yes}
+		}
+		declare_war_on = {
+			target = SCZ
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = GUR }
+			GUR = {exists=yes}
+		}
+		declare_war_on = {
+			target = GUR
+			type = voivodeship_war
+		}
+		}						
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
 }
+
+
+CARPAT_02_EAST_V_WEST = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = SCZ
+			original_tag = LEM
+			original_tag = GUR
+		}
+	}
+
+	available = {
+		if = {
+			limit = {
+				original_tag = SCZ
+			}
+		has_war = no
+		date > 2029.05.14
+		LEM = { exists = no }			
+		GUR = { exists = no }			
+		}
+		if = {
+			limit = {
+				original_tag = LEM
+			}
+		has_war = no
+		date > 2029.05.14
+		SCZ = { exists = no }			
+		GUR = { exists = no }			
+		}		
+		if = {
+			limit = {
+				original_tag = GUR
+			}
+		has_war = no
+		date > 2029.05.14
+		SCZ = { exists = no }			
+		LEM = { exists = no }			
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision CARPAT_02_EAST"
+		if = { 
+			limit = { NOT = { original_tag = BSK }
+			BSK = {exists=yes}
+		}
+		declare_war_on = {
+			target = BSK
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = WYM }
+			WYM = {exists=yes}
+		}
+		declare_war_on = {
+			target = WYM
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = BBA }
+			BBA = {exists=yes}
+		}
+		declare_war_on = {
+			target = BBA
+			type = voivodeship_war
+		}
+		}
+		if = { 
+			limit = { NOT = { original_tag = CIE }
+			CIE = {exists=yes}
+		}
+		declare_war_on = {
+			target = CIE
+			type = voivodeship_war
+		}
+		}								
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ } 
 
 
 #███████╗░█████╗░░██████╗░██╗░░░░░███████╗██████╗░██╗███████╗  ██╗ ░░░░░██╗██╗░░░██╗██████╗░░█████╗░
@@ -3066,6 +3409,7 @@ LBL_01_MAFIA = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3117,6 +3461,7 @@ LBL_01_RPP = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3177,6 +3522,7 @@ LBL_01_AZOTY = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3230,6 +3576,7 @@ LBL_01_KRASNYSTAW = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3283,6 +3630,7 @@ LBL_01_BREJDACTWO = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3336,6 +3684,7 @@ LBL_01_PARTYZANCI = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3397,6 +3746,7 @@ LBL_01_ORDYNACJA = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3455,6 +3805,7 @@ LBL_01_EAST_LUBLIN_WAR = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3504,6 +3855,7 @@ LBL_015_NORTH_LUBLIN_WAR = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3555,6 +3907,7 @@ LBL_02_LUBLIN_WAR = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3617,6 +3970,7 @@ LBL_02_NORTH_LUBLIN_WAR = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3679,6 +4033,7 @@ LBL_02_SOUTH_LUBLIN_WAR = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -3755,6 +4110,7 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 	
 	allowed = {
 		is_lubelskie = yes
+		is_lubelskie_tribe = no
 	}
 
 	available = {
@@ -16324,11 +16680,9 @@ chelminsko_kujawska = {
 						is_neighbor_of = EKW
 						#EKW = { has_war = no }
 						NOT = {
-							OR = {
-								ROOT = { original_tag = KLB }
-								ROOT = { original_tag = KOS }
-								ROOT = { original_tag = POM }
-							}
+							ROOT = { original_tag = KLB }
+							ROOT = { original_tag = KOS }
+							ROOT = { original_tag = POM }
 						}
 					}
 					declare_war_on = {
@@ -16381,11 +16735,9 @@ chelminsko_kujawska = {
 						is_neighbor_of = NOR
 						#NOR = { has_war = no }
 						NOT = {
-							OR = {
-								ROOT = { original_tag = KLB }
-								ROOT = { original_tag = KOS }
-								ROOT = { original_tag = POM }
-							}
+							ROOT = { original_tag = KLB }
+							ROOT = { original_tag = KOS }
+							ROOT = { original_tag = POM }
 						}
 					}
 					declare_war_on = {

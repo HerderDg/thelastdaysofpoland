@@ -1,0 +1,160 @@
+﻿add_namespace = SCZ_korpo
+
+
+country_event = {
+	id = SCZ_korpo.1 #kupno tymbarku
+	title = SCZ_korpo.1.t
+	desc = SCZ_korpo.1.desc
+
+	fire_only_once = yes
+	trigger = {
+		date > 2027.07.11
+		original_tag = SCZ
+		TYM = { exists = yes }
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires SCZ_korpo.1" }
+
+	option = {
+		name = SCZ_korpo.1.a #zlozmy propozycje
+		ai_chance = { base = 80 }
+		TYM = {
+			country_event = SCZ_korpo.2
+		}
+	}
+	
+	option = {
+		name = SCZ_korpo.1.b #a jebac ich maczetami
+		ai_chance = { base = 20 }
+		declare_war_on = {
+			target = TYM
+			type = voivodeship_war
+		}
+	}
+}
+
+country_event = {
+	id = SCZ_korpo.2 #reakcja Tymbarku
+	title = SCZ_korpo.2.t
+	desc = SCZ_korpo.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires SCZ_korpo.2" }
+
+	option = {
+		name = SCZ_korpo.2.a #okej nie ma wyjścia
+		ai_chance = { base = 30 }
+		SCZ = {
+			annex_country = {
+				target = TYM
+			}
+		}
+	}
+	
+	option = {
+		name = SCZ_korpo.2.a #okej ale chcemy przywileje
+		ai_chance = { base = 50 }
+		SCZ = { country_event = SCZ_korpo.3 }
+	}
+
+	option = {
+		name = SCZ_korpo.2.a #goń się kurwa
+		ai_chance = { base = 20 }
+		declare_war_on = {
+			target = SCZ
+			type = voivodeship_war
+		}
+	}	
+}
+
+country_event = {
+	id = SCZ_korpo.3 #reakcja Tymbarku - przywileje
+	title = SCZ_korpo.3.t
+	desc = SCZ_korpo.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires SCZ_korpo.3" }
+
+	option = {
+		name = SCZ_korpo.3.a #no dobrze
+		ai_chance = { base = 50 }
+		TYM = {
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.1
+			}
+			get_current_government_type = yes
+		}
+		SCZ = {
+			set_autonomy = {
+				target = TYM
+				autonomy_state = autonomy_puppet
+			}
+		}
+		TYM = { restore_previous_government_type = yes }
+	}
+
+	option = {
+		name = SCZ_korpo.3.b #no dobrze ale dajcie Limanową
+		ai_chance = { base = 30 }
+		TYM = {
+			country_event = SCZ_korpo.4
+		}
+	}	
+	
+	option = {
+		name = SCZ_korpo.3.c #co za kurwa impotenci
+		ai_chance = { base = 20 }
+		declare_war_on = {
+			target = TYM
+			type = voivodeship_war
+		}
+	}
+}
+
+
+country_event = {
+	id = SCZ_korpo.4 #Tymbark - gib Limanowa
+	title = SCZ_korpo.4.t
+	desc = SCZ_korpo.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires SCZ_korpo.4" }
+
+	option = {
+		name = SCZ_korpo.4.a #no dobrze
+		ai_chance = { base = 65 }
+		TYM = {
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.2
+			}
+			get_current_government_type = yes
+		}
+		SCZ = {
+			set_autonomy = {
+				target = TYM
+				autonomy_state = autonomy_puppet
+			}
+		}
+		TYM = { restore_previous_government_type = yes }
+		528 = { transfer_state_to = SCZ }
+	}
+	
+	option = {
+		name = SCZ_korpo.4.b #nie no, tyle to nie
+		ai_chance = { base = 35 }
+		SCZ = {
+			declare_war_on = {
+				target = TYM
+				type = voivodeship_war
+			}
+		}
+	}
+}
