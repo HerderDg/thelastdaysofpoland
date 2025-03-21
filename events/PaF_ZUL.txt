@@ -14,5 +14,65 @@ country_event = {
 	option = {
 		name = walbrzych.1.a
 		drop_cosmetic_tag = yes		
+	}
+}
+
+country_event = {
+	id = walbrzych.2 #beginning of the żul wars
+	title = walbrzych.2.t
+	desc = walbrzych.2.desc
+	picture = GFX_event_okamura1
+
+	fire_only_once = yes
+	trigger = {
+		date > 2028.01.03
+		original_tag = ZUL
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires walbrzych.2" }
+
+	option = {
+		name = walbrzych.2.a
+		ZUL = { set_country_flag = zul_wars_begun }	
+		MNL = { set_country_flag = zul_wars_begun }	
+		ANA = { set_country_flag = zul_wars_begun }	
+		random_list = {
+			33 = {
+				ZUL = {
+					declare_war_on = {
+						target = ANA
+					}
+				}
+				MNL = {
+					declare_war_on = {
+						target = ANA
+					}
+				}				
+			}
+			33 = {
+				ANA = {
+					declare_war_on = {
+						target = ZUL
+					}
+				}
+				MNL = {
+					declare_war_on = {
+						target = ZUL
+					}
+				}
+			}
+			33 = {
+				ANA = {
+					declare_war_on = {
+						target = MNL
+					}
+				}
+				ZUL = {
+					declare_war_on = {
+						target = MNL
+					}
+				}
+			}
 		}
+	}
 }

@@ -18884,7 +18884,7 @@ chelminsko_kujawska = {
 #░░╚██╔╝░╚██╔╝░██║░░██║╚█████╔╝╚█████╔╝███████╗██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝██║░╚██╗██║███████╗
 #░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
 #WROCŁAWSKIE - FAZA PIERWSZA
- RYB_OLE_war = {
+WROC_01_OLE_OLE = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -18944,7 +18944,7 @@ chelminsko_kujawska = {
 		}
 	}
  }
- ZUL_ANA_MNL_war = {
+ WROC_01_ZUL_WARS = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -18958,73 +18958,47 @@ chelminsko_kujawska = {
 
 	available = {
 		has_war = no
-		date > 2028.01.01
+		date > 2028.03.01
+		has_country_flag = zul_wars_begun
+		count_triggers = {
+			amount = 1
+			ZUL = { exists = no }
+			MNL = { exists = no }
+			ANA = { exists = no }
+		}
 	}
 
 	ai_will_do = {
 		factor = 100
 	}
-	fire_only_once = yes
+
 	days_remove = 7
 	remove_effect  = {
 		log = "[GetDateText]: ZUL_ANA_MNL_war"
-			if = {
-				limit = {
-					ROOT = { original_tag = ZUL } 
+		if = { limit = { country_exists = ZUL
+						 ROOT = { NOT = { original_tag = ZUL } }
 				}
-				declare_war_on = {
-					target = MNL
-					type = voivodeship_war
+		declare_war_on = {
+			target = ZUL
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = MNL
+						 ROOT = { NOT = { original_tag = MNL } }
 				}
-				declare_war_on = {
-					target = ANA
-					type = voivodeship_war
+		declare_war_on = {
+			target = MNL
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = ANA
+						 ROOT = { NOT = { original_tag = ANA } }
 				}
-				MNL = {
-					declare_war_on = {
-						target = ANA
-						type = voivodeship_war
-					}					
-				}				
-			}
-			if = {
-				limit = {
-					ROOT = { original_tag = MNL } 
-				}
-				declare_war_on = {
-					target = ZUL
-					type = voivodeship_war
-				}
-				declare_war_on = {
-					target = ANA
-					type = voivodeship_war
-				}
-				ZUL = {
-					declare_war_on = {
-						target = ANA
-						type = voivodeship_war
-					}					
-				}				
-			}
-			if = {
-				limit = {
-					ROOT = { original_tag = ANA } 
-				}
-				declare_war_on = {
-					target = ZUL
-					type = voivodeship_war
-				}
-				declare_war_on = {
-					target = MNL
-					type = voivodeship_war
-				}
-				ZUL = {
-					declare_war_on = {
-						target = MNL
-						type = voivodeship_war
-					}					
-				}				
-			}	
+		declare_war_on = {
+			target = ANA
+			type = voivodeship_war
+		}
+		}				
 	}
 	cancel_trigger = {
 		ROOT = {
@@ -19033,7 +19007,7 @@ chelminsko_kujawska = {
 	}
  }	
 #WROCŁAWSKIE - FAZA DRUGA
- okamura_ZUL_conquest_war = {
+ WROC_02_KONICHIWA_ZUL_SENPAI = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -19042,7 +19016,7 @@ chelminsko_kujawska = {
 	}
 
 	available = {
-		date > 2028.05.16	
+		date > 2028.09.16	
 		has_war = no
 		OR = {
 			ZUL = { exists = yes }
@@ -19054,7 +19028,7 @@ chelminsko_kujawska = {
 	ai_will_do = {
 		factor = 100
 	}
-	fire_only_once = yes
+
 	days_remove = 14
 	war_with_on_remove = ZUL
 	war_with_on_remove = MNL
@@ -19088,7 +19062,7 @@ chelminsko_kujawska = {
 	}
  }
 
- RYB_MPK_war = {
+ WROC_02_FISHING_FOR_WROCLAW = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -19098,31 +19072,38 @@ chelminsko_kujawska = {
 
 	available = {
 		date > 2028.06.01
-		OR = { 376 = { is_controlled_by = MPK }
-		 376 = { is_controlled_by = WRO }
-		}
 		has_war = no
+		WRO = {exists=yes}
+		MPK = {exists=yes}
+		MPK = { is_subject = yes }
 	}
 
 
 	ai_will_do = {
 		factor = 100
 	}
-	fire_only_once = yes
+
 	days_remove = 14
 	war_with_on_remove = MPK
+	war_with_on_remove = WRO
 	remove_effect  = {
 		log = "[GetDateText]: Decision RYB_MPK_war"
 		if = { limit = {
 			MPK = { exists = yes }
-			MPK = { NOT = { is_subject_of = WRO } }
 			}
 		declare_war_on = {
 			target = MPK
 			type = voivodeship_war
 		}			
 		}
-
+		if = { limit = {
+			WRO = { exists = yes }
+			}
+		declare_war_on = {
+			target = WRO
+			type = voivodeship_war
+		}			
+		}
 	}
 	cancel_trigger = {
 		ROOT = {
@@ -19131,17 +19112,13 @@ chelminsko_kujawska = {
 	}	
  }
 
- RYB_vs_WRO_war = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
+ WROC_02_SUTRYK_GAMBIT = {
 	allowed = {
 		original_tag = WRO
 	}
-
 	available = {
-		MPK = { is_subject_of = WRO }
-		date > 2028.07.01
+		original_tag = WRO
+		has_country_flag = WRO_makao
 		has_war = no
 	}
 	
@@ -19150,81 +19127,16 @@ chelminsko_kujawska = {
 	}
 	fire_only_once = yes
 	days_remove = 14
-	war_with_on_remove = RYB
 	remove_effect  = {
-		log = "[GetDateText]: Decision RYB_vs_WRO_war"
-		declare_war_on = {
-			target = RYB
-			type = voivodeship_war
-		}
-	}
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
- }
-
- raid_on_wroc_harbor = {
-	allowed = {
-		original_tag = CZE
-	}
-	available = {
-		count_triggers = {
-			amount = 2
-			ZUL = { exists = no }
-			ANA = { exists = no }
-			MNL = { exists = no }
-		}
-		date > 2028.05.16
-		has_war = no
-		WRO = { exists = yes }
-	}
-	
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 14
-	remove_effect  = {
-		declare_war_on = {
-			target = WRO
-			type = voivodeship_war
-		}
-	}
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
- }
-
- the_sutryk_proposition = {
-	allowed = {
-		original_tag = WRO
-	}
-	available = {
-		NOT = {
-			country_exists = CZE
-			country_exists = ANA
-			country_exists = MNL
-		}
-		country_exists = ZUL
-		date > 2028.05.16
-		has_war = no
-		ZUL = {
-			has_country_leader = {
-				character = ZUL_szelemej
+		if = {
+			limit = {
+				ZUL = {
+					has_country_leader = {
+						character = ZUL_szelemej
+					}
+					exists = yes
+				}
 			}
-		}
-	}
-	
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 14
-	remove_effect  = {
 		random_list = {
 			10 = {
 				annex_country = {
@@ -19235,11 +19147,50 @@ chelminsko_kujawska = {
 				ZUL = {
 					declare_war_on = {
 						target = WRO
-						type = voivodeship_war
 					}
 				}
 			}
 		}
+		}
+		if = {
+			limit = {
+				ZUL = {
+					NOT = { has_country_leader = {
+						character = ZUL_szelemej
+					}
+					}
+					exists = yes
+				}
+			}
+		declare_war_on = {
+			target = ZUL
+			type = voivodeship_war
+		}
+		}		
+		if = { limit = {
+			MNL = { exists = yes }
+			}
+		declare_war_on = {
+			target = MNL
+			type = voivodeship_war
+		}			
+		}
+		if = { limit = {
+			ANA = { exists = yes }
+			}
+		declare_war_on = {
+			target = ANA
+			type = voivodeship_war
+		}			
+		}
+		if = { limit = {
+			CZE = { exists = yes }
+			}
+		declare_war_on = {
+			target = CZE
+			type = voivodeship_war
+		}			
+		}				
 	}
 	cancel_trigger = {
 		ROOT = {
@@ -19248,55 +19199,90 @@ chelminsko_kujawska = {
 	}
  }
 #WROCŁAWSKIE - FAZA OSTATECZNA
- wroclaw_war = {
+ WROC_03_MARCH_SOUTH = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
 	allowed = {
 		OR = {
 			original_tag = WRO
-			original_tag = CZE
 			original_tag = RYB
-			original_tag = ZUL
-			original_tag = MNL
-			original_tag = ANA
+			original_tag = MPK
 		}		
 	}
 
 	available = {
-		OR = {
-			AND = {
-				date > 2029.03.01
-				count_triggers = {
-					amount = 2
+		has_war = no
+		if = {
+			limit = {
+				original_tag = WRO
+			}
+			OR = {
+				AND = {
+					WRO = { NOT = { has_country_flag = WRO_makao} }
+					OR = {
+						MPK = {exists = no}
+						MPK = {is_subject_of = WRO}
+					}
+					RYB = {exists=no}
+				}
+				AND = {
+					WRO = { has_country_flag = WRO_makao }
+					OR = {
+						ZUL = { exists = yes}
+						ANA = { exists = yes}
+						MNL = { exists = yes}
+						CZE = { exists = yes}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				original_tag = MPK
+			}
+			OR = {
+				AND = {
 					WRO = { exists = no }
-					MPK = { exists = no NOT = { is_subject_of = WRO  } }
 					RYB = { exists = no }
 				}
-				count_triggers = {
-					amount = 1
-					count_triggers = {
-						amount = 2
-						ZUL = { exists = no }
-						ANA = { exists = no }
-						MNL = { exists = no }
+				AND = {
+					WRO = { has_country_flag = WRO_makao }
+					RYB = { exists = no }
+					MPK = {
+						NOT = {
+						any_owned_state = {
+							has_dynamic_modifier = {
+								modifier = dam_blown_modifier
+							}
+						}
+						}
 					}
-					CZE = { exists = no }	
-				}	
-				has_war = no
+				}
 			}
-		AND = {
-			date > 2030.03.01
-			has_war = no
 		}
-		}		
+		if = {
+			limit = {
+				original_tag = RYB
+			}
+			OR = {
+				AND = {
+					WRO = { exists = no }
+					MPK = { exists = no }
+				}
+				AND = {
+					WRO = { has_country_flag = WRO_makao }
+					MPK = { exists = no }
+				}
+			}
+		}				
 	}
 	
 	ai_will_do = {
 		factor = 100
 	}
 
-	days_remove = 14
+	days_remove = 20
 	remove_effect  = {
 		log = "[GetDateText]: Decision wroclaw_war"
 		if = { limit = { country_exists = MNL
@@ -19364,61 +19350,149 @@ chelminsko_kujawska = {
 	}
  }
 
- MPK_RYB_makao = {
+
+ WROC_03_MARCH_NORTH = {
 
 	icon = GFX_decision_generic_prepare_civil_war
+	
 	allowed = {
-		original_tag = RYB
+		OR = {
+			original_tag = WRO
+			original_tag = ANA
+			original_tag = MNL
+			original_tag = CZE
+			original_tag = ZUL
+		}		
 	}
+
 	available = {
-		WRO = { has_war = yes }
-		BRE = { exists = no }
-		MPK = { exists = yes }
-		MPK = { is_subject_of = WRO }
+		has_war = no
+		if = {
+			limit = {
+				original_tag = WRO
+			}
+			WRO = { has_country_flag = WRO_makao }
+			AND = {
+				ZUL = { exists = no}
+				ANA = { exists = no}
+				MNL = { exists = no}
+				CZE = { exists = no}
+			}
+		}
+		if = {
+			limit = {
+				original_tag = ANA
+			}
+			AND = {
+				ZUL = { exists = no}
+				MNL = { exists = no}
+				CZE = { exists = no}
+			}			
+		}
+		if = {
+			limit = {
+				original_tag = CZE
+			}
+			AND = {
+				ZUL = { exists = no}
+				MNL = { exists = no}
+				ANA = { exists = no}
+			}			
+		}
+		if = {
+			limit = {
+				original_tag = ZUL
+			}
+			AND = {
+				CZE = { exists = no}
+				MNL = { exists = no}
+				ANA = { exists = no}
+			}			
+		}
+		if = {
+			limit = {
+				original_tag = MNL
+			}
+			AND = {
+				CZE = { exists = no}
+				ZUL = { exists = no}
+				ANA = { exists = no}
+			}			
+		}								
 	}
 	
 	ai_will_do = {
 		factor = 100
 	}
-	fire_only_once = yes
-	days_remove = 30
+
+	days_remove = 20
 	remove_effect  = {
-		log = "[GetDateText]: Decision MPK_RYB_makao"
-		RYB = {
-			transfer_state = 343
-			transfer_state = 369
-			transfer_state = 866
-			transfer_state = 806
-			add_state_core = 343
-			add_state_core = 369
-			add_state_core = 866
-			add_state_core = 806
-		}
-		MPK = {
-			transfer_state = 607
-			transfer_state = 388
-			transfer_state = 375
-			transfer_state = 376
-			transfer_state = 608
-			add_state_core = 607
-			add_state_core = 388
-			add_state_core = 375
-			add_state_core = 376
-			add_state_core = 608
-		}
-		WRO = {
-			end_puppet = MPK
-		}
-		BRE = {
-			remove_state_core = 371
-			remove_state_core = 607
-			remove_state_core = 387 
-			remove_state_core = 608
-			remove_state_core = 388
-			remove_state_core = 375
+		log = "[GetDateText]: Decision wroclaw_war"
+		if = { limit = { country_exists = MNL
+		ROOT = { NOT = { original_tag = MNL }}
+			} 
+			declare_war_on = {
+				target = MNL
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = WRO 
+			ROOT = { NOT = { original_tag = WRO }}
+		} 
+			declare_war_on = {
+				target = WRO
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = MPK 
+			ROOT = { NOT = { original_tag = MPK }}
+		} 
+			declare_war_on = {
+				target = MPK
+				type = voivodeship_war
+			}
+			}			
+			if = { limit = { country_exists = CZE 
+			ROOT = { NOT = { original_tag = CZE }}
+		} 
+			declare_war_on = {
+				target = CZE
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = RYB 
+			ROOT = { NOT = { original_tag = RYB }}
+		} 
+			declare_war_on = {
+				target = RYB
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = ZUL 
+			ROOT = { NOT = { original_tag = ZUL }}
+		} 
+			declare_war_on = {
+				target = ZUL
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = ANA
+			ROOT = { NOT = { original_tag = ANA }}
+		} 
+			declare_war_on = {
+				target = ANA
+				type = voivodeship_war
+			}
+			}
+							
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
 		}
 	}
- }
+ } 
+
 
 #███╗░░██╗██╗░░░██╗░██████╗██╗░░██╗██╗███████╗
 #████╗░██║╚██╗░██╔╝██╔════╝██║░██╔╝██║██╔════╝
