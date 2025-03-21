@@ -322,19 +322,10 @@ country_event = {
 		set_politics = {
 			ruling_party = paternal_conservatism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 14
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 60
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 10
-			reactionary = 11
-			postpolonism = 5
-		}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.2
+			}
 		log = "[GetDateText]: Solus cum Deo solo (paulini)"
 	}
 	option = {
@@ -343,19 +334,10 @@ country_event = {
 		set_politics = {
 			ruling_party = socialdemocrature
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 50
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 24
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 10
-			reactionary = 11
-			postpolonism = 5
-		}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.2
+			}
 		log = "[GetDateText]: Tuitio Fidei et obsequium pauperum (joannici)"
 	}
 	option = {
@@ -364,19 +346,10 @@ country_event = {
 		set_politics = {
 			ruling_party = reactionary
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 14
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 24
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 10
-			reactionary = 47
-			postpolonism = 5
-		}
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.2
+			}
 		log = "[GetDateText]: DEUS VULT"
 	}
 }
@@ -400,19 +373,10 @@ country_event = {
 		set_politics = {
 			ruling_party = autocracy
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 9
-			freemarketism = 11
-			paternal_conservatism = 9
-			autocracy = 57
-			corporativism = 0
-			neonationalism = 9
-			reactionary = 5
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.2
+			}
 		log = "[GetDateText]: gowin bezkregowiec"
 	}
 	option = {
@@ -421,19 +385,10 @@ country_event = {
 		set_politics = {
 			ruling_party = freemarketism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 18
-			freemarketism = 44
-			paternal_conservatism = 19
-			autocracy = 9
-			corporativism = 0
-			neonationalism = 5
-			reactionary = 5
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = freemarketism
+				popularity = 0.2
+			}
 		log = "[GetDateText]: gowin wyzwolony"
 	}
 
@@ -457,19 +412,6 @@ country_event = {
 		set_politics = {
 			ruling_party = euroliberalism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 10
-			socialdemocrature = 0
-			euroliberalism = 52
-			freemarketism = 13
-			paternal_conservatism = 20
-			autocracy = 0
-			corporativism = 5
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
-		}
 		log = "[GetDateText]: lib katowice"
 	}
 	option = {
@@ -478,18 +420,9 @@ country_event = {
 		set_politics = {
 			ruling_party = freemarketism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 10
-			socialdemocrature = 0
-			euroliberalism = 37
-			freemarketism = 28
-			paternal_conservatism = 20
-			autocracy = 0
-			corporativism = 5
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.2
 		}
 		log = "[GetDateText]: ryneg katowice"
 	}
@@ -499,18 +432,9 @@ country_event = {
 		set_politics = {
 			ruling_party = paternal_conservatism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 10
-			socialdemocrature = 0
-			euroliberalism = 37
-			freemarketism = 13
-			paternal_conservatism = 35
-			autocracy = 0
-			corporativism = 5
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.2
 		}
 		log = "[GetDateText]: patcon katowice"
 	}
@@ -695,65 +619,76 @@ country_event = {
 	fire_only_once = yes
 	trigger = { 
 		original_tag = TOU
-		date > 2028.10.01
+		date > 2028.06.01
 	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.15"}
+
 	option = {
-		name = aievent.15.a #EKS
-		ai_chance = { base = 50 }
-		if = { limit = {
-			EKS = {exists = yes}
-		}
-			EKS = {
-				annex_country = {
-					target = TOU
-					transfer_troops = yes
-				}
+		name = aievent.15.a
+		trigger = { EKS = {exists=yes} }
+		ai_chance = { base = 5 }
+		log = "[GetDateText]: TOU gambit"
+		TOU = { get_current_government_type = yes }
+		EKS = {
+			set_autonomy = {
+				target = TOU
+				autonomy_state = autonomy_euromandat
 			}
 		}
-		if = { limit = {
-			ECO = {exists = yes}
-		}
-			ECO = {
-				annex_country = {
-					target = TOU
-					transfer_troops = yes
-				}
-			}
-		}
-		if = { limit = {
-			BOG = {exists = yes}
-		}
-			BOG = {
-				annex_country = {
-					target = TOU
-					transfer_troops = yes
-				}
-			}
-		}				
-	}			
+		TOU = { restore_previous_government_type = yes }
+	}	
 	option = {
-		name = aievent.15.b #KGHorCYG
-		ai_chance = { base = 50 }
-		if = {
-		limit = { country_exists = KGH }
+		name = aievent.15.b
+		trigger = { BOG = {exists=yes} }
+		ai_chance = { base = 10 }
+		log = "[GetDateText]: TOU gambit"
+		TOU = { get_current_government_type = yes }
+		BOG = {
+			set_autonomy = {
+				target = TOU
+				autonomy_state = autonomy_euromandat
+			}
+		}
+		TOU = { restore_previous_government_type = yes }
+		TOU = { set_cosmetic_tag = TOU_BOG }
+	}
+	option = {
+		name = aievent.15.d
+		trigger = { KGH = {exists=yes} }
+		ai_chance = { base = 10 }
+		log = "[GetDateText]: TOU gambit"
+		TOU = { get_current_government_type = yes }
 		KGH = {
-			annex_country = {
+			set_autonomy = {
 				target = TOU
-				transfer_troops = yes
-			}
-		}	
-		else_if = {
-		limit = { country_exists = CYG }
-		CYG = {
-			annex_country = {
-				target = TOU
-				transfer_troops = yes
+				autonomy_state = autonomy_puppet
 			}
 		}
-        }		
+		TOU = { restore_previous_government_type = yes }
+		TOU = { set_cosmetic_tag = TOU_KGH }
 	}
+	option = {
+		name = aievent.15.e
+		trigger = { CYG = {exists=yes} }
+		ai_chance = { base = 5 }
+		log = "[GetDateText]: TOU gambit"
+		TOU = { get_current_government_type = yes }
+		CYG = {
+			set_autonomy = {
+				target = TOU
+				autonomy_state = autonomy_puppet
+			}
+		}
+		TOU = { restore_previous_government_type = yes }
+		TOU = { set_cosmetic_tag = TOU_CYG }
 	}
+	option = {
+		name = aievent.15.f
+		ai_chance = { base = 20 }
+		log = "[GetDateText]: TOU gambit"
+		drop_cosmetic_tag = yes
+	}				
+
 }
 
 country_event = {
@@ -773,18 +708,9 @@ country_event = {
 		set_politics = {
 			ruling_party = postpolonism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 100
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.2
 		}
 		log = "[GetDateText]: kania pilska"
 	}
@@ -794,18 +720,9 @@ country_event = {
 		set_politics = {
 			ruling_party = corporativism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 10
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 85
-			neonationalism = 0
-			reactionary = 5
-			postpolonism = 0
+		add_popularity = {
+			ideology = corporativism
+			popularity = 0.2
 		}
 		log = "[GetDateText]: stoklosa pilska"
 	}
@@ -827,18 +744,9 @@ country_event = {
 		set_politics = {
 			ruling_party = squattism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 58
-			socialdemocrature = 0
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 22
-			corporativism = 20
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = squattism
+			popularity = 0.2
 		}
 		log = "[GetDateText]: komuna starachowicka"
 	}
@@ -860,18 +768,9 @@ country_event = {
 		set_politics = {
 			ruling_party = socialdemocrature
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 78
-			euroliberalism = 22
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.2
 		}
 		log = "[GetDateText]: Sandomierz żyje"
 	}
@@ -890,45 +789,27 @@ country_event = {
 	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.21"}
 	option = {
-		ai_chance = { base = 40 }
+		ai_chance = { base = 60 }
 		name = aievent.21.a #rydzyk
 		set_politics = {
 			ruling_party = corporativism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 0
-			freemarketism = 11
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 64
-			neonationalism = 19
-			reactionary = 6
-			postpolonism = 0
+		add_popularity = {
+			ideology = corporativism
+			popularity = 0.1
 		}
 		set_global_flag = procesja_lets_go
 		log = "[GetDateText]: ojciec dyrektor uczył dzieci swoje"
 	}
 	option = {
-		ai_chance = { base = 20 }
+		ai_chance = { base = 40 }
 		name = aievent.21.b #memcen
 		set_politics = {
 			ruling_party = freemarketism
 		}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 0
-			freemarketism = 41
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 34
-			neonationalism = 19
-			reactionary = 6
-			postpolonism = 0
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.25
 		}
 		set_global_flag = procesja_lets_go
 		log = "[GetDateText]: memcen w woruniu"
@@ -966,18 +847,9 @@ country_event = {
 			ruling_party = corporativism
 		}
 		set_country_flag = radom_committed
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 33
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 37
-			corporativism = 30
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = corporativism
+			popularity = 0.2
 		}
 		get_current_government_type = yes
 		SAT = {
@@ -1000,19 +872,10 @@ country_event = {
 			ruling_party = euroliberalism 
 		}
 		set_country_flag = radom_committed
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 70
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 30
-			corporativism = 0
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
-		}	
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.05
+		}
 		get_current_government_type = yes
 		SKA = {
 			set_autonomy = {
@@ -1030,6 +893,7 @@ country_event = {
 			OR = {
 				country_exists = PAB
 				country_exists = AIR
+				country_exists = SZY
 			}
 		}
 		ai_chance = { base = 30 }
@@ -1037,18 +901,9 @@ country_event = {
 			ruling_party = paternal_conservatism
 		}
 		set_country_flag = radom_committed
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 33
-			freemarketism = 0
-			paternal_conservatism = 30
-			autocracy = 37
-			corporativism = 0
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.2
 		}
 		get_current_government_type = yes
 		if = {
@@ -1074,7 +929,19 @@ country_event = {
 				freedom_level = 0.15 
 			}
 		}
-		}		
+		}
+		if = {
+			limit = {
+				country_exists = SZY
+			}
+		SZY = {
+			set_autonomy = {
+				target = RAD
+				autonomous_state = autonomy_supervised_state
+				freedom_level = 0.15 
+			}
+		}
+		}				
 		restore_previous_government_type = yes
 		log = "[GetDateText]: wojsko w radomiu"
 	}
@@ -1085,18 +952,9 @@ country_event = {
 			ruling_party = autocracy
 		}
 		set_country_flag = radom_committed
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 0
-			socialdemocrature = 0
-			euroliberalism = 33
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 67
-			corporativism = 0
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.3
 		}
 		log = "[GetDateText]: mafia w radomiu"
 	}
@@ -1195,19 +1053,10 @@ country_event = {
 		set_politics = {
 			ruling_party = euroliberalism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 5
-			socialdemocrature = 20
-			euroliberalism = 60
-			freemarketism = 0
-			paternal_conservatism = 10
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 5
-			reactionary = 0
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.05
+			}
 		log = "[GetDateText]: buski"
 	}
 	option = {
@@ -1216,19 +1065,10 @@ country_event = {
 		set_politics = {
 			ruling_party = paternal_conservatism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 15
-			socialdemocrature = 5
-			euroliberalism = 27
-			freemarketism = 0
-			paternal_conservatism = 45
-			autocracy = 3
-			corporativism = 0
-			neonationalism = 5
-			reactionary = 0
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.2
+			}
 		log = "[GetDateText]: prezes"
 	}
 	option = {
@@ -1237,19 +1077,10 @@ country_event = {
 		set_politics = {
 			ruling_party = neonationalism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 1
-			socialdemocrature = 15
-			euroliberalism = 30
-			freemarketism = 0
-			paternal_conservatism = 9
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 40
-			reactionary = 0
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.2
+			}
 		log = "[GetDateText]: kneblewski"
 	}
 }
@@ -1313,19 +1144,10 @@ country_event = {
 		set_politics = {
 			ruling_party = socialdemocrature
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 14
-			socialdemocrature = 75
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 11
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.05
+			}
 		log = "[GetDateText]: scheuring"
 	}
 	option = {
@@ -1334,19 +1156,10 @@ country_event = {
 		set_politics = {
 			ruling_party = squattism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 100
-			socialdemocrature = 0
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 0
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.2
+			}
 		log = "[GetDateText]: schreiberowa"
 	}
 	option = {
@@ -1355,19 +1168,10 @@ country_event = {
 		set_politics = {
 			ruling_party = corporativism
 			}
-		set_popularities = {
-			marxism_cranism	= 0
-			squattism = 05
-			socialdemocrature = 10
-			euroliberalism = 0
-			freemarketism = 0
-			paternal_conservatism = 0
-			autocracy = 0
-			corporativism = 85
-			neonationalism = 0
-			reactionary = 0
-			postpolonism = 0
-		}
+			add_popularity = {
+				ideology = corporativism
+				popularity = 0.2
+			}
 		log = "[GetDateText]: kulczykowa"
 	}
 }
@@ -1468,6 +1272,7 @@ country_event = {
 		name = aievent.32.b #ludowcy ale wojna
 		ai_chance = { base = 5 }
 		PAB = { transfer_state = 301 }
+		301 = { set_demilitarized_zone = no }
 		AIR = {
 			declare_war_on = {
 				target = PAB
@@ -1480,12 +1285,14 @@ country_event = {
 		name = aievent.32.c #lotnicy
 		ai_chance = { base = 45 }
 		AIR = { transfer_state = 301 }
+		301 = { set_demilitarized_zone = no }
 		log = "[GetDateText]: AIR przejmuje Kozienice"
 	}
 	option = {
 		name = aievent.32.d #lotnicy ale wojna
 		ai_chance = { base = 5 }
 		AIR = { transfer_state = 301 }
+		301 = { set_demilitarized_zone = no }
 		PAB = {
 			declare_war_on = {
 				target = AIR
@@ -1950,6 +1757,9 @@ country_event = {
 				}
 			}
 			MYS = { restore_previous_government_type = yes }
+		}
+		add_to_array = {
+			global.states_for_upper_silesia_unification = 486
 		}		
 	}
 }
@@ -1982,7 +1792,10 @@ country_event = {
 		declare_war_on = {
 			target = DGR
 		}	
-		MYS = { set_country_flag = MYS_eurocrusade }	
+		MYS = { set_country_flag = MYS_eurocrusade }
+		add_to_array = {
+			global.states_for_zaglebie_unification = 486 
+		}
 	}
 	option = {
 		name = aievent.42.b #euromandat ale niech se radzą sami
