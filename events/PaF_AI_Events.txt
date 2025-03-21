@@ -1918,7 +1918,7 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = aievent.40.a #KURWA MAĆ
+		name = aievent.41.a #KURWA MAĆ
 		log = "[GetDateText]: jaworznu mięknie pała"
 		JAW = {
 			white_peace = MYS
@@ -1954,6 +1954,179 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = aievent.42 #jakimś kurwa cudem jak Myslovitz pokona Antifę
+	title = aievent.42.t
+	desc = aievent.42.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.4" }
+	fire_only_once = yes
+	trigger = { 
+		original_tag = MYS
+		JAW = { exists = no }
+		OR = {
+			487 = { is_controlled_by = MYS }
+			734 = { is_controlled_by = MYS }
+			733 = { is_controlled_by = MYS }
+		}
+		MYS = { is_subject = no }
+	}
+
+	option = {
+		name = aievent.42.a #lecimy kurwa tu
+		ai_chance = { base = 20 }
+		log = "[GetDateText]: antifa jaworzno"
+		add_war_support = 0.5
+		declare_war_on = {
+			target = SOS
+		}
+		declare_war_on = {
+			target = DGR
+		}	
+		MYS = { set_country_flag = MYS_eurocrusade }	
+	}
+	option = {
+		name = aievent.42.b #euromandat ale niech se radzą sami
+		ai_chance = { base = 40 }
+		487 = { transfer_state_to = JAW }
+		734 = { transfer_state_to = JAW }
+		733 = { transfer_state_to = JAW }
+		JAW = {
+		set_politics = {
+			ruling_party = euroliberalism
+		}
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.25
+		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.1
+		} 
+		load_focus_tree = generic_focus
+		remove_ideas = JAW_myslovitz
+		remove_ideas = JAW_squat_policy
+		delete_unit = {}
+		load_oob = "JAW_REP"
+		set_cosmetic_tag = JAW_EURO
+		}
+		log = "[GetDateText]: euro jaworzno"
+	}
+	option = {
+		name = aievent.42.c #kolaps, wuja wjeżdża na rejon
+		ai_chance = { base = 40 }
+		487 = { transfer_state_to = JAW }
+		734 = { transfer_state_to = JAW }
+		733 = { transfer_state_to = JAW }
+		JAW = {
+		set_politics = {
+			ruling_party = paternal_conservatism
+		}
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.25
+		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.1
+		}		
+		get_current_government_type = yes
+		}
+		SOS = {
+			set_autonomy = {
+				target = JAW
+				autonomy_state = autonomy_satellite
+			}
+		}
+		JAW = { restore_previous_government_type = yes
+		load_focus_tree = generic_focus
+		remove_ideas = JAW_myslovitz
+		remove_ideas = JAW_squat_policy
+		delete_unit = {}
+		load_oob = "JAW_REP"
+		set_cosmetic_tag = JAW_SOS
+		}
+		log = "[GetDateText]: sos jaworzno"
+	}	
+}
+
+
+country_event = {
+	id = aievent.43 #ja się kurwa przyszukuje na wszystko
+	title = aievent.43.t
+	desc = aievent.43.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.4" }
+	fire_only_once = yes
+	trigger = { 
+		original_tag = MYS
+		JAW = { exists = no }
+		SOS = { exists = no }
+		DGR = { exists = no }
+		AND = {
+			487 = { is_controlled_by = MYS }
+			481 = { is_controlled_by = MYS }
+			737 = { is_controlled_by = MYS }
+		}
+		MYS = { is_subject = no }
+		MYS = { has_country_flag = MYS_eurocrusade } 
+	}
+
+	option = {
+		name = aievent.43.a #lecimy kurwa tu
+		log = "[GetDateText]: antifa jaworzno"
+		MYS = { set_cosmetic_tag = MYS_EURO }
+		if = { limit = { country_exists = BED
+		ROOT = { NOT = { original_tag = BED }}
+		ROOT = { NOT = { is_in_faction_with = BED }}
+		 } 
+		declare_war_on = {
+			target = BED
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = SIE
+		ROOT = { NOT = { original_tag = SIE }}
+		ROOT = { NOT = { is_in_faction_with = SIE }}
+		 } 
+		declare_war_on = {
+			target = SIE
+			type = voivodeship_war
+		}
+		}	
+		if = { limit = { country_exists = ZAW
+		ROOT = { NOT = { original_tag = ZAW }}
+		ROOT = { NOT = { is_in_faction_with = ZAW }}			
+		 } 
+		declare_war_on = {
+			target = ZAW
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = JUR } 
+		declare_war_on = {
+			target = JUR
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = CCH } 
+		declare_war_on = {
+			target = CCH
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = JWK } 
+		declare_war_on = {
+			target = JWK
+			type = voivodeship_war
+		}
+		}
+		if = { limit = { country_exists = BRZ } 
+		declare_war_on = {
+			target = BRZ
+			type = voivodeship_war
+		}
+		}
+	}	
+}
 
 
 country_event = {
