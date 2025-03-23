@@ -1,5 +1,30 @@
 TSB_decisions_category = {
 
+	activate_overdrive_mode = {
+		visible = { 
+			is_ai = no
+			NOT = { has_country_flag = kutas_2000 } 
+		}
+		cost = 0
+		complete_effect = {
+			set_country_flag = kutas_2000
+			log = "[GetDateText]: Decision kutas_2000 activated"
+		}
+	}
+
+	deactivate_overdrive_mode = {
+		visible = { 
+			is_ai = no
+			has_country_flag = kutas_2000
+		 }
+		cost = 0
+		complete_effect = {
+			clr_country_flag = kutas_2000
+			log = "[GetDateText]: Decision collapse_ranged"
+		}
+	}
+
+
 	zeslij_raka_kutasa = {
 
 		icon = GFX_decision_generic_prepare_civil_war
@@ -14,25 +39,42 @@ TSB_decisions_category = {
 				is_ai = yes
 				has_war = yes
 				has_idea = AI_bridge_crossing_idea
-				NOT = { has_idea = podlasie_tribe_idea }	
+				OR = {
+				NOT = { has_idea = podlasie_tribe_idea }
+				AND = {
+					has_idea = podlasie_tribe_idea
+					num_divisions > 10
+				}	
+				}
 			}
 		}
 
 		available = {
+			if = { limit = {
+				OR = {
+				TSB = { is_ai = yes }
+				AND = {
+					TSB = { is_ai = no }
+					TSB = { NOT = { has_country_flag = kutas_2000 } }
+				}
+				}
+			}	
 			ROOT = { NOT = { has_idea = cooldown } }
-			FROM = {
+
 				#podstawa
-				is_ai = yes
-				has_war = yes
-				has_idea = AI_bridge_crossing_idea
-				NOT = { has_idea = wojnorozpierdalacz }
-				NOT = { has_idea = cooldown }		
+				FROM = { is_ai = yes }
+				FROM = { has_war = yes }
+				FROM = { has_idea = AI_bridge_crossing_idea }
+				FROM = { NOT = { has_idea = wojnorozpierdalacz } }
+				FROM = { NOT = { has_idea = cooldown } }	
 				#triggery na długość wojny albo surrender progress
-				NOT = {
+				FROM = { NOT = {
 					all_enemy_country = {
 						surrender_progress > 0.5
 					}
 				}
+				}
+				FROM = {
 				OR = {
 					AND = {
 						surrender_progress > 0.5
@@ -45,37 +87,44 @@ TSB_decisions_category = {
 					AND = {
 						longest_war_length > 1
 						date > 2032.01.01
+						NOT = { has_country_flag = unified_voivodeship }
 					}					
-					AND = {
-						has_country_flag = unified_voivodeship
-						longest_war_length > 9
-					}
-					AND = {
-						has_country_flag = unified_regional
-						longest_war_length > 12
-					}
-					AND = {
-						has_country_flag = unified_supregional
-						longest_war_length > 16
-					}										
+					#AND = {
+					#	has_country_flag = unified_voivodeship
+					#	longest_war_length > 9
+					#}
+					#AND = {
+					#	has_country_flag = unified_regional
+					#	longest_war_length > 12
+					#}
+					#AND = {
+					#	has_country_flag = unified_supregional
+					#	longest_war_length > 16
+					#}										
+				}
 				}
 				
 				#trigger żeby żaden kraj nie był już przeklęty
+				FROM = { 
 				NOT = {
 					any_enemy_country = {
 						has_idea = wojnorozpierdalacz
 					}
 				}
+				}
 
 				#trigger żeby nie przeklinać tych którzy walczą z plemieniami
+				FROM = { 
 				NOT = {
 					all_enemy_country = {
 						has_idea = podlasie_tribe_idea
 					}
 				}
+				}
 
 				#triggery poszczególnych krajów
-				NOT = { has_idea = hanys_boss }
+				FROM = { NOT = { has_idea = hanys_boss } }
+				
 				NOT = {
 					AND = {
 						OR = {
@@ -95,39 +144,66 @@ TSB_decisions_category = {
 						}	
 					}
 				}
+
 				NOT = {
+					AND = {
 					original_tag = SDL
 					has_war_with = AGR
+					}
 				}
+
 				NOT = {
+					AND = {
 					original_tag = LOT
 					has_war_with = SWC
-				}				
+					}
+				}	
+
 				NOT = {
+					AND = {
 					original_tag = AGR
 					has_war_with = SDL
+					}
 				}
+
 				NOT = {
+					AND = {
 					original_tag = ARK
 					has_war_with = GDY
+					}
 				}
+
 				NOT = {
+					AND = {
 					original_tag = DUR
 					has_war_with = WOD
-				}				
+					}
+				}
+	
 				NOT = {
+					AND = {
 					original_tag = OSP
 					has_war_with = TRN
 					has_country_leader = {
 						character = OSP_waldemar_pawlak
 					}
-				}				
+					}
+				}	
+
 				NOT = {
+					AND = {
 					original_tag = PRK
 					NOT = { has_global_flag = zero_withdraws }
+					}
 				}													
 			}
-			
+			if = {
+				limit = {
+					TSB = { is_ai = no }
+					TSB = { has_country_flag = kutas_2000 }
+				}
+				FROM = { NOT = { has_idea = wojnorozpierdalacz } }
+			}
 		}
 
 		ai_will_do = {
