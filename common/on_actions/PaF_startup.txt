@@ -457,7 +457,6 @@ on_actions = {
 				}
 			}
 			every_country = {
-				set_variable = { coreable_number = 0}
 				set_variable = { rare_buildings_divider = 20 }
 				set_variable = {
 					var = doctrines_researched
@@ -790,89 +789,6 @@ on_actions = {
 					}
 				}
 				count_voi_ownership = yes
-			}
-			set_temp_variable = { coreable_temp = 0}
-			every_owned_state = {
-				limit = {
-					NOT = { is_core_of = ROOT }
-					compliance > 75
-					check_variable = {
-						THIS.coring_cost < ROOT.political_power
-					}
-				}
-				add_to_temp_variable = { coreable_temp = 1}
-			}
-			set_variable = {coreable_number = coreable_temp }
-			every_owned_state = {
-				limit = {
-					NOT = { is_core_of = ROOT }
-					compliance > 75
-					ROOT = { is_ai = no }
-				}
-				auto_coring_effect = yes
-			}
-			every_owned_state = {
-				limit = {
-					NOT = { is_core_of = ROOT }
-					compliance > 50
-					ROOT = { is_ai = yes }
-				}
-				auto_coring_effect = yes
-			}			
-			every_owned_state = {
-				limit = {
-					NOT = { is_core_of = ROOT }
-					NOT = { is_in_array = { ROOT.noncores_array = THIS.id } }
-				}
-				add_to_array = { ROOT.noncores_array = THIS.id }
-			}
-			every_owned_state = {
-				limit = {
-					is_core_of = ROOT 
-					is_in_array = { ROOT.noncores_array = THIS.id } 
-				}
-				remove_from_array = { ROOT.noncores_array = THIS.id }
-			}
-			every_state = {
-				limit = {
-					is_in_array = { ROOT.noncores_array = THIS.id }
-					NOT = {
-						is_owned_by = ROOT
-					}
-				}
-				remove_from_array = { ROOT.noncores_array = THIS.id }
-			}
-			set_variable = {ROOT.noncores_count = 0}
-			for_each_loop = {
-				array = ROOT.noncores_array
-				add_to_variable = {ROOT.noncores_count = 1}
-			}
-			if = {
-				limit = {
-					check_variable = { ROOT.noncores_count < 1 }
-					has_dynamic_modifier = {
-						modifier = non_core_penalty
-					}
-				}
-				remove_dynamic_modifier = {
-					modifier = non_core_penalty
-				}
-			}
-			else = {
-				set_variable = { root.non_core_penalty_value = ROOT.noncores_count}
-				multiply_variable = { root.non_core_penalty_value = -0.01 }
-				if = {
-					limit = {
-						NOT = {
-							has_dynamic_modifier = {
-								modifier = non_core_penalty
-							}
-						}
-					}
-					add_dynamic_modifier = {
-						modifier = non_core_penalty
-					}
-				}
 			}
 			if = {
 				limit = {
