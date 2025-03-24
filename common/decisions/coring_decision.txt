@@ -13,30 +13,178 @@ core_category = {
 					is_controlled_by = ROOT
 				}
 			}
+			meta_trigger = {	
+				text = {
+					ROOT = {
+						NOT = {
+						has_country_flag = [COUNTRY_TAG]_coring_stage_2
+						}
+						NOT = {
+						has_country_flag = [COUNTRY_TAG]_coring_stage_3
+						}						
+					}
+				}
+				COUNTRY_TAG = "[?FROM.GetTag]"
+			}
 		}
 		available = {
-			has_political_power > FROM.total_coring_cost
+			has_political_power > 1
 		}
-		days_remove = 30
-		custom_cost_trigger = {
-			has_political_power > FROM.total_coring_cost
-		}
-		custom_cost_text = coring_cost_text
+		days_remove = 1
+		cost = 1
+
 		complete_effect = {
-			set_temp_variable = { coring_pp_cost = FROM.total_coring_cost }
-			multiply_temp_variable = { coring_pp_cost = -1 }
-			add_political_power = coring_pp_cost
+
 			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
 		}
 		remove_effect = {
-			PaF_change_capital_coring_prequel = yes
+			if = {
+				limit = {
+					FROM = {
+						is_in_array = {
+							global.lore_friends = FROM
+						}
+					}
+				}
 			every_controlled_state = {
 				limit = {
 					is_core_of = FROM
 				}
 				add_core_of = ROOT
+				remove_core_of = FROM
 			}
-			
+			}
+			else = {
+				custom_effect_tooltip = "aktywacja kolejnego etapu"
+				meta_effect = {	
+					text = {
+						ROOT = {
+							set_country_flag = [COUNTRY_TAG]_coring_stage_2
+						}
+					}
+					COUNTRY_TAG = "[?FROM.GetTag]"
+				}
+			}			
 		}
 	}
+
+
+	core_the_state_2 = {
+
+		ai_will_do = {
+			base = 100
+		}
+		target_array = global.countries
+		target_non_existing = yes
+
+		target_trigger = {
+			FROM = {
+				any_core_state = {
+					NOT = { is_core_of = ROOT }
+					is_controlled_by = ROOT
+				}
+			}
+			meta_trigger = {	
+				text = {
+					ROOT = {
+						has_country_flag = [COUNTRY_TAG]_coring_stage_2
+						NOT = { has_country_flag = [COUNTRY_TAG]_coring_stage_3 }
+					}
+				}
+				COUNTRY_TAG = "[?FROM.GetTag]"
+			}
+		}
+		available = {
+			has_political_power > 1
+		}
+		days_remove = 1
+		cost = 1
+
+		complete_effect = {
+
+			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					FROM = {
+						core_is_niepolak = yes
+					}
+				}
+				custom_effect_tooltip = "aktywacja trzeciego etapu"
+				meta_effect = {	
+					text = {
+						ROOT = {
+							clr_country_flag = [COUNTRY_TAG]_coring_stage_2
+							set_country_flag = [COUNTRY_TAG]_coring_stage_3
+						}
+					}
+					COUNTRY_TAG = "[?FROM.GetTag]"
+				}
+			}
+			else = {
+				every_controlled_state = {
+					limit = {
+						is_core_of = FROM
+					}
+					add_core_of = ROOT
+					remove_core_of = FROM
+				}
+			}
+		}
+	}
+	
+	
+	core_the_state_3 = {
+
+		ai_will_do = {
+			base = 100
+		}
+		target_array = global.countries
+		target_non_existing = yes
+
+		target_trigger = {
+			FROM = {
+				any_core_state = {
+					NOT = { is_core_of = ROOT }
+					is_controlled_by = ROOT
+				}
+			}
+			meta_trigger = {	
+				text = {
+					ROOT = {
+						has_country_flag = [COUNTRY_TAG]_coring_stage_3
+					}
+				}
+				COUNTRY_TAG = "[?FROM.GetTag]"
+			}
+		}
+		available = {
+			has_political_power > 1
+		}
+		days_remove = 1
+		cost = 1
+
+		complete_effect = {
+
+			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+		}
+		remove_effect = {
+			every_controlled_state = {
+				limit = {
+					is_core_of = FROM
+				}
+				add_core_of = ROOT
+				remove_core_of = FROM
+			}
+			meta_effect = {	
+				text = {
+					ROOT = {
+						clr_country_flag = [COUNTRY_TAG]_coring_stage_3
+					}
+				}
+				COUNTRY_TAG = "[?FROM.GetTag]"
+			}
+		}
+	}	
 }

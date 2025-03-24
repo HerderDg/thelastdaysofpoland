@@ -459,7 +459,20 @@ on_actions = {
 
 			every_country = {
 				set_variable = { total_coring_cost = 0 }
-				add_to_variable = { total_coring_cost = num_core_states }
+			}
+			every_state = {
+				meta_effect = {	
+					text = {
+						[STATE_ID] = { 
+							OWNER = {
+								add_to_variable = { total_coring_cost = [STATE_ID].coring_cost }
+							}
+						}
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+			every_country = {
 				set_variable = { rare_buildings_divider = 20 }
 				set_variable = {
 					var = doctrines_researched
