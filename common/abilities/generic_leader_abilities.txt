@@ -383,4 +383,87 @@ ability = {
 			}
 		}
 	}
+	
+	chemical_attack = {
+		name = ABILITY_CHEMICAL_ATTACK
+		desc = ABILITY_CHEMICAL_ATTACK_DESC
+		
+		type = army_leader
+		
+		allowed = {
+			has_ability = chemical_attack
+			is_border_war = no
+		}
+		
+		cost = 0.12
+		duration = 168
+		
+		
+		ai_will_do = {
+			factor = -1
+			modifier = {
+				FROM = {
+					has_war_support > 0.1
+					command_power > 1.5
+				}
+				check_variable = { num_units_offensive_combats > 6 }
+				
+				set_temp_variable = { temp = avg_offensive_combat_status }
+				check_variable = { temp > 0.45 }
+				check_variable = { ai_random > temp }
+				
+				add = 2
+			}
+		}
+		one_time_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						is_special_project_completed = sp:sp_gas_one
+					}
+				}
+				add_temporary_buff_to_units = {
+					combat_offense = 0.2
+					combat_breakthrough = 0.2
+					org_damage_multiplier = 0.1
+					str_damage_multiplier = 0.6
+				
+					days = 7
+					tooltip = ABILITY_CHEMICAL_ATTACK_DESC
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						is_special_project_completed = sp:sp_gas_two
+					}
+				}
+				add_temporary_buff_to_units = {
+					combat_offense = 0.3
+					combat_breakthrough = 0.3
+					org_damage_multiplier = 0.15
+					str_damage_multiplier = 0.6
+				
+					days = 7
+					tooltip = ABILITY_CHEMICAL_ATTACK_DESC
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						is_special_project_completed = sp:sp_gas_three					
+					}
+				}
+				add_temporary_buff_to_units = {
+					combat_offense = 0.5
+					combat_breakthrough = 0.5
+					org_damage_multiplier = 0.2
+					str_damage_multiplier = 0.6
+				
+					days = 7
+					tooltip = ABILITY_CHEMICAL_ATTACK_DESC
+				}
+			}
+		}
+	}
 }
