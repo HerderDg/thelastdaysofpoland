@@ -3,6 +3,23 @@ clear_compatible_countries = {
 	clear_array = global.lore_enemies
 }
 
+
+coring_calculation = {
+	set_variable = { coring_cost = state_population_k }
+	multiply_variable = { coring_cost = 0.6 }
+	round_variable = coring_cost
+	clamp_variable = {
+		var = coring_cost
+		max = 200
+	}
+	set_variable = { coring_multiplier = 0 }
+	add_to_variable = { coring_multiplier = THIS.coring_cost }
+	multiply_variable = { coring_multiplier = THIS.modifier@coring_cost_factor }
+	add_to_variable = {
+		THIS.coring_cost = coring_multiplier
+	}
+}
+
 set_up_compatible_countries = {
 
 	###########
