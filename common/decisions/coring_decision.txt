@@ -12,6 +12,19 @@ core_category = {
 			FROM = {
 				NOT = { is_core_of = ROOT }
 			}
+			meta_trigger = {	
+				text = {
+					ROOT = {
+						NOT = {
+						has_country_flag = CHUJ_[STATE_ID]_coring_stage_2
+						}
+						NOT = {
+						has_country_flag = CHUJ_[STATE_ID]_coring_stage_3
+						}						
+					}
+				}
+				STATE_ID = "[?FROM.GetID]"
+			}
 		}
 		available = {
 			has_political_power > FROM.coring_cost
@@ -31,9 +44,16 @@ core_category = {
 			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
 		}
 		remove_effect = {
-			PaF_change_capital_coring_prequel = yes
 			FROM = {
 				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+				set_variable = { coring_cost = state_population_k }
+				multiply_variable = { coring_cost = 0.6 }
+				round_variable = coring_cost
+				clamp_variable = {
+					var = coring_cost
+					max = 200
+				}
 			}
 		}
 	}
