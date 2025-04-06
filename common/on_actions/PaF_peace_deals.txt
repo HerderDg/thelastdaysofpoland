@@ -1141,11 +1141,41 @@ on_actions = {
 	on_peace = {
 		effect = {
 			THIS = {
+				count_buildings = yes
+				set_variable = { prev_civ_factories = num_of_civils }
+				set_variable = { prev_mil_factories = num_of_militars }
+				set_variable = { prev_dockyards = num_of_dockyards }
+				set_variable = { prev_synths = num_of_synthetic_refineries }
+				set_variable = { prev_hitech = num_of_high_tech_complexes }
+				set_variable = { prev_silos = num_of_fuel_siloes }
+				set_variable = { prev_coal_plants = sum_of_power_plants }
+				set_variable = { prev_wind_farms = sum_of_wind_farms }
+				set_variable = { prev_recycling = num_of_recycling_plants }
+				set_variable = { prev_steel = num_of_steel_works }
+				set_variable = { prev_temples = num_of_cathedrals }
+				set_variable = { prev_universities = num_of_universities }
+				set_variable = { prev_hospitals = num_of_hospitals }
+				set_variable = { prev_prisons = num_of_prisons }
+				set_variable = { prev_januszexes = num_of_januszexes }
+				set_variable = { prev_ports = num_of_ports }
+				set_variable = { prev_facilities = num_of_facilities }
+				set_variable = { prev_reactors = num_of_reactors }
+				set_variable = { prev_rockets = num_of_rockets }
+				set_variable = { prev_dams = num_of_dams }
+				set_variable = { prev_airbase = num_of_airbase }
+				set_variable = { prev_supplyhub = num_of_supplyhub }
+				set_variable = { prev_bunker = num_of_bunker }
+				set_variable = { prev_stronghold = num_of_stronghold }
+				set_variable = { prev_aa = num_of_aa }
+				set_variable = { prev_radar = num_of_radar }	
+			}
+			recalculate_deposit_levels = yes
+			THIS = {
 			every_owned_state = {
 				limit = {
 					NOT = {
 						is_core_of = ROOT
-						has_administration_modifier = no
+						has_administration_modifier = yes
 					}
 				}
 				if = {
@@ -1243,7 +1273,7 @@ on_actions = {
 					add_dynamic_modifier = {
 						modifier = polish_weird_administration
 					}
-				}
+				}								
 				if = {
 					limit = {
 						any_country_with_core = {
@@ -1737,6 +1767,32 @@ on_actions = {
 					}
 					add_dynamic_modifier = {
 						modifier = goral_slower_administration
+					}
+				}
+				if = {
+					limit = {
+						any_country_with_core = {						
+							core_is_niepolak = no
+						}
+						OWNER = {
+							core_is_niepolak = yes
+						}
+					}
+					add_dynamic_modifier = {
+						modifier = polish_weird_administration
+					}
+				}
+				if = {
+					limit = {
+						any_country_with_core = {						
+							core_is_niepolak = yes
+						}
+						OWNER = {
+							core_is_niepolak = yes
+						}
+					}
+					add_dynamic_modifier = {
+						modifier = polish_weird_administration
 					}
 				}
 				coring_calculation = yes
