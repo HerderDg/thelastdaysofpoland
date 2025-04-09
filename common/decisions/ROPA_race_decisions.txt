@@ -3,8 +3,8 @@ ROPA_race_category = {
 	ROPA_send_navy = {
 		visible = {
 			OR = {
-				original_tag = STE
-				original_tag = GDA
+				is_west_pomerania = yes
+				is_pomerelia = yes
 			}
 		}
 		cost = 20
@@ -16,8 +16,21 @@ ROPA_race_category = {
 	ROPA_send_troops = {
 		visible = {
 			OR = {
-				original_tag = STE
-				original_tag = GDA
+				is_west_pomerania = yes
+				is_pomerelia = yes
+			}
+		}
+		cost = 20
+		days_remove = 14
+		remove_effect = {
+
+		}
+	}
+	ROPA_pmc_raid = {
+		visible = {
+			OR = {
+				is_west_pomerania = yes
+				is_pomerelia = yes
 			}
 		}
 		cost = 20
@@ -27,28 +40,80 @@ ROPA_race_category = {
 		}
 	}
 
-	ROPA_mission_superiority = {
+	ROPA_mission_superiority_gotland = {
     	activation = {
 			OR = {
-				original_tag = STE
-				original_tag = GDA
-			}
-    	}
-    	available = {
-			OR = {
-				original_tag = STE
-				original_tag = GDA
+				is_west_pomerania = yes
+				is_pomerelia = yes
 			}
     	}
 		
     	cancel_trigger = {
     	}
+		available  = {
+			NOT = {
+				ships_in_area = { area = 177 size > 10 }
+			}
+		}
     	days_mission_timeout = 30
+		selectable_mission = no
+		is_good = yes
     	complete_effect = {
-    	    
     	}
     	timeout_effect = {
+			if = {
+				limit= {
+					is_west_pomerania = yes 
+				}
+				add_to_variable = { ZACHPOM_gotland_control_var = 5 }
+				custom_effect_tooltip = gotland_control_5
+			}
+			else_if = {
+				limit = {
+					is_pomerelia = yes
+				}
+				add_to_variable = { POM_gotland_control_var = 5 }
+				custom_effect_tooltip = gotland_control_5	
+			}	
+    	}
+	}
+	ROPA_mission_superiority_gdansk = {
+    	activation = {
+			OR = {
+				is_west_pomerania = yes
+				is_pomerelia = yes
+			}
+    	}
+		
+    	cancel_trigger = {
+    	}
+		available = {
+			NOT = {
+				ships_in_area = { area = 176 size > 10 } 
+			}
+		}
+    	days_mission_timeout = 30
+		selectable_mission = no
+		is_good = yes
+    	complete_effect = {
+    	}
+    	timeout_effect = {
+			if = {
+				limit = {
+					is_west_pomerania = yes
 
+				}
+				add_to_variable = { ZACHPOM_gdansk_control_var = 5 }
+				custom_effect_tooltip = gdansk_control_5
+			}
+			else_if = {
+				limit = {
+					is_pomerelia = yes
+					
+				}
+				add_to_variable = { POM_gdansk_control_var = 5 }
+				custom_effect_tooltip = gdansk_control_5		
+			}	
     	}
 	}
 	
