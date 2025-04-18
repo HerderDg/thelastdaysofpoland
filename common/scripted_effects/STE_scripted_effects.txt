@@ -109,7 +109,14 @@ STE_calculate_total_loyalty = {
 	add_to_variable = { STE_total_loyalty = STE_netto_converted_loyalty }
 	add_to_variable = { STE_total_loyalty = STE_chemiewerke_converted_loyalty }
 }
-	
+STE_calculate_average_loyalty = {
+	set_variable = { STE_average_loyalty = 0 }
+	add_to_variable = { STE_average_loyalty = STE_pzm_loyalty }
+	add_to_variable = { STE_average_loyalty = STE_netto_loyalty }
+	add_to_variable = { STE_average_loyalty = STE_chemiewerke_loyalty }
+	divide_variable = { STE_average_loyalty = 3 }
+	round_variable = STE_average_loyalty
+}	
 STE_loyalty_check = {
 	if = {
 		limit = {
@@ -139,6 +146,7 @@ STE_loyalty_check = {
 STE_hanza_all_check = {
 	STE_loyalty_check = yes
 	STE_calculate_total_loyalty = yes
+	#STE_calculate_average_loyalty = yes
 }
 STE_chemiewerke_focus_check = {
 	if = {
