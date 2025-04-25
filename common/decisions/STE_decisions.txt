@@ -120,6 +120,7 @@ STE_powerstruggle_category = {
 		visible = {
 			country_exists = STE
 		}
+		fixed_random_seed = no
 		complete_effect  = {
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -127,6 +128,7 @@ STE_powerstruggle_category = {
 			set_country_flag = netto_mission_flag
 			STE_mission_randomizer = yes
 			custom_effect_tooltip = hanza_mission_tooltip
+			
 		}
 		
 	}
@@ -134,6 +136,7 @@ STE_powerstruggle_category = {
 		visible = {
 			country_exists = STE
 		}
+		fixed_random_seed = no
 		complete_effect  = {
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -141,6 +144,7 @@ STE_powerstruggle_category = {
 			set_country_flag = polsteam_mission_flag
 			STE_mission_randomizer = yes
 			custom_effect_tooltip = hanza_mission_tooltip
+			activate_mission = szczecin_mission_1
 		}
 		
 	}
@@ -148,6 +152,7 @@ STE_powerstruggle_category = {
 		visible = {
 			country_exists = STE
 		}
+		fixed_random_seed = no
 		complete_effect  = {
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -155,6 +160,36 @@ STE_powerstruggle_category = {
 			set_country_flag = chemiewerke_mission_flag
 			STE_mission_randomizer = yes
 			custom_effect_tooltip = hanza_mission_tooltip
+			random_list = {
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_1
+					#divisions_in_state = {
+					#	size > 2
+					#	state = 90
+					#}
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_2
+					#has_resources_in_country = {
+					#	resource = oil
+					#	amount > 20
+					#}
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_3
+					#fuel_ratio > 0.4
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_4
+					#all_owned_state = {
+					#	infrastructure > 4
+					#}
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_5
+					#has_damaged_buildings = no
+				}
+			}
 		}
 		
 	}
@@ -185,26 +220,82 @@ STE_powerstruggle_category = {
 			STE_hanza_all_check = yes
 		}
 	}
-	szczecin_mission_1 = {
-    	activation = {
-			
-    	}
+	
+	szczecin_chemiewerke_mission_1 = {
+    	allowed = { always = no }
     	available = {
-			#misja tutaj, scripted trigger CBT
+			divisions_in_state = {
+				size > 2
+				state = 90
+			}
     	}
     	cancel_trigger = {
     	}
 		is_good = no
+		selectable_mission = no
     	days_mission_timeout = 600
     	complete_effect = {
-    	    hidden_effect = {
+			STE_plus10_chemiewerke = yes
+			hidden_effect = {
 				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
 			}
     	}
     	timeout_effect = {
 			add_ideas = STE_hanza_mission_failure 
 			hidden_effect = {
 				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+	}
+	szczecin_netto_mission_1 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 600
+    	complete_effect = {
+			STE_plus10_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_ideas = STE_hanza_mission_failure 
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+	}
+	szczecin_polsteam_mission_1 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 600
+    	complete_effect = {
+			STE_plus10_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_ideas = STE_hanza_mission_failure 
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
 			}
     	}
 	}
