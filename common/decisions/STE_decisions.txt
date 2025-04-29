@@ -263,6 +263,7 @@ STE_powerstruggle_category = {
 	szczecin_chemiewerke_mission_1 = {
     	allowed = { always = no }
     	available = {
+			command_power > 5
 			divisions_in_state = {
 				size > 2
 				state = 90
@@ -283,6 +284,7 @@ STE_powerstruggle_category = {
 		selectable_mission = no
     	days_mission_timeout = 600
     	complete_effect = {
+			add_command_power = -5
 			STE_plus10_chemiewerke = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -358,10 +360,18 @@ STE_powerstruggle_category = {
     	}
     	cancel_trigger = {
     	}
-		is_good = no
-		selectable_mission = no
+		selectable_mission = yes
     	days_mission_timeout = 600
     	complete_effect = {
+			add_manpower = -100
+			add_political_power = -25
+			add_stability = -0.005
+			random_list = {
+				10 = {
+					90 = { add_extra_state_shared_building_slots = 1 }
+				}
+				90 = { }
+			}
 			STE_plus10_chemiewerke = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -383,11 +393,38 @@ STE_powerstruggle_category = {
     	}
     	cancel_trigger = {
     	}
-		is_good = yes
 		selectable_mission = yes
     	days_mission_timeout = 600
     	complete_effect = {
-			
+			random_owned_state  = {
+				limit = { 
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = no
+					}
+					is_capital = no
+					NOT = {
+						state = 616
+						state = 105
+						state = 114
+						state = 617
+					}
+				}
+				add_state_modifier = {
+					modifier = {
+						recruitable_population_factor = -0.1
+						local_supplies = -0.1
+						local_resources = 0.15
+					}
+				}
+				random_list = {
+					10 = {
+						add_extra_state_shared_building_slots = -1
+					}
+					90 = {}
+				}
+			}	
 			STE_plus10_chemiewerke = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -405,6 +442,7 @@ STE_powerstruggle_category = {
 	szczecin_netto_mission_1 = {
     	allowed = { always = no }
     	available = {
+			command_power > 5
 			divisions_in_state = {
 				size > 2
 				state = 105
@@ -416,6 +454,7 @@ STE_powerstruggle_category = {
 		selectable_mission = no
     	days_mission_timeout = 600
     	complete_effect = {
+			add_command_power = -5
 			STE_plus10_netto = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -457,7 +496,9 @@ STE_powerstruggle_category = {
 	szczecin_netto_mission_3 = {
     	allowed = { always = no }
     	available = {
-			
+			has_equipment = {
+				motorized_equipment > 100
+			}
     	}
     	cancel_trigger = {
     	}
@@ -489,10 +530,10 @@ STE_powerstruggle_category = {
     	}
     	cancel_trigger = {
     	}
-		is_good = no
-		selectable_mission = no
+		selectable_mission = yes
     	days_mission_timeout = 600
     	complete_effect = {
+			add_timed_idea = { days = 90 idea = STE_netto_exclusive_deals } 
 			STE_plus10_netto = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -514,10 +555,16 @@ STE_powerstruggle_category = {
     	}
     	cancel_trigger = {
     	}
-		is_good = no
-		selectable_mission = no
+		selectable_mission = yes
     	days_mission_timeout = 600
     	complete_effect = {
+			add_timed_idea = { days = 90 idea = STE_netto_greenlight_merger }
+			random_list = {
+				5 = {
+					add_offsite_building = { type = industrial_complex level = 1 }
+				}
+				95 = { }
+			}
 			STE_plus10_netto = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -535,6 +582,7 @@ STE_powerstruggle_category = {
 	szczecin_polsteam_mission_1 = {
     	allowed = { always = no }
     	available = {
+			command_power > 5
 			divisions_in_state = {
 				size > 2
 				state = 114
@@ -555,6 +603,7 @@ STE_powerstruggle_category = {
 		selectable_mission = no
     	days_mission_timeout = 600
     	complete_effect = {
+			add_command_power = -5
 			STE_plus10_pzm = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
@@ -629,7 +678,9 @@ STE_powerstruggle_category = {
 	szczecin_polsteam_mission_4 = {
     	allowed = { always = no }
     	available = {
-			
+			has_equipment = {
+				convoy_1 > 15
+			}
     	}
     	cancel_trigger = {
     	}
@@ -661,10 +712,11 @@ STE_powerstruggle_category = {
     	}
     	cancel_trigger = {
     	}
-		is_good = no
-		selectable_mission = no
+		selectable_mission = yes
     	days_mission_timeout = 600
     	complete_effect = {
+			add_political_power = -50
+			add_stability = -0.005
 			STE_plus10_pzm = yes
 			hidden_effect = {
 				STE_hanza_all_check = yes
