@@ -6,6 +6,7 @@ misc_category = {
 	}
 }
 
+
 debug_category = {
 	priority = 100
 	icon = GFX_decision_category_generic_fascism
@@ -22,6 +23,13 @@ ai_war_decisions = {
 	allowed = {
 		always = yes
 	}
+	visible = {
+		ROOT  =	{	
+		NOT = {
+			has_country_flag = unified_voivodeship
+		}
+		}
+	}	
 }
 
 regional_conquest_category = {
@@ -34,7 +42,6 @@ regional_conquest_category = {
 			has_country_flag = unified_regional
 			has_country_flag = unified_supregional
 		}
-		#has_global_flag = conquest_decisions_enabled
 	}
 }
 
@@ -46,7 +53,6 @@ final_conquest_category = {
 	
 	visible = {
 		has_country_flag = unified_supregional
-		#has_global_flag = conquest_decisions_enabled
 	}
 }
 
@@ -56,6 +62,26 @@ unification_category = {
 	
 	allowed = {
 		always = yes
+	}
+}
+
+cleanup_category = {
+	priority = 120
+	icon = GFX_decision_category_generic_arms_trade
+	visible_when_empty = no
+	allowed = {
+		is_poland_unifier = yes
+	}
+}
+
+pomorskie_unification_category = {
+	priority = 90
+	visible = {
+		is_pomerelia = yes
+		#OR = {
+		#	has_subject = GDY
+		#	has_subject = SOP
+		#}
 	}
 }
 
@@ -77,6 +103,16 @@ weapon_dealer = {
 		num_of_civilian_factories > 1
 	}
 }
+
+wunderwaffe_decisions = {
+	priority = 2
+	icon = GFX_decision_category_generic_fascism
+	visible_when_empty = no
+	allowed = {
+		always = yes
+	}
+}
+
 resource_decisions = {
 	priority = 2
 	icon = GFX_decision_category_generic_prospect_for_resources
@@ -95,6 +131,16 @@ konon_decisions = {
 	visible_when_empty = yes
 	allowed = {
 		original_tag = KON
+	}
+}
+
+TSB_decisions_category = {
+	priority = 200
+	icon = generic_economy
+	picture = GFX_category_icon
+	visible_when_empty = yes
+	allowed = {
+		original_tag = TSB
 	}
 }
 
@@ -174,33 +220,15 @@ KRS_shareholders_competition_category = {
 KSN_decision_category = {
     allowed = {
         original_tag = KSN
+		is_special_project_completed = sp:sp_przeziebienie
     }
     priority = 110
     visible_when_empty = no
 }
 
-#coring_category = {
-	#priority = 2
-	#icon = GFX_category_icon
-	
-	#allowed = {
-		#always = yes
-	#}
-
-	#scripted_gui = coring_ui
-#	on_map_area = {
-#		target_array = core_states
-#		target_trigger = {
-#			any_owned_state = {
-#				NOT = { is_core_of = ROOT }
-#			}
-#		}
-#		name = current_cores
-#		zoom = 1000
-#	}
-#}
-
 ### IDEOLOGY GENERIC CATEGORIES ###
+
+
 
 generic_decisions_category = {
 	priority = 30
@@ -229,17 +257,6 @@ workshops_category = {
 	visible = {
 		NOT = {
 			has_tech = industry_revival
-		}
-	}
-}
-
-pomorskie_unification_category = {
-	priority = 90
-	visible = {
-		is_pomerelia = yes
-		OR = {
-			has_subject = GDY
-			has_subject = SOP
 		}
 	}
 }

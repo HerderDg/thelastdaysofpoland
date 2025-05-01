@@ -16,6 +16,13 @@ sp_land_military_engineering_vehicles = {
 	breakthrough_cost = {
 		specialization_land = 1
 	}
+
+	resource_cost = {
+		resources = { 
+			steel = 3
+			aluminium = 1
+		}
+	}
 	
 	project_output = {
 		enable_equipments = {
@@ -106,6 +113,19 @@ sp_land_flamethrower_tank = {
 	
 	project_output = {
 		country_effects = {
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = CAL
+					}
+				}
+				add_tech_bonus = {
+					bonus = 0.8
+					uses = 2
+					category = antitank_weapons
+					name = "Iactaflamma Bonus"
+				}
+			}
 			add_design_template_bonus = {
 				name = sp_land_flamethrower_tank
 				uses = 1
@@ -431,16 +451,29 @@ sp_pervitin = {
 		sp_tag_chemical
 	}
 
-	prototype_time = sp_time.prototype.medium
+	prototype_time = sp_time.prototype.short
 
-	complexity = sp_complexity.large
+	complexity = sp_complexity.small
 
 	breakthrough_cost = {
 		specialization_land = 1
 	}
 
+	resource_cost = {
+		resources = { 
+			synthetic_materials = 5
+		}
+	}
+
 	project_output = {
-		#tu bedzie jakis dynmod
+		country_effects = {
+			custom_effect_tooltip = pervitin_tech_tooltip
+			hidden_effect = {
+			set_technology = {
+				pervitin_tech = 1
+			}
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -476,9 +509,17 @@ sp_kontrola_knura = {
 	breakthrough_cost = {
 		specialization_land = 2
 	}
-
+	
+	resource_cost = {
+		resources = { 
+			food = 5 
+		}
+	}
+	
 	project_output = {
-
+		enable_subunits = {
+			knur_company
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -510,12 +551,34 @@ sp_remote_mine = {
 
 	complexity = sp_complexity.large
 
+	special_project_parent = {
+		sp_land_military_engineering_vehicles
+	}
+
 	breakthrough_cost = {
 		specialization_land = 2
 	}
 
 	project_output = {
+		enable_equipments = {
+			armored_support_vehicle_2
+		}
+		sub_unit_bonus = {
+			assault_engineer = {
+				breakthrough = 0.50
+			}
+			armored_engineer = {
+				defense = 0.50
+			}
+		}
+	}
 
+	resource_cost = {
+		resources = { 
+			steel = 2
+			aluminium = 2
+			electronics = 2
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -1451,9 +1514,16 @@ sp_robopies = {
 		sp_tag_tank
 	}
 
-	#special_project_parent = {
-	#	sp_remote_mine
-	#}
+	special_project_parent = {
+		sp_remote_mine
+	}
+
+	resource_cost = {
+		resources = { 
+			electronics = 3
+			synthetic_materials = 3
+		}
+	}
 
 	prototype_time = sp_time.prototype.medium
 
@@ -1464,7 +1534,13 @@ sp_robopies = {
 	}
 
 	project_output = {
+		enable_equipments = {
+			robodog_equipment_1
+		}
 
+		enable_subunits = {
+			robodog_military_police
+		} 
 	}
 
 	generic_prototype_rewards = {
@@ -1495,6 +1571,13 @@ sp_fat_tank = {
 	prototype_time = sp_time.prototype.medium
 
 	complexity = sp_complexity.large
+
+	resource_cost = {
+		resources = { 
+			steel = 10
+			aluminium = 5
+		}
+	}
 
 	breakthrough_cost = {
 		specialization_land = 2
@@ -1550,7 +1633,21 @@ sp_jetpack = {
 	}
 
 	project_output = {
-
+		sub_unit_bonus = {
+			paratrooper = {
+				soft_attack = 0.15
+				breakthrough = 0.15
+				maximum_speed = 0.3
+				urban = {
+					movement = 0.3
+				}				
+				industrial = {
+					attack = 0.15
+					defence = 0.1
+					movement = 0.2
+				}
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -1582,12 +1679,22 @@ sp_jammer = {
 
 	complexity = sp_complexity.large
 
+	resource_cost = {
+		resources = { 
+			electronics = 8
+		}
+	}
+
 	breakthrough_cost = {
 		specialization_land = 2
 	}
 
 	project_output = {
-
+		country_effects = {
+			add_dynamic_modifier = {
+				modifier = signal_jammer
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -1623,8 +1730,31 @@ sp_kwassenwerfer = {
 		specialization_land = 2
 	}
 
-	project_output = {
+	resource_cost = {
+		resources = { 
+			synthetic_materials = 10
+			junk = 5
+		}
+	}
 
+	project_output = {
+		sub_unit_bonus = {
+			mechanized = {
+				suppression_factor = 0.30
+				ap_attack = 0.2
+				soft_attack = 0.2
+			}
+			motorized = {
+				suppression_factor = 0.30
+				ap_attack = 0.2
+				soft_attack = 0.2
+			}			
+			motorized_military_police = {
+				suppression_factor = 0.30
+				ap_attack = 0.2
+				soft_attack = 0.2
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -1652,9 +1782,9 @@ sp_land_land_cruiser = {
 
 	project_tags = sp_tag_tank
 	
-	#special_project_parent = {
-	#	sp_fat_tank
-	#}
+	special_project_parent = {
+		sp_fat_tank
+	}
 
 	prototype_time = sp_time.prototype.medium
 
@@ -2221,12 +2351,27 @@ sp_power_armor = {
 
 	complexity = sp_complexity.large
 
+	available = {
+		FROM = {
+			is_special_project_completed = sp:sp_exoskeletons
+		}
+	}
+
+	resource_cost = {
+		resources = { 
+			electronics = 5 
+			aluminium = 10 
+		}
+	}
+
 	breakthrough_cost = {
 		specialization_land = 2
 	}
 
 	project_output = {
-
+		enable_equipments = {
+			special_forces_equipment_3
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -2262,13 +2407,26 @@ sp_powiekszanie_knura = {
 	prototype_time = sp_time.prototype.medium
 
 	complexity = sp_complexity.large
+	
+	resource_cost = {
+		resources = { 
+			food = 5
+			steel = 5
+		}
+	}
 
 	breakthrough_cost = {
 		specialization_land = 2
 	}
 
 	project_output = {
-
+		sub_unit_bonus = {
+			knur_company = {
+				soft_attack = 0.2
+				breakthrough = 0.2
+				recon = 1
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -2309,7 +2467,13 @@ sp_robot = {
 	}
 
 	project_output = {
+		enable_subunits = {
+			robot_unit
+		}
 
+		enable_equipments = {
+			robot_component_equipment_1
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -2350,7 +2514,13 @@ sp_mech = {
 	}
 
 	project_output = {
+		enable_subunits = {
+			mech_tank
+		}
 
+		enable_equipments = {
+			mech_equipment_1
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -2386,8 +2556,17 @@ sp_tesla_gun = {
 		specialization_land = 2
 	}
 
-	project_output = {
+	resource_cost = {
+		resources = { 
+			electronics = 8
+			aluminium = 4 
+		}
+	}
 
+	project_output = {
+		enable_equipments = {
+			ranged_equipment_tesla
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -2428,7 +2607,13 @@ sp_android = {
 	}
 
 	project_output = {
+		enable_subunits = {
+			android_unit
+		}
 
+		enable_equipments = {
+			robot_component_equipment_2
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -2451,7 +2636,7 @@ sp_android = {
 
 sp_gigamech = {
 	specialization = specialization_land
-
+	icon = GFX_sp_gigamech
 	project_tags = {
 		sp_tag_tank
 	}
@@ -2469,7 +2654,13 @@ sp_gigamech = {
 	}
 
 	project_output = {
+		enable_subunits = {
+			gigamech_tank
+		}
 
+		enable_equipments = {
+			mech_equipment_2
+		}
 	}
 
 	generic_prototype_rewards = {

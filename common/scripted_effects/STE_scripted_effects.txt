@@ -109,7 +109,14 @@ STE_calculate_total_loyalty = {
 	add_to_variable = { STE_total_loyalty = STE_netto_converted_loyalty }
 	add_to_variable = { STE_total_loyalty = STE_chemiewerke_converted_loyalty }
 }
-	
+STE_calculate_average_loyalty = {
+	set_variable = { STE_average_loyalty = 0 }
+	add_to_variable = { STE_average_loyalty = STE_pzm_loyalty }
+	add_to_variable = { STE_average_loyalty = STE_netto_loyalty }
+	add_to_variable = { STE_average_loyalty = STE_chemiewerke_loyalty }
+	divide_variable = { STE_average_loyalty = 3 }
+	round_variable = STE_average_loyalty
+}	
 STE_loyalty_check = {
 	if = {
 		limit = {
@@ -134,6 +141,228 @@ STE_loyalty_check = {
 		remove_ideas = STE_guild_loyal
 		remove_ideas = STE_guild_disloyal
 		add_ideas = STE_guild_obedient
+	}	
+}
+STE_clamp_loyalties = {
+	clamp_variable = {
+		var = STE_pzm_loyalty
+		min = 0
+		max = 100
 	}
-	
+	clamp_variable = {
+		var = STE_netto_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = STE_chemiewerke_loyalty
+		min = 0
+		max = 100
+	}
+}
+STE_hanza_all_check = {
+	STE_loyalty_check = yes
+	STE_calculate_total_loyalty = yes
+	#STE_calculate_average_loyalty = yes
+	STE_clamp_loyalties = yes
+}
+STE_chemiewerke_focus_check = {
+	if = {
+		limit = {
+			has_completed_focus = STE_the_german_ball_and_chain
+		}
+		complete_national_focus = {
+			focus = STE_fertilizer_giant
+			use_side_message = yes
+			originator_name = STE_chemiewerke_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_fertilizer_giant
+		}
+		complete_national_focus = {
+			focus = STE_chemiewerke_politz_ag_kraftstoffe
+			use_side_message = yes
+			originator_name = STE_chemiewerke_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_chemiewerke_politz_ag_kraftstoffe
+		}
+		complete_national_focus = {
+			focus = STE_repair_the_swinoujscie_gasport
+			use_side_message = yes
+			originator_name = STE_chemiewerke_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_repair_the_swinoujscie_gasport
+		}
+		complete_national_focus = {
+			focus = STE_oil_fields_of_the_north
+			use_side_message = yes
+			originator_name = STE_chemiewerke_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_oil_fields_of_the_north
+		}
+		complete_national_focus = {
+			focus = STE_what_happens_in_police_stays_in_police
+			use_side_message = yes
+			originator_name = STE_chemiewerke_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_what_happens_in_police_stays_in_police
+		}
+		complete_national_focus = {
+			focus = STE_new_horizons_of_chemistry
+			use_side_message = yes
+			originator_name = STE_chemiewerke_name_loc
+		}
+	}
+}
+STE_pzm_focus_check = {
+	if = {
+		limit = {
+			has_completed_focus = STE_the_polish_remnants
+		}
+		complete_national_focus = {
+			focus = STE_rusty_but_trusty
+			use_side_message = yes
+			originator_name = STE_pzm_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_rusty_but_trusty
+		}
+		complete_national_focus = {
+			focus = STE_armed_river_barges
+			use_side_message = yes
+			originator_name = STE_pzm_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_armed_river_barges
+		}
+		complete_national_focus = {
+			focus = STE_arm_the_nawigator_xxi
+			use_side_message = yes
+			originator_name = STE_pzm_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_arm_the_nawigator_xxi
+		}
+		complete_national_focus = {
+			focus = STE_designs_from_the_marine_polytechnic
+			use_side_message = yes
+			originator_name = STE_pzm_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_designs_from_the_marine_polytechnic
+		}
+		complete_national_focus = {
+			focus = STE_the_tricity_special_economic_zone
+			use_side_message = yes
+			originator_name = STE_pzm_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_the_tricity_special_economic_zone
+		}
+		complete_national_focus = {
+			focus = STE_monopoly_on_marine_trade
+			use_side_message = yes
+			originator_name = STE_pzm_name_loc
+		}
+	}
+}
+STE_netto_focus_check = {
+	if = {
+		limit = {
+			has_completed_focus = STE_the_danish_lapdogs
+		}
+		complete_national_focus = {
+			focus = STE_masters_of_consumerism
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_masters_of_consumerism
+		}
+		complete_national_focus = {
+			focus = STE_taste_of_the_west
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_taste_of_the_west
+		}
+		complete_national_focus = {
+			focus = STE_exotic_paprykarz_flavours
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_exotic_paprykarz_flavours
+		}
+		complete_national_focus = {
+			focus = STE_the_amphibian_menace
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_the_amphibian_menace
+		}
+		complete_national_focus = {
+			focus = STE_aggressive_competitive_pricing
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_aggressive_competitive_pricing
+		}
+		complete_national_focus = {
+			focus = STE_pomeranian_private_labels
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+	else_if = {
+		limit = {
+			has_completed_focus = STE_pomeranian_private_labels
+		}
+		complete_national_focus = {
+			focus = STE_danish_week_in_pomerania
+			use_side_message = yes
+			originator_name = STE_netto_name_loc
+		}
+	}
+}
+STE_mission_randomizer = {
+	###ukrytym eventem robić "randomizację" przez chance? chuj wi, jebać paradox, wymyślę potem#
+
 }

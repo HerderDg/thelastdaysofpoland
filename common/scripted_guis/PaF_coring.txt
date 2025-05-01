@@ -4,78 +4,20 @@ scripted_gui = {
 		context_type = player_context
 		parent_window_token = top_bar
 		window_name = "after_logistics_button"
-		triggers = {
-			coreable_number_visible = {
-				is_ai = no
-				check_variable = {
-					coreable_number > 0
-				}
-			}
-		}
+
 		effects = {
 			show_coring_button_click = {
 				if = {
 					limit = {
-						has_global_flag = coring_ui_visible
+						check_variable = { global.PaF_EconomyLedger = 0 }
 					}
-					close_coring_ui_effect = yes
+				set_variable = { global.PaF_EconomyLedger = 1 }
 				}
 				else = {
-					open_coring_ui_effect = yes
-				}
+				clear_variable = global.PaF_EconomyLedger 
+				}				
 			}
 		}
 	}
-
-	coring_ui = {
-		context_type = player_context
-		window_name = "PaF_coring_ui"
-		visible = {
-			has_global_flag = coring_ui_visible
-		}
-		effects = {
-			add_core_click = {
-				coring_effect = yes
-			}
-			close_button_click = {
-				close_coring_ui_effect = yes
-			}
-		}
-		triggers = {
-			add_core_visible = {
-				NOT = {is_core_of = ROOT}
-			}
-			add_core_click_enabled = {
-				enable_coring_button = yes
-			}
-		}
-		
-		ai_test_interval = 168
-		ai_test_variance = 0.2
-		ai_test_scopes = test_self_owned_states
-		#ai_enabled = {
-		#	always = yes
-		#}
-		ai_check_scope = {
-			NOT = { is_core_of = ROOT }
-			is_owned_and_controlled_by = ROOT
-			any_neighbor_state = { is_core_of = ROOT }	
-		}
-		ai_weights = {
-			add_core_click = {
-				ai_will_do = {
-					factor  = 1
-				}
-			}
-		}
-		
-		dynamic_lists = {
-			noncores_gridbox = {
-				array = noncores_array
-				entry_container = noncores_entry
-				change_scope = yes
-			}
-		}
-		
-	}
+ 
 }

@@ -1,0 +1,260 @@
+﻿add_namespace = jaszczur
+
+country_event = {
+	id = jaszczur.1 
+	title = jaszczur.1.t
+	desc = jaszczur.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires jaszczur.1" 
+		country_event = { 
+			id = jaszczur.2
+			days = 7
+		}
+	}
+
+	option = {
+		name = jaszczur.1.a
+		ai_chance = { base = 99 }
+		EKW = {
+			country_event = { 
+			id = ekw.2
+			days = 1
+			}
+		}
+	}
+}
+
+country_event = { #jaszczurzy rozpad
+	id = jaszczur.2
+	title = jaszczur.2.t
+	desc = jaszczur.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires jaszczur.2" 
+		EKW_collapse_BOR = yes
+		EKW_collapse_SNF = yes
+		retire_character = JAS_eugeniusz_sendecki
+		retire_character = JAS_maciej_poreba
+		every_possible_country = {
+			limit = { has_character = JAS_siedlecki }
+			random_character = {
+				limit = { is_character = JAS_siedlecki }
+				set_nationality = SNF
+			}
+		}
+		every_possible_country = {
+			limit = { has_character = JAS_wasiak }
+			random_character = {
+				limit = { is_character = JAS_wasiak }
+				set_nationality = SNF
+			}
+		}
+		SNF = {
+			#recruit_character = JAS_siedlecki - tak sie nie da, recruit_character dziala tylko w history pliku
+			#recruit_character = JAS_wasiak
+			add_ideas = JAS_siedlecki
+			add_ideas =JAS_wasiak
+		}
+	}
+
+	option = {
+		name = jaszczur.2.a
+		ai_chance = { base = 99 }
+		JAS = {
+			#declare_war_on = {
+			#	target = BOR
+			#	type = annex_everything
+			#}
+			#declare_war_on = {
+			#	target = SNF
+			#	type = annex_everything
+			#}
+		}
+		SNF = {
+			#declare_war_on = {
+			#	target = BOR
+			#	type = annex_everything
+			#}
+			set_politics = {
+				ruling_party = neonationalism
+				elections_allowed = no
+				last_election = "2027.01.01"
+				election_frequency = 48
+				long_name = SNF_neonationalism_party_long
+				name = SNF_neonationalism_party
+			}
+
+		}
+		BOR = {
+			set_politics = {
+				ruling_party = reactionary
+				elections_allowed = no
+				last_election = "2027.01.01"
+				election_frequency = 48
+				long_name = BOR_reactionary_party_long
+				name = BOR_reactionary_party
+			}
+		}
+	}
+	option = {
+		name = jaszczur.2.b
+		ai_chance = { base = -1 }
+		JAS = {
+			clear_compatible_countries = yes
+		}
+		SNF = {
+			#declare_war_on = {
+			#	target = BOR
+			#	type = annex_everything
+			#}
+			set_politics = {
+				ruling_party = neonationalism
+				elections_allowed = no
+				last_election = "2027.01.01"
+				election_frequency = 48
+				long_name = SNF_neonationalism_party_long
+				name = SNF_neonationalism_party
+			}
+			change_tag_from = JAS
+			if = {
+				limit = {
+					SNF = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+		}
+		BOR = {
+			set_politics = {
+				ruling_party = reactionary
+				elections_allowed = no
+				last_election = "2027.01.01"
+				election_frequency = 48
+				long_name = BOR_reactionary_party_long
+				name = BOR_reactionary_party
+			}
+		}
+	}
+	option = {
+		name = jaszczur.2.c
+		ai_chance = { base = -1 }
+		JAS = {
+			clear_compatible_countries = yes
+		}
+		SNF = {
+
+			#declare_war_on = {
+			#	target = BOR
+			#	type = annex_everything
+			#}
+			set_politics = {
+				ruling_party = neonationalism
+				elections_allowed = no
+				last_election = "2027.01.01"
+				election_frequency = 48
+				long_name = SNF_neonationalism_party_long
+				name = SNF_neonationalism_party
+			}
+		}
+		BOR = {
+			set_politics = {
+				ruling_party = reactionary
+				elections_allowed = no
+				last_election = "2027.01.01"
+				election_frequency = 48
+				long_name = BOR_reactionary_party_long
+				name = BOR_reactionary_party
+			}
+			change_tag_from = JAS
+			if = {
+				limit = {
+					BOR = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+		}
+	}
+}
+country_event = { #sendecki czy ten trzeci chuj
+	id = jaszczur.3 
+	title = jaszczur.3.t
+	desc = jaszczur.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires jaszczur.3 " 
+	}
+
+	option = { #ten trzeci chuj
+		name = jaszczur.3.a
+		ai_chance = { base = 50 }
+		create_faction = RODACY_KAMRACI
+		JAS = { add_to_faction = SNF }
+	}
+	option = { #sendecki
+		name = jaszczur.3.b
+		ai_chance = { base = 50 }
+		create_faction = RODACY_KAMRACI
+		JAS = { add_to_faction = BOR }
+	}
+}
+country_event = { #unifikacja
+	id = jaszczur.4 
+	title = jaszczur.4.t
+	desc = jaszczur.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	#trigger = {
+	#	OR = {
+	#		SNF = { exists = no }
+	#		BOR = { exists = no }
+	#	}
+	#}
+	#mean_time_to_happen = { days = 1 }
+
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires jaszczur.4 " 
+	}
+
+	option = {
+		name = jaszczur.4.a
+		ai_chance = { base = 70 }
+		if = {
+			limit = {
+				JAS = { is_in_faction_with = SNF }
+			}
+			JAS = { 
+				annex_country = {
+					target = SNF
+					transfer_troops = yes
+				} 
+			}
+		}
+		else_if = {
+			limit = {
+				JAS = { is_in_faction_with = BOR }
+			}
+			JAS = { 
+				annex_country = {
+					target = BOR
+					transfer_troops = yes
+				} 
+			}
+		}
+	}
+}
+
+

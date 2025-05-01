@@ -7,6 +7,9 @@ on_actions = {
 	on_capitulation_immediate = {
 		effect = {
 			log = "[GetDateText]: [ROOT.GetName] ([?ROOT.casualties_k]) was just capped by [FROM.GetName] ([?FROM.casualties_k])"
+			add_to_array = {
+				global.capitulated_countries = this
+			}
 			if = {
 				limit = {
 					ROOT = {
@@ -34,48 +37,6 @@ on_actions = {
 							remove_from_faction = this
 						}
 					}
-				}
-			}
-			FROM = {
-				if = {
-					limit = {
-						NOT = {
-							original_tag = ROS
-							original_tag = UPA
-							original_tag = UHR
-						}
-					}
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
-					}
-				}
-			}
-			if = {
-				limit = {
-					ROOT = {
-						NOT = {
-							original_tag = ROS
-							original_tag = UPA
-							original_tag = UHR
-						}
-					}
-				}
-				if = {
-					limit = {
-						has_variable = global.deadPolacksFromDeadNations
-					}
-					add_to_variable = {
-						global.deadPolacksFromDeadNations = ROOT.casualties_k
-					}
-					else = {
-						set_variable = {
-							global.deadPolacksFromDeadNations = ROOT.casualties_k
-						}
-					}
-					
-				}
-				add_to_variable = {
-					global.deadPolacksFromDeadNations = ROOT.casualtiesFromEvents
 				}
 			}
 			
@@ -128,35 +89,7 @@ on_actions = {
 					calculate_energy_balance = yes
 				}
 			}
-#			set_temp_variable = {popularity_to_add = ROOT.party_popularity@ruling_party}
-#			set_temp_variable = {ideology_to_add = ROOT.current_party_ideology_group}
-#			divide_temp_variable = { popularity_to_add = 10}
-#			FROM = {
-#				add_popularity = {
-#					ideology = reactionary
-#					popularity = popularity_to_add
-#				}
-#			}
-#			log = "[GetDateText]: Added [?popularity_to_add] of [ROOT.GetRulingIdeology]"
-			
-			every_other_country = {
-				limit = {
-					NOT = {
-						original_tag = FROM
-						original_tag = ROS
-						original_tag = UPA
-						original_tag = UHR
-					}
-					has_war_with = ROOT
-				}
-				add_to_array = {
-					global.allies = This
-				}
-				add_to_variable = {
-					global.deadPolacksFromPastWars = this.casualties_k
-				}
-				log = "[GetDateText]: Also ran: [THIS.GetName] ([?this.casualties_k])"
-			}
+
 			if = {
 				limit = {
 					FROM = {
@@ -202,35 +135,34 @@ on_actions = {
 	}
 	on_capitulation = {
 		effect = {
-			set_global_flag = announce_peace
-			FROM = {
-				save_global_event_target_as = winning_country
-			} 
-			ROOT = {
-				save_global_event_target_as = losing_country
-			}
-			if = {
-				limit = {
-					event_target:losing_country = {
-						any_allied_country = {
-							has_war_together_with = event_target:losing_country
-						}
-					}
-				}
-				set_global_flag = losing_country_multiple
-			}
-
-			if = {
-				limit = {
-					event_target:winning_country = {
-						any_allied_country = {
-							has_war_together_with = event_target:winning_country
-						}
-					}
-				}
-				set_global_flag = winning_country_multiple
-			}
-			add_to_variable = { global.peace_popup_dirty = 1 }
+			#set_global_flag = announce_peace
+			#FROM = {
+			#	save_global_event_target_as = winning_country
+			#} 
+			#ROOT = {
+			#	save_global_event_target_as = losing_country
+			#}
+			#if = {
+			#	limit = {
+			#		event_target:losing_country = {
+			#			any_allied_country = {
+			#				has_war_together_with = event_target:losing_country
+			#			}
+			#		}
+			#	}
+			#	set_global_flag = losing_country_multiple
+			#}
+			#if = {
+			#	limit = {
+			#		event_target:winning_country = {
+			#			any_allied_country = {
+			#				has_war_together_with = event_target:winning_country
+			#			}
+			#		}
+			#	}
+			#	set_global_flag = winning_country_multiple
+			#}
+			#add_to_variable = { global.peace_popup_dirty = 1 }
 				if = {
 					limit = {
 						ROOT = {
@@ -282,63 +214,164 @@ on_actions = {
 				40 = {
 					add_core_of = TEU
 					transfer_state_to = TEU
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [TEU.GetName] cores [40.GetName]"
 				993 = {
 					add_core_of = TEU
 					transfer_state_to = TEU
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [TEU.GetName] cores [993.GetName]"
 				42 = {
 					add_core_of = WRM
 					transfer_state_to = WRM
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [WRM.GetName] cores [42.GetName]"
 				47 = {
 					add_core_of = WRM
 					transfer_state_to = WRM
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [WRM.GetName] cores [47.GetName]"
 				51 = {
 					add_core_of = MRG
 					transfer_state_to = MRG
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [MRG.GetName] cores [51.GetName]"
-				994 = {
-					add_core_of = MRG
-					transfer_state_to = MRG
-				}
-				log = "[GetDateText]: [MRG.GetName] cores [994.GetName]"
 				875 = {
 					add_core_of = PZW
 					transfer_state_to = PZW
+					remove_core_of = RMA
 				}
 				log = "[GetDateText]: [PZW.GetName] cores [875.GetName]"
 				46 = {
 					add_core_of = PZW
 					transfer_state_to = PZW
+					remove_core_of = RMA
 				}
-
 				log = "[GetDateText]: [PZW.GetName] cores [46.GetName]"
-				ROS = {
-					white_peace = WRM
+				994 = {
+					add_core_of = MRG
+					transfer_state_to = MRG
+					remove_core_of = RMA
+				}
+				log = "[GetDateText]: [MRG.GetName] cores [994.GetName]"
+				RMA = {
+				white_peace = TEU
+				log = "[GetDateText]: [ROOT.GetName] WPs with [TEU.GetName]"
+				white_peace = WRM
+				log = "[GetDateText]: [ROOT.GetName] WPs with [WRM.GetName]"
+				white_peace = MAL
+				log = "[GetDateText]: [ROOT.GetName] WPs with [MAL.GetName]"
+				white_peace = PRU
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PRU.GetName]"
+				white_peace = PZW
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = MRG
+				log = "[GetDateText]: [ROOT.GetName] WPs with [MRG.GetName]"
+				white_peace = ELB
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = LUB
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = OLS
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = RAJ
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = GAL
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
 				}
 				ROS = {
-					white_peace = MAL
+				white_peace = TEU
+				log = "[GetDateText]: [ROOT.GetName] WPs with [TEU.GetName]"
+				white_peace = WRM
+				log = "[GetDateText]: [ROOT.GetName] WPs with [WRM.GetName]"
+				white_peace = MAL
+				log = "[GetDateText]: [ROOT.GetName] WPs with [MAL.GetName]"
+				white_peace = PRU
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PRU.GetName]"
+				white_peace = PZW
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = MRG
+				log = "[GetDateText]: [ROOT.GetName] WPs with [MRG.GetName]"
+				white_peace = ELB
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = LUB
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = OLS
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = RAJ
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				white_peace = GAL
+				log = "[GetDateText]: [ROOT.GetName] WPs with [PZW.GetName]"
+				}
+				every_state = {
+					limit = {
+						is_warmia_and_masuria_state = yes
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = ELB
+							is_ai = yes
+						}
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = TEU
+							is_ai = yes
+						}
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = LUB
+							is_ai = yes
+						}
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = MAL
+							is_ai = yes
+						}
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = WRM
+							is_ai = yes
+						}
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = MRG
+							is_ai = yes
+						}
+					}
+					teleport_armies = {
+						limit = {
+							original_tag = PZW
+							is_ai = yes
+						}
+					}																														
 				}
 				ROS = {
-					white_peace = PRU
-				}
-				ROS = {
-					white_peace = PZW
-				}
-				ROS = {
-					white_peace = TEU
-				}		
+					remove_wargoal = {
+						type = all
+						target = TEU
+					}
+					remove_wargoal = {
+						type = all
+						target = LUB
+					}
+				}				
 				PZW = { leave_faction = yes }
 				log = "[GetDateText]: [PZW.GetName] quits faction"
 				TEU = { leave_faction = yes }
 				log = "[GetDateText]: [TEU.GetName] quits faction"
+				ELB = { leave_faction = yes }
+				log = "[GetDateText]: [ELB.GetName] quits faction"
+				MRG = { leave_faction = yes }
+				log = "[GetDateText]: [MRG.GetName] quits faction"
 				WRM = { dismantle_faction = yes }
 				log = "[GetDateText]: [WRM.GetName] dismantles faction"
 				random_list = {
@@ -414,6 +447,71 @@ on_actions = {
 				if = {
 					limit = {
 						ROOT = {
+							original_tag = RPP
+						}
+						FROM = {
+							OR = {
+								original_tag = BPD
+								original_tag = TEN
+							}
+						}
+					}
+
+					FROM = {
+						white_peace = ROOT
+						if = {
+							limit = {
+								country_exists = BPD
+							}
+							BPD = {
+								transfer_state = 278
+								transfer_state = 290
+							}
+						}
+						if = {
+							limit = {
+								country_exists = TEN
+							}
+							TEN = {
+								transfer_state = 241
+							}
+						}						
+					}
+					log = "[GetDateText]: HOR and OSW beaten [ROOT.GetName]"
+					set_global_flag = skip_default_capitulation
+				}				
+				if = {
+					limit = {
+						ROOT = {
+							OR = {
+								original_tag = HOR
+								AND = {
+									original_tag = MSL
+									original_tag = HOR
+								}
+							}						
+						}
+						FROM = {
+							is_poland_unifier = yes
+							NOT = { original_tag = WDW }
+						}
+					}
+
+					FROM = {
+						white_peace = ROOT
+						annex_country = {
+							target = HOR
+						}
+						annex_country = {
+							target = MSL
+						}						
+					}
+					log = "[GetDateText]: HOR and OSW beaten [ROOT.GetName]"
+					set_global_flag = skip_default_capitulation
+				}				
+				if = {
+					limit = {
+						ROOT = {
 							original_tag = EKW
 						}
 					}
@@ -437,42 +535,6 @@ on_actions = {
 						add_claim_by = FROM
 					}
 				}
-			if = {
-					limit = {
-						ROOT = {
-							original_tag = TOU
-						}
-						FROM = {
-							OR = {
-								original_tag = EKS
-								original_tag = KGH
-							}
-						}
-					}
-
-					FROM = {
-						white_peace = ROOT
-						if = { limit = { country_exists = EKS } 
-							annex_country = {
-							target = TOU
-							transfer_troops = yes
-							}
-						}
-						if = { limit = { country_exists = KGH } 
-							annex_country = {
-							target = TOU
-							transfer_troops = yes
-							}
-						}
-						TOU = {
-							transfer_state = 728
-							transfer_state = 401
-							transfer_state = 407
-						}
-					}
-					log = "[GetDateText]: Touristenkrieg ended"
-					set_global_flag = skip_default_capitulation
-			}
 			if = {
 				limit = {
 					FROM = {
@@ -724,6 +786,63 @@ on_actions = {
 					log = "[GetDateText]: Słowincy ded"
 					set_global_flag = skip_default_capitulation
 				}
+				if = {
+					limit = {
+						ROOT = {
+							original_tag = KOS
+						}
+						FROM = {
+							OR = {
+								original_tag = GAY
+								original_tag = RLE
+								original_tag = PGF
+								original_tag = USP
+							}
+						}
+					}
+					FROM = {
+						white_peace = ROOT
+						GAY = {
+							add_state_core = 1077
+							transfer_state = 1077
+							add_state_core = 1078
+							transfer_state = 1078
+						}
+						RLE = {
+							add_state_core = 1065
+							transfer_state = 1065
+							add_state_core = 1066
+							transfer_state = 1066
+						}
+						PGF = {
+							add_state_core = 868
+							transfer_state = 868
+						}
+						USP = {
+							transfer_state = 622
+							transfer_state = 53
+							transfer_state = 63
+							transfer_state = 45
+							transfer_state = 33
+						}
+						SVG = {
+							add_state_core = 624
+							add_state_core = 1076
+							add_state_core = 625
+							add_state_core = 627
+							add_state_core = 628
+							transfer_state = 624
+							transfer_state = 1076
+							transfer_state = 625
+							transfer_state = 627
+							transfer_state = 628
+
+							load_oob = "SVG_2027"
+						}
+					}
+					log = "[GetDateText]: Mittelpommern ded"
+					set_global_flag = skip_default_capitulation
+				}
 			if = {
 				limit = {
 					ROOT = {
@@ -959,7 +1078,7 @@ on_actions = {
 						#transfer_troops = no
 					#}
 				}
-				set_global_flag = war_won
+				#set_global_flag = war_won
 				set_global_flag = skip_default_capitulation
 			}
 			
@@ -1017,41 +1136,60 @@ on_actions = {
 					transfer_state_to = ZON
 				}
 			}
-			if = { #przypadek, gdy tag nie skończył jeszcze innych wojen
-				limit = {
-					FROM = {
-						has_war = yes
-						NOT = {
-							original_tag = ROS
-							original_tag = UPA
-							original_tag = UHR
-						}
-					}
-				}
-				log = "[FROM.GetName] is still at war! ([?FROM.casualties_k])"
-				subtract_from_variable = {
-					global.deadPolacksFromPastWars = FROM.casualties_k
-				}
-				
+		}
+	}
+	on_peace = {
+		effect = {
+			THIS = {
+				count_buildings = yes
+				set_variable = { prev_civ_factories = num_of_civils }
+				set_variable = { prev_mil_factories = num_of_militars }
+				set_variable = { prev_dockyards = num_of_dockyards }
+				set_variable = { prev_synths = num_of_synthetic_refineries }
+				set_variable = { prev_hitech = num_of_high_tech_complexes }
+				set_variable = { prev_silos = num_of_fuel_siloes }
+				set_variable = { prev_coal_plants = sum_of_power_plants }
+				set_variable = { prev_wind_farms = sum_of_wind_farms }
+				set_variable = { prev_recycling = num_of_recycling_plants }
+				set_variable = { prev_steel = num_of_steel_works }
+				set_variable = { prev_temples = num_of_cathedrals }
+				set_variable = { prev_universities = num_of_universities }
+				set_variable = { prev_hospitals = num_of_hospitals }
+				set_variable = { prev_prisons = num_of_prisons }
+				set_variable = { prev_januszexes = num_of_januszexes }
+				set_variable = { prev_ports = num_of_ports }
+				set_variable = { prev_facilities = num_of_facilities }
+				set_variable = { prev_reactors = num_of_reactors }
+				set_variable = { prev_rockets = num_of_rockets }
+				set_variable = { prev_dams = num_of_dams }
+				set_variable = { prev_airbase = num_of_airbase }
+				set_variable = { prev_supplyhub = num_of_supplyhub }
+				set_variable = { prev_bunker = num_of_bunker }
+				set_variable = { prev_stronghold = num_of_stronghold }
+				set_variable = { prev_aa = num_of_aa }
+				set_variable = { prev_radar = num_of_radar }	
 			}
-			for_each_scope_loop = {
-				array = global.allies
-				if = {
-					limit = {
-						has_war = yes
-						NOT = {
-							original_tag = ROS
-							original_tag = UPA
-							original_tag = UHR
-							original_tag = FROM
-						}
+			recalculate_deposit_levels = yes
+			THIS = {
+			every_owned_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
 					}
-					log = "Ally [THIS.GetName] is still at war! ([?THIS.casualties_k])"
-					subtract_from_variable = {
-						global.deadPolacksFromPastWars = THIS.casualties_k
-					}
-					remove_from_array = {global.allies = THIS}
+					has_administration_modifier = yes
 				}
+				clear_administration_modifier = yes
+			}
+			every_owned_state = {
+				limit = {
+					NOT = {
+						is_core_of = ROOT
+						has_administration_modifier = yes
+					}
+				}
+				setup_administration_modifier = yes
+				coring_calculation = yes
+			}
 			}
 		}
 	}

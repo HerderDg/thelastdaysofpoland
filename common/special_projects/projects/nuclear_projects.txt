@@ -7,11 +7,9 @@ sp_nuclear_reactor = {
 
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
 		}
 	}
 	available = { 
@@ -19,7 +17,7 @@ sp_nuclear_reactor = {
 	}
 	
 	resource_cost = {
-		resources = { steel=6 aluminium=3 electronics=6 }
+		resources = { synthetic_materials=10 aluminium=20 electronics=10 }
 	}
 
 	prototype_time = sp_time.prototype.long	
@@ -152,7 +150,7 @@ sp_nuclear_reactor = {
 								popup = no
 							}
 						}
-						#custom_effect_tooltip = sp_nuclear_isotope_separation_choice_reward_tt
+						custom_effect_tooltip = sp_nuclear_isotope_separation_choice_reward_tt
 						add_timed_idea = {
 							idea = special_project_consumer_costs_high
 							days = 365
@@ -272,19 +270,17 @@ sp_commercial_nuclear_reactor = {
 	prototype_time = sp_time.prototype.long	 
 	complexity = sp_complexity.large
 
-	#special_project_parent = {
-	#	sp_nuclear_reactor
-	#}
+	special_project_parent = {
+		sp_nuclear_reactor
+	}
 	resource_cost = {
-		resources = { steel=6 aluminium=4 electronics=7 }
+		resources = { synthetic_materials=15 aluminium=25 electronics=20 }
 	}
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
 		}
 	}
 	available = { 
@@ -421,7 +417,7 @@ sp_nuclear_engines = {
 	complexity = sp_complexity.medium
 
 	resource_cost = {
-		resources = { steel=4 aluminium=2 electronics=5 }
+		resources = { synthetic_materials=8 aluminium=12 electronics=8 }
 	}
 
 	#special_project_parent = {
@@ -429,11 +425,9 @@ sp_nuclear_engines = {
 	#}
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
 		}
 	}
 	available = { 
@@ -483,18 +477,21 @@ sp_nuclear_bomb = {
 	prototype_time = sp_time.prototype.long	
 	complexity = sp_complexity.large
 	resource_cost = {
-		resources = { steel=2 aluminium=8 electronics=2 }
+		resources = { synthetic_materials=6 aluminium=12 electronics=3 }
 	}
 	#special_project_parent = {
 	#	sp_nuclear_reactor
 	#}
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
+		}
+	}
+	visible = {
+		FROM = {
+			not = { is_special_project_completed = sp:sp_dirty_bomb }
 		}
 	}
 	available = { 
@@ -511,8 +508,7 @@ sp_nuclear_bomb = {
 					popup = no
 				}
 			}
-		}
-		
+		}	
 	}
 	
 	empty_reward_weight = {
@@ -703,7 +699,7 @@ sp_thermo_nuclear_bomb = {
 	complexity = sp_complexity.insane
 
 	resource_cost = {
-		resources = { steel=2 aluminium=10 electronics=3 }
+		resources = { synthetic_materials=8 aluminium=16 electronics=4 }
 	}
 
 	#special_project_parent = {
@@ -804,7 +800,7 @@ sp_nuclear_warheads = {
 	complexity = sp_complexity.large
 
 	resource_cost = {
-		resources = { aluminium=4 steel=4 electronics=2 }
+		resources = { aluminium=20 synthetic_materials=10 electronics=5 }
 	}
 
 	#special_project_parent = {
@@ -815,11 +811,9 @@ sp_nuclear_warheads = {
 	
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
 		}
 	}
 	available = {
@@ -906,18 +900,45 @@ sp_bio_engineering = {
 
 	project_output = {
 		country_effects = {
-			set_technology = {
-				bio_engineered_soldiers = 1
+			add_dynamic_modifier = {
+				modifier = bio_engineered_soldiers
 			}
+		}
+		sub_unit_bonus = {
+			marine = {
+				breakthrough = 0.3
+				max_strength = 0.5
+				defense = 0.2
+				initiative = 0.2
+			}
+			paratrooper = {
+				breakthrough = 0.3
+				max_strength = 0.5
+				defense = 0.2
+				initiative = 0.2
+			}
+			mountaineers = {
+				breakthrough = 0.3
+				max_strength = 0.5
+				defense = 0.2
+				initiative = 0.2
+			}
+			forest_infantry = {
+				breakthrough = 0.3
+				max_strength = 0.5
+				defense = 0.2
+				initiative = 0.2
+			}									
 		}
 	}
 }
+
 sp_pavulon_injectors = { 
 	allowed = {
 		original_tag = POG
 	}
 	specialization = specialization_nuclear
-	icon = GFX_sp_
+	icon = GFX_sp_pavulon_injector
 
 	prototype_time = 180
 	complexity = sp_complexity.medium
@@ -939,12 +960,17 @@ sp_pavulon_injectors = {
 	}
 
 	project_output = {
-
+		#póki co wstrzymalbym sie dopoki nie zaczniemy robic Pogotowia
 	}
 }
 
 
 sp_gay_bomb = { 
+	visible = {
+		FROM = {
+			has_idea = lgbt_encouraged
+		}
+	}	
 	available = {
 		FROM = {
 			has_idea = lgbt_encouraged
@@ -981,7 +1007,7 @@ sp_gay_bomb = {
 sp_gas_one = { 
 
 	specialization = specialization_nuclear
-	icon = GFX_sp_
+	icon = GFX_sp_gas1
 
 	prototype_time = 180
 	complexity = sp_complexity.medium
@@ -1003,14 +1029,16 @@ sp_gas_one = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = gas_one_tooltip
+		}
 	}
 }
 
 sp_gas_two = { 
 
 	specialization = specialization_nuclear
-	icon = GFX_sp_
+	icon = GFX_sp_gas2
 
 	#special_project_parent = {
 	#	sp_gas_one
@@ -1036,14 +1064,16 @@ sp_gas_two = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = gas_two_tooltip
+		}
 	}
 }
 
 sp_gas_three = { 
 
 	specialization = specialization_nuclear
-	icon = GFX_sp_
+	icon = GFX_sp_gas3
 
 	#special_project_parent = {
 	#	sp_gas_two
@@ -1069,7 +1099,9 @@ sp_gas_three = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = gas_two_tooltip
+		}
 	}
 }
 
@@ -1077,7 +1109,7 @@ sp_gas_three = {
 sp_emp = { 
 
 	specialization = specialization_nuclear
-	icon = GFX_sp_
+	icon = GFX_sp_emp
 
 	prototype_time = 180
 	complexity = sp_complexity.medium
@@ -1099,7 +1131,9 @@ sp_emp = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = sp_emp_decision_info
+		}
 	}
 }
 
@@ -1157,7 +1191,12 @@ sp_heat_ray = {
 	}
 
 	project_output = {
-
+		enable_subunits = {
+			heat_armored_car
+		}
+		enable_equipments = {
+			heat_ray_equipment
+		}
 	}
 }
 
@@ -1186,25 +1225,43 @@ sp_przeziebienie = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = sp_lethal_infection_decision_info
+			hidden_effect = {
+				set_technology = {
+					lethal_infection_tech = 1
+					popup = no
+				}
+			}
+		}
+		#	every_enemy_country  = {
+		#		add_dynamic_modifier = {
+		#			modifier = lethal_infection_enemy
+		#		}
+		#	}
+		#}
 	}
 }
 
 sp_dirty_bomb = { 
 
 	specialization = specialization_nuclear
-	icon = GFX_sp_
+	icon = GFX_sp_dirty_bomb
 
 	prototype_time = 180
 	complexity = sp_complexity.large
 
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
+		}
+	}
+
+	visible = {
+		FROM = {
+			not = { is_special_project_completed = sp:sp_nuclear_bomb }
 		}
 	}
 
@@ -1229,7 +1286,16 @@ sp_dirty_bomb = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			add_nuclear_bombs = 1
+			custom_effect_tooltip = sp_nuclear_bomb_tt
+			hidden_effect = {
+				set_technology = {
+					dirty_nukes = 1
+					popup = no
+				}
+			}
+		}
 	}
 }
 
@@ -1243,11 +1309,9 @@ sp_mini_nuke = {
 
 	allowed = {
 		NOT = { 
-			OR = {
-				FROM = { original_tag = BBW }
-				FROM = { original_tag = SBW }
-				FROM = { original_tag = ZIE }
-			}
+			original_tag = BBW 
+			original_tag = SBW 
+			original_tag = ZIE 
 		}
 	}
 
@@ -1272,7 +1336,12 @@ sp_mini_nuke = {
 	}
 
 	project_output = {
-
+		enable_subunits = {
+			support_nuclear_AT
+		}
+		enable_equipments = {
+			mini_nuke_equipment
+		}
 	}
 }
 
@@ -1301,6 +1370,11 @@ sp_dupny_zderzacz_farfocli = {
 	}
 
 	project_output = {
-
+		country_effects = {
+			add_research_slot = 1
+			add_dynamic_modifier = {
+				modifier = zderzacz_modifier
+			}
+		}
 	}
 }

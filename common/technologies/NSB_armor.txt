@@ -7,16 +7,12 @@ technologies = {
 		enable_subunits = {
 			bicycle_battalion
 		}
-		research_cost = 2
-		start_year = 2020
+		research_cost = 0.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_truck_1
 			research_cost_coeff = 1
 		}
-		#path = {
-		#	leads_to_tech = motorbike
-		#	research_cost_coeff = 1
-		#}
 		path = {
 			leads_to_tech = nsb_sidecar
 			research_cost_coeff = 1
@@ -36,38 +32,9 @@ technologies = {
 			factor = 1
 		}
 	}
-
-	#motorbike = {
-	#	research_cost = 2
-	#	start_year = 2027
-	#	path = {
-	#		leads_to_tech = armored_car_1
-	#		research_cost_coeff = 1
-	#	}
-	#	path = {
-	#		leads_to_tech = nsb_truck_1
-	#		research_cost_coeff = 1
-	#	}
-	#	enable_subunits = {
-	#		motorbike_battalion
-	#	}
-	#	enable_equipments = {
-	#		enduro_equipment
-	#	}
-	#	folder = {
-	#		name = nsb_armour_folder
-	#		position = { x = -4 y = 4}
-	#	}
-	#	categories = {
-	#		armor
-	#	}
-	#	ai_will_do = {
-	#		factor = 1
-	#	}
-	#}
 	
 	nsb_sidecar = {
-		research_cost = 3
+		research_cost = 1.5
 		start_year = 2027
 		path = {
 			leads_to_tech = nsb_apc_1
@@ -99,11 +66,7 @@ technologies = {
 	}
 	
 	nsb_enduro_tech = {
-		
-		# enable_equipments = {
-		# 	enduro_equipment
-		# }
-		
+	
 		motorbike_battalion = {
 			maximum_speed = 0.1
 
@@ -122,7 +85,7 @@ technologies = {
 			}
 		}
 
-		research_cost = 3
+		research_cost = 0.5
 		start_year = 2027
 		
 		ai_will_do = {
@@ -135,7 +98,7 @@ technologies = {
 	}
 	
 	nsb_mbt_0 = {
-		research_cost = 3
+		research_cost = 1
 		start_year = 2027
 		path = {
 			leads_to_tech = nsb_mbt_1
@@ -146,6 +109,29 @@ technologies = {
 		}
 		enable_subunits = {
 			medium_armor
+		}
+		on_research_complete_limit = {
+			NOT = {	has_template_containing_unit = medium_armor }
+		}
+		on_research_complete = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_tech = nsb_truck_1
+					}
+
+					load_oob = "unlock_tanks_mot"
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = nsb_truck_1 }
+					}
+
+					load_oob = "unlock_tanks"
+				}
+			}
+
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
 		}
 		folder = {
 			name = nsb_armour_folder
@@ -160,14 +146,37 @@ technologies = {
 	}
 	
 	nsb_mbt_1 = {
-		research_cost = 3
-		start_year = 2030
+		research_cost = 2.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_mbt_2
 			research_cost_coeff = 1
 		}
 		enable_equipments = {
 			mbt_equipment_1
+		}
+		on_research_complete_limit = {
+			NOT = {	has_template_containing_unit = medium_armor }
+		}
+		on_research_complete = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_tech = nsb_truck_1
+					}
+
+					load_oob = "unlock_tanks_mot"
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = nsb_truck_1 }
+					}
+
+					load_oob = "unlock_tanks"
+				}
+			}
+
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
 		}
 		folder = {
 			name = nsb_armour_folder
@@ -182,8 +191,8 @@ technologies = {
 	}
 	
 	nsb_mbt_2 = {
-		research_cost = 3
-		start_year = 2033
+		research_cost = 4
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_mbt_3
 			research_cost_coeff = 1
@@ -195,6 +204,11 @@ technologies = {
 			name = nsb_armour_folder
 			position = { x = 4 y = 12}
 		}
+		on_research_complete = {
+			hidden_effect = {
+				set_variable = { cost_for_tanks = 1 }
+			}
+		}
 		categories = {
 			armor
 		}
@@ -204,8 +218,8 @@ technologies = {
 	}
 	
 	nsb_mbt_3 = {
-		research_cost = 3
-		start_year = 2036
+		research_cost = 5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_mbt_4
 			research_cost_coeff = 1
@@ -226,8 +240,8 @@ technologies = {
 	}
 	
 	nsb_mbt_4 = {
-		research_cost = 3
-		start_year = 2040
+		research_cost = 6
+		start_year = 2027
 		folder = {
 			name = nsb_armour_folder
 			position = { x = 4 y = 20}
@@ -244,8 +258,8 @@ technologies = {
 	}
 	
 	nsb_armored_car_1 = {
-		research_cost = 3
-		start_year = 2030
+		research_cost = 1.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_armored_car_2
 			research_cost_coeff = 1
@@ -278,8 +292,8 @@ technologies = {
 		maximum_speed = 0.05
 		}
 		
-		research_cost = 2
-		start_year = 2030
+		research_cost = 1
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -293,8 +307,8 @@ technologies = {
 	
 	
 	nsb_armored_car_2 = {
-		research_cost = 3
-		start_year = 2033
+		research_cost = 2
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_armored_car_3
 			research_cost_coeff = 1
@@ -324,8 +338,8 @@ technologies = {
 		hardness = 0.05
 		}
 		
-		research_cost = 2
-		start_year = 2033
+		research_cost = 1
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -339,7 +353,7 @@ technologies = {
 	
 	nsb_armored_car_3 = {
 		research_cost = 3
-		start_year = 2036
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_armored_car_4
 			research_cost_coeff = 1
@@ -369,8 +383,8 @@ technologies = {
 		soft_attack = 0.05
 		}
 		
-		research_cost = 2
-		start_year = 2036
+		research_cost = 1.5
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -383,8 +397,8 @@ technologies = {
 	}
 	
 	nsb_armored_car_4 = {
-		research_cost = 3
-		start_year = 2040
+		research_cost = 3.5
+		start_year = 2027
 		folder = {
 			name = nsb_armour_folder
 			position = { x = -6 y = 20}
@@ -410,8 +424,8 @@ technologies = {
 		hardness = 0.05
 		}
 		
-		research_cost = 2
-		start_year = 2040
+		research_cost = 1.5
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -424,7 +438,7 @@ technologies = {
 	}
 	
 	nsb_truck_1 = {
-		research_cost = 2
+		research_cost = 1
 		start_year = 2027
 		path = {
 			leads_to_tech = nsb_armored_car_1
@@ -464,7 +478,7 @@ technologies = {
 		maximum_speed = 0.05
 		}
 		
-		research_cost = 2
+		research_cost = 0.5
 		start_year = 2027
 		
 		ai_will_do = {
@@ -478,8 +492,8 @@ technologies = {
 	}
 	
 	nsb_truck_2 = {
-		research_cost = 3
-		start_year = 2030
+		research_cost = 1.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_truck_3
 			research_cost_coeff = 1
@@ -509,8 +523,8 @@ technologies = {
 		defense = 0.05 
 		}
 		
-		research_cost = 2
-		start_year = 2030
+		research_cost = 1
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -523,8 +537,8 @@ technologies = {
 	}
 	
 	nsb_truck_3 = {
-		research_cost = 3
-		start_year = 2033
+		research_cost = 2
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_truck_4
 			research_cost_coeff = 1
@@ -554,8 +568,8 @@ technologies = {
 		maximum_speed = 0.10
 		}
 		
-		research_cost = 2
-		start_year = 2033
+		research_cost = 1
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -568,8 +582,8 @@ technologies = {
 	}
 	
 	nsb_truck_4 = {
-		research_cost = 3
-		start_year = 2036
+		research_cost = 3.5
+		start_year = 2027
 		folder = {
 			name = nsb_armour_folder
 			position = { x = -4 y = 16}
@@ -599,8 +613,8 @@ technologies = {
 		supply_consumption_factor = -0.10
 		}
 		
-		research_cost = 2
-		start_year = 2036
+		research_cost = 1.5
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -613,8 +627,8 @@ technologies = {
 	}
 	
 	nsb_truck_5 = {
-		research_cost = 3
-		start_year = 2040
+		research_cost = 4
+		start_year = 2027
 		folder = {
 			name = nsb_armour_folder
 			position = { x = -4 y = 20}
@@ -640,8 +654,8 @@ technologies = {
 		maximum_speed = 0.10
 		}
 		
-		research_cost = 2
-		start_year = 2040
+		research_cost = 1.5
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -654,8 +668,8 @@ technologies = {
 	}
 	
 	nsb_apc_1 = {
-		research_cost = 3
-		start_year = 2030
+		research_cost = 2
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_apc_2
 			research_cost_coeff = 1
@@ -690,8 +704,8 @@ technologies = {
 		ap_attack = 0.05
 		}
 		
-		research_cost = 2
-		start_year = 2030
+		research_cost = 1
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -705,7 +719,7 @@ technologies = {
 	
 	nsb_apc_2 = {
 		research_cost = 3
-		start_year = 2033
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_apc_3
 			research_cost_coeff = 1
@@ -735,8 +749,8 @@ technologies = {
 		armor_value = 0.15
 		}
 		
-		research_cost = 2
-		start_year = 2033
+		research_cost = 1
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -749,8 +763,8 @@ technologies = {
 	}
 	
 	nsb_apc_3 = {
-		research_cost = 3
-		start_year = 2036
+		research_cost = 4.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_apc_4
 			research_cost_coeff = 1
@@ -761,6 +775,11 @@ technologies = {
 		folder = {
 			name = nsb_armour_folder
 			position = { x = -2 y = 16}
+		}
+		on_research_complete = {
+			hidden_effect = {
+				set_variable = { cost_for_apc = 0.6 }
+			}
 		}
 		sub_technologies = {
 			apc_infantry_protection_upgrade
@@ -779,8 +798,8 @@ technologies = {
 		experience_loss_factor  = -0.1
 		}
 		
-		research_cost = 2
-		start_year = 2036
+		research_cost = 1.5
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -792,8 +811,8 @@ technologies = {
 	}
 	
 	nsb_apc_4 = {
-		research_cost = 3
-		start_year = 2040
+		research_cost = 5
+		start_year = 2027
 		folder = {
 			name = nsb_armour_folder
 			position = { x = -2 y = 20}
@@ -818,8 +837,8 @@ technologies = {
 		maximum_speed = 0.10
 		}
 		
-		research_cost = 2
-		start_year = 2040
+		research_cost = 1.5
+		start_year = 2027
 		
 		ai_will_do = {
 			factor = 1
@@ -831,8 +850,8 @@ technologies = {
 	}
 	
 	nsb_ifv_1 = {
-		research_cost = 3
-		start_year = 2030
+		research_cost = 2
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_ifv_2
 			research_cost_coeff = 1
@@ -857,11 +876,16 @@ technologies = {
 	}
 	
 	nsb_ifv_2 = {
-		research_cost = 3
-		start_year = 2033
+		research_cost = 3.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_ifv_3
 			research_cost_coeff = 1
+		}
+		on_research_complete = {
+			hidden_effect = {
+				set_variable = { cost_for_ifv = 0.8 }
+			}
 		}
 		folder = {
 			name = nsb_armour_folder
@@ -879,8 +903,8 @@ technologies = {
 	}
 	
 	nsb_ifv_3 = {
-		research_cost = 3
-		start_year = 2036
+		research_cost = 4.5
+		start_year = 2027
 		path = {
 			leads_to_tech = nsb_ifv_4
 			research_cost_coeff = 1
@@ -901,8 +925,8 @@ technologies = {
 	}
 	
 	nsb_ifv_4 = {
-		research_cost = 3
-		start_year = 2040
+		research_cost = 5.5
+		start_year = 2027
 		folder = {
 			name = nsb_armour_folder
 			position = { x = 2 y = 20}

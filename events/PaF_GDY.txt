@@ -1,0 +1,430 @@
+﻿##########################
+#    GDYŃSKIE EVENTY     #
+#      by Kano901        #
+##########################
+
+add_namespace = gdynia
+
+#Szczurek Zaczyna Ekspedycję
+country_event = {
+	id = gdynia.1
+	title = gdynia.1.t
+	desc = gdynia.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.1"}
+
+	option = { #
+		name = gdynia.1.a
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 711
+				num_provinces = 4
+				on_win = gdynia.3
+				on_lose = gdynia.5
+				modifier = 0.1
+				dig_in_factor = 0
+				terrain_factor = 0
+			}	
+			defender = {
+				state = 34
+				num_provinces = 1
+				on_win = arka_exodus.3
+				on_lose = arka_exodus.3
+			}
+		}
+		SOP = {
+			country_event = sopot.1
+		}
+		#every_country = {
+		#	limit = { NOT = { is_ai = yes } }
+		#	news_event = { id = gdynia.5 }
+		#}	
+		#country_event = {
+		#	id = gdynia.2
+		#	days = 10
+		#}
+	}
+}
+
+#Event puppetowania Gdyni
+country_event = {
+	id = gdynia.2
+	title = gdynia.2.t
+	desc = gdynia.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.2"}
+
+	option = {
+		name = gdynia.2.a
+		GDY = {
+			get_current_government_type = yes
+		}
+		puppet = GDY
+		set_autonomy = {
+			target = GDY
+			autonomy_state = autonomy_satellite
+			end_wars = no
+			end_civil_wars = no
+		}
+		GDY = {
+			restore_previous_government_type = yes
+		}
+	}
+}
+
+#Szczurek utrzymuje stołek
+country_event = {
+	id = gdynia.3
+	title = gdynia.3.t
+	desc = gdynia.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.3"}
+
+	option = { #
+		name = gdynia.3.a
+		transfer_state = 34
+		country_event = {
+			id = gdynia.4
+			days = 14
+		}
+	}
+}
+
+#Szczurek Niszczy Anarchię
+country_event = {
+	id = gdynia.4
+	title = gdynia.4.t
+	desc = gdynia.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.4"}
+
+	option = {
+		name = gdynia.4.a
+		hidden_effect = {
+			ARK = {
+				867 = {
+					ARK = { transfer_state = PREV }
+				}
+				set_capital = { state = 867 }
+				867 = { set_state_name = "Nowa Gdynia" }
+
+				drop_cosmetic_tag = yes
+
+				set_politics = {
+					ruling_party = neonationalism
+					elections_allowed = no
+					last_election = "1935.12.17"
+					election_frequency = 48
+				}
+	
+				set_popularities = {
+					neonationalism = 100
+				}
+			}
+		}
+		transfer_state = 710
+		GDA = {
+			country_event = {
+				id = gdynia.2
+				days = 7
+			}
+		}
+	}
+}
+
+#Szczurek spierdala sie z rowerka
+country_event = {
+	id = gdynia.5
+	title = gdynia.5.t
+	desc = gdynia.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.5"}
+
+	option = {
+		name = gdynia.5.a
+		set_politics = {
+			ruling_party = autocracy
+			elections_allowed = no
+			last_election = "1935.12.17"
+			election_frequency = 48
+		}
+		GDY_aleksandra_kosiorek = { promote_character = euroliberalism_dialogue_subtype }
+		hidden_effect = {
+			country_event = {
+				id = gdynia.6
+				days = 14
+			}
+		}
+	}
+}
+
+#Anarchia ustępuje
+country_event = {
+	id = gdynia.6
+	title = gdynia.6.t
+	desc = gdynia.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.6"}
+
+	option = {
+		name = gdynia.6.a
+		transfer_state = 34
+		hidden_effect = {
+			country_event = {
+				id = gdynia.7
+				days = 7
+			}
+		}
+	}
+}
+
+#Anarchia znika
+country_event = {
+	id = gdynia.7
+	title = gdynia.7.t
+	desc = gdynia.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.7"}
+
+	option = {
+		name = gdynia.7.a
+		hidden_effect = {
+			ARK = {
+				867 = {
+					ARK = { transfer_state = PREV }
+				}
+				set_capital = { state = 867 }
+				867 = { set_state_name = "Nowa Gdynia" }
+
+				drop_cosmetic_tag = yes
+
+				set_politics = {
+					ruling_party = neonationalism
+					elections_allowed = no
+					last_election = "1935.12.17"
+					election_frequency = 48
+				}
+	
+				set_popularities = {
+					neonationalism = 100
+				}
+			}
+		}
+		transfer_state = 710
+		hidden_effect = {
+			country_event = {
+				id = gdynia.8
+				days = 7
+			}
+		}
+	}
+}
+
+#Maciejewska
+country_event = {
+	id = gdynia.8
+	title = gdynia.8.t
+	desc = gdynia.8.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.8"}
+
+	option = { #Lojalna do Biedronia
+		name = gdynia.8.a
+		set_country_flag = GDY_maciejewska_lojalna_biedroniowi
+		country_event = {
+			id = gdynia.9
+			days = 14
+		}
+	}
+
+	option = { #Lojalna do Owsiaka
+		name = gdynia.8.b
+		set_country_flag = GDY_maciejewska_lojalna_owsiakowi
+		promote_character = {
+			character = GDY_beata_maciejewska
+			ideology = squattism
+		}
+		GDY_beata_maciejewska = { promote_character = squattism_subtype }
+		GDY_joanna_senyszyn = { promote_character = socialdemocrature_progressivism_subtype }
+		country_event = {
+			id = gdynia.9
+			days = 14
+		}
+	}
+}
+
+#Wybory
+country_event = {
+	id = gdynia.9
+	title = gdynia.9.t
+	desc = gdynia.9.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.9"}
+
+	option = { #Maciejewska
+		name = gdynia.9.a
+		if = {
+			limit = { has_country_flag = GDY_maciejewska_lojalna_owsiakowi }
+			set_politics = {
+				ruling_party = squattism
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.2
+			}
+			OWS = {
+				country_event = {
+					id = gdynia.2
+					days = 7
+				}
+			}
+		}
+		else = {
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.2
+			}
+			GAY = {
+				country_event = {
+					id = gdynia.2
+					days = 7
+				}
+			}
+		}
+	}
+
+	option = { #Kosiorek
+		name = gdynia.9.b
+		set_politics = {
+			ruling_party = euroliberalism
+		}
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.2
+		}
+		if = {
+			limit = {
+				MPR = {
+					exists = yes
+				}
+			}
+			MPR = {
+				country_event = {
+					id = gdynia.2
+					days = 7
+				}
+			}
+		}
+		else = {
+			GDA = {
+				country_event = {
+					id = gdynia.2
+					days = 7
+				}
+			}
+		}
+	}
+
+	option = { #Krzywkowski
+		name = gdynia.9.c
+		set_politics = {
+			ruling_party = freemarketism
+		}
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.2
+		}
+		HEL = {
+			country_event = {
+				id = gdynia.2
+				days = 7
+			}
+		}
+	}
+
+	option = { #Biernacki
+		name = gdynia.9.e
+		set_politics = {
+			ruling_party = paternal_conservatism
+		}
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.2
+		}
+		KSZ = {
+			country_event = {
+				id = gdynia.2
+				days = 7
+			}
+		}
+	}
+
+	option = { #Senyszyn
+		name = gdynia.9.f
+		trigger = {
+			has_country_flag = GDY_maciejewska_lojalna_owsiakowi
+		}
+		set_politics = {
+			ruling_party = socialdemocrature
+		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.2
+		}
+		BOL = {
+			country_event = {
+				id = gdynia.2
+				days = 7
+			}
+		}
+	}
+}
+
+#news_event = {
+#	id = gdynia.5
+#	title = gdynia.5.t
+#	desc = gdynia.5.desc
+#	picture = GFX_news_event_arka_exodus
+#	
+#	major = yes
+#	fire_only_once = yes
+#	is_triggered_only = yes
+#
+#	immediate = { log = "[GetDateText]: [ROOT.GetName] fires gdynia.5" }
+#
+#	option = {
+#		name = gdynia.5.a
+#	}
+#}
+#

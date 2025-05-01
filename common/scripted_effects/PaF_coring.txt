@@ -1,58 +1,750 @@
-coring_effect = {
-	set_temp_variable = { coring_pp_cost = THIS.coring_cost }
-	set_temp_variable = { coring_multiplier = -1}
-	subtract_from_temp_variable = {	coring_multiplier = modifier@coring_cost_factor}
-	multiply_temp_variable = { coring_pp_cost = coring_multiplier }
-	THIS.owner = {
-		add_political_power = coring_pp_cost
-	}
-	THIS = {
-		PaF_change_capital_coring_prequel = yes
-	}
-	add_core_of = ROOT
-	remove_from_array = { ROOT.noncores_array = THIS.id }
-	set_temp_variable = { coreable_temp = 0}
-	ROOT = {
-		every_owned_state = {
-			limit = {
-				NOT = { is_core_of = ROOT }
-				compliance > 75
-				check_variable = {
-					THIS.coring_cost < ROOT.political_power
+clear_compatible_countries = {
+	clear_array = global.lore_friends
+	clear_array = global.lore_enemies
+}
+
+clear_administration_modifier = {
+	if = { limit = { has_dynamic_modifier = { modifier = polish_faster_administration } } remove_dynamic_modifier = { modifier = polish_faster_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = polish_other_administration } } remove_dynamic_modifier = { modifier = polish_other_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = polish_weird_administration } } remove_dynamic_modifier = { modifier = polish_weird_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = polish_nemesis_administration } } remove_dynamic_modifier = { modifier = polish_nemesis_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = silesian_faster_administration } } remove_dynamic_modifier = { modifier = silesian_faster_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = silesian_slower_administration } } remove_dynamic_modifier = { modifier = silesian_slower_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = german_faster_administration } } remove_dynamic_modifier = { modifier = german_faster_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = german_slower_administration } } remove_dynamic_modifier = { modifier = german_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = russian_slower_administration } } remove_dynamic_modifier = { modifier = russian_slower_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = upa_slower_administration } } remove_dynamic_modifier = { modifier = upa_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = upa_ukrainian_administration } } remove_dynamic_modifier = { modifier = upa_ukrainian_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = ukrainian_faster_administration } } remove_dynamic_modifier = { modifier = ukrainian_faster_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = ukrainian_slower_administration } } remove_dynamic_modifier = { modifier = ukrainian_slower_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = ukrainian_rus_administration } } remove_dynamic_modifier = { modifier = ukrainian_rus_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = belarusian_slower_administration } } remove_dynamic_modifier = { modifier = belarusian_slower_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = belarusian_russian_administration } } remove_dynamic_modifier = { modifier = belarusian_russian_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = kashubian_faster_administration } } remove_dynamic_modifier = { modifier = kashubian_faster_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = kashubian_slower_administration } } remove_dynamic_modifier = { modifier = kashubian_slower_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = kashuboid_faster_administration } } remove_dynamic_modifier = { modifier = kashuboid_faster_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = kashuboid_kashub_administration } } remove_dynamic_modifier = { modifier = kashuboid_kashub_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = kashuboid_slower_administration  } } remove_dynamic_modifier = { modifier = kashuboid_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = prussian_faster_administration } } remove_dynamic_modifier = { modifier = prussian_faster_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = prussian_slower_administration } } remove_dynamic_modifier = { modifier = prussian_slower_administration } }
+	if = { limit = { has_dynamic_modifier = { modifier = tatar_faster_administration } } remove_dynamic_modifier = { modifier = tatar_faster_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = tatar_slower_administration } } remove_dynamic_modifier = { modifier = tatar_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = goral_slower_administration } } remove_dynamic_modifier = { modifier = goral_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = asian_faster_administration } } remove_dynamic_modifier = { modifier = asian_faster_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = asian_slower_administration } } remove_dynamic_modifier = { modifier = asian_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = latin_faster_administration } } remove_dynamic_modifier = { modifier = latin_faster_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = latin_slower_administration } } remove_dynamic_modifier = { modifier = latin_slower_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = jewish_faster_administration } } remove_dynamic_modifier = { modifier = jewish_faster_administration } } 
+	if = { limit = { has_dynamic_modifier = { modifier = jewish_slower_administration  } } remove_dynamic_modifier = { modifier = jewish_slower_administration  } }
+}
+
+setup_administration_modifier = {
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_niepolak = no
+				is_in_array = {
+					global.lore_friends = THIS
 				}
 			}
-			add_to_temp_variable = { coreable_temp = 1}
+			OWNER = {
+				core_is_niepolak = no
+			}
 		}
-		set_variable = {coreable_number = coreable_temp }
+		add_dynamic_modifier = {
+			modifier = polish_faster_administration
+		}
 	}
-}
-
-auto_coring_effect = {
-	THIS = {
-		PaF_change_capital_coring_prequel = yes
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_niepolak = no
+				is_in_array = {
+					global.lore_enemies = THIS
+				}							
+			}
+			OWNER = {
+				core_is_niepolak = no
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = polish_nemesis_administration
+		}
+	}			
+	if = {
+		limit = {
+			any_country_with_core = {
+				NOT = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+					is_in_array = {
+						global.lore_friends = THIS
+					}
+					is_in_array = {
+						global.lore_enemies = THIS
+					}	
+				}				
+				core_is_niepolak = no
+			}
+			OWNER = {
+				NOT = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism	
+				}
+				core_is_niepolak = no
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = polish_other_administration
+		}
 	}
-	add_core_of = ROOT
-	remove_from_array = { ROOT.noncores_array = THIS.id }
-	set_temp_variable = { coreable_temp = 0}
-	ROOT = {
-		every_owned_state = {
-			limit = {
-				NOT = { is_core_of = ROOT }
-				compliance > 75
-				check_variable = {
-					THIS.coring_cost < ROOT.political_power
+	if = {
+		limit = {
+			any_country_with_core = {
+				OR = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+				}						
+				core_is_niepolak = no
+				NOT = {
+					is_in_array = {
+						global.lore_friends = THIS
+					}
+					is_in_array = {
+						global.lore_enemies = THIS
+					}
 				}
 			}
-			add_to_temp_variable = { coreable_temp = 1}
+			OWNER = {
+				NOT = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+				}
+				core_is_niepolak = no
+			}
 		}
-		set_variable = {coreable_number = coreable_temp }
+		add_dynamic_modifier = {
+			modifier = polish_weird_administration
+		}
+	}								
+	if = {
+		limit = {
+			any_country_with_core = {
+				NOT = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+				}						
+				core_is_niepolak = no
+				NOT = {
+					is_in_array = {
+						global.lore_friends = THIS
+					}
+					is_in_array = {
+						global.lore_enemies = THIS
+					}
+				}
+			}
+			OWNER = {
+				core_is_niepolak = no
+				OR = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+				}
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = polish_weird_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				OR = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+				}						
+				core_is_niepolak = no
+				NOT = {
+					is_in_array = {
+						global.lore_friends = THIS
+					}
+					is_in_array = {
+						global.lore_enemies = THIS
+					}
+				}							
+			}
+			OWNER = {
+				core_is_niepolak = no
+				OR = {
+					has_government = reactionary
+					has_government = postpolonism
+					has_government = squattism
+					has_government = marxism_cranism
+				}
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = polish_other_administration
+		}
+	}						
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_hanys = yes
+			}
+			OWNER = {
+				core_is_hanys = no
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = silesian_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_hanys = yes
+			}
+			OWNER = {
+				core_is_hanys = yes
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = silesian_faster_administration
+			}
+	}			
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_german = yes
+			}
+			OWNER = {
+				core_is_german = no
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = german_slower_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_german = yes
+			}
+			OWNER = {
+				core_is_german = yes
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = german_faster_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_kacap = yes
+			}
+			OWNER = {
+				core_is_kacap = no
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = russian_slower_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec_upa = yes
+			}
+			OWNER = {
+				core_is_ukrainiec_upa = no
+				core_is_ukrainiec = no
+				core_is_kacap = no
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = upa_slower_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec_upa = yes
+			}
+			OWNER = {
+				core_is_kacap = yes
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = ukrainian_rus_administration
+			}
+	}			
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec_upa = yes
+			}
+			OWNER = {
+				core_is_ukrainiec_upa = no
+				core_is_ukrainiec = yes
+				core_is_kacap = no
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = upa_ukrainian_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec = yes
+			}
+			OWNER = {
+				core_is_ukrainiec = no
+				NOT = { original_tag = UPA }
+				core_is_kacap = no
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = ukrainian_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec = yes
+			}
+			OWNER = {
+				core_is_ukrainiec = yes
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = ukrainian_faster_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec = yes
+			}
+			OWNER = {
+				core_is_kacap = yes
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = ukrainian_rus_administration
+			}
+	}							
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_ukrainiec = yes
+			}
+			OWNER = {
+				original_tag = UPA
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = upa_ukrainian_administration
+			}
+	}					
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_bulborussian = yes
+			}
+			OWNER = {
+				core_is_kacap = no
+				core_is_bulborussian = no
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = belarusian_slower_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_bulborussian = yes
+			}
+			OWNER = {
+				core_is_kacap = yes
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = belarusian_russian_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_kaszub = yes
+			}
+			ROOT = {
+				core_is_kaszub = no
+				core_is_wyrob_kaszubopodobny = no
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = kashubian_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_kaszub = yes
+			}
+			OWNER = {
+				core_is_wyrob_kaszubopodobny = yes
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = kashuboid_kashub_administration
+		}
+	}						
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_kaszub = yes
+			}
+			OWNER = {
+				core_is_kaszub = yes
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = kashubian_faster_administration
+			}
+	}									
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_wyrob_kaszubopodobny = yes
+			}
+			OWNER = {
+				core_is_kaszub = no
+				core_is_wyrob_kaszubopodobny = no
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = kashuboid_slower_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_wyrob_kaszubopodobny = yes
+			}
+			OWNER = {
+				core_is_kaszub = yes
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = kashuboid_kashub_administration
+			}
+	}						
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_wyrob_kaszubopodobny = yes
+			}
+			OWNER = {
+				core_is_wyrob_kaszubopodobny = yes
+			}
+		}
+			add_dynamic_modifier = {
+				modifier = kashuboid_faster_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_asian = yes
+			}
+			OWNER = {
+				core_is_asian = no
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = asian_slower_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_asian = yes
+			}
+			OWNER = {
+				core_is_asian = yes
+			}
+
+		}
+			add_dynamic_modifier = {
+				modifier = asian_faster_administration
+			}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_latin = yes
+			}
+			OWNER = {
+				core_is_latin = no
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = latin_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_latin = yes
+			}
+			OWNER = {
+				core_is_latin = yes
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = latin_faster_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_zymianin = yes
+			}
+			OWNER = {
+				core_is_zymianin = no
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = jewish_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_zymianin = yes
+			}
+			OWNER = {
+				core_is_zymianin = yes
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = jewish_faster_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_tatar = yes
+			}
+			OWNER = {
+				core_is_tatar = no
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = tatar_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_tatar = yes
+			}
+			OWNER = {
+				core_is_tatar = yes
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = tatar_faster_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_old_prussian = yes
+			}
+			OWNER = {
+				core_is_old_prussian = no
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = prussian_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_old_prussian = yes
+			}
+			OWNER = {
+				core_is_old_prussian = yes
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = prussian_faster_administration
+		}
+	}			
+	if = {
+		limit = {
+			any_country_with_core = {
+				core_is_gural = yes
+			}
+
+		}
+		add_dynamic_modifier = {
+			modifier = goral_slower_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {						
+				core_is_niepolak = no
+			}
+			OWNER = {
+				core_is_niepolak = yes
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = polish_weird_administration
+		}
+	}
+	if = {
+		limit = {
+			any_country_with_core = {						
+				core_is_niepolak = yes
+			}
+			OWNER = {
+				core_is_niepolak = yes
+			}
+		}
+		add_dynamic_modifier = {
+			modifier = polish_weird_administration
+		}
 	}
 }
 
-open_coring_ui_effect = {
-	set_global_flag = coring_ui_visible
+coring_calculation = {
+	set_variable = { coring_cost = state_population_k }
+	multiply_variable = { coring_cost = 0.6 }
+	round_variable = coring_cost
+	clamp_variable = {
+		var = coring_cost
+		max = 200
+	}
+	set_variable = { coring_multiplier = 0 }
+	add_to_variable = { coring_multiplier = THIS.coring_cost }
+	multiply_variable = { coring_multiplier = THIS.modifier@coring_cost_factor }
+	add_to_variable = {
+		THIS.coring_cost = coring_multiplier
+	}
 }
 
-close_coring_ui_effect = {
-	clr_global_flag = coring_ui_visible
+set_up_compatible_countries = {
+
+	###########
+	### BBW ###
+	if = {
+		limit = {
+			ROOT = {
+				original_tag = BBW
+			}
+		}
+		add_to_array = { global.lore_friends = LBW } #brotherhood chapter
+		add_to_array = { global.lore_friends = SBW } #brotherhood chapter
+		add_to_array = { global.lore_friends = JSW } #rock and stone
+		add_to_array = { global.lore_friends = ORL } #węgiel, ropa i gaz
+		add_to_array = { global.lore_friends = KGH } #rock and stone
+		add_to_array = { global.lore_friends = RUD } #rock and stone
+		add_to_array = { global.lore_friends = UMN } #salty but miners
+		add_to_array = { global.lore_friends = BOH } #salty but miners
+		add_to_array = { global.lore_friends = STL } #brotherhood of steel
+
+		add_to_array = { global.lore_enemies = ATM } #KURWA WIECHOWCU JEBANY AAAAAAAAAAAAAAAAAAAAAAAA	
+		add_to_array = { global.lore_enemies = ATO } #KURWA MAŁY WIECHOWCU JEBANY AAAAAAAAAAA		
+		add_to_array = { global.lore_enemies = ZIE } #ZIELONI? W MOIM BRACTWIE?		
+		add_to_array = { global.lore_enemies = ITA } #ZIELONI? W MOIM BRACTWIE? 		
+		add_to_array = { global.lore_enemies = ZHP } #JEBAĆ SZYSZKOJADÓW KURWAAAAAAAAAAAAAAAAA		
+
+	}
+	###########
+	### ATM ###
+	if = {
+		limit = {
+			ROOT = {
+				original_tag = ATM
+			}
+		}
+		add_to_array = { global.lore_friends = ORL } #też lubią reaktory
+		add_to_array = { global.lore_friends = KGH } #też lubią reaktory
+		add_to_array = { global.lore_friends = ATO } #też lubią reaktory
+		add_to_array = { global.lore_friends = WML } #Halloweenia is a chill guy
+
+		add_to_array = { global.lore_enemies = BBW }
+		add_to_array = { global.lore_enemies = LBW }
+		add_to_array = { global.lore_enemies = SBW }
+		add_to_array = { global.lore_enemies = BOG }
+	}
+	###########
+	### CAL ###
+	if = {
+		limit = {
+			ROOT = {
+				original_tag = CAL
+			}
+		}
+		add_to_array = { global.lore_friends = ALP } #latin amicus
+		add_to_array = { global.lore_friends = PRT } #latin amicus
+
+		add_to_array = { global.lore_enemies = KES } #zajebał nam Kalisz
+	}
+	###########
+	
+	###########
+	### ZHP ###
+	if = {
+		limit = {
+			ROOT = {
+				original_tag = ZHP
+			}
+		}
+		add_to_array = { global.lore_friends = ATM } 
+
+		add_to_array = { global.lore_enemies = BBW }
+		add_to_array = { global.lore_enemies = ZYD }
+	}
 }

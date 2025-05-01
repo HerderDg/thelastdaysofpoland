@@ -391,12 +391,18 @@ sp_plasma_gun = {
 
 	complexity = sp_complexity.large
 
+	resource_cost = {
+		resources = { electronics = 10 synthetic_materials = 10 aluminium = 5 }
+	}
+
 	breakthrough_cost = {
 		specialization_golem = 3
 	}
 	
 	project_output = {
-
+		enable_equipments = {
+			ranged_equipment_plasma
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -435,6 +441,10 @@ sp_laser_rifle = {
 	
 	prototype_time = sp_time.prototype.very_long
 
+	resource_cost = {
+		resources = { electronics = 10 synthetic_materials = 10 aluminium = 5 }
+	}
+
 	complexity = sp_complexity.large
 
 	breakthrough_cost = {
@@ -442,7 +452,9 @@ sp_laser_rifle = {
 	}
 	
 	project_output = {
-
+		enable_equipments = {
+			ranged_equipment_laser
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -477,7 +489,14 @@ sp_giga_magnes = {
 	icon = GFX_sp_gigamagnes
 	project_tags = sp_tag_wunderwaffe
 
-	
+	available = {
+		FROM = {
+			is_special_project_completed = sp:sp_land_military_engineering_vehicles
+		}
+	}
+	resource_cost = {
+		resources = { steel = 20 aluminium = 20 }
+	}
 	prototype_time = sp_time.prototype.very_long
 
 	complexity = sp_complexity.large
@@ -487,7 +506,25 @@ sp_giga_magnes = {
 	}
 	
 	project_output = {
-
+		country_effects = {
+			add_dynamic_modifier = {
+				modifier = gigamagnes_modifier
+			}
+		}
+		sub_unit_bonus = {
+			assault_engineer = {
+				breakthrough = 0.50
+			}
+			armored_engineer = {
+				breakthrough = 0.50
+			}
+		}
+		equipment_bonus = {
+			armored_support_vehicle = {
+				build_cost_ic = -0.2
+				reliability = 0.1
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -526,13 +563,21 @@ sp_cold_fusion = {
 	prototype_time = sp_time.prototype.very_long
 
 	complexity = sp_complexity.insane
-	
+
+	resource_cost = {
+		resources = { synthetic_materials=30 aluminium=50 electronics=40 }
+	}
+
 	breakthrough_cost = {
 		specialization_golem = 3
 	}
 	
 	project_output = {
-
+		country_effects = {
+			add_dynamic_modifier = {
+				modifier = cold_fusion_modifier
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -567,6 +612,9 @@ sp_flying_saucer = {
 	icon = GFX_sp_ufo
 	project_tags = sp_tag_wunderwaffe
 
+	resource_cost = {
+		resources = { electronics = 40 synthetic_materials = 30 aluminium = 40 }
+	}
 	
 	prototype_time = sp_time.prototype.very_long
 
@@ -577,7 +625,9 @@ sp_flying_saucer = {
 	}
 	
 	project_output = {
-
+		enable_equipments = {
+			ufo_0
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -607,57 +657,60 @@ sp_flying_saucer = {
 	}
 }
 
-sp_fungal_warfare = {
-	specialization = specialization_golem
-	icon = GFX_sp_grzib
-	project_tags = sp_tag_biological
-
-	
-	prototype_time = sp_time.prototype.very_long
-
-	complexity = sp_complexity.large
-
-	breakthrough_cost = {
-		specialization_golem = 3
-	}
-	
-	project_output = {
-
-	}
-
-	generic_prototype_rewards = {
-		sp_golem_generic_reward_scientist_xp_1
-		sp_golem_generic_reward_scientist_xp_2
-		sp_golem_generic_reward_scientist_xp_3
-		sp_golem_generic_reward_army_xp_1
-		sp_golem_generic_reward_army_xp_2
-		sp_golem_generic_reward_army_xp_3
-		sp_golem_generic_reward_major_progress_1
-		sp_golem_generic_reward_major_progress_2
-		sp_golem_generic_reward_major_progress_3
-		sp_golem_generic_reward_test_failure_1
-		sp_golem_generic_reward_test_failure_2
-		sp_golem_generic_reward_test_failure_3
-		sp_golem_generic_reward_armor_tech_1
-		sp_golem_generic_reward_armor_tech_2
-		sp_golem_generic_reward_armor_tech_3
-		sp_golem_generic_reward_armor_bonus_1
-		sp_golem_generic_reward_armor_bonus_2
-		sp_golem_generic_reward_armor_bonus_3
-		sp_golem_generic_reward_engine_bonus_1
-		sp_golem_generic_reward_engine_bonus_2
-		sp_golem_generic_reward_engine_bonus_3
-		sp_golem_generic_reward_resource_scarcity
-		sp_golem_generic_reward_critical_failure
-	}
-}
+#sp_fungal_warfare = {
+#	specialization = specialization_golem
+#	icon = GFX_sp_grzib
+#	project_tags = sp_tag_biological
+#
+#	
+#	prototype_time = sp_time.prototype.very_long
+#
+#	complexity = sp_complexity.large
+#
+#	breakthrough_cost = {
+#		specialization_golem = 3
+#	}
+#	
+#	project_output = {
+#
+#	}
+#
+#	generic_prototype_rewards = {
+#		sp_golem_generic_reward_scientist_xp_1
+#		sp_golem_generic_reward_scientist_xp_2
+#		sp_golem_generic_reward_scientist_xp_3
+#		sp_golem_generic_reward_army_xp_1
+#		sp_golem_generic_reward_army_xp_2
+#		sp_golem_generic_reward_army_xp_3
+#		sp_golem_generic_reward_major_progress_1
+#		sp_golem_generic_reward_major_progress_2
+#		sp_golem_generic_reward_major_progress_3
+#		sp_golem_generic_reward_test_failure_1
+#		sp_golem_generic_reward_test_failure_2
+#		sp_golem_generic_reward_test_failure_3
+#		sp_golem_generic_reward_armor_tech_1
+#		sp_golem_generic_reward_armor_tech_2
+#		sp_golem_generic_reward_armor_tech_3
+#		sp_golem_generic_reward_armor_bonus_1
+#		sp_golem_generic_reward_armor_bonus_2
+#		sp_golem_generic_reward_armor_bonus_3
+#		sp_golem_generic_reward_engine_bonus_1
+#		sp_golem_generic_reward_engine_bonus_2
+#		sp_golem_generic_reward_engine_bonus_3
+#		sp_golem_generic_reward_resource_scarcity
+#		sp_golem_generic_reward_critical_failure
+#	}
+#}
 
 sp_cloning_animal = {
 	specialization = specialization_golem
-	
+	icon = GFX_sp_cloning_animal
 	project_tags = sp_tag_biological
 
-	
+	resource_cost = {
+		resources = { food=10 synthetic_materials=15 electronics=10 }
+	}
+
 	prototype_time = sp_time.prototype.very_long
 
 	complexity = sp_complexity.large
@@ -667,7 +720,18 @@ sp_cloning_animal = {
 	}
 	
 	project_output = {
-
+		sub_unit_bonus = {
+			knur_company = {
+				experience_loss_factor = -0.5
+				supply_consumption = -0.01
+			}
+		}
+		facility_state_effects = {
+			add_resource = {
+				type = food
+				amount = 30
+			}
+		}	
 	}
 
 	generic_prototype_rewards = {
@@ -699,24 +763,45 @@ sp_cloning_animal = {
 
 sp_cloning_human = {
 	specialization = specialization_golem
-	
+	icon = GFX_sp_cloning_human
 	project_tags = sp_tag_biological
 
+	resource_cost = {
+		resources = { food=20 synthetic_materials=30 electronics=20 }
+	}
 	
 	prototype_time = sp_time.prototype.very_long
 
 	complexity = sp_complexity.insane
 
-	#special_project_parent = {
-	#	sp_cloning_animal
-	#}	
+	special_project_parent = {
+		sp_cloning_animal
+	}	
 
 	breakthrough_cost = {
 		specialization_golem = 3
 	}
 	
 	project_output = {
-
+		sub_unit_bonus = {
+			infantry = {
+				experience_loss_factor = -0.5
+			}
+			militia = {
+				experience_loss_factor = -0.5
+			}
+			melee_infantry = {
+				experience_loss_factor = -0.5
+			}						
+		}
+		country_effects = {
+			custom_effect_tooltip = cloning_human_tt
+			ROOT = {
+				set_variable = {
+					clone_batch_counter = 1
+				}
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -746,50 +831,50 @@ sp_cloning_human = {
 	}
 }
 
-sp_psychic_powers = {
-	specialization = specialization_golem
-	
-	project_tags = sp_tag_wunderwaffe
-
-	
-	prototype_time = sp_time.prototype.very_long
-
-	complexity = sp_complexity.insane
-
-	breakthrough_cost = {
-		specialization_golem = 3
-	}
-	
-	project_output = {
-
-	}
-
-	generic_prototype_rewards = {
-		sp_golem_generic_reward_scientist_xp_1
-		sp_golem_generic_reward_scientist_xp_2
-		sp_golem_generic_reward_scientist_xp_3
-		sp_golem_generic_reward_army_xp_1
-		sp_golem_generic_reward_army_xp_2
-		sp_golem_generic_reward_army_xp_3
-		sp_golem_generic_reward_major_progress_1
-		sp_golem_generic_reward_major_progress_2
-		sp_golem_generic_reward_major_progress_3
-		sp_golem_generic_reward_test_failure_1
-		sp_golem_generic_reward_test_failure_2
-		sp_golem_generic_reward_test_failure_3
-		sp_golem_generic_reward_armor_tech_1
-		sp_golem_generic_reward_armor_tech_2
-		sp_golem_generic_reward_armor_tech_3
-		sp_golem_generic_reward_armor_bonus_1
-		sp_golem_generic_reward_armor_bonus_2
-		sp_golem_generic_reward_armor_bonus_3
-		sp_golem_generic_reward_engine_bonus_1
-		sp_golem_generic_reward_engine_bonus_2
-		sp_golem_generic_reward_engine_bonus_3
-		sp_golem_generic_reward_resource_scarcity
-		sp_golem_generic_reward_critical_failure
-	}
-}
+#sp_psychic_powers = { #na kiedy indziej, moze dla Przewidokracji bo nie widze poki co tutaj zastosowania ani jak to zakodować
+#	specialization = specialization_golem
+#	icon = GFX_sp_psychic_powers
+#	project_tags = sp_tag_wunderwaffe
+#
+#	
+#	prototype_time = sp_time.prototype.very_long
+#
+#	complexity = sp_complexity.insane
+#
+#	breakthrough_cost = {
+#		specialization_golem = 3
+#	}
+#	
+#	project_output = {
+#
+#	}
+#
+#	generic_prototype_rewards = {
+#		sp_golem_generic_reward_scientist_xp_1
+#		sp_golem_generic_reward_scientist_xp_2
+#		sp_golem_generic_reward_scientist_xp_3
+#		sp_golem_generic_reward_army_xp_1
+#		sp_golem_generic_reward_army_xp_2
+#		sp_golem_generic_reward_army_xp_3
+#		sp_golem_generic_reward_major_progress_1
+#		sp_golem_generic_reward_major_progress_2
+#		sp_golem_generic_reward_major_progress_3
+#		sp_golem_generic_reward_test_failure_1
+#		sp_golem_generic_reward_test_failure_2
+#		sp_golem_generic_reward_test_failure_3
+#		sp_golem_generic_reward_armor_tech_1
+#		sp_golem_generic_reward_armor_tech_2
+#		sp_golem_generic_reward_armor_tech_3
+#		sp_golem_generic_reward_armor_bonus_1
+#		sp_golem_generic_reward_armor_bonus_2
+#		sp_golem_generic_reward_armor_bonus_3
+#		sp_golem_generic_reward_engine_bonus_1
+#		sp_golem_generic_reward_engine_bonus_2
+#		sp_golem_generic_reward_engine_bonus_3
+#		sp_golem_generic_reward_resource_scarcity
+#		sp_golem_generic_reward_critical_failure
+#	}
+#}
 
 
 sp_energetic_shield = {
@@ -797,6 +882,9 @@ sp_energetic_shield = {
 	icon = GFX_sp_energy_shield
 	project_tags = sp_tag_wunderwaffe
 
+	resource_cost = {
+		resources = { electronics = 10 synthetic_materials = 5 }
+	}
 	
 	prototype_time = sp_time.prototype.very_long
 
@@ -807,7 +895,23 @@ sp_energetic_shield = {
 	}
 	
 	project_output = {
-
+		sub_unit_bonus = {
+			infantry = {
+				build_cost_ic = 0.1
+				defense = 0.15
+				armor_value = 0.15
+			}
+			militia = {
+				build_cost_ic = 0.1
+				defense = 0.2
+				armor_value = 0.2
+			}
+			melee_infantry = {
+				build_cost_ic = 0.1
+				defense = 0.4
+				armor_value = 0.4
+			}						
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -839,7 +943,7 @@ sp_energetic_shield = {
 
 sp_energetic_dome = {
 	specialization = specialization_golem
-	
+	icon = GFX_sp_energetic_dome
 	project_tags = sp_tag_wunderwaffe
 
 	
@@ -847,17 +951,25 @@ sp_energetic_dome = {
 
 	complexity = sp_complexity.insane
 
+	resource_cost = {
+		resources = { electronics = 30 synthetic_materials = 10 aluminium = 10 }
+	}
+
 	breakthrough_cost = {
 		specialization_golem = 3
 	}
 	
 	project_output = {
-
+		country_effects = {
+			add_dynamic_modifier = {
+				modifier = energetic_dome_modifier
+			}
+		}
 	}
 
-	#special_project_parent = {
-	#	sp_energetic_shield
-	#}	
+	special_project_parent = {
+		sp_energetic_shield
+	}	
 
 	generic_prototype_rewards = {
 		sp_golem_generic_reward_scientist_xp_1
@@ -888,9 +1000,12 @@ sp_energetic_dome = {
 
 sp_holojezus = {
 	specialization = specialization_golem
-	
+	icon = GFX_sp_holojezus
 	project_tags = sp_tag_wunderwaffe
 
+	resource_cost = {
+		resources = { electronics = 60 synthetic_materials = 30 }
+	}
 	
 	prototype_time = sp_time.prototype.very_long
 
@@ -901,7 +1016,9 @@ sp_holojezus = {
 	}
 	
 	project_output = {
-
+		country_effects = {
+			custom_effect_tooltip = blue_beam_tt
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -937,6 +1054,9 @@ sp_wkurwiles_enta = {
 	icon = GFX_sp_wkurwiles_enta
 	project_tags = sp_tag_biological
 
+	resource_cost = {
+		resources = { food = 30 synthetic_materials = 20 }
+	}
 	
 	prototype_time = sp_time.prototype.very_long
 
@@ -947,7 +1067,14 @@ sp_wkurwiles_enta = {
 	}
 	
 	project_output = {
-
+		country_effects = {
+			ROOT = {
+				custom_effect_tooltip = animate_forest_tt			
+				hidden_effect = {
+					country_event = sp_event.1
+				}
+			}
+		}
 	}
 
 	generic_prototype_rewards = {
@@ -983,6 +1110,9 @@ sp_antibex_data_dump = {
 	
 	project_tags = sp_tag_golem
 
+	allowed = {
+		original_tag = BEX #do zmiany później
+	}
 	
 	prototype_time = sp_time.prototype.very_long
 
@@ -1029,7 +1159,10 @@ sp_antibex_decay_acceleration = {
 	
 	project_tags = sp_tag_golem
 
-	
+	allowed = {
+		original_tag = BEX #do zmiany później
+	}
+
 	prototype_time = sp_time.prototype.very_long
 
 	complexity = sp_complexity.large
@@ -1074,7 +1207,10 @@ sp_antibex_gigajammer = {
 	
 	project_tags = sp_tag_golem
 
-	
+	allowed = {
+		original_tag = BEX #do zmiany później
+	}
+
 	prototype_time = sp_time.prototype.long
 
 	complexity = sp_complexity.large
@@ -1119,7 +1255,10 @@ sp_antibex_balutite = {
 	
 	project_tags = sp_tag_golem
 
-	
+	allowed = {
+		original_tag = BEX #do zmiany później
+	}
+
 	prototype_time = sp_time.prototype.long
 
 	complexity = sp_complexity.large
@@ -1164,6 +1303,9 @@ sp_antibex_meat_bomb = {
 	
 	project_tags = sp_tag_golem
 
+	allowed = {
+		original_tag = BEX #do zmiany później
+	}
 	
 	prototype_time = sp_time.prototype.medium
 
@@ -1210,6 +1352,9 @@ sp_antibex_golem_trap = {
 	icon = GFX_sp_antibex_golem_trap
 	project_tags = sp_tag_golem
 
+	allowed = {
+		original_tag = BEX #do zmiany później
+	}
 	
 	prototype_time = sp_time.prototype.short
 

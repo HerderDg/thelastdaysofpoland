@@ -1,0 +1,538 @@
+TSB_decisions_category = {
+
+	activate_overdrive_mode = {
+		visible = { 
+			is_ai = no
+			NOT = { has_country_flag = kutas_2000 } 
+		}
+		cost = 0
+		complete_effect = {
+			set_country_flag = kutas_2000
+			log = "[GetDateText]: Decision kutas_2000 activated"
+		}
+	}
+
+	deactivate_overdrive_mode = {
+		visible = { 
+			is_ai = no
+			has_country_flag = kutas_2000
+		 }
+		cost = 0
+		complete_effect = {
+			clr_country_flag = kutas_2000
+			log = "[GetDateText]: Decision collapse_ranged"
+		}
+	}
+
+
+	zeslij_raka_kutasa = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			original_tag = TSB
+		}
+		
+		target_array = global.countries
+		target_trigger = {
+			FROM = {
+				is_ai = yes
+				has_war = yes
+				has_idea = AI_bridge_crossing_idea
+				OR = {
+				NOT = { has_idea = podlasie_tribe_idea }
+				AND = {
+					has_idea = podlasie_tribe_idea
+					num_divisions > 10
+				}	
+				}
+			}
+		}
+
+		available = {
+			if = { limit = {
+				OR = {
+				TSB = { is_ai = yes }
+				AND = {
+					TSB = { is_ai = no }
+					TSB = { NOT = { has_country_flag = kutas_2000 } }
+				}
+				}
+			}	
+				ROOT = { NOT = { has_idea = cooldown } }
+
+				#podstawa
+				FROM = { is_ai = yes }
+				FROM = { has_war = yes }
+				FROM = { has_idea = AI_bridge_crossing_idea }
+				FROM = { NOT = { has_idea = wojnorozpierdalacz } }
+				FROM = { NOT = { has_idea = cooldown } }	
+				#triggery na długość wojny albo surrender progress
+				FROM = { NOT = {
+					all_enemy_country = {
+						surrender_progress > 0.5
+					}
+				}
+				}
+				FROM = {
+				OR = {
+					AND = {
+						surrender_progress > 0.5
+						longest_war_length > 5
+					}
+					AND = {
+						longest_war_length > 9
+						surrender_progress > 0.05
+					}
+					AND = {
+						longest_war_length > 1
+						date > 2032.01.01
+						NOT = { has_country_flag = unified_voivodeship }
+						FROM = { NOT = {
+							all_enemy_country = {
+								surrender_progress > 0.2
+							}
+						}
+						}
+					}					
+					#AND = {
+					#	has_country_flag = unified_voivodeship
+					#	longest_war_length > 9
+					#}
+					#AND = {
+					#	has_country_flag = unified_regional
+					#	longest_war_length > 12
+					#}
+					#AND = {
+					#	has_country_flag = unified_supregional
+					#	longest_war_length > 16
+					#}										
+				}
+				}
+				
+				#trigger żeby żaden kraj nie był już przeklęty
+				FROM = { 
+				NOT = {
+					any_enemy_country = {
+						has_idea = wojnorozpierdalacz
+					}
+				}
+				}
+
+				#trigger żeby nie przeklinać tych którzy walczą z plemieniami
+				FROM = { 
+				NOT = {
+					all_enemy_country = {
+						has_idea = podlasie_tribe_idea
+					}
+				}
+				}
+
+				#triggery poszczególnych krajów
+				FROM = { NOT = { has_idea = hanys_boss } }
+				
+				NOT = {
+					AND = {
+						OR = {
+							original_tag = ZHP
+							original_tag = BBW
+							original_tag = ZYD
+							original_tag = SAP
+							original_tag = KRS
+							original_tag = WML
+						}
+						OR = {
+							has_war_with = TIG
+							has_war_with = KAR
+							has_war_with = RDM
+							has_war_with = LKS
+							has_war_with = AMW
+						}	
+					}
+				}
+
+				NOT = {
+					AND = {
+					original_tag = SDL
+					has_war_with = AGR
+					}
+				}
+
+				NOT = {
+					AND = {
+					original_tag = LOT
+					has_war_with = SWC
+					}
+				}	
+
+				NOT = {
+					AND = {
+					original_tag = AGR
+					has_war_with = SDL
+					}
+				}
+
+				NOT = {
+					AND = {
+					original_tag = ARK
+					has_war_with = GDY
+					}
+				}
+
+				NOT = {
+					AND = {
+					original_tag = DUR
+					has_war_with = WOD
+					}
+				}
+	
+				NOT = {
+					AND = {
+					original_tag = OSP
+					has_war_with = TRN
+					has_country_leader = {
+						character = OSP_waldemar_pawlak
+					}
+					}
+				}	
+
+				NOT = {
+					AND = {
+					original_tag = PRK
+					NOT = { has_global_flag = zero_withdraws }
+					}
+				}													
+			}
+			if = {
+				limit = {
+					TSB = { is_ai = no }
+					TSB = { has_country_flag = kutas_2000 }
+				}
+				FROM = { NOT = { has_idea = wojnorozpierdalacz } }
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			ROOT = { add_timed_idea = {
+				idea = cooldown
+				days = 3
+			}
+		 }
+		}
+		days_remove = 1
+
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] zsyla raka kutasa na [FROM.GetName]"
+			FROM = { 
+				add_timed_idea = {
+					idea = wojnorozpierdalacz
+					days = 30
+				}
+				add_timed_idea = {
+					idea = cooldown
+					days = 60
+				}
+			}
+			every_country = {
+				limit = {
+					has_war_with = FROM
+					NOT = { has_idea = podlasie_tribe_idea }
+				}
+				add_timed_idea = {
+					idea = wojnozapierdalacz
+					days = 40
+				}
+				add_timed_idea = {
+					idea = cooldown
+					days = 60
+				}				
+			}	
+		}
+	}
+	
+	
+
+	TSB_przemyt = {
+		activation = {
+			country_exists = TSB
+		}
+		allowed = {
+			always = yes 
+		}
+		available = {
+			always = no
+		}
+
+		icon = mission_icon   
+		days_mission_timeout = 90
+		complete_effect = {
+			hidden_effect = {
+				remove_decision = TSB_przemyt
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: Decision dawaj kurwo karabiny przemyten machen"
+				random_list = {
+					5 = {
+						add_equipment_to_stockpile = {
+							type = ranged_equipment_4
+							amount = 2000
+							producer = GER
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = ranged_equipment_4
+							amount = 2000
+							producer = USA
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = ranged_equipment_4
+							amount = 2000
+							producer = CHI
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = ranged_equipment_4
+							amount = 2000
+							producer = UKR
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = ranged_equipment_4
+							amount = 2000
+							producer = RUS
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = inf_anti_tank_equipment
+							amount = 250
+							producer = GER
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = inf_anti_tank_equipment
+							amount = 250
+							producer = USA
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = inf_anti_tank_equipment
+							amount = 250
+							producer = UKR
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = inf_anti_tank_equipment
+							amount = 250
+							producer = CHI
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = inf_anti_tank_equipment
+							amount = 250
+							producer = RUS
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = mbt_equipment_2
+							amount = 20
+							producer = GER
+						}
+						add_equipment_to_stockpile = {
+							type = ifv_equipment_3
+							amount = 50
+							producer = GER
+						}
+						add_equipment_to_stockpile = {
+							type = apc_equipment_3
+							amount = 50
+							producer = GER
+						}						
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = mbt_equipment_2
+							amount = 20
+							producer = RUS
+						}
+						add_equipment_to_stockpile = {
+							type = ifv_equipment_3
+							amount = 50
+							producer = RUS
+						}
+						add_equipment_to_stockpile = {
+							type = apc_equipment_3
+							amount = 50
+							producer = RUS
+						}			
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = mbt_equipment_2
+							amount = 20
+							producer = UKR
+						}
+						add_equipment_to_stockpile = {
+							type = ifv_equipment_3
+							amount = 50
+							producer = UKR
+						}
+						add_equipment_to_stockpile = {
+							type = apc_equipment_3
+							amount = 50
+							producer = UKR
+						}	
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = mbt_equipment_2
+							amount = 20
+							producer = CHI
+						}
+						add_equipment_to_stockpile = {
+							type = ifv_equipment_3
+							amount = 50
+							producer = CHI
+						}
+						add_equipment_to_stockpile = {
+							type = apc_equipment_3
+							amount = 50
+							producer = CHI
+						}	
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = mbt_equipment_2
+							amount = 20
+							producer = USA
+						}
+						add_equipment_to_stockpile = {
+							type = ifv_equipment_3
+							amount = 50
+							producer = USA
+						}
+						add_equipment_to_stockpile = {
+							type = apc_equipment_3
+							amount = 50
+							producer = USA
+						}	
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = fighter_equipment_2
+							amount = 10
+							producer = RUS
+						}
+						add_equipment_to_stockpile = {
+							type = bomber_equipment_2
+							amount = 10
+							producer = RUS
+						}
+						add_equipment_to_stockpile = {
+							type = helicopter_2_equipment
+							amount = 10
+							producer = RUS
+						}												
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = fighter_equipment_2
+							amount = 10
+							producer = USA
+						}
+						add_equipment_to_stockpile = {
+							type = bomber_equipment_2
+							amount = 10
+							producer = USA
+						}
+						add_equipment_to_stockpile = {
+							type = helicopter_2_equipment
+							amount = 10
+							producer = USA
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = fighter_equipment_2
+							amount = 10
+							producer = CHI
+						}
+						add_equipment_to_stockpile = {
+							type = bomber_equipment_2
+							amount = 10
+							producer = CHI
+						}
+						add_equipment_to_stockpile = {
+							type = helicopter_2_equipment
+							amount = 10
+							producer = CHI
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = fighter_equipment_2
+							amount = 10
+							producer = GER
+						}
+						add_equipment_to_stockpile = {
+							type = bomber_equipment_2
+							amount = 10
+							producer = GER
+						}
+						add_equipment_to_stockpile = {
+							type = helicopter_2_equipment
+							amount = 10
+							producer = GER
+						}
+					}
+					5 = {
+						add_equipment_to_stockpile = {
+							type = light_artillery_equipment_4
+							amount = 50
+							producer = UKR
+						}
+						add_equipment_to_stockpile = {
+							type = heavy_artillery_equipment_4
+							amount = 50
+							producer = UKR
+						}
+						add_equipment_to_stockpile = {
+							type = light_artillery_equipment_4
+							amount = 50
+							producer = USA
+						}
+						add_equipment_to_stockpile = {
+							type = heavy_artillery_equipment_4
+							amount = 50
+							producer = USA
+						}
+						add_equipment_to_stockpile = {
+							type = light_artillery_equipment_4
+							amount = 50
+							producer = GER
+						}
+						add_equipment_to_stockpile = {
+							type = heavy_artillery_equipment_4
+							amount = 50
+							producer = GER
+						}												
+					}
+				}
+		}
+	}
+
+}
