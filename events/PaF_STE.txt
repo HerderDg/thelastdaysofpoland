@@ -121,7 +121,10 @@ country_event = { #riposte
 				add_idea = STE_griffon_partisans_3
 			}
 		}
-		STE_loyalty_check = yes
+		custom_effect_tooltip = STE_hanza_abandoned
+		hidden_effect = {
+			STE_loyalty_check = yes
+		}
 	}
 }
 country_event = { 
@@ -336,6 +339,10 @@ country_event = { #night of golden gryphons
 			remove_idea = taxes_minimal
 			add_idea = taxes_low
 		}
+		set_country_flag = hanza_gui_shown_show_decisions
+		set_variable = { STE_pzm_loyalty = 50 }
+		set_variable = { STE_netto_loyalty = 50 }
+		set_variable = { STE_chemiewerke_loyalty = 50 }
 	}
 }
 country_event = { #in the army now
@@ -415,20 +422,24 @@ country_event = { #chemiewerke grozi że się wysadzi jak nie skończymy wojny n
 	#is_triggered_only = yes
 	trigger = {
 		CHE = {
-			surrender_progress > 0.25
+			surrender_progress > 0.1
 		}
 	}
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.21" }
 
 	option = {
 		name = szczecin.21.a
-			hidden_effect = {
-				LIG = {
-					country_event = {
-						id = szczecin.22
-						days = 1
-					}
-				}
+			#hidden_effect = {
+			#	LIG = {
+			#		country_event = {
+			#			id = szczecin.22
+			#			days = 2
+			#		}
+			#	}
+			#}
+			annex_country = {
+				target = CHE
+				transfer_troops = no
 			}
 	}
 }
@@ -444,7 +455,6 @@ country_event = { #LIG blokada (dla ligii)
 	option = {
 		name = szczecin.22.a
 			STE = {
-				set_country_flag = STE_LIG_blockaded
 				country_event = {
 					id = szczecin.23
 					days = 1
@@ -463,7 +473,7 @@ country_event = { #LIG blokada (dla szczecina)
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.23" }
 	option = {
 		name = szczecin.23.a
-
+		set_country_flag = STE_LIG_blockaded
 	}
 }
 country_event = { 
