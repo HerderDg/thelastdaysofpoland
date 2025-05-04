@@ -1,0 +1,142 @@
+add_namespace = zimna_wojna
+
+country_event = { #Wybór sojuszu przez niezdecydowanych
+	id = zimna_wojna.1
+	title = zimna_wojna.1.t
+	desc = zimna_wojna.1.desc
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires zimna_wojna.1"
+		hidden_effect = {
+			every_country = {
+				white_peace = {
+					tag = ROOT
+				}
+			}
+		}
+	}
+
+	option = {
+		name = zimna_wojna.1.a 
+		TRZ = {
+			add_to_faction = ROOT
+		}
+		ai_chance = {
+			base = 45
+		}
+    }
+	option = {
+		name = zimna_wojna.1.b
+		WRC = {
+			add_to_faction = ROOT
+		}
+		ai_chance = {
+			base = 45
+		}
+    }
+	option = {
+		name = zimna_wojna.1.c
+		ai_chance = {
+			base = 10
+		}
+    }	
+}
+
+country_event = { #Scripted Peace Deal Lewica
+	id = zimna_wojna.2
+	title = zimna_wojna.2.t
+	desc = zimna_wojna.2.desc
+	fire_only_once = yes
+	trigger = {
+		WOW = { exists = no }
+		WRC = { exists = no }
+		IPN = { exists = no }
+		KCZ = { exists = no }
+		GAR = { exists = no }
+		has_country_flag = lewica_boss
+		TRZ = { has_war = no }
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires zimna_wojna.2"
+		hidden_effect = {
+			TRZ = {
+				country_event = {
+					id = zimna_wojna.4
+					days = 30
+				}
+			}
+		}
+	}
+
+	option = {
+		name = zimna_wojna.2.a
+		clr_country_flag = lewica_boss
+		peace_deal_warszawa_lewica = yes
+		set_global_flag = warszawa_lewica_win
+    }	
+}
+
+country_event = { #Scripted Peace Deal Prawica
+	id = zimna_wojna.3
+	title = zimna_wojna.3.t
+	desc = zimna_wojna.3.desc
+	fire_only_once = yes
+	trigger = {
+		TRZ = { exists = no }
+		TVN = { exists = no }
+		DUP = { exists = no }
+		ZIE = { exists = no }
+		WRS = { exists = no }
+		GRD = { exists = no }
+		CZR = { exists = no }
+		BIE = { exists = no }
+		has_country_flag = prawica_boss
+		WRC = { has_war = no }
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires zimna_wojna.3" 
+		hidden_effect = {
+			WRC = {
+				country_event = {
+					id = zimna_wojna.4
+					days = 30
+				}
+			}
+		}
+	}
+
+	option = {
+		name = zimna_wojna.3.a
+		clr_country_flag = prawica_boss
+		peace_deal_warszawa_prawica = yes
+		set_global_flag = warszawa_prawica_win
+    }	
+}
+
+country_event = { #Rozpad Sojuszy, placeholder
+	id = zimna_wojna.4
+	title = zimna_wojna.4.t
+	desc = zimna_wojna.4.desc
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires zimna_wojna.4"
+		hidden_effect = {
+			random_list = {
+				98 = {
+					WRC = { dismantle_faction = yes }
+					TRZ = { dismantle_faction = yes }
+				}
+				2 = {
+					yuo_get_annexed = yes
+				}	
+			}
+		}
+	}
+	option = {
+		name = zimna_wojna.4.a
+    }	
+}

@@ -1,0 +1,111 @@
+HOR_pilgrimage = {
+
+	HOR_exodus_decision = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+		
+		allowed = {
+			original_tag = HOR
+		}
+		
+		target_array = global.countries
+		target_trigger = {
+			FROM = {
+			any_neighbor_country = {
+				is_hosting_exile = HOR
+			}
+			}
+		}
+
+		visible = {
+			original_tag = HOR
+			is_government_in_exile = yes
+			FROM = {
+			any_neighbor_country = {
+				is_hosting_exile = HOR
+			}
+			}
+			NOT = {
+				is_in_array = { global.procession_hosted = FROM }
+				is_in_array = { global.procession_targets_closed = FROM }
+			}
+		}
+
+		available = {
+			FROM = {
+			any_neighbor_country = {
+				is_hosting_exile = HOR
+			}
+			has_war = no
+			}
+			FROM = { NOT = { has_country_flag = HOR_procession_negotiation_failed } }
+			NOT = {
+				is_in_array = { global.procession_hosted = FROM }
+			}
+			any_country = { NOT = { has_country_flag = HOR_procession_envoy_sent } }
+			NOT = { HOR = { has_country_flag = HOR_procession_envoy_sent } }
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		days_remove = 3
+		complete_effect = {
+			hidden_effect = {
+				FROM = {
+					set_country_flag = HOR_procession_envoy_sent
+				}
+				set_country_flag = HOR_procession_envoy_sent
+			}
+			#if = {
+			#	limit = {
+			#		HOG = { is_in_faction = yes }
+			#	}
+			#	PAP = { set_faction_leader = yes }
+			#	HOG = { leave_faction = yes }
+			#}
+			#if = {
+			#	limit = {
+			#		AMA = { is_in_faction = yes }
+			#	}
+			#	PAP = { set_faction_leader = yes }
+			#	AMA = { leave_faction = yes }
+			#}
+			every_country = {
+					limit = { is_in_faction_with = PAP
+					NOT = { tag = PAP }	
+					NOT = { tag = HOR }	
+					}
+					PAP = { set_faction_leader = yes }
+					leave_faction = yes
+			}			
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] fires decision podlasie_plemiona"
+			if = {
+				limit = {
+					FROM = { is_in_array = { global.procession_targets_open = FROM } }
+				}
+				FROM = {
+					country_event = {
+						id = procesja.4
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM = { is_in_array = { global.procession_targets_negotiating = FROM } }
+				}
+				FROM = {
+					country_event = {
+						id = procesja.5
+					}
+				}
+			}			
+		}
+	}	
+
+}

@@ -59,6 +59,24 @@ ideas = {
 			}
 		}
 		
+		DGR_district_wars2 = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_district_wars2
+			modifier = {
+				army_org_regain = -0.25
+				stability_factor = -0.25
+				consumer_goods_factor = 0.3
+			}
+		}
+		
 		DGR_red_heritage = {
 			allowed = {
 				original_tag = DGR
@@ -72,7 +90,44 @@ ideas = {
 			picture = DGR_red_heritage
 			modifier = {
 			    war_support_factor = 0.1
-				experience_gain_army = 0.1
+				party_popularity_stability_factor = 0.1
+			}
+		}
+		
+		DGR_red_heritage2 = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_red_heritage
+			modifier = {
+			    war_support_factor = 0.1
+				stability_factor = -0.15
+				party_popularity_stability_factor = 0.2
+			}
+		}
+		
+		DGR_red_heritage3 = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_red_heritage
+			modifier = {
+			    war_support_factor = 0.15
+				production_cost_steel_works_factor = -0.15
+				party_popularity_stability_factor = 0.2
+				marxism_cranism_drift = 0.02
 			}
 		}
 		
@@ -86,7 +141,7 @@ ideas = {
 			}
 
 			removal_cost = -1
-			picture = DGR_industrial_heart
+			picture = DGR_industrial_heart1
 			modifier = {			    
 				local_resources_factor = -0.2
 				industrial_capacity_factory = -0.2
@@ -104,8 +159,8 @@ ideas = {
 			}
 
 			removal_cost = -1
-			picture = DGR_industrial_heart
-			name = DGR_industrial_heart1
+			picture = DGR_industrial_heart1
+			name = DGR_industrial_heart2
 			modifier = {			    
 				local_resources_factor = -0.15
 				industrial_capacity_factory = -0.15
@@ -123,8 +178,8 @@ ideas = {
 			}
 
 			removal_cost = -1
-			picture = DGR_industrial_heart
-			name = DGR_industrial_heart1
+			picture = DGR_industrial_heart1
+			name = DGR_industrial_heart3
 			modifier = {			    
 				local_resources_factor = -0.05
 				industrial_capacity_factory = -0.05
@@ -142,11 +197,30 @@ ideas = {
 			}
 
 			removal_cost = -1
-			picture = DGR_industrial_heart
-			name = DGR_industrial_heart1
+			picture = DGR_industrial_heart1
+			name = DGR_industrial_heart4
 			modifier = {			    
 				industrial_capacity_factory = 0.05
 				production_factory_efficiency_gain_factor = 0.05			
+			}
+		}
+
+		DGR_industrial_heart5 = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_industrial_heart1
+			name = DGR_industrial_heart5
+			modifier = {
+				local_resources_factor = 0.05
+				industrial_capacity_factory = 0.075
+				production_factory_efficiency_gain_factor = 0.075			
 			}
 		}		
 		
@@ -277,6 +351,64 @@ ideas = {
 				land_doctrine_cost_factor = 0.1
 			}
 		}
+		
+		DGR_5_year_plan_idea = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_5_year_plan_idea
+			modifier = {
+			    political_power_factor = -0.05
+				production_speed_buildings_factor = 0.15
+			}
+			on_remove = {
+				country_event = dgr.1001
+			}
+		}
+		
+		DGR_gierek_idea = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_gierek_idea
+			modifier = {
+				local_resources_factor = 0.15
+				production_speed_buildings_factor = 0.2
+				party_popularity_stability_factor = 0.2
+			}
+
+		}
+		
+		DGR_moczar_idea = {
+			allowed = {
+				original_tag = DGR
+			}
+			
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			picture = DGR_moczar_idea
+			modifier = {
+				war_support_factor = 0.2
+				experience_gain_army = 0.05
+				party_popularity_stability_factor = 0.2
+			}
+
+		}
 
 		
 	}
@@ -325,12 +457,14 @@ ideas = {
 				}
 		}
 	}
-
-	armament_company = {
-		use_list_view = yes
-
+	materiel_manufacturer = {
 		DGR_huta_katowice = {
-			allowed = { original_tag = DGR }
+			allowed = { 
+				original_tag = DGR
+				not = {
+					has_dlc = "Arms Against Tyranny"
+				}
+			}
 			available = { has_completed_focus = DGR_katowice_steelworks }
 			cost = 250
 			traits = { steel_mill }
@@ -339,7 +473,12 @@ ideas = {
 				}			
 		}
 		DGR_huta_bankowa = {
-			allowed = { original_tag = DGR }
+			allowed = { 
+				original_tag = DGR
+				not = {
+					has_dlc = "Arms Against Tyranny"
+				}
+			}
 			available = { has_country_flag = DGR_OZ_victory }
 			cost = 200
 			traits = { steel_mill }
@@ -348,14 +487,24 @@ ideas = {
 				}	
 		}
 		DGR_damel = {
-			allowed = { original_tag = DGR }
+			allowed = { 
+				original_tag = DGR
+				not = {
+					has_dlc = "Arms Against Tyranny"
+				}
+			}
 			available = { has_country_flag = DGR_OM_victory }
 			cost = 250
 			traits = { car_reliability_company }
 			research_bonus = {
 				apc = 0.1
-				}	
-		}
+			}	
+		}		
+	}
+	armament_company = {
+		use_list_view = yes
+
+
 		DGR_brembo = {
 			allowed = { original_tag = DGR }
 			available = { has_completed_focus = DGR_nationalise_brembo }
@@ -363,7 +512,7 @@ ideas = {
 			traits = { car_mass_production_company }
 			research_bonus = {
 				cars = 0.1
-				}	
+			}	
 		}		
 	}
 	

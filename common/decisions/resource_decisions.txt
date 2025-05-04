@@ -1,0 +1,973 @@
+resource_decisions = {
+	#oil_decision_baltic1 = {
+	#	name = "Seize Oil Platform Beta Baltic"
+	#	visible = {
+	#		OR = {
+	#			NOT = {
+	#				has_country_flag = unified_voivodeship
+	#				has_country_flag = unified_regional
+	#				has_country_flag = unified_supregional
+	#				has_country_flag = poland_mountain
+	#			}
+	#		}
+	#	}
+	#	cost = 150
+	#	icon = GFX_decision_oil
+	#	fixed_random_seed = no
+	#	modifier = {
+	#		civilian_factory_use = 10
+	#	}
+	#	days_remove = 180
+	#	remove_effect = {
+	#		log = "[GetDateText]: Decision steal_from_local_gas_stations remove"
+	#		add_offsite_building = { type = synthetic_refinery level = 4 }
+	#		custom_effect_tooltip = oilplatform_tt
+	#	}
+	#}
+
+	stealing_from_local_junkyard = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 40
+		icon = GFX_decision_scrap
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision stealing_from_local_junkyard"
+			random_owned_state = {
+			add_resource = {
+				type = steel
+				amount = 5
+			}
+			add_resource = {
+				type = aluminium
+				amount = 2
+			}
+			add_resource = {
+				type = electronics
+				amount = 5
+			}
+			add_resource = {
+				type = junk
+				amount = 7
+			}
+			}
+			
+		}
+		days_remove = 50
+		remove_effect = {
+			log = "[GetDateText]: Decision stealing_from_local_junkyard remove"
+			random_owned_state = {
+			add_resource = {
+				type = steel
+				amount = -5
+			}
+			add_resource = {
+				type = aluminium
+				amount = -2
+			}
+			add_resource = {
+				type = electronics
+				amount = -5
+			}
+			add_resource = {
+				type = junk
+				amount = -7
+			}
+			}
+		}
+		days_re_enable = 21
+	}
+	open_bootleg_mine = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 40
+		icon = GFX_decision_coal
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision open_bootleg_mine"
+			random_owned_state = {
+				add_resource = {
+					type = coal
+					amount = 5
+				}
+			}
+			
+		}
+		days_remove = 50
+		remove_effect = {
+			log = "[GetDateText]: Decision open_bootleg_mine remove"
+			random_owned_state = {
+				add_resource = {
+					type = coal
+					amount = -5
+				}
+				random={
+					chance = 30
+					add_manpower = -3
+				}
+			}
+		}
+		days_re_enable = 21
+	}
+	steal_from_local_gas_stations = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 40
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision steal_from_local_gas_stations"
+			random_owned_state = {
+				add_resource = {
+					type = oil
+					amount = 3
+				}
+			}
+			
+		}
+		days_remove = 50
+		remove_effect = {
+			log = "[GetDateText]: Decision steal_from_local_gas_stations remove"
+			random_owned_state = {
+				add_resource = {
+					type = oil
+					amount = -3
+				}
+			}
+		}
+		days_re_enable = 21
+	}
+	smelting_old_tires = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 40
+		icon = GFX_decision_rubber
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision smelting_old_tires"
+			random_owned_state = {
+				add_resource = {
+					type = synthetic_materials
+					amount = 3
+				}
+			}
+			
+		}
+		days_remove = 50
+		remove_effect = {
+			log = "[GetDateText]: Decision smelting_old_tires remove"
+			random_owned_state = {
+				add_resource = {
+					type = synthetic_materials
+					amount = -3
+				}
+			}
+		}
+		days_re_enable = 21
+	}
+	something_with_tracks = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 25
+		icon = GFX_decision_generic_train
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision something_with_tracks"
+			random_owned_state = {
+				random_list={
+					50 = {
+						add_resource = {
+							type = steel
+							amount = 3
+						}
+						set_state_flag = loot_tory
+					}
+					50 ={
+						add_resource = {
+							type = electronics
+							amount = 3
+						}
+						set_state_flag = loot_kabelki
+					}
+				}
+			}
+			
+		}
+		days_remove = 50
+		remove_effect = {
+			log = "[GetDateText]: Decision something_with_tracks remove"
+				random_state = {
+					limit = {
+						is_controlled_by = ROOT
+						has_state_flag = loot_kabelki
+							}
+						add_resource = {
+							type = electronics
+							amount = -3
+						}
+						clr_state_flag = loot_kabelki
+						}
+						
+				random_state = {
+					limit = {
+						is_controlled_by = ROOT
+						has_state_flag = loot_tory
+							}
+						add_resource = {
+							type = steel
+							amount = -3
+						}
+						clr_state_flag = loot_tory
+						}
+		}
+		
+		days_re_enable = 21
+	}
+	smelting_cans = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 25
+		icon = GFX_decision_aluminium
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision smelting_cans"
+			random_owned_state = {
+				add_resource = {
+					type = aluminium
+					amount = 3
+				}
+			}
+			
+		}
+		days_remove = 50
+		remove_effect = {
+			log = "[GetDateText]: Decision smelting_cans remove"
+			random_owned_state = {
+				add_resource = {
+					type = aluminium
+					amount = -3
+				}
+			}
+		}
+		days_re_enable = 21
+	}
+	museum_heist = {
+		visible = {
+			OR = {
+				NOT = {
+					has_country_flag = unified_voivodeship
+					has_country_flag = unified_regional
+					has_country_flag = unified_supregional
+					has_country_flag = poland_mountain
+				}
+			}
+		}
+		cost = 65
+		icon = GFX_decision_generic_tank
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: Decision museum_heist"
+			random_list={
+				45 = {
+					add_equipment_to_stockpile = {
+						type = melee_equipment_1
+						amount = 50
+						producer = TSB
+					}
+				}
+				45 = {
+					add_equipment_to_stockpile = {
+						type = ranged_equipment_1
+						amount = 15
+						producer = TSB
+					}
+				}
+				7 = {
+					add_equipment_to_stockpile = {
+						type = heavy_artillery_equipment_3
+						amount = 3
+						producer = TSB
+					}
+				}
+				3 = {
+					add_equipment_to_stockpile = {
+						type = apc_equipment_3
+						amount = 1
+						producer = TSB
+					}
+				}
+			}
+		}
+		days_remove = 50
+		days_re_enable = 21
+	}
+
+	oil_decision_lubaczow = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			457 = { is_owned_and_controlled_by = ROOT 
+			NOT = { has_state_flag = oil_field_exploited }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 150
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa lubaczow"
+			457 = {
+				add_resource = {
+					type = oil
+					amount = 10
+				}
+				set_state_flag = oil_field_exploited
+			}
+		}
+	}
+
+	oil_decision_mniszow = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			932 = { is_owned_and_controlled_by = ROOT 
+			NOT = { has_state_flag = oil_field_exploited }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 150
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa mniszow"
+			932 = {
+				add_resource = {
+					type = oil
+					amount = 20
+				}
+				set_state_flag = oil_field_exploited
+			}
+		}
+	}
+	
+	oil_decision_cychrzy = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			158 = { is_owned_and_controlled_by = ROOT 
+			NOT = { has_state_flag = oil_field_exploited }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 150
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa mniszow"
+			158 = {
+				add_resource = {
+					type = oil
+					amount = 30
+				}
+				set_state_flag = oil_field_exploited
+			}
+		}
+	}
+	
+	oil_decision_sierakow = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			188 = { is_owned_and_controlled_by = ROOT 
+			NOT = { has_state_flag = oil_field_exploited }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 150
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa mniszow"
+			188 = {
+				add_resource = {
+					type = oil
+					amount = 10
+				}
+				set_state_flag = oil_field_exploited
+			}
+		}
+	}
+	
+	oil_decision_kargowa = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			610 = { is_owned_and_controlled_by = ROOT 
+			NOT = { has_state_flag = oil_field_exploited }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 150
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa kargowa"
+			610 = {
+				add_resource = {
+					type = oil
+					amount = 10
+				}
+				set_state_flag = oil_field_exploited
+			}
+		}
+	}
+	
+	oil_decision_milicz = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			338 = { is_owned_and_controlled_by = ROOT 
+			NOT = { has_state_flag = oil_field_exploited }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_oil
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 5
+		}
+		days_remove = 150
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa milicz"
+			338 = {
+				add_resource = {
+					type = oil
+					amount = 10
+				}
+				set_state_flag = oil_field_exploited
+			}
+		}
+	}	
+
+
+	kop_kurwa_ten_wegiel = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			is_poland_unifier = yes
+		}
+		
+		target_array = global.coal_deposits_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = { 
+					has_state_flag = coal_only_for_brotherhood
+					has_state_flag = coal_only_voivodeship
+				}
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+		}
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			OR = {
+				has_idea = energy_coal_based
+				has_idea = energy_full_emission
+				has_idea = energy_sustainable_mix
+			}
+		}
+
+		available = {
+			ROOT = {
+				if = {
+					limit = { has_idea = energy_sustainable_mix }
+					custom_trigger_tooltip = {
+						check_variable = {
+							sum_of_wind_farms > sum_of_power_plants
+						}					
+						tooltip = check_power_plants_tooltip
+					}
+				}
+				else = {
+					always = yes
+				}
+			}
+		}
+
+		cost = 100
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 6
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine"
+			FROM = {
+				set_state_flag = mine_lvl_1
+				add_mine_extraction = yes
+			}
+		}
+	}
+	
+	kop_kurwa_ten_wegiel2 = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			is_poland_unifier = yes
+		}
+		
+		target_array = global.coal_deposits_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = { 
+					has_state_flag = coal_only_for_brotherhood
+					has_state_flag = coal_only_voivodeship
+				}
+				has_state_flag = mine_lvl_1
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+		}
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			OR = {
+				has_idea = energy_coal_based
+				has_idea = energy_full_emission
+				has_idea = energy_sustainable_mix
+			}
+		}
+
+		available = {
+			ROOT = {
+				if = {
+					limit = { has_idea = energy_sustainable_mix }
+					custom_trigger_tooltip = {
+						check_variable = {
+							sum_of_wind_farms > sum_of_power_plants
+						}					
+						tooltip = check_power_plants_tooltip
+					}
+				}
+				else = {
+					always = yes
+				}
+			}
+		}
+
+		cost = 150
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 6
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine lvl 2"
+			FROM = {
+				set_state_flag = mine_lvl_2
+				add_mine_extraction = yes
+			}
+		}
+	}
+	
+	kop_kurwa_ten_wegiel3 = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			is_poland_unifier = yes
+		}
+		
+		target_array = global.coal_deposits_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = { 
+					has_state_flag = coal_only_for_brotherhood
+					has_state_flag = coal_only_voivodeship
+				}
+				has_state_flag = mine_lvl_2
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+		}
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			OR = {
+				has_idea = energy_coal_based
+				has_idea = energy_full_emission
+				has_idea = energy_sustainable_mix
+			}
+		}
+
+		available = {
+			ROOT = {
+				if = {
+					limit = { has_idea = energy_sustainable_mix }
+					custom_trigger_tooltip = {
+						check_variable = {
+							sum_of_wind_farms > sum_of_power_plants
+						}					
+						tooltip = check_power_plants_tooltip
+					}
+				}
+				else = {
+					always = yes
+				}
+			}
+		}
+
+		cost = 200
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 240
+		modifier = {
+			civilian_factory_use = 6
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine lvl 3"
+			FROM = {
+				set_state_flag = mine_lvl_3
+				add_mine_extraction = yes
+			}
+		}
+	}
+	
+	kop_kurwa_ten_wegiel_small = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			is_poland_unifier = yes
+		}
+		
+		target_array = global.coal_deposits_states
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				has_state_flag = coal_only_voivodeship
+				has_state_flag = coal_deposit_found
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+		}
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			OR = {
+				has_idea = energy_coal_based
+				has_idea = energy_full_emission
+				has_idea = energy_sustainable_mix
+			}
+		}
+
+		available = {
+			ROOT = {
+				if = {
+					limit = { has_idea = energy_sustainable_mix }
+					custom_trigger_tooltip = {
+						check_variable = {
+							sum_of_wind_farms > sum_of_power_plants
+						}					
+						tooltip = check_power_plants_tooltip
+					}
+				}
+				else = {
+					always = yes
+				}
+				if = {
+					limit = {
+						FROM = { 
+						OR = {
+							is_western_poland_state = yes
+							is_silesia_state = yes
+						}
+					}
+					}
+					has_tech = improved_coalstuff
+				}
+				else = {
+					has_tech = advanced_coalstuff
+				}				
+				
+			}
+		}
+
+		cost = 60
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 120
+		modifier = {
+			civilian_factory_use = 3
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine lvl 3"
+			FROM = {
+				set_state_flag = mine_lvl_1
+				set_state_flag = mine_lvl_2
+				set_state_flag = mine_lvl_3
+				add_mine_extraction = yes
+				add_mine_extraction = yes
+				add_mine_extraction = yes
+			}
+		}
+	}
+
+	BBW_kop_kurwa_ten_wegiel = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			OR = {
+				original_tag = BBW
+				original_tag = SBW
+			}
+		}
+		
+		target_array = brotherhood_mines
+		state_target = yes
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				meta_trigger = {	
+					text = {
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+					}
+					STATE_ID = "[?THIS.GetID]"
+				}
+			}
+		}
+
+		visible = {
+			has_country_flag = unified_voivodeship
+		}
+
+		cost = 100
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 6
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine"
+			FROM = {
+				set_state_flag = BBW_mines_build
+				BBW_add_mine_extraction = yes
+				remove_building = {
+					type = infrastructure
+					level = 3
+				}
+				set_temp_variable = {to_resettle = -0.5}
+				multiply_temp_variable = {to_resettle = 1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							NOT = {
+								has_state_flag = coal_deposit_found
+							}
+							OR = {
+								has_state_category = city
+								has_state_category = large_city
+								has_state_category = metropolis
+							}
+						}
+						multiply_temp_variable = {to_resettle = -1}
+						multiply_temp_variable = {to_resettle = 0.7}
+						add_manpower = to_resettle
+					}
+					add_stability = -0.05			
+				}
+			}
+		}
+	}
+	
+	
+	food_gnojenie = {
+
+		visible = {
+			is_special_project_completed = sp:sp_gnojowka
+			any_owned_state = {
+				food > 0
+				NOT = { has_state_flag = applied_gnojuffka }
+			}
+		}
+		cost = 90
+		icon = GFX_decision_generic_tractor
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 3
+		}
+		days_remove = 30
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa mniszow"
+			every_owned_state = {
+				limit = {
+					food > 0
+					NOT = { has_state_flag = applied_gnojuffka }					
+				}
+				add_resource = {
+					type = food
+					amount = 2
+				}
+				set_state_flag = applied_gnojuffka
+			}
+		}
+	}
+
+	food_gmoza = {
+
+		visible = {
+			is_special_project_completed = sp:sp_gmo
+			any_owned_state = {
+				food > 0
+				NOT = { has_state_flag = applied_gmo }
+			}
+		}
+		cost = 120
+		icon = GFX_decision_generic_tractor
+		fixed_random_seed = no
+		modifier = {
+			civilian_factory_use = 6
+		}
+		days_remove = 120
+		remove_effect = {
+			log = "[GetDateText]: Decision ropa ropa ropa mniszow"
+			every_owned_state = {
+				limit = {
+					food > 0
+					NOT = { has_state_flag = applied_gmo }					
+				}
+				add_resource = {
+					type = food
+					amount = 4
+				}
+				set_state_flag = applied_gmo
+			}
+		}
+	}	
+
+}

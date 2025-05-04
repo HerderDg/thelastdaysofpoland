@@ -7,15 +7,14 @@ ziobro_war = {
 		}
 
 		available = {
-			date < 2027.06.01
 			has_war = no
 			NOT = {
 				AND = {
 					country_exists = STA
 					country_exists = SND
-					}
 				}
 			}
+		}
 
 		icon = mission_icon   
 		fire_only_once = yes
@@ -24,80 +23,490 @@ ziobro_war = {
 			log = "[GetDateText]: Decision ziobro_holy_war win"
 			clr_country_flag = ziobro_start_war
 			set_country_flag = ziobro_start_war_victory
-			every_country = {
-				limit = { NOT = { is_ai = yes } }
-				news_event = { id = ziobro.1 }
+			PRK = {
+				country_event = { id = ziobro.22 }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
 				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
 		}
 		timeout_effect = {
 			log = "[GetDateText]: Decision ziobro_holy_war lose"
-			if = {
+			if = { # to jest wygrana
 				limit = { 
-					OR = { 
-						STA = { num_of_controlled_states < 1 }
-						SND = { num_of_controlled_states < 1 }
-						}
-					NOT = {
-						AND = { 
-							STA = { num_of_controlled_states < 1 }
-							SND = { num_of_controlled_states < 1 }	
-							}
-						}
-					}
+					STA = { num_of_controlled_states < 1 }
+					SND = { num_of_controlled_states < 1 }	
+				}	
 				clr_country_flag = ziobro_start_war
 				set_country_flag = ziobro_start_war_victory
 				every_country = {
-					limit = { NOT = { is_ai = yes } }
-					news_event = { id = ziobro.1 }
+					limit = {
+						NOT = { is_ai = yes }
 					}
+					news_event = { id = ziobro.1 }
+				}
 				every_country = {
-					limit = { has_war_with = PRK }
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
+					limit = {
+						has_war_with = PRK
 					}
 					white_peace = PRK
-					}					
+				}					
 				PRK = {
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
-					}
 					end_puppet = OSW
-					end_puppet = BOH
+					end_puppet = CHW
 				}
+				CHW = { drop_cosmetic_tag = yes }				
 				OSW = { drop_cosmetic_tag = yes }				
 			}
-			else = {		
+			else = { # to jest stalemate
 				clr_country_flag = ziobro_start_war
-				set_country_flag = ziobro_start_war_lose
+				PRK = {
+					country_event = { 
+						id = ziobro.17
+					}
+				}
+			}
+		}
+	}
+
+	ziobro_holy_war_2 = {
+		allowed = {
+			always = no
+		}
+		available = {
+			has_war = no
+			NOT = {
+				AND = {
+					country_exists = STA
+					country_exists = SND
+				}
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
+		}
+		days_mission_timeout = 30
+		complete_effect = { # wygrana
+			PRK = {
+				country_event = { id = ziobro.22 }
+			}
+		}
+		timeout_effect = { # rozpierdol
+			PRK = {
+				country_event = { 
+					id = ziobro.19
+				}
+			}
+		}
+	}
+}
+
+ziobro_uprising = {
+	ziobro_kielce_attack = {
+		allowed = {
+			always = yes
+		}
+		available = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_can_explode
+				}
+				has_war = no
+			}
+			country_exists = KIE
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			country_exists = KIE
+			has_war = no		
+		}
+		ai_will_do = {
+            base = 100
+        }
+		days_remove = 14
+		remove_effect = {
+			KIE = {
+				country_event = { 
+					id = kielce.1 
+				}
+			}
+		}
+	}
+	ziobro_kielce_integrate = { #Ziobro tworzy Underhold pod Kielcami i zakłada klan Ziobrit Claw
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			PRK = {
+				owns_state = 915
+				owns_state = 914
+				owns_state = 416
+			}
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			PRK = {
+				owns_state = 915
+				owns_state = 914
+				owns_state = 416
+			}
+			NOT = {
+				416 = {
+					is_core_of = PRK
+				}
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 416
+				state = 914
+				state = 915
+			}
+		}
+		cost = 75
+		days_remove = 14
+		complete_effect = {
+			hidden_effect = {
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
-					news_event = { id = ziobro.2 }
-					}
-				SND = {
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
-					}
+					news_event = { id = ziobro.21 }
 				}
-				STA = {
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
-					}
+				set_country_flag = PRK_ziobro_won_revolt
+			}
+		}
+		remove_effect = {
+			add_state_core = 915
+			add_state_core = 416
+			add_state_core = 914
+			set_capital = { state= 416 }
+		}
+	}
+	
+	ziobro_starachowice_attack = {
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			hidden_trigger = {
+				has_war = no
+			}
+			PRK = {
+				owns_state = 416
+			}
+			country_exists = STA
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			country_exists = STA
+			STA = { is_subject = no }
+			has_country_flag = PRK_ziobro_won_revolt
+		}
+		days_remove = 14
+		remove_effect = {
+			PRK = {
+				declare_war_on = {
+					target = STA
+					type = annex_everything
 				}
-				ROOT = {
-					add_to_variable = {
-						global.deadPolacksFromPastWars = this.casualties_k
-					}
-					white_peace = SND
-					white_peace = STA
-					end_puppet = OSW
-					end_puppet = BOH
-				}
-				BOH = { drop_cosmetic_tag = yes }
-				OSW = { drop_cosmetic_tag = yes }
 			}
 		}
 	}
 	
-
-
+	ziobro_sandomierz_attack = {
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			hidden_trigger = {
+				has_war = no
+			}
+			country_exists = SND
+			PRK = {
+				owns_state = 416
+				has_country_flag = PRK_ziobro_won_revolt
+			}
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			country_exists = SND
+			has_country_flag = PRK_ziobro_won_revolt
+			SND = { is_subject = no }
+		}
+		days_remove = 14
+		remove_effect = {
+			PRK = {
+				declare_war_on = {
+					target = SND
+					type = annex_everything
+				}
+			}
+		}
+	}
+	
+	ziobro_starachowice_integrate = { #STARACHOWICE
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			STA = { 
+				owns_state = 377
+				is_subject_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_sandomierz_integrate
+					has_decision = ziobro_ostrowiec_integrate
+					has_decision = ziobro_opatow_integrate
+				}
+			}
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			STA = { 
+				owns_state = 377
+				is_subject_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 377
+				state = 958
+				state = 673
+				state = 899
+				state = 962
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = STA
+				}
+			}
+			add_state_core = 377
+		}
+	}
+	
+	ziobro_sandomierz_integrate = { #SANDOMIERZ
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			SND = { 
+				owns_state = 670
+				is_subject_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_starachowice_integrate
+					has_decision = ziobro_ostrowiec_integrate
+					has_decision = ziobro_opatow_integrate
+				}
+			}
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			SND = { 
+				owns_state = 670
+				is_subject_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 670
+				state = 671
+				state = 672
+				state = 960
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = SND
+				}
+			}
+			add_state_core = 670			
+		}
+	}
+	ziobro_ostrowiec_integrate = { #OSTROWIEC
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			OSS = { 
+				owns_state = 392
+				is_subject_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_starachowice_integrate
+					has_decision = ziobro_sandomierz_integrate
+					has_decision = ziobro_opatow_integrate
+				}
+			}
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			OSS = { 
+				owns_state = 392
+				is_subject_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 392
+				state = 859
+				state = 858
+				state = 959
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = OSS
+				}
+			}	
+			add_state_core = 392			
+		}
+	}
+	ziobro_opatow_integrate = { #OPATÓW
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			OPT = { 
+				owns_state = 389
+				is_subject_of = PRK
+			}
+			has_war = no
+			hidden_trigger = {
+				NOT = {
+					has_decision = ziobro_starachowice_integrate
+					has_decision = ziobro_ostrowiec_integrate
+					has_decision = ziobro_sandomierz_integrate
+				}
+			}
+			NOT = {
+				has_global_flag = zero_withdraws
+			}
+		}
+		visible = {
+			OPT = { 
+				owns_state = 389
+				is_subject_of = PRK
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = { 
+				state = 389
+				state = 966
+				state = 967
+				state = 417
+			}
+		}
+		cost = 75
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = ziobro.21 }
+				}
+			}
+		}
+		remove_effect = {
+			PRK = {
+				annex_country = {
+					target = OPT
+				}
+			}
+			add_state_core = 389
+		}
+	}
+	
 }

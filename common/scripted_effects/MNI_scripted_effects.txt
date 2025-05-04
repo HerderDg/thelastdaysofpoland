@@ -14,6 +14,10 @@ MNI_collapse_OPO = {
 			limit = { is_core_of = OPO }
 			OPO = { transfer_state = PREV }
 		}
+
+		OPO = {
+			load_oob = "OPO_2027"
+		}
 	}
 	log = "[GetDateText]: MNI_collapse_OPO"
 }
@@ -80,11 +84,23 @@ DUR_collapse_WOD = {
 			add_state_claim = 504
 			add_state_claim = 500
 			add_state_claim = 488
-			add_manpower = 2000
+			add_manpower = 500
 		}
-		every_owned_state = {
-			limit = { is_core_of = WOD }
-			WOD = { transfer_state = PREV }
+		510 = {
+			transfer_state_to = WOD
+		}
+		DUR = {
+			every_state = {
+				limit = {
+					is_poland_state = yes
+				}
+				teleport_armies = {
+					limit = {
+						original_tag = DUR
+						is_ai = yes
+					}
+				}
+			}
 		}
 		WOD = {
 		set_politics = {
@@ -127,6 +143,48 @@ DUR_collapse_WOD = {
 	log = "[GetDateText]: DUR_collapse_WOD"
 }
 
+DUR_collapse_RBN_WOD = {
+	hidden_effect = {
+		500 = {
+			add_core_of = RBN
+			transfer_state_to = RBN
+		}
+		RBN = {
+			add_manpower = 500
+		}		
+		RBN = {
+			set_politics = {
+				ruling_party = postpolonism
+			}
+			load_oob = "RBN_WOD"
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 17
+			}
+		}
+	}
+	log = "[GetDateText]: DUR_collapse_RBN_WOD"
+}
+
+DUR_collapse_RBN_DUR = {
+	hidden_effect = {
+		500 = {
+			add_core_of = RBN
+			transfer_state_to = RBN
+		}
+		RBN = {
+			add_manpower = 500
+		}		
+		RBN = {
+			set_politics = {
+				ruling_party = euroliberalism
+			}
+			load_oob = "RBN_DUR"
+		}
+	}
+	log = "[GetDateText]: DUR_collapse_RBN_WOD"
+}
+
 
 MNI_collapse_LCH = {
 	hidden_effect = {
@@ -140,9 +198,20 @@ MNI_collapse_LCH = {
 			limit = { is_core_of = LCH }
 			LCH = { transfer_state = PREV }
 		}
-
+		LEH = {
+			delete_unit_template_and_units = {
+				division_template = "Młoty Peruna"
+				disband = no 
+			}
+			delete_unit_template_and_units = {
+				division_template = "Wojowie Lechiccy"
+				disband = no 
+			}			
+		}
+		
 		LCH = {
 			load_oob = "LCH_2027"
+			load_oob = "LCH_POST"
 			delete_unit_template_and_units = {
 				division_template = "Euroinfanteriebataillon"
 				disband = yes
@@ -179,9 +248,15 @@ MNI_collapse_WAN = {
 			limit = { is_core_of = WAN }
 			WAN = { transfer_state = PREV }
 		}
-
+		LEH = {
+			delete_unit_template_and_units = {
+				division_template = "Czempioni Genzeryka"
+				disband = no 
+			}		
+		}
 		WAN = {
 			load_oob = "WAN_2027"
+			load_oob = "WAN_POST"
 			delete_unit_template_and_units = {
 				division_template = "Euroinfanteriebataillon"
 				disband = yes

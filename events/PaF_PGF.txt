@@ -1,0 +1,152 @@
+﻿########################
+#    PACYNO EVENTY     #
+#      by Kano901      #
+########################
+
+add_namespace = griffin
+
+#Pacyno chce do Fotygi, stawia jej warunki
+country_event = {
+	id = griffin.1
+	title = griffin.1.t
+	desc = griffin.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires griffin.1"}
+
+	option = { #
+		name = griffin.1.a
+		RLE = {
+			country_event = {
+				id = griffin.2
+				days = 100
+			}
+		}
+	}
+}
+
+#Warunki Pacyno - PoV Fotygi
+country_event = {
+	id = griffin.2
+	title = griffin.2.t
+	desc = griffin.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires griffin.2"}
+
+	option = { # Fotyga dystansuje sie od Jarka
+		name = griffin.2.a
+		PGF = {
+			country_event = {
+				id = griffin.3
+				days = 10
+			}
+		}
+	}
+
+	option = { # Fotyga mówi nje
+		name = griffin.2.b
+		PGF = {
+			country_event = {
+				id = griffin.4
+				days = 10
+			}
+		}
+	}
+}
+
+#Pacyno reorganizuje Gryfa w Armie Fotygi
+country_event = {
+	id = griffin.3
+	title = griffin.3.t
+	desc = griffin.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires griffin.3"}
+
+	option = { #
+		name = griffin.3.a
+		set_politics = {
+			ruling_party = autocracy
+			elections_allowed = no
+			last_election = "2023.10.15"
+			election_frequency = 48
+		}
+		add_popularity = {
+			ideology = squattism
+			popularity = -0.3
+		}
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.4
+		}
+		get_current_government_type = yes
+		RLE = {
+			puppet = PGF
+			set_autonomy = {
+				target = PGF
+				autonomy_state = autonomy_satellite
+				end_wars = no
+				end_civil_wars = no
+			}
+		}
+		restore_previous_government_type = yes
+	}
+}
+
+#Live Pacyno Reaction na Fotygę
+country_event = {
+	id = griffin.4
+	title = griffin.4.t
+	desc = griffin.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires griffin.4"}
+
+	option = { #
+		name = griffin.4.a
+		GAY = {
+			country_event = {
+				id = griffin.5
+				days = 10
+			}
+		}
+	}
+}
+
+#Pacyno Puppet Biedronia
+country_event = {
+	id = griffin.5
+	title = griffin.5.t
+	desc = griffin.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires griffin.5"}
+
+	option = { #
+		name = griffin.5.a
+		PGF = {
+			get_current_government_type = yes
+		}
+		puppet = PGF
+			set_autonomy = {
+				target = PGF
+				autonomy_state = autonomy_satellite
+				end_wars = no
+				end_civil_wars = no
+			}
+		PGF = {
+			restore_previous_government_type = yes
+		}
+	}
+}
