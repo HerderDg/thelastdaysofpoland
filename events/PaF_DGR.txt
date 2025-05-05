@@ -1817,7 +1817,16 @@ country_event = {
 	fire_only_once = yes
 	trigger = {
 		DGR = {
-			has_completed_focus = DGR_prefab_apartments
+			OR = {
+				AND = {
+				has_completed_focus = DGR_prefab_apartments
+				NOT = { has_country_flag = DGR_bop_gierek_mieszkania  }
+				NOT = { has_country_flag = DGR_bop_moczar_mieszkania  }
+				date > 2032.06.01
+				}
+				has_country_flag = DGR_bop_gierek_mieszkania
+				has_country_flag = DGR_bop_moczar_mieszkania
+			}
 		}
 	}
 	mean_time_to_happen = {
@@ -1829,7 +1838,33 @@ country_event = {
 	option = {
 		name = dgr.1002.a
 		complete_national_focus = DGR_real_estate_crash
-		add_ideas = DGR_real_estate_crash_idea
+		if = {
+			limit = {
+				has_idea = DGR_real_estate_idea_gierek
+			}
+			swap_ideas = {
+				remove_idea = DGR_real_estate_idea_gierek
+				add_idea = DGR_real_estate_crash_idea
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DGR_real_estate_idea_moczar
+			}
+			swap_ideas = {
+				remove_idea = DGR_real_estate_idea_moczar
+				add_idea = DGR_real_estate_crash_idea
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+				has_idea = DGR_real_estate_idea_moczar
+				has_idea = DGR_real_estate_idea_gierek
+				}
+			}
+			add_ideas = DGR_real_estate_crash_idea
+		}				
 	}
 }
 
