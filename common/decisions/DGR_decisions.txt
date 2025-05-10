@@ -3966,11 +3966,12 @@ DGR_district_wars_category = {
 				var = DGR_op_piwowar
 				value = 15
 			}
-			add_stability = -10
+			add_stability = -0.1
 			add_popularity = {
 				ideology = neonationalism
 				popularity = 0.05
 			}
+			country_event = dgr_district.20
 		}
 	}
 	
@@ -4304,14 +4305,16 @@ DGR_district_wars_category = {
 			}
 			random_unit_leader = {
 				add_maneuver = 1
-				}
+			}
+			set_country_flag = DGR_golonog_open
 		}
 	}
 	
 	DGR_OM_cedler = {
-		visible = { has_country_flag = DGR_operation_morcinek
-					NOT = { has_country_flag = DGR_OM_cedler }
-					}
+		visible = { 
+			has_country_flag = DGR_operation_morcinek
+			has_country_flag = DGR_golonog_open
+		}
 		cost = 20
 		days_remove = 7
 		fire_only_once = yes	
@@ -4326,6 +4329,10 @@ DGR_district_wars_category = {
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
 		}
+		complete_effect = {
+			set_country_flag = DGR_golonog_clearing
+			custom_effect_tooltip = DGR_golonog_clearing
+		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OM_cedler"
 			add_to_variable = {
@@ -4334,13 +4341,15 @@ DGR_district_wars_category = {
 			}
 			add_manpower = -95
 			army_experience = 9
+			clr_country_flag = DGR_golonog_clearing
 		}
 	}
 	
 	DGR_OM_kasprzak = {
-		visible = { has_country_flag = DGR_operation_morcinek 
-					NOT = { has_country_flag = DGR_OM_kasprzak }
-					}
+		visible = { 
+			has_country_flag = DGR_operation_morcinek 
+			has_country_flag = DGR_golonog_open	
+		}
 		cost = 20
 		days_remove = 7
 		fire_only_once = yes
@@ -4355,6 +4364,10 @@ DGR_district_wars_category = {
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
 		}
+		complete_effect = {
+			set_country_flag = DGR_golonog_clearing
+			custom_effect_tooltip = DGR_golonog_clearing
+		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OM_kasprzak"
 			add_to_variable = {
@@ -4363,13 +4376,15 @@ DGR_district_wars_category = {
 			}
 			add_manpower = -64
 			army_experience = 6
+			clr_country_flag = DGR_golonog_clearing
 		}
 	}
 	
 	DGR_OM_broadway = {
-		visible = { has_country_flag = DGR_operation_morcinek 
-					NOT = { has_country_flag = DGR_OM_broadway }
-					}
+		visible = { 
+			has_country_flag = DGR_operation_morcinek 
+			has_country_flag = DGR_golonog_open
+		}
 		cost = 20
 		days_remove = 7
 		fire_only_once = yes	
@@ -4384,6 +4399,10 @@ DGR_district_wars_category = {
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
 		}
+		complete_effect = {
+			set_country_flag = DGR_golonog_clearing
+			custom_effect_tooltip = DGR_golonog_clearing
+		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OM_broadway"
 			add_to_variable = {
@@ -4392,13 +4411,15 @@ DGR_district_wars_category = {
 			}
 			add_manpower = -122
 			army_experience = 12
+			clr_country_flag = DGR_golonog_clearing
 		}
 	}
 	
 	DGR_OM_manhattan = {
-		visible = { has_country_flag = DGR_operation_morcinek 
-		NOT = { has_country_flag = DGR_OM_manhattan }
-					}
+		visible = { 
+			has_country_flag = DGR_operation_morcinek 
+			has_country_flag = DGR_golonog_open
+		}
 
 		cost = 20
 		days_remove = 7
@@ -4414,6 +4435,10 @@ DGR_district_wars_category = {
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
 		}
+		complete_effect = {
+			set_country_flag = DGR_golonog_clearing
+			custom_effect_tooltip = DGR_golonog_clearing
+		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OM_manhattan"
 			add_to_variable = {
@@ -4422,6 +4447,7 @@ DGR_district_wars_category = {
 			}
 			add_manpower = -156
 			army_experience = 15
+			clr_country_flag = DGR_golonog_clearing
 		}
 	}
 	
@@ -4430,7 +4456,18 @@ DGR_district_wars_category = {
 			has_country_flag = DGR_operation_morcinek 
 			check_variable = {
 				DGR_op_morcinek > 89
-			}					
+			}
+			check_variable = {
+				DGR_op_morcinek < 99
+			}								
+		}
+		available = {
+			hidden_trigger = {
+				NOT = { has_country_flag = DGR_golonog_clearing }
+			}
+			custom_trigger_tooltip = {
+				tooltip = DGR_golonog_clearing_tt
+			}
 		}
 
 		cost = 20
@@ -4453,13 +4490,14 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 5
 			}
-		777 = {
-			create_unit = {
-				division = "name = \"Gangi Gołonoskie\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
-				owner = DGA
-				prioritize_location = 7746
+			clr_country_flag = DGR_golonog_open
+			777 = {
+				create_unit = {
+					division = "name = \"Gangi Gołonoskie\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 0.1"
+					owner = DGA
+					prioritize_location = 7746
+				}
 			}
-		}
 			start_border_war = {
 				change_state_after_war = yes
 				attacker = {
@@ -4484,6 +4522,9 @@ DGR_district_wars_category = {
 			has_country_flag = DGR_operation_morcinek 
 			check_variable = {
 				DGR_op_morcinek > 94
+			}
+			DGR = {
+				controls_state = 777
 			}					
 		}
 
@@ -4506,17 +4547,18 @@ DGR_district_wars_category = {
 			set_country_flag = DGR_OM_victory
 			clr_country_flag = DGR_operation_morcinek
 			DGA = {
-			delete_units = {
-				division_template = "Osiedlowe Gangi"
-				disband = yes
-			}
-		}
-		777 = {
-			create_unit = {
-				division = "name = \"1 Gołonoski Batalion Mieszany\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = DGR
-					prioritize_location = 7746
+				delete_units = {
+					division_template = "Osiedlowe Gangi"
+					disband = yes
 				}
+			}
+			777 = {
+				create_unit = {
+					division = "name = \"1 Gołonoski Batalion Mieszany\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 1"
+						owner = DGR
+						prioritize_location = 7746
+				}
+				add_extra_state_shared_building_slots = 1
 			}
 		}
 	}
@@ -4638,7 +4680,7 @@ DGR_district_wars_category = {
 				attacker = {
 					state = 736
 					num_provinces = 1
-					on_win = dgr_district.18
+					on_win = dgr_district.21
 					on_lose = dgr_district.11
 				}
 							
@@ -4736,11 +4778,15 @@ DGR_district_wars_category = {
 				value = 10
 			}
 			DGA = {
-			delete_units = {
-				division_template = "Osiedlowe Gangi"
-				disband = yes
+				delete_units = {
+					division_template = "Osiedlowe Gangi"
+					disband = yes
+				}
 			}
-		}
+			735 = {
+				add_manpower = -27
+			}
+			army_experience = 30
 		}
 	}
 	
@@ -4786,6 +4832,8 @@ DGR_district_wars_category = {
 					province = { id = 7748 }
 				}
 			}
+			add_stability = 0.05
+			add_political_power = 30
 		}
 	}
 	
@@ -4882,6 +4930,11 @@ DGR_district_wars_category = {
 			add_to_variable = {
 				var = DGR_op_zawadzki
 				value = 25
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = armor
 			}
 		}
 	}
@@ -5001,6 +5054,10 @@ DGR_district_wars_category = {
 				disband = yes
 			}
 		}
+			460 = {
+				add_manpower = -41
+			}
+			army_experience = 40
 		}
 	}
 	
@@ -5037,6 +5094,8 @@ DGR_district_wars_category = {
 					prioritize_location = 7743
 				}
 			}
+			add_stability = 0.05
+			add_political_power = 30
 		}
 	}
 	
@@ -5206,6 +5265,15 @@ DGR_district_wars_category = {
 				var = DGR_as_sunflower
 				value = 50
 			}
+			add_manpower = -18
+			add_manpower = 17
+			776 = {
+				create_unit = {
+					division = "name = \"Naczelni\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 1"
+						owner = DGR
+						prioritize_location = 7742
+				}
+			}
 		}
 	}
 	
@@ -5230,6 +5298,7 @@ DGR_district_wars_category = {
 				var = DGR_as_sunflower
 				value = 50
 			}
+			add_manpower = -11
 		}
 	}
 	
@@ -5252,6 +5321,9 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_AS_centralplan_trzebieslawice"
 			set_country_flag = DGR_AS_victory
 			clr_country_flag = DGR_action_sunflower
+			776 = {
+				add_extra_state_shared_building_slots = 2
+			}
 		}
 	}
 
