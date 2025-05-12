@@ -897,7 +897,7 @@ focus_tree = {
 				add_idea = SND_disgruntledpop4
 			}
 			}
-			custom_effect_tooltip = "Calms the people."
+			custom_effect_tooltip = SND_dealing_with_priest_tooltip
 			SND = {
 				country_event = sandomierz.11
 			}
@@ -922,7 +922,14 @@ focus_tree = {
 
 		cost = 4
 		
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {has_idea = partial_secularism}
+				swap_ideas = {
+					remove_idea = partial_secularism 
+					add_idea = atheism_encouraged
+				} 
+			}
 		}
 	}
 
@@ -944,7 +951,23 @@ focus_tree = {
 
 		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			hidden_effect = {
+				add_stability = -0.05
+				every_other_country = {
+                limit = {
+                    OR = {
+                        has_government = autocracy
+						has_government = reactionary
+                    }
+                }
+                add_opinion_modifier = {
+                    target = SND
+                    modifier = small_decrease
+                	}
+            	}
+			}
+			custom_effect_tooltip = SND_plant_provocateurs_tooltip
 		}
 	}
 
