@@ -510,3 +510,85 @@ ziobro_uprising = {
 	}
 	
 }
+
+ziobro_lesser_poland = {
+
+	ziobro_unholy_war = {
+
+		allowed = {
+			always = no
+		}
+		activation = {
+			has_country_flag = lesser_poland_uprising
+			}
+
+		available = {
+			has_war = no
+			NOT = {
+				AND = {
+					country_exists = PRO
+					country_exists = GRB
+					country_exists = BGR
+					country_exists = ROK
+				}
+			}
+		}
+
+		icon = mission_icon   
+		fire_only_once = yes
+		days_mission_timeout = 60
+		complete_effect = {
+			log = "[GetDateText]: Decision ziobro_unholy_war win"
+			clr_country_flag = lesser_poland_uprising 
+			set_country_flag = won_lesser_poland
+			PRK = {
+				country_event = { id = ziobro.33 }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: Decision ziobro_holy_war lose"
+			if = { # to jest wygrana
+				limit = { 
+					BGR = { num_of_controlled_states < 1 }
+					GRB = { num_of_controlled_states < 1 }	
+					ROK = { num_of_controlled_states < 1 }	
+					PRO = { num_of_controlled_states < 1 }	
+				}	
+				clr_country_flag = lesser_poland_uprising 
+				set_country_flag = won_lesser_poland
+				every_country = {
+					limit = {
+						NOT = { is_ai = yes }
+					}
+					news_event = { id = ziobro.36 }
+				}
+				every_country = {
+					limit = {
+						has_war_with = PRK
+					}
+					white_peace = PRK
+				}								
+			}
+			else = { # to jest stalemate
+				clr_country_flag = lesser_poland_uprising
+				PRK = {
+					country_event = { 
+						id = ziobro.35
+					}
+				}
+			}
+		}
+	}
+}
