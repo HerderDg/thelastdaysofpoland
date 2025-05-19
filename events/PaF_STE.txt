@@ -1144,24 +1144,32 @@ country_event = { #demokracja
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.55" }
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires szczecin.55" 
+		STE_election_check = yes
+	}
 	option = {
 		name = szczecin.55.a
 		if = {
 			limit = {
-				
+				check_variable = { STE_zamek_popularity > STE_unia_popularity }
 			}
-			hidden_effect = {
+			#hidden_effect = {
 				country_event = { days = 1 id = szczecin.56 }
-			}
+			#}
 		}
 		else_if = {
 			limit = {
-				
+				check_variable = { STE_unia_popularity > STE_zamek_popularity }
 			}
-			hidden_effect = {
+			#hidden_effect = {
 				country_event = { days = 1 id = szczecin.57 }
-			}
+			#}
+		}
+		else = {
+			#hidden_effect = {
+				country_event = { days = 1 id = szczecin.57 }
+			#}
 		}
 	}
 }
@@ -1176,7 +1184,9 @@ country_event = { #zamek win
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.56" }
 	option = {
 		name = szczecin.56.a
-
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
 	}
 }
 country_event = { #unia win
@@ -1190,6 +1200,8 @@ country_event = { #unia win
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.57" }
 	option = {
 		name = szczecin.57.a
-
+			set_politics = {
+				ruling_party = socialdemocrature
+			}
 	}
 }
