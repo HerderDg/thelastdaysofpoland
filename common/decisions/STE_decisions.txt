@@ -1221,4 +1221,49 @@ STE_land_development_category = {
 		}
 	}
 }
+STE_state_decisions_category = {
+	STE_set_advisory_body = {
+		#icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			has_country_flag = STE_advisory_devolution_flag
+		}
+		target_trigger = {
+			FROM = {
+				is_owned_by = STE
+				NOT = { 
+					has_dynamic_modifier = {
+						modifier = STE_advisory_body_modifier
+					}
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_by = STE
+				NOT = { 
+					has_dynamic_modifier = {
+						modifier = STE_advisory_body_modifier
+					}
+				}	
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_and_decisions_view 
+		cost = 25
+		days_remove = 90
+		modifier = {
+			political_power_gain = -0.1
+			stability_factor = -0.025
+		}
+		remove_effect = {
+			FROM = {
+				add_dynamic_modifier = {
+					modifier = STE_advisory_body_modifier
+				}
+			}
+		}
+	}
+}
 
