@@ -1250,7 +1250,7 @@ STE_state_decisions_category = {
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
 		}
-		on_map_mode = map_and_decisions_view 
+		on_map_mode = map_only 
 		cost = 25
 		days_remove = 90
 		modifier = {
@@ -1261,6 +1261,63 @@ STE_state_decisions_category = {
 			FROM = {
 				add_dynamic_modifier = {
 					modifier = STE_advisory_body_modifier
+				}
+			}
+		}
+	}
+}
+STE_trade_partner_category = {
+	STE_trade_deal_decision = {
+		#icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			has_country_flag = STE_trade_partner_flag
+		}
+		target_trigger = {
+			FROM = {
+				is_capital = yes
+				NOT = { 
+					state = 105
+				}
+				OR = {
+					is_northern_greater_poland_state = yes
+					is_southern_greater_poland_state = yes
+					is_opolskie_state = yes
+					is_lubuskie_state = yes
+					is_lower_silesia_state = yes
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_capital = yes
+				NOT = { 
+					state = 105
+				}	
+				OR = {
+					is_northern_greater_poland_state = yes
+					is_southern_greater_poland_state = yes
+					is_opolskie_state = yes
+					is_lubuskie_state = yes
+					is_lower_silesia_state = yes
+				}
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_only 
+		cost = 50
+		days_remove = 14
+		modifier = {
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			FROM = {
+				owner = {
+					add_opinion_modifier = {
+						target = PREV
+						modifier = modifier_odra_trade
+					}
 				}
 			}
 		}
