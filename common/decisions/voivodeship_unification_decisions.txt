@@ -466,11 +466,20 @@ zaglebie_voivodeship_unification = {
 	
 	visible = {
 		OR = {
-		is_zaglebie_and_jura = yes
+			is_zaglebie_and_jura = yes
 			AND = {
 				original_tag = MYS
 				has_country_flag = MYS_eurocrusade
 			}
+			AND = {
+				original_tag = DGR
+				has_global_flag = ZAG_congress_of_bedzin_failure
+			}
+			AND = {
+				original_tag = JAW
+				has_global_flag = ZAG_congress_of_bedzin_failure
+				NOT = { has_cosmetic_tag = JAW_SOS }
+			}			
 		}
 		NOT = {
 			has_global_flag = zaglebie_unified
@@ -512,9 +521,23 @@ zaglebie_voivodeship_unification = {
 			limit = { original_tag = SOS }
 			set_cosmetic_tag = SOS_voivodeship
 			hidden_effect = {
-				every_country = {
-					limit = { NOT = { is_ai = yes } }
-					news_event = { id = unification.15 }
+				if = {
+					limit = {
+						has_global_flag = ZAG_congress_of_bedzin_failure
+					}
+					every_country = {
+						limit = { NOT = { is_ai = yes } }
+						news_event = { id = unification.15 }
+					}
+				}
+				if = {
+					limit = {
+						has_global_flag = ZAG_congress_of_bedzin_success
+					}
+					every_country = {
+						limit = { NOT = { is_ai = yes } }
+						news_event = { id = unification_alt.15 }
+					}					
 				}
 			}
 			
