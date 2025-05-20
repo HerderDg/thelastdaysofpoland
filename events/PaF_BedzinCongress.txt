@@ -1055,6 +1055,458 @@ country_event = {
 }
 
 country_event = {
+	id = bedzincon.14 #intercounty elections
+	title = bedzincon.14.t
+	desc = bedzincon.14.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.14"
+		set_variable = {
+			intercounty_sos_vote = 1
+		}	
+		set_variable = {
+			intercounty_dgr_vote = 0
+		}
+		set_variable = {
+			intercounty_jaw_vote = 0
+		}					
+	}
+	
+	option = {
+		name = bedzincon.14.a
+		every_other_country = {
+			limit = {
+				is_in_faction_with = SOS
+			}
+			country_event = bedzincon.15
+		}
+		SOS = { set_country_flag = ZAG_intercounty_voted }
+	}
+}
+
+country_event = {
+	id = bedzincon.15 #intercounty elections - vote
+	title = bedzincon.15.t
+	desc = bedzincon.15.desc
+
+	is_triggered_only = yes
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.15"			
+	}
+	
+	option = {
+		name = bedzincon.15.a #sosnowiec
+		ai_chance = {
+			base = 45
+			modifier = {
+				is_puppet_of = SOS
+				factor = 100
+			}
+		}
+		add_to_variable = {
+			intercounty_sos_vote = 1
+		}
+		ROOT = { 
+			set_country_flag = ZAG_intercounty_voted
+			add_to_array = {
+				global.intercounty_voted_sos = this
+			}
+		}
+
+	}
+	option = {
+		name = bedzincon.15.b #dabrowa
+		ai_chance = {
+			base = 30
+			modifier = {
+				original_tag = DGR
+				factor = 100
+			}
+			modifier = {
+				original_tag = ZAW
+				factor = 40
+			}			
+		}
+		add_to_variable = {
+			intercounty_dgr_vote = 1
+		}
+		ROOT = { 
+			set_country_flag = ZAG_intercounty_voted
+			add_to_array = {
+				global.intercounty_voted_dgr = this
+			}
+		}
+	}	
+	option = {
+		trigger = {
+			JAW = { is_puppet = no }
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				original_tag = JAW
+				factor = 100
+			}
+		}
+		name = bedzincon.15.c #jaworzno
+		add_to_variable = {
+			intercounty_jaw_vote = 1
+		}
+		ROOT = { 
+			set_country_flag = ZAG_intercounty_voted
+			add_to_array = {
+				global.intercounty_voted_jaw = this
+			}
+		}
+	}	
+}
+
+country_event = {
+	id = bedzincon.16 #intercounty elections - SOS win
+	title = bedzincon.16.t
+	desc = bedzincon.16.desc
+	fire_only_once = yes
+	trigger = {
+		original_tag = SOS
+		has_global_flag = ZAG_congress_of_bedzin_success
+		SOS = {
+		all_allied_country = {
+			has_country_flag = ZAG_intercounty_voted
+		}
+		}
+		check_variable = {
+			intercounty_sos_vote > intercounty_jaw_vote
+		}
+		check_variable = {
+			intercounty_sos_vote > intercounty_dgr_vote
+		}		 
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.16"			
+	}
+	
+	option = {
+		name = bedzincon.16.a 
+		set_country_flag = ZAG_intercounty_voted_SOS
+		if = { limit = { country_exists = DGR }
+		annex_country = {
+			target = DGR
+		}
+		}
+		if = { limit = { country_exists = JAW }
+		annex_country = {
+			target = JAW
+		}
+		}		
+		if = { limit = { country_exists = SIE }
+		annex_country = {
+			target = SIE
+		}
+		}
+		if = { limit = { country_exists = BED }
+		annex_country = {
+			target = BED
+		}
+		}		
+	}
+}
+
+country_event = {
+	id = bedzincon.17 #intercounty elections - DGR win
+	title = bedzincon.17.t
+	desc = bedzincon.17.desc
+	fire_only_once = yes
+	trigger = {
+		original_tag = DGR
+		has_global_flag = ZAG_congress_of_bedzin_success
+		SOS = {
+		all_allied_country = {
+			has_country_flag = ZAG_intercounty_voted
+		}
+		}
+		check_variable = {
+			intercounty_dgr_vote > intercounty_jaw_vote
+		}
+		check_variable = {
+			intercounty_dgr_vote > intercounty_sos_vote
+		}		 
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.17"
+		set_faction_leader = yes		
+	}
+	
+	option = {
+		name = bedzincon.17.a 
+		set_country_flag = ZAG_intercounty_voted_DGR
+		set_country_flag = unified_voivodeship
+		add_research_slot = 1
+		hidden_effect = {
+			add_dynamic_modifier = {
+				modifier = developed_economy_modifier
+			}
+			add_ideas = administrative_strain
+			set_technology = {
+				public_services = 1
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = unification.14 }
+			}
+		}
+		if = { limit = { country_exists = SOS }
+		annex_country = {
+			target = SOS
+		}
+		}
+		if = { limit = { country_exists = JAW }
+		annex_country = {
+			target = JAW
+		}
+		}		
+		if = { limit = { country_exists = SIE }
+		annex_country = {
+			target = SIE
+		}
+		}
+		if = { limit = { country_exists = BED }
+		annex_country = {
+			target = BED
+		}
+		}
+	}
+}
+
+country_event = {
+	id = bedzincon.18 #intercounty elections - JAW win
+	title = bedzincon.18.t
+	desc = bedzincon.18.desc
+	fire_only_once = yes
+	trigger = {
+		original_tag = JAW
+		has_global_flag = ZAG_congress_of_bedzin_success
+		SOS = {
+		all_allied_country = {
+			has_country_flag = ZAG_intercounty_voted
+		}
+		}
+		check_variable = {
+			intercounty_jaw_vote > intercounty_dgr_vote
+		}
+		check_variable = {
+			intercounty_jaw_vote > intercounty_sos_vote
+		}		 
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.18"	
+		set_faction_leader = yes		
+	}
+	
+	option = {
+		name = bedzincon.18.a 
+		set_country_flag = ZAG_intercounty_voted_JAW
+		set_country_flag = unified_voivodeship
+		add_research_slot = 1
+		hidden_effect = {
+			add_dynamic_modifier = {
+				modifier = developed_economy_modifier
+			}
+			add_ideas = administrative_strain
+			set_technology = {
+				public_services = 1
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = unification.16 }
+			}
+		}
+		if = { limit = { country_exists = SOS }
+		annex_country = {
+			target = SOS
+		}
+		}
+		if = { limit = { country_exists = DGR }
+		annex_country = {
+			target = DGR
+		}
+		}		
+		if = { limit = { country_exists = SIE }
+		annex_country = {
+			target = SIE
+		}
+		}
+		if = { limit = { country_exists = BED }
+		annex_country = {
+			target = BED
+		}
+		}
+	}
+}
+
+country_event = {
+	id = bedzincon.19 #intercounty elections - draw
+	title = bedzincon.19.t
+	desc = bedzincon.19.desc
+	fire_only_once = yes
+	trigger = {
+		original_tag = SOS
+		has_global_flag = ZAG_congress_of_bedzin_success
+		SOS = {
+		all_allied_country = {
+			has_country_flag = ZAG_intercounty_voted
+		}
+		}
+		OR = {
+			AND = {
+				check_variable = {
+					intercounty_jaw_vote = intercounty_dgr_vote
+				}
+				check_variable = {
+					intercounty_jaw_vote > intercounty_sos_vote
+				}
+			}
+			AND = {
+				check_variable = {
+					intercounty_jaw_vote = intercounty_sos_vote
+				}
+				check_variable = {
+					intercounty_jaw_vote > intercounty_dgr_vote
+				}
+			}
+			AND = {
+				check_variable = {
+					intercounty_dgr_vote = intercounty_sos_vote
+				}
+				check_variable = {
+					intercounty_dgr_vote > intercounty_jaw_vote
+				}
+			}	
+			AND = {
+				check_variable = {
+					intercounty_dgr_vote = intercounty_sos_vote
+				}
+				check_variable = {
+					intercounty_dgr_vote = intercounty_jaw_vote
+				}
+			}								
+		}		 
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.19"
+		dismantle_faction = yes		
+	}
+	
+	option = {
+		name = bedzincon.19.a 
+		set_global_flag = ZAG_intercounty_civil_war
+		every_country = {
+			limit = {
+				is_in_array = { global.intercounty_voted_dgr = PREV }
+			}
+			DGR = {
+				annex_country = {
+					target = PREV.PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				is_in_array = { global.intercounty_voted_jaw = PREV }
+			}
+			JAW = {
+				annex_country = {
+					target = PREV.PREV
+				}
+			}
+		}	
+		every_country = {
+			limit = {
+				is_in_array = { global.intercounty_voted_sos = PREV }
+			}
+			SOS = {
+				annex_country = {
+					target = PREV.PREV
+				}
+			}
+		}
+		SOS = { 
+			declare_war_on = {
+				target = JAW
+				type = voivodeship_war
+			}
+			declare_war_on = {
+				target = DGR
+				type = voivodeship_war
+			}			
+		}
+		DGR = { 
+			declare_war_on = {
+				target = JAW
+				type = voivodeship_war
+			}		
+		}
+	}
+}
+
+country_event = {
+	id = bedzincon.20 #intercounty civil war - victory
+	title = bedzincon.20.t
+	desc = bedzincon.20.desc
+	fire_only_once = yes
+	trigger = {
+		OR = {
+		original_tag = DGR
+		original_tag = SOS
+		original_tag = JAW
+		}
+		has_global_flag = ZAG_intercounty_civil_war	
+		is_in_faction = no
+		can_unify_zaglebie = yes
+	}
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.20"		
+	}
+	
+	option = {
+		name = bedzincon.20.a 
+		if = {
+			limit = {
+				OR = {
+					original_tag = JAW
+					original_tag = DGR
+				}
+			}
+			set_country_flag = unified_voivodeship
+			add_research_slot = 1
+			hidden_effect = {
+				add_dynamic_modifier = {
+					modifier = developed_economy_modifier
+				}
+				add_ideas = administrative_strain
+				set_technology = {
+					public_services = 1
+				}
+			}
+		}
+	}
+}
+
+
+
+country_event = {
 	id = bedzincon.1000 #congress of bedzin
 	title = bedzincon.1000.t
 	desc = bedzincon.1000.desc

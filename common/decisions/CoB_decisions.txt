@@ -2,6 +2,43 @@
 
 bedzin_congress_category = {
 
+	intercounty_centralization = {
+		target_root_trigger = {
+			OR = {
+				has_country_flag = ZAG_intercounty_voted_SOS
+				has_country_flag = ZAG_intercounty_voted_DGR
+				has_country_flag = ZAG_intercounty_voted_JAW
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		target_array = global.allies
+		target_trigger = {
+			is_in_faction_with = ROOT
+			is_neighbor_of = ROOT
+		}
+		modifier = {
+			political_power_gain = -0.2
+		}
+		available = {
+			NOT = { has_country_flag = intercounty_centralizing }
+        }
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = { set_country_flag = intercounty_centralizing }
+			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+		}
+		remove_effect = {
+			ROOT = {
+				annex_country = {
+					target = FROM
+				}
+			}
+			hidden_effect = { clr_country_flag = intercounty_centralizing }
+		}
+	}
+
 	install_socialist_government_ZAW = {
 
 		visible = {
