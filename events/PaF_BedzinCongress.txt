@@ -759,20 +759,22 @@ country_event = {
 			unlock_national_focus = DGR_revenge_at_czarzasty
 			unlock_national_focus = DGR_strike_back_at_antifa
 		}
-		every_country = {
-			limit = {
-				is_ai = no
-				OR = {
-					is_zaglebie_and_jura = yes
-					is_upper_silesia = yes
-					is_lesser_poland = yes
-					is_holy_cross = yes
-					is_lodzkie = yes
-					is_tatry_region = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					is_ai = no
+					OR = {
+						is_zaglebie_and_jura = yes
+						is_upper_silesia = yes
+						is_lesser_poland = yes
+						is_holy_cross = yes
+						is_lodzkie = yes
+						is_tatry_region = yes
+					}
 				}
-			}
-			news_event = { 
-				id = dgr_news.1
+				news_event = { 
+					id = dgr_news.1
+				}
 			}
 		}
 	}
@@ -1065,13 +1067,13 @@ country_event = {
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.14"
 		set_variable = {
-			intercounty_sos_vote = 1
+			vote_intercounty_sos = 1
 		}	
 		set_variable = {
-			intercounty_dgr_vote = 0
+			vote_intercounty_dgr = 0
 		}
 		set_variable = {
-			intercounty_jaw_vote = 0
+			vote_intercounty_jaw = 0
 		}					
 	}
 	
@@ -1100,6 +1102,9 @@ country_event = {
 	
 	option = {
 		name = bedzincon.15.a #sosnowiec
+		trigger = {
+			country_exists = SOS
+		}
 		ai_chance = {
 			base = 45
 			modifier = {
@@ -1108,7 +1113,7 @@ country_event = {
 			}
 		}
 		add_to_variable = {
-			intercounty_sos_vote = 1
+			vote_intercounty_sos = 1
 		}
 		ROOT = { 
 			set_country_flag = ZAG_intercounty_voted
@@ -1120,6 +1125,9 @@ country_event = {
 	}
 	option = {
 		name = bedzincon.15.b #dabrowa
+		trigger = {
+			country_exists = DGR
+		}
 		ai_chance = {
 			base = 30
 			modifier = {
@@ -1132,7 +1140,7 @@ country_event = {
 			}			
 		}
 		add_to_variable = {
-			intercounty_dgr_vote = 1
+			vote_intercounty_dgr = 1
 		}
 		ROOT = { 
 			set_country_flag = ZAG_intercounty_voted
@@ -1144,6 +1152,7 @@ country_event = {
 	option = {
 		trigger = {
 			JAW = { is_puppet = no }
+			country_exists = JAW
 		}
 		ai_chance = {
 			base = 25
@@ -1154,7 +1163,7 @@ country_event = {
 		}
 		name = bedzincon.15.c #jaworzno
 		add_to_variable = {
-			intercounty_jaw_vote = 1
+			vote_intercounty_jaw = 1
 		}
 		ROOT = { 
 			set_country_flag = ZAG_intercounty_voted
@@ -1179,10 +1188,10 @@ country_event = {
 		}
 		}
 		check_variable = {
-			intercounty_sos_vote > intercounty_jaw_vote
+			vote_intercounty_sos > vote_intercounty_jaw
 		}
 		check_variable = {
-			intercounty_sos_vote > intercounty_dgr_vote
+			vote_intercounty_sos > vote_intercounty_dgr
 		}		 
 	}
 	
@@ -1230,10 +1239,10 @@ country_event = {
 		}
 		}
 		check_variable = {
-			intercounty_dgr_vote > intercounty_jaw_vote
+			vote_intercounty_dgr > vote_intercounty_jaw
 		}
 		check_variable = {
-			intercounty_dgr_vote > intercounty_sos_vote
+			vote_intercounty_dgr > vote_intercounty_sos
 		}		 
 	}
 	
@@ -1299,10 +1308,10 @@ country_event = {
 		}
 		}
 		check_variable = {
-			intercounty_jaw_vote > intercounty_dgr_vote
+			vote_intercounty_jaw > vote_intercounty_dgr
 		}
 		check_variable = {
-			intercounty_jaw_vote > intercounty_sos_vote
+			vote_intercounty_jaw > vote_intercounty_sos
 		}		 
 	}
 	
@@ -1370,34 +1379,34 @@ country_event = {
 		OR = {
 			AND = {
 				check_variable = {
-					intercounty_jaw_vote = intercounty_dgr_vote
+					vote_intercounty_jaw = vote_intercounty_dgr
 				}
 				check_variable = {
-					intercounty_jaw_vote > intercounty_sos_vote
-				}
-			}
-			AND = {
-				check_variable = {
-					intercounty_jaw_vote = intercounty_sos_vote
-				}
-				check_variable = {
-					intercounty_jaw_vote > intercounty_dgr_vote
+					vote_intercounty_jaw > vote_intercounty_sos
 				}
 			}
 			AND = {
 				check_variable = {
-					intercounty_dgr_vote = intercounty_sos_vote
+					vote_intercounty_jaw = vote_intercounty_sos
 				}
 				check_variable = {
-					intercounty_dgr_vote > intercounty_jaw_vote
+					vote_intercounty_jaw > vote_intercounty_dgr
+				}
+			}
+			AND = {
+				check_variable = {
+					vote_intercounty_dgr = vote_intercounty_sos
+				}
+				check_variable = {
+					vote_intercounty_dgr > vote_intercounty_jaw
 				}
 			}	
 			AND = {
 				check_variable = {
-					intercounty_dgr_vote = intercounty_sos_vote
+					vote_intercounty_dgr = vote_intercounty_sos
 				}
 				check_variable = {
-					intercounty_dgr_vote = intercounty_jaw_vote
+					vote_intercounty_dgr = vote_intercounty_jaw
 				}
 			}								
 		}		 
