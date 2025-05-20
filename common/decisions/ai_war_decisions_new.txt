@@ -971,6 +971,14 @@ zaglebie_ZAW = {
 			has_war = no
 			date > 2028.02.14
 			ZAW = { NOT = { has_cosmetic_tag = ZAW_intercounty }}
+			if = {
+				limit = {
+					has_global_flag = ZAG_congress_of_bedzin_success
+				}
+				any_allied_country = {
+					is_neighbor_of = ZAW
+				}
+			}
 	}
 
 	
@@ -1134,12 +1142,13 @@ zaglebie_ZAW = {
 	}
 
 	available = {
-			OR = {
-				original_tag = SOS
-				original_tag = JAW
-				original_tag = ZAW
-			}
 		OR = {
+			original_tag = SOS
+			original_tag = JAW
+			original_tag = ZAW
+		}
+		OR = {
+			AND = {
 			count_triggers = {
 				amount = 3
 					SOS = { exists = no }
@@ -1147,8 +1156,31 @@ zaglebie_ZAW = {
 					ZAW = { exists = no }
 					JAW = { exists = no }
 			}
-			has_global_flag = ZAG_congress_of_bedzin_success
+			has_global_flag = ZAG_congress_of_bedzin_failure
+			}
+			AND = {
+				has_global_flag = ZAG_congress_of_bedzin_success
+				OR = {
+					AND = {
+					original_tag = ZAW
+					count_triggers = {
+						amount = 3
+							SOS = { exists = no }
+							DGR = { exists = no }
+							JAW = { exists = no }
+					}
+					}
+					AND = {
+						OR = {
+							original_tag = SOS
+							original_tag = JAW
+						}
+						ZAW = { exists = no }
+					}										
+				}
+			}
 		}
+		
 		has_war = no
 	}
 
