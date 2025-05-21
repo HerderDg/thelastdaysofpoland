@@ -4267,7 +4267,20 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				mountaineers = {
+					forest = {
+						attack = 0.20
+						defence = 0.10
+						movement = 0.10
+					}
+					hills = {
+						attack = 0.20
+						defence = 0.10
+						movement = 0.10
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -4317,7 +4330,30 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			105 = { create_unit = { division = "name = \"12th Mechanized Division\" division_template = \"Europanzergrenadierbataillon (armor)\" start_experience_factor = 0.5"  owner = STE } }
+			division_template = {
+				name = "Brygada Zmechanizowana"
+				is_locked = no
+				#division_cap = 3 
+				division_names_group = STE_MECH_01
+				priority = 2
+				regiments = {
+					medium_armor = { x = 2 y = 0 }
+					medium_armor = { x = 2 y = 1 }
+					mechanized = { x = 1 y = 0 }
+					mechanized = { x = 1 y = 1 }
+					motorized = { x = 0 y = 0 }
+				}
+				support = {
+					armored_car_recon = { x = 0 y = 0 }
+					maintenance_company = { x = 0 y = 1 }
+					logistics_company = { x = 0 y = 2 }
+					rocket_artillery = { x = 0 y = 3 }
+					signal_company = { x = 0 y = 4 }
+				}
+			}
+			custom_effect_tooltip = STE_mechanized_template_tip
+			custom_effect_tooltip = rozdzielacz_efektow
+			105 = { create_unit = { division = "name = \"12th Mechanized Brigade\" division_template = \"Brygada Zmechanizowana\" start_experience_factor = 0.5"  owner = STE } }
 		}
 	}
 	focus = {
@@ -4339,7 +4375,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			105 = {
+			872 = {
 				add_building_construction = {
 					type = land_facility
 					level = 1
@@ -4526,7 +4562,31 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			every_owned_state = {
+				limit = {
+					OR = {
+						num_owned_neighbour_states = {
+							owner = GER
+							count > 0
+						}
+						num_owned_neighbour_states = {
+							owner = KAM
+							count > 0
+						}
+						num_owned_neighbour_states = {
+							owner = SVG
+							count > 0
+						}
+						num_owned_neighbour_states = {
+							owner = WRT
+							count > 0
+						}
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = STE_anti_german_frontier
+				}
+			}
 		}
 	}
 	focus = {
@@ -4600,7 +4660,36 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			every_country = {
+				limit = {
+					OR = {
+						tag = GER
+						tag = KAM
+						tag = SVG
+						tag = WRT
+					}
+				}
+				add_opinion_modifier = {
+					target = PREV
+					modifier = modifier_szwab_haters
+				}
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = modifier_szwab_haters
+			}
+			add_opinion_modifier = {
+				target = KAM
+				modifier = modifier_szwab_haters
+			}
+			add_opinion_modifier = {
+				target = SVG
+				modifier = modifier_szwab_haters
+			}
+			add_opinion_modifier = {
+				target = WRT
+				modifier = modifier_szwab_haters
+			}
 		}
 	}
 	focus = {
