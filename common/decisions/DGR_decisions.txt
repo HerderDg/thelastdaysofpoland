@@ -4746,6 +4746,7 @@ DGR_district_wars_category = {
 	DGR_OA_assault_on_city_hall = {
 		visible = { has_country_flag = DGR_operation_adamiecki
 			owns_state = 777
+			NOT = { has_country_flag = DGR_operation_adamiecki_chosen_haller }
 		}
 		available = {
 			check_variable = {
@@ -4766,6 +4767,9 @@ DGR_district_wars_category = {
 			}
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
+		}
+		complete_effect = {
+			set_country_flag = DGR_operation_adamiecki_chosen_hall
 		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OA_assault_on_city_hall"
@@ -4802,6 +4806,7 @@ DGR_district_wars_category = {
 	DGR_OA_battle_for_haller_park = {
 		visible = { has_country_flag = DGR_operation_adamiecki
 			owns_state = 736
+			NOT = { has_country_flag = DGR_operation_adamiecki_chosen_hall }
 		}
 		available = {
 			check_variable = {
@@ -4821,6 +4826,9 @@ DGR_district_wars_category = {
 			}
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
+		}
+		complete_effect = {
+			set_country_flag = DGR_operation_adamiecki_chosen_haller
 		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OA_battle_for_haller_park"
@@ -4949,8 +4957,8 @@ DGR_district_wars_category = {
 							has_country_flag = DGR_OZ_lose
 						 }
 						OR = { has_country_flag = DGR_OA_victory 
-							has_country_flag = DGR_AH_victory 
-							}
+							has_country_flag = DGR_OP_victory 
+						}
 		}
 		available = {
 		 NOT = {
@@ -5005,7 +5013,7 @@ DGR_district_wars_category = {
 					var = DGR_op_zawadzki
 					value = 25
 					}
-				add_stability = 10
+				add_stability = 0.1
 				add_political_power = 50
 			log = "[GetDateText]: Decision DGR_OZ_retake_pkz"
 		}
@@ -5074,7 +5082,9 @@ DGR_district_wars_category = {
 				value = 25
 			}
 
-		if = { limit = { has_country_flag = DGR_OA_victory }
+		if = { limit = { 
+			DGR = { controls_state = 735 }
+		 }
 			start_border_war = {
 				change_state_after_war = yes
 				attacker = {
@@ -5099,7 +5109,7 @@ DGR_district_wars_category = {
 			}
 		}
 		}		
-		else_if = { limit = { has_country_flag = DGR_AH_victory }
+		else_if = { limit = { DGR = { controls_state = 776 } }
 			start_border_war = {
 				change_state_after_war = yes
 				attacker = {
