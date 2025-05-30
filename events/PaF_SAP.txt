@@ -445,7 +445,8 @@ country_event = {
 					damage = 3
 				}
 			add_manpower = -13695
-			}
+		}
+		hidden_effect = { set_country_flag = SAP_brugge_nothing_happened }
 	}
 	option = {
 		name = sapek_war.12.b
@@ -475,7 +476,8 @@ country_event = {
 					damage = 3
 				}
 			add_manpower = -7135
-			}
+		}
+		hidden_effect = { set_country_flag = SAP_brugge_condemned }
 	}
 }
 
@@ -556,6 +558,7 @@ country_event = {
 			days = 7
 			}
 		custom_effect_tooltip = SAP_insanity_tooltip
+		hidden_effect = { set_country_flag = SAP_rains_of_belchatow }
 	}
 	option = {
 		name = sapek_war.14.b #komuny-krasnoludzkie
@@ -583,6 +586,7 @@ country_event = {
 			}
 		
 		custom_effect_tooltip = SAP_sanity_tooltip
+		hidden_effect = { set_country_flag = SAP_scoiatael_communes }
 	}
 }
 
@@ -630,6 +634,7 @@ country_event = {
 			}
 			play_song = "lodz_sapek5"
 		}
+		custom_effect_tooltip = SAP_insanity_tooltip
 		add_stability = 0.1
 		add_political_power = 100
 		every_controlled_state = {
@@ -666,6 +671,141 @@ country_event = {
 
 	option = {
 		name = sapek_war.18.a
+	}
+}
+
+country_event = {
+	id = sapek_war.19 #sodden homage
+	title = sapek_war.19.t
+	desc = sapek_war.19.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sapek_war.19" }
+
+	option = {
+		name = sapek_war.19.a
+		if = {
+			limit = {
+				country_exists = RDM
+			}
+			annex_country = {
+				target = RDM
+			}
+		}
+		if = {
+			limit = {
+				NOT = { country_exists = RDM }
+			}
+			370 = { add_compliance = 40 }
+			848 = { add_compliance = 40 }
+			379 = { add_compliance = 40 }
+		}		
+	}
+}
+
+country_event = {
+	id = sapek_war.20 #knights of the spring
+	title = sapek_war.20.t
+	desc = sapek_war.20.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sapek_war.20" }
+
+	option = {
+		name = sapek_war.20.a
+		if = {
+			limit = {
+				has_country_flag = SAP_brugge_nothing_happened
+			}
+			add_manpower = 300
+			309 = {
+				create_unit = {
+					division = "division_template = \"Biedna Pierdolona Piechota\" name = \"Rycerze Wiosny\" start_experience_factor = 0.3 start_equipment_factor = 1"
+					owner = SAP
+				}
+				create_unit = {
+					division = "division_template = \"Brygada Vrihedd\" name = \"Kawaleria Lilith\" start_experience_factor = 0.3 start_equipment_factor = 1"
+					owner = SAP
+				}				
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = SAP_brugge_condemned
+			}
+			309 = { 
+				add_dynamic_modifier = {
+					modifier = SAP_drakkar_raiders
+					days = 180
+				} 
+			}
+			1129 = { 
+				add_dynamic_modifier = {
+					modifier = SAP_drakkar_raiders
+					days = 180
+				} 
+			}
+			683 = { 
+				add_dynamic_modifier = {
+					modifier = SAP_drakkar_raiders
+					days = 180
+				} 
+			}
+			684 = { 
+				add_dynamic_modifier = {
+					modifier = SAP_drakkar_raiders
+					days = 180
+				} 
+			}			
+		}		
+	}
+}
+
+country_event = {
+	id = sapek_war.21 #angry communes of angren
+	title = sapek_war.21.t
+	desc = sapek_war.21.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sapek_war.21" }
+
+	option = {
+		name = sapek_war.21.a
+		if = {
+			limit = {
+				has_country_flag = SAP_rains_of_belchatow
+			}
+			321 = { add_manpower = -366 }
+			305 = { add_manpower = -192 }
+			680 = { add_manpower = -244 }
+			add_timed_idea = {
+				idea = TIG_motherboard_hacked
+				days = 180
+			}
+			retire_character = TIG_Tiger_Bonzo
+
+			custom_effect_tooltip = SAP_insanity_tooltip
+		}
+		if = {
+			limit = {
+				has_country_flag = SAP_scoiatael_communes
+			}
+			add_ideas = SAP_scoiatael_communes
+			680 = { add_compliance = 25 }
+			321 = { add_compliance = 25 }
+			305 = { add_compliance = 25 }	
+			add_to_variable = {
+				var = sapek_sanity
+				value = 5
+			}
+			custom_effect_tooltip = SAP_sanity_tooltip				
+		}		
 	}
 }
 
