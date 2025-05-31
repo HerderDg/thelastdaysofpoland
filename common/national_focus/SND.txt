@@ -24,6 +24,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 9
@@ -49,6 +53,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 0
@@ -74,6 +82,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 0
@@ -81,7 +93,8 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = SND_war_censorship
 		}
 	}
 
@@ -96,6 +109,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 2
@@ -103,7 +120,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = diet_no_limits
+				add_idea = diet_rationing
+			}
 		}
 	}
 
@@ -118,6 +139,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = -1
@@ -125,7 +150,10 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			SND = {
+				country_event = sandomierz.7
+			}
 		}
 	}
 
@@ -142,6 +170,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 1
@@ -149,7 +181,15 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			670 = {
+				create_unit = { division = "name = \"Ochotnicy Sandomierscy\" division_template = \"Ochotnicy Parafialni\" start_experience_factor = 0.05"  owner = SND }
+				  
+			}
+			389 = {
+				create_unit = { division = "name = \"Ochotnicy Opatowscy\" division_template = \"Ochotnicy Parafialni\" start_experience_factor = 0.05"  owner = SND } #Division names are temporary, if we have better ones please replace them.
+			}
+			
 		}
 	}
 
@@ -161,10 +201,24 @@ focus_tree = {
 		prerequisite = { focus = SND_in_for_the_long_haul }
 
 		available = {
-		
+			PRK = {
+				OR = {
+					has_idea = PRK_war_extend1
+					has_idea = PRK_war_extend2
+				}
+			}
+			
+			
 		}
 		
 		bypass = {
+			NOT = {
+				OR = {
+					has_idea = PRK_war_extend1
+					has_idea = PRK_war_extend2
+				}
+			}
+			
 		}
 		
 		x = 3
@@ -173,9 +227,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			SND = {
-				country_event = sandomierz.7
-			}
+			add_ideas = SND_rally 
 		}
 	}
 
@@ -191,6 +243,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 0
@@ -199,6 +255,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			PRK = {
+				add_ideas = PRK_sabotages
+			}
 		}
 	}
 
@@ -214,6 +273,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 0
@@ -222,12 +285,39 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			custom_effect_tooltip = "Adds level 2 forts on the provinces neighboring Sandomierz"
+			hidden_effect = {
+				417 = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 16763
+						instant_build = yes
+					}
+				}
+				967 = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 16775
+						instant_build = yes
+					}
+				}
+				670 = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 16762
+						instant_build = yes
+					}
+				}
+			}
 		}
 	}
 
 	focus = {
 		id = SND_start_renewed_offensive
-		icon = SND_build_temporary_fortifications
+		icon = SND_start_renewed_offensive
 		text_icon = SANDO_euro_focus_style
 		relative_position_id = SND_against_battered_giant
 		prerequisite = { focus = SND_against_battered_giant }
@@ -237,6 +327,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_war_with = PRK
+			}
+			
 		}
 		
 		x = 0
@@ -244,7 +338,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			add_timed_idea = {
+				idea = SND_last_push
+				days = 30
+			} 
 		}
 	}
 
@@ -275,14 +373,14 @@ focus_tree = {
 		}
 	}	
 
-#drugie drzewko
+#### TREE 2 ####
 
 	focus = {
 		id = SND_war_fallout
 		icon = SND_war_fallout
 		text_icon = SANDO_euro_focus_style
 		available = {
-		
+		has_completed_focus = SND_our_future_secured
 		}
 
 		bypass = {
@@ -296,6 +394,14 @@ focus_tree = {
 		completion_reward = { 
 			SND = {
 				country_event = sandomierz.9
+			}
+			hidden_effect = {
+				SND = {
+					country_event = {
+						id = sandomierz.31
+						days = 83
+					}
+				}
 			}
 		}
 	}
@@ -316,9 +422,14 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 2
 		
-		completion_reward = { 
+		completion_reward = {
+
+				add_political_power = 100
+				add_stability = -0.25
+			
+			custom_effect_tooltip = "The goverment does not know how to fix the problems, partial anarchy has dominated the streets."
 		}
 	}
 
@@ -339,8 +450,31 @@ focus_tree = {
 		y = 1
 
 		cost = 1
-		
-		completion_reward = { 
+		select_effect = {
+			if = {
+				limit = {
+					has_idea = SND_disgruntledpop2
+				}
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop2
+				add_idea = SND_disgruntledpop3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = SND_disgruntledpop4
+					add_idea = SND_disgruntledpop3
+				}
+			}	
+		}
+		completion_reward = {
+
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop3
+				add_idea = SND_disgruntledpop4
+			}
+			
+			custom_effect_tooltip = "Opens the path to economic focuses"
 		}
 	}
 
@@ -360,9 +494,16 @@ focus_tree = {
 		x = -2
 		y = 1
 
-		cost = 1
+		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			670 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			} 
 		}
 	}
 
@@ -382,9 +523,25 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 2
 		
-		completion_reward = { 
+		completion_reward = {
+			build_railway = {
+			  level = 2
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
+
+				modifier = {
+				  tag = SND
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 2845 16775 16777 16786 16790 3934 }
+			  start_province = 2845
+			  target_province = 3934
+			}
 		}
 	}
 
@@ -404,9 +561,22 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			670 = {
+				add_building_construction = {
+					type = naval_base
+					level = 4
+					instant_build = yes
+					province = 16761
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			} 
 		}
 	}
 
@@ -426,9 +596,37 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			967 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			671 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			672 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			960 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -448,9 +646,23 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 2
 		
-		completion_reward = { 
+		completion_reward = {
+			389 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			417 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -470,9 +682,20 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 4
 		
-		completion_reward = { 
+		completion_reward = {
+			671 = {
+				add_resource = {
+					type = food
+					amount = 3
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -492,12 +715,36 @@ focus_tree = {
 		x = -2
 		y = 1
 
-		cost = 1
-		
+		cost = 2
+		select_effect = {
+			if = {
+				limit = {
+					has_idea = SND_disgruntledpop2
+				}
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop2
+				add_idea = SND_disgruntledpop3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = SND_disgruntledpop4
+					add_idea = SND_disgruntledpop3
+				}
+			}	
+		}
 		completion_reward = { 
+			add_ideas = SND_anticrime_sienkiewicz
 			SND = {
 				country_event = sandomierz.10
 			}
+
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop3
+				add_idea = SND_disgruntledpop4
+			
+			}
+			custom_effect_tooltip = SND_dealing_with_crime_tooltip
 		}
 	}
 
@@ -517,9 +764,16 @@ focus_tree = {
 		x = -1
 		y = 1
 
-		cost = 1
+		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			hidden_effect = {
+				create_intelligence_agency = {
+				name = "Sandomierska Agencja Wywiadowcza"
+				icon = GFX_intelligence_agency_logo_generic_1
+				}
+			}
+			custom_effect_tooltip = SND_extraordinary_commission_tooltip
 		}
 	}
 
@@ -539,9 +793,22 @@ focus_tree = {
 		x = 1
 		y = 1
 
-		cost = 1
+		cost = 2
 		
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				category = military_police_tech
+				bonus = 0.75
+				uses = 1
+
+			}
+			hidden_effect = {
+				subtract_from_variable = {
+				budget = 3
+				}
+			}
+			
+			custom_effect_tooltip = SND_police_funding_bill_tooltip 
 		}
 	}
 
@@ -562,9 +829,17 @@ focus_tree = {
 		x = 0
 		y = 2
 
-		cost = 1
+		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			670 = {
+				add_building_construction = {
+					type = radar_station
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_stability = 0.05 
 		}
 	}
 
@@ -584,9 +859,16 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			670 = {
+				add_building_construction = {
+					type = prison
+        			instant_build = yes
+					level = 1
+				}
+			} 
 		}
 	}
 
@@ -606,9 +888,33 @@ focus_tree = {
 		x = 2
 		y = 1
 
-		cost = 1
-		
-		completion_reward = { 
+		cost = 2
+		select_effect = {
+			if = {
+				limit = {
+					has_idea = SND_disgruntledpop2
+				}
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop2
+				add_idea = SND_disgruntledpop3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = SND_disgruntledpop4
+					add_idea = SND_disgruntledpop3
+				}
+			}	
+		}
+		completion_reward = {
+			add_ideas = SND_antipriest_sienkiewicz
+			hidden_effect = {
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop3
+				add_idea = SND_disgruntledpop4
+			}
+			}
+			custom_effect_tooltip = SND_dealing_with_priest_tooltip
 			SND = {
 				country_event = sandomierz.11
 			}
@@ -631,9 +937,16 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 4
 		
-		completion_reward = { 
+		completion_reward = {
+			if = {
+				limit = {has_idea = partial_secularism}
+				swap_ideas = {
+					remove_idea = partial_secularism 
+					add_idea = atheism_encouraged
+				} 
+			}
 		}
 	}
 
@@ -653,9 +966,25 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 3
 		
-		completion_reward = { 
+		completion_reward = {
+			hidden_effect = {
+				add_stability = -0.05
+				every_other_country = {
+                limit = {
+                    OR = {
+                        has_government = autocracy
+						has_government = reactionary
+                    }
+                }
+                add_opinion_modifier = {
+                    target = SND
+                    modifier = small_decrease
+                	}
+            	}
+			}
+			custom_effect_tooltip = SND_plant_provocateurs_tooltip
 		}
 	}
 
@@ -675,7 +1004,7 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
 			SND = {
@@ -691,8 +1020,24 @@ focus_tree = {
 		relative_position_id = SND_confused_approaches
 		prerequisite = { focus = SND_confused_approaches }
 		available = {
-		
+			hidden_trigger = {
+				952 = {
+					is_controlled_by = SND
+				}
+				433 = {
+					is_controlled_by = SND
+				}
+				966 = {
+					is_controlled_by = SND
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = "Fully won against Ziobro's forces taking Staszów and 2 gminas."
+			}
+			
 		}
+			
+		
 
 		bypass = {
 		}
@@ -700,8 +1045,33 @@ focus_tree = {
 		x = 5
 		y = 1
 
-		cost = 1
-		
+		cost = 2
+		select_effect = {
+			if = {
+				limit = {
+					has_idea = SND_disgruntledpop2
+				}
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop2
+				add_idea = SND_disgruntledpop3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = SND_disgruntledpop4
+					add_idea = SND_disgruntledpop3
+				}
+			}	
+		}
+		completion_reward = {
+			hidden_effect = {
+				swap_ideas = {
+				remove_idea = SND_disgruntledpop3
+				add_idea = SND_disgruntledpop4
+			}
+			}
+			custom_effect_tooltip = "Starts the integration of the Conquered Territory."
+		}
 		completion_reward = { 
 		}
 	}
@@ -722,9 +1092,21 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 4
 		
 		completion_reward = { 
+			hidden_effect = {
+				952 = {
+					add_compliance = 5
+				}
+				433 = {
+					add_compliance = 5
+				}
+				966 = {
+					add_compliance = 5
+				}	
+			}
+			custom_effect_tooltip = "Adds 5% of compliance to the conquered lands."
 		}
 	}
 
@@ -744,9 +1126,57 @@ focus_tree = {
 		x = 0
 		y = 1
 
-		cost = 1
+		cost = 2
 		
-		completion_reward = { 
+		completion_reward = {
+			952 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 3982
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 16735
+					instant_build = yes
+				}
+			}
+			433 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 16753
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 3210
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 16756
+					instant_build = yes
+				}
+			}
+			966 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 16801
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 16798
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -770,7 +1200,7 @@ focus_tree = {
 		x = 2
 		y = 1
 
-		cost = 1
+		cost = 3
 		
 		completion_reward = { 
 			SND = {
@@ -786,7 +1216,7 @@ focus_tree = {
 		icon = SND_rebirth_of_faith
 		text_icon = SANDO_focus_style
 		available = {
-		
+		has_completed_focus = SND_towards_new_tomorrow
 		}
 
 		bypass = {
@@ -822,7 +1252,24 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+		hidden_effect = {
+			if = {
+				limit = {has_idea= SND_disgruntledpop1}
+				swap_ideas = {
+					remove_idea = SND_disgruntledpop1 
+					add_idea = SND_disgruntledpop4 
+					}
+				}
+			else = {
+				swap_ideas = {
+					remove_idea = SND_disgruntledpop4
+					add_idea = SND_disgruntledpop3
+				}
+			}				
+				add_ideas = SND_handling_economy_1
+			}
+			custom_effect_tooltip = SND_turn_toward_industrial_sector_tooltip
 		}
 	}
 
@@ -844,7 +1291,9 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50 
 		}
 	}
 
@@ -867,7 +1316,25 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			671 = {
+				add_resource = {
+					type = food
+					amount = 2
+				}
+			}
+			672 = {
+				add_resource = {
+					type = food
+					amount = 1
+				}
+			}
+			960 = {
+				add_resource = {
+					type = food
+					amount = 1
+				}
+			}
 		}
 	}
 
@@ -893,6 +1360,12 @@ focus_tree = {
 			SND = {
 				country_event = sandomierz.15 
 			}
+			670 = {
+				add_resource = {
+					type = food
+					amount = 3
+				}
+			}
 		}
 	}
 
@@ -914,7 +1387,20 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			hidden_effect = {
+				if = {
+				limit = {has_idea = SND_handling_economy_1}
+				swap_ideas = {
+					remove_idea = SND_handling_economy_1
+					add_idea = SND_handling_economy_2
+					}
+				}
+			}
+			custom_effect_tooltip = SND_mati_upgrade_idea_tooltip
+			670 = {
+				add_manpower = 3000
+			}
 		}
 	}
 
@@ -941,6 +1427,18 @@ focus_tree = {
 			SND = {
 				country_event = sandomierz.16 
 			}
+			670 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -962,7 +1460,17 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			hidden_effect = {
+				if = {
+				limit = {has_idea = SND_handling_economy_2}
+				swap_ideas = {
+					remove_idea = SND_handling_economy_2
+					add_idea = SND_handling_economy_3
+					}
+				}
+			}
+			custom_effect_tooltip = SND_mati_upgrade_idea_tooltip
 		}
 	}
 
@@ -988,6 +1496,7 @@ focus_tree = {
 			SND = {
 				country_event = sandomierz.17 
 			}
+		swap_ideas = {remove_idea = SND_crime1 add_idea = SND_crime2}
 		}
 	}
 
@@ -1058,6 +1567,19 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+		add_unit_bonus = {
+          military_police = {
+          suppression = 0.05
+          maximum_speed = 0.05
+		  }
+         }
+			SND = {
+				add_equipment_to_stockpile = {
+					type = bicycle_equipment_1
+					amount = 200
+					producer = SND
+				}
+			}		
 		}
 	}
 
@@ -1081,6 +1603,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+		add_political_power = 50
+		add_stability = -0.05
+		
 		}
 	}
 
@@ -1104,6 +1629,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+		add_political_power = -50
+		add_stability = 0.05		
+		
 		}
 	}
 
@@ -1128,6 +1656,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+		remove_ideas = SND_crime2
+		add_political_power = 50
+		add_stability = 0.05		
 		}
 	}
 
@@ -1251,6 +1782,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+		add_political_power = 25
+		add_stability = 0.1		
+        add_popularity = {ideology = socialdemocrature popularity =0.05}		
 		}
 	}
 
@@ -1273,6 +1807,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+        add_timed_idea = {
+        idea = SND_price_prevention
+        days = 80
+         }		
 		}
 	}
 
@@ -1295,6 +1833,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			SND = { country_event = sandomierz.35 }
 		}
 	}
 
@@ -1336,7 +1875,7 @@ focus_tree = {
 		text_icon = SANDO_focus_style
 
 		available = {
-		
+		has_completed_focus = SND_riding_on_forwards
 		}
 
 		bypass = {
@@ -1374,7 +1913,8 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			add_ideas = SND_army_of_saints1 
 		}
 	}
 
@@ -1397,7 +1937,10 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			STA = {
+				country_event = starachowice.8
+			} 
 		}
 	}
 
@@ -1410,9 +1953,15 @@ focus_tree = {
 		mutually_exclusive = { focus = SND_no_other_choice }
 
 		available = {
-		
+			hidden_trigger = {
+				STA = {
+					has_country_flag = STA_accepted_pilgrims
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = STA_dentente_with_materek_tooltip
+			}
 		}
-
 		bypass = {
 		}
 
@@ -1421,7 +1970,11 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			diplomatic_relation = {
+				country = STA
+				relation = non_aggression_pact
+			}
 			SND = {
 				country_event = sandomierz.33 
 			}
@@ -1437,7 +1990,9 @@ focus_tree = {
 		mutually_exclusive = { focus = SND_detente_with_materek }
 
 		available = {
-		
+				STA = {
+					has_country_flag = STA_denied_pilgrims
+				}		
 		}
 
 		bypass = {
@@ -1449,6 +2004,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			declare_war_on = { type = annex_everything target = STA }					
 		}
 	}	
 
@@ -1471,7 +2027,11 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			STA = {
+				add_ideas = SND_holy_alliance
+			}
+			add_ideas = SND_holy_alliance
 		}
 	}	
 
@@ -1483,7 +2043,8 @@ focus_tree = {
 		prerequisite = { focus = SND_no_other_choice }
 
 		available = {
-		
+		controls_state = 377
+		has_war = no
 		}
 
 		bypass = {
@@ -1495,6 +2056,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			SND = {
+				country_event = sandomierz.38
+			}		
 		}
 	}
 
@@ -1517,7 +2081,24 @@ focus_tree = {
 
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			hidden_effect = {
+				if = {
+				limit = {has_idea = SND_army_of_saints2}
+				swap_ideas = {
+					remove_idea = SND_army_of_saints2
+					add_idea = SND_army_of_saints4
+				}
+			}
+			else_if = {
+				limit = {has_idea = SND_army_of_saints1}
+				swap_ideas = {
+					remove_idea = SND_army_of_saints1
+					add_idea = SND_army_of_saints3
+				}
+				}
+			}
+			custom_effect_tooltip = SND_mati_upgrade_idea_tooltip
 		}
 	}
 
@@ -1541,6 +2122,23 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			hidden_effect = {
+				if = {
+				limit = {has_idea = SND_army_of_saints3}
+				swap_ideas = {
+					remove_idea = SND_army_of_saints3
+					add_idea = SND_army_of_saints4
+				}
+			}
+			else_if = {
+				limit = {has_idea = SND_army_of_saints1}
+				swap_ideas = {
+					remove_idea = SND_army_of_saints1
+					add_idea = SND_army_of_saints2
+				}
+				}
+			}
+			custom_effect_tooltip = SND_mati_upgrade_idea_tooltip
 		}
 	}
 
@@ -1568,6 +2166,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			declare_war_on = { type = annex_everything target = KEL }
 		}
 	}
 
@@ -1595,6 +2194,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			declare_war_on = { type = annex_everything target = NRA }
 		}
 	}
 
@@ -1622,6 +2222,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			declare_war_on = { type = annex_everything target = NSZ }
 		}
 	}
 
@@ -1649,6 +2250,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			declare_war_on = { type = annex_everything target = STO }
 		}
 	}
 
@@ -1661,7 +2263,8 @@ focus_tree = {
 
 
 		available = {
-		
+		controls_state = 443
+		has_war = no		
 		}
 
 		bypass = {
@@ -1690,7 +2293,9 @@ focus_tree = {
 
 
 		available = {
-		
+		controls_state = 378
+		controls_state = 362
+		has_war = no		
 		}
 
 		bypass = {
@@ -1755,6 +2360,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			declare_war_on = { type = annex_everything target = KIE }
 		}
 	}
 
@@ -1768,7 +2374,8 @@ focus_tree = {
 
 
 		available = {
-		
+		controls_state = 416
+		has_war = no		
 		}
 
 		bypass = {

@@ -1,0 +1,418 @@
+
+
+bedzin_congress_category = {
+
+	intercounty_centralization = {
+		target_root_trigger = {
+			OR = {
+				has_country_flag = ZAG_intercounty_voted_SOS
+				has_country_flag = ZAG_intercounty_voted_DGR
+				has_country_flag = ZAG_intercounty_voted_JAW
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		targets = { ZAW JUR BRZ CCH JWK }
+		target_trigger = {
+			is_in_faction_with = ROOT
+			is_neighbor_of = ROOT
+		}
+		modifier = {
+			political_power_gain = -0.2
+		}
+		available = {
+			NOT = { has_country_flag = intercounty_centralizing }
+        }
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = { set_country_flag = intercounty_centralizing }
+			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+		}
+		remove_effect = {
+			ROOT = {
+				annex_country = {
+					target = FROM
+				}
+			}
+			hidden_effect = { clr_country_flag = intercounty_centralizing }
+		}
+	}
+
+	install_socialist_government_ZAW = {
+
+		visible = {
+			OR = {
+				original_tag = SOS
+				AND = {
+					original_tag = DGR
+					is_faction_leader = yes
+				}
+				AND = {
+					original_tag = JAW
+					is_faction_leader = yes
+				}			
+			}
+			any_state = {
+				OR = {
+					state = 741
+					state = 740
+					state = 739
+					state = 438
+					state = 432
+				}
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			ZAW = { exists = no }		
+		}
+
+		cost = 60
+		icon = GFX_decision_generic_flag_red
+		fixed_random_seed = no
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 7
+		remove_effect = {
+			log = "[GetDateText]: Decision socialist zawiercie"
+			every_state = {
+				limit = {
+					is_core_of = ZAW
+					is_controlled_by_ROOT_or_ally = yes
+				}
+				transfer_state_to = ZAW
+			}
+			ZAW = {
+				set_politics = { 
+					ruling_party = socialdemocrature 
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.3
+				}
+				set_party_name = {
+					ideology = socialdemocrature
+					long_name = "New Left"
+					name = "Nowa Lewica"
+				}
+				set_cosmetic_tag = ZAW_intercounty
+			}
+			SOS = {
+				add_to_faction = ZAW
+			}
+			every_other_country = {
+				limit = {
+					has_war_with = SOS
+				}
+				add_to_war = { 
+					targeted_alliance = SOS
+					enemy = PREV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+
+	install_socialist_government_JUR = {
+
+		visible = {
+			OR = {
+				original_tag = SOS
+				AND = {
+					original_tag = DGR
+					is_faction_leader = yes
+				}
+				AND = {
+					original_tag = JAW
+					is_faction_leader = yes
+				}			
+			}
+			any_state = {
+				is_core_of = JUR
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			JUR = { exists = no }		
+		}
+
+		cost = 60
+		icon = GFX_decision_generic_flag_red
+		fixed_random_seed = no
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 7
+		remove_effect = {
+			log = "[GetDateText]: Decision socialist myszkow"
+			every_state = {
+				limit = {
+					OR = {
+						state = 440
+						state = 436
+						state = 738
+					}
+					is_controlled_by_ROOT_or_ally = yes
+				}
+				transfer_state_to = JUR
+			}
+			JUR = {
+				set_politics = { 
+					ruling_party = socialdemocrature 
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.3
+				}
+				set_party_name = {
+					ideology = socialdemocrature
+					long_name = "New Left"
+					name = "Nowa Lewica"
+				}
+				set_cosmetic_tag = JUR_intercounty
+			}
+			SOS = {
+				add_to_faction = JUR
+			}
+			every_other_country = {
+				limit = {
+					has_war_with = SOS
+				}
+				add_to_war = { 
+					targeted_alliance = SOS
+					enemy = PREV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+
+	
+	install_socialist_government_CCH = {
+
+		visible = {
+			OR = {
+				original_tag = SOS
+				AND = {
+					original_tag = DGR
+					is_faction_leader = yes
+				}
+				AND = {
+					original_tag = JAW
+					is_faction_leader = yes
+				}			
+			}
+			any_state = {
+				is_core_of = CCH
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			CCH = { exists = no }		
+		}
+
+		cost = 60
+		icon = GFX_decision_generic_flag_red
+		fixed_random_seed = no
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 7
+		remove_effect = {
+			log = "[GetDateText]: Decision socialist czestochowa"
+			every_state = {
+				limit = {
+					OR = {
+						state = 870
+						state = 592
+						state = 869
+						state = 418
+						state = 423
+						state = 1089
+						state = 412
+					}
+					is_controlled_by_ROOT_or_ally = yes
+				}
+				transfer_state_to = CCH
+			}
+			CCH = {
+				set_politics = { 
+					ruling_party = socialdemocrature 
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.3
+				}
+				set_party_name = {
+					ideology = socialdemocrature
+					long_name = "Polish Socialist Party"
+					name = "PPS"
+				}
+				set_cosmetic_tag = CCH_intercounty
+			}
+			SOS = {
+				add_to_faction = CCH
+			}
+			every_other_country = {
+				limit = {
+					has_war_with = SOS
+				}
+				add_to_war = { 
+					targeted_alliance = SOS
+					enemy = PREV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+	
+	install_socialist_government_JWK = {
+
+		visible = {
+			OR = {
+				original_tag = SOS
+				AND = {
+					original_tag = DGR
+					is_faction_leader = yes
+				}
+				AND = {
+					original_tag = JAW
+					is_faction_leader = yes
+				}			
+			}
+			any_state = {
+				is_core_of = JWK
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			JWK = { exists = no }		
+		}
+
+		cost = 60
+		icon = GFX_decision_generic_flag_red
+		fixed_random_seed = no
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 7
+		remove_effect = {
+			log = "[GetDateText]: Decision socialist czestochowa"
+			every_state = {
+				limit = {
+					OR = {
+						state = 745
+						state = 421
+					}
+					is_controlled_by_ROOT_or_ally = yes
+				}
+				transfer_state_to = JWK
+			}
+			JWK = {
+				set_politics = { 
+					ruling_party = socialdemocrature 
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.3
+				}
+				set_party_name = {
+					ideology = socialdemocrature
+					long_name = "New Left"
+					name = "Nowa Lewica"
+				}
+				set_cosmetic_tag = JWK_intercounty
+			}
+			add_victory_points = {
+				province = 8405
+				value = -30
+			}
+			SOS = {
+				add_to_faction = JWK
+			}
+			every_other_country = {
+				limit = {
+					has_war_with = SOS
+				}
+				add_to_war = { 
+					targeted_alliance = SOS
+					enemy = PREV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+	
+	
+	install_socialist_government_BRZ = {
+
+		visible = {
+			OR = {
+				original_tag = SOS
+				AND = {
+					original_tag = DGR
+					is_faction_leader = yes
+				}
+				AND = {
+					original_tag = JAW
+					is_faction_leader = yes
+				}			
+			}
+			any_state = {
+				is_core_of = BRZ
+				is_controlled_by_ROOT_or_ally = yes
+			}
+			BRZ = { exists = no }		
+		}
+
+		cost = 60
+		icon = GFX_decision_generic_flag_red
+		fixed_random_seed = no
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 7
+		remove_effect = {
+			log = "[GetDateText]: Decision socialist czestochowa"
+			every_state = {
+				limit = {
+					OR = {
+						state = 390
+						state = 746
+						state = 591
+						state = 400
+					}
+					is_controlled_by_ROOT_or_ally = yes
+				}
+				transfer_state_to = BRZ
+			}
+			BRZ = {
+				set_politics = { 
+					ruling_party = socialdemocrature 
+				}
+				set_capital = {
+					state = 591
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.3
+				}
+				retire_character = BRZ_kblaszczykowski
+				set_party_name = {
+					ideology = socialdemocrature
+					long_name = "New Left"
+					name = "Nowa Lewica"
+				}
+				set_cosmetic_tag = BRZ_intercounty
+			}
+			SOS = {
+				add_to_faction = BRZ
+			}
+			every_other_country = {
+				limit = {
+					has_war_with = SOS
+				}
+				add_to_war = { 
+					targeted_alliance = SOS
+					enemy = PREV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+	}
+}
+

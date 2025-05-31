@@ -522,7 +522,6 @@ CARPAT_02_EAST_V_WEST = {
 		OR = {
 			original_tag = JUR
 			original_tag = CCH
-			original_tag = JWK
 		}		
 	}
 
@@ -541,6 +540,8 @@ CARPAT_02_EAST_V_WEST = {
 		ROOT = { any_neighbor_country = { original_tag = JWK } }
 		has_war = no
 		date > 2028.02.14
+		CCH = { NOT = { has_cosmetic_tag = CCH_intercounty }}
+		JUR = { NOT = { has_cosmetic_tag = JUR_intercounty }}
 	}
 
 	
@@ -580,7 +581,6 @@ jura_JUR = {
 	
 	allowed = {
 		OR = {
-			original_tag = JUR
 			original_tag = CCH
 			original_tag = JWK
 		}
@@ -600,6 +600,8 @@ jura_JUR = {
 			ROOT = { any_neighbor_country = { original_tag = JUR } }
 			has_war = no
 			date > 2028.02.14
+			JWK = { NOT = { has_cosmetic_tag = JWK_intercounty }}
+			CCH = { NOT = { has_cosmetic_tag = CCH_intercounty }}
 	}
 
 	
@@ -664,6 +666,9 @@ jura_JUR = {
 			has_war = no
 			NOT = { has_war_with = BRZ }
 			date > 2028.02.14
+			JWK = { NOT = { has_cosmetic_tag = JWK_intercounty }}
+			CCH = { NOT = { has_cosmetic_tag = CCH_intercounty }}
+			JUR = { NOT = { has_cosmetic_tag = JUR_intercounty }}
 	}
 
 	
@@ -723,6 +728,8 @@ jura_JUR = {
 		ROOT = { any_neighbor_country = { original_tag = CCH } }
 		has_war = no
 		date > 2028.02.14
+		JWK = { NOT = { has_cosmetic_tag = JWK_intercounty }}
+		JUR = { NOT = { has_cosmetic_tag = JUR_intercounty }}
 	}
 
 	
@@ -776,6 +783,8 @@ jura_JUR = {
 			ROOT = { any_neighbor_country = { original_tag = SOS } }
 			has_war = no
 			date > 2028.02.14
+			NOT = { has_global_flag = ZAG_congress_of_bedzin_success }
+			has_global_flag = ZAG_congress_of_bedzin_failure
 	}
 
 	
@@ -846,6 +855,8 @@ jura_JUR = {
 			ROOT = { any_neighbor_country = { original_tag = DGR } }
 			has_war = no
 			date > 2028.02.14
+			NOT = { has_global_flag = ZAG_congress_of_bedzin_success }
+			has_global_flag = ZAG_congress_of_bedzin_failure
 	}
 
 	
@@ -905,6 +916,8 @@ jura_JUR = {
 			ROOT = { any_neighbor_country = { original_tag = JAW } }
 			has_war = no
 			date > 2028.02.14
+			NOT = { has_global_flag = ZAG_congress_of_bedzin_success }
+			has_global_flag = ZAG_congress_of_bedzin_failure
 	}
 
 	
@@ -960,6 +973,19 @@ zaglebie_ZAW = {
 			ROOT = { any_neighbor_country = { original_tag = ZAW } }
 			has_war = no
 			date > 2028.02.14
+			ZAW = { NOT = { has_cosmetic_tag = ZAW_intercounty }}
+			if = {
+				limit = {
+					has_global_flag = ZAG_congress_of_bedzin_success
+				}
+				any_allied_country = {
+					is_neighbor_of = ZAW
+				}
+			}
+			OR = {
+			has_global_flag = ZAG_congress_of_bedzin_failure
+			has_global_flag = ZAG_congress_of_bedzin_success
+			}
 	}
 
 	
@@ -1022,6 +1048,11 @@ zaglebie_ZAW = {
 				JUR = { exists = no }
 				CCH = { exists = no }
 			}
+		ROOT = {
+			NOT = {
+				is_in_faction_with = SOS
+			}
+		}
 	}
 
 	
@@ -1118,19 +1149,46 @@ zaglebie_ZAW = {
 	}
 
 	available = {
-			OR = {
-				original_tag = SOS
-				original_tag = JAW
-				original_tag = ZAW
-			}
-
-		count_triggers = {
-			amount = 3
-				SOS = { exists = no }
-				DGR = { exists = no }
-				ZAW = { exists = no }
-				JAW = { exists = no }
+		OR = {
+			original_tag = SOS
+			original_tag = JAW
+			original_tag = ZAW
 		}
+		OR = {
+			AND = {
+			count_triggers = {
+				amount = 3
+					SOS = { exists = no }
+					DGR = { exists = no }
+					ZAW = { exists = no }
+					JAW = { exists = no }
+			}
+			has_global_flag = ZAG_congress_of_bedzin_failure
+			}
+			AND = {
+				has_global_flag = ZAG_congress_of_bedzin_success
+				OR = {
+					AND = {
+					original_tag = ZAW
+					count_triggers = {
+						amount = 3
+							SOS = { exists = no }
+							DGR = { exists = no }
+							JAW = { exists = no }
+					}
+					}
+					AND = {
+						OR = {
+							original_tag = SOS
+							original_tag = JAW
+						}
+						ZAW = { exists = no }
+					}										
+				}
+			}
+		}
+		
+		has_war = no
 	}
 
 	
@@ -1143,25 +1201,34 @@ zaglebie_ZAW = {
 	days_remove = 21
 	remove_effect  = {
 		log = "[GetDateText]: Decision zaglebie_war_2"
-			if = { limit = { country_exists = JUR } 
+			if = { limit = { 
+				country_exists = JUR
+				JUR = { NOT = { has_cosmetic_tag = JUR_intercounty } }
+			} 
 			declare_war_on = {
 				target = JUR
 				type = voivodeship_war
 			}
 			}
-			if = { limit = { country_exists = CCH } 
+			if = { limit = { country_exists = CCH 
+			CCH = { NOT = { has_cosmetic_tag = CCH_intercounty } } } 
 			declare_war_on = {
 				target = CCH
 				type = voivodeship_war
 			}
 			}
-			if = { limit = { country_exists = JWK } 
+			if = { limit = { country_exists = JWK
+			JWK = { NOT = { has_cosmetic_tag = JWK_intercounty } }
+		} 
 			declare_war_on = {
 				target = JWK
 				type = voivodeship_war
 			}
 			}
-			if = { limit = { country_exists = BRZ } 
+			if = { 
+				limit = { country_exists = BRZ 
+				BRZ = { NOT = { has_cosmetic_tag = BRZ_intercounty } }
+			} 
 			declare_war_on = {
 				target = BRZ
 				type = voivodeship_war
@@ -1189,20 +1256,32 @@ zaglebie_ZAW = {
 		}
 	}
 	available = {
-		count_triggers = {
-			amount = 7
-			DGR = { exists = no }
-			SOS = { exists = no }
-			JAW = { exists = no }
-			ZAW = { exists = no }
-			JUR = { exists = no }
-			JWK = { exists = no }	
-			CCH = { exists = no }
-			BRZ = { exists = no }
-		}
 		OR = {
-		SIE = { exists = yes }
-		BED = { exists = yes }
+			AND = {
+				has_global_flag = ZAG_congress_of_bedzin_failure
+				count_triggers = {
+					amount = 7
+					DGR = { exists = no }
+					SOS = { exists = no }
+					JAW = { exists = no }
+					ZAW = { exists = no }
+					JUR = { exists = no }
+					JWK = { exists = no }	
+					CCH = { exists = no }
+					BRZ = { exists = no }
+				}
+				OR = {
+				SIE = { exists = yes }
+				BED = { exists = yes }
+				}
+				SIE = { NOT = { has_cosmetic_tag = SIE_intercounty }}
+				BED = { NOT = { has_cosmetic_tag = BED_intercounty }}
+			}
+			AND = {
+				has_global_flag = ZAG_congress_of_bedzin_success
+				SIE = { NOT = { has_cosmetic_tag = SIE_intercounty }}
+				BED = { NOT = { has_cosmetic_tag = BED_intercounty }}
+			}
 		}
 	}
 	fire_only_once = yes

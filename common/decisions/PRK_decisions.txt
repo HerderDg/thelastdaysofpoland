@@ -510,3 +510,58 @@ ziobro_uprising = {
 	}
 	
 }
+
+ziobro_lesser_poland = {
+
+	ziobro_unholy_war = {
+
+		allowed = {
+			always = no
+		}
+		activation = {
+			has_country_flag = lesser_poland_uprising
+		}
+
+		available = {
+			has_war = no
+			NOT = {
+				AND = {
+					country_exists = PRO
+					country_exists = GRB
+					country_exists = BGR
+					country_exists = ROK
+				}
+			}
+		}
+
+		icon = mission_icon   
+		fire_only_once = yes
+		days_mission_timeout = 60
+		complete_effect = {
+			log = "[GetDateText]: Decision ziobro_unholy_war win"
+			clr_country_flag = lesser_poland_uprising 
+			set_country_flag = won_lesser_poland
+			PRK = {
+				country_event = { id = ziobro.33 }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				PRK = {
+					has_country_flag = PRK_ziobro_end_mission
+				}
+			}
+		}
+		cancel_effect = {
+			PRK = {
+				clr_country_flag = PRK_ziobro_end_mission
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: Decision ziobro_holy_war lose"
+			PRK = {
+				country_event = { id = ziobro.34 }
+			}
+		}
+	}
+}
