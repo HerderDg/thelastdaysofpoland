@@ -48,10 +48,12 @@ STE_powerstruggle_category = {
 	#}
 	STE_security_units = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
+			NOT = { has_country_flag = STE_nochemiewerke_trigger }
 		}
 		cost = 20
 		days_remove = 14
+		days_re_enable = 90
 		remove_effect = {
 			105 = {
 				create_unit = {
@@ -62,103 +64,1470 @@ STE_powerstruggle_category = {
 			STE_minus5_netto = yes
 			STE_minus5_pzm = yes
 			STE_minus5_chemiewerke = yes
-			STE_hanza_all_check = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
 		}
 	}
 
 	netto_decision_focus = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
 		}
-		cost = 50
+		available = {
+			has_completed_focus = STE_the_danish_lapdogs
+			owns_state = 105
+			if = {
+				limit = {
+					has_completed_focus = STE_the_amphibian_menace
+				}
+				has_country_flag = unified_regional
+			}
+			else_if = {
+				limit = {
+					has_completed_focus = STE_taste_of_the_west
+				}
+				has_country_flag = unified_voivodeship
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { STE_netto_loyalty > 9 }
+		}
+		custom_cost_text = decision_cost_loyalty_10
+		days_remove = 90
+		complete_effect  = {
+			hidden_effect = {
+				STE_minus10_netto = yes
+				STE_hanza_all_check = yes
+			}
+		}
 		remove_effect = {
-			STE_hanza_all_check = yes
+			STE_netto_focus_check = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}		
 		}
 	}
 	polsteam_decision_focus = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
 		}
-		cost = 50
+		available = {
+			has_completed_focus = STE_the_polish_remnants
+			owns_state = 114
+			if = {
+				limit = {
+					has_completed_focus = STE_designs_from_the_marine_polytechnic
+				}
+				has_country_flag = unified_regional
+			}
+			else_if = {
+				limit = {
+					has_completed_focus = STE_armed_river_barges
+				}
+				has_country_flag = unified_voivodeship
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = { STE_pzm_loyalty > 9 }
+		}
+		custom_cost_text = decision_cost_loyalty_10
+		days_remove = 90
+		complete_effect  = {
+			hidden_effect = {
+				STE_minus10_pzm = yes
+				STE_hanza_all_check = yes
+			}
+		}
 		remove_effect = {
-			STE_hanza_all_check = yes
+			STE_pzm_focus_check = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
 		}
 	}
 	chemiewerke_decision_focus = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
+			NOT = { has_country_flag = STE_nochemiewerke_trigger }
 		}
-		cost = 50
+		available = {
+			AND = {
+			has_completed_focus = STE_the_german_ball_and_chain
+			owns_state = 90
+				if = {
+					limit = {
+						has_completed_focus = STE_oil_fields_of_the_north
+					}
+					has_country_flag = unified_regional
+				}
+				else_if = {
+					limit = {
+						has_completed_focus = STE_chemiewerke_politz_ag_kraftstoffe
+					}
+					has_country_flag = unified_voivodeship
+				}
+			}
+		}
+		#cost = 50
+		custom_cost_trigger = {
+			check_variable = { STE_chemiewerke_loyalty > 14 }
+		}
+		custom_cost_text = decision_cost_loyalty_15
+		days_remove = 90
+		complete_effect  = {
+			hidden_effect = {
+				STE_minus15_chemiewerke = yes
+				STE_hanza_all_check = yes
+			}
+		}
 		remove_effect = {
-			STE_hanza_all_check = yes
+			STE_chemiewerke_focus_check = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
 		}
 	}
 	netto_decision_2 = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
 		}
-		remove_effect = {
-			STE_hanza_all_check = yes
+		fixed_random_seed = no
+		days_re_enable = 90
+		complete_effect  = {
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
+			set_country_flag = netto_mission_flag
+			custom_effect_tooltip = hanza_mission_tooltip
+			random_list = {
+				20 = {
+					activate_mission = szczecin_netto_mission_1
+					
+				}
+				20 = {
+					activate_mission = szczecin_netto_mission_2
+					
+				}
+				20 = {
+					activate_mission = szczecin_netto_mission_3
+					
+				}
+				20 = {
+					activate_mission = szczecin_netto_mission_4
+					
+				}
+				20 = {
+					activate_mission = szczecin_netto_mission_5
+				}
+			}
 		}
+		
 	}
-	netto_decision_3 = {
-		visible = {
-			country_exists = STE
-		}
-		remove_effect = {
-			STE_hanza_all_check = yes
-		}
-	}
-	
 	polsteam_decision_2 = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
 		}
-		remove_effect = {
-			STE_hanza_all_check = yes
+		fixed_random_seed = no
+		days_re_enable = 90
+		complete_effect  = {
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
+			set_country_flag = polsteam_mission_flag
+			custom_effect_tooltip = hanza_mission_tooltip
+			random_list = {
+				20 = {
+					activate_mission = szczecin_polsteam_mission_1
+					
+				}
+				20 = {
+					activate_mission = szczecin_polsteam_mission_2
+					
+				}
+				20 = {
+					activate_mission = szczecin_polsteam_mission_3
+					
+				}
+				20 = {
+					activate_mission = szczecin_polsteam_mission_4
+					
+				}
+				20 = {
+					activate_mission = szczecin_polsteam_mission_5
+					
+				}
+			}
 		}
+		
 	}
-	polsteam_decision_3 = {
-		visible = {
-			country_exists = STE
-		}
-		remove_effect = {
-			STE_hanza_all_check = yes
-		}
-	}
-	
 	chemiewerke_decision_2 = {
 		visible = {
-			country_exists = STE
+			STE = { has_country_flag = hanza_gui_shown_show_decisions }
+			NOT = { has_country_flag = STE_nochemiewerke_trigger }
 		}
-		remove_effect = {
-			STE_hanza_all_check = yes
+		fixed_random_seed = no
+		days_re_enable = 90
+		complete_effect  = {
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
+			set_country_flag = chemiewerke_mission_flag
+			custom_effect_tooltip = hanza_mission_tooltip
+			random_list = {
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_1
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_2
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_3
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_4
+				}
+				20 = {
+					activate_mission = szczecin_chemiewerke_mission_5
+				}
+			}
 		}
+		
 	}
-	chemiewerke_decision_3 = {
-		visible = {
-			country_exists = STE
-		}
-		remove_effect = {
-			STE_hanza_all_check = yes
-		}
+	
+	szczecin_chemiewerke_mission_1 = {
+    	allowed = { always = no }
+    	available = {
+			command_power > 5
+			divisions_in_state = {
+				size > 2
+				state = 90
+			}
+			if = {
+				limit = {
+					owns_state = 122
+				}
+				divisions_in_state = {
+				size > 2
+				state = 122
+				}
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_command_power = -5
+			STE_plus10_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure }
+			STE_minus5_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
 	}
-	szczecin_mission_1 = {
-    	activation = {
+	szczecin_chemiewerke_mission_2 = {
+    	allowed = { always = no }
+    	available = {
 			
     	}
+    	cancel_trigger = {
+    	}
+		is_good = yes
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_timed_idea = { days = 90 idea = STE_chemiewerke_blindeye }
+			STE_plus10_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure }
+			STE_minus5_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+	}
+	szczecin_chemiewerke_mission_3 = {
+    	allowed = { always = no }
+    	available = {
+			has_resources_in_country = {
+				resource = oil
+				amount > 32
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 90
+    	complete_effect = {
+			STE_plus10_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure }
+			STE_minus5_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+	}
+	szczecin_chemiewerke_mission_4 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_manpower = -100
+			add_political_power = -25
+			add_stability = -0.005
+			random_list = {
+				10 = {
+					90 = { add_extra_state_shared_building_slots = 1 }
+				}
+				90 = { }
+			}
+			STE_plus10_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure }
+			STE_minus5_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+	}
+	szczecin_chemiewerke_mission_5 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			random_owned_state  = {
+				limit = { 
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = no
+					}
+					is_capital = no
+					NOT = {
+						state = 616
+						state = 105
+						state = 114
+						state = 617
+					}
+				}
+				add_state_modifier = {
+					modifier = {
+						recruitable_population_factor = -0.1
+						local_supplies = -0.1
+						local_resources = 0.15
+					}
+				}
+				random_list = {
+					10 = {
+						add_extra_state_shared_building_slots = -1
+					}
+					90 = {}
+				}
+			}	
+			STE_plus10_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure }
+			STE_minus5_chemiewerke = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = chemiewerke_mission_flag
+			}
+    	}
+	}
+	szczecin_netto_mission_1 = {
+    	allowed = { always = no }
+    	available = {
+			command_power > 5
+			divisions_in_state = {
+				size > 2
+				state = 105
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_command_power = -5
+			STE_plus10_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_2 }
+			STE_minus5_netto = yes			
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+	}
+	szczecin_netto_mission_2 = {
+    	allowed = { always = no }
     	available = {
     	}
     	cancel_trigger = {
     	}
-    	days_mission_timeout = 10
+		selectable_mission = yes
+    	days_mission_timeout = 90
     	complete_effect = {
-    	    STE_hanza_all_check = yes
+			add_timed_idea = { days = 90 idea = STE_netto_taxbreak }
+			STE_plus10_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
     	}
     	timeout_effect = {
-			STE_hanza_all_check = yes
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_2 }
+			STE_minus5_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
     	}
 	}
+	szczecin_netto_mission_3 = {
+    	allowed = { always = no }
+    	available = {
+			has_equipment = {
+				motorized_equipment > 99
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -100
+			}
+			STE_plus10_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_2 }
+			STE_minus5_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+	}
+	szczecin_netto_mission_4 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_timed_idea = { days = 90 idea = STE_netto_exclusive_deals } 
+			STE_plus10_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_2 } 
+			STE_minus5_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+	}
+	szczecin_netto_mission_5 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_timed_idea = { days = 90 idea = STE_netto_greenlight_merger }
+			random_list = {
+				5 = {
+					add_offsite_building = { type = industrial_complex level = 1 }
+				}
+				95 = { }
+			}
+			STE_plus10_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_2 } 
+			STE_minus5_netto = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = netto_mission_flag
+			}
+    	}
+	}
+	szczecin_polsteam_mission_1 = {
+    	allowed = { always = no }
+    	available = {
+			command_power > 5
+			divisions_in_state = {
+				size > 2
+				state = 114
+			}
+			if = {
+				limit = {
+					owns_state = 619
+				}
+				divisions_in_state = {
+				size > 2
+				state = 619
+				}
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_command_power = -5
+			STE_plus10_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_3 }
+			STE_minus5_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+	}
+	szczecin_polsteam_mission_2 = {
+    	allowed = { always = no }
+    	available = {
+			ships_in_area = { area = 185 size > 5 } 
+			if = {
+				limit = {
+					owns_state = 619
+				}
+				ships_in_area = { area = 167 size > 5 } 
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		is_good = no
+		selectable_mission = no
+    	days_mission_timeout = 90
+    	complete_effect = {
+			STE_plus10_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_3 }
+			STE_minus5_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+	}
+	szczecin_polsteam_mission_3 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			navy_experience = -20
+			add_timed_idea = { days = 90 idea = STE_pzm_shared_experience }
+			STE_plus10_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_3 }
+			STE_minus5_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+	}
+	szczecin_polsteam_mission_4 = {
+    	allowed = { always = no }
+    	available = {
+			has_equipment = {
+				convoy_1 > 15
+			}
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_equipment_to_stockpile = {
+				type = convoy_1
+				amount = -15
+			}
+			STE_plus10_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_3 }
+			STE_minus5_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+	}
+	szczecin_polsteam_mission_5 = {
+    	allowed = { always = no }
+    	available = {
+			
+    	}
+    	cancel_trigger = {
+    	}
+		selectable_mission = yes
+    	days_mission_timeout = 90
+    	complete_effect = {
+			add_political_power = -50
+			add_stability = -0.005
+			STE_plus10_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+    	timeout_effect = {
+			add_timed_idea = { days = 90 idea = STE_hanza_mission_failure_3 } 
+			STE_minus5_pzm = yes
+			hidden_effect = {
+				STE_hanza_all_check = yes
+				clr_country_flag = polsteam_mission_flag
+			}
+    	}
+	}
+	##chemiewerke deciisons
+	STE_oil_fields_of_the_north_decision = {
+		state_target = yes
+		visible = {
+			has_country_flag = STE_oil_fields_of_the_north_flag_actual
+		}
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = {
+				state = 61
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 61
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		cost = 50
+		days_remove = 120
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		complete_effect = { 
+			STE_minus10_chemiewerke = yes
+			hidden_effect = {	
+				STE_hanza_all_check = yes
+			}
+		}
+		remove_effect = {
+			61 = {
+				add_resource = {
+    				type = oil 
+    				amount = 2
+				}
+			}
+		}
+	}
+	STE_oil_fields_of_the_north_decision_2 = {
+		state_target = yes
+		visible = {
+			has_country_flag = STE_oil_fields_of_the_north_flag_actual
+		}
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = {
+				state = 68
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 68
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		cost = 50
+		days_remove = 120
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		complete_effect = { 
+			STE_minus10_chemiewerke = yes
+			hidden_effect = {	
+				STE_hanza_all_check = yes
+			}
+		}
+		remove_effect = {
+			68 = {
+				add_resource = {
+    				type = oil 
+    				amount = 2
+				}
+			}
+		}
+	}
+	STE_oil_fields_of_the_north_decision_3 = {
+		state_target = yes
+		visible = {
+			has_country_flag = STE_oil_fields_of_the_north_flag_actual
+		}
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = {
+				state = 620
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 620
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		cost = 50
+		days_remove = 120
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		complete_effect = { 
+			STE_minus10_chemiewerke = yes
+			hidden_effect = {	
+				STE_hanza_all_check = yes
+			}
+		}
+		remove_effect = {
+			620 = {
+				add_resource = {
+    				type = oil 
+    				amount = 2
+				}
+			}
+		}
+	}
+	STE_oil_fields_of_the_north_decision_4 = {
+		state_target = yes
+		visible = {
+			has_country_flag = STE_oil_fields_of_the_north_flag_actual
+		}
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = {
+				state = 63
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 63
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		cost = 50
+		days_remove = 120
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		complete_effect = { 
+			STE_minus10_chemiewerke = yes
+			hidden_effect = {	
+				STE_hanza_all_check = yes
+			}
+		}
+		remove_effect = {
+			63 = {
+				add_resource = {
+    				type = oil 
+    				amount = 2
+				}
+			}
+		}
+	}
+	STE_oil_fields_of_the_north_decision_5 = {
+		state_target = yes
+		visible = {
+			has_country_flag = STE_oil_fields_of_the_north_flag_actual
+		}
+		on_map_mode = map_and_decisions_view
+		target_trigger = {
+			FROM = {
+				state = 55
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 55
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		cost = 50
+		days_remove = 120
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		complete_effect = { 
+			STE_minus10_chemiewerke = yes
+			hidden_effect = {	
+				STE_hanza_all_check = yes
+			}
+		}
+		remove_effect = {
+			55 = {
+				add_resource = {
+    				type = oil 
+    				amount = 2
+				}
+			}
+		}
+	}
 	
+}
+
+STE_land_development_category = {
+	
+	STE_housing_project_1 = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_housing_contracts
+		}
+		available = {
+			has_completed_focus = STE_housing_contracts
+		}
+		cost = 50
+		days_remove = 90
+		days_re_enable = 90
+		complete_effect = { 
+			STE_minus5_chemiewerke = yes
+			STE_minus5_netto = yes
+			STE_minus5_pzm = yes
+			hidden_effect = {	
+				STE_hanza_all_check = yes
+			}
+		}
+		remove_effect = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_manpower = 500
+			}
+			add_stability = 0.005
+			custom_effect_tooltip = STE_repeatable_decision_tip
+		}
+	}
+	STE_housing_project_2 = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_state_housing
+		}
+		available = {
+			has_completed_focus = STE_state_housing
+		}
+		cost = 50
+		days_remove = 90
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 1
+				add_manpower = 250
+			}
+			add_stability = 0.002
+			custom_effect_tooltip = STE_repeatable_decision_tip
+		}
+	}
+	STE_secure_production_decision = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_secure_production
+		}
+		available = {
+			has_completed_focus = STE_secure_production
+		}
+		cost = 50
+		days_remove = 90
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			random_list = {
+				25 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				20 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				15 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = synthetic_refinery
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				15 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = recycling_plant
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				15 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = steel_works
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				10 = {
+					random_owned_state = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = power_plant
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = STE_repeatable_decision_tip
+		}
+	}
+	STE_restore_village_decision = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_restore_village_life
+		}
+		available = {
+			has_completed_focus = STE_restore_village_life
+		}
+		cost = 50
+		days_remove = 90
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			random_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = rural
+						has_state_category = pastoral
+						has_state_category = town
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+				add_manpower = 100
+			}
+			add_stability = 0.002
+			custom_effect_tooltip = STE_repeatable_decision_tip
+		}
+	}
+	#STE_infrastructural_woes_infrastructure = {
+	#	visible = {
+	#		country_exists = STE
+	#		has_completed_focus = STE_infrastructural_woes
+	#	}
+	#	available = {
+	#		has_completed_focus = STE_infrastructural_woes
+	#	}
+	#	cost = 50
+	#	days_remove = 90
+	#	days_re_enable = 90
+	#	modifier = { 
+	#		civilian_factory_use = 5
+	#		political_power_gain = -0.1
+	#	}
+	#	remove_effect = {
+	#		random_owned_state = {
+	#			limit = {
+	#				
+	#			}
+	#		}
+	#	}
+	#}
+	STE_railway_szczecin_swinoujscie = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_infrastructural_woes
+		}
+		available = {
+			has_completed_focus = STE_infrastructural_woes
+			num_of_available_civilian_factories > 4
+		}
+		cost = 50
+		days_remove = 1
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				#path = { 42 10 20 30 40 84 }
+				start_province = 16037
+				target_province = 17217
+			}
+			88 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			68 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			70 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			619 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	STE_railway_szczecin_choszczno = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_infrastructural_woes
+		}
+		available = {
+			has_completed_focus = STE_infrastructural_woes
+			num_of_available_civilian_factories > 4
+		}
+		cost = 50
+		days_remove = 1
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				fallback = yes
+				#path = { 42 10 20 30 40 84 }
+				start_province = 16037
+				target_province = 17420
+			}
+			107 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			871 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			127 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	STE_railway_swinoujscie_kolobrzeg = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_infrastructural_woes
+		}
+		available = {
+			has_completed_focus = STE_infrastructural_woes
+			num_of_available_civilian_factories > 7
+		}
+		cost = 50
+		days_remove = 1
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 8
+			political_power_gain = -0.15
+		}
+		remove_effect = {
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				#path = { 42 10 20 30 40 84 }
+				start_province = 17217
+				target_province = 5532
+			}
+			620 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			621 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	STE_railway_kolobrzeg_koszalin = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_infrastructural_woes
+		}
+		available = {
+			has_completed_focus = STE_infrastructural_woes
+			num_of_available_civilian_factories > 4
+		}
+		cost = 50
+		days_remove = 1
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 5
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				#path = { 42 10 20 30 40 84 }
+				start_province = 5532
+				target_province = 16078
+			}
+			622 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			53 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	STE_railway_koszalin_walcz = {
+		visible = {
+			country_exists = STE
+			has_completed_focus = STE_infrastructural_woes
+		}
+		available = {
+			has_completed_focus = STE_infrastructural_woes
+			num_of_available_civilian_factories > 7
+		}
+		cost = 50
+		days_remove = 1
+		days_re_enable = 90
+		modifier = { 
+			civilian_factory_use = 8
+			political_power_gain = -0.15
+		}
+		remove_effect = {
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				#path = { 16078 2898 17286 17335 17343 79 }
+				start_province = 16078
+				target_province = 79
+			}
+			63	 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			873 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			872 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			118 = {
+				add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+				}
+			}
+			
+		}
+	}
+}
+STE_state_decisions_category = {
+	STE_set_advisory_body = {
+		#icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			has_country_flag = STE_advisory_devolution_flag
+		}
+		target_trigger = {
+			FROM = {
+				is_owned_by = STE
+				NOT = { 
+					has_dynamic_modifier = {
+						modifier = STE_advisory_body_modifier
+					}
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_by = STE
+				NOT = { 
+					has_dynamic_modifier = {
+						modifier = STE_advisory_body_modifier
+					}
+				}	
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_only 
+		cost = 25
+		days_remove = 90
+		modifier = {
+			political_power_gain = -0.1
+			stability_factor = -0.025
+		}
+		remove_effect = {
+			FROM = {
+				add_dynamic_modifier = {
+					modifier = STE_advisory_body_modifier
+				}
+			}
+		}
+	}
+}
+STE_trade_partner_category = {
+	STE_trade_deal_decision = {
+		#icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			has_country_flag = STE_trade_partner_flag
+		}
+		target_trigger = {
+			FROM = {
+				is_capital = yes
+				NOT = { 
+					OR = {
+						state = 105
+						is_owned_by = GER
+						is_owned_by = KAM
+						is_owned_by = SVG
+						is_owned_by = WRT
+					}
+				}
+				OR = {
+					is_northern_greater_poland_state = yes
+					is_southern_greater_poland_state = yes
+					is_opolskie_state = yes
+					is_lubuskie_state = yes
+					is_lower_silesia_state = yes
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				is_capital = yes
+				NOT = { 
+					OR = {
+						state = 105
+						is_owned_by = GER
+						is_owned_by = KAM
+						is_owned_by = SVG
+						is_owned_by = WRT
+					}
+				}	
+				OR = {
+					is_northern_greater_poland_state = yes
+					is_southern_greater_poland_state = yes
+					is_opolskie_state = yes
+					is_lubuskie_state = yes
+					is_lower_silesia_state = yes
+				}
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_only 
+		cost = 50
+		days_remove = 14
+		modifier = {
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			FROM = {
+				owner = {
+					add_opinion_modifier = {
+						target = PREV
+						modifier = modifier_odra_trade
+					}
+				}
+			}
+		}
+	}
 }
 
