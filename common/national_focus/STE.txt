@@ -32,9 +32,9 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = szczecin.24
-			hidden_effect = {
-				country_event = { id = szczecin.1 days = 10 }
-			}
+			#hidden_effect = {
+			#	country_event = { id = szczecin.1 days = 10 }
+			#}
 		}
 	}
 	focus = {
@@ -459,6 +459,9 @@ focus_tree = {
 			country_event = szczecin.16
 			set_country_flag = STE_powerstruggle_start
 			custom_effect_tooltip = STE_hanza_unlock
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
 		}
 	}
 	focus = {
@@ -693,12 +696,12 @@ focus_tree = {
 				set_party_name = {
 					ideology = paternal_conservatism
 					long_name = "Conservative-Liberal Union 'Castle' (Centre)"
-					name = "ZKL 'Zamek' (Liberałowie)"
+					name = "ZKL 'Zamek' (Centrum)"
 				}
 				set_party_name = {
 					ideology = freemarketism
 					long_name = "Conservative-Liberal Union 'Castle' (New Guard)"
-					name = "ZKL 'Zamek' (Konserwatyści)"
+					name = "ZKL 'Zamek' (Nowa Gwardia)"
 				}
 				hidden_effect = {
 					set_party_name = {
@@ -3048,14 +3051,19 @@ focus_tree = {
 		available = {
 			
 		}
-		
+		select_effect = {
+			country_event = { days = 7 id = szczecin.8 }
+			country_event = { days = 14 id = szczecin.60 }
+			country_event = { days = 21 id = szczecin.65 }
+			country_event = { days = 28 id = szczecin.68 }
+		}
 		bypass = {
 		}
 		
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 6
 		
 		completion_reward = {
 			country_event = szczecin.55
@@ -4071,9 +4079,8 @@ focus_tree = {
 	focus = {
 		id = STE_youve_never_had_it_so_good
 		icon = STE_youve_never_had_it_so_good
-		prerequisite = { focus =  STE_testing_the_limit }
+		prerequisite = { focus =  STE_testing_the_limit focus =  STE_relief_for_earned_incomes }
 		prerequisite = { focus =  STE_stop_go_economics }
-		prerequisite = { focus =  STE_relief_for_earned_incomes }
 		relative_position_id = STE_stop_go_economics
 		available = {
 			OR = {
@@ -4112,13 +4119,12 @@ focus_tree = {
 		}
 		
 		x = 73
-		y = 2
+		y = 1
 		
 		cost = 1
 		
 		completion_reward = {
 			country_event = szczecin.51
-			add_ideas = STE_date_defence_white_paper_idea
 		}
 	}
 	focus = {
@@ -4134,7 +4140,7 @@ focus_tree = {
 		}
 		
 		x = -2
-		y = 1
+		y = 2
 		
 		cost = 1
 		
@@ -4230,7 +4236,7 @@ focus_tree = {
 	}
 	focus = {
 		id = STE_a_shield_of_our_homeland
-		icon = STE_soaring_through_the_skies
+		icon = STE_a_shield_of_our_homeland
 		prerequisite = { focus =  STE_aerospace_joint_venture }
 		mutually_exclusive = { focus = STE_inter_branch_operations   focus = STE_lethal_force }
 		relative_position_id = STE_aerospace_joint_venture
@@ -4403,7 +4409,7 @@ focus_tree = {
 	}
 	focus = {
 		id = STE_road_runways_of_pomerania
-		icon = STE_soaring_through_the_skies
+		icon = STE_road_runways_of_pomerania
 		prerequisite = { focus =  STE_the_gryphons }
 		prerequisite = { focus =  STE_tacp_deployment }
 		prerequisite = { focus =  STE_the_missile_age }
@@ -4474,6 +4480,10 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			mio:STE_joint_venture_mio = {
+				add_mio_size = 1
+			}
 		}
 	}
 	focus = {
@@ -4489,7 +4499,7 @@ focus_tree = {
 		}
 		
 		x = -7
-		y = 1
+		y = 2
 		
 		cost = 1
 		
@@ -4536,6 +4546,22 @@ focus_tree = {
 				category = land_partisan
 			}
 			army_experience = 50
+			if = {
+				limit = {
+					has_country_flag = STE_chose_hanza_arms
+				}
+				mio:STE_hanza_arms_mio = {
+					add_mio_size = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = STE_chose_szczecin_arms
+				}
+				mio:STE_szczecin_arms_mio = {
+					add_mio_size = 1
+				}
+			}
 		}
 	}
 	focus = {
@@ -4602,6 +4628,9 @@ focus_tree = {
 			add_to_variable = { cost_for_apc = -0.01 }
 			custom_effect_tooltip = reduced_apc_cost_tooltip
 			custom_effect_tooltip = reduced_tanks_cost_tooltip
+			mio:STE_teleyard_mio = {
+				add_mio_size = 1
+			}
 		}
 	}
 	focus = {
@@ -4720,7 +4749,7 @@ focus_tree = {
 		}
 		
 		x = 3
-		y = 1
+		y = 2
 		
 		cost = 1
 		
@@ -4750,13 +4779,16 @@ focus_tree = {
 			add_tech_bonus = {
 				name = STE_restore_captured_warships_bonus
 				bonus = 0.25
-				uses = 4
+				uses = 2
 				technology = heavy_monitor_1
 				technology = heavy_monitor_2
 				technology = heavy_monitor_3
 			}
 			add_to_variable = { cost_for_bigger_ships = -0.5 }
 			custom_effect_tooltip = reduced_bigger_ships_cost_tooltip
+			mio:STE_wulkan_mio = {
+				add_mio_size = 1
+			}
 		}
 	}
 	focus = {
@@ -4806,8 +4838,8 @@ focus_tree = {
 			custom_effect_tooltip = rozdzielacz_efektow
 			add_tech_bonus = {
 				name = STE_dabie_lake_submarine_tests_bonus
-				bonus = 0.5
-				uses = 4
+				bonus = 0.25
+				uses = 2
 				technology = submarine_1
 				technology = submarine_2
 				technology = submarine_3
@@ -4855,7 +4887,7 @@ focus_tree = {
 		}
 		
 		x = 7
-		y = 1
+		y = 2
 		
 		cost = 1
 		
