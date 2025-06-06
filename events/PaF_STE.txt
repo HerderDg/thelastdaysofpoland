@@ -280,7 +280,7 @@ country_event = { #pasztecik and barszcz
 		diet_up = yes
 	}
 }
-country_event = { 
+country_event = { #wybory
 	id = szczecin.8
 	title = szczecin.8.t
 	desc = szczecin.8.desc
@@ -293,7 +293,19 @@ country_event = {
 
 	option = {
 		name = szczecin.8.a
-			add_ideas = STE_market_forces
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.02
+		}
+		STE_minus10_netto = yes
+		STE_minus10_chemiewerke = yes
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
+	}
+	option = {
+		name = szczecin.8.b
+			
 	}
 }
 country_event = { #danegeld
@@ -336,6 +348,9 @@ country_event = { #danegeld
 				popularity = 0.05
 			}
 			add_political_power = -50
+			hidden_effect = {
+				STE_hanza_all_check = yes
+			}
 	}
 }
 country_event = { 
@@ -399,11 +414,11 @@ country_event = { #fate of the reds
 		name = szczecin.12.a
 		add_popularity = {
 			ideology = squattism
-			popularity = 0.025
+			popularity = 0.02
 		}
 		add_popularity = {
 			ideology = socialdemocrature
-			popularity = 0.025
+			popularity = 0.01
 		}
 	}
 	option = {
@@ -481,6 +496,9 @@ country_event = { #night of golden gryphons
 		set_variable = { STE_pzm_loyalty = 50 }
 		set_variable = { STE_netto_loyalty = 50 }
 		set_variable = { STE_chemiewerke_loyalty = 50 }
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
 	}
 }
 country_event = { #in the army now #no arms to bear
@@ -499,12 +517,28 @@ country_event = { #in the army now #no arms to bear
 		unlock_military_industrial_organization_tooltip = mio:STE_hanza_arms_mio
 		add_political_power = -50
 		set_country_flag = STE_chose_hanza_arms
+		STE_plus5_pzm = yes
+		STE_plus5_netto = yes
+		STE_plus5_chemiewerke = yes
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
+		add_to_variable = { budget = -0.5 }
+		custom_effect_tooltip = budget_subtract_500K
 	}
 	option = {
 		name = szczecin.17.b
 		unlock_military_industrial_organization_tooltip = mio:STE_szczecin_arms_mio
 		add_political_power = -75
 		set_country_flag = STE_chose_szczecin_arms
+		STE_minus5_pzm = yes
+		STE_minus5_netto = yes
+		STE_minus5_chemiewerke = yes
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
+		add_to_variable = { budget = -1 }
+		custom_effect_tooltip = budget_subtract_1M
 	}
 }
 country_event = { 
@@ -552,7 +586,7 @@ country_event = {
 
 	option = {
 		name = szczecin.20.a
-
+		add_ideas = STE_parliamentary_woes 
 	}
 }
 country_event = { #chemiewerke grozi że się wysadzi jak nie skończymy wojny na ich warunkach
@@ -1004,7 +1038,7 @@ country_event = { #godforsaken forests of drawsko
 				modifier = STE_smoldering_insurgency
 			}
 		}
-		102 = {
+		82 = {
 			add_dynamic_modifier = {
 				days = 360
 				modifier = STE_smoldering_insurgency
@@ -1073,7 +1107,7 @@ country_event = { #złapany tusk
 	}
 	option = {
 		name = szczecin.50.b
-		
+		add_stability = -0.05
 	}
 }
 country_event = { 
@@ -1087,7 +1121,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.51" }
 	option = {
 		name = szczecin.51.a
-
+		add_ideas = STE_date_defence_white_paper_idea
 	}
 }
 country_event = { #victory day
@@ -1160,22 +1194,22 @@ country_event = { #demokracja
 			limit = {
 				check_variable = { STE_zamek_popularity > STE_unia_popularity }
 			}
-			#hidden_effect = {
+			hidden_effect = {
 				country_event = { days = 1 id = szczecin.56 }
-			#}
+			}
 		}
 		else_if = {
 			limit = {
 				check_variable = { STE_unia_popularity > STE_zamek_popularity }
 			}
-			#hidden_effect = {
+			hidden_effect = {
 				country_event = { days = 1 id = szczecin.57 }
-			#}
+			}
 		}
 		else = {
-			#hidden_effect = {
+			hidden_effect = {
 				country_event = { days = 1 id = szczecin.57 }
-			#}
+			}
 		}
 	}
 }
@@ -1221,7 +1255,7 @@ country_event = { #unia win
 			deactivate_advisor = STE_min_bogucki
 			activate_advisor = STE_min_jaroszewicz
 			activate_advisor = STE_min_margaret
-			activate_advisor = STE_min_fate
+			activate_advisor = STE_min_schivan
 			activate_advisor = STE_min_koziatek
 	}
 }
@@ -1252,7 +1286,7 @@ country_event = {
 		name = szczecin.59.a
 	}
 }
-country_event = { ###PUSTY
+country_event = {
 	id = szczecin.60
 	title = szczecin.60.t
 	desc = szczecin.60.desc
@@ -1263,6 +1297,19 @@ country_event = { ###PUSTY
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.60" }
 	option = {
 		name = szczecin.60.a
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.02
+		}
+		STE_minus5_pzm = yes
+		STE_minus5_netto = yes
+		STE_minus10_chemiewerke = yes
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
+	}
+	option = {
+		name = szczecin.60.b
 	}
 }
 country_event = {
@@ -1328,6 +1375,18 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.65" }
 	option = {
 		name = szczecin.65.a
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.02
+		}
+		STE_minus10_netto = yes
+		STE_minus5_chemiewerke = yes
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
+	}
+	option = {
+		name = szczecin.65.b
 	}
 }
 country_event = {
@@ -1347,12 +1406,37 @@ country_event = {
 	id = szczecin.67
 	title = szczecin.67.t
 	desc = szczecin.67.desc
-	picture = GFX_event_szczecin.66
+	picture = GFX_event_szczecin.67
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.67" }
 	option = {
 		name = szczecin.67.a
+	}
+}
+country_event = {
+	id = szczecin.68
+	title = szczecin.68.t
+	desc = szczecin.68.desc
+	picture = GFX_event_szczecin.68
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires szczecin.68" }
+	option = {
+		name = szczecin.68.a
+		add_popularity = {
+			ideology = paternal_conservatism
+			popularity = 0.02
+		}
+		STE_minus10_netto = yes
+		STE_minus5_chemiewerke = yes
+		hidden_effect = {
+			STE_hanza_all_check = yes
+		}
+	}
+	option = {
+		name = szczecin.68.b
 	}
 }
