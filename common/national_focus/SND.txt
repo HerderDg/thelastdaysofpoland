@@ -1933,9 +1933,18 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			STA = {
+			if = {
+				limit = {STA = {exists = yes}}
+				STA = {
 				country_event = starachowice.8
-			} 
+				} 
+			}
+			else_if = {
+				limit = {ETS = {exists = yes}}
+				ETS = {
+				country_event = star.1
+				} 
+			}
 		}
 	}
 
@@ -1948,13 +1957,11 @@ focus_tree = {
 		mutually_exclusive = { focus = SND_no_other_choice }
 
 		available = {
-			hidden_trigger = {
-				STA = {
-					has_country_flag = STA_accepted_pilgrims
-				}
-			}
 			custom_trigger_tooltip = {
 				tooltip = STA_dentente_with_materek_tooltip
+				STA = {
+				has_country_flag = STA_accepted_pilgrims
+				}
 			}
 		}
 		bypass = {
@@ -1985,9 +1992,17 @@ focus_tree = {
 		mutually_exclusive = { focus = SND_detente_with_materek }
 
 		available = {
-				STA = {
+			custom_trigger_tooltip = {
+				tooltip = STA_no_other_choice_tooltip
+				OR = {
+					STA = {
 					has_country_flag = STA_denied_pilgrims
-				}		
+					}
+					ETS = {
+					has_country_flag = STA_denied_pilgrims
+					}
+				}
+			}	
 		}
 
 		bypass = {
