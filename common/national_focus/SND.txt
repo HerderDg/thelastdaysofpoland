@@ -197,13 +197,12 @@ focus_tree = {
 		
 		completion_reward = {
 			670 = {
-				create_unit = { division = "name = \"Ochotnicy Sandomierscy\" division_template = \"Ochotnicy Parafialni\" start_experience_factor = 0.05"  owner = SND }
+				create_unit = { division = "name = \"Ochotniczy Batalion Sandomierski\" division_template = \"Ochotniczy Batalion\" start_experience_factor = 0.05"  owner = SND }
 				  
 			}
 			389 = {
-				create_unit = { division = "name = \"Ochotnicy Opatowscy\" division_template = \"Ochotnicy Parafialni\" start_experience_factor = 0.05"  owner = SND } #Division names are temporary, if we have better ones please replace them.
+				create_unit = { division = "name = \"Ochotniczy Batalion Opatowski\" division_template = \"Ochotniczy Batalion\" start_experience_factor = 0.05"  owner = SND } #Division names are temporary, if we have better ones please replace them.
 			}
-			
 		}
 	}
 
@@ -461,6 +460,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = 5
 			}
+			custom_effect_tooltip = budget_add_5M
 			670 = {
 				add_building_construction = {
 				type = januszex
@@ -732,13 +732,10 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {has_dlc = "La Resistance"}
-				hidden_effect = {
 				create_intelligence_agency = {
-				name = "Sandomierska Agencja Wywiadowcza"
-				icon = GFX_intelligence_agency_logo_generic_1
-					}
+					name = "Sandomierska Agencja Wywiadowcza"
+					icon = GFX_intelligence_agency_logo_generic_1
 				}
-				custom_effect_tooltip = SND_extraordinary_commission_tooltip
 			}
 			else = {
 				add_ideas = SND_commision
@@ -769,15 +766,13 @@ focus_tree = {
 				category = military_police_tech
 				bonus = 0.75
 				uses = 1
-
 			}
 			hidden_effect = {
 				subtract_from_variable = {
-				budget = 3
+				budget = 5
 				}
 			}
-			
-			custom_effect_tooltip = SND_police_funding_bill_tooltip 
+			custom_effect_tooltip = budget_subtract_5M
 		}
 	}
 
@@ -916,22 +911,19 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = {
-			hidden_effect = {
-				add_stability = -0.05
-				every_other_country = {
-                limit = {
-                    OR = {
-                        has_government = autocracy
-						has_government = reactionary
-                    }
+			add_stability = -0.05
+			every_other_country = {
+            limit = {
+                OR = {
+                    has_government = autocracy
+					has_government = reactionary
                 }
-                add_opinion_modifier = {
-                    target = SND
-                    modifier = small_decrease
-                	}
-            	}
-			}
-			custom_effect_tooltip = SND_plant_provocateurs_tooltip
+            }
+            add_opinion_modifier = {
+                target = SND
+                modifier = small_decrease
+            }
+            }
 		}
 	}
 
@@ -1195,6 +1187,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = SND_handling_economy_1
+				add_idea = SND_handling_economy_1_5
+			}
 			add_stability = 0.05
 			add_political_power = 50 
 			SND_poprawa = yes
@@ -1280,7 +1276,7 @@ focus_tree = {
 		relative_position_id = SND_turn_toward_industrial_sector
 		prerequisite = { focus = SND_turn_toward_industrial_sector }
 		available = {
-		
+			has_completed_focus = SND_historical_market
 		}
 
 		bypass = {
@@ -1292,18 +1288,13 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			hidden_effect = {
-				if = {
-				limit = {has_idea = SND_handling_economy_1}
-				swap_ideas = {
-					remove_idea = SND_handling_economy_1
-					add_idea = SND_handling_economy_2
-					}
-				}
+			swap_ideas = {
+				remove_idea = SND_handling_economy_1_5
+				add_idea = SND_handling_economy_2
 			}
-			custom_effect_tooltip = SND_mati_upgrade_idea_tooltip
 			670 = {
 				add_manpower = 3000
+				add_extra_state_shared_building_slots = 1
 			}
 		}
 	}
@@ -1603,6 +1594,18 @@ focus_tree = {
 			SND = {
 				country_event = sandomierz.19
 			}
+			every_other_country = {
+        		limit = {
+        	        OR = {
+        	            has_government = autocracy
+						has_government = reactionary
+        	        }
+        	    }
+        	    remove_opinion_modifier = {
+        	        target = SND
+        	        modifier = small_decrease
+        	    }
+        	}
 		}
 	}
 
