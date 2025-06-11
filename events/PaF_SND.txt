@@ -282,6 +282,30 @@ country_event = {
 
 	option = {
 		name = sandomierz.18.a
+			add_field_marshal_role = {
+				character = SND_mozejko
+				traits = {
+					expert_delegator
+					media_personality
+				}
+				skill = 2
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			SND_nocul = {
+				add_corps_commander_role = {
+				traits = {
+					media_personality
+				}
+				skill = 1
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 3
+			}
+			}
 	}
 }
 
@@ -327,17 +351,15 @@ country_event = {
 
 	option = {
 		name = sandomierz.21.a
-	
-	
+        custom_effect_tooltip = STA_hypocrisy_tooltip	
 	}
 
 	option = {
 		name = sandomierz.21.b
-			swap_ideas = {
-				remove_idea = state_press
-				add_idea = absolute_freedom
-			}	
-	
+		swap_ideas = {
+			remove_idea = state_press
+			add_idea = absolute_freedom
+		}
 	}
 }
 
@@ -376,6 +398,7 @@ country_event = {
 	id = sandomierz.24
 	title = sandomierz.24.t
 	desc =  sandomierz.24.desc
+	picture = GFX_SND_sandomierz.24
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -384,6 +407,11 @@ country_event = {
 
 	option = {
 		name = sandomierz.24.a
+		add_doctrine_cost_reduction = {
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
 	}
 }
 
@@ -508,7 +536,72 @@ country_event = {
 	option = {
 		name = sandomierz.31.a
 		add_ideas = SND_disgruntledpop3
-		
+		set_politics = {
+			ruling_party = socialdemocrature
+		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.2
+		}
+		random_character = {
+			limit = {
+				is_character = SND_bartłomiej_sienkiewicz
+			}
+			set_nationality = KIE
+		}
+		add_advisor_role = {
+			character = SND_borowik
+			activate = yes
+			advisor = {
+				slot = minister_of_economy
+				cost = 50
+				idea_token = SND_min_borowik
+				traits = { actor pragmatic_organiser }
+				removal_cost = -1
+			}
+		}
+		add_advisor_role = {
+			character = SND_kolanko
+			activate = yes
+			advisor = {
+				slot = head_of_government
+				cost = 50
+				idea_token = SND_min_kolanko
+				traits = { actor priest }
+				removal_cost = -1
+			}
+		}	
+		add_advisor_role = {
+			character = SND_mozejko
+			activate = yes
+			advisor = {
+				slot = minister_of_war
+				cost = 50
+				idea_token = SND_min_mozejko
+				traits = { actor relentess_policeman }
+				removal_cost = -1
+			}
+		}
+		add_advisor_role = {
+			character = SND_nitkiewicz
+			activate = yes
+			advisor = {
+				slot = interior_minister
+				cost = 50
+				idea_token = SND_min_nitkiewicz
+				traits = { bishop }
+				removal_cost = -1
+			}
+		}
+		load_oob = SND_2027
+		every_country_division = {
+			limit = {
+				division_has_majority_template = melee_infantry
+			}
+			change_division_template = {
+				division_template = "Ochotnicy Parafialni"
+			}
+		}
 	}
 }
 
@@ -543,49 +636,6 @@ country_event = {
 }
 
 country_event = {
-	id = sandomierz.34
-	title = sandomierz.34.t
-	desc =  sandomierz.34.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sandomierz.34" }
-
-	option = {
-		name = sandomierz.34.a
-		ai_chance = { base = 80 }
-		SND = {
-			puppet = {
-				target = STA
-				end_wars = no
-			}
-		}
-		hidden_effect = {
-			STA = {
-				set_cosmetic_tag = STA_mateusz
-				set_politics = { ruling_party = socialdemocrature }
-				remove_country_leader_role = {
-					character = STA_marek_materek
-					ideology = euroliberalism_dialogue_subtype
-				}
-				add_country_leader_role = {
-					character = STA_marek_materek
-					promote_leader = yes
-					country_leader = {
-						ideology = socialdemocrature_humanitarianism_subtype
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = sandomierz.34.b
-		ai_chance = { base = 20 }
-	}
-}
-
-country_event = {
 	id = sandomierz.35
 	title = sandomierz.35.t
 	desc =  sandomierz.35.desc
@@ -601,53 +651,14 @@ country_event = {
 				remove_idea = partial_refundation
 				add_idea = public_healthcare
 			}		
-			if = {
-				limit = {
-					has_idea = SND_disgruntledpop1
-				}
-				swap_ideas = {
-				remove_idea = SND_disgruntledpop1
-				add_idea = SND_disgruntledpop4
-				}
-			}
-			else_if = {
-				limit = {has_idea = SND_disgruntledpop4}
-				swap_ideas = {
-					remove_idea = SND_disgruntledpop4
-					add_idea = SND_disgruntledpop3
-				}
-				}
-          add_political_power = -100	
-				subtract_from_variable = {
-				budget = 200
-				}	
+	
 	}
 	option = {
 		name = sandomierz.35.b
-			swap_ideas = {
-				remove_idea = no_subsidies
-				add_idea = basic_income
-			}	
-			if = {
-				limit = {
-					has_idea = SND_disgruntledpop1
-				}
-				swap_ideas = {
-				remove_idea = SND_disgruntledpop1
-				add_idea = SND_disgruntledpop4
-				}
-			}
-			else_if = {
-				limit = {has_idea = SND_disgruntledpop4}
-				swap_ideas = {
-					remove_idea = SND_disgruntledpop4
-					add_idea = SND_disgruntledpop3
-				}
-				}
-       add_political_power = -100	
-				subtract_from_variable = {
-				budget = 200
-				}		
+		swap_ideas = {
+			remove_idea = no_subsidies
+			add_idea = basic_income
+		}	
 	}
 	option = {
 		name = sandomierz.35.c
@@ -659,49 +670,10 @@ country_event = {
 				remove_idea = no_subsidies
 				add_idea = basic_income
 			}
-			if = {
-				limit = {
-					has_idea = SND_disgruntledpop1
-				}
-				swap_ideas = {
-				remove_idea = SND_disgruntledpop1
-				add_idea = SND_disgruntledpop4
-				}
-			}
-			else_if = {
-				limit = {has_idea = SND_disgruntledpop4}
-				swap_ideas = {
-					remove_idea = SND_disgruntledpop4
-					add_idea = SND_disgruntledpop3
-				}
-				}
-		add_political_power = -200
-				subtract_from_variable = {
-				budget = 400
-				}		
-	}
-}
-country_event = {
-	id = sandomierz.36
-	title = sandomierz.36.t
-	desc =  sandomierz.36.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	trigger = {SND = {has_completed_focus = SND_no_other_choice} STA = { has_capitulated = yes }}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires sandomierz.36" }
-
-	option = {
-		name = sandomierz.33.a
-	add_ideas = SND_halfhearted_strikes
-	377 = {add_resistance = 20}
-	962 = {add_resistance = 20}
-	899 = {add_resistance = 20}
-	859 = {add_resistance = 20}
-	959 = {add_resistance = 20}
-	858 = {add_resistance = 20}
-    392 = {add_resistance = 20}
+        add_timed_idea = {
+        idea = SND_price_prevention
+        days = 210
+        }				
 	}
 }
 
@@ -732,13 +704,10 @@ country_event = {
 
 	option = {
 		name = sandomierz.38.a
-	remove_ideas = SND_halfhearted_strikes
-	377 = {add_compliance = 5}
-	962 = {add_compliance = 5}
-	899 = {add_compliance = 5}
-	859 = {add_compliance = 5}
-	959 = {add_compliance = 5}
-	858 = {add_compliance = 5}
-    392 = {add_compliance = 5}	
+		remove_ideas = SND_halfhearted_strikes
+		add_timed_idea = {
+			idea = SND_halfhearted_strikes
+			days = 90
+		}
 	}
 }
