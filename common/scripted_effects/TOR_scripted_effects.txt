@@ -44,7 +44,37 @@ TOR_hp_max_minus_1 = {
 	add_to_variable = { TOR_rydzyk_hp_max_var = -1 }
 }
 
+TOR_holyness_idea_calc = {
+	if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var < 30 }
+		}
+		remove_ideas = TOR_holyness_mid_idea
+		remove_ideas = TOR_holyness_max_idea
+		add_ideas = TOR_holyness_min_idea
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { TOR_rydzyk_holy_var > 29 }
+				check_variable = { TOR_rydzyk_holy_var < 71 }
+			}
+		}
+		remove_ideas = TOR_holyness_min_idea
+		remove_ideas = TOR_holyness_max_idea
+		add_ideas = TOR_holyness_mid_idea
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var > 70 }
+		}
+		remove_ideas = TOR_holyness_mid_idea
+		remove_ideas = TOR_holyness_min_idea
+		add_ideas = TOR_holyness_max_idea
+	}
+}
 TOR_GUI_all_check = {
 	TOR_HP_clamp = yes
 	TOR_holy_clamp = yes
+	TOR_holyness_idea_calc = yes
 }
