@@ -1,4 +1,4 @@
-focus_tree = {
+﻿focus_tree = {
 	id = torun_intro_focus
 	
 	country = {
@@ -108,7 +108,10 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			set_variable = { TOR_banish_the_vices_var = 2 }
+			add_ideas = TOR_vices_idea_2
+		}
 	}	
 
 	focus = {
@@ -128,7 +131,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			add_to_variable = { TOR_banish_the_vices_var = 1 }
+			hidden_effect = { TOR_vices_idea_calc = yes }
+			custom_effect_tooltip = TOR_vices_idea_bad_tooltip
+
+		}
 	}	
 
 	focus = {
@@ -148,9 +156,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
-	}	
-	
+		completion_reward = { 
+			add_to_variable = { TOR_banish_the_vices_var = 1 }
+			hidden_effect = { TOR_vices_idea_calc = yes }
+			custom_effect_tooltip = TOR_vices_idea_bad_tooltip
+		}	
+	}
 	focus = {
 		id = TOR_gone_for_a_price
 		icon = TOR_gone_for_a_price
@@ -168,7 +179,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.14 }
+		completion_reward = {
+			country_event = TOR.14
+			add_to_variable = { TOR_banish_the_vices_var = -2 }
+			hidden_effect = { TOR_vices_idea_calc = yes }
+			custom_effect_tooltip = TOR_vices_idea_good_tooltip
+		}
 	}	
 
 	focus = {
@@ -188,9 +204,13 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.15 }
+		completion_reward = {
+			country_event = TOR.15 
+			add_to_variable = { TOR_banish_the_vices_var = -2 }
+			hidden_effect = { TOR_vices_idea_calc = yes }
+			custom_effect_tooltip = TOR_vices_idea_good_tooltip
+		}
 	}
-	
 	focus = {
 		id = TOR_new_code_of_virtue
 		icon = TOR_new_code_of_virtue
@@ -208,7 +228,16 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = women_working_women
+				add_idea = women_traditional_roles
+			}
+			swap_ideas = {
+				remove_idea = lgbt_illegal_tolerated
+				add_idea = lgbt_illegal_punished
+			}
+		}
 	}	
 
 	focus = {
@@ -229,7 +258,14 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			TOR_holy_plus_5 = yes
+			TOR_GUI_all_check = yes
+			swap_ideas = {
+				remove_idea = taxes_medium
+				add_idea = TOR_taxes_law
+			}
+		}
 	}	
 	
 	focus = {
@@ -249,7 +285,7 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {add_ideas = TOR_Cassocks }
 	}	
 
 	focus = {
@@ -269,7 +305,13 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+			remove_idea = TOR_Cassocks
+			add_idea = TOR_Cassocks_1
+			} 
+			custom_effect_tooltip = TOR_priests_tooltip
+		}
 	}
 	
 	focus = {
@@ -289,7 +331,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_victory_points = {
+			province = 2964
+			value = 10
+			} 
+		}
 	}
 	
 	
@@ -310,7 +357,24 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.17 }
+		completion_reward = {
+			country_event = TOR.17 
+			swap_ideas = {
+			remove_idea = TOR_Cassocks_1
+			add_idea = TOR_Cassocks_2
+			}
+			swap_ideas = {
+			remove_idea = improvised_security
+			add_idea = basic_security
+			} 
+				165 ={ add_building_construction = {
+				type = bunker
+				level = 2
+				instant_build = yes
+				province = 2964
+				}
+			}
+		}
 	}	
 	
 	focus = {
@@ -330,7 +394,23 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			every_other_country = {
+            limit = {
+                OR = {
+                    has_government = marxism_cranism
+					has_government = socialdemocrature
+                    has_government = squattism
+					has_government = euroliberalism               
+				}
+            }
+            add_opinion_modifier = {
+                target = TOR
+                modifier = small_decrease
+				}
+            } 
+			add_ideas = TOR_Woe_Corrupters					
+		}
 	}	
 	
 	focus = {
@@ -350,7 +430,19 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			swap_ideas = {
+			remove_idea = improvised_security
+			add_idea = basic_security
+			}		
+			165 = {
+				create_unit = {
+					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+					prioritize_location = 2964
+				}
+			}		
+		}
 	}
 	
 	focus = {
@@ -370,7 +462,13 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.16 }
+		completion_reward = {
+			country_event = TOR.16
+			swap_ideas = {
+			remove_idea = TOR_Woe_Corrupters
+			add_idea = TOR_Woe_Corrupters1
+			}		
+		}
 	}
 	
 	focus = {
@@ -413,7 +511,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_timed_idea = {
+				idea = TOR_sowing_the_grains_idea
+				days = 365
+			}
+		}
 	}
 	
 	focus = {
@@ -433,7 +536,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.19 }
+		completion_reward = {
+			country_event = TOR.19 
+			TOR_holy_plus_5 = yes
+			TOR_GUI_all_check = yes
+		}
 	}	
 
 	focus = {
@@ -501,7 +608,15 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			165 = {			
+				add_building_construction = {
+   				type = radar_station
+    			level = 1
+    			instant_build = yes
+				}
+			}
+		}
 	}
 	
 	focus = {
@@ -522,7 +637,15 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.21 }
+		completion_reward = {
+			country_event = TOR.21 
+			add_popularity = {
+				ideology = corporativism
+				popularity = 0.05
+			}
+			TOR_holy_plus_5 = yes
+			TOR_GUI_all_check = yes
+		}
 	}	
 	
 	focus = {
@@ -547,7 +670,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			add_popularity = {
+    			ideology = corporativism
+    			popularity = 0.05
+			}
+		}
 	}	
 
 	focus = {
@@ -568,7 +696,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.22 }
+		completion_reward = {
+			country_event = TOR.22
+			TOR_holy_plus_5 = yes	
+			TOR_GUI_all_check = yes
+		}
 	}
 	
 	focus = {
@@ -589,7 +721,10 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			set_country_flag = TOR_calbecki_compliance_decision_flag
+			custom_effect_tooltip = TOR_keeping_it_in_family_tip
+		}
 	}	
 
 	focus = {
@@ -609,7 +744,10 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_stability = 0.1 
+			1056 = {add_compliance = 10} 
+		}
 	}
 	
 	
@@ -631,7 +769,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.6 }
+		completion_reward = {
+			country_event = TOR.6 
+			TOR_holy_minus_5 = yes
+			TOR_GUI_all_check = yes
+		}
 	}	
 
 	focus = {
@@ -671,7 +813,10 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.7 }
+		completion_reward = {
+			country_event = TOR.7 
+			add_popularity = {ideology = freemarketism popularity = 0.05}
+		}
 	}	
 	
 	focus = {
@@ -693,7 +838,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.8 }
+		completion_reward = {
+			country_event = TOR.8 
+			}
 	}	
 	
 	focus = {
@@ -941,7 +1088,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.23 }
+		completion_reward = {
+			country_event = TOR.23
+			add_stability = 0.05
+			add_war_support = 0.05 
+		}
 	}	
 
 	focus = {
@@ -1249,7 +1400,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			
+		country_event = TOR.87	
 		}
 	}
 
@@ -1890,7 +2041,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			
+
 		}
 	}
 
@@ -2852,6 +3003,1370 @@ focus_tree = {
 		
 		completion_reward = { 
 		country_event = TOR.56	
+		}
+	}
+
+	focus = {
+		id = TOR_agony 
+		icon = TOR_agony
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 38
+		y = 12
+		
+		cost = 1
+		
+		completion_reward = {
+		country_event = TOR.57
+		}
+	}
+
+	focus = {
+		id = TOR_dont_wake_rydzyk
+		icon = TOR_dont_wake_rydzyk
+		relative_position_id = TOR_agony
+		prerequisite = { focus = TOR_agony }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_redraw_the_dioceses
+		icon = TOR_redraw_the_dioceses
+		relative_position_id = TOR_dont_wake_rydzyk
+		prerequisite = { focus = TOR_dont_wake_rydzyk }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.58	
+		}
+	}
+
+	focus = {
+		id = TOR_heathens_at_our_gates
+		icon = TOR_heathens_at_our_gates
+		relative_position_id = TOR_redraw_the_dioceses
+		prerequisite = { focus = TOR_redraw_the_dioceses }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_parish_conscription_lottery
+		icon = TOR_parish_conscription_lottery
+		relative_position_id = TOR_heathens_at_our_gates
+		prerequisite = { focus = TOR_heathens_at_our_gates }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.59	
+		}
+	}
+
+	focus = {
+		id = TOR_some_sense_of_direction
+		icon = TOR_some_sense_of_direction
+		relative_position_id = TOR_parish_conscription_lottery
+		prerequisite = { focus = TOR_parish_conscription_lottery }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_in_marys_name
+		icon = TOR_in_marys_name
+		relative_position_id = TOR_some_sense_of_direction
+		prerequisite = { focus = TOR_some_sense_of_direction }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.60	
+		}
+	}
+
+	focus = {
+		id = TOR_the_promise_of_prosperity
+		icon = TOR_the_promise_of_prosperity
+		relative_position_id = TOR_redraw_the_dioceses
+		prerequisite = { focus = TOR_redraw_the_dioceses }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_an_ode_to_mammon
+		icon = TOR_an_ode_to_mammon
+		relative_position_id = TOR_the_promise_of_prosperity
+		prerequisite = { focus = TOR_the_promise_of_prosperity }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.61	
+		}
+	}
+
+	focus = {
+		id = TOR_father_director_charity_fund
+		icon = TOR_father_director_charity_fund
+		relative_position_id = TOR_an_ode_to_mammon
+		prerequisite = { focus = TOR_an_ode_to_mammon }
+		mutually_exclusive = { focus = TOR_even_in_death }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_even_in_death
+		icon = TOR_even_in_death
+		relative_position_id = TOR_an_ode_to_mammon
+		prerequisite = { focus = TOR_an_ode_to_mammon }
+		mutually_exclusive = { focus = TOR_father_director_charity_fund }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_ask_and_you_should_receive
+		icon = TOR_ask_and_you_should_receive
+		relative_position_id = TOR_father_director_charity_fund
+		prerequisite = { focus = TOR_father_director_charity_fund   focus = TOR_even_in_death }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.62	
+		}
+	}
+
+	focus = {
+		id = TOR_routes_of_st_jacob
+		icon = TOR_routes_of_st_jacob
+		relative_position_id = TOR_redraw_the_dioceses
+		prerequisite = { focus = TOR_redraw_the_dioceses }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_our_spot_on_the_pilgrimage_map
+		icon = TOR_our_spot_on_the_pilgrimage_map
+		relative_position_id = TOR_routes_of_st_jacob
+		prerequisite = { focus = TOR_routes_of_st_jacob }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.63	
+		}
+	}
+
+	focus = {
+		id = TOR_just_another_product
+		icon = TOR_just_another_product
+		relative_position_id = TOR_our_spot_on_the_pilgrimage_map
+		prerequisite = { focus = TOR_our_spot_on_the_pilgrimage_map }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_monastery_hotels
+		icon = TOR_monastery_hotels
+		relative_position_id = TOR_just_another_product
+		prerequisite = { focus = TOR_just_another_product }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.64	
+		}
+	}
+
+	focus = {
+		id = TOR_the_waiting_game
+		icon = TOR_the_waiting_game
+		relative_position_id = TOR_ask_and_you_should_receive
+		prerequisite = { focus = TOR_in_marys_name }
+		prerequisite = { focus = TOR_ask_and_you_should_receive }
+		prerequisite = { focus = TOR_monastery_hotels }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_a_vow_of_silence
+		icon = TOR_a_vow_of_silence
+		relative_position_id = TOR_agony
+		prerequisite = { focus = TOR_agony }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.65	
+		}
+	}
+
+	focus = {
+		id = TOR_divine_exaltation
+		icon = TOR_divine_exaltation
+		relative_position_id = TOR_a_vow_of_silence
+		prerequisite = { focus = TOR_a_vow_of_silence }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_embrace_the_darker_ages
+		icon = TOR_embrace_the_darker_ages
+		relative_position_id = TOR_divine_exaltation
+		prerequisite = { focus = TOR_divine_exaltation }
+		mutually_exclusive = { focus = TOR_a_new_vision_for_the_church }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_miracle_factory
+		icon = TOR_miracle_factory
+		relative_position_id = TOR_embrace_the_darker_ages
+		prerequisite = { focus = TOR_embrace_the_darker_ages }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.66	
+		}
+	}
+
+	focus = {
+		id = TOR_joining_the_pantheon
+		icon = TOR_joining_the_pantheon
+		relative_position_id = TOR_miracle_factory
+		prerequisite = { focus = TOR_miracle_factory }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_a_new_vision_for_the_church
+		icon = TOR_a_new_vision_for_the_church
+		relative_position_id = TOR_divine_exaltation
+		prerequisite = { focus = TOR_divine_exaltation }
+		mutually_exclusive = { focus = TOR_embrace_the_darker_ages }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_breaking_the_ceremonial
+		icon = TOR_breaking_the_ceremonial
+		relative_position_id = TOR_a_new_vision_for_the_church
+		prerequisite = { focus = TOR_a_new_vision_for_the_church }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.67	
+		}
+	}
+
+	focus = {
+		id = TOR_no_false_messiahs
+		icon = TOR_no_false_messiahs
+		relative_position_id = TOR_breaking_the_ceremonial
+		prerequisite = { focus = TOR_breaking_the_ceremonial }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_clearing_the_name
+		icon = TOR_clearing_the_name
+		relative_position_id = TOR_no_false_messiahs
+		prerequisite = { focus = TOR_joining_the_pantheon  focus = TOR_no_false_messiahs }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_a_letter_to_the_faithful
+		icon = TOR_a_letter_to_the_faithful
+		relative_position_id = TOR_clearing_the_name
+		prerequisite = { focus = TOR_clearing_the_name }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_mourners_and_believers
+		icon = TOR_mourners_and_believers
+		relative_position_id = TOR_a_letter_to_the_faithful
+		prerequisite = { focus = TOR_the_waiting_game }
+		prerequisite = { focus = TOR_a_letter_to_the_faithful }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_blessed_be_the_trusting
+		icon = TOR_blessed_be_the_trusting
+		relative_position_id = TOR_mourners_and_believers
+		prerequisite = { focus = TOR_mourners_and_believers }
+		mutually_exclusive = { focus = TOR_the_deathbed_audience }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.68	
+		}
+	}
+
+	focus = {
+		id = TOR_the_deathbed_audience
+		icon = TOR_the_deathbed_audience
+		relative_position_id = TOR_mourners_and_believers
+		prerequisite = { focus = TOR_mourners_and_believers }
+		mutually_exclusive = { focus = TOR_blessed_be_the_trusting }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.69	
+		}
+	}
+
+	focus = {
+		id = TOR_ascensio
+		icon = TOR_ascensio
+		relative_position_id = TOR_blessed_be_the_trusting
+		prerequisite = { focus = TOR_blessed_be_the_trusting  focus = TOR_the_deathbed_audience }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.70	
+		}
+	}
+
+	focus = {
+		id = TOR_envy_of_the_fallen
+		icon = TOR_envy_of_the_fallen
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 52
+		y = 12
+		
+		cost = 1
+		
+		completion_reward = {
+		country_event = TOR.71
+		}
+	}
+
+	focus = {
+		id = TOR_the_revolving_door
+		icon = TOR_the_revolving_door
+		relative_position_id = TOR_envy_of_the_fallen
+		prerequisite = { focus = TOR_envy_of_the_fallen }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_a_servants_memoir
+		icon = TOR_a_servants_memoir
+		relative_position_id = TOR_the_revolving_door
+		prerequisite = { focus = TOR_the_revolving_door }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.72	
+		}
+	}
+
+	focus = {
+		id = TOR_casting_the_first_stone
+		icon = TOR_casting_the_first_stone
+		relative_position_id = TOR_a_servants_memoir
+		prerequisite = { focus = TOR_a_servants_memoir }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_a_day_with_mentzen
+		icon = TOR_a_day_with_mentzen
+		relative_position_id = TOR_casting_the_first_stone
+		prerequisite = { focus = TOR_casting_the_first_stone }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.73	
+		}
+	}
+
+	focus = {
+		id = TOR_turn_up_the_taps
+		icon = TOR_turn_up_the_taps
+		relative_position_id = TOR_a_day_with_mentzen
+		prerequisite = { focus = TOR_a_day_with_mentzen }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_skeletons_in_our_closet
+		icon = TOR_skeletons_in_our_closet
+		relative_position_id = TOR_turn_up_the_taps
+		prerequisite = { focus = TOR_turn_up_the_taps }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.74	
+		}
+	}
+
+	focus = {
+		id = TOR_an_external_audit
+		icon = TOR_an_external_audit
+		relative_position_id = TOR_casting_the_first_stone
+		prerequisite = { focus = TOR_casting_the_first_stone }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.75	
+		}
+	}
+
+	focus = {
+		id = TOR_flipping_the_altar
+		icon = TOR_flipping_the_altar
+		relative_position_id = TOR_an_external_audit
+		prerequisite = { focus = TOR_an_external_audit }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_the_anger_of_a_generation
+		icon = TOR_the_anger_of_a_generation
+		relative_position_id = TOR_flipping_the_altar
+		prerequisite = { focus = TOR_flipping_the_altar }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.76	
+		}
+	}
+
+	focus = {
+		id = TOR_the_golden_crown
+		icon = TOR_a_theocrats_private_fiefdom
+		relative_position_id = TOR_skeletons_in_our_closet
+		prerequisite = { focus = TOR_skeletons_in_our_closet }
+		prerequisite = { focus = TOR_the_anger_of_a_generation }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_clerical_patricide
+		icon = TOR_clerical_patricide
+		relative_position_id = TOR_a_servants_memoir
+		prerequisite = { focus = TOR_a_servants_memoir }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_forever_loyal
+		icon = TOR_forever_loyal
+		relative_position_id = TOR_clerical_patricide
+		prerequisite = { focus = TOR_clerical_patricide }
+		mutually_exclusive = { focus = TOR_finding_their_judas }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_jacek_hogas_basic_bootcamp
+		icon = TOR_jacek_hogas_basic_bootcamp
+		relative_position_id = TOR_forever_loyal
+		prerequisite = { focus = TOR_forever_loyal }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.77	
+		}
+	}
+
+	focus = {
+		id = TOR_for_old_times_sake
+		icon = TOR_for_old_times_sake
+		relative_position_id = TOR_jacek_hogas_basic_bootcamp
+		prerequisite = { focus = TOR_jacek_hogas_basic_bootcamp }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.78	
+		}
+	}
+
+	focus = {
+		id = TOR_finding_their_judas
+		icon = TOR_finding_their_judas
+		relative_position_id = TOR_clerical_patricide
+		prerequisite = { focus = TOR_clerical_patricide }
+		mutually_exclusive = { focus = TOR_forever_loyal }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_outbidding_mammon
+		icon = TOR_outbidding_mammon
+		relative_position_id = TOR_finding_their_judas
+		prerequisite = { focus = TOR_finding_their_judas }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.79	
+		}
+	}
+
+	focus = {
+		id = TOR_a_new_commitment_to_gietrzwald
+		icon = TOR_a_new_commitment_to_gietrzwald
+		relative_position_id = TOR_outbidding_mammon
+		prerequisite = { focus = TOR_outbidding_mammon }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.80	
+		}
+	}
+
+	focus = {
+		id = TOR_leave_it_to_the_experts
+		icon = TOR_leave_it_to_the_experts
+		relative_position_id = TOR_for_old_times_sake
+		prerequisite = { focus = TOR_for_old_times_sake  focus = TOR_a_new_commitment_to_gietrzwald }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_the_council_of_rabbis
+		icon = TOR_the_council_of_rabbis
+		relative_position_id = TOR_leave_it_to_the_experts
+		prerequisite = { focus = TOR_the_golden_crown }
+		prerequisite = { focus = TOR_leave_it_to_the_experts }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.81	
+		}
+	}
+
+	focus = {
+		id = TOR_a_visit_at_grandmas
+		icon = TOR_a_visit_at_grandmas
+		relative_position_id = TOR_the_council_of_rabbis
+		prerequisite = { focus = TOR_the_council_of_rabbis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_the_watchers_of_the_walls
+		icon = TOR_the_watchers_of_the_walls
+		relative_position_id = TOR_the_council_of_rabbis
+		prerequisite = { focus = TOR_the_council_of_rabbis }
+		mutually_exclusive = { focus = TOR_taking_the_black }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.82	
+		}
+	}
+
+	focus = {
+		id = TOR_taking_the_black
+		icon = TOR_taking_the_black
+		relative_position_id = TOR_the_council_of_rabbis
+		prerequisite = { focus = TOR_the_council_of_rabbis }
+		mutually_exclusive = { focus = TOR_the_watchers_of_the_walls }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.83	
+		}
+	}
+
+	focus = {
+		id = TOR_shadowing_the_king_regent
+		icon = TOR_shadowing_the_king_regent
+		relative_position_id = TOR_the_council_of_rabbis
+		prerequisite = { focus = TOR_the_council_of_rabbis }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_the_brewery_putsch
+		icon = TOR_the_brewery_putsch
+		relative_position_id = TOR_a_visit_at_grandmas
+		prerequisite = { focus = TOR_a_visit_at_grandmas }
+		prerequisite = { focus = TOR_the_watchers_of_the_walls   focus = TOR_taking_the_black }
+		prerequisite = { focus = TOR_shadowing_the_king_regent }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.84	
+		}
+	}
+
+	focus = {
+		id = TOR_capture_and_hold
+		icon = TOR_capture_and_hold
+		relative_position_id = TOR_a_visit_at_grandmas
+		prerequisite = { focus = TOR_a_visit_at_grandmas }
+		prerequisite = { focus = TOR_the_watchers_of_the_walls   focus = TOR_taking_the_black }
+		prerequisite = { focus = TOR_shadowing_the_king_regent }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_wolves_in_red_clothing
+		icon = TOR_wolves_in_red_clothing
+		relative_position_id = TOR_a_visit_at_grandmas
+		prerequisite = { focus = TOR_a_visit_at_grandmas }
+		prerequisite = { focus = TOR_the_watchers_of_the_walls   focus = TOR_taking_the_black }
+		prerequisite = { focus = TOR_shadowing_the_king_regent }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.85	
+		}
+	}
+
+	focus = {
+		id = TOR_cut_off_the_serpents_tounge
+		icon = TOR_cut_off_the_serpents_tounge
+		relative_position_id = TOR_the_brewery_putsch
+		prerequisite = { focus = TOR_the_brewery_putsch }
+		prerequisite = { focus = TOR_capture_and_hold }
+		prerequisite = { focus = TOR_wolves_in_red_clothing }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_blocking_off_the_artery
+		icon = TOR_blocking_off_the_artery
+		relative_position_id = TOR_the_brewery_putsch
+		prerequisite = { focus = TOR_the_brewery_putsch }
+		prerequisite = { focus = TOR_capture_and_hold }
+		prerequisite = { focus = TOR_wolves_in_red_clothing }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			
+		}
+	}
+
+	focus = {
+		id = TOR_a_strike_at_the_heart
+		icon = TOR_a_strike_at_the_heart
+		relative_position_id = TOR_cut_off_the_serpents_tounge
+		prerequisite = { focus = TOR_cut_off_the_serpents_tounge }
+		prerequisite = { focus = TOR_blocking_off_the_artery }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		country_event = TOR.86	
 		}
 	}
 
