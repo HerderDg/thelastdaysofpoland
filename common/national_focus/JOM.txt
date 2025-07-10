@@ -124,7 +124,7 @@ focus_tree = {
 		    add_manpower = 450
 			221 = {
 				create_unit = {
-					division = "name = \"Vikingasveitin Réttlaeti\" division_template = \"Vikingsveitin\" start_experience_factor = 0 start_equipment_factor = 1"
+					division = "name = \"Vikingasveitin Réttlaeti\" division_template = \"Vikingasveitin\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = JOM
 					prioritize_location = 4170
 				}
@@ -157,6 +157,11 @@ focus_tree = {
 				amount = 200
 				producer = DEN
 			}
+			add_to_variable = {
+				budget = 20
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_20M
 		}
 	}
 	focus = {
@@ -280,12 +285,12 @@ focus_tree = {
 		    add_manpower = 200
 			221 = {
 				create_unit = {
-					division = "name = \"Vikingasveitin Hefnd\" division_template = \"Vikingsveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
+					division = "name = \"Vikingasveitin Hefnd\" division_template = \"Vikingasveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
 					owner = JOM
 					prioritize_location = 4170
 				}
 				create_unit = {
-					division = "name = \"Vikingasveitin Reiði\" division_template = \"Vikingsveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
+					division = "name = \"Vikingasveitin Reiði\" division_template = \"Vikingasveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
 					owner = JOM
 					prioritize_location = 4170
 				}				
@@ -608,7 +613,12 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+			70 = {
+			add_province_modifier = {
+				static_modifiers = { active_decryption_modifier }
+				province = { id = 17203 }
+			}
+			}
 		}
 	}
 	focus = {
@@ -631,7 +641,13 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+		    add_command_power = 50
+			army_experience = 40
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = 150
+				producer = JOM
+			}
 		}
 	}
 	focus = {
@@ -652,6 +668,21 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.13
+			70 = { add_core_of =  JOM }
+			set_capital = {state = 70}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = JOM_northern_flank
+					}
+					70 = {
+						remove_province_modifier = {
+							static_modifiers = { active_decryption_modifier }
+							province = { id = 17203 }
+						}
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -719,7 +750,15 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		    
+		    swap_ideas = {
+				remove_idea = training_battle
+				add_idea = training_basic
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_honor
+			} 
 		}
 	}
 	focus = {
@@ -767,7 +806,17 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+			55 = {
+				add_state_modifier = {
+                    modifier = {
+						enemy_army_speed_factor = 0.15
+						equipment_capture_factor_for_controller = 0.15
+						local_intel_to_enemies = 0.2
+                    }
+                }
+			}  
+			army_experience = 60
+			add_command_power = 30
 		}
 	}
 	focus = {
@@ -778,8 +827,8 @@ focus_tree = {
 		available = {
 		
 		}
-		
 		bypass = {
+
 		}
 		mutually_exclusive = {
 			focus = JOM_ground_assault
@@ -790,7 +839,14 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+		    navy_experience = 30
+			621 = {
+				create_unit = {
+					division = "name = \"Skemmdarherfylki Pinnaströnd\" division_template = \"Vikingasveitin\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 17004
+				}
+			}
 		}
 	}
 	focus = {
@@ -811,6 +867,24 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.16
+			621 = { add_core_of =  JOM }
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = JOM_ground_assault
+					}
+					55 = {
+						add_state_modifier = {
+            		        modifier = {
+								enemy_army_speed_factor = -0.15
+								equipment_capture_factor_for_controller = -0.15
+								local_intel_to_enemies = -0.2
+            		        }
+            		    }
+					}  
+				}
+			}
+			custom_effect_tooltip = JOM_pinnastrond_unlock
 		}
 	}
 	focus = {
@@ -1089,7 +1163,19 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-		    
+		    add_stability = 0.1
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			swap_ideas = {
+				remove_idea = economy_primal_economy
+				add_idea = economy_anarchy
+			}
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 
@@ -1110,7 +1196,26 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+		    add_resource = {
+			    type = food
+			    amount = 2
+			    state = 70
+			}
+		    add_resource = {
+			    type = food
+			    amount = 1
+			    state = 620
+			}
+		    add_resource = {
+			    type = food
+			    amount = 1
+			    state = 61
+			}				
+		    add_resource = {
+			    type = food
+			    amount = 2
+			    state = 621
+			}					
 		}
 	}
 	focus = {
@@ -1130,12 +1235,34 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-		    
+		    add_stability = 0.05
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			add_manpower = 1678
+			621 = {
+			remove_building = {
+				type = prison
+				level = 1
+			}
+			}
+			620 = {
+			remove_building = {
+				type = prison
+				level = 1
+			}
+			}	
+			add_to_variable = {
+				budget = 20
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_20M
 		}
 	}
 	focus = {
-		id = JOM_power_of_njoar
-		icon = JOM_power_of_njoar
+		id = JOM_power_of_njordr
+		icon = JOM_power_of_njordr
 		relative_position_id = JOM_free_thralls
 		prerequisite = {focus = JOM_free_thralls}
 		available = {
@@ -1150,14 +1277,34 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+			70 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			620 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}			
+			hidden_effect = {
+				add_to_variable = {
+					budget = 600
+				}
+			}
 		}
 	}
 	focus = {
 		id = JOM_establish_trades_routes
 		icon = JOM_establish_trades_routes
-		relative_position_id = JOM_power_of_njoar
-		prerequisite = {focus = JOM_power_of_njoar}
+		relative_position_id = JOM_power_of_njordr
+		prerequisite = {focus = JOM_power_of_njordr}
 		prerequisite = {focus = JOM_of_fish_and_mead}
 		available = {
 		
@@ -1858,7 +2005,7 @@ focus_tree = {
 		
 		bypass = {
 		}
-		x = 7
+		x = 6
 		y = 2
 		
 		cost = 2
