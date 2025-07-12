@@ -1584,10 +1584,20 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    STE = { 
-				transfer_navy = {
-				    target = JOM
+			if = {
+				limit = {
+					has_idea = JOM_oder_swinoujscie
 				}
+				swap_ideas = {
+					remove_idea = JOM_oder_swinoujscie
+					add_idea = JOM_oder_estuary1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = JOM_oder_swinoujscie }
+				}
+				add_ideas = JOM_oder_szczecin
 			}
 		}
 	}
@@ -1698,7 +1708,21 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+			if = {
+				limit = {
+					has_idea = JOM_oder_szczecin
+				}
+				swap_ideas = {
+					remove_idea = JOM_oder_szczecin
+					add_idea = JOM_oder_estuary1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = JOM_oder_szczecin }
+				}
+				add_ideas = JOM_oder_swinoujscie
+			}		    
 		}
 	}
 	focus = {
@@ -1862,6 +1886,12 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.28
+			USP = {
+				add_stability = -0.2
+				add_war_support = -0.2
+				set_fuel_ratio = 0.2
+			}
+			add_command_power = 30
 		}
 	}
 	focus = {
@@ -1982,10 +2012,14 @@ focus_tree = {
 		prerequisite = {focus = JOM_meet_with_hellebjerg}
 		prerequisite = {focus = JOM_treaty_of_bornholm}
 		available = {
-			NOR = { exists = no }
+			OR = {
+				NOR = { is_ally_with = JOM }
+				NOR = { is_subject_of = JOM }
+			}
 		}
 		
 		bypass = {
+			NOR = { exists = no }
 		}
 		x = 1
 		y = 1
@@ -2015,7 +2049,10 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		    
+			swap_ideas = {
+				remove_idea = JOM_oder_estuary1
+				add_idea = JOM_oder_estuary2
+			}
 		}
 	}
 	focus = {
@@ -2037,7 +2074,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		    
+		    custom_effect_tooltip = JOM_runestones_tt
 		}
 	}
 	focus = {
@@ -2076,6 +2113,7 @@ focus_tree = {
 				}
 				tooltip = jomsborg_rune_counter_tt				
 			}
+			has_completed_focus = JOM_runestones_of_victory
 		}
 		
 		bypass = {
@@ -4894,8 +4932,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			add_ideas = officer_random
-			add_ideas = training_battle
+
 		}
 	}
 	focus = {
@@ -4914,7 +4951,35 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-			add_ideas = economy_primal_economy
+			614 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			872 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			63 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 250
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_200M
 		}
 	}
 	focus = {
@@ -5242,7 +5307,58 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			add_timed_idea = {
+				idea = JOM_shipbuilding_frenzy
+				days = 270
+			}
+			53 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			873 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			88 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			90 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -5478,7 +5594,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			add_ideas = army_with_a_state
 		}
 	}
 	
@@ -5612,7 +5728,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			upgrade_military_law = yes
 		}
 	}
 	
