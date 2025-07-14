@@ -170,6 +170,11 @@ country_event = {
 	option = {
 		name = TOR.10.a
 		ai_chance = { factor = 1}
+		swap_ideas = {
+			remove_idea = TOR_smile_and_wave_idea
+			add_idea =  TOR_a_pint_of_populism_idea
+		}
+
 
 	}
 }
@@ -182,10 +187,33 @@ country_event = {
 	picture = GFX_report_event_vienna_award_negotiations
 	is_triggered_only = yes
 	fire_only_once = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires TOR.11" }	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires TOR.11" 
+		hidden_effect = {
+        add_corps_commander_role = {
+            character = TOR_sławomir_mentzen
+            skill = 1
+            attack_skill = 1
+            defense_skill = 1
+            planning_skill = 1
+            logistics_skill = 1
+        }
+    }
+	}	
 	option = {
 		name = TOR.11.a
 		ai_chance = { factor = 1}
+		add_popularity = {
+			ideology = freemarketism
+			popularity = -0.1
+		}
+
+		TOR_sławomir_mentzen = { add_unit_leader_trait = wounded }
+    	hidden_effect = {
+        TOR_sławomir_mentzen = {
+            remove_unit_leader = yes
+        }
+	    }
 
 	}
 }

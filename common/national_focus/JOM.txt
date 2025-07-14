@@ -32,6 +32,12 @@ focus_tree = {
 		
 		completion_reward = {
 		    country_event = jomsborg.4
+			set_power_balance = {
+   				id = JOM_power_balance
+    			left_side = JOM_sane_zandberg_side
+    			right_side = JOM_viking_zandberg_side
+    			set_value = 0.0
+			}
 		}
 	}
 
@@ -124,7 +130,7 @@ focus_tree = {
 		    add_manpower = 450
 			221 = {
 				create_unit = {
-					division = "name = \"Vikingasveitin Réttlaeti\" division_template = \"Vikingsveitin\" start_experience_factor = 0 start_equipment_factor = 1"
+					division = "name = \"Vikingasveitin Réttlaeti\" division_template = \"Vikingasveitin\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = JOM
 					prioritize_location = 4170
 				}
@@ -157,6 +163,11 @@ focus_tree = {
 				amount = 200
 				producer = DEN
 			}
+			add_to_variable = {
+				budget = 20
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_20M
 		}
 	}
 	focus = {
@@ -280,12 +291,12 @@ focus_tree = {
 		    add_manpower = 200
 			221 = {
 				create_unit = {
-					division = "name = \"Vikingasveitin Hefnd\" division_template = \"Vikingsveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
+					division = "name = \"Vikingasveitin Hefnd\" division_template = \"Vikingasveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
 					owner = JOM
 					prioritize_location = 4170
 				}
 				create_unit = {
-					division = "name = \"Vikingasveitin Reiði\" division_template = \"Vikingsveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
+					division = "name = \"Vikingasveitin Reiði\" division_template = \"Vikingasveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
 					owner = JOM
 					prioritize_location = 4170
 				}				
@@ -608,7 +619,12 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+			70 = {
+			add_province_modifier = {
+				static_modifiers = { active_decryption_modifier }
+				province = { id = 17203 }
+			}
+			}
 		}
 	}
 	focus = {
@@ -631,7 +647,13 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+		    add_command_power = 50
+			army_experience = 40
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = 150
+				producer = JOM
+			}
 		}
 	}
 	focus = {
@@ -652,6 +674,21 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.13
+			70 = { add_core_of =  JOM }
+			set_capital = {state = 70}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = JOM_northern_flank
+					}
+					70 = {
+						remove_province_modifier = {
+							static_modifiers = { active_decryption_modifier }
+							province = { id = 17203 }
+						}
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -719,7 +756,15 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		    
+		    swap_ideas = {
+				remove_idea = training_battle
+				add_idea = training_basic
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_honor
+			} 
 		}
 	}
 	focus = {
@@ -767,7 +812,17 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+			55 = {
+				add_state_modifier = {
+                    modifier = {
+						enemy_army_speed_factor = 0.15
+						equipment_capture_factor_for_controller = 0.15
+						local_intel_to_enemies = 0.2
+                    }
+                }
+			}  
+			army_experience = 60
+			add_command_power = 30
 		}
 	}
 	focus = {
@@ -778,8 +833,8 @@ focus_tree = {
 		available = {
 		
 		}
-		
 		bypass = {
+
 		}
 		mutually_exclusive = {
 			focus = JOM_ground_assault
@@ -790,7 +845,14 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-		    
+		    navy_experience = 30
+			621 = {
+				create_unit = {
+					division = "name = \"Skemmdarherfylki Pinnaströnd\" division_template = \"Vikingasveitin\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 17004
+				}
+			}
 		}
 	}
 	focus = {
@@ -811,6 +873,24 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.16
+			621 = { add_core_of =  JOM }
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = JOM_ground_assault
+					}
+					55 = {
+						add_state_modifier = {
+            		        modifier = {
+								enemy_army_speed_factor = -0.15
+								equipment_capture_factor_for_controller = -0.15
+								local_intel_to_enemies = -0.2
+            		        }
+            		    }
+					}  
+				}
+			}
+			custom_effect_tooltip = JOM_pinnastrond_unlock
 		}
 	}
 	focus = {
@@ -1089,7 +1169,19 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-		    
+		    add_stability = 0.1
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			swap_ideas = {
+				remove_idea = economy_primal_economy
+				add_idea = economy_anarchy
+			}
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 
@@ -1110,7 +1202,26 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+		    add_resource = {
+			    type = food
+			    amount = 2
+			    state = 70
+			}
+		    add_resource = {
+			    type = food
+			    amount = 1
+			    state = 620
+			}
+		    add_resource = {
+			    type = food
+			    amount = 1
+			    state = 61
+			}				
+		    add_resource = {
+			    type = food
+			    amount = 2
+			    state = 621
+			}					
 		}
 	}
 	focus = {
@@ -1130,12 +1241,34 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-		    
+		    add_stability = 0.05
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			add_manpower = 1678
+			621 = {
+			remove_building = {
+				type = prison
+				level = 1
+			}
+			}
+			620 = {
+			remove_building = {
+				type = prison
+				level = 1
+			}
+			}	
+			add_to_variable = {
+				budget = 20
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_20M
 		}
 	}
 	focus = {
-		id = JOM_power_of_njoar
-		icon = JOM_power_of_njoar
+		id = JOM_power_of_njordr
+		icon = JOM_power_of_njordr
 		relative_position_id = JOM_free_thralls
 		prerequisite = {focus = JOM_free_thralls}
 		available = {
@@ -1150,14 +1283,34 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+			70 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			620 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}			
+			hidden_effect = {
+				add_to_variable = {
+					budget = 600
+				}
+			}
 		}
 	}
 	focus = {
 		id = JOM_establish_trades_routes
 		icon = JOM_establish_trades_routes
-		relative_position_id = JOM_power_of_njoar
-		prerequisite = {focus = JOM_power_of_njoar}
+		relative_position_id = JOM_power_of_njordr
+		prerequisite = {focus = JOM_power_of_njordr}
 		prerequisite = {focus = JOM_of_fish_and_mead}
 		available = {
 		
@@ -1176,6 +1329,7 @@ focus_tree = {
 				remove_idea = trade_none
 				add_idea = trade_minimal
 			}
+			set_country_flag = JOM_voyage_voyage
 		}
 	}
 	focus = {
@@ -1235,6 +1389,10 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.20
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = -0.1
+			}
 		}
 	}
 	focus = {
@@ -1260,6 +1418,19 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.21
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = niemcy_prosze_pana
+					}
+				}
+				remove_dynamic_modifier = {
+					modifier = niemcy_prosze_pana
+				}
+				add_dynamic_modifier = {
+					modifier = niemcy_prosze_pana_converting
+				}
+			}
 		}
 	}
 	focus = {
@@ -1348,6 +1519,20 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.22
+			every_possible_country = {
+				limit = { has_character = STE_bogdan_jaroszewicz }
+				random_character = {
+					limit = { is_character = STE_bogdan_jaroszewicz }
+					set_nationality = JOM
+				}
+			}
+			every_possible_country = {
+				limit = { has_character = STE_margaret }
+				random_character = {
+					limit = { is_character = STE_margaret }
+					set_nationality = JOM
+				}
+			}			
 		}
 	}
 	focus = {
@@ -1374,6 +1559,11 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.23
+			add_to_variable = {
+				budget = 150
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_150M
 		}
 	}
 	focus = {
@@ -1394,7 +1584,21 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+			if = {
+				limit = {
+					has_idea = JOM_oder_swinoujscie
+				}
+				swap_ideas = {
+					remove_idea = JOM_oder_swinoujscie
+					add_idea = JOM_oder_estuary1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = JOM_oder_swinoujscie }
+				}
+				add_ideas = JOM_oder_szczecin
+			}
 		}
 	}
 	focus = {
@@ -1504,7 +1708,21 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+			if = {
+				limit = {
+					has_idea = JOM_oder_szczecin
+				}
+				swap_ideas = {
+					remove_idea = JOM_oder_szczecin
+					add_idea = JOM_oder_estuary1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = JOM_oder_szczecin }
+				}
+				add_ideas = JOM_oder_swinoujscie
+			}		    
 		}
 	}
 	focus = {
@@ -1668,6 +1886,12 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.28
+			USP = {
+				add_stability = -0.2
+				add_war_support = -0.2
+				set_fuel_ratio = 0.2
+			}
+			add_command_power = 30
 		}
 	}
 	focus = {
@@ -1788,10 +2012,14 @@ focus_tree = {
 		prerequisite = {focus = JOM_meet_with_hellebjerg}
 		prerequisite = {focus = JOM_treaty_of_bornholm}
 		available = {
-			NOR = { exists = no }
+			OR = {
+				NOR = { is_ally_with = JOM }
+				NOR = { is_subject_of = JOM }
+			}
 		}
 		
 		bypass = {
+			NOR = { exists = no }
 		}
 		x = 1
 		y = 1
@@ -1821,7 +2049,10 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		    
+			swap_ideas = {
+				remove_idea = JOM_oder_estuary1
+				add_idea = JOM_oder_estuary2
+			}
 		}
 	}
 	focus = {
@@ -1843,7 +2074,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		    
+		    custom_effect_tooltip = JOM_runestones_tt
 		}
 	}
 	focus = {
@@ -1858,7 +2089,7 @@ focus_tree = {
 		
 		bypass = {
 		}
-		x = 7
+		x = 6
 		y = 2
 		
 		cost = 2
@@ -1882,6 +2113,7 @@ focus_tree = {
 				}
 				tooltip = jomsborg_rune_counter_tt				
 			}
+			has_completed_focus = JOM_runestones_of_victory
 		}
 		
 		bypass = {
@@ -2647,6 +2879,7 @@ focus_tree = {
 		icon = JOM_spirit_of_erik
 		relative_position_id = JOM_fehu
 		available = {
+			has_country_flag = JOM_voyage_voyage
 		}
 		
 		bypass = {
@@ -3640,6 +3873,7 @@ focus_tree = {
 		icon = JOM_new_dawn_in_midgard
 		relative_position_id = JOM_end_of_fimbulwinter
 		available = {
+			has_country_flag = unified_voivodeship
 		}
 		
 		bypass = {
@@ -3728,6 +3962,10 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.35
+			swap_ideas = {
+				remove_idea = lgbt_unregulated_ignored
+				add_idea = lgbt_encouraged
+			}
 		}
 	}
 	focus = {
@@ -3746,7 +3984,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		        
+			swap_ideas = {
+				remove_idea = women_gender_equality
+				add_idea = women_feminism_policy
+			}  
 		}
 	}
 	focus = {
@@ -3765,7 +4006,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		        
+			swap_ideas = {
+				remove_idea = drugs_allowed
+				add_idea = drugs_decriminalised
+			}      
 		}
 	}
 	focus = {
@@ -3785,7 +4029,11 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		     country_event = jomsborg.36   
+		    country_event = jomsborg.36   
+			swap_ideas = {
+				remove_idea = lgbt_unregulated_ignored
+				add_idea = lgbt_equal_laws
+			}
 		}
 	}
 	focus = {
@@ -3804,7 +4052,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		        
+			swap_ideas = {
+				remove_idea = women_gender_equality
+				add_idea = women_gender_equity
+			}       
 		}
 	}
 	focus = {
@@ -3823,7 +4074,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		        
+			swap_ideas = {
+				remove_idea = drugs_allowed
+				add_idea = drugs_government
+			} 	        
 		}
 	}
 	focus = {
@@ -3861,7 +4115,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		        
+        
 		}
 	}
 	focus = {
@@ -3881,7 +4135,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		        
+			swap_ideas = {
+				remove_idea = regime_council
+				add_idea = multiparty
+			}       
 		}
 	}
 	focus = {
@@ -3939,7 +4196,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		        
+			swap_ideas = {
+				remove_idea = regime_council
+				add_idea = controlled_opposition
+			}       
 		}
 	}
 	focus = {
@@ -4055,6 +4315,10 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = jomsborg.41
+			swap_ideas = {
+				remove_idea = taxes_low
+				add_idea = taxes_high
+			}
 		}
 	}
 	focus = {
@@ -4073,7 +4337,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = social_minimum
+				add_idea = basic_social
+			}
 		}
 	}
 	focus = {
@@ -4113,6 +4380,10 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = jomsborg.42
+			swap_ideas = {
+				remove_idea = taxes_low
+				add_idea = taxes_medium
+			}
 		}
 	}
 	focus = {
@@ -4131,7 +4402,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = improvised_security
+				add_idea = advanced_security
+			}		 
 		}
 	}
 	focus = {
@@ -4346,7 +4620,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = minorities_multiculturalism
+				add_idea = minorities_recognition
+			}
 		}
 	}
 	focus = {
@@ -4469,7 +4746,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = partial_secularism
+				add_idea = full_secularism
+			}
 		}
 	}
 	focus = {
@@ -4528,7 +4808,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = partial_secularism
+				add_idea = one_religion_favoured
+			}
 		}
 	}
 	focus = {
@@ -4566,7 +4849,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = voluntary_healthcare
+				add_idea = witch_doctors
+			}
 		}
 	}
 
@@ -4646,8 +4932,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			add_ideas = officer_random
-			add_ideas = training_battle
+
 		}
 	}
 	focus = {
@@ -4666,7 +4951,35 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-			add_ideas = economy_primal_economy
+			614 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			872 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			63 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 250
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_200M
 		}
 	}
 	focus = {
@@ -4686,7 +4999,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-			add_ideas = economy_social_market
+			add_ideas = economy_solidarism
 			add_ideas = JOM_state_investment_fund_1
 		}
 	}
@@ -4780,7 +5093,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			add_ideas = economy_solidarism
 		}
 	}
 	focus = {
@@ -4925,6 +5238,19 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = jomsborg.57
+			swap_ideas = {
+				remove_idea = energy_natural
+				add_idea = energy_renewable
+			}
+			hidden_effect = { 
+				set_technology = {
+					power_generation = 0
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_nuclear
+				value = 2
+			}
 		}
 	}
 	focus = {
@@ -4981,7 +5307,58 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			add_timed_idea = {
+				idea = JOM_shipbuilding_frenzy
+				days = 270
+			}
+			53 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			873 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			88 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			90 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -5000,7 +5377,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = energy_natural
+				add_idea = energy_renewable
+			}
+			every_owned_state = {
+				limit = { power_plant > 0 }
+				set_building_level = {
+				    type = power_plant
+				    level = 0
+				    instant_build = yes
+				}
+			}
+			hidden_effect = { 
+				set_technology = {
+					power_generation = 0
+				}
+			}
 		}
 	}
 	focus = {
@@ -5201,7 +5594,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			add_ideas = army_with_a_state
 		}
 	}
 	
@@ -5221,7 +5614,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			swap_ideas = {
+				remove_idea = officer_clerks
+				add_idea = officer_mercenaries
+			}
 		}
 	}
 	
@@ -5332,7 +5728,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-		 
+			upgrade_military_law = yes
 		}
 	}
 	
@@ -5351,6 +5747,10 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = jomsborg.62
+			swap_ideas = {
+				remove_idea = officer_clerks
+				add_idea = officer_leftovers
+			}
 		}
 	}
 	
