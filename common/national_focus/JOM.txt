@@ -1451,7 +1451,27 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-		    
+		    add_stability = -0.05
+			615 = {
+				add_manpower = -1103
+				add_compliance = 30
+			}
+			158 = {
+				add_manpower = -2234
+				add_compliance = 30
+			}
+			614 = {
+				add_manpower = -4540
+				add_compliance = 30
+			}
+			122 = {
+				add_manpower = -2987
+				add_compliance = 30
+			}
+			133 = {
+				add_manpower = -1146
+				add_compliance = 30
+			}			
 		}
 	}
 	focus = {
@@ -1667,6 +1687,26 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.24
+			every_possible_country = {
+				limit = { has_character = SWI_kwasniewski }
+				random_character = {
+					limit = { is_character = SWI_kwasniewski }
+					set_nationality = JOM
+				}
+			}
+			every_possible_country = {
+				limit = { has_character = SWI_kulagin }
+				random_character = {
+					limit = { is_character = SWI_kulagin }
+					set_nationality = JOM
+				}
+			}
+			add_manpower = 246
+			add_political_power = 100	
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.075
+			}		
 		}
 	}
 	focus = {
@@ -1688,6 +1728,33 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.25
+			random_list = {
+				40 = {
+					add_ideas = JOM_heregeld
+				}
+				30 = {
+					54 = {
+						add_state_modifier = {
+							modifier = { 
+								local_non_core_manpower = 0.3
+								local_manpower = 0.2
+							}
+						}
+					}
+				}
+				20 = {
+					add_to_variable = {
+						budget = 300
+					}
+					custom_effect_tooltip = budget_add_300M
+					add_manpower = 1000
+				}
+				10 = {
+					54 = {
+						add_resistance = 40
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -1811,6 +1878,27 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.27
+			872 = {
+				add_resistance = 70
+			}
+			873 = {
+				add_resistance = 70
+			}
+			78 = {
+				add_resistance = 70
+			}
+			98 = {
+				add_resistance = 35
+			}
+			118 = {
+				add_resistance = 35
+			}
+			82 = {
+				add_resistance = 35
+			}	
+			84 = {
+				add_resistance = 35
+			}																	
 		}
 	}
 	focus = {
@@ -1831,7 +1919,14 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+		    add_ideas = JOM_lizard_proving_grounds
+			army_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_partisan
+				name = "I'LL TEAR YOUR FUCKING HEART OUT AND EAT IT LIKE THAT AAAAAAAAAAR"
+			}
 		}
 	}
 	focus = {
@@ -1914,6 +2009,10 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.29
+			53 = { add_compliance = 30 }
+		    622 = { add_compliance = 30 }
+		    63 = { add_compliance = 30 }
+		    45 = { add_compliance = 30 }
 		}
 	}
 	focus = {
@@ -1934,7 +2033,18 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-		    
+			53 = {
+				add_state_modifier = {
+                    modifier = {
+						state_resources_food_factor = 0.3
+						local_manpower = 0.05
+                    }
+                }
+				add_resource = {
+					type = food
+					amount = 5
+				}
+			}
 		}
 	}
 	focus = {
@@ -1943,11 +2053,22 @@ focus_tree = {
 		relative_position_id = JOM_skeggold
 		prerequisite = {focus = JOM_skeggold}
 		available = {
-		
+			NOR = { exists = yes }
+			JOM = { NOT = { has_war_with = NOR } }
 		}
 		
 		bypass = {
-			NOR = { exists = no }
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
 		}
 		x = 10
 		y = 1
@@ -1960,6 +2081,7 @@ focus_tree = {
 					country = NOR
 					relation = non_aggression_pact
 				}
+				give_guarantee = NOR
 			}
 		}
 	}
@@ -1973,7 +2095,17 @@ focus_tree = {
 		}
 		
 		bypass = {
-			NOR = { exists = no }
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
 		}
 		x = -1
 		y = 1
@@ -1982,6 +2114,8 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.30
+			create_faction = "Nordic Defence Union"
+			add_to_faction = NOR
 		}
 	}
 	focus = {
@@ -1990,11 +2124,21 @@ focus_tree = {
 		relative_position_id = JOM_kinsmen_from_north
 		prerequisite = {focus = JOM_kinsmen_from_north}
 		available = {
-		
+			has_completed_focus = JOM_meet_with_hellebjerg
 		}
 		
 		bypass = {
-			NOR = { exists = no }
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
 		}
 		x = 1
 		y = 1
@@ -2003,6 +2147,12 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = jomsborg.31
+			JOM = {
+				transfer_state = 33
+				33 = { add_core_of = JOM }
+				33 = { remove_core_of = NOR }
+			}
+			NOR = { set_cosmetic_tag = NOR_JOM }
 		}
 	}
 	focus = {
@@ -2019,7 +2169,17 @@ focus_tree = {
 		}
 		
 		bypass = {
-			NOR = { exists = no }
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
 		}
 		x = 1
 		y = 1
@@ -2027,7 +2187,30 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-		    
+		    JOM = { 
+				diplomatic_relation = {
+					country = NOR
+					relation = docking_rights
+				}
+				diplomatic_relation = {
+					country = NOR
+					relation = military_access
+				}				
+			}
+		    NOR = { 
+				diplomatic_relation = {
+					country = JOM
+					relation = docking_rights
+				}
+				diplomatic_relation = {
+					country = JOM
+					relation = military_access
+				}	
+				add_ai_strategy = {
+				    type = garrison
+				    value = 200
+				}			
+			}			
 		}
 	}
 	focus = {
@@ -2084,7 +2267,7 @@ focus_tree = {
 		prerequisite = {focus = JOM_oder_secured}
 		prerequisite = {focus = JOM_runestones_of_victory}
 		available = {
-		
+			has_country_flag = unified_voivodeship
 		}
 		
 		bypass = {
