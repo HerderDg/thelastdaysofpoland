@@ -153,7 +153,18 @@ get_building_cost = {
 				multiply_variable = { new_steel = cost_for_steel_works } # Cost per factory
 				subtract_from_variable = { budget = new_steel }
 				set_variable = { prev_steel = num_of_steel_works }
-		}		
+		}
+		
+		# Farms
+		if = {
+			limit = { check_variable = { prev_farms < num_of_big_ass_farms } }
+				set_variable = { new_farms = num_of_big_ass_farms }
+				subtract_from_variable = { new_farms = prev_farms }
+				multiply_variable = { new_farms = cost_for_farms } # Cost per factory
+				subtract_from_variable = { budget = new_farms }
+				set_variable = { prev_farms = num_of_big_ass_farms }
+		}
+
 		# Recycling Plants
 		if = {
 			limit = { check_variable = { prev_recycling < num_of_recycling_plants } }
@@ -940,6 +951,17 @@ get_building_payments = {
 	add_to_temp_variable = {
 		building_payments = payments_for_steel_works_temp
 	}
+
+	# Farms
+	set_temp_variable = {
+		payments_for_farms_temp = payments_for_farms
+	}
+	multiply_temp_variable = {
+		payments_for_farms_temp = num_of_big_ass_farms
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_farms_temp
+	}	
 
 	# Temples
 	set_temp_variable = {
