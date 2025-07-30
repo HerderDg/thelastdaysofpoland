@@ -41,6 +41,16 @@ lodz_voivodeship_unification = {
 		set_global_flag = lodzkie_unified
 		add_research_slot = 1
 		if = {
+			limit = {
+				NOT = { original_tag = ZHP }
+			}
+			add_victory_points = {
+				province = 7602
+				value = -15
+			}
+		}
+		
+		if = {
 			limit = { original_tag = ZHP }
 			set_cosmetic_tag = ZHP_voivodeship
 			
@@ -458,6 +468,12 @@ zaglebie_voivodeship_unification = {
 			can_unify_zaglebie = yes
 		}
 		NOT = { is_subject = yes }
+		if = {
+			limit = {
+				is_in_faction = yes
+			}
+			is_faction_leader = yes
+		}
 	}
 	
 	fire_only_once = yes
@@ -466,11 +482,20 @@ zaglebie_voivodeship_unification = {
 	
 	visible = {
 		OR = {
-		is_zaglebie_and_jura = yes
+			is_zaglebie_and_jura = yes
 			AND = {
 				original_tag = MYS
 				has_country_flag = MYS_eurocrusade
 			}
+			AND = {
+				original_tag = DGR
+				has_global_flag = ZAG_congress_of_bedzin_failure
+			}
+			AND = {
+				original_tag = JAW
+				has_global_flag = ZAG_congress_of_bedzin_failure
+				NOT = { has_cosmetic_tag = JAW_SOS }
+			}			
 		}
 		NOT = {
 			has_global_flag = zaglebie_unified
@@ -491,9 +516,33 @@ zaglebie_voivodeship_unification = {
 				public_services = 1
 			}
 		}
+
+		if = {
+			limit = {
+				NOT = { original_tag = JWK }
+			}
+			add_victory_points = {
+				province = 8405
+				value = -30
+			}
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = BRZ }
+			}
+			add_victory_points = {
+				province = 8473
+				value = -29
+			}
+		}
+		
+
 		if = {
 			limit = { original_tag = DGR }
 			set_cosmetic_tag = DGR_voivodeship
+			set_variable = {
+				reindustrialisation_var = 0
+			}
 			hidden_effect = {
 				every_country = {
 					limit = { NOT = { is_ai = yes } }
@@ -509,9 +558,29 @@ zaglebie_voivodeship_unification = {
 			limit = { original_tag = SOS }
 			set_cosmetic_tag = SOS_voivodeship
 			hidden_effect = {
-				every_country = {
-					limit = { NOT = { is_ai = yes } }
-					news_event = { id = unification.15 }
+				if = {
+					limit = {
+						has_global_flag = ZAG_congress_of_bedzin_failure
+					}
+					every_country = {
+						limit = { NOT = { is_ai = yes } }
+						news_event = { id = unification.15 }
+					}
+				}
+				if = {
+					limit = {
+						has_global_flag = ZAG_congress_of_bedzin_success
+					}
+					every_country = {
+						limit = { NOT = { is_ai = yes } }
+						news_event = { id = unification_alt.15 }
+					}
+					SOS = {
+						country_event = {
+							id = bedzincon.14
+							days = 30
+						}
+					}					
 				}
 			}
 			
@@ -3518,6 +3587,19 @@ holy_cross_voivodeship_unification = {
 			}
 			
 		}
+
+		else_if = {
+			limit = { original_tag = ETS }
+			set_cosmetic_tag = ETS_voivodeship
+
+			hidden_effect = {
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = { id = unification_alt.127 }
+				}
+			}
+			
+		}		
 
 	}
 	

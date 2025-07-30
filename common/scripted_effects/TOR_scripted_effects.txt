@@ -1,0 +1,141 @@
+
+TOR_HP_clamp = {
+	clamp_variable = {
+		var = TOR_rydzyk_hp_var
+		min = 0
+		max = TOR_rydzyk_hp_var_max
+	}
+}
+TOR_holy_clamp = {
+	clamp_variable = {
+		var = TOR_rydzyk_holy_var
+		min = 0
+		max = 100
+	}
+}
+
+TOR_holy_minus_5 = {
+	add_to_variable = { TOR_rydzyk_holy_var = -5 }
+	custom_effect_tooltip = TOR_holy_minus_5
+}
+TOR_holy_minus_10 = {
+	add_to_variable = { TOR_rydzyk_holy_var = -10 }
+	custom_effect_tooltip = TOR_holy_minus_10
+}
+TOR_holy_minus_20 = {
+	add_to_variable = { TOR_rydzyk_holy_var = -20 }
+	custom_effect_tooltip = TOR_holy_minus_20
+}
+TOR_holy_plus_5 = {
+	add_to_variable = { TOR_rydzyk_holy_var = 5 }
+	custom_effect_tooltip = TOR_holy_plus_5
+}
+TOR_holy_plus_10 = {
+	add_to_variable = { TOR_rydzyk_holy_var = 10 }
+	custom_effect_tooltip = TOR_holy_plus_10
+}
+TOR_holy_plus_20 = {
+	add_to_variable = { TOR_rydzyk_holy_var = 20 }
+	custom_effect_tooltip = TOR_holy_plus_20
+}
+
+TOR_hp_plus_1 = {
+	add_to_variable = { TOR_rydzyk_hp_var = 1 }
+	custom_effect_tooltip = TOR_hp_plus_1
+}
+TOR_hp_minus_1 = {
+	add_to_variable = { TOR_rydzyk_hp_var = -1 }
+	custom_effect_tooltip = TOR_hp_minus_1
+}
+
+TOR_hp_max_minus_1 = {
+	add_to_variable = { TOR_rydzyk_hp_max_var = -1 }
+	custom_effect_tooltip = TOR_hp_max_minus_1
+}
+
+TOR_holiness_idea_calc = {
+	if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var < 30 }
+		}
+		remove_ideas = TOR_holiness_mid_idea
+		remove_ideas = TOR_holiness_max_idea
+		add_ideas = TOR_holiness_min_idea
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { TOR_rydzyk_holy_var > 29 }
+				check_variable = { TOR_rydzyk_holy_var < 71 }
+			}
+		}
+		remove_ideas = TOR_holiness_min_idea
+		remove_ideas = TOR_holiness_max_idea
+		add_ideas = TOR_holiness_mid_idea
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var > 70 }
+		}
+		remove_ideas = TOR_holiness_mid_idea
+		remove_ideas = TOR_holiness_min_idea
+		add_ideas = TOR_holiness_max_idea
+	}
+}
+
+TOR_vices_idea_calc = {
+	if = {
+		limit = {
+			check_variable = { TOR_banish_the_vices_var  = 1 }
+		}
+		remove_ideas = TOR_vices_idea_3
+		remove_ideas = TOR_vices_idea_4
+		remove_ideas = TOR_vices_idea_2
+		add_ideas = TOR_vices_idea_1
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_banish_the_vices_var  = 2 }
+		}
+		remove_ideas = TOR_vices_idea_1
+		remove_ideas = TOR_vices_idea_3
+		remove_ideas = TOR_vices_idea_4
+		add_ideas = TOR_vices_idea_2
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_banish_the_vices_var = 3 }
+		}
+		remove_ideas = TOR_vices_idea_1
+		remove_ideas = TOR_vices_idea_2
+		remove_ideas = TOR_vices_idea_4
+		add_ideas = TOR_vices_idea_3
+	}
+	else_if = {
+		limit = { 
+			check_variable = { TOR_banish_the_vices_var = 4 }
+		}
+		remove_ideas = TOR_vices_idea_1
+		remove_ideas = TOR_vices_idea_2
+		remove_ideas = TOR_vices_idea_3
+		add_ideas = TOR_vices_idea_4
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_banish_the_vices_var = 0 }
+		}
+		remove_ideas = TOR_vices_idea_1
+		remove_ideas = TOR_vices_idea_2
+		remove_ideas = TOR_vices_idea_3
+		remove_ideas = TOR_vices_idea_4
+	}
+}
+
+
+TOR_GUI_all_check = {
+	hidden_effect = {
+		TOR_HP_clamp = yes
+		TOR_holy_clamp = yes
+		TOR_holiness_idea_calc = yes
+	}
+}

@@ -13,7 +13,7 @@ focus_tree = {
 	}
 	default = no
 	
-	continuous_focus_position = {x = 50 y = 2000 }
+	continuous_focus_position = {x = 50 y = 1400 }
 	
 	focus = {
 		id = JOM_ny_saga
@@ -28,19 +28,47 @@ focus_tree = {
 		x = 6
 		y = 0
 		
-		cost = 4
+		cost = 1
 		
-		completion_reward = { add_political_power = 50
-		    country_event = {
-			    id = jomsborg.4 }
+		completion_reward = {
+		    country_event = jomsborg.4
+			set_power_balance = {
+   				id = JOM_power_balance
+    			left_side = JOM_sane_zandberg_side
+    			right_side = JOM_viking_zandberg_side
+    			set_value = 0.0
+			}
 		}
 	}
 
 	focus = {
-		id = JOM_tyr_chosen
-		icon = JOM_tyr_chosen
+		id = JOM_folkvangr_enclave
+		icon = JOM_folkvangr_enclave
 		relative_position_id = JOM_ny_saga
 		prerequisite = { focus = JOM_ny_saga }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+			country_event = jomsborg.5
+		}
+	}
+
+
+	focus = {
+		id = JOM_who_am_i
+		icon = JOM_who_am_i
+		relative_position_id = JOM_folkvangr_enclave
+		prerequisite = { focus = JOM_folkvangr_enclave }
 		available = {
 		
 		}
@@ -51,98 +79,102 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 3
+		cost = 1
 		
 		completion_reward = { 
-		    221 = {
-			create_unit = {
-				division = "name = \"Aesir\" division_template = \"Berserkir\" start_experience_factor = 0.2 start_equipment_factor = 1"
-				owner = JOM
-			}
-			}
-		    221 = {
-			create_unit = {
-				division = "name = \"Vanir\" division_template = \"Berserkir\" start_experience_factor = 0.2 start_equipment_factor = 1"
-				owner = JOM
-			}
-			}
-		}
-	}
-	
-	focus = {
-		id = JOM_marxist_vanguard
-		icon = JOM_marxist_vanguard
-		relative_position_id = JOM_ny_saga
-		prerequisite = { focus = JOM_ny_saga }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 1
-		
-		cost = 3
-		
-		completion_reward = { 
-		    add_offsite_building = { type = arms_factory level = 1 }
-		}
-	}
-	
-	focus = {
-		id = JOM_first_divisions
-		icon = JOM_first_divisions
-		relative_position_id = JOM_ny_saga
-		prerequisite = { focus = JOM_tyr_chosen }
-		prerequisite = { focus = JOM_marxist_vanguard }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 3
-		
-		completion_reward = { 
-		    country_event = {
-			    id = jomsborg.5 }
-		}
-	}
-	
-	focus = {
-		id = JOM_who_am_i
-		icon = JOM_who_am_i
-		relative_position_id = JOM_first_divisions
-		prerequisite = { focus = JOM_first_divisions }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 2
-		
-		completion_reward = { 
-		    country_event = {
-			    id = jomsborg.6 }
+			country_event = jomsborg.6
 		}
 	}
 	
 	focus = {
 		id = JOM_what_am_i_doing
 		icon = JOM_what_am_i_doing
+		relative_position_id = JOM_folkvangr_enclave
+		prerequisite = { focus = JOM_folkvangr_enclave }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			country_event = jomsborg.7
+		}
+	}
+	
+	focus = {
+		id = JOM_assembling_banners
+		icon = JOM_assembling_banners
 		relative_position_id = JOM_who_am_i
 		prerequisite = { focus = JOM_who_am_i }
+		prerequisite = { focus = JOM_what_am_i_doing }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    add_manpower = 450
+			221 = {
+				create_unit = {
+					division = "name = \"Vikingasveitin Réttlaeti\" division_template = \"Vikingasveitin\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 4170
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_aid_from_aalborg
+		icon = JOM_aid_from_aalborg
+		relative_position_id = JOM_assembling_banners
+		prerequisite = { focus = JOM_assembling_banners }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    DEN = {
+				give_resource_rights = { receiver = JOM state = 17 }
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 200
+				producer = DEN
+			}
+			add_to_variable = {
+				budget = 20
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_20M
+		}
+	}
+	focus = {
+		id = JOM_invigilaltion_from_kaupmannahofn
+		icon = JOM_invigilaltion_from_kaupmannahofn
+		relative_position_id = JOM_aid_from_aalborg
+		prerequisite = { focus = JOM_aid_from_aalborg }
 		available = {
 		
 		}
@@ -156,16 +188,20 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		    country_event = {
-			    id = jomsborg.7 }
+		    country_event = jomsborg.8
+			DEN = {
+				add_opinion_modifier = {
+					target = JOM
+					modifier = SWI_suspicious_preparations
+				}
+			}
 		}
 	}
-	
 	focus = {
-		id = JOM_intruders
-		icon = JOM_intruders
-		relative_position_id = JOM_what_am_i_doing
-		prerequisite = { focus = JOM_what_am_i_doing }
+		id = JOM_smuggling_resources
+		icon = JOM_smuggling_resources
+		relative_position_id = JOM_assembling_banners
+		prerequisite = { focus = JOM_assembling_banners }
 		available = {
 		
 		}
@@ -173,112 +209,30 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
-		y = 1
-		
-		cost = 0.5
-		
-		completion_reward = { 
-		    add_manpower = -20
-			add_stability = 0.1
-		}
-	}
-	
-	focus = {
-		id = JOM_inland_contacts
-		icon = JOM_inland_contacts
-		relative_position_id = JOM_what_am_i_doing
-		prerequisite = { focus = JOM_what_am_i_doing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 0.5
-		
-		completion_reward = {
-		    add_ideas = JOM_land_contacts	
-		}
-	}
-	
-	focus = {
-		id = JOM_thousand_drakkars
-		icon = JOM_thousand_drakkars
-		relative_position_id = JOM_what_am_i_doing
-		prerequisite = { focus = JOM_what_am_i_doing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 0.5
-		
-		completion_reward = { 
-		    add_equipment_to_stockpile = {
-			    type = convoy
-			    amount = 50
-			    producer = JOM 
-		    }
-		}
-	}
-	
-	focus = {
-		id = JOM_begin_the_revolution
-		icon = JOM_begin_the_revolution
-		relative_position_id = JOM_intruders
-		prerequisite = { focus = JOM_intruders }
-		prerequisite = { focus = JOM_thousand_drakkars }
-		prerequisite = { focus = JOM_inland_contacts }
-		available = {
-			has_country_flag = USP_the_time
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
+		x = 1
 		y = 1
 		
 		cost = 2
 		
 		completion_reward = { 
-			#country_event = {
-			#	id = ekwrozpad.13 
-			#	}
-		}
+			add_equipment_to_stockpile = {
+				type = ranged_equipment_3
+				amount = 200
+				producer = TSB
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment_2
+				amount = 400
+				producer = TSB
+			}
 
-	}
-
-}
-
-focus_tree = {
-	id = JOM_post_invasion_focus
-	
-	country = {
-		factor = 0
-		
-		modifier = {
-			add = 10
-			tag = JOM
 		}
 	}
-	default = no
-	
-	continuous_focus_position = {x = 50 y = 2000 }	
-
 	focus = {
-		id = JOM_althing
-		icon = JOM_althing
+		id = JOM_hundred_drakkars
+		icon = JOM_hundred_drakkars
+		relative_position_id = JOM_smuggling_resources
+		prerequisite = { focus = JOM_smuggling_resources }
 		available = {
 		
 		}
@@ -286,512 +240,6427 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 18
+		x = 0
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = convoy
+				amount = 50
+				producer = DEN
+			}
+			JOM = {
+			    create_ship = {
+			        type = monitor_hull_equipment
+			        equipment_variant = "Sleipnir Class"
+			        creator = JOM
+			        name = "FJM Huginn"
+			    }
+				custom_effect_tooltip = rozdzielacz_efektow
+			    create_ship = {
+			        type = monitor_hull_equipment
+			        equipment_variant = "Sleipnir Class"
+			        creator = JOM
+			        name = "FJM Muninn"
+			    }				
+			}
+		}
+	}
+	focus = {
+		id = JOM_great_heathen_army
+		icon = JOM_great_heathen_army
+		relative_position_id = JOM_hundred_drakkars
+		prerequisite = { focus = JOM_hundred_drakkars }
+		prerequisite = { focus = JOM_invigilaltion_from_kaupmannahofn }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+		    army_experience = 50
+		    add_manpower = 200
+			221 = {
+				create_unit = {
+					division = "name = \"Vikingasveitin Hefnd\" division_template = \"Vikingasveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 4170
+				}
+				create_unit = {
+					division = "name = \"Vikingasveitin Reiði\" division_template = \"Vikingasveitin\" start_experience_factor = 0.2 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 4170
+				}				
+			}
+		}
+	}
+	focus = {
+		id = JOM_housecarls_of_sammen
+		icon = JOM_housecarls_of_sammen
+		relative_position_id = JOM_great_heathen_army
+		prerequisite = { focus = JOM_great_heathen_army }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = {  
+			country_event = jomsborg.9
+			custom_effect_tooltip = JOM_huskarls_tooltip
+			division_template = {
+				name = "Huskarlar"
+				regiments = {
+					militia = { x = 0 y = 0 }
+					militia = { x = 0 y = 1 }
+					militia = { x = 0 y = 2 }
+				}
+			}
+			221 = {
+				create_unit = {
+					division = "name = \"Verðir Flokksins\" division_template = \"Huskarlar\" start_experience_factor = 0.4 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 4170
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_agents_of_loki
+		icon = JOM_agents_of_loki
+		relative_position_id = JOM_great_heathen_army
+		prerequisite = { focus = JOM_great_heathen_army }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.10
+			add_intel = {
+			    target = POM
+			    civilian_intel = 40
+			    army_intel = 15
+			    navy_intel = 60
+			}
+		}
+	}
+	focus = {
+		id = JOM_sound_the_horn
+		icon = JOM_sound_the_horn
+		relative_position_id = JOM_housecarls_of_sammen
+		prerequisite = { focus = JOM_housecarls_of_sammen }
+		prerequisite = { focus = JOM_agents_of_loki }
+		available = {
+			has_country_flag = JOM_ragnarok
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		cost = 0.5
+		
+		completion_reward = { 
+			country_event = {
+				id = ekwrozpad.13
+			}
+		}
+	}
+
+	focus = {
+		id = JOM_sands_of_vendland
+		icon = JOM_sands_of_vendland
+		available = {
+			has_country_flag = JOM_landed
+		}
+		
+		bypass = {
+		}
+		
+		x = 25
 		y = 0
 		
 		cost = 1
 		
 		completion_reward = { 
+		    country_event = jomsborg.11
 		}
 	}
+	focus = {
+		id = JOM_set_coast_ablaze
+		icon = JOM_set_coast_ablaze
+		relative_position_id = JOM_sands_of_vendland
+		prerequisite = {
+			focus = JOM_sands_of_vendland
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+			POM = {
+				exists = no
+			}
+		}
 
-	focus = {
-		id = JOM_social_care_debate
-		icon = JOM_social_care_debate
-		relative_position_id = JOM_althing
-		prerequisite = { focus = JOM_althing }
-		available = {
-		
+		mutually_exclusive = {
+			focus = JOM_deep_raids
 		}
-		
-		bypass = {
-		}
-		
-		x = -6
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_state_development_debate
-		icon = JOM_state_development_debate
-		relative_position_id = JOM_althing
-		prerequisite = { focus = JOM_althing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -3
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_armed_forces_debate
-		icon = JOM_armed_forces_debate
-		relative_position_id = JOM_althing
-		prerequisite = { focus = JOM_althing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_cultural_revolution_debate
-		icon = JOM_cultural_revolution_debate
-		relative_position_id = JOM_althing
-		prerequisite = { focus = JOM_althing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 3
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_state_secularity_debate
-		icon = JOM_state_secularity_debate
-		relative_position_id = JOM_althing
-		prerequisite = { focus = JOM_althing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 6
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_help_the_citizens
-		icon = JOM_help_the_citizens
-		relative_position_id = JOM_social_care_debate
-		prerequisite = { focus = JOM_social_care_debate }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_health_and_environment
-		icon = JOM_health_and_environment
-		relative_position_id = JOM_state_development_debate
-		prerequisite = { focus = JOM_state_development_debate }
-		prerequisite = { focus = JOM_social_care_debate }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
+
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
-		completion_reward = { }
+		completion_reward = { 
+		    POM = {
+				add_ideas = JOM_viking_raids_coast
+			}
+		}
 	}
-	
 	focus = {
-		id = JOM_cutting_trees_for_fleet
-		icon = JOM_cutting_trees_for_fleet
-		relative_position_id = JOM_armed_forces_debate
-		prerequisite = { focus = JOM_social_care_debate }
-		prerequisite = { focus = JOM_armed_forces_debate }
+		id = JOM_deep_raids
+		icon = JOM_deep_raids
+		relative_position_id = JOM_sands_of_vendland
+		prerequisite = {
+			focus = JOM_sands_of_vendland
+		}
 		available = {
 		
 		}
 		
 		bypass = {
+			POM = {
+				exists = no
+			}
 		}
-		
-		x = -1
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_deal_with_swinoujscie
-		icon = JOM_deal_with_swinoujscie
-		relative_position_id = JOM_cutting_trees_for_fleet
-		prerequisite = { focus = JOM_cutting_trees_for_fleet }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
 
-	
-	focus = {
-		id = JOM_rebirth_of_blacksmithing
-		icon = JOM_rebirth_of_blacksmithing
-		relative_position_id = JOM_armed_forces_debate
-		prerequisite = { focus = JOM_cultural_revolution_debate }
-		prerequisite = { focus = JOM_armed_forces_debate }
-		available = {
-		
+		mutually_exclusive = {
+			focus = JOM_set_coast_ablaze
 		}
-		
-		bypass = {
-		}
-		
+
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
-		completion_reward = { }
+		completion_reward = { 
+		    POM = {
+				add_ideas = JOM_viking_raids_deep
+			}	    
+		}
 	}
 
-	focus = {
-		id = JOM_training_worthy_of_viking
-		icon = JOM_training_worthy_of_viking
-		relative_position_id = JOM_rebirth_of_blacksmithing
-		prerequisite = { focus = JOM_rebirth_of_blacksmithing }
+    focus = {
+		id = JOM_gates_of_hel
+		icon = JOM_gates_of_hel
+		relative_position_id = JOM_set_coast_ablaze
+		prerequisite = {
+			focus = JOM_set_coast_ablaze
+			focus = JOM_deep_raids
+		}
 		available = {
-		
+			68 = {
+				is_owned_and_controlled_by = JOM
+			}
+			POM = { exists = no }
 		}
 		
 		bypass = {
 		}
-		
-		x = 0
+
+
+		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
-		completion_reward = { }
+		completion_reward = { 
+		    every_state = {
+				limit = {
+					is_core_of = POM
+					is_controlled_by = JOM
+				}
+				add_compliance = 30
+			}
+			add_stability = 0.05
+		}
 	}
 
-	focus = {
-		id = JOM_raid_on_szczecin
-		icon = JOM_raid_on_szczecin
-		relative_position_id = JOM_armed_forces_debate
-		prerequisite = { focus = JOM_deal_with_swinoujscie }
-		prerequisite = { focus = JOM_training_worthy_of_viking }
+   focus = {
+		id = JOM_looting_churches
+		icon = JOM_looting_churches
+		relative_position_id = JOM_gates_of_hel
+		prerequisite = {
+			focus = JOM_gates_of_hel
+		}
 		available = {
 		
 		}
 		
 		bypass = {
 		}
+
+		x = -1
+		y = 1
 		
-		x = 0
-		y = 4
+		cost = 3
 		
-		cost = 1
-		
-		completion_reward = { }
+		completion_reward = { 
+		    country_event = jomsborg.12
+		}
 	}
+
+	focus = {
+		id = JOM_germanic_equipment
+		icon = JOM_germanic_equipment
+		relative_position_id = JOM_gates_of_hel
+		prerequisite = {
+			focus = JOM_gates_of_hel
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = ranged_equipment_4
+				amount = 300
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 150
+				producer = GER
+			}			 
+			add_equipment_to_stockpile = {
+				type = motorized_equipment_5
+				amount = 50
+				producer = GER
+			} 
+			add_equipment_to_stockpile = {
+				type = mbt_equipment_3
+				amount = 1
+				producer = GER
+			}						   
+		}
+	}
+
 	focus = {
 		id = JOM_retake_jomsborg
 		icon = JOM_retake_jomsborg
-		relative_position_id = JOM_armed_forces_debate
-		prerequisite = { focus = JOM_raid_on_szczecin }
+		relative_position_id = JOM_looting_churches
+		prerequisite = {focus = JOM_looting_churches}
+		prerequisite = {focus = JOM_germanic_equipment}
 		available = {
-		
+			has_war = no
 		}
 		
 		bypass = {
-			is_ai = yes
+			STR = { exists = no }
 		}
+
+		x = -3
+		y = 1
 		
-		x = -1
-		y = 5
-		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
 			declare_war_on = {
 				target = STR
-				type = annex_everything
+				type = voivodeship_war
 			}
 		}
 	}
 	focus = {
-		id = JOM_riches_of_kolberg
-		icon = JOM_riches_of_kolberg
-		relative_position_id = JOM_armed_forces_debate
-		prerequisite = { focus = JOM_raid_on_szczecin }
+		id = JOM_northern_flank
+		icon = JOM_northern_flank
+		relative_position_id = JOM_retake_jomsborg
+		prerequisite = {focus = JOM_retake_jomsborg}
 		available = {
 		
 		}
 		
 		bypass = {
-			is_ai = yes
 		}
-		
-		x = 1
-		y = 5
+		mutually_exclusive = {
+			focus = JOM_direct_strike
+		}
+		x = -1
+		y = 1
 		
 		cost = 1
 		
-		completion_reward = {
+		completion_reward = { 
+			70 = {
+			add_province_modifier = {
+				static_modifiers = { active_decryption_modifier }
+				province = { id = 17203 }
+			}
+			}
+		}
+	}
+	focus = {
+		id = JOM_direct_strike
+		icon = JOM_direct_strike
+		relative_position_id = JOM_retake_jomsborg
+		prerequisite = {focus = JOM_retake_jomsborg}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		mutually_exclusive = {
+			focus = JOM_northern_flank
+		}
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		    add_command_power = 50
+			army_experience = 40
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = 150
+				producer = JOM
+			}
+		}
+	}
+	focus = {
+		id = JOM_back_in_home
+		icon = JOM_back_in_home
+		relative_position_id = JOM_northern_flank
+		prerequisite = {focus = JOM_northern_flank focus = JOM_direct_strike}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.13
+			70 = { add_core_of =  JOM }
+			set_capital = {state = 70}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = JOM_northern_flank
+					}
+					70 = {
+						remove_province_modifier = {
+							static_modifiers = { active_decryption_modifier }
+							province = { id = 17203 }
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_memories_of_past
+		icon = JOM_memories_of_past
+		relative_position_id = JOM_looting_churches
+		prerequisite = {focus = JOM_looting_churches}
+		prerequisite = {focus = JOM_germanic_equipment}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.14
+		}
+	}
+	focus = {
+		id = JOM_first_althing
+		icon = JOM_first_althing
+		relative_position_id = JOM_memories_of_past
+		prerequisite = {focus = JOM_memories_of_past}
+		available = {
+			621 = {
+				is_owned_and_controlled_by = JOM
+			}
+			KLB = { exists = no }
+			70 = {
+				is_owned_and_controlled_by = JOM
+			}
+			STR = { exists = no }			
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.15
+		}
+	}
+	focus = {
+		id = JOM_skeggold
+		icon = JOM_skeggold
+		relative_position_id = JOM_first_althing
+		prerequisite = {focus = JOM_first_althing}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    swap_ideas = {
+				remove_idea = training_battle
+				add_idea = training_basic
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_honor
+			} 
+		}
+	}
+	focus = {
+		id = JOM_expand_coastline
+		icon = JOM_expand_coastline
+		relative_position_id = JOM_germanic_equipment
+		prerequisite = {focus = JOM_looting_churches}
+		prerequisite = {focus = JOM_germanic_equipment}
+		available = {
+			has_war = no
+		}
+		
+		bypass = {
+			KLB = { exists = no } 
+		}
+		x = 3
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
 			declare_war_on = {
 				target = KLB
-				type = annex_everything
+				type = voivodeship_war
 			}
 		}
-	}	
-	
-	focus = {
-		id = JOM_biggest_city_of_europe
-		icon = JOM_biggest_city_of_europe
-		relative_position_id = JOM_cultural_revolution_debate
-		prerequisite = { focus = JOM_cultural_revolution_debate }
-		prerequisite = { focus = JOM_state_secularity_debate }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
 	}
-
 	focus = {
-		id = JOM_legalization_of_new_faiths
-		icon = JOM_legalization_of_new_faiths
-		relative_position_id = JOM_state_secularity_debate
-		prerequisite = { focus = JOM_state_secularity_debate }
+		id = JOM_ground_assault
+		icon = JOM_ground_assault
+		relative_position_id = JOM_expand_coastline
+		prerequisite = {focus = JOM_expand_coastline}
 		available = {
 		
 		}
 		
 		bypass = {
 		}
-		
-		x = 2
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_scandinavian_style
-		icon = JOM_scandinavian_style
-		relative_position_id = JOM_biggest_city_of_europe
-		prerequisite = { focus = JOM_biggest_city_of_europe }
-		available = {
-		
+		mutually_exclusive = {
+			focus = JOM_pinnastrond_raid
 		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_legalization_of_duels
-		icon = JOM_legalization_of_duels
-		relative_position_id = JOM_state_secularity_debate
-		prerequisite = { focus = JOM_biggest_city_of_europe
-						focus = JOM_legalization_of_new_faiths }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_temples_and_public_prayers
-		icon = JOM_temples_and_public_prayers
-		relative_position_id = JOM_legalization_of_new_faiths
-		prerequisite = { focus = JOM_legalization_of_new_faiths}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_gifts_from_northern_brothers
-		icon = JOM_gifts_from_northern_brothers
-		relative_position_id = JOM_biggest_city_of_europe
-		prerequisite = { focus = JOM_scandinavian_style }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_sacrifice_the_unworthy
-		icon = JOM_sacrifice_the_unworthy
-		relative_position_id = JOM_legalization_of_new_faiths
-		prerequisite = { focus = JOM_temples_and_public_prayers }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -1
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_ecohouses
-		icon = JOM_ecohouses
-		relative_position_id = JOM_help_the_citizens
-		prerequisite = { focus = JOM_help_the_citizens }
-		prerequisite = { focus = JOM_health_and_environment }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = JOM_public_projects
-		icon = JOM_public_projects
-		relative_position_id = JOM_ecohouses
-		prerequisite = { focus = JOM_ecohouses }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
 		x = -1
 		y = 1
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			55 = {
+				add_state_modifier = {
+                    modifier = {
+						enemy_army_speed_factor = 0.15
+						equipment_capture_factor_for_controller = 0.15
+						local_intel_to_enemies = 0.2
+                    }
+                }
+			}  
+			army_experience = 60
+			add_command_power = 30
+		}
 	}
-	
 	focus = {
-		id = JOM_renewable_energy_sources
-		icon = JOM_renewable_energy_sources
-		relative_position_id = JOM_ecohouses
-		prerequisite = { focus = JOM_ecohouses }
+		id = JOM_pinnastrond_raid
+		icon = JOM_pinnastrond_raid
+		relative_position_id = JOM_expand_coastline
+		prerequisite = {focus = JOM_expand_coastline}
+		available = {
+		
+		}
+		bypass = {
+
+		}
+		mutually_exclusive = {
+			focus = JOM_ground_assault
+		}
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		    navy_experience = 30
+			621 = {
+				create_unit = {
+					division = "name = \"Skemmdarherfylki Pinnaströnd\" division_template = \"Vikingasveitin\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = JOM
+					prioritize_location = 17004
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_vacation_over
+		icon = JOM_vacation_over
+		relative_position_id = JOM_ground_assault
+		prerequisite = {focus = JOM_pinnastrond_raid focus = JOM_ground_assault}
 		available = {
 		
 		}
 		
 		bypass = {
 		}
-		
 		x = 1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.16
+			621 = { add_core_of =  JOM }
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = JOM_ground_assault
+					}
+					55 = {
+						add_state_modifier = {
+            		        modifier = {
+								enemy_army_speed_factor = -0.15
+								equipment_capture_factor_for_controller = -0.15
+								local_intel_to_enemies = -0.2
+            		        }
+            		    }
+					}  
+				}
+			}
+			custom_effect_tooltip = JOM_pinnastrond_unlock
+		}
+	}
+	focus = {
+		id = JOM_tyr_chosen
+		icon = JOM_tyr_chosen
+		relative_position_id = JOM_sands_of_vendland
+		prerequisite = {focus = JOM_sands_of_vendland}
+		available = {
+			has_completed_focus = JOM_skeggold
+		}
+		
+		bypass = {
+		}
+		x = 10
 		y = 1
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+		    add_ideas = JOM_tyr_idea
+		}
+	}
+	focus = {
+		id = JOM_fury_of_berserkers
+		icon = JOM_fury_of_berserkers
+		relative_position_id = JOM_tyr_chosen
+		prerequisite = {focus = JOM_tyr_chosen}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			division_template = {
+				name = "Berserkir"
+				template_counter = 53
+				regiments = {
+					melee_infantry = { x = 0 y = 0 }
+					melee_infantry = { x = 0 y = 1 }
+					marine = { x = 1 y = 0 }
+				}
+			} 
+			68 = {
+				create_unit = {
+					division = "name = \"Bjarnarlið\" division_template = \"Berserkir\" start_experience_factor = 0.7 start_equipment_factor = 1"
+					owner = JOM
+				}
+				create_unit = {
+					division = "name = \"Úlfalið\" division_template = \"Berserkir\" start_experience_factor = 0.7 start_equipment_factor = 1"
+					owner = JOM
+				}
+			}  
+		    swap_ideas = {
+				remove_idea = JOM_tyr_idea
+				add_idea = JOM_tyr_idea_2
+			} 
+		}
+	}
+	focus = {
+		id = JOM_forging_spears
+		icon = JOM_forging_spears
+		relative_position_id = JOM_fury_of_berserkers
+		prerequisite = {focus = JOM_fury_of_berserkers}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = melee_weapons
+			}
+			add_offsite_building = { type = arms_factory level = 1 }
+		}
+	}
+	focus = {
+		id = JOM_shields_from_vendland
+		icon = JOM_shields_from_vendland
+		relative_position_id = JOM_fury_of_berserkers
+		prerequisite = {focus = JOM_fury_of_berserkers}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    swap_ideas = {
+				remove_idea = JOM_tyr_idea_2
+				add_idea = JOM_tyr_idea_3
+			}
+		}
+	}
+	focus = {
+		id = JOM_shield_wall_perfected
+		icon = JOM_shield_wall_perfected
+		relative_position_id = JOM_forging_spears
+		prerequisite = {focus = JOM_shields_from_vendland}
+		prerequisite = {focus = JOM_forging_spears}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 6
+		
+		completion_reward = { 
+		    country_event = jomsborg.17
+		    swap_ideas = {
+				remove_idea = JOM_tyr_idea_3
+				add_idea = JOM_tyr_idea_4
+			}			
+		}
+	}
+	focus = {
+		id = JOM_cutting_trees_for_fleet
+		icon = JOM_cutting_trees_for_fleet
+		relative_position_id = JOM_tyr_chosen
+		prerequisite = {focus = JOM_tyr_chosen}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+		    620 = {
+				add_extra_state_shared_building_slots = 1
+		 	}
+		    68 = {
+				add_extra_state_shared_building_slots = 1
+		 	}
+			add_timed_idea = {
+				idea = JOM_shipbuilding_frenzy
+				days = 180
+			}
+			add_political_power = -50			
+		}
+	}
+	focus = {
+		id = JOM_hit_run_doctrine
+		icon = JOM_hit_run_doctrine
+		relative_position_id = JOM_cutting_trees_for_fleet
+		prerequisite = {focus = JOM_cutting_trees_for_fleet}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = cat_marines_doctrine
+			}  
+		}
+	}
+	focus = {
+		id = JOM_riverine_warfare
+		icon = JOM_riverine_warfare
+		relative_position_id = JOM_cutting_trees_for_fleet
+		prerequisite = {focus = JOM_cutting_trees_for_fleet}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_brown
+			} 
+		}
+	}
+	focus = {
+		id = JOM_fjm_karl_marx
+		icon = JOM_fjm_karl_marx
+		relative_position_id = JOM_hit_run_doctrine
+		prerequisite = {focus = JOM_hit_run_doctrine}
+		prerequisite = {focus = JOM_riverine_warfare}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 6
+		
+		completion_reward = { 
+		    country_event = jomsborg.18
+			hidden_effect = {
+				load_oob = JOM_2027_fleet_MtG_2
+			}
+			custom_effect_tooltip = JOM_karlmarx_tt
+		}
+	}
+	focus = {
+		id = JOM_friggs_care
+		icon = JOM_friggs_care
+		relative_position_id = JOM_sands_of_vendland
+		prerequisite = {focus = JOM_sands_of_vendland}
+		available = {
+			has_completed_focus = JOM_skeggold
+		}
+		
+		bypass = {
+		}
+		x = 16
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		    add_ideas = JOM_frigg_idea
+		}
+	}
+
+	focus = {
+		id = JOM_redistribute_loot
+		icon = JOM_redistribute_loot
+		relative_position_id = JOM_friggs_care
+		prerequisite = {focus = JOM_friggs_care}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    add_stability = 0.1
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			swap_ideas = {
+				remove_idea = economy_primal_economy
+				add_idea = economy_anarchy
+			}
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = budget_subtract_50M
+		}
+	}
+
+	focus = {
+		id = JOM_of_fish_and_mead
+		icon = JOM_of_fish_and_mead
+		relative_position_id = JOM_redistribute_loot
+		prerequisite = {focus = JOM_redistribute_loot}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+		    add_resource = {
+			    type = food
+			    amount = 2
+			    state = 70
+			}
+		    add_resource = {
+			    type = food
+			    amount = 1
+			    state = 620
+			}
+		    add_resource = {
+			    type = food
+			    amount = 1
+			    state = 61
+			}				
+		    add_resource = {
+			    type = food
+			    amount = 2
+			    state = 621
+			}					
+		}
+	}
+	focus = {
+		id = JOM_free_thralls
+		icon = JOM_free_thralls
+		relative_position_id = JOM_friggs_care
+		prerequisite = {focus = JOM_friggs_care}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    add_stability = 0.05
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.05
+			}
+			add_manpower = 1678
+			621 = {
+			remove_building = {
+				type = prison
+				level = 1
+			}
+			}
+			620 = {
+			remove_building = {
+				type = prison
+				level = 1
+			}
+			}	
+			add_to_variable = {
+				budget = 20
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_20M
+		}
+	}
+	focus = {
+		id = JOM_power_of_njordr
+		icon = JOM_power_of_njordr
+		relative_position_id = JOM_free_thralls
+		prerequisite = {focus = JOM_free_thralls}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+			70 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			620 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}			
+			hidden_effect = {
+				add_to_variable = {
+					budget = 600
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_establish_trades_routes
+		icon = JOM_establish_trades_routes
+		relative_position_id = JOM_power_of_njordr
+		prerequisite = {focus = JOM_power_of_njordr}
+		prerequisite = {focus = JOM_of_fish_and_mead}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 6
+		
+		completion_reward = { 
+		    country_event = jomsborg.19
+			swap_ideas = {
+				remove_idea = trade_none
+				add_idea = trade_minimal
+			}
+			set_country_flag = JOM_voyage_voyage
+		}
+	}
+	focus = {
+		id = JOM_great_serpent
+		icon = JOM_great_serpent
+		relative_position_id = JOM_skeggold
+		prerequisite = {focus = JOM_skeggold}
+		available = {
+			has_war = no
+		}
+		
+		bypass = {
+			AND = {
+				EKW = { exists=no }
+				FRE = { exists=no }
+			}
+		}
+		x = -10
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			if = { limit = { country_exists = EKW }
+			declare_war_on = {
+				target = EKW
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = FRE }
+			declare_war_on = {
+				target = FRE
+				type = voivodeship_war
+			}
+			}			
+		}
+	}
+	focus = {
+		id = JOM_heartless_liberals
+		icon = JOM_heartless_liberals
+		relative_position_id = JOM_great_serpent
+		prerequisite = {focus = JOM_great_serpent}
+		available = {
+			614 = {
+				is_owned_and_controlled_by = JOM
+			}
+			EKW = { exists = no }
+			FRE = { exists = no }
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.20
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = -0.1
+			}
+		}
+	}
+	focus = {
+		id = JOM_convert_settlers
+		icon = JOM_convert_settlers
+		relative_position_id = JOM_great_serpent
+		prerequisite = {focus = JOM_great_serpent}
+		available = {
+			614 = {
+				is_owned_and_controlled_by = JOM
+			}
+			EKW = { exists = no }
+			FRE = { exists = no }
+		}
+		
+		bypass = {
+		}
+
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.21
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = niemcy_prosze_pana
+					}
+				}
+				remove_dynamic_modifier = {
+					modifier = niemcy_prosze_pana
+				}
+				add_dynamic_modifier = {
+					modifier = niemcy_prosze_pana_converting
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_blood_eagle_traitors
+		icon = JOM_blood_eagle_traitors
+		relative_position_id = JOM_heartless_liberals
+		prerequisite = {focus = JOM_heartless_liberals}
+		prerequisite = {focus = JOM_convert_settlers}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    add_stability = -0.05
+			615 = {
+				add_manpower = -1103
+				add_compliance = 30
+			}
+			158 = {
+				add_manpower = -2234
+				add_compliance = 30
+			}
+			614 = {
+				add_manpower = -4540
+				add_compliance = 30
+			}
+			122 = {
+				add_manpower = -2987
+				add_compliance = 30
+			}
+			133 = {
+				add_manpower = -1146
+				add_compliance = 30
+			}			
+		}
+	}
+	focus = {
+		id = JOM_burstaborg_siege
+		icon = JOM_burstaborg_siege
+		relative_position_id = JOM_skeggold
+		prerequisite = {focus = JOM_skeggold}
+		available = {
+			has_war = no
+		}
+		
+		bypass = {
+			AND = {
+				STE = { exists = no }
+				CHE = { exists = no }
+				LIG = { exists = no }
+			}
+		}
+		x = -6
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			if = { limit = { country_exists = STE }
+			declare_war_on = {
+				target = STE
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = CHE }
+			declare_war_on = {
+				target = CHE
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = LIG }
+			declare_war_on = {
+				target = LIG
+				type = voivodeship_war
+			}
+			}			
+		}
+	}
+	focus = {
+		id = JOM_summer_gone
+		icon = JOM_summer_gone
+		relative_position_id = JOM_burstaborg_siege
+		prerequisite = {focus = JOM_burstaborg_siege}
+		available = {
+			105 = { is_owned_and_controlled_by = JOM }
+			107 = { is_owned_and_controlled_by = JOM }
+			90 = { is_owned_and_controlled_by = JOM }
+			STE = { exists = no }
+			LIG = { exists = no }
+			CHE = { exists = no }
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.22
+			every_possible_country = {
+				limit = { has_character = STE_bogdan_jaroszewicz }
+				random_character = {
+					limit = { is_character = STE_bogdan_jaroszewicz }
+					set_nationality = JOM
+				}
+			}
+			every_possible_country = {
+				limit = { has_character = STE_margaret }
+				random_character = {
+					limit = { is_character = STE_margaret }
+					set_nationality = JOM
+				}
+			}			
+		}
+	}
+	focus = {
+		id = JOM_sack_the_city
+		icon = JOM_sack_the_city
+		relative_position_id = JOM_burstaborg_siege
+		prerequisite = {focus = JOM_burstaborg_siege}
+		available = {
+			105 = { is_owned_and_controlled_by = JOM }
+			107 = { is_owned_and_controlled_by = JOM }
+			90 = { is_owned_and_controlled_by = JOM }
+			STE = { exists = no }
+			LIG = { exists = no }
+			CHE = { exists = no }
+		}
+		
+		bypass = {
+		}
+
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.23
+			add_to_variable = {
+				budget = 150
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_150M
+		}
+	}
+	focus = {
+		id = JOM_steel_longships
+		icon = JOM_steel_longships
+		relative_position_id = JOM_summer_gone
+		prerequisite = {focus = JOM_summer_gone}
+		prerequisite = {focus = JOM_sack_the_city}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+			if = {
+				limit = {
+					has_idea = JOM_oder_swinoujscie
+				}
+				swap_ideas = {
+					remove_idea = JOM_oder_swinoujscie
+					add_idea = JOM_oder_estuary1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = JOM_oder_swinoujscie }
+				}
+				add_ideas = JOM_oder_szczecin
+			}
+			mio:STE_wulkan_mio = {
+				set_mio_name_key = JOM_wulkan_name
+				set_mio_icon = GFX_idea_JOM_wulkan_gryfia
+			}
+		}
+	}
+	focus = {
+		id = JOM_islanders_of_swinmunnir
+		icon = JOM_islanders_of_swinmunnir
+		relative_position_id = JOM_skeggold
+		prerequisite = {focus = JOM_skeggold}
+		available = {
+			has_war = no
+		}
+		
+		bypass = {
+			SWI = { exists = no }
+		}
+		x = -2
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    if = {
+				limit = {
+					SWI = {
+						has_country_leader = {
+							character = SWI_zmurkiewicz
+						}
+					}
+				}
+				SWI = {
+					country_event = swinoujscie.1
+				}
+			}
+		    if = {
+				limit = {
+					SWI = {
+						has_country_leader = {
+							character = SWI_brudzinski
+						}
+					}
+				}
+				JOM = {
+					declare_war_on = {
+						target = SWI
+						type = voivodeship_war
+					}
+				}
+			}			
+		}
+	}
+	focus = {
+		id = JOM_companions_of_socialism
+		icon = JOM_companions_of_socialism
+		relative_position_id = JOM_islanders_of_swinmunnir
+		prerequisite = {focus = JOM_islanders_of_swinmunnir}
+		available = {
+			54 = { is_owned_and_controlled_by = JOM }
+			SWI = { exists = no }
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.24
+			every_possible_country = {
+				limit = { has_character = SWI_kwasniewski }
+				random_character = {
+					limit = { is_character = SWI_kwasniewski }
+					set_nationality = JOM
+				}
+			}
+			every_possible_country = {
+				limit = { has_character = SWI_kulagin }
+				random_character = {
+					limit = { is_character = SWI_kulagin }
+					set_nationality = JOM
+				}
+			}
+			add_manpower = 246
+			add_political_power = 100	
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.075
+			}		
+		}
+	}
+	focus = {
+		id = JOM_heregeld_or_enlistment
+		icon = JOM_heregeld_or_enlistment
+		relative_position_id = JOM_islanders_of_swinmunnir
+		prerequisite = {focus = JOM_islanders_of_swinmunnir}
+		available = {
+			54 = { is_owned_and_controlled_by = JOM }
+			SWI = { exists = no }		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.25
+			random_list = {
+				40 = {
+					add_ideas = JOM_heregeld
+				}
+				30 = {
+					54 = {
+						add_state_modifier = {
+							modifier = { 
+								local_non_core_manpower = 0.3
+								local_manpower = 0.2
+							}
+						}
+					}
+				}
+				20 = {
+					add_to_variable = {
+						budget = 300
+					}
+					custom_effect_tooltip = budget_add_300M
+					add_manpower = 1000
+				}
+				10 = {
+					54 = {
+						add_resistance = 40
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_our_window_to_world
+		icon = JOM_our_window_to_world
+		relative_position_id = JOM_companions_of_socialism
+		prerequisite = {focus = JOM_companions_of_socialism}
+		prerequisite = {focus = JOM_heregeld_or_enlistment}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+			if = {
+				limit = {
+					has_idea = JOM_oder_szczecin
+				}
+				swap_ideas = {
+					remove_idea = JOM_oder_szczecin
+					add_idea = JOM_oder_estuary1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = JOM_oder_szczecin }
+				}
+				add_ideas = JOM_oder_swinoujscie
+			}		    
+		}
+	}
+	focus = {
+		id = JOM_falling_nidhoggr
+		icon = JOM_falling_nidhoggr
+		relative_position_id = JOM_skeggold
+		prerequisite = {focus = JOM_skeggold}
+		available = {
+			has_war = no
+		}
+		
+		bypass = {
+			AND = {
+				JAS = { exists = no }
+				SNF = { exists = no }
+				BOR = { exists = no }
+			}
+		}
+		x = 2
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			if = { limit = { country_exists = JAS }
+			declare_war_on = {
+				target = JAS
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = SNF }
+			declare_war_on = {
+				target = SNF
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { country_exists = BOR }
+			declare_war_on = {
+				target = BOR
+				type = voivodeship_war
+			}
+			}			
+		}
+	}
+	focus = {
+		id = JOM_wolfs_holmgang
+		icon = JOM_wolfs_holmgang
+		relative_position_id = JOM_falling_nidhoggr
+		prerequisite = {focus = JOM_falling_nidhoggr}
+		available = {
+			1092 = { is_owned_and_controlled_by = JOM }
+			JAS = { exists = no }
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.26
+		}
+	}
+	focus = {
+		id = JOM_hammer_of_rainbow_vikings
+		icon = JOM_hammer_of_rainbow_vikings
+		relative_position_id = JOM_falling_nidhoggr
+		prerequisite = {focus = JOM_falling_nidhoggr}
+		available = {
+			1092 = { is_owned_and_controlled_by = JOM }
+			78 = { is_owned_and_controlled_by = JOM }
+			82 = { is_owned_and_controlled_by = JOM }
+			JAS = { exists = no }
+			BOR = { exists = no }
+			SNF = { exists = no }
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.27
+			872 = {
+				add_resistance = 70
+			}
+			873 = {
+				add_resistance = 70
+			}
+			78 = {
+				add_resistance = 70
+			}
+			98 = {
+				add_resistance = 35
+			}
+			118 = {
+				add_resistance = 35
+			}
+			82 = {
+				add_resistance = 35
+			}	
+			84 = {
+				add_resistance = 35
+			}																	
+		}
+	}
+	focus = {
+		id = JOM_forge_of_warriors
+		icon = JOM_forge_of_warriors
+		relative_position_id = JOM_wolfs_holmgang
+		prerequisite = {focus = JOM_wolfs_holmgang}
+		prerequisite = {focus = JOM_hammer_of_rainbow_vikings}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+		    add_ideas = JOM_lizard_proving_grounds
+			army_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_partisan
+				name = "I'LL TEAR YOUR FUCKING HEART OUT AND EAT IT LIKE THAT AAAAAAAAAAR"
+			}
+		}
+	}
+	focus = {
+		id = JOM_push_back_skraelings
+		icon = JOM_push_back_skraelings
+		relative_position_id = JOM_skeggold
+		prerequisite = {focus = JOM_skeggold}
+		available = {
+			has_war = no
+		}
+		
+		bypass = {
+			USP = { exists = no }
+		}
+
+		x = 6
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			if = { limit = { country_exists = USP }
+			declare_war_on = {
+				target = USP
+				type = voivodeship_war
+			}
+			}
+		}
+	}
+	focus = {
+		id = JOM_total_naval_blockade
+		icon = JOM_total_naval_blockade
+		relative_position_id = JOM_push_back_skraelings
+		prerequisite = {focus = JOM_push_back_skraelings}
+		available = {
+			ships_in_area = { area = 166 size > 2 } 
+		}
+		
+		bypass = {
+			USP = {
+				exists = no
+			}
+			has_completed_focus = JOM_redirect_revolution
+			53 = {
+				is_core_of = JOM
+			}
+		}
+		x = -1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.28
+			USP = {
+				add_stability = -0.2
+				add_war_support = -0.2
+				set_fuel_ratio = 0.2
+			}
+			add_command_power = 30
+		}
+	}
+	focus = {
+		id = JOM_redirect_revolution
+		icon = JOM_redirect_revolution
+		relative_position_id = JOM_push_back_skraelings
+		prerequisite = {focus = JOM_push_back_skraelings}
+		available = {
+			53 = { is_owned_and_controlled_by = JOM }
+			USP = { exists = no }
+		}
+		
+		bypass = {
+		
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.29
+			53 = { add_compliance = 30 }
+		    622 = { add_compliance = 30 }
+		    63 = { add_compliance = 30 }
+		    45 = { add_compliance = 30 }
+		}
+	}
+	focus = {
+		id = JOM_breadbasket_of_pomerania
+		icon = JOM_breadbasket_of_pomerania
+		relative_position_id = JOM_total_naval_blockade
+		prerequisite = {focus =JOM_total_naval_blockade}
+		prerequisite = {focus = JOM_redirect_revolution}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4
+		
+		completion_reward = { 
+			53 = {
+				add_state_modifier = {
+                    modifier = {
+						state_resources_food_factor = 0.3
+						local_manpower = 0.05
+                    }
+                }
+				add_resource = {
+					type = food
+					amount = 5
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_kinsmen_from_north
+		icon = JOM_kinsmen_from_north
+		relative_position_id = JOM_skeggold
+		prerequisite = {focus = JOM_skeggold}
+		available = {
+			NOR = { exists = yes }
+			JOM = { NOT = { has_war_with = NOR } }
+		}
+		
+		bypass = {
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
+		}
+		x = 10
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    JOM = {
+				diplomatic_relation = {
+					country = NOR
+					relation = non_aggression_pact
+				}
+				give_guarantee = NOR
+			}
+		}
+	}
+	focus = {
+		id = JOM_meet_with_hellebjerg
+		icon = JOM_meet_with_hellebjerg
+		relative_position_id = JOM_kinsmen_from_north
+		prerequisite = {focus = JOM_kinsmen_from_north}
+		available = {
+		
+		}
+		
+		bypass = {
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
+		}
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.30
+			create_faction = "Nordic Defence Union"
+			add_to_faction = NOR
+		}
+	}
+	focus = {
+		id = JOM_treaty_of_bornholm
+		icon = JOM_treaty_of_bornholm
+		relative_position_id = JOM_kinsmen_from_north
+		prerequisite = {focus = JOM_kinsmen_from_north}
+		available = {
+			has_completed_focus = JOM_meet_with_hellebjerg
+		}
+		
+		bypass = {
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    country_event = jomsborg.31
+			JOM = {
+				transfer_state = 33
+				33 = { add_core_of = JOM }
+				33 = { remove_core_of = NOR }
+			}
+			NOR = { set_cosmetic_tag = NOR_JOM }
+		}
+	}
+	focus = {
+		id = JOM_secure_our_backs
+		icon = JOM_secure_our_backs
+		relative_position_id = JOM_meet_with_hellebjerg
+		prerequisite = {focus = JOM_meet_with_hellebjerg}
+		prerequisite = {focus = JOM_treaty_of_bornholm}
+		available = {
+			OR = {
+				NOR = { is_ally_with = JOM }
+				NOR = { is_subject_of = JOM }
+			}
+		}
+		
+		bypass = {
+			OR = {
+				NOR = { exists = no }
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = no }
+				}
+				hidden_trigger = {
+					JOM = { is_ai = yes }
+					NOR = { is_ai = yes }
+				}
+			}
+		}
+		x = 1
+		y = 1
+		
+		cost = 3
+		
+		completion_reward = { 
+		    JOM = { 
+				diplomatic_relation = {
+					country = NOR
+					relation = docking_rights
+				}
+				diplomatic_relation = {
+					country = NOR
+					relation = military_access
+				}				
+			}
+		    NOR = { 
+				diplomatic_relation = {
+					country = JOM
+					relation = docking_rights
+				}
+				diplomatic_relation = {
+					country = JOM
+					relation = military_access
+				}	
+				add_ai_strategy = {
+				    type = garrison
+				    value = 200
+				}			
+			}			
+		}
+	}
+	focus = {
+		id = JOM_oder_secured
+		icon = JOM_oder_secured
+		relative_position_id = JOM_steel_longships
+		prerequisite = {focus = JOM_blood_eagle_traitors}
+		prerequisite = {focus = JOM_steel_longships}
+		prerequisite = {focus = JOM_our_window_to_world}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = JOM_oder_estuary1
+				add_idea = JOM_oder_estuary2
+			}
+		}
+	}
+	focus = {
+		id = JOM_runestones_of_victory
+		icon = JOM_runestones_of_victory
+		relative_position_id = JOM_breadbasket_of_pomerania
+		prerequisite = {focus = JOM_forge_of_warriors}
+		prerequisite = {focus = JOM_breadbasket_of_pomerania}
+		prerequisite = {focus = JOM_secure_our_backs}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		    custom_effect_tooltip = JOM_runestones_tt
+		}
+	}
+	focus = {
+		id = JOM_end_of_fimbulwinter
+		icon = JOM_end_of_fimbulwinter
+		relative_position_id = JOM_oder_secured
+		prerequisite = {focus = JOM_oder_secured}
+		prerequisite = {focus = JOM_runestones_of_victory}
+		available = {
+			has_country_flag = unified_voivodeship
+		}
+		
+		bypass = {
+		}
+		x = 6
+		y = 2
+		
+		cost = 2
+		
+		completion_reward = { 
+		    country_event = jomsborg.32
+		}
+	}
+
+	focus = {
+		id = JOM_fehu
+		icon = JOM_fehu
+		text_icon = RUNE_focus_style
+		relative_position_id = JOM_friggs_care
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_runestones_of_victory
+		}
+		
+		bypass = {
+		}
+		x = 15
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					fehu_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_fehu_tt	    
+		}
+	}
+	focus = {
+		id = JOM_uruz
+		icon = JOM_uruz
+		relative_position_id = JOM_fehu
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_fehu		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					uruz_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_uruz_tt	  	    
+		}
+	}
+	focus = {
+		id = JOM_thurisaz
+		icon = JOM_thurisaz
+		relative_position_id = JOM_uruz
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}	
+			has_completed_focus = JOM_uruz	
+		}
+		
+		bypass = {
+		}
+		x = -3
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					thurisaz_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_thurisaz_tt	 		    
+		}
+	}
+	focus = {
+		id = JOM_ansuz
+		icon = JOM_ansuz
+		relative_position_id = JOM_uruz
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}	
+			has_completed_focus = JOM_uruz		
+		}
+		
+		bypass = {
+		}
+		x = 3
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+			}		    
+		}
+	}
+	focus = {
+		id = JOM_raidho
+		icon = JOM_raidho
+		relative_position_id = JOM_uruz
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_uruz			
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					raidho_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_raidho_tt		    
+		}
+	}
+	focus = {
+		id = JOM_kenaz
+		icon =  JOM_kenaz
+		relative_position_id = JOM_raidho
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_raidho		
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					kenaz_rune = 1
+				}
+			}
+			custom_effect_tooltip = JOM_kenaz_tt			    
+		}
+	}
+	focus = {
+		id = JOM_gebo
+		icon = JOM_gebo
+		relative_position_id = JOM_kenaz
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_kenaz		
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+			}	    
+		}
+	}
+	focus = {
+		id = JOM_wunjo
+		icon = JOM_wunjo
+		relative_position_id = JOM_raidho
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+					
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_raidho		
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					wunjo_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_wunjo_tt		    
+		}
+	}
+	focus = {
+		id = JOM_hagalaz
+		icon = JOM_hagalaz
+		relative_position_id = JOM_wunjo
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}	
+			has_completed_focus = JOM_wunjo	
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					hagalaz_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_hagalaz_tt		    
+		}
+	}
+
+	focus = {
+		id = JOM_naudiz
+		icon = JOM_naudiz
+		relative_position_id = JOM_raidho
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_raidho		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+			}		    
+			set_technology = {
+					naudiz_rune = 1
+					popup = no
+				}
+			custom_effect_tooltip = JOM_naudiz_tt	
+		}
+	}
+
+	focus = {
+		id = JOM_isa
+		icon = JOM_isa
+		relative_position_id = JOM_naudiz
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_naudiz		
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					isa_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_isa_tt		    
+		}
+	}
+
+	focus = {
+		id = JOM_jera
+		icon = JOM_jera
+		relative_position_id = JOM_isa
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_isa		
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					jera_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_jera_tt	    
+		}
+	}
+	
+	focus = {
+		id = JOM_eihwaz
+		icon = JOM_eihwaz
+		relative_position_id = JOM_isa
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_isa		
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					eihwaz_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_eihwaz_tt		    
+		}
+	}
+
+	focus = {
+		id = JOM_perthro
+		icon = JOM_perthro
+		relative_position_id = JOM_naudiz
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_naudiz		
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					perthro_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_perthro_tt		    
+		}
+	}
+
+	focus = {
+		id = JOM_algiz
+		icon = JOM_algiz
+		relative_position_id = JOM_perthro
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_perthro		
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 0
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					algiz_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_algiz_tt	    
+		}
+	}
+	
+	focus = {
+		id = JOM_sowilo
+		icon = JOM_sowilo
+		relative_position_id = JOM_perthro
+
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_perthro		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					sowilo_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_sowilo_tt		    
+		}
+	}	
+	focus = {
+		id = JOM_tiwaz
+		icon = JOM_tiwaz
+		relative_position_id = JOM_naudiz
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_naudiz		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					tiwaz_rune = 1
+					popup = no
+				}
+			}	
+			custom_effect_tooltip = JOM_tiwaz_tt	    
+		}
+	}
+
+	focus = {
+		id = JOM_berkano
+		icon = JOM_berkano
+		relative_position_id = JOM_tiwaz
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_tiwaz		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					berkano_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_berkano_tt		    
+		}
+	}
+	
+	focus = {
+		id = JOM_ehwaz
+		icon = JOM_ehwaz
+		relative_position_id = JOM_berkano
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_berkano		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					ehwaz_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_ehwaz_tt		    
+		}
+	}
+
+	focus = {
+		id = JOM_mannaz
+		icon = JOM_mannaz
+		relative_position_id = JOM_berkano
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_ehwaz		
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					mannaz_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_mannaz_tt		    
+		}
+	}
+	focus = {
+		id = JOM_laguz
+		icon = JOM_laguz
+		relative_position_id = JOM_mannaz
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_mannaz		
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					laguz_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_laguz_tt		    
+		}
+	}	
+	
+	focus = {
+		id = JOM_ingwaz
+		icon = JOM_ingwaz
+		relative_position_id = JOM_berkano
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_ehwaz		
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					ingwaz_rune  = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_ingwaz_tt		    
+		}
+	}
+	focus = {
+		id = JOM_dagaz
+		icon = JOM_dagaz
+		relative_position_id = JOM_ingwaz
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+			has_completed_focus = JOM_ingwaz		
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+				set_technology = {
+					raidho_rune = 1
+					popup = no
+				}
+			}
+			custom_effect_tooltip = JOM_raidho_tt
+		}
 	}	
 
+	focus = {
+		id = JOM_othala
+		icon = JOM_othala
+		text_icon = RUNE_focus_style
+		relative_position_id = JOM_ehwaz
+		available = {
+			custom_trigger_tooltip = {
+				JOM = {
+					check_variable = {
+						jomsborg_rune_counter > 0
+					}
+				}
+				tooltip = jomsborg_rune_counter_tt				
+			}
+
+			has_completed_focus = JOM_ehwaz		
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 2
+		
+		cost = 0
+		
+		completion_reward = { 
+		    JOM = {
+				subtract_from_variable = {
+					jomsborg_rune_counter = 1
+				}
+			}
+			hidden_effect = {	
+			core_all_polish_states = yes
+			}
+			custom_effect_tooltip = core_all_states_tt	    
+		}
+	}	
+	
+	focus = {
+		id = JOM_spirit_of_erik
+		icon = JOM_spirit_of_erik
+		relative_position_id = JOM_fehu
+		available = {
+			has_country_flag = JOM_voyage_voyage
+		}
+		
+		bypass = {
+		}
+		x = 20
+		y = 0
+		
+		cost = 1
+		
+		completion_reward = { 
+			JOM = { 
+				add_political_power = 100 
+			}
+			custom_effect_tooltip = expedition_start_tooltip
+			hidden_effect = {
+				JOM = {
+					set_variable = {
+						var = JOM_arka_gate
+						value = 0
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_back_to_bornholm
+		icon = JOM_back_to_bornholm
+		relative_position_id = JOM_spirit_of_erik
+		prerequisite = {focus = JOM_spirit_of_erik}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    custom_effect_tooltip = expedition_bornholm_tooltip
+		}
+	}
+	focus = {
+		id = JOM_home_of_goths
+		icon = JOM_home_of_goths
+		relative_position_id = JOM_back_to_bornholm
+		prerequisite = {focus = JOM_back_to_bornholm}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_crown_of_north
+		icon = JOM_crown_of_north
+		relative_position_id = JOM_home_of_goths
+		prerequisite = {focus = JOM_home_of_goths}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+			hidden_effect = {
+				JOM = {
+					add_to_variable = {
+						var = JOM_arka_gate
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_voyage_to_rugen
+		icon = JOM_voyage_to_rugen
+		relative_position_id = JOM_back_to_bornholm
+		prerequisite = {focus = JOM_back_to_bornholm}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_coast_of_germany
+		icon = JOM_coast_of_germany
+		relative_position_id = JOM_voyage_to_rugen
+		prerequisite = {focus = JOM_voyage_to_rugen}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    hidden_effect = {
+				JOM = {
+					add_to_variable = {
+						var = JOM_arka_gate
+						value = 1
+					}
+				}
+			}	    
+		}
+	}
+	focus = {
+		id = JOM_stop_on_klaipeda
+		icon = JOM_stop_on_klaipeda
+		relative_position_id = JOM_spirit_of_erik
+		prerequisite = {focus = JOM_spirit_of_erik}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_land_of_kurir
+		icon = JOM_land_of_kurir
+		relative_position_id = JOM_stop_on_klaipeda
+		prerequisite = {focus = JOM_stop_on_klaipeda}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_islands_of_eistland
+		icon = JOM_islands_of_eistland
+		relative_position_id = JOM_land_of_kurir
+		prerequisite = {focus = JOM_land_of_kurir}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    hidden_effect = {
+				JOM = {
+					add_to_variable = {
+						var = JOM_arka_gate
+						value = 1
+					}
+				}
+			}    
+		}
+	}
+	focus = {
+		id = JOM_shores_of_finns
+		icon = JOM_shores_of_finns
+		relative_position_id = JOM_stop_on_klaipeda
+		prerequisite = {focus = JOM_stop_on_klaipeda}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_trial_of_holmgadr
+		icon = JOM_trial_of_holmgadr
+		relative_position_id = JOM_shores_of_finns
+		prerequisite = {focus = JOM_shores_of_finns}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    hidden_effect = {
+				JOM = {
+					add_to_variable = {
+						var = JOM_arka_gate
+						value = 1
+					}
+				}
+			}	    
+		}
+	}
+	focus = {
+		id = JOM_raiders_of_lost_ark
+		icon = JOM_raiders_of_lost_ark
+		relative_position_id = JOM_crown_of_north
+		prerequisite = {focus = JOM_crown_of_north}
+		prerequisite = {focus = JOM_coast_of_germany}
+		prerequisite = {focus = JOM_islands_of_eistland}
+		prerequisite = {focus = JOM_trial_of_holmgadr}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 4
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    hidden_effect = {
+				clear_variable = JOM_arka_gate
+			}
+		}
+	}
+	focus = {
+		id = JOM_danish_straits
+		icon = JOM_danish_straits
+		relative_position_id = JOM_raiders_of_lost_ark
+		prerequisite = {focus = JOM_raiders_of_lost_ark}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_land_of_midnight_sun
+		icon = JOM_land_of_midnight_sun
+		relative_position_id = JOM_danish_straits
+		prerequisite = {focus = JOM_danish_straits}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_emerald_island
+		icon = JOM_emerald_island
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -8
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	
+	focus = {
+		id = JOM_green_pastures
+		icon = JOM_emerald_island
+		relative_position_id = JOM_emerald_island
+		prerequisite = {focus = JOM_emerald_island}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_ashes_of_danelagh
+		icon = JOM_ashes_of_danelagh
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -6
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_northern_isles
+		icon = JOM_northern_isles
+		relative_position_id = JOM_ashes_of_danelagh
+		prerequisite = {focus = JOM_ashes_of_danelagh}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_song_of_ice_and_fire
+		icon = JOM_song_of_ice_and_fire
+		relative_position_id = JOM_northern_isles
+		prerequisite = {focus = JOM_northern_isles}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_land_of_green
+		icon = JOM_land_of_green
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -4
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_vinland_and_markland
+		icon = JOM_vinland_and_markland
+		relative_position_id = JOM_land_of_green
+		prerequisite = {focus = JOM_land_of_green}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_visit_ny_jorvik
+		icon = JOM_visit_ny_jorvik
+		relative_position_id = JOM_vinland_and_markland
+		prerequisite = {focus = JOM_vinland_and_markland}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_temptation_of_bandarikin
+		icon = JOM_temptation_of_bandarikin
+		relative_position_id = JOM_visit_ny_jorvik
+		prerequisite = {focus = JOM_visit_ny_jorvik}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_caribbean_vikings
+		icon = JOM_caribbean_vikings
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_halls_of_montezuma
+		icon = JOM_halls_of_montezuma
+		relative_position_id = JOM_caribbean_vikings
+		prerequisite = {focus = JOM_caribbean_vikings}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_descendants_of_bolivar
+		icon = JOM_descendants_of_bolivar
+		relative_position_id = JOM_halls_of_montezuma
+		prerequisite = {focus = JOM_halls_of_montezuma}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_coffee_snakes_silver
+		icon = JOM_coffee_snakes_silver
+		relative_position_id = JOM_descendants_of_bolivar
+		prerequisite = {focus = JOM_descendants_of_bolivar}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_lost_inca_treasures
+		icon = JOM_lost_inca_treasures
+		relative_position_id = JOM_coffee_snakes_silver
+		prerequisite = {focus = JOM_coffee_snakes_silver}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_safari_equator
+		icon = JOM_safari_equator
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	
+	focus = {
+		id = JOM_cape_of_good_hope
+		icon = JOM_cape_of_good_hope
+		relative_position_id = JOM_safari_equator
+		prerequisite = {focus = JOM_safari_equator}
+		available = {
+		}
+		
+		bypass = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	
+	focus = {
+		id = JOM_horn_of_africa
+		icon = JOM_horn_of_africa
+		relative_position_id = JOM_cape_of_good_hope
+		prerequisite = {focus = JOM_cape_of_good_hope}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_holy_site_of_islam
+		icon = JOM_holy_site_of_islam
+		relative_position_id = JOM_horn_of_africa
+		prerequisite = {focus = JOM_horn_of_africa}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_palms_oil_and_gold
+		icon = JOM_palms_oil_and_gold
+		relative_position_id = JOM_holy_site_of_islam
+		prerequisite = {focus = JOM_holy_site_of_islam}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_through_the_njorvasund
+		icon = JOM_through_the_njorvasund
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 4
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_scourge_of_the_olympus
+		icon = JOM_scourge_of_the_olympus
+		relative_position_id = JOM_through_the_njorvasund
+		prerequisite = {focus = JOM_through_the_njorvasund}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_varangians_in_the_miklagardr
+		icon = JOM_varangians_in_the_miklagardr
+		relative_position_id = JOM_scourge_of_the_olympus
+		prerequisite = {focus = JOM_scourge_of_the_olympus}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_on_the_coast_of_saracens
+		icon = JOM_on_the_coast_of_saracens
+		relative_position_id = JOM_varangians_in_the_miklagardr
+		prerequisite = {focus = JOM_varangians_in_the_miklagardr}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_sun_realms_of_iberia
+		icon = JOM_sun_realms_of_iberia
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 6
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_riches_of_sikiley
+		icon = JOM_riches_of_sikiley
+		relative_position_id = JOM_sun_realms_of_iberia
+		prerequisite = {focus = JOM_sun_realms_of_iberia}
+		prerequisite = {focus = JOM_through_the_njorvasund}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_eternal_city
+		icon = JOM_eternal_city
+		relative_position_id = JOM_riches_of_sikiley
+		prerequisite = {focus = JOM_riches_of_sikiley}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_home_of_the_normans
+		icon = JOM_home_of_the_normans
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 8
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		    	    
+		}
+	}
+	focus = {
+		id = JOM_another_trip_to_paris
+		icon = JOM_another_trip_to_paris
+		relative_position_id = JOM_home_of_the_normans
+		prerequisite = {focus = JOM_home_of_the_normans}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_realm_of_the_ancient_gods
+		icon = JOM_realm_of_the_ancient_gods
+		relative_position_id = JOM_land_of_midnight_sun
+		prerequisite = {focus = JOM_land_of_midnight_sun}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_peninsula_of_storm_spices
+		icon = JOM_peninsula_of_storm_spices
+		relative_position_id = JOM_realm_of_the_ancient_gods
+		prerequisite = {focus = JOM_realm_of_the_ancient_gods}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_land_of_red_dragon
+		icon = JOM_land_of_red_dragon
+		relative_position_id = JOM_peninsula_of_storm_spices
+		prerequisite = {focus = JOM_peninsula_of_storm_spices}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_two_koreas
+		icon = JOM_two_koreas
+		relative_position_id = JOM_land_of_red_dragon
+		prerequisite = {focus = JOM_land_of_red_dragon}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_empire_of_the_rising_salt
+		icon = JOM_empire_of_the_rising_salt
+		relative_position_id = JOM_two_koreas
+		prerequisite = {focus = JOM_two_koreas}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_land_of_thousand_isles
+		icon = JOM_land_of_thousand_isles
+		relative_position_id = JOM_empire_of_the_rising_salt
+		prerequisite = {focus = JOM_empire_of_the_rising_salt}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_land_down_under
+		icon = JOM_land_down_under
+		relative_position_id = JOM_land_of_thousand_isles
+		prerequisite = {focus = JOM_land_of_thousand_isles}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_polynesian_realms
+		icon = JOM_polynesian_realms
+		relative_position_id = JOM_land_of_thousand_isles
+		prerequisite = {focus = JOM_land_of_thousand_isles}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	focus = {
+		id = JOM_gates_of_asgard
+		icon = JOM_gates_of_asgard
+		relative_position_id = JOM_polynesian_realms
+		prerequisite = {focus = JOM_polynesian_realms}
+		prerequisite = {focus = JOM_land_down_under}
+		available = {
+			custom_trigger_tooltip = {
+          		tooltip = expedition_cooldown_tooltip
+           		always = no
+       		}
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 10
+		
+		completion_reward = { 
+		        
+		}
+	}
+	
+	#####################
+	#	POST 1 CONFLICT	#
+	#####################
+	
+	focus = {
+		id = JOM_new_dawn_in_midgard
+		icon = JOM_new_dawn_in_midgard
+		relative_position_id = JOM_end_of_fimbulwinter
+		available = {
+			has_country_flag = unified_voivodeship
+		}
+		
+		bypass = {
+		}
+		x = 10
+		y = 4
+		
+		cost = 1
+		
+		completion_reward = { 
+			country_event = jomsborg.33
+		}
+	}
+	focus = {
+		id = JOM_second_althing
+		icon = JOM_second_althing
+		relative_position_id = JOM_new_dawn_in_midgard
+		prerequisite = {focus = JOM_new_dawn_in_midgard}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.34
+		}
+	}
+	focus = {
+		id = JOM_words_of_raven
+		icon = JOM_words_of_raven
+		relative_position_id = JOM_second_althing
+		prerequisite = {focus = JOM_second_althing}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+		    add_political_power = 100
+			add_ideas = JOM_words_of_raven_idea
+		}
+	}
+	focus = {
+		id = JOM_state_service_of_society
+		icon = JOM_state_service_of_society
+		relative_position_id = JOM_words_of_raven
+		prerequisite = {focus = JOM_words_of_raven}
+		available = {
+			OR = {
+				has_completed_focus = JOM_jarl_commonwealth
+				has_completed_focus = JOM_nordic_democracy
+			}
+		}
+		
+		bypass = {
+		}
+		x = -5
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			add_political_power = 50
+			swap_ideas = {
+				remove_idea = JOM_words_of_raven_idea_2
+				add_idea = JOM_words_of_raven_idea_3
+			}
+		}
+	}
+	focus = {
+		id = JOM_civil_partnerships
+		icon = JOM_civil_partnerships
+		relative_position_id = JOM_state_service_of_society
+		prerequisite = {focus = JOM_state_service_of_society}
+		mutually_exclusive = {focus = JOM_lofns_loving_embrace}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.35
+			swap_ideas = {
+				remove_idea = lgbt_unregulated_ignored
+				add_idea = lgbt_encouraged
+			}
+		}
+	}
+	focus = {
+		id = JOM_constitution_for_women
+		icon = JOM_constitution_for_women
+		relative_position_id = JOM_civil_partnerships
+		prerequisite = {focus = JOM_civil_partnerships}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = women_gender_equality
+				add_idea = women_feminism_policy
+			}  
+		}
+	}
+	focus = {
+		id = JOM_rational_drug_policy
+		icon = JOM_rational_drug_policy
+		relative_position_id = JOM_constitution_for_women
+		prerequisite = {focus = JOM_constitution_for_women}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = drugs_allowed
+				add_idea = drugs_decriminalised
+			}      
+		}
+	}
+	focus = {
+		id = JOM_lofns_loving_embrace
+		icon = JOM_lofns_loving_embrace
+		relative_position_id = JOM_state_service_of_society
+		prerequisite = {focus = JOM_state_service_of_society}
+		mutually_exclusive = {focus = JOM_civil_partnerships}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.36   
+			swap_ideas = {
+				remove_idea = lgbt_unregulated_ignored
+				add_idea = lgbt_equal_laws
+			}
+		}
+	}
+	focus = {
+		id = JOM_queens_shieldmaidens
+		icon = JOM_queens_shieldmaidens
+		relative_position_id = JOM_lofns_loving_embrace
+		prerequisite = {focus = JOM_lofns_loving_embrace}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = women_gender_equality
+				add_idea = women_gender_equity
+			}       
+		}
+	}
+	focus = {
+		id = JOM_mushrooms_and_herbs
+		icon = JOM_mushrooms_and_herbs
+		relative_position_id = JOM_queens_shieldmaidens
+		prerequisite = {focus = JOM_queens_shieldmaidens}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = drugs_allowed
+				add_idea = drugs_government
+			} 	        
+		}
+	}
+	focus = {
+		id = JOM_new_way_of_life
+		icon = JOM_new_way_of_life
+		relative_position_id = JOM_rational_drug_policy
+		prerequisite = {focus = JOM_rational_drug_policy focus = JOM_mushrooms_and_herbs}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.37
+			swap_ideas = {
+				remove_idea = JOM_words_of_raven_idea_3
+				add_idea = JOM_words_of_raven_idea_4
+			}
+		}
+	}
+	focus = {
+		id = JOM_diffrent_politics
+		icon = JOM_diffrent_politics
+		relative_position_id = JOM_words_of_raven
+		prerequisite = {focus = JOM_words_of_raven}
+		available = {
+			OR = {
+				has_completed_focus = JOM_mushrooms_and_herbs
+				has_completed_focus = JOM_rational_drug_policy
+			}
+			OR = {
+				has_completed_focus = JOM_found_welfare_state
+				has_completed_focus = JOM_guardians_of_equality
+			}
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = {
+			add_political_power = 50 
+			swap_ideas = {
+				remove_idea = autocensorship
+				add_idea = moderate_free_media
+			}
+		}
+	}
+	focus = {
+		id = JOM_single_vote_system
+		icon = JOM_diffrent_politics
+		relative_position_id = JOM_diffrent_politics
+		prerequisite = {focus = JOM_diffrent_politics}
+		mutually_exclusive = {focus = JOM_representatives_at_althing}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = regime_council
+				add_idea = multiparty
+			}       
+		}
+	}
+	focus = {
+		id = JOM_old_party_comrades
+		icon = JOM_old_party_comrades
+		relative_position_id = JOM_single_vote_system
+		prerequisite = {focus = JOM_single_vote_system}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    if = {
+				limit = {
+					AMA = { exists = no }
+				}
+				every_possible_country = {
+					limit = { has_character = AMA_matysiak }
+					random_character = {
+						limit = { is_character = AMA_matysiak }
+						set_nationality = JOM
+					}
+				}
+			}
+		    if = {
+				limit = {
+					JAW = { exists = no }
+				}
+				every_possible_country = {
+					limit = { has_character = JAW_gosekpopiolek }
+					random_character = {
+						limit = { is_character = JAW_gosekpopiolek }
+						set_nationality = JOM
+					}
+				}
+			}			
+		    if = {
+				limit = {
+					OR = {
+						JAW = { exists = no }
+						JAW = { 
+							NOT = { JAW_konieczny = { is_country_leader = yes } } 
+							NOT = { JAW_konieczny = { is_advisor = yes } } 
+						}
+					}
+				}
+				every_possible_country = {
+					limit = { has_character = JAW_konieczny }
+					random_character = {
+						limit = { is_character = JAW_konieczny }
+						set_nationality = JOM
+					}
+				}
+			}
+			if = {
+				limit = {
+					AND = {
+						JAW = { exists = yes }
+						AMA = { exists = yes }
+					}
+				}
+				add_popularity = {
+					ideology = squattism
+					popularity = 0.075
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.1
+				}
+				add_popularity = {
+					ideology = marxism_cranism
+					popularity = 0.05
+				}
+				add_political_power = 200								
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.1
+			}
+			add_manpower = 327			
+		}
+	}
+	focus = {
+		id = JOM_changing_the_mind
+		icon = JOM_changing_the_mind
+		relative_position_id = JOM_old_party_comrades
+		prerequisite = {focus = JOM_old_party_comrades}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.38 
+			add_power_balance_modifier = {
+			    id = JOM_power_balance
+			    modifier = JOM_power_balance_mod_left
+			}
+		}
+	}
+	focus = {
+		id = JOM_representatives_at_althing
+		icon = JOM_representatives_at_althing
+		relative_position_id = JOM_diffrent_politics
+		prerequisite = {focus = JOM_diffrent_politics}
+		mutually_exclusive = {focus = JOM_single_vote_system}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = regime_council
+				add_idea = controlled_opposition
+			}       
+		}
+	}
+	focus = {
+		id = JOM_drottnars_of_new_midgard
+		icon = JOM_drottnars_of_new_midgard
+		relative_position_id = JOM_representatives_at_althing
+		prerequisite = {focus = JOM_representatives_at_althing}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		        
+		}
+	}
+	focus = {
+		id = JOM_herald_of_change
+		icon = JOM_herald_of_change
+		relative_position_id = JOM_drottnars_of_new_midgard
+		prerequisite = {focus = JOM_drottnars_of_new_midgard}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.39
+			add_power_balance_modifier = {
+			    id = JOM_power_balance
+			    modifier = JOM_power_balance_mod_right
+			}
+		}
+	}
+	focus = {
+		id = JOM_urdr
+		icon = JOM_urdr
+		relative_position_id = JOM_changing_the_mind
+		prerequisite = {focus = JOM_changing_the_mind focus = JOM_herald_of_change}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		    country_event = jomsborg.40   
+		}
+	}
+	focus = {
+		id = JOM_administrative_revolution
+		icon = JOM_administrative_revolution
+		relative_position_id = JOM_words_of_raven
+		prerequisite = {focus = JOM_words_of_raven}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 5
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+			add_political_power = 50 
+			swap_ideas = {
+				remove_idea = JOM_words_of_raven_idea
+				add_idea = JOM_words_of_raven_idea_2
+			}
+		}
+	}
+	focus = {
+		id = JOM_nordic_democracy
+		icon = JOM_nordic_democracy
+		relative_position_id = JOM_administrative_revolution
+		prerequisite = {focus = JOM_administrative_revolution}
+		mutually_exclusive = {focus = JOM_jarl_commonwealth}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_ideas = JOM_nordic_model_idea
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.05
+			}						
+		}
+	}
+	focus = {
+		id = JOM_progressive_tax_scale
+		icon = JOM_progressive_tax_scale
+		relative_position_id = JOM_nordic_democracy
+		prerequisite = {focus = JOM_nordic_democracy}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.41
+			swap_ideas = {
+				remove_idea = taxes_low
+				add_idea = taxes_high
+			}
+		}
+	}
+	focus = {
+		id = JOM_found_welfare_state
+		icon = JOM_found_welfare_state
+		relative_position_id = JOM_progressive_tax_scale
+		prerequisite = {focus = JOM_progressive_tax_scale}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = social_minimum
+				add_idea = basic_social
+			}
+		}
+	}
+	focus = {
+		id = JOM_jarl_commonwealth
+		icon = JOM_jarl_commonwealth
+		relative_position_id = JOM_administrative_revolution
+		prerequisite = {focus = JOM_administrative_revolution}
+		mutually_exclusive = {focus = JOM_nordic_democracy}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_ideas = JOM_jarl_commonwealth_idea
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.1
+			}			
+		}
+	}
+	focus = {
+		id = JOM_danegeld_from_rich
+		icon = JOM_danegeld_from_rich
+		relative_position_id = JOM_jarl_commonwealth
+		prerequisite = {focus = JOM_jarl_commonwealth}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.42
+			swap_ideas = {
+				remove_idea = taxes_low
+				add_idea = taxes_medium
+			}
+		}
+	}
+	focus = {
+		id = JOM_guardians_of_equality
+		icon = JOM_guardians_of_equality
+		relative_position_id = JOM_danegeld_from_rich
+		prerequisite = {focus = JOM_danegeld_from_rich}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = improvised_security
+				add_idea = advanced_security
+			}		 
+		}
+	}
+	focus = {
+		id = JOM_halls_of_freedom
+		icon = JOM_halls_of_freedom
+		relative_position_id = JOM_found_welfare_state
+		prerequisite = {focus = JOM_found_welfare_state focus = JOM_guardians_of_equality}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.43
+			70 = {
+				add_state_modifier = {
+                    modifier = {
+						monthly_population = 0.1
+						recruitable_population_factor = 0.05
+                    }
+				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = JOM_nordic_democracy
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = 0.1
+				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = JOM_jarl_commonwealth
+				}
+				add_popularity = {
+					ideology = reactionary
+					popularity = 0.1
+				}
+			}			
+		}
+	}
+	focus = {
+		id = JOM_verdandi
+		icon = JOM_verdandi
+		relative_position_id = JOM_urdr
+		prerequisite = {focus = JOM_new_way_of_life}
+		prerequisite = {focus = JOM_urdr}
+		prerequisite = {focus = JOM_halls_of_freedom}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.44
+		}
+	}
+	focus = {
+		id = JOM_skuld
+		icon = JOM_skuld
+		relative_position_id = JOM_verdandi
+		prerequisite = {focus = JOM_verdandi}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.45
+		}
+	}
+	focus = {
+		id = JOM_valor_of_boar
+		icon = JOM_valor_of_boar
+		relative_position_id = JOM_second_althing
+		prerequisite = {focus = JOM_second_althing}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 10
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = JOM_northern_spirit
+				add_idea = JOM_northern_spirit_2
+			}
+			
+		}
+	}
+	focus = {
+		id = JOM_identity_problems
+		icon = JOM_identity_problems
+		relative_position_id = JOM_valor_of_boar
+		prerequisite = {focus = JOM_valor_of_boar}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_polish_body_nordic_soul
+		icon = JOM_polish_body_nordic_soul
+		relative_position_id = JOM_identity_problems
+		prerequisite = {focus = JOM_identity_problems}
+		mutually_exclusive = {focus = JOM_foundation_myths}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+			country_event = jomsborg.46 
+			#mark_focus_tree_layout_dirty = yes
+		}
+	}
+	focus = {
+		id = JOM_to_free_fatherland
+		icon = JOM_to_free_fatherland
+		relative_position_id = JOM_polish_body_nordic_soul
+		prerequisite = {focus = JOM_polish_body_nordic_soul}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_returned_by_sea
+		icon = JOM_returned_by_sea
+		relative_position_id = JOM_to_free_fatherland
+		prerequisite = {focus = JOM_to_free_fatherland}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_foundation_myths
+		icon = JOM_foundation_myths
+		relative_position_id = JOM_identity_problems
+		prerequisite = {focus = JOM_identity_problems}
+		mutually_exclusive = {focus = JOM_polish_body_nordic_soul}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.47
+			#mark_focus_tree_layout_dirty = yes
+		}
+	}
+	focus = {
+		id = JOM_nordic_roots
+		icon = JOM_nordic_roots
+		relative_position_id = JOM_foundation_myths
+		prerequisite = {focus = JOM_foundation_myths}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_jomsborg_identity
+		icon = JOM_jomsborg_identity
+		relative_position_id = JOM_nordic_roots
+		prerequisite = {focus = JOM_nordic_roots}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = minorities_multiculturalism
+				add_idea = minorities_recognition
+			}
+		}
+	}
+	focus = {
+		id = JOM_norse_language
+		icon = JOM_norse_language
+		relative_position_id = JOM_nordic_roots
+		prerequisite = {focus = JOM_nordic_roots}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_renewed_patriotism
+		icon = JOM_renewed_patriotism
+		relative_position_id = JOM_jomsborg_identity
+		prerequisite = {focus = JOM_returned_by_sea}
+		#allow_branch = {
+		#	has_completed_focus = JOM_polish_body_nordic_soul
+		#}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -3
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.48
+		}
+	}
+	focus = {
+		id = JOM_jomsvindar_people
+		icon = JOM_jomsvindar_people
+		relative_position_id = JOM_jomsborg_identity
+		prerequisite = {focus = JOM_jomsborg_identity}
+		prerequisite = {focus = JOM_norse_language}
+		#allow_branch = {
+		#	has_completed_focus = JOM_foundation_myths
+		#}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.49
+		}
+	}
+	
+	focus = {
+		id = JOM_spiritual_world
+		icon = JOM_spiritual_world
+		relative_position_id = JOM_valor_of_boar
+		prerequisite = {focus = JOM_valor_of_boar}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 7
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_defund_catholic_church
+		icon = JOM_defund_catholic_church
+		relative_position_id = JOM_spiritual_world
+		prerequisite = {focus = JOM_spiritual_world}
+		mutually_exclusive = {focus = JOM_raze_catholic_church}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_embrace_impartiality_of_public
+		icon = JOM_embrace_impartiality_of_public
+		relative_position_id = JOM_defund_catholic_church
+		prerequisite = {focus = JOM_defund_catholic_church}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = partial_secularism
+				add_idea = full_secularism
+			}
+		}
+	}
+	focus = {
+		id = JOM_secular_education
+		icon = JOM_secular_education
+		relative_position_id = JOM_embrace_impartiality_of_public
+		prerequisite = {focus = JOM_embrace_impartiality_of_public}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+
+	focus = {
+		id = JOM_raze_catholic_church
+		icon = JOM_raze_catholic_church
+		relative_position_id = JOM_spiritual_world
+		prerequisite = {focus = JOM_spiritual_world}
+		mutually_exclusive = {focus = JOM_defund_catholic_church}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.50
+		}
+	}
+	focus = {
+		id = JOM_sight_of_volvas
+		icon = JOM_sight_of_volvas
+		relative_position_id = JOM_raze_catholic_church
+		prerequisite = {focus = JOM_raze_catholic_church}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = partial_secularism
+				add_idea = one_religion_favoured
+			}
+		}
+	}
+	focus = {
+		id = JOM_rebirth_of_old_faith
+		icon = JOM_rebirth_of_old_faith
+		relative_position_id = JOM_sight_of_volvas
+		prerequisite = {focus = JOM_sight_of_volvas}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.51
+		}
+	}
+	focus = {
+		id = JOM_magical_rituals
+		icon = JOM_magical_rituals
+		relative_position_id = JOM_sight_of_volvas
+		prerequisite = {focus = JOM_sight_of_volvas}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = voluntary_healthcare
+				add_idea = witch_doctors
+			}
+		}
+	}
+
+	focus = {
+		id = JOM_acts_of_apostasy
+		icon = JOM_acts_of_apostasy
+		relative_position_id = JOM_secular_education
+		prerequisite = {focus = JOM_secular_education}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.52
+		}
+	}
+	focus = {
+		id = JOM_mass_conversions
+		icon = JOM_magical_rituals
+		relative_position_id = JOM_magical_rituals
+		prerequisite = {focus = JOM_rebirth_of_old_faith}
+		prerequisite = {focus = JOM_magical_rituals}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.53
+		}
+	}
+
+	focus = {
+		id = JOM_nine_worlds_of_lore
+		icon = JOM_nine_worlds_of_lore
+		relative_position_id = JOM_renewed_patriotism
+		prerequisite = {focus = JOM_renewed_patriotism focus = JOM_jomsvindar_people}
+		prerequisite = {focus = JOM_mass_conversions focus = JOM_acts_of_apostasy}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 4
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_strength_of_the_bear
+		icon = JOM_strength_of_the_bear
+		relative_position_id = JOM_second_althing
+		prerequisite = {focus = JOM_second_althing}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -10
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+
+		}
+	}
+	focus = {
+		id = JOM_forge_of_nidavellir
+		icon = JOM_forge_of_nidavellir
+		relative_position_id = JOM_strength_of_the_bear
+		prerequisite = {focus = JOM_strength_of_the_bear}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			614 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			872 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			63 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 250
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_200M
+		}
+	}
+	focus = {
+		id = JOM_state_earmarked_fund
+		icon = JOM_state_earmarked_fund
+		relative_position_id = JOM_forge_of_nidavellir
+		prerequisite = {focus = JOM_forge_of_nidavellir}
+		mutually_exclusive = {focus =  JOM_grand_loot_treasury}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_ideas = economy_solidarism
+			add_ideas = JOM_state_investment_fund_1
+		}
+	}
+	focus = {
+		id = JOM_central_armaments_group
+		icon = JOM_central_armaments_group
+		relative_position_id = JOM_state_earmarked_fund
+		prerequisite = {focus = JOM_state_earmarked_fund}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			custom_effect_tooltip = JOM_cgz_available
+			mio:JOM_central_arms_group_mio = {
+				add_mio_size = 1
+				add_mio_funds = 1500
+			}
+		}
+	}
+	focus = {
+		id = JOM_rental_housing
+		icon = JOM_rental_housing
+		relative_position_id = JOM_central_armaments_group
+		prerequisite = {focus = JOM_central_armaments_group}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				add_idea = JOM_state_investment_fund_1
+				remove_idea = JOM_state_investment_fund_2
+			}
+			country_event = jomsborg.54
+		}
+	}
+	focus = {
+		id = JOM_extincton_of_claims
+		icon = JOM_extincton_of_claims
+		relative_position_id = JOM_central_armaments_group
+		prerequisite = {focus = JOM_central_armaments_group}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 add_stability = 0.05
+		 105 = {
+			add_extra_state_shared_building_slots = 2
+		 }
+		 616 = {
+			add_extra_state_shared_building_slots = 1
+		 }
+		 114 = {
+			add_extra_state_shared_building_slots = 1
+		 }
+		 54 = {
+			add_extra_state_shared_building_slots = 1
+		 }
+		}
+	}
+	focus = {
+		id = JOM_grand_loot_treasury
+		icon = JOM_grand_loot_treasury
+		relative_position_id = JOM_forge_of_nidavellir
+		prerequisite = {focus = JOM_forge_of_nidavellir}
+		mutually_exclusive = {focus = JOM_state_earmarked_fund}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_ideas = economy_militarism
+		}
+	}
+	focus = {
+		id = JOM_great_smithery_of_brokkr
+		icon = JOM_great_smithery_of_brokkr
+		relative_position_id = JOM_grand_loot_treasury
+		prerequisite = {focus = JOM_grand_loot_treasury}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			custom_effect_tooltip = JOM_brokkr_available
+			mio:JOM_brokkr_smithery_mio = {
+				add_mio_size = 1
+				add_mio_funds = 1500
+			}
+		}
+	}
+	focus = {
+		id = JOM_hang_landlords
+		icon = JOM_hang_landlords
+		relative_position_id = JOM_great_smithery_of_brokkr
+		prerequisite = {focus = JOM_great_smithery_of_brokkr}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 82 = {
+			add_extra_state_shared_building_slots = 1
+			add_manpower = -256
+		 }
+		 107 = {
+			add_extra_state_shared_building_slots = 1
+			add_manpower = -158
+		 }
+		 621 = {
+			add_extra_state_shared_building_slots = 1
+			add_manpower = -58
+		 }
+		 61 = {
+			add_extra_state_shared_building_slots = 1
+			add_manpower = -228
+		 }
+		 63 = {
+			add_extra_state_shared_building_slots = 1
+			add_manpower = -135
+		 }
+		 122 = {
+			add_extra_state_shared_building_slots = 1
+			add_manpower = -331
+		 }
+		 add_stability = -0.1
+		 add_popularity = {
+			ideology = reactionary
+			popularity = 0.05
+		 }
+		}
+	}
+
+	focus = {
+		id = JOM_dreams_of_silicon
+		icon = JOM_dreams_of_silicon
+		relative_position_id = JOM_rental_housing
+		prerequisite = {focus = JOM_rental_housing}
+		prerequisite = {focus = JOM_extincton_of_claims}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_timed_idea = {
+				idea = JOM_silicon_coast
+				days = 1800
+			}
+			swap_ideas = {
+				remove_idea = JOM_state_investment_fund_2
+				add_idea = JOM_state_investment_fund_3
+			}
+			country_event = jomsborg.55
+		}
+	}
+
+	focus = {
+		id = JOM_a_steel_reality
+		icon = JOM_a_steel_reality
+		relative_position_id = JOM_hang_landlords
+		prerequisite = {focus = JOM_hang_landlords}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.56
+		}
+	}
+	focus = {
+		id = JOM_gifts_of_gefjun
+		icon = JOM_gifts_of_gefjun
+		relative_position_id = JOM_strength_of_the_bear
+		prerequisite = {focus = JOM_strength_of_the_bear}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -7
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			61 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			68 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			620 = {				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = big_ass_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 150
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_150M
+		}
+	}
+	focus = {
+		id = JOM_desist_tree_cutting
+		icon = JOM_desist_tree_cutting
+		relative_position_id = JOM_gifts_of_gefjun
+		prerequisite = {focus = JOM_gifts_of_gefjun}
+		mutually_exclusive = {
+			focus = JOM_more_wood_sire
+		}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			if = {
+				limit = {
+					has_idea = JOM_shipbuilding_frenzy
+				}
+				remove_ideas = JOM_shipbuilding_frenzy
+			}
+			add_stability = 0.1
+			88 = {
+				add_state_modifier = {
+				    modifier = {
+				        local_resources = 0.2
+						enemy_attrition = 0.1
+				    }
+				}
+			}
+			90 = {
+				add_state_modifier = {
+				    modifier = {
+				        local_resources = 0.2
+						enemy_attrition = 0.1
+				    }
+				}
+			}
+			127 = {
+				add_state_modifier = {
+				    modifier = {
+				        local_resources = 0.2
+						enemy_attrition = 0.1
+				    }
+				}
+			}
+			add_to_variable = {
+				budget = 200
+			}
+			custom_effect_tooltip = budget_add_200M						
+		}
+	}
+	focus = {
+		id = JOM_transformation_from_ruins
+		icon = JOM_transformation_from_ruins
+		relative_position_id = JOM_desist_tree_cutting
+		prerequisite = {focus = JOM_desist_tree_cutting}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.57
+			swap_ideas = {
+				remove_idea = energy_natural
+				add_idea = energy_renewable
+			}
+			hidden_effect = { 
+				set_technology = {
+					power_generation = 0
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_nuclear
+				value = 2
+			}
+		}
+	}
+	focus = {
+		id = JOM_plant_school
+		icon = JOM_plant_school
+		relative_position_id = JOM_transformation_from_ruins
+		prerequisite = {focus = JOM_transformation_from_ruins}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			random_owned_state = {
+				limit = {
+					is_core_of = JOM
+					has_state_category = rural
+				}
+				add_building_construction = {
+					type = big_ass_farm
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = JOM
+					has_state_category = rural
+				}
+				add_building_construction = {
+					type = big_ass_farm
+					level = 1
+				}
+			}
+			add_ideas = JOM_back_to_nature_idea			
+		}
+	}
+	focus = {
+		id = JOM_modernize_farms
+		icon = JOM_modernize_farms
+		relative_position_id = JOM_transformation_from_ruins
+		prerequisite = {focus = JOM_transformation_from_ruins}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+
+		}
+	}
+	focus = {
+		id = JOM_more_wood_sire
+		icon = JOM_more_wood_sire
+		relative_position_id = JOM_gifts_of_gefjun
+		prerequisite = {focus = JOM_gifts_of_gefjun}
+		mutually_exclusive = {
+			focus = JOM_desist_tree_cutting
+		}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_timed_idea = {
+				idea = JOM_shipbuilding_frenzy
+				days = 270
+			}
+			53 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			873 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			88 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+			90 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = food
+					amount = -1
+				}
+				add_state_modifier = {
+					modifier = { 
+						local_resources = 0.1
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_power_only_from_gods
+		icon = JOM_power_only_from_gods
+		relative_position_id = JOM_more_wood_sire
+		prerequisite = {focus = JOM_more_wood_sire}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = energy_natural
+				add_idea = energy_renewable
+			}
+			every_owned_state = {
+				limit = { power_plant > 0 }
+				set_building_level = {
+				    type = power_plant
+				    level = 0
+				    instant_build = yes
+				}
+			}
+			custom_effect_tooltip = JOM_gods_power_tt
+			hidden_effect = { 
+				set_technology = {
+					power_generation = 0
+				}
+			}
+		}
+	}
+	focus = {
+		id = JOM_from_battle_to_farms
+		icon = JOM_from_battle_to_farms
+		relative_position_id = JOM_power_only_from_gods
+		prerequisite = {focus = JOM_power_only_from_gods}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_organic_food
+		icon = JOM_organic_food
+		relative_position_id = JOM_plant_school
+		prerequisite = {focus = JOM_plant_school}
+		prerequisite = {focus = JOM_modernize_farms}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.58
+			modify_building_resources = {
+			    building = big_ass_farm
+			    resource = food
+			    amount = 1
+			}
+			modify_building_resources = {
+			    building = big_ass_farm
+			    resource = oil
+			    amount = 1
+			}			
+		}
+	}
+	focus = {
+		id = JOM_new_land_opportunities
+		icon = JOM_new_land_opportunities
+		relative_position_id = JOM_from_battle_to_farms
+		prerequisite = {focus = JOM_from_battle_to_farms}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.59
+		}
+	}
+	focus = {
+		id = JOM_industrial_light_of_northern_star
+		icon = JOM_industrial_light_of_northern_star
+		relative_position_id = JOM_organic_food
+		prerequisite = {focus = JOM_organic_food focus = JOM_new_land_opportunities}
+		prerequisite = {focus = JOM_dreams_of_silicon focus = JOM_a_steel_reality}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 7
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	focus = {
+		id = JOM_til_valhall
+		icon = JOM_til_valhall
+		relative_position_id = JOM_skuld
+		prerequisite = {focus = JOM_industrial_light_of_northern_star}
+		prerequisite = {focus = JOM_skuld}
+		prerequisite = {focus = JOM_nine_worlds_of_lore}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.60
+		}
+	}
+	
+	focus = {
+		id = JOM_a_new_viking_age
+		icon = JOM_a_new_viking_age
+		relative_position_id = JOM_strength_of_the_bear
+		prerequisite = {focus = JOM_strength_of_the_bear}
+		mutually_exclusive = { focus = JOM_modern_soldiers_of_odin}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -13
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			if = {
+				limit = { has_idea = JOM_tyr_idea }
+			swap_ideas = {
+				remove_idea = JOM_tyr_idea
+				add_idea = JOM_tyr_idea_5
+			}
+			}
+			if = {
+				limit = { has_idea = JOM_tyr_idea_2 }
+			swap_ideas = {
+				remove_idea = JOM_tyr_idea_2
+				add_idea = JOM_tyr_idea_5
+			}
+			}
+			if = {
+				limit = { has_idea = JOM_tyr_idea_3 }
+			swap_ideas = {
+				remove_idea = JOM_tyr_idea_3
+				add_idea = JOM_tyr_idea_5
+			}
+			}
+			if = {
+				limit = { has_idea = JOM_tyr_idea_4 }
+			swap_ideas = {
+				remove_idea = JOM_tyr_idea_4
+				add_idea = JOM_tyr_idea_5
+			}
+			}
+		}
+	}
+	
+	focus = {
+		id = JOM_deep_raids_into_enemy_territory
+		icon = JOM_deep_raids_into_enemy_territory
+		relative_position_id = JOM_a_new_viking_age
+		prerequisite = {focus = JOM_a_new_viking_age}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	
+	focus = {
+		id = JOM_grand_viking_armada
+		icon = JOM_grand_viking_armada
+		relative_position_id = JOM_deep_raids_into_enemy_territory
+		prerequisite = {focus = JOM_deep_raids_into_enemy_territory}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			if = {
+				limit = {
+					has_idea = JOM_shipbuilding_frenzy
+				}
+				remove_ideas = JOM_shipbuilding_frenzy
+				add_ideas = JOM_shipbuilding_frenzy_2
+			}
+			else = {
+				add_ideas = JOM_shipbuilding_frenzy_2
+			}
+		}
+	}
+	
+	
+	focus = {
+		id = JOM_ladies_of_the_slain
+		icon = JOM_ladies_of_the_slain
+		relative_position_id = JOM_grand_viking_armada
+		prerequisite = {focus = JOM_grand_viking_armada}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.61
+			add_tech_bonus = {
+				uses = 1
+				bonus = 1
+				category = hospital_tech
+			}
+			add_tech_bonus = {
+				uses = 1
+				bonus = 1
+				category = transport_helis
+			}
+			add_unit_bonus = {
+				medevac = {
+					max_organisation = 10
+					default_morale = 0.15
+					experience_loss_factor = -0.1
+				}
+			}			
+		}
+	}
+	
+	focus = {
+		id = JOM_every_able_man_a_viking
+		icon = JOM_every_able_man_a_viking
+		relative_position_id = JOM_a_new_viking_age
+		prerequisite = {focus = JOM_a_new_viking_age}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_ideas = army_with_a_state
+		}
+	}
+	
+	focus = {
+		id = JOM_independent_war_chieftains
+		icon = JOM_independent_war_chieftains
+		relative_position_id = JOM_every_able_man_a_viking
+		prerequisite = {focus = JOM_every_able_man_a_viking}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = officer_clerks
+				add_idea = officer_mercenaries
+			}
+		}
+	}
+	
+	focus = {
+		id = JOM_loot_and_equip
+		icon = JOM_loot_and_equip
+		relative_position_id = JOM_independent_war_chieftains
+		prerequisite = {focus = JOM_independent_war_chieftains}
+		available = {
+		}
+		
+		bypass = {
+		}
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = JOM_tyr_idea_5
+				add_idea = JOM_tyr_idea_6
+			}
+		}
+	}
+	
+	focus = {
+		id = JOM_modern_soldiers_of_odin
+		icon = JOM_modern_soldiers_of_odin
+		relative_position_id = JOM_strength_of_the_bear
+		prerequisite = {focus = JOM_strength_of_the_bear}
+		mutually_exclusive = { focus = JOM_a_new_viking_age}
+		available = {
+		}
+		
+		x = -17
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	
+	focus = {
+		id = JOM_total_ground_defense
+		icon = JOM_total_ground_defense
+		relative_position_id = JOM_modern_soldiers_of_odin
+		prerequisite = {focus = JOM_modern_soldiers_of_odin}
+		available = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	
+	focus = {
+		id = JOM_reductions_in_the_navy
+		icon = JOM_reductions_in_the_navy
+		relative_position_id = JOM_total_ground_defense
+		prerequisite = {focus = JOM_total_ground_defense}
+		available = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	
+	focus = {
+		id = JOM_air_power_survival
+		icon = JOM_air_power_survival
+		relative_position_id = JOM_reductions_in_the_navy
+		prerequisite = {focus = JOM_reductions_in_the_navy}
+		available = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	
+	focus = {
+		id = JOM_local_recruitment_centres
+		icon = JOM_local_recruitment_centres
+		relative_position_id = JOM_modern_soldiers_of_odin
+		prerequisite = {focus = JOM_modern_soldiers_of_odin}
+		available = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			upgrade_military_law = yes
+		}
+	}
+	
+	focus = {
+		id = JOM_vision_of_a_centralized_army
+		icon = JOM_vision_of_a_centralized_army
+		relative_position_id = JOM_local_recruitment_centres
+		prerequisite = {focus = JOM_local_recruitment_centres}
+		available = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = jomsborg.62
+			swap_ideas = {
+				remove_idea = officer_clerks
+				add_idea = officer_leftovers
+			}
+		}
+	}
+	
+	focus = {
+		id = JOM_solidarity_tax_for_the_army
+		icon = JOM_solidarity_tax_for_the_army
+		relative_position_id = JOM_vision_of_a_centralized_army
+		prerequisite = {focus = JOM_vision_of_a_centralized_army}
+		available = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+		 
+		}
+	}
+	
+	
 }
+
+

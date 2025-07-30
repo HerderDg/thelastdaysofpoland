@@ -82,11 +82,23 @@ country_event = { #WOJNA DOMWOOA
 		ai_chance = {
 			base = 15
 		}
-		STA = {
-			set_politics = {
-				ruling_party = squattism
-				long_name = TAG_party_long
-				name = TAG_party
+		hidden_effect = {
+		377 = {
+			transfer_state_to = ETS
+		}
+			ETS = {
+				change_tag_from = STA
+				if = {
+					limit = {
+						ETS = {
+							is_ai = no
+						}
+					}
+				}
+				annex_country = {
+					target = STA 
+					transfer_troops = yes
+				}
 			}
 		}
 	}
@@ -135,31 +147,36 @@ country_event = { #KONIEC WOJNY
 }
 
 country_event = {
-	id = starachowice.7
-	title = starachowice.7.t
-	desc =  starachowice.7.desc
+	id = starachowice.8 #Nie kasujcie efektów
+	title = starachowice.8.t
+	desc =  starachowice.8.desc
 
-	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires starachowice.7" }
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires starachowice.8" }
 
 	option = {
-		name = starachowice.7.a
+		name = starachowice.8.a
 		ai_chance = {
-			base = 80
+			base = 60
 		}
+		STA = {
+			set_country_flag = STA_accepted_pilgrims
+		}
+		SND = {
+			country_event = sandomierz.32
+		}	
 	}
 	option = {
-		name = starachowice.7.b
+		name = starachowice.8.b
 		ai_chance = {
-			base = 20
+			base = 40
 		}
-		SND = {	
-			country_event = {
-				id = sandomierz.34
-				days = 2 
-			}
-		}		
+		STA = {
+			set_country_flag = STA_denied_pilgrims	
+		}
+		SND = {
+			country_event = sandomierz.38
+		}
 	}
 }

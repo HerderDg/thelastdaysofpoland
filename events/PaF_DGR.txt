@@ -1,885 +1,61 @@
 ﻿add_namespace = dabrowa_border
 add_namespace = dgr_district
 add_namespace = dgr
-add_namespace = bedzincon
+add_namespace = dgr_news
 
-country_event = {
-	id = bedzincon.1 #congress of bedzin
-	title = bedzincon.1.t
-	desc = bedzincon.1.desc
+news_event = {
+	id = dgr_news.1 #congress of bedzin - sukces
+	title = dgr_news.1.t
+	desc = dgr_news.1.desc
+	picture = GFX_news_event_dgr.1
 
 	fire_only_once = yes
 	is_triggered_only = yes
 	
 	immediate = { 
-		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.1"
-		set_variable = {
-			BEDZINCON_SOS = 50
-		}
-		set_variable = {
-			BEDZINCON_DGR = 30
-		}
-		set_variable = {
-			BEDZINCON_JAW = 20
-		}				
+		log = "[GetDateText]: [ROOT.GetName] fires dgr_news.1"			
 	}
 	
 	option = {
-		name = bedzincon.1.a
-		set_global_flag = ZAG_congress_of_bedzin
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = bedzincon.2 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = bedzincon.2 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = bedzincon.2 } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.2 }
-		}			
+		name = dgr_news.1.a			
 	}
 }
 
-country_event = {
-	id = bedzincon.2 #przemowienie-JAW
-	title = bedzincon.2.t
-	desc = bedzincon.2.desc
+news_event = {
+	id = dgr_news.2 #congress of bedzin - porażka
+	title = dgr_news.2.t
+	desc = dgr_news.2.desc
+	picture = GFX_news_event_dgr.2
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.2"}
-	
-	option = {
-		name = bedzincon.2.a #krytyka systemu
-		trigger = {
-			ROOT = { tag = JAW }
-		}	
-		add_to_variable = {
-			BEDZINCON_SOS = -10
-		}
-		custom_effect_tooltip = ZAG_SOS_MINUS_TEN_POINTS
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = bedzincon.3 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = bedzincon.3 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = bedzincon.3 } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.3 }
-		}			
-	}
-	option = {
-		name = bedzincon.2.b #krytyka brunatnych
-		trigger = {
-			ROOT = { tag = JAW }
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -10
-		}
-		custom_effect_tooltip = ZAG_DGR_MINUS_TEN_POINTS
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = bedzincon.3 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = bedzincon.3 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = bedzincon.3 } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.3 }
-		}		
-	}
-	option = {
-		name = bedzincon.2.c #default jebanie po wszystkich
-		add_to_variable = {
-			BEDZINCON_SOS = -5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -5
-		}
-		custom_effect_tooltip = ZAG_DGR_MINUS_FIVE_POINTS
-		custom_effect_tooltip = ZAG_SOS_MINUS_FIVE_POINTS
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = bedzincon.3 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = bedzincon.3 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = bedzincon.3 } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.3 }
-		}		
-	}
-}
-
-country_event = {
-	id = bedzincon.3 #przemowienie-DGR
-	title = bedzincon.3.t
-	desc = bedzincon.3.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.3"}
-	
-	option = {
-		name = bedzincon.3.a #resident sleeper
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.4 days = 1 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.4 days = 1 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.4 days = 1 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.4 }
-		}	
-	}
-	option = {
-		name = bedzincon.3.b #zaplute karły reakcji
-		trigger = {
-			ROOT = { original_tag = DGR }
-		}
-		add_to_variable = {
-			BEDZINCON_SOS = -10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -10
-		}
-		custom_effect_tooltip = ZAG_JAW_MINUS_TEN_POINTS
-		custom_effect_tooltip = ZAG_SOS_MINUS_TEN_POINTS
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.4 days = 1 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.4 days = 1 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.4 days = 1 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.4 }
-		}		
-	}
-}
-
-country_event = {
-	id = bedzincon.4 #wspolpraca inwestycyjna
-	title = bedzincon.4.t
-	desc = bedzincon.4.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.4"}
-	
-	option = {
-		name = bedzincon.4.a #propozycja DGR - rewitalizacja przemysłu
-		add_to_variable = {
-			BEDZINCON_SOS = -10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 5
-		}	
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.5 }
-		}		
-	}
-	option = {
-		name = bedzincon.4.b #propozycja SOS - rewitalizacja miast
-
-		add_to_variable = {
-			BEDZINCON_SOS = 10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -5
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -5
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.5 }
-		}		
-	}
-	option = {
-		name = bedzincon.4.c #propozycja JAW - rewitalizacja komun
-
-		add_to_variable = {
-			BEDZINCON_SOS = -10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 5
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.5 hours = 4 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.5 }
-		}		
-	}	
-}
-
-
-country_event = {
-	id = bedzincon.5 #wspolny rynek
-	title = bedzincon.5.t
-	desc = bedzincon.5.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.5"}
-	
-	option = {
-		name = bedzincon.5.a #propozycja DGR 
-		add_to_variable = {
-			BEDZINCON_SOS = -5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -10
-		}	
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.6 hours = 12 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.6 }
-		}	
-	}
-	option = {
-		name = bedzincon.5.b #propozycja SOS 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -5
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -5
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.6 hours = 12 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.6 }
-		}	
-	}
-	option = {
-		name = bedzincon.5.c #propozycja JAW 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.6 hours = 12 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.6 }
-		}		
-	}	
-}
-
-country_event = {
-	id = bedzincon.6 #wspolna armia
-	title = bedzincon.6.t
-	desc = bedzincon.6.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.6"}
-	
-	option = {
-		name = bedzincon.6.a #propozycja DGR 
-		add_to_variable = {
-			BEDZINCON_SOS = -5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -5
-		}	
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.7 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.7 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.7 hours = 20 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.7 }
-		}	
-	}
-	option = {
-		name = bedzincon.6.b #propozycja SOS 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -5
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.7 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.7 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.7 hours = 20 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.7 }
-		}	
-	}
-	option = {
-		name = bedzincon.6.c #propozycja JAW 
-
-		add_to_variable = {
-			BEDZINCON_SOS = -5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.7 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.7 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.7 hours = 20 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.7 }
-		}	
-	}	
-}
-
-country_event = {
-	id = bedzincon.7 #wspolna polityka wewnetrzna
-	title = bedzincon.7.t
-	desc = bedzincon.7.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.7"}
-	
-	option = {
-		name = bedzincon.7.a #propozycja DGR 
-		add_to_variable = {
-			BEDZINCON_SOS = 5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -10
-		}	
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.8 }
-		}		
-	}
-	option = {
-		name = bedzincon.7.b #propozycja SOS 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -15
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.8 }
-		}			
-	}
-	option = {
-		name = bedzincon.7.c #propozycja JAW 
-
-		add_to_variable = {
-			BEDZINCON_SOS = -10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -15
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.8 hours = 6 } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.8 }
-		}			
-	}	
-}
-
-country_event = {
-	id = bedzincon.8 #wspolna polityka zewnetrzna
-	title = bedzincon.8.t
-	desc = bedzincon.8.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.8"}
-	
-	option = {
-		name = bedzincon.8.a #propozycja DGR 
-		add_to_variable = {
-			BEDZINCON_SOS = -5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -10
-		}	
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.9 hours = 20  } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.9 hours = 20  } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.9 hours = 20  } } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.9 }
-		}			
-	}
-	option = {
-		name = bedzincon.8.b #propozycja SOS 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -5
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -5
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.9 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.9 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.9 hours = 20 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.9 }
-		}	
-	}
-	option = {
-		name = bedzincon.8.c #propozycja JAW 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.9 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.9 hours = 20 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.9 hours = 20 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.9 }
-		}	
-	}	
-}
-
-country_event = {
-	id = bedzincon.9 #centralizacja
-	title = bedzincon.9.t
-	desc = bedzincon.9.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.9"}
-	
-	option = {
-		name = bedzincon.9.a #propozycja DGR 
-		add_to_variable = {
-			BEDZINCON_SOS = -5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -15
-		}	
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.10 hours = 2 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.10 hours = 2 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.10 hours = 2 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.10 }
-		}
-	}
-	option = {
-		name = bedzincon.9.b #propozycja SOS 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 10
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = 5
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = -10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.10 hours = 2 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.10 hours = 2 } } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.10 hours = 2 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.10 }
-		}
-	}
-	option = {
-		name = bedzincon.9.c #propozycja JAW 
-
-		add_to_variable = {
-			BEDZINCON_SOS = 5
-		}
-		add_to_variable = {
-			BEDZINCON_DGR = -10
-		}
-		add_to_variable = {
-			BEDZINCON_JAW = 10
-		}		
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = { id = bedzincon.10 hours = 2 } } }
-		if = { limit = { DGR = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = { id = bedzincon.10 hours = 2 } } }
-		if = { limit = { SOS = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = { id = bedzincon.10 hours = 2 } } }	
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.10 }
-		}
-	}	
-}
-
-country_event = {
-	id = bedzincon.10 #będzincon - podsumowanie
-	title = bedzincon.10.t
-	desc = bedzincon.10.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.10"}
-	
-	option = {
-		name = bedzincon.10.a
-		clr_global_flag = ZAG_congress_of_bedzin
-		set_global_flag = ZAG_congress_of_bedzin_success
-		DGR = {
-			unlock_national_focus = DGR_congress_of_bedzin
-			unlock_national_focus = DGR_aftermath
-			unlock_national_focus = DGR_emergency_mobilization
-			unlock_national_focus = DGR_war_communism
-			unlock_national_focus = DGR_revenge_at_czarzasty
-			unlock_national_focus = DGR_strike_back_at_antifa
-		}
-	}
-}
-
-country_event = {
-	id = bedzincon.11 #będzincon - dąbrowa wypierdala
-	title = bedzincon.11.t
-	desc = bedzincon.11.desc
-
-	fire_only_once = yes
-	trigger = {
-		OR = {
-			check_variable = {
-				BEDZINCON_DGR = 0
-			}
-			check_variable = {
-				BEDZINCON_DGR < 0
-			}			
-		}
-	}
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.11"}
-	
-	option = {
-		name = bedzincon.11.a
-		clr_global_flag = ZAG_congress_of_bedzin
-		set_global_flag = ZAG_congress_of_bedzin_failure
-		DGR = {
-			complete_national_focus = DGR_congress_of_bedzin
-		}
-		SOS = {
-			complete_national_focus = SOS_congress_of_bedzin
-		}	
-		JAW = {
-			complete_national_focus = JAW_congress_of_bedzin
-		}
-	}
-}
-
-country_event = {
-	id = bedzincon.12 #będzincon - jaworzno wypierdala
-	title = bedzincon.12.t
-	desc = bedzincon.12.desc
-
-	fire_only_once = yes
-	trigger = {
-		OR = {
-			check_variable = {
-				BEDZINCON_JAW = 0
-			}
-			check_variable = {
-				BEDZINCON_JAW < 0
-			}			
-		}
-	}
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.12"}
-	
-	option = {
-		name = bedzincon.12.a
-		clr_global_flag = ZAG_congress_of_bedzin
-		set_global_flag = ZAG_congress_of_bedzin_failure
-		DGR = {
-			complete_national_focus = DGR_congress_of_bedzin
-		}
-		SOS = {
-			complete_national_focus = SOS_congress_of_bedzin
-		}	
-		JAW = {
-			complete_national_focus = JAW_congress_of_bedzin
-		}
-	}
-}
-
-country_event = {
-	id = bedzincon.13 #będzincon - sosnowiec wypierdala
-	title = bedzincon.13.t
-	desc = bedzincon.13.desc
-
-	fire_only_once = yes
-	trigger = {
-		OR = {
-			check_variable = {
-				BEDZINCON_SOS = 0
-			}
-			check_variable = {
-				BEDZINCON_SOS < 0
-			}			
-		}
-	}
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires bedzincon.13"}
-	
-	option = {
-		name = bedzincon.13.a
-		clr_global_flag = ZAG_congress_of_bedzin
-		set_global_flag = ZAG_congress_of_bedzin_failure
-		DGR = {
-			complete_national_focus = DGR_congress_of_bedzin
-		}
-		SOS = {
-			complete_national_focus = SOS_congress_of_bedzin
-		}	
-		JAW = {
-			complete_national_focus = JAW_congress_of_bedzin
-		}
-	}
-}
-
-country_event = {
-	id = bedzincon.1000 #congress of bedzin
-	title = bedzincon.1000.t
-	desc = bedzincon.1000.desc
-
-	fire_only_once = yes
-	trigger = {
-		OR = {
-			AND = {
-				original_tag = SOS
-				NOT = { has_war = yes }
-				DGR = { is_ai = yes }
-				JAW = { is_ai = yes }
-				SOS = { is_ai = yes }
-			}
-			AND = {
-				original_tag = SOS
-				NOT = { has_war = yes }
-				DGR = { is_ai = yes }
-				JAW = { is_ai = yes }
-				SOS = { is_ai = no }
-			}
-			AND = {
-				original_tag = SOS
-				NOT = { has_war = yes }
-				DGR = { is_ai = yes }
-				JAW = { is_ai = no }
-				JAW = { has_cosmetic_tag = JAW_SOS }
-				SOS = { is_ai = yes }
-			}			
-			AND = {
-				original_tag = DGR
-				NOT = { has_war = yes }
-				DGR = { is_ai = no }
-				JAW = { is_ai = yes }
-				SOS = { is_ai = yes }
-			}
-			AND = {
-				original_tag = JAW
-				NOT = { has_war = yes }
-				DGR = { is_ai = yes }
-				JAW = { is_ai = no }
-				JAW = { 
-					NOT = {
-						has_cosmetic_tag = JAW_SOS 
-					}
-				}
-				SOS = { is_ai = yes }
-			}									
-		}
-		OR = {
-			BED = {
-				num_of_controlled_states < 1
-			}
-			BED = {
-				is_subject_of = SOS
-			}
-		}
-		date > 2028.03.01
-		
-	}
-	
 	
 	immediate = { 
-		log = "[GetDateText]: [ROOT.GetName] fires bedzincon.1000"			
+		log = "[GetDateText]: [ROOT.GetName] fires dgr_news.2"			
 	}
 	
 	option = {
-		name = bedzincon.1000.a
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_JAW > 1 } } JAW = { country_event = bedzincon.1 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_DGR > 1 } } DGR = { country_event = bedzincon.1 } }
-		if = { limit = { JAW = { is_ai = no } check_variable = { BEDZINCON_SOS > 1 } } SOS = { country_event = bedzincon.1 } }
-		if = {
-			limit = {
-					JAW = { is_ai = yes }
-					DGR = { is_ai = yes }
-					SOS = { is_ai = yes }
-			}
-			SOS = { country_event = bedzincon.1 }
-		}			
+		name = dgr_news.2.a			
 	}
 }
 
+news_event = {
+	id = dgr_news.3 #myslovitz rebelion
+	title = dgr_news.3.t
+	desc = dgr_news.3.desc
+	picture = GFX_news_event_dgr.3
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires dgr_news.3"			
+	}
+	
+	option = {
+		name = dgr_news.3.a			
+	}
+}
 
 
 country_event = {
@@ -970,7 +146,7 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.2"}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.4"}
 	
 	option = {
 
@@ -979,6 +155,461 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = dgr_district.5 #zakonczenie district wars
+	title = dgr_district.5.t
+	desc = dgr_district.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.5"}
+	
+	option = {
+		name = dgr_district.5.a
+		add_political_power = 40
+		clr_country_flag = DGR_district_wars_on
+		if = {
+			limit = {
+				country_exists = DGA
+			}
+			annex_country = {
+				target = DGA
+			}
+		}
+	}
+}
+
+country_event = {
+	id = dgr_district.6 #lose-dzielnica-strzemki
+	title = dgr_district.6.t
+	desc = dgr_district.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.6"}
+	
+	option = {
+		name = dgr_district.6.a
+		add_political_power = -40
+		add_manpower = -100
+		736 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_levittoux
+		set_country_flag = DGR_OL_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.7 #lose-dzielnica-slawkow
+	title = dgr_district.7.t
+	desc = dgr_district.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.7"}
+	
+	option = {
+		name = dgr_district.7.a
+		add_political_power = -40
+		add_manpower = -100
+		480 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_wasilkowski
+		set_country_flag = DGR_OW_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.8 #lose-dzielnica-trojmiasto
+	title = dgr_district.8.t
+	desc = dgr_district.8.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.8"}
+	
+	option = {
+		name = dgr_district.8.a
+		add_political_power = -40
+		add_manpower = -100
+		775 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_bien
+		set_country_flag = DGR_OB_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.9 #lose-dzielnica-leknice
+	title = dgr_district.9.t
+	desc = dgr_district.9.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.9"}
+	
+	option = {
+		name = dgr_district.9.a
+		add_political_power = -40
+		add_manpower = -100
+		776 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_piwowar
+		set_country_flag = DGR_OP_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.10 #lose-dzielnica-golonog
+	title = dgr_district.10.t
+	desc = dgr_district.10.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.10"}
+	
+	option = {
+		name = dgr_district.10.a
+		add_political_power = -40
+		add_manpower = -100
+		777 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_morcinek
+		set_country_flag = DGR_OM_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.11 #lose-dzielnica-reden
+	title = dgr_district.11.t
+	desc = dgr_district.11.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.11"}
+	
+	option = {
+		name = dgr_district.11.a
+		add_political_power = -40
+		add_manpower = -100
+		735 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_adamiecki
+		set_country_flag = DGR_OA_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.12 #lose-dzielnica-centrum
+	title = dgr_district.12.t
+	desc = dgr_district.12.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.12"}
+	
+	option = {
+		name = dgr_district.12.a
+		add_political_power = -40
+		add_manpower = -100
+		460 = {
+			add_dynamic_modifier = {
+				modifier = DGR_unstable_district
+				days = 365
+			}
+		}
+		clr_country_flag = DGR_operation_zawadzki
+		set_country_flag = DGR_OZ_lose
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.13 #win-dzielnica-strzemki
+	title = dgr_district.13.t
+	desc = dgr_district.13.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.13"}
+	
+	option = {
+		name = dgr_district.13.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 736 } }
+			}
+			736 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.14 #win-dzielnica-slawkow
+	title = dgr_district.14.t
+	desc = dgr_district.14.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.14"}
+	
+	option = {
+		name = dgr_district.14.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 480 } }
+			}
+			480 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.15 #win-dzielnica-trojmiasto
+	title = dgr_district.15.t
+	desc = dgr_district.15.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.15"}
+	
+	option = {
+		name = dgr_district.15.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 775 } }
+			}
+			775 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.16 #win-dzielnica-leknice
+	title = dgr_district.16.t
+	desc = dgr_district.16.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.16"}
+	
+	option = {
+		name = dgr_district.16.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 776 } }
+			}
+			776 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.17 #win-dzielnica-golonog
+	title = dgr_district.17.t
+	desc = dgr_district.17.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.17"}
+	
+	option = {
+		name = dgr_district.17.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 777 } }
+			}
+			777 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.18 #win-dzielnica-reden
+	title = dgr_district.18.t
+	desc = dgr_district.18.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.18"}
+	
+	option = {
+		name = dgr_district.18.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 735 } }
+			}
+			735 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.19 #win-dzielnica-centrum
+	title = dgr_district.19.t
+	desc = dgr_district.19.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.19"}
+	
+	option = {
+		name = dgr_district.19.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 460 } }
+			}
+			460 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
+
+country_event = {
+	id = dgr_district.20 #negocjacje KPP z Bargiełą
+	title = dgr_district.20.t
+	desc = dgr_district.20.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.20"}
+	
+	option = {
+		name = dgr_district.20.a
+		set_country_flag = DGR_neonat_joined
+		complete_national_focus = DGR_negotiate_with_li
+	}
+}
+
+country_event = {
+	id = dgr_district.21 #win-dzielnica-reden-alt
+	title = dgr_district.21.t
+	desc = dgr_district.21.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_district.21"}
+	
+	option = {
+		name = dgr_district.21.a
+		if = {
+			limit = {
+				ROOT = { original_tag = DGR }
+			}
+		add_political_power = 40
+		add_manpower = 50
+		if = {
+			limit = {
+				DGR = { NOT = { controls_state = 735 } }
+			}
+			735 = { transfer_state_to = DGR }
+		}
+		}
+		hidden_effect = { DGA = { delete_unit = {} } }
+	}
+}
 
 country_event = {
 	id = dabrowa_border.1 #bukowno win
@@ -1065,9 +696,15 @@ country_event = {
 
 	option = {
 		name = dgr.2.a
+		set_politics = { 
+			ruling_party = neonationalism 
+		}
+		remove_ideas = DGR_min_borowiec
+		remove_ideas = DGR_min_bastajpan
+		remove_ideas = DGR_min_klimek
+		remove_ideas = DGR_min_podraza
 	}
 }
-
 
 country_event = {
 	id = dgr.3 #uneasy peace
@@ -1096,6 +733,16 @@ country_event = {
 
 	option = {
 		name = dgr.4.a
+		DGR = {
+			add_opinion_modifier = {
+				target = SOS
+				modifier = unstable_alliance
+			}
+			add_opinion_modifier = {
+				target = JAW
+				modifier = unstable_alliance
+			}				
+		}
 	}
 }
 
@@ -1112,10 +759,12 @@ country_event = {
 	option = {
 		name = dgr.5.a
 		set_country_flag = DGR_hamburger_chosen
+		custom_effect_tooltip = DGR_comrade_hamburger_tt
 	}
 	option = {
 		name = dgr.5.b
 		set_country_flag = DGR_dzafar_chosen
+		custom_effect_tooltip = DGR_dzafar_kebab_tt
 	}
 }
 
@@ -1131,6 +780,7 @@ country_event = {
 
 	option = {
 		name = dgr.6.a
+		add_manpower = -1
 	}
 }
 
@@ -1146,6 +796,11 @@ country_event = {
 
 	option = {
 		name = dgr.7.a
+		DGR_bargiela = {
+			add_trait = {
+				trait = desert_fox
+			}
+		}
 	}
 }
 
@@ -1161,6 +816,11 @@ country_event = {
 
 	option = {
 		name = dgr.8.a
+		add_popularity = {
+			ideology = marxism_cranism
+			popularity = 0.01
+		}
+		add_manpower = 13
 	}
 }
 
@@ -1207,6 +867,7 @@ country_event = {
 
 	option = {
 		name = dgr.11.a
+		add_war_support = 0.01
 	}
 }
 
@@ -1222,9 +883,27 @@ country_event = {
 
 	option = {
 		name = dgr.12.a
+		add_political_power = -20
+		add_stability = -0.05
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.05
+		}
+		481 = { 
+			add_compliance = 20
+		}
 	}
 	option = {
 		name = dgr.12.b
+		add_political_power = 50
+		add_stability = 0.1
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = -0.1
+		}
+		481 = { 
+			add_resistance = 20
+		}
 	}
 }
 
@@ -1240,9 +919,42 @@ country_event = {
 
 	option = {
 		name = dgr.13.a
+		add_popularity = {
+			ideology = squattism
+			popularity = -0.05
+		}
+		add_stability = -0.05
+		army_experience = 50
+		487 = { 
+			add_manpower = -41
+			add_resistance = 25
+		}
+		733 = { 
+			add_manpower = -15
+			add_resistance = 25
+		}
+		734 = { 
+			add_manpower = -22
+			add_resistance = 25
+		}
 	}
 	option = {
 		name = dgr.13.b
+		add_popularity = {
+			ideology = squattism
+			popularity = 0.05
+		}
+		add_stability = 0.05
+		487 = { 
+			add_resistance = 10
+		}
+		733 = { 
+			add_resistance = 10
+		}
+		734 = { 
+			add_resistance = 10
+		}
+		add_political_power = -50
 	}	
 }
 
@@ -1258,9 +970,17 @@ country_event = {
 
 	option = {
 		name = dgr.14.a
+		swap_ideas = {
+			remove_idea = partial_secularism
+			add_idea = one_religion_favoured
+		}
 	}
 	option = {
 		name = dgr.14.b
+		swap_ideas = {
+			remove_idea = partial_secularism
+			add_idea = full_secularism
+		}
 	}	
 }
 
@@ -1276,9 +996,35 @@ country_event = {
 
 	option = {
 		name = dgr.15.a
+		every_possible_country = {
+			limit = {
+				has_character = BRZ_brzeczek
+			}
+			random_character = {
+				limit = {
+					is_character = BRZ_brzeczek
+				}
+				set_nationality = DGR
+				set_portraits = {
+					civilian = {
+						large = "gfx/leaders/DGR/DGR_Buzzer.dds"
+					}
+				}
+			}
+		}
+		swap_ideas = {
+			remove_idea = officer_clerks
+			add_idea = officer_leftovers
+		}
 	}
 	option = {
 		name = dgr.15.b
+		add_stability = 0.05
+		add_popularity = {
+			ideology = marxism_cranism
+			popularity = 0.03
+		}
+		army_experience = 50
 	}	
 }
 
@@ -1294,10 +1040,7 @@ country_event = {
 
 	option = {
 		name = dgr.16.a
-		swap_ideas = {
-			remove_idea = military_industry_subsidies
-			add_idea = no_subsidies
-		}
+		add_ideas = no_subsidies
 	}	
 }
 
@@ -1439,6 +1182,110 @@ country_event = {
 
 	option = {
 		name = dgr.25.a
+		if = {
+			limit = {
+				DGR = {
+					has_government = marxism_cranism
+				}
+			}
+			every_character = {
+				limit = {
+					is_character = CCH_konieczny
+				}
+				set_nationality = DGR
+			}
+			remove_country_leader_role = {
+				character = CCH_konieczny
+				ideology = socialdemocrature_humanitarianism_subtype
+			}
+			add_advisor_role = {
+				character = CCH_konieczny
+				advisor = {
+					slot = minister_of_economy
+					cost = 100
+					idea_token = DGR_min_konieczny
+					traits = {
+						christian_socialist
+					}
+				}
+				activate = yes
+			}
+			set_can_be_fired_in_advisor_role = {
+				character = CCH_konieczny
+				value = no
+			}
+			add_advisor_role = {
+				character = DGR_karon
+				advisor = {
+					slot = head_of_government
+					cost = 100
+					idea_token = DGR_min_karon
+					traits = {
+						ideological_groupie
+					}
+				}
+				activate = yes
+			}	
+			set_can_be_fired_in_advisor_role = {
+				character = DGR_karon
+				value = no
+			}		
+		}
+		if = {
+			limit = {
+				DGR = {
+					has_government = neonationalism
+				}
+			}
+			add_advisor_role = {
+				character = DGR_jaszczura
+				advisor = {
+					slot = minister_of_economy
+					cost = 100
+					idea_token = DGR_min_jaszczura
+					traits = {
+						backroom_backstabber
+					}
+				}
+				activate = yes
+			}
+			set_can_be_fired_in_advisor_role = {
+				character = DGR_jaszczura
+				value = no
+			}
+			add_advisor_role = {
+				character = DGR_kondratowicz
+				advisor = {
+					slot = minister_of_war
+					cost = 100
+					idea_token = DGR_min_kondratowicz
+					traits = {
+						unruly_falangist
+					}
+				}
+				activate = yes
+			}
+			set_can_be_fired_in_advisor_role = {
+				character = DGR_kondratowicz
+				value = no
+			}
+			add_advisor_role = {
+				character = DGR_bargiela
+				advisor = {
+					slot = head_of_government
+					cost = 100
+					idea_token = DGR_min_bargiela
+					traits = {
+						nationalist_militia_leader
+					}
+				}
+				activate = yes
+			}	
+			set_can_be_fired_in_advisor_role = {
+				character = DGR_bargiela
+				value = no
+			}					
+		}		
 	}
 }
 
@@ -1574,6 +1421,7 @@ country_event = {
 
 	option = {
 		name = dgr.34.a
+		add_ideas = DGR_strikes_1
 	}
 }
 
@@ -1589,6 +1437,10 @@ country_event = {
 
 	option = {
 		name = dgr.35.a
+		swap_ideas = {
+			remove_idea = DGR_strikes_1
+			add_idea = DGR_strikes_2
+		}
 	}
 }
 
@@ -1604,6 +1456,7 @@ country_event = {
 
 	option = {
 		name = dgr.36.a
+		country_event = dgr.43
 	}
 }
 
@@ -1619,6 +1472,8 @@ country_event = {
 
 	option = {
 		name = dgr.37.a
+		add_stability = -0.2
+		add_political_power = -50
 	}
 }
 
@@ -1634,6 +1489,26 @@ country_event = {
 
 	option = {
 		name = dgr.38.a
+		460 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+			damage_building = {
+				type = landmark_dabrowa_pkz
+				damage = 0.7
+			}
+		}
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.1
+		}
+		retire_character = DGR_bargiela
+		retire_character = DGR_zimmermann
+		country_event = config.2
 	}
 }
 
@@ -1649,6 +1524,69 @@ country_event = {
 
 	option = {
 		name = dgr.39.a
+		PaF_initiate_ending_screen = yes
+	}
+}
+
+country_event = {
+	id = dgr.40 #czolgi na hute
+	title = dgr.40.t
+	desc = dgr.40.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.40"}
+
+	option = {
+		name = dgr.40.a
+		add_manpower = -465
+	}
+}
+
+country_event = {
+	id = dgr.41 #complete restoration of katowice steelworks
+	title = dgr.41.t
+	desc = dgr.41.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.41"}
+
+	option = {
+		name = dgr.41.a
+	}
+}
+
+country_event = {
+	id = dgr.42 #nationalist-communist paramilitary
+	title = dgr.42.t
+	desc = dgr.42.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.42"}
+
+	option = {
+		name = dgr.42.a
+	}
+}
+
+country_event = {
+	id = dgr.43 #history repeats itself 2/2
+	title = dgr.43.t
+	desc = dgr.43.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.43"}
+
+	option = {
+		name = dgr.43.a
+		PaF_initiate_ending_screen = yes
 	}
 }
 
@@ -1665,5 +1603,81 @@ country_event = {
 
 	option = {
 		name = dgr.1001.a
+	}
+}
+
+country_event = {
+	id = dgr.1002 #rozpierdol na rynku nieruchomości
+	title = dgr.1002.t
+	desc = dgr.1002.desc
+
+	fire_only_once = yes
+	trigger = {
+		DGR = {
+			OR = {
+				AND = {
+				has_completed_focus = DGR_prefab_apartments
+				NOT = { has_country_flag = DGR_bop_gierek_mieszkania  }
+				NOT = { has_country_flag = DGR_bop_moczar_mieszkania  }
+				date > 2031.06.01
+				}
+				has_country_flag = DGR_bop_gierek_mieszkania
+				has_country_flag = DGR_bop_moczar_mieszkania
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 2
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.1002"}
+
+	option = {
+		name = dgr.1002.a
+		complete_national_focus = DGR_real_estate_crash
+		if = {
+			limit = {
+				has_idea = DGR_real_estate_idea_gierek
+			}
+			swap_ideas = {
+				remove_idea = DGR_real_estate_idea_gierek
+				add_idea = DGR_real_estate_crash_idea
+			}
+		}
+		if = {
+			limit = {
+				has_idea = DGR_real_estate_idea_moczar
+			}
+			swap_ideas = {
+				remove_idea = DGR_real_estate_idea_moczar
+				add_idea = DGR_real_estate_crash_idea
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+				has_idea = DGR_real_estate_idea_moczar
+				has_idea = DGR_real_estate_idea_gierek
+				}
+			}
+			add_ideas = DGR_real_estate_crash_idea
+		}				
+	}
+}
+
+country_event = {
+	id = dgr.1003 #rozpierdol przy kolektywizacji
+	title = dgr.1003.t
+	desc = dgr.1003.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.1003"}
+
+	option = {
+		name = dgr.1003.a
+		add_ideas = DGR_collectivisation_stage_2
+		add_ideas = diet_holodomor
 	}
 }
