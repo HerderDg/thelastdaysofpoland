@@ -19,6 +19,43 @@ TOR_rydzyk_category = {
 
 		}
 	}
+	TOR_HP_refresh_counter = {
+    	activation = {
+			AND = {
+				NOT = {
+					check_variable = { TOR_rydzyk_hp_max_var < 1 }
+					check_variable = { TOR_rydzyk_hp_var = 10 }
+				}
+			}
+    	}
+		
+    	cancel_trigger = {
+			OR = {
+				check_variable = { TOR_rydzyk_hp_max_var < 1 }
+				check_variable = { TOR_rydzyk_hp_var = 10 }
+			}
+    	}
+		available  = {
+			OR = {
+				check_variable = { TOR_rydzyk_hp_max_var < 1 }
+				check_variable = { TOR_rydzyk_hp_var = 10 }
+			}
+		}
+    	days_mission_timeout = 30
+		days_re_enable = 1
+		selectable_mission = no
+		is_good = yes
+    	complete_effect = {
+    	}
+    	timeout_effect = {
+			add_to_variable = { TOR_rydzyk_hp_var = 1 }
+			hidden_effect = {
+				TOR_GUI_all_check = yes
+			}
+			custom_effect_tooltip = TOR_HP_refresh_tooltip
+    	}
+	}
+	#
 	TOR_symphatizers_kuyavian = {
 		icon = GFX_decision_generic_protection 
 		visible = {
