@@ -21,24 +21,22 @@ TOR_rydzyk_category = {
 	}
 	TOR_HP_refresh_counter = {
     	activation = {
-			AND = {
-				NOT = {
+			NOT = {
+				OR = {
 					check_variable = { TOR_rydzyk_hp_max_var < 1 }
-					check_variable = { TOR_rydzyk_hp_var = 10 }
+					check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }
+					check_variable = { TOR_rydzyk_hp_var > TOR_rydzyk_hp_max_var }
 				}
 			}
     	}
-		
-    	cancel_trigger = {
-			OR = {
-				check_variable = { TOR_rydzyk_hp_max_var < 1 }
-				check_variable = { TOR_rydzyk_hp_var = 10 }
-			}
-    	}
 		available  = {
-			OR = {
-				check_variable = { TOR_rydzyk_hp_max_var < 1 }
-				check_variable = { TOR_rydzyk_hp_var = 10 }
+			custom_trigger_tooltip = {
+				tooltip = TOR_HP_refresh_tooltip_abort		
+				OR = {
+					check_variable = { TOR_rydzyk_hp_max_var < 1 }
+					check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }
+					check_variable = { TOR_rydzyk_hp_var > TOR_rydzyk_hp_max_var }
+				}	
 			}
 		}
     	days_mission_timeout = 30
