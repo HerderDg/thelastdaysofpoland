@@ -1644,6 +1644,9 @@
 		cost = 1
 		
 		completion_reward = {
+			165 = {
+				add_building_construction = { type = bunker province = 2964 level = 5 instant_build = yes }
+		}
 			
 		}
 	}
@@ -3401,7 +3404,7 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			add_ideas = TOR_the_lords_disapproval_idea			
 		}
 	}
 
@@ -3513,8 +3516,11 @@
 		
 		cost = 1
 		
-		completion_reward = { 
-			
+		completion_reward = {
+		swap_ideas = { 
+				remove_idea = TOR_the_lords_disapproval_idea
+				add_idea = TOR_the_lords_disapproval_idea1
+			}
 		}
 	}
 
@@ -3536,6 +3542,41 @@
 		cost = 1
 		
 		completion_reward = { 
+					198 = {
+				create_unit = {
+					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+					prioritize_location = 15328
+				}
+				}
+                165 = {
+				create_unit = {
+					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+					prioritize_location = 2964
+				}
+				}
+				701 = {
+				create_unit = {
+					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+					prioritize_location = 15606
+				}
+				}
+				708 = {
+				create_unit = {
+					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+					prioritize_location = 14413
+				}
+				}
+				115 = {
+				create_unit = {
+					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+					prioritize_location = 3343
+				}
+				}
 		country_event = TOR.52	
 		}
 	}
@@ -3558,6 +3599,7 @@
 		cost = 1
 		
 		completion_reward = { 
+			add_ideas = TOR_bible_bashing
 			
 		}
 	}
@@ -3579,8 +3621,29 @@
 		y = 1
 		
 		cost = 1
-		
-		completion_reward = { 
+		completion_reward = {
+			swap_ideas = { 
+				remove_idea = TOR_the_lords_disapproval_idea1
+				add_idea = TOR_the_lords_disapproval_idea2
+			}
+			TOR_holy_minus_5 = yes
+				set_temp_variable = {
+					var = ban_ideology_var
+					value = party_popularity@socialdemocrature
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = -1
+				}
+				add_popularity = {
+					ideology = socialdemocrature
+					popularity = ban_ideology_var
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = 0.66
+				}
+			
 		country_event = TOR.53	
 		}
 	}
@@ -3625,7 +3688,18 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+        if = {
+            limit = {
+                has_idea = TOR_secular_authority_ban
+            }
+            remove_ideas = TOR_secular_authority_ban
+        }
+        if = {
+            limit = {
+                has_idea = TOR_the_lords_disapproval_idea2
+            }
+            remove_ideas = TOR_the_lords_disapproval_idea2
+        }			
 		}
 	}
 
