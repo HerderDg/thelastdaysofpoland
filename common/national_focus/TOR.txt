@@ -3439,7 +3439,11 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			custom_effect_tooltip = TOR_a_checkup_on_lucifer_tt
+			swap_ideas = {
+				remove_idea = TOR_the_lords_disapproval_idea
+				add_idea = TOR_the_lords_disapproval_idea3
+			}
 		}
 	}
 
@@ -3460,8 +3464,18 @@
 		
 		cost = 1
 		
-		completion_reward = { 
-			
+		completion_reward = {
+			remove_ideas = TOR_a_pint_of_populism_idea
+
+			every_other_country = {
+				limit = {
+					has_government = freemarketism
+				}
+				add_opinion_modifier = {
+				target = ROOT
+				modifier = small_increase
+				}
+			}
 		}
 	}
 
@@ -3471,7 +3485,6 @@
 		relative_position_id = TOR_a_checkup_on_lucifer
 		prerequisite = { focus = TOR_a_checkup_on_lucifer }
 		available = {
-		
 		}
 		
 		bypass = {
@@ -3483,7 +3496,8 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.50	
+			country_event = TOR.50
+			custom_effect_tooltip = TOR_raiding_consultant_tt
 		}
 	}
 	
@@ -3506,7 +3520,31 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.51	
+			country_event = TOR.51
+			hidden_effect = {
+				set_temp_variable = {
+					var = ban_ideology_var
+					value = party_popularity@freemarketism
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = -1
+				}
+				add_popularity = {
+					ideology = freemarketism
+					popularity = ban_ideology_var
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = 0.66
+				}
+			}
+			add_stability = ban_ideology_var
+			custom_effect_tooltip = TOR_secular_authority_ban_tt
+			swap_ideas = {
+				remove_idea = TOR_the_lords_disapproval_idea3
+				add_idea = TOR_the_lords_disapproval_idea4
+			}
 		}
 	}
 
@@ -3678,7 +3716,14 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.54	
+			country_event = TOR.54
+			if = {
+				limit = {has_idea = state_religion}
+			}
+			swap_ideas = {
+				remove_idea = state_religion
+				add_idea = one_state_one_religion
+			}
 		}
 	}
 
