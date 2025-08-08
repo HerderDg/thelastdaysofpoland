@@ -6,19 +6,59 @@ TOR_rydzyk_category = {
 		visible = {
 			TOR = { has_country_flag = TOR_employ_units_visible }
 		}
-		cost = 20
+		custom_cost_trigger = {
+			check_variable = { TOR_rydzyk_hp_var > 0 }
+		}
+		custom_cost_text = decision_cost_hp_1
+		complete_effect = {
+			hidden_effect = {
+				TOR_hp_minus_1 = yes
+			}
+		}
 		days_remove = 14
 		days_re_enable = 90
 		remove_effect = {
-			167 = {
-				#create_unit = {
-				#	division = "division_template = \"Korporacyjne Siły Porządkowe\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
-				#	owner = TOR
-				#}
+			165 = {
+				create_unit = {
+					division = "name = \"Najemnicy Lux Veritatis\" division_template = \"Moherowe Berety\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = TOR
+				}
 			}
 
 		}
 	}
+	TOR_HP_refresh_counter = {
+    	activation = {
+			NOT = {
+				check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }
+			}
+    	}
+		available  = {
+			custom_trigger_tooltip = {
+				tooltip = TOR_HP_refresh_tooltip_abort		
+				OR = {
+					check_variable = { TOR_rydzyk_hp_max_var < 1 }
+					check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }
+					check_variable = { TOR_rydzyk_hp_var > TOR_rydzyk_hp_max_var }
+				}	
+			}
+		}
+    	days_mission_timeout = 90
+		days_re_enable = 1
+		selectable_mission = no
+		is_good = yes
+    	complete_effect = {
+    	}
+    	timeout_effect = {
+			set_variable = { TOR_rydzyk_hp_var = 0 }
+			add_to_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }
+			hidden_effect = {
+				TOR_GUI_all_check = yes
+			}
+			custom_effect_tooltip = TOR_HP_refresh_tooltip
+    	}
+	}
+	#
 	TOR_symphatizers_kuyavian = {
 		icon = GFX_decision_generic_protection 
 		visible = {
@@ -246,6 +286,45 @@ TOR_rydzyk_category = {
 				set_state_flag = TOR_deployed_mohairs
 				create_unit = {
 					division = "name = \"Moherowe Berety\" division_template = \"Moherowe Berety\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+				}
+			}
+		}
+	}
+	TOR_marian_crusade_decision = {
+		icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			has_completed_focus = TOR_a_marian_crusade
+		}
+		target_trigger = {
+			FROM = {
+				AND = {
+					is_capital = yes
+					is_owned_by  = TOR
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				AND = {
+					is_capital = yes
+					is_owned_by  = TOR
+				}	
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_and_decisions_view 
+		cost = 25
+		days_remove = 30
+		modifier = {
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			FROM = {
+				create_unit = {
+					division = "name = \"Ochotniczy Batalion Wiernych\" division_template = \"Moherowe Berety\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
 				}
 			}

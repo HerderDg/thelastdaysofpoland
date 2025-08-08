@@ -153,7 +153,18 @@ get_building_cost = {
 				multiply_variable = { new_steel = cost_for_steel_works } # Cost per factory
 				subtract_from_variable = { budget = new_steel }
 				set_variable = { prev_steel = num_of_steel_works }
-		}		
+		}
+		
+		# Farms
+		if = {
+			limit = { check_variable = { prev_farms < num_of_big_ass_farms } }
+				set_variable = { new_farms = num_of_big_ass_farms }
+				subtract_from_variable = { new_farms = prev_farms }
+				multiply_variable = { new_farms = cost_for_farms } # Cost per factory
+				subtract_from_variable = { budget = new_farms }
+				set_variable = { prev_farms = num_of_big_ass_farms }
+		}
+
 		# Recycling Plants
 		if = {
 			limit = { check_variable = { prev_recycling < num_of_recycling_plants } }
@@ -246,7 +257,7 @@ get_taxes = {
 	}
 	round_variable = tax
 	multiply_variable = {
-		tax = 0.001 # podzielone przez 1M żeby się nie przelało
+		tax = 0.01 
 	}
 	set_temp_variable = {
 		tax_rate_multiplier = 1
@@ -268,6 +279,20 @@ get_taxes = {
 	multiply_variable = {
 		monthly_admin_spendings = modifier@budget_spendings #mnozymy spendingi razy rate wydatkow na administracje
 	}
+
+	add_to_temp_variable = {
+		inflation_ratio = rate_of_inflation
+	}
+	add_to_temp_variable = {
+		admin_spendings_inflation = monthly_admin_spendings
+	}
+	multiply_temp_variable = {
+		admin_spendings_inflation = inflation_ratio
+	}
+	add_to_variable = {
+		monthly_admin_spendings = admin_spendings_inflation
+	}
+
 	get_military_payments = yes
 
 
@@ -575,6 +600,18 @@ get_military_payments = {
 		monthly_military_payments = payment_for_submarines
 	}
 
+	add_to_temp_variable = {
+		inflation_ratio = rate_of_inflation
+	}
+	add_to_temp_variable = {
+		military_payments_inflation = monthly_military_payments
+	}	
+	multiply_temp_variable = {
+		military_payments_inflation = inflation_ratio
+	}	
+	add_to_variable = {
+		monthly_military_payments = military_payments_inflation
+	}
 	get_consumer_payments = yes
 	
 }
@@ -636,7 +673,18 @@ get_consumer_payments = {
 	set_variable = {
 		monthly_consumer_payments = consumer_payments
 	}
-
+	add_to_temp_variable = {
+		inflation_ratio = rate_of_inflation
+	}
+	add_to_temp_variable = {
+		consumer_payments_inflation = monthly_consumer_payments
+	}	
+	multiply_temp_variable = {
+		consumer_payments_inflation = inflation_ratio
+	}
+	add_to_variable = {
+		monthly_consumer_payments = consumer_payments_inflation
+	}	
 	get_resource_payments = yes
 	
 }
@@ -941,6 +989,17 @@ get_building_payments = {
 		building_payments = payments_for_steel_works_temp
 	}
 
+	# Farms
+	set_temp_variable = {
+		payments_for_farms_temp = payments_for_farms
+	}
+	multiply_temp_variable = {
+		payments_for_farms_temp = num_of_big_ass_farms
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_farms_temp
+	}	
+
 	# Temples
 	set_temp_variable = {
 		payments_for_temples_temp = payments_for_temples
@@ -1121,6 +1180,18 @@ get_building_payments = {
 	set_variable = {
 		monthly_building_payments = building_payments
 	}
+	add_to_temp_variable = {
+		inflation_ratio = rate_of_inflation
+	}
+	add_to_temp_variable = {
+		building_payments_inflation = monthly_building_payments
+	}			
+	multiply_temp_variable = {
+		building_payments_inflation = inflation_ratio
+	}
+	add_to_variable = {
+		monthly_building_payments = building_payments_inflation
+	}
 	get_budget_tooltip = yes
 }
 
@@ -1190,3 +1261,13 @@ get_monthly_budget = {
 		budget_balance = monthly_budget
 	}	
 }
+
+
+set_up_inflation = {
+	ROOT = {
+		set_variable = {
+			rate_of_inflation = 0.01
+		}
+	}
+}
+

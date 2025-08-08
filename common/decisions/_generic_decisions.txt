@@ -1,6 +1,147 @@
 ### GENERIC IDEOLOGICZNE ###
 ### EUROLIB GENERIC ###
-generic_decisions_category = {
+fiscal_decisions_category = {
+
+
+
+	take_a_loan_1 = {
+
+		visible = {
+			has_country_flag = unified_voivodeship
+			NOT = {
+				has_active_mission = take_a_loan_1_mission
+			}
+		}
+		
+		icon = GFX_decision_ger_mefo_bills
+		
+		cost = 100
+		days_re_enable = 180
+		complete_effect = {
+			ROOT = {
+				activate_mission = take_a_loan_1_mission
+				add_to_variable = {
+					budget = tax
+				}
+				add_to_variable = {
+					budget = tax
+				}			
+				custom_effect_tooltip = monthly_tax_value_loan
+				custom_effect_tooltip = rozdzielacz_efektow		
+				custom_effect_tooltip = monthly_tax_value_loan
+				add_to_variable = {
+					loan_counter = 1
+				}
+				add_to_variable = {
+					loan_amount = tax
+				}
+				add_to_variable = {
+					loan_amount = tax
+				}
+				multiply_variable = {
+					loan_amount = 1.1 #odsetki
+				}	
+			}							
+		}
+	}
+
+	take_a_loan_1_mission = {
+		allowed = {
+			always = no
+		}
+		icon = GFX_decision_ger_mefo_bills
+		available = {
+			check_variable = {
+				budget > loan_amount
+			}
+		}
+		selectable_mission = yes
+		is_good = yes
+		days_mission_timeout = 360
+		complete_effect = {
+			ROOT = {
+			subtract_from_variable = {
+				budget = loan_amount
+			}
+			custom_effect_tooltip = loan_amount_tt
+			clear_variable = loan_amount
+			clear_variable = loan_counter
+			}	
+		}
+		timeout_effect = {
+			log = "[GetDateText]: Decision generic_decision_stability"
+			ROOT = {
+			subtract_from_variable = {
+				budget = loan_amount
+			}
+			custom_effect_tooltip = loan_amount_tt
+			clear_variable = loan_amount
+			clear_variable = loan_counter
+			}
+			add_stability = -0.1
+			add_political_power = -100
+		}
+	}
+
+	
+	debasing_currency = {
+
+		visible = {
+			check_variable = {
+				rate_of_inflation > 0.01
+			}
+		}
+		
+		icon = GFX_decision_generic_consumer_goods
+		modifier = {	
+			political_power_gain = -0.2
+		}
+		
+		cost = 150
+		days_re_enable = 90
+		days_remove = 30
+		
+		remove_effect = {
+			log = "[GetDateText]: Decision generic_decision_stability"
+			add_to_variable = {
+				budget = -1000
+			}
+			custom_effect_tooltip = budget_subtract_1B
+			add_to_variable = {
+				rate_of_inflation = -0.02
+			}
+			custom_effect_tooltip = deflation_growth_2
+		}
+	}
+
+	drukarka_robi_brrrr = {
+
+		available = {
+			always = yes
+		}
+		
+		icon = GFX_decision_generic_fundraising
+		modifier = {	
+			political_power_gain = -0.2
+		}
+		
+		cost = 200
+		days_re_enable = 180
+		days_remove = 30
+		
+		remove_effect = {
+			log = "[GetDateText]: Decision generic_decision_stability"
+			add_to_variable = {
+				budget = 500
+			}
+			custom_effect_tooltip = budget_add_500M
+			add_to_variable = {
+				rate_of_inflation = 0.04
+			}
+			custom_effect_tooltip = inflation_growth_4
+			add_stability = -0.1
+		}
+	}
 
 	decision_civil_industry_subsidies = {
 
@@ -8,7 +149,7 @@ generic_decisions_category = {
 			NOT = { has_country_flag = subsidies_chosen }
 		}
 		
-		icon = GFX_decision_generic_nationalism
+		icon = GFX_decision_generic_construction
 		modifier = {	
 			political_power_gain = -0.15
 			production_speed_industrial_complex_factor = 0.05
@@ -45,7 +186,7 @@ generic_decisions_category = {
 			NOT = { has_country_flag = subsidies_chosen }
 		}
 		
-		icon = GFX_decision_generic_nationalism
+		icon = GFX_decision_generic_industry
 		modifier = {	
 			political_power_gain = -0.25
 			production_speed_arms_factory_factor = 0.05
@@ -79,7 +220,10 @@ generic_decisions_category = {
 				clr_country_flag = subsidies_chosen
 			}
 		}
-	}	
+	}
+}
+
+generic_decisions_category = {
 
 	
 	generic_decision_stability = {
