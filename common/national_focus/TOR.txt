@@ -4953,7 +4953,16 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.76	
+			country_event = TOR.76	
+			custom_effect_tooltip = mentzen_after_coup_new_units_tooltip
+			add_unit_bonus = {
+                militia = {
+					soft_attack = 0.1
+					default_morale = 0.10
+					max_organisation  = -0.3
+					maximum_speed = 0.05
+                }
+            }
 		}
 	}
 
@@ -4998,7 +5007,10 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+		custom_effect_tooltip = tor_locking_templates_after_this_tooltip
+			hidden_effect = {
+				country_lock_all_division_template = yes
+			}
 		}
 	}
 
@@ -5021,7 +5033,10 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			custom_effect_tooltip = tor_there_will_be_grave_consequences_tooltip
+			set_country_flag = TOR_civil_war 
+			custom_effect_tooltip = budget_subtract_500K #It has to be 3times less than the TOR_finding_their_judas takes away.
+			add_to_variable = { budget = -0.5 }
 		}
 	}
 
@@ -5088,7 +5103,10 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			custom_effect_tooltip = tor_there_will_NOT_be_grave_consequences_tooltip
+			#set_country_flag = TOR_no_civil_war  #?
+			custom_effect_tooltip = budget_subtract_1500K #It has to be 3times more than the TOR_forever_loyal takes away.
+			add_to_variable = { budget = -1.5 }
 		}
 	}
 
@@ -5110,7 +5128,39 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.79	
+			country_event = TOR.79	
+			custom_effect_tooltip = postcoup_lose_templates_for_mercloyal_tooltip
+			
+			if = {
+				limit = {
+					TOR ={
+					has_idea = TOR_contractors_1
+					}
+				}
+				remove_ideas = TOR_contractors_1
+				add_ideas = TOR_contractors_better_paid_1
+			} 
+			
+			if = {
+				limit = {
+					TOR ={
+					has_idea = TOR_contractors_2
+					}
+				}
+				remove_ideas = TOR_contractors_2
+				add_ideas = TOR_contractors_better_paid_2
+			}
+			
+			if = {
+				limit = {
+					TOR ={
+					has_idea = TOR_contractors_3
+					}
+				}
+				remove_ideas = TOR_contractors_3
+				add_ideas = TOR_contractors_better_paid_3
+			}
+			
 		}
 	}
 
