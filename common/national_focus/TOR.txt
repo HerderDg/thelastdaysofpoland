@@ -310,7 +310,9 @@
 		
 		cost = 1
 		
-		completion_reward = {add_ideas = TOR_Cassocks }
+		completion_reward = {
+			add_ideas = TOR_Cassocks 
+		}
 	}	
 
 	focus = {
@@ -332,8 +334,8 @@
 		
 		completion_reward = {
 			swap_ideas = {
-			remove_idea = TOR_Cassocks
-			add_idea = TOR_Cassocks_1
+				remove_idea = TOR_Cassocks
+				add_idea = TOR_Cassocks_1
 			} 
 			custom_effect_tooltip = TOR_priests_tooltip
 		}
@@ -358,13 +360,13 @@
 		
 		completion_reward = {
 			add_victory_points = {
-			province = 2964
-			value = 10
+				province = 2964
+				value = 10
 			} 
 			165 = {
 				remove_building = {
-				type = januszex
-				level = 1
+					type = januszex
+					level = 1
 				}
 			}
 		}
@@ -391,14 +393,15 @@
 		completion_reward = {
 			country_event = TOR.17 
 			swap_ideas = {
-			remove_idea = TOR_Cassocks_1
-			add_idea = TOR_Cassocks_2
+				remove_idea = TOR_Cassocks_1
+				add_idea = TOR_Cassocks_2
 			}
-				165 ={ add_building_construction = {
-				type = bunker
-				level = 2
-				instant_build = yes
-				province = 2964
+			165 = { 
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 2964
 				}
 			}
 		}
@@ -437,10 +440,21 @@
 				}
             } 
 			add_ideas = TOR_Woe_Corrupters					
-			add_popularity = {
-				ideology = euroliberalism 
-				popularity = -0.07
+			hidden_effect = {
+				set_temp_variable = {
+					var = ban_ideology_var
+					value = party_popularity@euroliberalism
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = -1
+				}
+				add_popularity = {
+					ideology = euroliberalism
+					popularity = ban_ideology_var
+				}
 			}
+			custom_effect_tooltip = TOR_woe_to_corrupters_tt
 		}
 	}	
 	
@@ -463,8 +477,8 @@
 		
 		completion_reward = { 
 			swap_ideas = {
-			remove_idea = improvised_security
-			add_idea = basic_security
+				remove_idea = improvised_security
+				add_idea = basic_security
 			}		
 			165 = {
 				create_unit = {
@@ -496,8 +510,8 @@
 		completion_reward = {
 			country_event = TOR.16
 			swap_ideas = {
-			remove_idea = TOR_Woe_Corrupters
-			add_idea = TOR_Woe_Corrupters_1
+				remove_idea = TOR_Woe_Corrupters
+				add_idea = TOR_Woe_Corrupters_1
 			}		
 		}
 	}
@@ -631,7 +645,9 @@
 		completion_reward = {
 			country_event = TOR.20
 			custom_effect_tooltip = budget_add_100K
-			add_to_variable = { budget = 0.1 }
+			add_to_variable = { 
+				budget = 0.1 
+			}
 			1056 = {
 				add_resistance = 0.15
 			}
@@ -666,9 +682,9 @@
 		completion_reward = {
 			165 = {			
 				add_building_construction = {
-   				type = radar_station
-    			level = 1
-    			instant_build = yes
+					type = radar_station
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -801,7 +817,9 @@
 		
 		completion_reward = {
 			add_stability = 0.1 
-			1056 = {add_compliance = 10} 
+			1056 = {
+				add_compliance = 10
+			} 
 		}
 	}
 	
@@ -1000,6 +1018,7 @@
 		
 		completion_reward = {
 			TOR_holy_plus_5 = yes
+			hidden_effect = {TOR_GUI_all_check = yes}			
 			country_event = TOR.9
 			add_popularity = {
 				ideology = corporativism
@@ -1052,7 +1071,13 @@
 		
 		cost = 1
 		
-		completion_reward = {country_event = TOR.11 }
+		completion_reward = {
+			country_event = TOR.11 
+			swap_ideas = {
+				remove_idea = TOR_a_pint_of_populism_idea
+				add_idea = TOR_way_of_the_cross_idea
+			}		
+		}
 	}	
 
 	focus = {
@@ -1150,10 +1175,6 @@
 		completion_reward = {
 			country_event = TOR.13 
 			custom_effect_tooltip = what_we_do_in_the_shadows_tooltip
-			swap_ideas = {
-				remove_idea = TOR_way_of_the_cross_idea
-				add_idea = TOR_a_pint_of_populism_idea
-			}
 		}
 	}
 	
@@ -1189,6 +1210,7 @@
 				}
 			}
 			TOR_hp_max_minus_1 = yes
+			hidden_effect = {TOR_GUI_all_check = yes}		
 		}
 	}
 
@@ -1247,7 +1269,10 @@
 		relative_position_id = TOR_extending_our_protection
 		prerequisite = { focus = TOR_extending_our_protection }
 		available = {
-		
+			NOT = {
+				country_exists = BRO
+			}
+			has_war = no		
 		}
 		
 		bypass = {
@@ -1260,18 +1285,18 @@
 		
 		completion_reward = { 
 			TOR_holy_plus_5 = yes
-			TOR_GUI_all_check = yes			
+			hidden_effect = {TOR_GUI_all_check = yes}			
 			1057={
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
+					type = infrastructure
+					level = 1
+					instant_build = yes
 				}
 			 }
 			 add_victory_points = {
-	         province = 15458
-	         value = 5
+				province = 15458
+				value = 5
              }		
 		}
 	}
@@ -1296,8 +1321,8 @@
 		completion_reward = {
 			country_event = TOR.24
 			swap_ideas = {
-			remove_idea = state_press
-			add_idea = absolute_censorship
+				remove_idea = state_press
+				add_idea = absolute_censorship
 			}		
 		}
 	}
@@ -1321,7 +1346,7 @@
 		cost = 1
 		
 		completion_reward = {
-		add_ideas = TOR_berets	
+			add_ideas = TOR_berets	
 		}
 	}
 
@@ -1343,10 +1368,10 @@
 		cost = 1
 		
 		completion_reward = {
-		country_event = TOR.25	
+			country_event = TOR.25	
 			swap_ideas = {
-			remove_idea = TOR_berets
-			add_idea = TOR_berets_1
+				remove_idea = TOR_berets
+				add_idea = TOR_berets_1
 			}		
 		}
 	}
@@ -1370,8 +1395,8 @@
 		
 		completion_reward = {
 			swap_ideas = {
-			remove_idea = TOR_berets_1
-			add_idea = TOR_berets_2
+				remove_idea = TOR_berets_1
+				add_idea = TOR_berets_2
 			}			
 		}
 	}
@@ -1394,7 +1419,7 @@
 		cost = 1
 		
 		completion_reward = {
-		country_event = TOR.26	
+			country_event = TOR.26	
 		}
 	}
 
@@ -1417,8 +1442,8 @@
 		
 		completion_reward = {
 			add_timed_idea = {
-			idea = TOR_offering_idea
-			days = 360
+				idea = TOR_offering_idea
+				days = 360
 			}	
 		}
 	}
@@ -1442,8 +1467,8 @@
 		
 		completion_reward = {
 			swap_ideas = {
-			remove_idea = TOR_berets_2
-			add_idea = TOR_berets_3
+				remove_idea = TOR_berets_2
+				add_idea = TOR_berets_3
 			}				
 		}
 	}
@@ -1468,8 +1493,8 @@
 		
 		completion_reward = {
 			swap_ideas = {
-			remove_idea = TOR_berets_3
-			add_idea = TOR_berets_4
+				remove_idea = TOR_berets_3
+				add_idea = TOR_berets_4
 			}				
 		}
 	}
@@ -1493,7 +1518,7 @@
 		cost = 1
 		
 		completion_reward = {
-		add_ideas = TOR_contractors_1
+			add_ideas = TOR_contractors_1
             swap_ideas = { 
 				remove_idea = training_battle 
 				add_idea = training_basic 
@@ -2196,14 +2221,14 @@
 			708 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-				type = cathedral
-				level = 1
-				instant_build = yes
+					type = cathedral
+					level = 1
+					instant_build = yes
 				}			
 				add_building_construction = {
-				type = radar_station
-				level = 1
-				instant_build = yes
+					type = radar_station
+					level = 1
+					instant_build = yes
 				}
 				add_dynamic_modifier = {
 					modifier = TOR_pomnik_ojca_dyrektora_modifier
@@ -2212,17 +2237,17 @@
 			148 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-				type = cathedral
-				level = 1
-				instant_build = yes
+					type = cathedral
+					level = 1
+					instant_build = yes
 				}						
 			}
 			707 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-				type = cathedral
-				level = 1
-				instant_build = yes
+					type = cathedral
+					level = 1
+					instant_build = yes
 				}						
 			}			
 		}
@@ -2445,16 +2470,12 @@
 		
 		completion_reward = {
 		country_event = TOR.34	
-			add_trait = {
+			swap_ruler_traits = {
 				character = TOR_tadeusz_rydzyk 
 				ideology =  corporativism
-				trait = triumphator_kuyavia_rydzyk
-			}
-
-			#swap_country_leader_traits = {
-			#	remove = 
-			#	add = triumphator_kuyavia_rydzyk
-			#}				
+				remove = savoring_our_fill_trait
+				add = triumphator_kuyavia_rydzyk_trait
+			}				
 		}
 	}
 
@@ -2474,7 +2495,7 @@
 		cost = 1
 		
 		completion_reward = {
-		country_event = TOR.35
+			country_event = TOR.35
 		}
 	}
 
@@ -2692,6 +2713,7 @@
 			}
 			add_stability = 0.05
 			TOR_holy_plus_5 = yes
+			hidden_effect = {TOR_GUI_all_check = yes}				
 		}
 	}
 
@@ -3042,7 +3064,7 @@
 		completion_reward = { 
 			country_event = TOR.44	
 			add_trait = {
-				character = TOR_tadeusz_rydzyk 
+				character = TOR_jan_krol 
 				ideology =  corporativism
 				trait = leaving_the_shadow
 			}
@@ -3070,8 +3092,8 @@
 			swap_ruler_traits = {
 				character = TOR_tadeusz_rydzyk 
 				ideology =  corporativism
-				remove = savoring_our_fill_trait
-				add = savoring_our_fill_trait_2
+				remove = triumphator_kuyavia_rydzyk_trait
+				add = last_days_of_solomon_trait
 			}
 		}
 	}
@@ -3107,10 +3129,7 @@
 					instant_build = yes
 					province = 2964
 				}
-			}
-
-			
-			
+			}	
 		}
 	}
 
@@ -3154,11 +3173,29 @@
 		cost = 1
 		
 		completion_reward = { 
-			damage_building = {
-				type = industrial_complex
-				damage = 1
-				province = 2285
+			custom_effect_tooltip = budget_add_1M
+			add_to_variable = { budget = 1.0 }			
+			708 = {	
+				damage_building = {
+					type = industrial_complex
+					damage = 1
+				}
+				add_manpower = -532		
 			}
+			148 = {	
+				damage_building = {
+					type = industrial_complex
+					damage = 1
+				}
+				add_manpower = -135		
+			}		
+			150 = {	
+				damage_building = {
+					type = industrial_complex
+					damage = 1
+				}
+				add_manpower = -92		
+			}				
 		}
 	}
 
@@ -3182,6 +3219,7 @@
 		completion_reward = { 
 			country_event = TOR.43
 			TOR_holy_minus_5 = yes 	
+			hidden_effect = {TOR_GUI_all_check = yes}				
 		}
 	}
 
@@ -3203,16 +3241,13 @@
 		
 		cost = 1
 		
-		completion_reward = { 
-		
+		completion_reward = { 	
 			swap_ideas = {
 				remove_idea = TOR_usuwanie_laikow1
 				add_idea = TOR_usuwanie_laikow2
-			}
-			
+			}			
 			TOR_hp_minus_1 = yes
 			hidden_effect = { TOR_GUI_all_check = yes }
-			
 			country_event = TOR.47	
 		}
 	}
@@ -3258,7 +3293,10 @@
 		
 		completion_reward = { 
 			country_event = TOR.48
-			industry_repair_factor = 1
+			swap_ideas = {
+				remove_idea = TOR_usuwanie_laikow2
+				add_idea = TOR_usuwanie_laikow3
+			}
 		}
 	}
 
@@ -3324,7 +3362,7 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.45	
+			country_event = TOR.45	
 		}
 	}
 
@@ -3466,10 +3504,24 @@
 		cost = 1
 		
 		completion_reward = {
-			remove_ideas = TOR_a_pint_of_populism_idea
+			every_other_country = {
+            limit = {
+                OR = {
+                    has_government = marxism_cranism
+					has_government = socialdemocrature
+                    has_government = squattism
+					has_government = euroliberalism               
+				}
+            }
+            add_opinion_modifier = {
+                target = TOR
+                modifier = small_decrease
+				}
+            }			
+			remove_ideas = TOR_regrouping_in_shadows_idea
 			swap_ideas = {
 				remove_idea = TOR_the_lords_disapproval_idea3
-				add_idea = TOR_the_lords_disapproval_idea5
+				add_idea = TOR_the_lords_disapproval_idea4
 			}
 		}
 	}
@@ -3519,7 +3571,6 @@
 		cost = 1
 		
 		completion_reward = { 
-			country_event = TOR.51
 			hidden_effect = {
 				set_temp_variable = {
 					var = ban_ideology_var
@@ -3541,9 +3592,12 @@
 			add_stability = ban_ideology_var
 			custom_effect_tooltip = TOR_secular_authority_ban_tt
 			swap_ideas = {
-				remove_idea = TOR_the_lords_disapproval_idea5
-				add_idea = TOR_the_lords_disapproval_idea4
+				remove_idea = TOR_the_lords_disapproval_idea4
+				add_idea = TOR_the_lords_disapproval_idea5
 			}
+			TOR_holy_plus_5 = yes
+			hidden_effect = {TOR_GUI_all_check = yes}	
+			country_event = TOR.51		
 		}
 	}
 
@@ -3566,7 +3620,8 @@
 		cost = 1
 		
 		completion_reward = {
-		swap_ideas = { 
+			custom_effect_tooltip = TOR_the_godless_pestilence_tt			
+			swap_ideas = { 
 				remove_idea = TOR_the_lords_disapproval_idea
 				add_idea = TOR_the_lords_disapproval_idea1
 			}
@@ -3591,42 +3646,49 @@
 		cost = 1
 		
 		completion_reward = { 
-					198 = {
+			add_unit_bonus = {
+                militia = {
+                    suppression = 0.05
+                    max_organisation = 0.5
+                }
+            }			
+			198 = {
 				create_unit = {
 					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
 					prioritize_location = 15328
 				}
-				}
-                165 = {
+			}
+            165 = {
 				create_unit = {
 					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
 					prioritize_location = 2964
 				}
-				}
-				701 = {
+			}
+			701 = {
 				create_unit = {
 					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
 					prioritize_location = 15606
 				}
-				}
-				708 = {
+			}
+			708 = {
 				create_unit = {
 					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
 					prioritize_location = 14413
 				}
-				}
-				115 = {
+			}
+			115 = {
 				create_unit = {
 					division = "name = \"Milicja Parafialna\" division_template = \"Milicja Parafialna\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
 					prioritize_location = 3343
 				}
-				}
-		country_event = TOR.52	
+			}
+			country_event = TOR.52	
+		
 		}
 	}
 
@@ -3649,7 +3711,10 @@
 		
 		completion_reward = { 
 			add_ideas = TOR_bible_bashing
-			
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = -0.045
+			}			
 		}
 	}
 	
@@ -3670,12 +3735,8 @@
 		y = 1
 		
 		cost = 1
-		completion_reward = {
-			swap_ideas = { 
-				remove_idea = TOR_the_lords_disapproval_idea1
-				add_idea = TOR_the_lords_disapproval_idea2
-			}
-			TOR_holy_minus_5 = yes
+		completion_reward = {					
+			hidden_effect = {
 				set_temp_variable = {
 					var = ban_ideology_var
 					value = party_popularity@socialdemocrature
@@ -3690,10 +3751,18 @@
 				}
 				multiply_temp_variable = {
 					var = ban_ideology_var
-					value = 0.66
+					value = 0.33
 				}
-			
-		country_event = TOR.53	
+			}
+			add_stability = ban_ideology_var
+			custom_effect_tooltip = TOR_tighten_blasphemy_laws_tt
+			swap_ideas = { 
+				remove_idea = TOR_the_lords_disapproval_idea1
+				add_idea = TOR_the_lords_disapproval_idea2
+			}
+			TOR_holy_minus_5 = yes
+			hidden_effect = {TOR_GUI_all_check = yes}				
+			country_event = TOR.53	
 		}
 	}
 
@@ -3741,18 +3810,28 @@
 		cost = 1
 		
 		completion_reward = { 
-        if = {
-            limit = {
-                has_idea = TOR_secular_authority_ban
-            }
-            remove_ideas = TOR_secular_authority_ban
-        }
-        if = {
-            limit = {
-                has_idea = TOR_the_lords_disapproval_idea2
-            }
-            remove_ideas = TOR_the_lords_disapproval_idea2
-        }			
+			if = {
+				limit = {
+					has_idea = TOR_the_lords_disapproval_idea5
+				}
+				swap_ideas = { 
+					remove_idea = TOR_the_lords_disapproval_idea5
+					add_idea = TOR_the_lords_disapproval_idea6
+				}
+			}
+			if = {
+				limit = {
+					has_idea = TOR_the_lords_disapproval_idea2
+				}
+				swap_ideas = { 
+					remove_idea = TOR_the_lords_disapproval_idea2
+					add_idea = TOR_the_lords_disapproval_idea7
+				}
+			}			
+			swap_ideas = { 
+				remove_idea = regime_council
+				add_idea = one_man_party
+			}		
 		}
 	}
 
@@ -3776,7 +3855,7 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.55	
+			country_event = TOR.55	
 		}
 	}
 
@@ -3798,7 +3877,7 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.56	
+			country_event = TOR.56	
 		}
 	}
 
@@ -3818,7 +3897,7 @@
 		cost = 1
 		
 		completion_reward = {
-		country_event = TOR.57
+			country_event = TOR.57
 		}
 	}
 
@@ -3840,7 +3919,10 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			add_political_power = 75
+            TOR_holy_minus_5 = yes
+            hidden_effect = {TOR_GUI_all_check = yes}
+            custom_effect_tooltip = TOR_dont_wake_rydzyk_tt			
 		}
 	}
 
@@ -3862,7 +3944,7 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.58	
+			country_event = TOR.58	
 		}
 	}
 
@@ -3884,7 +3966,168 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			1052 = {
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15785
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 3350
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15783
+				}						
+			}			
+			146 = {
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15812
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15811
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 240
+				}						
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 3670
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15809
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 2559
+				}			
+			}		
+			1051 = {
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15804
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 2223
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15519
+				}						
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15518
+				}			
+			}				
+			1050 = {
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15517
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15514
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15511
+				}						
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15510
+				}					
+			}				
+			191 = {
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15534
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15536
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 1681
+				}						
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15537
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15539
+				}
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15542
+				}			
+			}		
+			1049 = {
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15538
+				}		
+				add_building_construction = {
+					type= bunker
+					level = 2 
+					instant_build = yes
+					province = 15541
+				}			
+			}				
 		}
 	}
 
@@ -3906,7 +4149,8 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.59	
+			country_event = TOR.59	
+			add_ideas = TOR_parish_conscription_lottery_idea 		
 		}
 	}
 
@@ -3950,7 +4194,7 @@
 		cost = 1
 		
 		completion_reward = { 
-		country_event = TOR.60	
+			country_event = TOR.60	
 		}
 	}
 
@@ -3972,7 +4216,7 @@
 		cost = 1
 		
 		completion_reward = { 
-			
+			add_ideas = TOR_the_promise_of_prosperity_idea 			
 		}
 	}
 
