@@ -42,10 +42,10 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			holiness_gain = 0.05
 		}
 	}
 	TOR_hp_decision_2 = {
@@ -61,11 +61,13 @@ TOR_rydzyk_category = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
+			TOR_holy_minus_5 = yes
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			tax_rate = 0.02
+			consumer_goods_factor = -0.1
 		}
 	}
 	TOR_hp_decision_3 = {
@@ -74,24 +76,49 @@ TOR_rydzyk_category = {
 			check_variable = { TOR_rydzyk_hp_max_var > 0 }
 		}
 		custom_cost_trigger = {
-			check_variable = { TOR_rydzyk_hp_var > 0 }
+			check_variable = { TOR_rydzyk_hp_var > 1 }
 		}
-		custom_cost_text = decision_cost_hp_1
+		custom_cost_text = decision_cost_hp_2
 		complete_effect = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
+				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
-
+			random_list = {
+				50 = {
+					random_owned_state  = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction  = {
+							type = industrial_complex 
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				50 = {
+					random_owned_state  = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
 		}
 	}
 	TOR_hp_decision_4 = {
 		icon = GFX_decision_generic_protection 
 		visible = {
 			check_variable = { TOR_rydzyk_hp_max_var > 0 }
+			any_owned_state = {
+				NOT = { is_core_of = TOR }
+			}
 		}
 		custom_cost_trigger = {
 			check_variable = { TOR_rydzyk_hp_var > 0 }
@@ -102,10 +129,20 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
-
+			random_owned_state  = {
+				limit = {
+					NOT = { is_core_of = TOR }
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction  = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	TOR_hp_decision_5 = {
@@ -114,18 +151,20 @@ TOR_rydzyk_category = {
 			check_variable = { TOR_rydzyk_hp_max_var > 0 }
 		}
 		custom_cost_trigger = {
-			check_variable = { TOR_rydzyk_hp_var > 0 }
+			check_variable = { TOR_rydzyk_hp_var > 2 }
 		}
-		custom_cost_text = decision_cost_hp_1
+		custom_cost_text = decision_cost_hp_3
 		complete_effect = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
+				TOR_hp_minus_1 = yes
+				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
-
+			#equilibrium boost
 		}
 	}
 	TOR_hp_decision_6 = {
@@ -142,10 +181,10 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			research_speed_factor = 0.15
 		}
 	}
 	TOR_hp_decision_7 = {
@@ -162,10 +201,13 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			army_morale_factor = 0.15
+			army_org_factor = 0.15
+			army_core_defence_factor = 0.15
+			army_attack_factor = 0.05
 		}
 	}
 	TOR_hp_decision_8 = {
@@ -180,12 +222,12 @@ TOR_rydzyk_category = {
 		complete_effect = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
-			}
+			}	
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
-
+			#rebuilding boost
 		}
 	}
 	TOR_hp_decision_9 = {
@@ -201,11 +243,17 @@ TOR_rydzyk_category = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
+			TOR_holy_minus_10 = yes
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
-
+			every_controlled_state  = {
+				limit = {
+					NOT = { is_core_of = TOR }
+				}
+				add_resistance = -10
+			}
 		}
 	}
 	TOR_hp_decision_10 = {
@@ -222,10 +270,11 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			industrial_capacity_factory = 0.2
+			local_resources_factor = 0.2
 		}
 	}
 	TOR_hp_decision_11 = {
@@ -242,10 +291,10 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
-
+			custom_effect_tooltip = TOR_rydzyk_chillin_tooltip
 		}
 	}
 	TOR_hp_decision_12 = {
@@ -262,10 +311,10 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			political_power_factor = 0.25
 		}
 	}
 	TOR_hp_decision_13 = {
@@ -282,10 +331,10 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
-		remove_effect = {
-
+		days_remove = 90
+		days_re_enable = 1
+		modifier = {
+			production_speed_buildings_factor = 0.3
 		}
 	}
 	TOR_hp_decision_14 = {
@@ -302,8 +351,8 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
 
 		}
@@ -322,8 +371,8 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
 
 		}
@@ -342,8 +391,8 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
 
 		}
@@ -362,8 +411,8 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
 
 		}
@@ -382,8 +431,8 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 		}
-		days_remove = 1
-		days_re_enable = 90
+		days_remove = 90
+		days_re_enable = 1
 		remove_effect = {
 
 		}
