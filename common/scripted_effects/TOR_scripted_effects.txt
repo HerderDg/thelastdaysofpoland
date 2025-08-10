@@ -103,6 +103,33 @@ TOR_holiness_idea_calc = {
 		add_ideas = TOR_holiness_max_idea
 	}
 }
+TOR_holiness_hidden_idea_calc = {
+	if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var < TOR_holiness_equilibrium_var}
+		}
+		remove_ideas = TOR_holiness_50_idea
+		remove_ideas = TOR_holiness_50_100_idea
+		add_ideas = TOR_holiness_0_50_idea
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var = TOR_holiness_equilibrium_var }
+		}
+		remove_ideas = TOR_holiness_0_50_idea
+		remove_ideas = TOR_holiness_50_100_idea
+		add_ideas = TOR_holiness_50_idea
+	}
+	else_if = {
+		limit = {
+			check_variable = { TOR_rydzyk_holy_var > TOR_holiness_equilibrium_var }
+		}
+		remove_ideas = TOR_holiness_0_50_idea
+		remove_ideas = TOR_holiness_50_idea
+		add_ideas = TOR_holiness_50_100_idea
+	}
+	
+}
 
 TOR_vices_idea_calc = {
 	if = {
@@ -159,6 +186,7 @@ TOR_GUI_all_check = {
 		TOR_HP_clamp_max = yes
 		TOR_holy_clamp = yes
 		TOR_holiness_idea_calc = yes
+		TOR_holiness_hidden_idea_calc = yes
 	}
 }
 d_TOR_GUI_all_check = {
@@ -167,5 +195,6 @@ d_TOR_GUI_all_check = {
 		TOR_HP_clamp_max = yes
 		TOR_holy_clamp = yes
 		TOR_holiness_idea_calc = yes
+		TOR_holiness_hidden_idea_calc = yes
 	}
 }
