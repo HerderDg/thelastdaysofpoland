@@ -26,6 +26,9 @@ TOR_rydzyk_category = {
 			}
 
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	###
 	TOR_hp_decision_1 = {
@@ -46,6 +49,9 @@ TOR_rydzyk_category = {
 		days_re_enable = 1
 		modifier = {
 			holiness_gain = 0.05
+		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_2 = {
@@ -68,6 +74,9 @@ TOR_rydzyk_category = {
 		modifier = {
 			tax_rate = 0.02
 			consumer_goods_factor = -0.1
+		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_3 = {
@@ -111,6 +120,9 @@ TOR_rydzyk_category = {
 				}
 			}
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_4 = {
 		icon = GFX_decision_generic_protection 
@@ -144,6 +156,9 @@ TOR_rydzyk_category = {
 				}
 			}
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_5 = {
 		icon = GFX_decision_generic_protection 
@@ -166,6 +181,9 @@ TOR_rydzyk_category = {
 		remove_effect = {
 			TOR_holy_equ_plus_2 = yes
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_6 = {
 		icon = GFX_decision_generic_protection 
@@ -185,6 +203,9 @@ TOR_rydzyk_category = {
 		days_re_enable = 1
 		modifier = {
 			research_speed_factor = 0.15
+		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_7 = {
@@ -209,6 +230,9 @@ TOR_rydzyk_category = {
 			army_core_defence_factor = 0.15
 			army_attack_factor = 0.05
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_8 = {
 		icon = GFX_decision_generic_protection 
@@ -231,7 +255,8 @@ TOR_rydzyk_category = {
 		}
 		days_remove = 90
 		days_re_enable = 1
-		remove_effect = {
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_9 = {
@@ -259,6 +284,9 @@ TOR_rydzyk_category = {
 				add_resistance = -10
 			}
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_10 = {
 		icon = GFX_decision_generic_protection 
@@ -280,6 +308,9 @@ TOR_rydzyk_category = {
 			industrial_capacity_factory = 0.2
 			local_resources_factor = 0.2
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_11 = {
 		icon = GFX_decision_generic_protection 
@@ -299,6 +330,9 @@ TOR_rydzyk_category = {
 		days_re_enable = 1
 		remove_effect = {
 			custom_effect_tooltip = TOR_rydzyk_chillin_tooltip
+		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_12 = {
@@ -320,6 +354,9 @@ TOR_rydzyk_category = {
 		modifier = {
 			political_power_factor = 0.25
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_13 = {
 		icon = GFX_decision_generic_protection 
@@ -340,25 +377,46 @@ TOR_rydzyk_category = {
 		modifier = {
 			production_speed_buildings_factor = 0.3
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}
 	}
 	TOR_hp_decision_14 = {
 		icon = GFX_decision_generic_protection 
 		visible = {
-			check_variable = { TOR_rydzyk_hp_max_var > 0 }
+			check_variable = { TOR_rydzyk_hp_max_var > 1 }
 		}
 		custom_cost_trigger = {
-			check_variable = { TOR_rydzyk_hp_var > 0 }
+			check_variable = { TOR_rydzyk_hp_var > 1 }
 		}
-		custom_cost_text = decision_cost_hp_1
+		custom_cost_text = decision_cost_hp_2
 		complete_effect = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
+				TOR_hp_minus_1 = yes
+			}
+			165 = {
+				add_dynamic_modifier = {
+					modifier = TOR_sanctuary_boost
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			add_victory_points = {
+				province = 2964
+				value = 1
 			}
 		}
 		days_remove = 90
 		days_re_enable = 1
 		remove_effect = {
-
+			165 = {
+				remove_dynamic_modifier = {
+					modifier = TOR_sanctuary_boost
+				}
+			}
+		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_15 = {
@@ -377,8 +435,12 @@ TOR_rydzyk_category = {
 		}
 		days_remove = 90
 		days_re_enable = 1
-		remove_effect = {
-
+		modifier = {
+			conscription_factor = 0.2
+			mobilization_speed = 0.25
+		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_16 = {
@@ -397,9 +459,19 @@ TOR_rydzyk_category = {
 		}
 		days_remove = 90
 		days_re_enable = 1
-		remove_effect = {
-
+		modifier = {
+			agency_upgrade_time = 0.5
+			decryption_factor = 0.2
+			encryption_factor = 0.2
+			intel_network_gain_factor = 0.25
+			navy_intel_factor = 0.25
+			army_intel_factor = 0.25
+			airforce_intel_factor = 0.25
+			civilian_intel_factor = 0.25
 		}
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
+		}		
 	}
 	TOR_hp_decision_17 = {
 		icon = GFX_decision_generic_protection 
@@ -414,11 +486,45 @@ TOR_rydzyk_category = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
+			if = {
+				limit = { 
+					NOT = { has_country_flag = unified_voivodeship }
+				}
+				every_owned_state = {
+					limit = {	
+						OR = {
+							has_state_category = rural
+							has_state_category = pastoral
+						}
+					}
+					add_resource = {
+						type = food
+						amount = 1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = unified_voivodeship
+				}
+				every_owned_state = {
+					limit = {	
+						OR = {
+							has_state_category = rural
+							has_state_category = pastoral
+						}
+					}
+					add_resource = {
+						type = food
+						amount = 2
+					}
+				}
+			}
 		}
 		days_remove = 90
 		days_re_enable = 1
-		remove_effect = {
-
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	TOR_hp_decision_18 = {
@@ -434,19 +540,42 @@ TOR_rydzyk_category = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 200
+				producer = TOR
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment
+				amount = 200
+				producer = TOR
+			}
+			add_equipment_to_stockpile = {
+				type = inf_anti_tank_equipment
+				amount = 50
+				producer = TOR
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 20
+				producer = TOR
+			}
+			add_equipment_to_stockpile = {
+				type = armored_car_equipment
+				amount = 5
+				producer = TOR
+			}
 		}
 		days_remove = 90
 		days_re_enable = 1
-		remove_effect = {
-
+		cancel_trigger = {
+			NOT = { has_active_mission = TOR_HP_refresh_counter }
 		}
 	}
 	###
 	TOR_HP_refresh_counter = {
     	activation = {
-			NOT = {
-				check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }
-			}
+			has_country_flag = TOR_gui_visible
     	}
 		available  = {
 			custom_trigger_tooltip = {
@@ -459,7 +588,6 @@ TOR_rydzyk_category = {
 			}
 		}
     	days_mission_timeout = 90
-		days_re_enable = 1
 		selectable_mission = no
 		is_good = yes
     	complete_effect = {
