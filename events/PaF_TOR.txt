@@ -1469,7 +1469,51 @@ country_event = {
 
 
 
+##Event: Torun asks for help #genericowy event gdzie mentzen prosi exkonfistów o pomoc przeciwko rydzykowi. Gracz torunia tego nie widzi, tylko gracze/boty reszty exkonfistów.
+country_event = {
+	id = TOR.88
+	title = TOR.88.t
+	desc = TOR.88.desc
+	picture = GFX_report_event_vienna_award_negotiations
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires TOR.88" }		
+	option = {
+		name = TOR.88.a
+		ai_chance = { factor = 1}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 500
+			target = TOR
+		}
+		if = {
+			limit = {
+				tag = RZE
+			}
+			TOR = { set_country_flag = TOR_braun_helps } 
+			#those flags will determine whether we will get extra units during our revolt.
+		}
+	
+		if = {
+			limit = {
+				tag = HEL
+			}
+			TOR = { set_country_flag = TOR_dziamb_helps }
+		}
+		
+		if = {
+			limit = {
+				tag = NAC
+			}
+			TOR = { set_country_flag = TOR_bosak_helps }
+		}
+	}
+	option = {
+		name = TOR.88.b
+		ai_chance = { factor = 1}
 
+	}
+}  
 
 
 
