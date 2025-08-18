@@ -14,18 +14,15 @@ TOR_rydzyk_category = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
-		}
-		days_remove = 14
-		days_re_enable = 90
-		remove_effect = {
 			165 = {
 				create_unit = {
 					division = "name = \"Najemnicy Lux Veritatis\" division_template = \"Moherowe Berety\" start_experience_factor = 1 start_equipment_factor = 1"
 					owner = TOR
 				}
 			}
-
 		}
+		days_remove = 14
+		days_re_enable = 90
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = TOR_mission_abort_tooltip		
@@ -51,7 +48,7 @@ TOR_rydzyk_category = {
 		days_remove = 90
 		days_re_enable = 1
 		modifier = {
-			holiness_gain = 0.05
+			holiness_gain = 0.1
 		}
 		cancel_trigger = {
 			custom_trigger_tooltip = {
@@ -102,10 +99,6 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 				TOR_hp_minus_1 = yes
 			}
-		}
-		days_remove = 90
-		days_re_enable = 1
-		remove_effect = {
 			random_list = {
 				50 = {
 					random_owned_state  = {
@@ -129,6 +122,8 @@ TOR_rydzyk_category = {
 				}
 			}
 		}
+		days_remove = 90
+		days_re_enable = 1
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = TOR_mission_abort_tooltip		
@@ -152,10 +147,6 @@ TOR_rydzyk_category = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
-		}
-		days_remove = 90
-		days_re_enable = 1
-		remove_effect = {
 			random_owned_state  = {
 				limit = {
 					NOT = { is_core_of = TOR }
@@ -168,6 +159,8 @@ TOR_rydzyk_category = {
 				}
 			}
 		}
+		days_remove = 90
+		days_re_enable = 1
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = TOR_mission_abort_tooltip		
@@ -300,10 +293,6 @@ TOR_rydzyk_category = {
 				TOR_hp_minus_1 = yes
 			}
 			TOR_holy_minus_10 = yes
-		}
-		days_remove = 90
-		days_re_enable = 1
-		remove_effect = {
 			every_controlled_state  = {
 				limit = {
 					NOT = { is_core_of = TOR }
@@ -311,6 +300,8 @@ TOR_rydzyk_category = {
 				add_resistance = -10
 			}
 		}
+		days_remove = 90
+		days_re_enable = 1
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = TOR_mission_abort_tooltip		
@@ -347,27 +338,43 @@ TOR_rydzyk_category = {
 	}
 	TOR_hp_decision_11 = {
 		icon = GFX_decision_generic_protection 
+		selectable_mission = yes
 		visible = {
-			check_variable = { TOR_rydzyk_hp_max_var > 0 }
+			has_country_flag = TOR_gui_visible
+			NOT = { has_completed_focus = TOR_swarm_of_ordinands }
 		}
 		custom_cost_trigger = {
 			check_variable = { TOR_rydzyk_hp_var > 0 }
 		}
+		available = { check_variable = { TOR_rydzyk_hp_var > 0 } }
 		custom_cost_text = decision_cost_hp_1
 		complete_effect = {
 			hidden_effect = {
 				TOR_hp_minus_1 = yes
 			}
-		}
-		days_remove = 90
-		days_re_enable = 1
-		remove_effect = {
 			custom_effect_tooltip = TOR_rydzyk_chillin_tooltip
 		}
-		cancel_trigger = {
-			custom_trigger_tooltip = {
-				tooltip = TOR_mission_abort_tooltip		
-				check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }	
+		is_good = yes
+		days_mission_timeout = 90
+		timeout_effect = {
+			random_list = {
+				25 = {
+					random_owned_state  = {
+						limit = {
+							NOT = { is_core_of = TOR }
+						}
+						add_resistance = 5
+					}
+				}
+				25 = {
+					add_political_power = -50
+				}
+				25 = {
+					TOR_holy_minus_10 = yes
+				}
+				25 = {
+					add_stability = -0.025
+				}
 			}
 		}
 	}
@@ -461,6 +468,13 @@ TOR_rydzyk_category = {
 			custom_trigger_tooltip = {
 				tooltip = TOR_mission_abort_tooltip		
 				check_variable = { TOR_rydzyk_hp_var = TOR_rydzyk_hp_max_var }	
+			}
+		}
+		cancel_effect = {
+			165 = {
+				remove_dynamic_modifier = {
+					modifier = TOR_sanctuary_boost
+				}
 			}
 		}
 	}
@@ -849,6 +863,113 @@ TOR_rydzyk_category = {
 		state_target = yes
 		visible = {
 			has_completed_focus = TOR_mohair_partisans
+			NOT = { has_completed_focus = TOR_in_marys_name }
+		}
+		target_trigger = {
+			FROM = {
+				AND = {
+					NOT = { is_controlled_by = TOR }
+					NOT = { 
+						has_state_flag = TOR_deployed_mohairs
+					}
+					owner = { has_war_with = TOR }
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				AND = {
+					NOT = { is_controlled_by = TOR }
+					NOT = { 
+						has_state_flag = TOR_deployed_mohairs
+					}
+					owner = { has_war_with = TOR }
+				}	
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_only 
+		custom_cost_trigger = {
+			check_variable = { TOR_rydzyk_hp_var > 0 }
+		}
+		custom_cost_text = decision_cost_hp_1
+		complete_effect = {
+			hidden_effect = {
+				TOR_hp_minus_1 = yes
+			}
+		}
+		days_remove = 14
+		days_re_enable = 90
+		modifier = {
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			FROM = {
+				set_state_flag = TOR_deployed_mohairs
+				create_unit = {
+					division = "name = \"Moherowe Berety\" division_template = \"Moherowe Berety\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+				}
+			}
+		}
+	}
+	TOR_marian_crusade_decision = {
+		icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			has_completed_focus = TOR_a_marian_crusade
+			NOT = { has_completed_focus = TOR_in_marys_name }
+		}
+		target_trigger = {
+			FROM = {
+				AND = {
+					is_capital = yes
+					is_owned_by  = TOR
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				AND = {
+					is_capital = yes
+					is_owned_by  = TOR
+				}	
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+		on_map_mode = map_and_decisions_view 
+		custom_cost_trigger = {
+			check_variable = { TOR_rydzyk_hp_var > 0 }
+		}
+		custom_cost_text = decision_cost_hp_1
+		complete_effect = {
+			hidden_effect = {
+				TOR_hp_minus_1 = yes
+			}
+		}
+		days_remove = 30
+		modifier = {
+			political_power_gain = -0.1
+		}
+		remove_effect = {
+			FROM = {
+				create_unit = {
+					division = "name = \"Ochotniczy Batalion Wiernych\" division_template = \"Moherowe Berety\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = TOR
+				}
+			}
+		}
+	}
+	TOR_mohair_partisans_decision_detached = {
+		icon = GFX_decision_generic_ignite_civil_war
+		state_target = yes
+		visible = {
+			AND = {
+				has_completed_focus = TOR_mohair_partisans
+				has_completed_focus = TOR_in_marys_name
+			}
 		}
 		target_trigger = {
 			FROM = {
@@ -890,11 +1011,14 @@ TOR_rydzyk_category = {
 			}
 		}
 	}
-	TOR_marian_crusade_decision = {
+	TOR_marian_crusade_decision_detached = {
 		icon = GFX_decision_generic_ignite_civil_war
 		state_target = yes
 		visible = {
-			has_completed_focus = TOR_a_marian_crusade
+			AND = {
+				has_completed_focus = TOR_mohair_partisans
+				has_completed_focus = TOR_in_marys_name
+			}
 		}
 		target_trigger = {
 			FROM = {
