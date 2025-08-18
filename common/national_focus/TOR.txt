@@ -5302,7 +5302,37 @@
 		
 		completion_reward = { 
 			
-		country_event = TOR.70	
+			country_event = TOR.70	
+			
+			if = {
+				limit = {
+					set_temp_variable = { TOR_corporativism_temp_var = party_popularity@corporativism }
+					subtract_from_temp_variable = { TOR_corporativism_temp_var = party_popularity@reactionary }
+					check_variable = { TOR_rydzyk_holy_var > 70 }
+				}
+				set_portraits = {
+					character = TOR_tadeusz_rydzyk
+					civilian={
+						large="GFX_TOR_rydzyk_ded"
+					}
+				}
+				set_politics = {
+					ruling_party = reactionary
+					elections_allowed = no
+					long_name = "Congregatio Sanctissimi Redemptoris"
+					name = "Congregatio Redemptoris"
+				}
+				add_popularity = {
+					ideology = reactionary
+					popularity = TOR_corporativism_temp_var
+				}
+			}
+			else = {
+				promote_character = {
+					character = TOR_jan_krol
+					ideology = corporativism_subtype
+				}
+			}
 		}
 	}
 
