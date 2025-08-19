@@ -893,11 +893,12 @@ TOR_rydzyk_category = {
 		}
 		on_map_mode = map_only 
 		custom_cost_trigger = {
-			check_variable = { TOR_rydzyk_hp_var > 0 }
+			check_variable = { TOR_rydzyk_hp_var > 1 }
 		}
-		custom_cost_text = decision_cost_hp_1
+		custom_cost_text = decision_cost_hp_2
 		complete_effect = {
 			hidden_effect = {
+				TOR_hp_minus_1 = yes
 				TOR_hp_minus_1 = yes
 			}
 		}
@@ -912,6 +913,14 @@ TOR_rydzyk_category = {
 				create_unit = {
 					division = "name = \"Moherowe Berety\" division_template = \"Moherowe Berety\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
+					allow_spawning_on_enemy_provs = yes
+					country_score = {
+						base = 1
+						modifier = {
+							factor = 2
+							has_terrain = forest
+						}
+					}
 				}
 			}
 		}
@@ -973,6 +982,17 @@ TOR_rydzyk_category = {
 				has_completed_focus = TOR_in_marys_name
 			}
 		}
+		available = {
+			FROM = {
+				owner = {
+					any_owned_state = {
+						NOT = {
+							has_state_flag = TOR_deployed_mohairs
+						}
+					}
+				}
+			}
+		}
 		target_trigger = {
 			FROM = {
 				AND = {
@@ -1000,8 +1020,10 @@ TOR_rydzyk_category = {
 		on_map_mode = map_only 
 		cost = 25
 		days_remove = 14
+		days_re_enable = 90
 		modifier = {
 			political_power_gain = -0.1
+			weekly_manpower = -50
 		}
 		remove_effect = {
 			FROM = {
@@ -1009,6 +1031,7 @@ TOR_rydzyk_category = {
 				create_unit = {
 					division = "name = \"Moherowe Berety\" division_template = \"Moherowe Berety\" start_experience_factor = 0 start_equipment_factor = 1"
 					owner = TOR
+					allow_spawning_on_enemy_provs = yes
 				}
 			}
 		}
