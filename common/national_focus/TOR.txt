@@ -554,21 +554,18 @@
 				}
             } 
 			add_ideas = TOR_Woe_Corrupters					
-			hidden_effect = {
-				set_temp_variable = {
-					var = ban_ideology_var
-					value = party_popularity@euroliberalism
-				}
-				multiply_temp_variable = {
-					var = ban_ideology_var
-					value = -1
-				}
-				add_popularity = {
-					ideology = euroliberalism
-					popularity = ban_ideology_var
-				}
+			set_temp_variable = {
+				var = ban_ideology_var
+				value = party_popularity@euroliberalism
 			}
-			custom_effect_tooltip = TOR_woe_to_corrupters_tt
+			multiply_temp_variable = {
+				var = ban_ideology_var
+				value = -1
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = ban_ideology_var
+			}
 		}
 	}	
 	
@@ -2216,10 +2213,8 @@
 		
 		bypass = {
 			NOT = {
-				AND = {
-					country_exists = KUJ
-					country_exists = PLK
-				}
+				country_exists = KUJ
+				country_exists = PLK
 			}
 		}
 		
@@ -2478,7 +2473,7 @@
 					level = 1
 					instant_build = yes
 				}						
-			}			
+			}				
 		}
 	}
 
@@ -2711,7 +2706,7 @@
 		cost = 3
 		
 		completion_reward = {
-		country_event = TOR.34	
+			country_event = TOR.34	
 			swap_ruler_traits = {
 				remove = savoring_our_fill_trait
 				add = triumphator_kuyavia_rydzyk_trait
@@ -2847,7 +2842,7 @@
 			add_tech_bonus = {
 			bonus = 0.5
 			uses = 1
-			category = industry
+			category = electronics_factory_tech
 			}
 		}
 	}
@@ -3360,11 +3355,54 @@
 		
 		cost = 2
 		
-		completion_reward = {
-			swap_ruler_traits = {
-				remove = triumphator_kuyavia_rydzyk_trait
-				add = last_days_of_solomon_trait 
+		completion_reward = {			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = triumphator_kuyavia_rydzyk_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = triumphator_kuyavia_rydzyk_trait
+					add = last_days_of_solomon_trait 
+				}
 			}
+			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = replacing_the_irreplacable_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = replacing_the_irreplacable_trait
+					add = replacing_the_irreplacable_trait_1 
+				}
+			}			
+	
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = jet_setter_priest_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = jet_setter_priest_trait
+					add = jet_setter_priest_trait_1
+				}
+			}
+
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = replacing_the_irreplacable_trait_2
+					}
+				}			
+				swap_ruler_traits = {
+					remove = replacing_the_irreplacable_trait_2
+					add = replacing_the_irreplacable_trait_3
+				}
+			}		
 		}
 	}
 
@@ -3591,10 +3629,52 @@
 		cost = 2
 		
 		completion_reward = {
-			swap_ruler_traits = {
-				remove = triumphator_kuyavia_rydzyk_trait
-				add = last_days_of_solomon_trait 
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = triumphator_kuyavia_rydzyk_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = triumphator_kuyavia_rydzyk_trait
+					add = replacing_the_irreplacable_trait 
+				}
 			}
+			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = last_days_of_solomon_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = last_days_of_solomon_trait
+					add = replacing_the_irreplacable_trait_1 
+				}
+			}			
+			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = jet_setter_priest_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = jet_setter_priest_trait
+					add = replacing_the_irreplacable_trait_2
+				}
+			}			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = jet_setter_priest_trait_1
+					}
+				}			
+				swap_ruler_traits = {
+					remove = jet_setter_priest_trait_1
+					add = replacing_the_irreplacable_trait_3
+				}
+			}			
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = TOR_replacing_the_irreplacable_tooltip
 			hidden_effect = {
@@ -3689,7 +3769,21 @@
 		
 		completion_reward = { 
 			TOR_holy_minus_5 = yes
-			hidden_effect = {TOR_GUI_all_check = yes}			
+			hidden_effect = {
+				TOR_GUI_all_check = yes
+			}			
+			remove_advisor_role = {
+				character = "INO_grzegorz_rys"
+				slot = head_of_government
+			}		
+			remove_advisor_role = {
+				character = "INO_krzysztof_wetkowski"
+				slot = interior_minister
+			}		
+			remove_advisor_role = {
+				character = "SOV_genrikh_yagoda"
+				slot = political_advisor
+			}		
 		}
 	}
 
@@ -3720,12 +3814,22 @@
 				budget = 1
 				}
 			}
+<<<<<<< Updated upstream
 			custom_effect_tooltip = budget_subtract_1M	
 			add_equipment_to_stockpile = {
 				type = motorized_equipment_1
 				amount = -2
 				producer = TOR
 			}
+=======
+			custom_effect_tooltip = budget_subtract_1M				
+			add_equipment_to_stockpile = {
+				type = motorized_equipment_1
+				variant_name = "civilian transport vehicle"				
+				amount = -2
+				producer = TOR
+			}		
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -3798,11 +3902,60 @@
 					}
 				}		
 			}
+<<<<<<< Updated upstream
 			custom_effect_tooltip = rozdzielacz_efektow
 			swap_ruler_traits = {
 				remove = savoring_our_fill_trait
 				add = savoring_our_fill_2_trait
 			}
+=======
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = last_days_of_solomon_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = last_days_of_solomon_trait
+					add = jet_setter_priest_trait_1
+				}
+			}			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = triumphator_kuyavia_rydzyk_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = triumphator_kuyavia_rydzyk_trait
+					add = jet_setter_priest_trait 
+				}
+			}
+			
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = replacing_the_irreplacable_trait
+					}
+				}			
+				swap_ruler_traits = {
+					remove = replacing_the_irreplacable_trait
+					add = replacing_the_irreplacable_trait_2
+				}
+			}			
+
+			if = {
+				limit = {
+					TOR_tadeusz_rydzyk = { 
+						has_trait = replacing_the_irreplacable_trait_1
+					}
+				}			
+				swap_ruler_traits = {
+					remove = replacing_the_irreplacable_trait_1
+					add = replacing_the_irreplacable_trait_3
+				}
+			}		
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -4091,8 +4244,7 @@
 					prioritize_location = 3343
 				}
 			}
-			country_event = TOR.52	
-		
+			country_event = TOR.52			
 		}
 	}
 
@@ -4264,10 +4416,17 @@
 		cost = 2
 		
 		completion_reward = { 
+<<<<<<< Updated upstream
 			country_event = TOR.55
 			add_stability = -0.05
 			TOR_holy_minus_10 = yes
 			hidden_effect = { TOR_GUI_all_check = yes }
+=======
+			country_event = TOR.55	
+			add_stability = -0.05		
+			TOR_holy_plus_10 = yes
+			hidden_effect = {TOR_GUI_all_check = yes}			
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -4676,10 +4835,19 @@
 		
 		completion_reward = { 
 			country_event = TOR.61
-			swap_ruler_traits = {
-				remove = Greedy_krol_trait
-				add = greedy_krol_trait_2
-			}
+			custom_effect_tooltip = TOR_an_ode_to_mammon_tt		
+			##hidden_effect = {	##	
+				TOR_jan_krol = {
+					remove_trait = {
+						slot = head_of_government
+						trait = Greedy_krol_trait
+					}
+					add_trait = {
+						slot = head_of_government
+						trait = greedy_krol_trait_2
+					}
+				}
+			##}	##	
 		}
 	}
 
@@ -5772,9 +5940,44 @@
 		y = 1
 		
 		cost = 1
+
+		select_effect = {
+			set_variable  = {
+				var = boost_ideology_var										
+			}		
+			add_to_variable = {
+				var = boost_ideology_var
+				value = party_popularity@euroliberalism				
+			}	
+			add_to_variable = {
+				var = boost_ideology_var
+				value = party_popularity@socialdemocrature			
+			}		
+			add_to_variable = {
+				var = boost_ideology_var
+				value = party_popularity@paternal_conservatism					
+			}			
+	}
 		
 		completion_reward = { 
-		country_event = TOR.74	
+			country_event = TOR.74	
+			set_political_party = {
+				ideology = euroliberalism
+				popularity = 0
+			}				
+			set_political_party = {
+				ideology = paternal_conservatism
+				popularity = 0
+			}					
+			set_political_party = {
+				ideology = socialdemocrature
+				popularity = 0
+			}					
+			add_popularity = {
+				ideology = freemarketism
+				popularity = boost_ideology_var
+			}
+
 		}
 	}
 
