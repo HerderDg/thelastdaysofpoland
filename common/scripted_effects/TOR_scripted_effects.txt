@@ -92,34 +92,54 @@ TOR_hp_max_plus_1 = {
 	add_to_variable = { TOR_rydzyk_hp_max_var = 1 }
 	custom_effect_tooltip = TOR_hp_max_plus_1
 }
-
-TOR_holiness_idea_calc = {
+TOR_holiness_modifier_calc = {
 	if = {
 		limit = {
-			check_variable = { TOR_rydzyk_holy_var < 30 }
+			check_variable = { TOR_rydzyk_holy_var < 50 }
 		}
-		remove_ideas = TOR_holiness_mid_idea
-		remove_ideas = TOR_holiness_max_idea
-		add_ideas = TOR_holiness_min_idea
+		#kalkulacyja
+		set_variable = { holyness_base_calc_var = TOR_rydzyk_holy_var }
+		add_to_variable = { holyness_base_calc_var = -50 }
+		multiply_variable = { holyness_base_calc_var = -1 }
+		multiply_variable = { holyness_base_calc_var = 0.001 }
+		#implementacyja
+		set_variable = { TOR_holy_stab_war_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_army_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_pol_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_pop_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_tax_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_res_var = holyness_base_calc_var }
+		#modyfikacyja
+		multiply_variable = { TOR_holy_stab_war_var = 1 }
+		multiply_variable = { TOR_holy_army_var = 1 }
+		multiply_variable = { TOR_holy_pol_var = 10 }
+		multiply_variable = { TOR_holy_pop_var = 0.5 }
+		multiply_variable = { TOR_holy_tax_var = 0.5 }
+		multiply_variable = { TOR_holy_res_var = -1 }
+		
 	}
 	else_if = {
 		limit = {
-			AND = {
-				check_variable = { TOR_rydzyk_holy_var > 29 }
-				check_variable = { TOR_rydzyk_holy_var < 71 }
-			}
+			check_variable = { TOR_rydzyk_holy_var > 49 }
 		}
-		remove_ideas = TOR_holiness_min_idea
-		remove_ideas = TOR_holiness_max_idea
-		add_ideas = TOR_holiness_mid_idea
-	}
-	else_if = {
-		limit = {
-			check_variable = { TOR_rydzyk_holy_var > 70 }
-		}
-		remove_ideas = TOR_holiness_mid_idea
-		remove_ideas = TOR_holiness_min_idea
-		add_ideas = TOR_holiness_max_idea
+		#kalkulacyja
+		set_variable = { holyness_base_calc_var = TOR_rydzyk_holy_var }
+		add_to_variable = { holyness_base_calc_var = -50 }
+		multiply_variable = { holyness_base_calc_var = 0.001 }
+		#implementacyja
+		set_variable = { TOR_holy_stab_war_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_army_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_pol_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_pop_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_tax_var = holyness_base_calc_var }
+		set_variable = { TOR_holy_res_var = holyness_base_calc_var }
+		#modyfikacyja
+		multiply_variable = { TOR_holy_stab_war_var = 1 }
+		multiply_variable = { TOR_holy_army_var = 1 }
+		multiply_variable = { TOR_holy_pol_var = 10 }
+		multiply_variable = { TOR_holy_pop_var = 0.5 }
+		multiply_variable = { TOR_holy_tax_var = 0.5 }
+		multiply_variable = { TOR_holy_res_var = -1 }
 	}
 }
 TOR_holiness_hidden_idea_calc = {
@@ -156,8 +176,8 @@ TOR_GUI_all_check = {
 		TOR_HP_clamp_min = yes
 		TOR_HP_clamp_max = yes
 		TOR_holy_clamp = yes
-		TOR_holiness_idea_calc = yes
 		TOR_holiness_hidden_idea_calc = yes
+		TOR_holiness_modifier_calc = yes
 	}
 }
 d_TOR_GUI_all_check = {
@@ -165,8 +185,8 @@ d_TOR_GUI_all_check = {
 		TOR_HP_clamp_min = yes
 		TOR_HP_clamp_max = yes
 		TOR_holy_clamp = yes
-		TOR_holiness_idea_calc = yes
 		TOR_holiness_hidden_idea_calc = yes
+		TOR_holiness_modifier_calc = yes
 	}
 }
 TOR_no_civil_war_effect = {
