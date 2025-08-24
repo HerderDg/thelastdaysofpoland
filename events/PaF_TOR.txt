@@ -1486,6 +1486,18 @@ country_event = {
 					id = TOR.89
 					days = 2
 				}
+				if = {
+					limit = {
+						TOR = { has_country_flag = TOR_anyone_replied }
+					}
+					MEM = { 
+						country_event = {
+							id = TOR.92
+							days = 3
+						}
+					}
+				}
+				
 			}
 			else = {
 				TOR_no_civil_war_effect = yes
@@ -1537,10 +1549,6 @@ country_event = {
 
 	}
 }  
- 
-
-
-
 
 ##Event: Torun asks for help #genericowy event gdzie mentzen prosi exkonfistów o pomoc przeciwko rydzykowi. Gracz torunia tego nie widzi, tylko gracze/boty reszty exkonfistów.
 country_event = {
@@ -1552,39 +1560,150 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires TOR.88" }		
 	option = {
 		name = TOR.88.a
-		ai_chance = { factor = 1}
-		send_equipment = {
-			equipment = ranged_equipment
-			amount = 500
-			target = TOR
+		add_equipment_to_stockpile = {
+			type = ranged_equipment
+			amount = -500
 		}
-		add_manpower = -1000
-		if = {
-			limit = {
-				tag = RZE
+		add_manpower = -500
+		TOR = {
+			country_event = {
+				id = TOR.91
+				random_days = 3
 			}
-			TOR = { set_country_flag = TOR_braun_helps } 
-			#those flags will determine whether we will get extra units during our revolt.
 		}
-	
-		if = {
-			limit = {
-				tag = HEL
+		hidden_effect = {
+			if = {
+				limit = {
+					tag = RZE
+				}
+				TOR = { set_country_flag = TOR_RZE_helps } 
 			}
-			TOR = { set_country_flag = TOR_dziamb_helps }
+			if = {
+				limit = {
+					tag = HEL
+				}
+				TOR = { set_country_flag = TOR_HEL_helps }
+			}
+			if = {
+				limit = {
+					tag = NAC
+				}
+				TOR = { set_country_flag = TOR_NAC_helps }
+			}
+			if = {
+				limit = {
+					tag = KAT
+				}
+				TOR = { set_country_flag = TOR_KAT_helps }
+			}
+			if = {
+				limit = {
+					tag = BRK
+				}
+				TOR = { set_country_flag = TOR_BRK_helps }
+			}
+			if = {
+				limit = {
+					tag = KIE
+				}
+				TOR = { set_country_flag = TOR_KIE_helps }
+			}
+			if = {
+				limit = {
+					tag = OPO
+				}
+				TOR = { set_country_flag = TOR_OPO_helps }
+			}
+			if = {
+				limit = {
+					tag = LMZ
+				}
+				TOR = { set_country_flag = TOR_LMZ_helps }
+			}
+			if = {
+				limit = {
+					tag = KEL
+				}
+				TOR = { set_country_flag = TOR_KEL_helps }
+			}
+			if = {
+				limit = {
+					tag = ZUL
+				}
+				TOR = { set_country_flag = TOR_ZUL_helps }
+			}
+			if = {
+				limit = {
+					tag = DUP
+				}
+				TOR = { set_country_flag = TOR_DUP_helps }
+			}
+			if = {
+				limit = {
+					tag = KRS
+				}
+				TOR = { set_country_flag = TOR_KRS_helps }
+			}
+			TOR = { set_country_flag = TOR_anyone_replied }
 		}
-		
-		if = {
-			limit = {
-				tag = NAC
+		ai_chance = { 
+			base = 1
+			modifier = { 
+				tag = NAC 
+				factor = 2
 			}
-			TOR = { set_country_flag = TOR_bosak_helps }
+			modifier = { 
+				tag = RZE 
+				factor = 2
+			}
+			modifier = { 
+				tag = BRK 
+				factor = 2
+			}
+			modifier = { 
+				tag = KAT 
+				factor = 2
+			}
 		}
 	}
 	option = {
 		name = TOR.88.b
-		ai_chance = { factor = 1}
 		add_political_power = 5
+		ai_chance = { 
+			base = 1 
+			modifier = { 
+				tag = LMZ 
+				factor = 2
+			}
+			modifier = { 
+				tag = ZUL 
+				factor = 2
+			}
+			modifier = { 
+				tag = LMZ 
+				factor = 2
+			}
+			modifier = { 
+				tag = KIE 
+				factor = 3
+			}
+			modifier = { 
+				tag = OPO 
+				factor = 3
+			}
+			modifier = { 
+				tag = KRS 
+				factor = 3
+			}
+			modifier = { 
+				tag = KIE 
+				factor = 3
+			}
+			modifier = { 
+				tag = DUP 
+				factor = 4
+			}
+		}
 	}
 }  
 
@@ -1603,9 +1722,53 @@ news_event = { #Wybuch wojny domowej
 	}
 }
 
+##Event: Ascensio
+country_event = {
+	id = TOR.90
+	title = TOR.90.t
+	desc = TOR.90.desc
 
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires TOR.90" }		
+	option = {
+		name = TOR.90.a
+		ai_chance = { factor = 1}
 
+	}
+}  
 
+##Event: Wsparcie z zagranicy odpowiedź
+country_event = {
+	id = TOR.91
+	title = TOR.91.t
+	desc = TOR.91.desc
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires TOR.91" }		
+	option = {
+		name = TOR.91.a
+		ai_chance = { factor = 1}
+
+	}
+} 
+
+##Event: Wsparcie z zagranicy dotarło
+country_event = {
+	id = TOR.92
+	title = TOR.92.t
+	desc = TOR.92.desc
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires TOR.92" }		
+	option = {
+		name = TOR.92.a
+		ai_chance = { factor = 1}
+		TOR_civil_war_volunteers = yes
+	}
+} 
 
 
 
