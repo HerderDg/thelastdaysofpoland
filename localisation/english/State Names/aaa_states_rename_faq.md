@@ -11,6 +11,7 @@ Ukrobiałorosyjski - UPA, KOZ, UHR, BEL, ROS, RUS, RMA, UKR, LEM
 Lechicki - LEH, LCH, WAN, JAS, SNF, BOR, STR
 Śląski - CHO, GLI, FER, RUD, JSW, TRC, DUR, SBW, WYM
 Pseudoangielski - USP
+Kurpiowski - KUR
 
 
 HOW TO NAME
@@ -39,6 +40,7 @@ Nazwy Regionalne:
 7. Śląski SIL - w superregionie Śląska dajemy Śląskie nazwy jeśli są, jeśli nie to nie dajemy, nie wymyślamy
 8. Kaszubski KSZ - jak wyżej tylko w superregionie Pomorza
 9. Pruski PRU - w Warmińsko-Mazurskim i Kaliningradzie nazwy staropruskie, czasem trzeba mocno poszukać, zrekonstruować samemu, wspomóc się litewskim, itd.
+10. Kurpiowski KUR - znaleźć przekłady gdzie się da, a ewentualnie można "zmazowszczyć" jakieś nazwy
 
 Reszta wedle uznania
 
