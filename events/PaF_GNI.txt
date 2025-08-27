@@ -289,6 +289,18 @@ country_event = { # Gniezno wkurza się na Kalisz, że mu prawowitego Wasala zaj
 			target = CAL
 			type = voivodeship_war
 		}
+		declare_war_on = {
+			target = ALP
+			type = voivodeship_war
+		}
+		declare_war_on = {
+			target = KLO
+			type = voivodeship_war
+		}
+		declare_war_on = {
+			target = PRT
+			type = voivodeship_war
+		}
 		set_global_flag = gniezno_vs_calisia_war
 		ai_chance = {
 			base = 50
@@ -332,7 +344,9 @@ country_event = { # TOTAL CALISA SWEEP
 	trigger = {
 		original_tag = CAL
 		has_war_with = GNI
-		surrender_progress > 0.4
+		GNI = {
+			surrender_progress > 0.4
+		}
 		has_global_flag = gniezno_vs_calisia_war
 	}
 	option = { 
@@ -367,6 +381,13 @@ country_event = { # TOTAL CALISA SWEEP
 				}
 			}
 			clr_country_flag = gniezno_vs_calisia_war
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { 
+					id = gniezno_szlachta.25
+					days = 2
+				}
+			}
 		}
 		GNI = {
 			country_event = {
@@ -400,7 +421,9 @@ country_event = { #TOTAL GNIEZNO SWEEP
 	trigger = {
 		original_tag = GNI
 		has_war_with = CAL
-		surrender_progress > 0.4
+		CAL = {
+			surrender_progress > 0.4
+		}
 		has_global_flag = gniezno_vs_calisia_war
 	}
 	option = { 
@@ -433,6 +456,13 @@ country_event = { #TOTAL GNIEZNO SWEEP
 				transfer_state_to = GNI
 			}
 			clr_country_flag = gniezno_vs_calisia_war
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { 
+					id = gniezno_szlachta.26
+					days = 2
+				}
+			}
 		}
 	}
 }
@@ -451,7 +481,7 @@ country_event = {
 	}
 }
 
-country_event = { 
+country_event = { #Gniezno vs Calisia Stalemate
 	id = gniezno_szlachta.14
 	title = gniezno_szlachta.14.t
 	desc = gniezno_szlachta.14.desc
@@ -513,6 +543,13 @@ country_event = {
 			clr_country_flag = gniezno_vs_calisia_war
 			CAL = {
 				country_event = gniezno_szlachta.15
+			}
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { 
+					id = gniezno_szlachta.24
+					days = 2
+				}
 			}
 		}
 	}
