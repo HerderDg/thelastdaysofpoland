@@ -2485,10 +2485,8 @@ focus_tree = {
 						amount > 0
 					}
 				}
-				add_state_modifier = {
-					modifier = {
-						state_resources_factor = 0.1
-					}
+				add_dynamic_modifier = {
+					modifier = BBW_scrap_reusing_modifier
 				}
 			}
 		}
@@ -4789,13 +4787,31 @@ focus_tree = {
 		
 		completion_reward = {
 			#attrition na naszych terenach
-			every_owned_state = {
-				add_state_modifier = {
-					modifier = { 
-						attrition = 2
+			if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_burning_grass }
+				}
+				every_owned_state = {
+					add_dynamic_modifier = {
+						modifier = BBW_attrition_modifier_1
 					}
 				}
 			}
+			if = {
+				limit = {
+					has_completed_focus = BBW_burning_grass
+				}
+				every_owned_state = {
+					remove_dynamic_modifier = {
+						modifier = BBW_attrition_modifier_1
+					}
+				}
+				every_owned_state = {
+					add_dynamic_modifier = {
+						modifier = BBW_attrition_modifier_2
+					}
+				}				
+			}			
 		}
 	}
 	
@@ -4821,12 +4837,30 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			every_owned_state = {
-				add_state_modifier = {
-					modifier = { 
-						attrition = 2
+			if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_destruction_of_wildlife }
+				}
+				every_owned_state = {
+					add_dynamic_modifier = {
+						modifier = BBW_attrition_modifier_1
 					}
 				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = BBW_destruction_of_wildlife
+				}
+				every_owned_state = {
+					remove_dynamic_modifier = {
+						modifier = BBW_attrition_modifier_1
+					}
+				}
+				every_owned_state = {
+					add_dynamic_modifier = {
+						modifier = BBW_attrition_modifier_2
+					}
+				}				
 			}
 		}
 	}
