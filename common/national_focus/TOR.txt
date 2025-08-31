@@ -5964,10 +5964,46 @@
 		x = 0
 		y = 1
 		
-		cost = 2
+		cost = 2		
+
+		select_effect = {
+			set_variable  = {
+				var = boost_ideology_var											
+			}		
+			add_to_variable = {
+				var = boost_ideology_var				
+				value = num_of_factories						
+			}				
+			multiply_variable = {
+				var = boost_ideology_var
+				value = 0.0005
+			}		
+		}		
 		
-		completion_reward = { 
-			
+		completion_reward = { 			
+			add_popularity = {
+				ideology = freemarketism
+				popularity = boost_ideology_var
+			}			
+			if = {
+				limit = {
+					has_idea = TOR_usuwanie_laikow3
+				}
+				swap_ideas = {
+					remove_idea = TOR_usuwanie_laikow3
+					add_idea = TOR_usuwanie_laikow5
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = TOR_usuwanie_laikow4
+				}
+				swap_ideas = {
+					remove_idea = TOR_usuwanie_laikow4
+					add_idea = TOR_usuwanie_laikow6
+				}
+			}
+			custom_effect_tooltip = TOR_turn_up_the_taps_tooltip		
 		}
 	}
 
@@ -6005,7 +6041,7 @@
 				var = boost_ideology_var
 				value = party_popularity@paternal_conservatism					
 			}			
-	}
+		}
 		
 		completion_reward = { 
 			country_event = TOR.74	
@@ -6055,9 +6091,23 @@
 				ideology = corporativism
 				popularity = -0.5
 			}
-			swap_ideas = {
-				remove_idea = TOR_usuwanie_laikow3
-				add_idea = TOR_usuwanie_laikow4
+			if = {
+				limit = {
+					has_idea = TOR_usuwanie_laikow3
+				}
+				swap_ideas = {
+					remove_idea = TOR_usuwanie_laikow3
+					add_idea = TOR_usuwanie_laikow4
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = TOR_usuwanie_laikow4
+				}
+				swap_ideas = {
+					remove_idea = TOR_usuwanie_laikow5
+					add_idea = TOR_usuwanie_laikow6
+				}
 			}	
 		}
 	}
@@ -6150,8 +6200,8 @@
 			}
 			
 			swap_ideas = {
-				remove_idea = TOR_usuwanie_laikow4
-				add_idea = TOR_usuwanie_laikow5
+				remove_idea = TOR_usuwanie_laikow6
+				add_idea = TOR_usuwanie_laikow7
 			}
 			
 		}
