@@ -1,0 +1,482 @@
+﻿add_namespace = krakow_dem
+add_namespace = krakow_sci
+add_namespace = krakow_sci_agh
+add_namespace = krakow_sci_uj
+add_namespace = krakow_krul
+add_namespace = krakow_cw
+add_namespace = krakow_news
+
+
+country_event = {
+	id = krakow_cw.1 #wybór gdzie idziemy
+	title = krakow_cw.1.t
+	desc = krakow_cw.1.desc
+
+	fire_only_once = yes
+	trigger = { 
+		original_tag = KRK
+		date > 2027.06.01
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.11"}
+	option = {
+		name = krakow_cw.1.a #demokracja
+		ai_chance = { base = 50 }
+		KRK = { 
+			set_country_flag = krakow_democracy_on			
+		}
+		log = "[GetDateText]: republika krakowska"
+		country_event = {
+			id = krakow_dem.1
+			days = 60
+		}
+	}
+	option = {
+		name = krakow_cw.1.b #scjentokracja
+		ai_chance = { base = 25 }
+		KRK = { 
+			set_country_flag = krakow_scientocracy_on			
+		}
+		log = "[GetDateText]: republika UJ"
+		country_event = {
+			id = krakow_sci.1
+			days = 14
+		}
+	}
+	option = {
+		name = krakow_cw.1.c #monarchia
+		ai_chance = { base = 25 }
+		KRK = { 
+			set_country_flag = krakow_monarchy_on			
+		}
+		country_event = {
+			id = krakow_krul.1
+			days = 60
+		}
+		log = "[GetDateText]: królestwo krakowa"
+	}
+}
+
+ 
+country_event = {
+	id = krakow_krul.1 #majchrowski regentem
+	title = krakow_krul.1.t
+	desc = krakow_krul.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.1"
+	}
+	option = {
+		name = krakow_krul.1.a 
+		log = "[GetDateText]: majchrowski regent"
+		set_portraits = {
+			character = KRK_Majchrowski
+			civilian = { large ="gfx/leaders/KRK/KRK_MajchrowskiRegent.dds" }
+		}
+		country_event = {
+			id = krakow_krul.2
+			days = 1
+		}
+		KRK = { set_country_flag = KRK_regency }
+	}
+	
+}
+
+country_event = {
+	id = krakow_krul.2 #ustanowienie rady regencyjnej
+	title = krakow_krul.2.t
+	desc = krakow_krul.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.2"
+	}
+	option = {
+		name = krakow_krul.2.a 
+		log = "[GetDateText]: rada regencyjna"
+		set_politics = {
+			ruling_party = autocracy
+		}
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.15
+		}
+		set_party_name = {
+			ideology = autocracy
+			long_name = KRK_regency_party_long
+			name = KRK_regency_party
+		}
+		country_event = {
+			id = krakow_krul.3
+			days = 3
+		}
+	}	
+}
+
+country_event = {
+	id = krakow_krul.3 #petycja z Łowicza
+	title = krakow_krul.3.t
+	desc = krakow_krul.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.3"
+	}
+	option = {
+		name = krakow_krul.3.a 
+		log = "[GetDateText]: petycja z Łowicza"
+		KAR = {
+			add_opinion_modifier = {
+				target = KRK
+				modifier = TUR_insulted_our_honour
+			}
+		}
+		country_event = {
+			id = krakow_krul.4
+			days = 3
+		}
+	}	
+}
+
+
+country_event = {
+	id = krakow_krul.4 #list od Wierzchowskiego
+	title = krakow_krul.4.t
+	desc = krakow_krul.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.4"
+	}
+	option = {
+		name = krakow_krul.4.a 
+		log = "[GetDateText]: petycja z Leżajska"
+		LEZ = {
+			add_opinion_modifier = {
+				target = KRK
+				modifier = TUR_insulted_our_honour
+			}
+		}
+		country_event = {
+			id = krakow_krul.5
+			days = 3
+		}
+	}	
+}
+
+country_event = {
+	id = krakow_krul.5 #propozycja z Tykocina
+	title = krakow_krul.5.t
+	desc = krakow_krul.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.5"
+	}
+	option = {
+		name = krakow_krul.5.a 
+		log = "[GetDateText]: petycja z Tykocina"
+		TYK = {
+			add_opinion_modifier = {
+				target = KRK
+				modifier = TUR_insulted_our_honour
+			}
+		}
+		country_event = {
+			id = krakow_krul.6
+			days = 3
+		}
+	}	
+}
+
+country_event = {
+	id = krakow_krul.6 #propozycja z Tykocina
+	title = krakow_krul.6.t
+	desc = krakow_krul.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.6"
+	}
+	option = {
+		name = krakow_krul.6.a 
+		log = "[GetDateText]: petycja z Tykocina"
+		TYK = {
+			add_opinion_modifier = {
+				target = KRK
+				modifier = TUR_insulted_our_honour
+			}
+		}
+		country_event = {
+			id = krakow_krul.7
+			days = 3
+		}
+	}	
+}
+
+country_event = {
+	id = krakow_krul.7 #w tym kraju nie ma kandydatów dla państwa z naszym prestiżem
+	title = krakow_krul.7.t
+	desc = krakow_krul.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_krul.7"
+	}
+	option = {
+		name = krakow_krul.7.a 
+		ai_chance = {
+			base = 50
+		}
+		log = "[GetDateText]: Jaca I"
+		set_portraits = {
+			character = KRK_Majchrowski
+			civilian = { large ="gfx/leaders/KRK/KRK_MajchrowskiKrol.dds" }
+		}
+		KRK = { 
+			clr_country_flag = KRK_regency 
+			set_country_flag = KRK_jaca_kingdom
+			set_cosmetic_tag = KRK_jaca_krol
+		}
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.1
+		}
+		set_character_name = {
+			character = KRK_Majchrowski
+			name = "Jacek I Majchrowski"
+		}
+	}
+	option = {
+		name = krakow_krul.7.b 
+		ai_chance = {
+			base = 50
+		}
+		log = "[GetDateText]: MAKŁOWICZ Z NAMI CHUJ Z WAMI"
+		KRK = {
+			clear_compatible_countries = yes
+		}
+		KRK_krul_maklowicz = yes
+		log = "[GetDateText]: eeeeeeeeeeeee makłowicz"
+		HAB = {
+			change_tag_from = KRK
+			if = {
+				limit = {
+					HAB = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+		}
+	}		
+}
+
+
+country_event = {
+	id = krakow_sci.1 #majchrowski rektorem
+	title = krakow_sci.1.t
+	desc = krakow_sci.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_sci.1"
+	}
+	option = {
+		name = krakow_sci.1.a 
+		log = "[GetDateText]: majchrowski rektor"
+		country_event = {
+			id = krakow_sci.2
+			days = 1
+		}
+		KRK = { set_country_flag = KRK_jaca_rektor }
+	}
+	
+}
+
+country_event = {
+	id = krakow_sci.2 #mechanika grantów
+	title = krakow_sci.2.t
+	desc = krakow_sci.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_sci.2"
+	}
+	option = {
+		name = krakow_sci.2.a 
+		log = "[GetDateText]: przewaga uj"
+		ai_chance = {
+			base = 33
+		}
+		KRK_scjento_UJ_full = yes
+		UJG = {
+			change_tag_from = KRK
+			if = {
+				limit = {
+					UJG = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
+			country_event = {
+				id = krakow_sci_uj.1
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = krakow_sci.2.b
+		log = "[GetDateText]: brak przewagi"
+		ai_chance = {
+			base = 33
+		}
+		country_event = {
+			id = krakow_sci.3
+			days = 1
+		}
+
+	}
+	option = {
+		name = krakow_sci.2.c 
+		log = "[GetDateText]: przewaga agh"
+		ai_chance = {
+			base = 33
+		}
+		KRK_scjento_AGH_full = yes
+		AGH = {
+			change_tag_from = KRK
+			if = {
+				limit = {
+					AGH = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
+			country_event = {
+				id = krakow_sci_agh.1
+				days = 3
+			}
+		}
+	}		
+	
+}
+
+country_event = {
+	id = krakow_sci.3 #uczelnie hyperwar
+	title = krakow_sci.3.t
+	desc = krakow_sci.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_sci.3"
+	}
+	option = {
+		name = krakow_sci.3.a 
+		KRK = {
+			clear_compatible_countries = yes
+		}
+		KRK_scjento_UJ = yes
+		KRK_scjento_AGH = yes
+		AGH = {
+			declare_war_on = {
+				target = UJG
+				type = voivodeship_war
+			}
+		}
+		UJG = {
+			change_tag_from = KRK
+			if = {
+				limit = {
+					UJG = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+		}
+		log = "[GetDateText]: agh na kolana wyruchamy wam dziekana"	
+	}
+	option = {
+		name = krakow_sci.3.b
+		KRK = {
+			clear_compatible_countries = yes
+		}		
+		KRK_scjento_UJ = yes
+		KRK_scjento_AGH = yes
+		AGH = {
+			declare_war_on = {
+				target = UJG
+				type = voivodeship_war
+			}
+		}
+		AGH = {
+			change_tag_from = KRK
+			if = {
+				limit = {
+					AGH = {
+						is_ai = no
+					}
+				}
+				set_variable = { global.PaF_Opening_Screen = 1 }
+			}
+		}
+		log = "[GetDateText]: kto nie skacze ten z ujotu"
+
+	}	
+}
+
+
+
+country_event = {
+	id = krakow_sci_uj.1 #uj - ściezka
+	title = krakow_sci_uj.1.t
+	desc = krakow_sci_uj.1.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires krakow_sci_uj.1"
+	}
+	option = {
+		#trigger = { granty > wpizdu }
+		name = krakow_sci_uj.1.a 
+		log = "[GetDateText]: uj jaca"
+	}
+	option = {
+		name = krakow_sci_uj.1.b
+		#trigger = { granty < wpizdu }
+		log = "[GetDateText]: kto nie skacze ten z ujotu"
+		UJG = {
+			add_country_leader_role = {
+				character = UJG_Popiel
+				promote_leader = yes
+				country_leader = {
+					ideology = paternal_conservatism_subtype
+				}
+			}
+			retire_character = UJG_Majchrowski
+		}
+	}	
+}
+
+
+
