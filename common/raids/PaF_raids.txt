@@ -449,6 +449,246 @@ types = {
 			}
 		}
 
-	}	
+	}
+	
+	
+	viking_raid = {
+		days_to_prepare = 30
+
+		category = naval_commando_raids
+
+		custom_map_icon = GFX_raid_unit_icon_naval_commando_raids
+
+		command_power = 40 # command power allocation cost
+		ai_will_do = {
+			base = 1
+			modifier = {
+				# Don't target anyone who is not a potential enemy
+				factor = 0
+				NOT = {
+					is_in_array = {
+						array = potential_and_current_enemies
+						value = FROM  # Target country
+					}
+				}
+			}
+		}
+
+		allowed = {
+			original_tag = JOM
+		}
+		# Raid Type is visible
+		visible = {
+			has_completed_focus = JOM_oder_secured
+		}
+		# Specific Target is visible
+		show_target = {
+			NOT = {
+				is_in_faction_with = FROM
+				FROM = { is_somsiad = yes }
+			}
+		}
+
+		# Can prepare
+		available = {
+			always = yes
+		}
+		launchable = {
+			always = yes
+		}
+
+		launch_sound = ship_destroyer_damaged_attacking_01
+
+		target_type = {
+			state = {
+				AND = {
+					is_coastal = yes
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+					}
+				}
+			}
+		}
+		target_icon = GFX_raid_type_icon_commando_port_raid
+
+		unit_requirements = {
+			battalion_types = {
+				marine = {
+					min = 6
+				}
+			}
+		}
+
+		essential_equipment = {
+			convoy = 50
+		}
+
+		starting_point = {
+		    types = { naval_base }
+		}
+
+		arrow = {
+			type = naval
+		}
+
+        unit_model = {
+            type = convoy
+        }
+
+		success_factors = {
+			success = {
+				base = 0.5
+				experience = {
+					weight = 0.1
+					start_weight = -0.1
+					reference = 1.0
+				}
+				naval_supremacy = {
+					reference = 100
+					start_weight = -0.05
+					weight = 0.05
+				}
+				reliability = {
+					start_weight = -0.1
+					weight = 0.1
+				}
+				strength = {
+					reference = 1.0
+					start_weight = -0.25
+					weight = 0.25
+				}
+
+				# Target
+				interception = {
+					reference = 10
+					weight = -0.25
+				}
+				intel = {
+					weight = 0.2
+					#start_reference = 50
+					reference = 100
+				}
+			}
+		}
+
+		success_levels = {
+			failure = {
+				actor_effects = {
+					var:actor_country = {
+						custom_effect_tooltip = raid_aborted_tt
+						add_political_power = -50
+					}
+					raid_damage_units = {
+						damage = 0.75
+						ratio = yes
+					}
+				}
+			}
+			limited_success = {
+				actor_effects = {
+					raid_damage_units = {
+						damage = 0.5
+						ratio = yes
+					}
+					raid_add_unit_experience = 0.1
+					add_to_variable = {
+						budget = 10
+					}
+					custom_effect_tooltip = budget_add_10M
+				}
+				victim_effects = {
+					var:target_state= {
+						damage_building = {
+							type = infrastructure
+							damage = 2
+						}
+					}
+					var:victim_country = {
+						create_wargoal = {
+						    type = topple_government
+						    target = var:ROOT.actor_country
+						}
+						add_stability = -0.02
+					}					
+				}
+			}
+			success = {
+			    custom_sound = ship_destroyer_damaged_attacking_01
+				actor_effects = {
+					raid_damage_units = {
+						damage = 0.1
+						ratio = yes
+					}
+					raid_add_unit_experience = 0.35
+					add_to_variable = {
+						budget = 50
+					}
+					custom_effect_tooltip = budget_add_50M
+				}
+				victim_effects = {
+					var:target_state= {
+						damage_building = {
+							type = infrastructure
+							damage = 3
+						}
+					}
+					var:victim_country = {
+						create_wargoal = {
+						    type = topple_government
+						    target = var:ROOT.actor_country
+						}
+						add_stability = -0.05
+					}
+				}
+			}
+			critical_success = {
+			    custom_sound = ship_destroyer_damaged_attacking_01
+				actor_effects = {
+					raid_add_unit_experience = 0.5
+					add_to_variable = {
+						budget = 100
+					}
+					custom_effect_tooltip = budget_add_100M
+				}
+				victim_effects = {
+					var:target_state= {
+						damage_building = {
+							type = infrastructure
+							damage = 5
+						}
+						if = {
+							limit = {
+								arms_factory > 0
+							}
+							damage_building = {
+								type = arms_factory
+								damage = 0.9
+								repair_speed_modifier = 0.6
+							}
+						}
+						if = {
+							limit = {
+								industrial_complex > 0
+							}
+							damage_building = {
+								type = industrial_complex
+								damage = 0.9
+								repair_speed_modifier = 0.6
+							}
+						}						
+					}
+					var:victim_country = {
+						create_wargoal = {
+						    type = topple_government
+						    target = var:ROOT.actor_country
+						}
+						add_stability = -0.1
+					}
+				}
+			}
+		}
+
+	}
 
 }
