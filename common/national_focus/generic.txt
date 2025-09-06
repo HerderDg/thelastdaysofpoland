@@ -350,6 +350,8 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			add_political_power = 75	
+			add_stability = 0.1
 		}
 	}
 	
@@ -395,6 +397,25 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			add_stability = 0.03			
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				add_resource = {
+					type = food
+					amount = 2
+				}
+			}		
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				add_resource = {
+					type = food
+					amount = 3
+				}
+			}		
 		}
 	}
 	
@@ -641,6 +662,39 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			if ={
+				limit = {
+					ROOT = {
+						NOT = {
+							has_tech = drone_0
+						}
+					}
+				}
+				set_technology = {
+					drone_0 = 1
+				}
+			}
+			else_if ={
+				limit = {
+					ROOT = {
+						has_tech = drone_0
+					}
+				}
+				add_tech_bonus = {
+					bonus = 1
+					uses = 1
+					category = drones
+				}
+			}		
+			add_equipment_to_stockpile = {
+				type = drone_0_equipment
+				amount = 150
+				producer = ROOT
+			}		
+			swap_ideas = {
+				remove_idea = generic_guns_and_butter_idea
+				add_idea = generic_guns_and_butter_1_idea
+			}		
 		}
 	}
 	focus = {
@@ -727,6 +781,29 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = gen_reconnecting_the_railways_tt
+			if ={
+				limit = {
+					ROOT = {
+						has_idea = generic_restarting_eco_idea_5
+					}
+				}
+				swap_ideas = {
+					remove_idea = generic_restarting_eco_idea_5
+					add_idea = generic_restarting_eco_idea_7
+				}
+			}
+			else_if ={
+				limit = {
+					ROOT = {
+						has_idea = generic_restarting_eco_idea_6
+					}
+				}
+				swap_ideas = {
+					remove_idea = generic_restarting_eco_idea_6
+					add_idea = generic_restarting_eco_idea_8
+				}
+			}		
 		}
 	}
 	focus = {
@@ -741,6 +818,40 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			add_timed_idea = {
+				idea = generic_repair_roads_idea
+				days = 80
+			}		
+			division_template = {
+				name = "Drogowcy"
+				template_counter = 20
+				regiments = {
+					melee_infantry = { x = 0 y = 0 }
+					melee_infantry = { x = 0 y = 1 }
+					melee_infantry = { x = 1 y = 0 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}			
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				create_unit = {
+					division = "name = \"Drogowcy\" division_template = \"Drogowcy\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = ROOT
+				}
+			}		
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				create_unit = {
+					division = "name = \"Drogowcy\" division_template = \"Drogowcy\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = ROOT
+				}
+			}		
 		}
 	}
 	focus = {
