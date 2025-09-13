@@ -6,7 +6,7 @@ scripted_gui = {
 		parent_window_token = decision_tab
 
 		properties = {
-			EXPEDITION_BAR = { frame = JOM_expedition_var }
+			EXPEDITION_BAR = { frame = JOM_mission_success_var }
 		}
 
 		dynamic_lists = {
@@ -14,7 +14,9 @@ scripted_gui = {
 		}
 
 		triggers = {
-			
+			JOM_mission_select_button_visible = {
+				has_country_flag = JOM_vikinging_selected
+			}
 		}
 
 		effects = {
@@ -33,6 +35,11 @@ scripted_gui = {
 					}
 					clr_country_flag = JOM_map_open
 				}	
+			}
+			JOM_mission_select_button_click = {
+				activate_mission = expedition_preparation_general_mission
+				clr_country_flag = JOM_vikinging_selected
+				set_country_flag = JOM_vikinging
 			}
 		}
 	}
@@ -58,6 +65,9 @@ scripted_gui = {
 			JOM_expedition_button_bornholm_visible = {
 				has_country_flag = JOM_baltic_map_open
 			}
+			JOM_expedition_button_gotland_visible = {
+				has_country_flag = JOM_baltic_map_open
+			}
 			
 			JOM_expedition_europe_map_visible = {
 				has_country_flag = JOM_europe_map_open
@@ -78,7 +88,6 @@ scripted_gui = {
 			JOM_expedition_Asia_map_visible = {
 				has_country_flag = JOM_Asia_map_open
 			}
-			
 		}
 
 		effects = {
@@ -129,6 +138,46 @@ scripted_gui = {
 				clr_country_flag = JOM_SA_map_open
 				clr_country_flag = JOM_Africa_map_open
 				clr_country_flag = JOM_NA_map_open
+			}
+			JOM_expedition_button_bornholm_click = {
+				JOM_vikinging_forever = yes
+				set_country_flag = JOM_vikinging_selected
+				#dla późniejszej aktywacji proper ekspedycji po preparacji
+				if = {
+					limit = {
+						NOT = { 
+							has_country_flag = JOM_vikinging_bornholm
+						}
+					}
+					set_country_flag = JOM_vikinging_bornholm
+				}
+				else_if = {
+					limit = {
+						has_country_flag = JOM_vikinging_bornholm
+					}
+					clr_country_flag = JOM_vikinging_bornholm
+				}
+				set_variable = { JOM_mission_success_var = 80 }
+			}
+			JOM_expedition_button_gotland_click = {
+				JOM_vikinging_forever = yes
+				set_country_flag = JOM_vikinging_selected
+				#dla późniejszej aktywacji proper ekspedycji po preparacji
+				if = {
+					limit = {
+						NOT = { 
+							has_country_flag = JOM_vikinging_gotland
+						}
+					}
+					set_country_flag = JOM_vikinging_gotland
+				}
+				else_if = {
+					limit = {
+						has_country_flag = JOM_vikinging_gotland
+					}
+					clr_country_flag = JOM_vikinging_gotland
+				}
+				set_variable = { JOM_mission_success_var = 75 }
 			}
 		}
 	}

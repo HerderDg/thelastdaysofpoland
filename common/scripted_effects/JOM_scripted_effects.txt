@@ -1,0 +1,43 @@
+#plus
+JOM_plus5_success = {
+	add_to_variable = { JOM_mission_success_var = 5 }
+	custom_effect_tooltip = JOM_plus5_success
+}
+JOM_fail_calc = {
+	set_variable = { JOM_mission_fail_var = 100 }
+	subtract_from_variable = { JOM_mission_fail_var = JOM_mission_success_var }
+}
+JOM_activate_expedition = {
+	if = {
+		limit = {
+			has_country_flag = JOM_vikinging_bornholm
+		}
+		activate_mission = expedition_bornholm
+	}
+	else_if = {
+		limit = {
+			has_country_flag = JOM_vikinging_gotland
+		}
+		activate_mission = expedition_gotland
+	}	
+}
+JOM_vikinging_forever = {
+	#dla przycisku do aktywacji
+	if = {
+		limit = {
+			NOT = { 
+				has_country_flag = JOM_vikinging_selected
+			}
+		}
+		set_country_flag = JOM_vikinging_selected
+	}
+	else_if = {
+		limit = {
+			has_country_flag = JOM_vikinging_selected
+		}
+		clr_country_flag = JOM_vikinging_selected
+	}
+	clr_country_flag = JOM_vikinging_bornholm
+	clr_country_flag = JOM_vikinging_gotland
+}
+
