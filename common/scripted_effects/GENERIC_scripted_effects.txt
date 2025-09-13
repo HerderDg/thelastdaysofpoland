@@ -927,3 +927,77 @@ GENERIC_poli_dynamic_idea_sc_eff = {
 	}
 }
 	
+GENERIC_army_dynamic_idea_sc_eff = {
+	hidden_effect = {
+		add_dynamic_modifier = { modifier = generic_state_of_our_army }
+		remove_ideas = generic_increase_the_conscription_idea
+		remove_ideas = generic_guns_and_butter_1_idea		
+		#vars from those above
+		add_to_variable = {
+				var = gen_attrition_var
+				value = -0.035
+		}
+		add_to_variable = {
+				var = gen_army_consumer_goods_factor_var
+				value = 0.035
+		}
+		add_to_variable = {
+				var = gen_conscription_var
+				value = 0.025
+		}
+		add_to_variable = {
+				var = gen_army_stability_factor_var
+				value = -0.025
+		}
+	}
+	
+	if = {
+		limit = {
+			ROOT = {
+				has_idea = generic_troop_training_focus_idea
+			}
+		}
+		hidden_effect = {
+			remove_ideas = generic_troop_training_focus_idea
+				
+			add_to_variable = {
+				var = gen_experience_gain_army_unit_factor_var
+				value = 0.05
+			}
+			add_to_variable = {
+				var = gen_army_attack_factor_var
+				value = 0.025
+			}
+			add_to_variable = {
+				var = gen_army_defence_factor_var
+				value = 0.025
+			}
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				has_idea = generic_handpicked_officers_idea
+			}
+		}
+		hidden_effect = {
+			remove_ideas = generic_handpicked_officers_idea
+			add_to_variable = {
+				var = gen_command_power_gain_mult_var
+				value = 0.075
+			}
+			add_to_variable = {
+				var = gen_army_org_factor_var
+				value = 0.025
+			}
+			add_to_variable = {
+				var = gen_army_org_regain_var
+				value = 0.025
+			}
+			add_to_variable = {
+				var = gen_experience_gain_factor_var
+				value = 0.10
+			}
+		}
+	}
+}	
