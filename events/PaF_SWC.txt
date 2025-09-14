@@ -1,70 +1,58 @@
 add_namespace = swiecie
 
-country_event = {
+country_event = { #bydzia rozważa wsparcie
 	id = swiecie.1
 	title = swiecie.1.t
 	desc = swiecie.1.desc
 
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.1"}
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { 
-		log = "[GetDateText]: [ROOT.GetName] fires swiecie.1" 
-		hidden_effect = {
-			country_event = {
-				id = swiecie.2
-				days = 10
-			}
-		}
-	}
-
 	option = {
 		name = swiecie.1.a
-		ai_chance = { base = 50 }
-		99 = {
-			create_unit = {
-				division = "name = \"Ochotnicy\" division_template = \"Bojówka Partyzancka\" location = 15303 start_experience_factor = 0.2 start_equipment_factor = 0.3"
-				owner = SWC
+		ai_chance = { base = 9 }
+		SWC = {
+			country_event = {
+				id = swiecie.3 
+				days = 2
 			}
 		}
-		set_country_flag = accepted_bydgoszcz_help
-		log = "[GetDateText]: [ROOT.GetName] called [BYD.GetName] help" 
 	}
 	option = {
 		name = swiecie.1.b
-		ai_chance = { base = 50 }
+		add_political_power = 50
+		ai_chance = { base = 1 }
 	}
 }
 
-country_event = {
+country_event = { #krajna rozważa wsparcie
 	id = swiecie.2
 	title = swiecie.2.t
 	desc = swiecie.2.desc
 
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.2"}
 	fire_only_once = yes
 	is_triggered_only = yes
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.2" }
 
 	option = {
 		name = swiecie.2.a
-
-		ai_chance = { base = 80 }
-		add_equipment_to_stockpile = {
-			type = ranged_equipment
-			amount = 100
-			producer = KUJ
+		ai_chance = { base = 9 }
+		SWC = {
+			country_event = {
+				id = swiecie.4 
+				days = 3
+			}
 		}
-		set_country_flag = accepted_krajna_help
-		log = "[GetDateText]: [ROOT.GetName] called [KUJ.GetName] help" 
 	}
 	option = {
 		name = swiecie.2.b
-
-		ai_chance = { base = 20 }
+		add_political_power = 50
+		ai_chance = { base = 1 }
 	}
 }
 
-country_event = {
+country_event = { #świecie decyduje się czy przyjmuje czy nie pomoc od bydzi
 	id = swiecie.3
 	title = swiecie.3.t
 	desc = swiecie.3.desc
@@ -72,210 +60,1534 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.3" }
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires swiecie.3" 
+	}
 
 	option = {
 		name = swiecie.3.a
-		ai_chance = {
-			base = 3
-		}
-		BYD = {
-			set_autonomy = {
-				target = SWC
-				autonomy_state = autonomy_puppet
+		ai_chance = { 
+			base = 50 
+			modifier = {
+				factor = 10
+				BYD = {
+					is_ai = no
+				}
 			}
 		}
+		99 = {
+			create_unit = {
+				division = "name = \"Ochotnicy\" division_template = \"Bojówka Partyzancka\" location = 15303 start_experience_factor = 0.2 start_equipment_factor = 1" owner = SWC
+			}
+		}
+		set_country_flag = accepted_bydgoszcz_help
+		log = "[GetDateText]: [ROOT.GetName] called [BYD.GetName] help" 
 	}
-
 	option = {
 		name = swiecie.3.b
-		ai_chance = {
-			base = 1
-			modifier = {
-				has_country_flag = accepted_krajna_help
-				factor = 9
-			}
-		}
-		if = {
-			limit = {
-				has_country_flag = accepted_krajna_help
-			}
-			KUJ = {
-				add_to_faction = SWC
-			}
-			hidden_effect = {
-				BYD = {
-					country_event = swiecie.4
-				}
-			}
-		}
-		else = {
-			BYD = {
-				declare_war_on = {
-					target = SWC
-					type = voivodeship_war
-				}
-			}
-		}
+		ai_chance = { base = 50 }
 	}
 }
 
-country_event = {
+country_event = { #świecie decyduje się czy przyjmuje czy nie pomoc od krajny
 	id = swiecie.4
 	title = swiecie.4.t
 	desc = swiecie.4.desc
 
 	fire_only_once = yes
 	is_triggered_only = yes
-
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.4" }
 
 	option = {
 		name = swiecie.4.a
-		ai_chance = {
-			base = 1
-		}
-		declare_war_on = {
-			target = SWC
-			type = voivodeship_war
-		}
-		declare_war_on = {
-			target = KUJ
-			type = voivodeship_war
-		}
-		declare_war_on = {
-			target = PLK
-			type = voivodeship_war
-		}
-		hidden_effect = {
-			NED = {
-				country_event = swiecie.5
-			}
-			FMT = {
-				country_event = swiecie.5
+		ai_chance = { 
+			base = 80 
+			modifier = {
+				factor = 10
+				KUJ = {
+					is_ai = no
+				}
 			}
 		}
+		add_equipment_to_stockpile = {
+			type = ranged_equipment
+			amount = 250
+			producer = KUJ
+		}
+		set_country_flag = accepted_krajna_help
+		log = "[GetDateText]: [ROOT.GetName] called [KUJ.GetName] help" 
 	}
-
 	option = {
 		name = swiecie.4.b
-		ai_chance = {
-			base = 1
-		}
+		ai_chance = { base = 20 }
 	}
 }
 
-country_event = {
+country_event = { #Świecie Win Peace Deal
 	id = swiecie.5
 	title = swiecie.5.t
 	desc = swiecie.5.desc
 
-	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		original_tag = SWC
+		NOT = {
+			has_war_with = GSW
+		}
+		SWC = {
+			owns_state = 99
+		}
+	}
 
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.5" }
 
 	option = {
 		name = swiecie.5.a
 		ai_chance = {
-			base = 1
+			base = 3
 		}
-		give_military_access = KUJ
-		give_military_access = PLK
-	}
-
-	option = {
-		name = swiecie.5.b
-		ai_chance = {
-			base = 1	
-		}
-		set_country_flag = refused_to_give_access
 		if = {
 			limit = {
-				or = {
-					and = {
-						original_tag = FMT
-						NED = {
-							has_country_flag = refused_to_give_access
-						}
-					}
-					and = {
-						original_tag = NED
-						FMT = {
-							has_country_flag = refused_to_give_access
-						}
+				SWC = {
+					has_country_flag = accepted_krajna_help
+					NOT = { 
+						has_country_flag = accepted_bydgoszcz_help
 					}
 				}
 			}
-			set_global_flag = swiecie_is_trapped
+			hidden_effect = {
+				SWC = {
+					country_event = {
+						id = swiecie.6
+						days = 2
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				SWC = {
+					has_country_flag = accepted_bydgoszcz_help
+					NOT = { 
+						has_country_flag = accepted_krajna_help
+					}
+				}
+			}
+			hidden_effect = {
+				SWC = {
+					country_event = {
+						id = swiecie.9
+						days = 2
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				SWC = {
+					AND = {
+						has_country_flag = accepted_bydgoszcz_help
+						has_country_flag = accepted_krajna_help
+					}
+				}
+			}
+			hidden_effect = {
+				SWC = {
+					country_event = {
+						id = swiecie.13
+						days = 2
+					}
+				}
+			}
+		}
+		SWC = {
+			add_state_core = 1060
+			add_state_core = 1059
+			add_state_core = 1058
+			clr_country_flag = SWC_fighting_GSW
 		}
 	}
 }
-country_event = {
+
+country_event = { #świecie decyduje się czy chce być ziomem Krajny
 	id = swiecie.6
 	title = swiecie.6.t
 	desc = swiecie.6.desc
 
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.6"	}
-
-	option = {
-		name = swiecie.6.a
-		ai_chance = {
-			base = 17
-		}
-		KUJ = {
-			add_to_faction = SWC
-		}
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires swiecie.6"
 		hidden_effect = {
-			country_event = {
-				id = swiecie.8
-				days = 14
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
 			}
 		}
 	}
+	fire_only_once = yes
+	is_triggered_only = yes
 
 	option = {
-		name = swiecie.6.b
-		ai_chance = {
-			base = 3	
-		}
-		hidden_effect = {
+		name = swiecie.6.a
+		ai_chance = { base = 85 }
+		KUJ = {
+			add_to_faction = SWC
 			country_event = {
 				id = swiecie.7
-				days = 14
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = swiecie.6.b
+		ai_chance = { base = 15 }
+		KUJ = {
+			country_event = {
+				id = swiecie.8
+				days = 1
 			}
 		}
 	}
 }
-country_event = {
+
+country_event = { #Krajna dostaje info że świecie się zgodziło
 	id = swiecie.7
 	title = swiecie.7.t
 	desc = swiecie.7.desc
 
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.7"}
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.7" }
-
 	option = {
 		name = swiecie.7.a
-		ai_chance = {
-			base = 1
-		}
-		LOT = {
-			set_autonomy = {
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Krajna dostaje info że świecie im kazało się bujać
+	id = swiecie.8
+	title = swiecie.8.t
+	desc = swiecie.8.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.8"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.8.a
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Bydgoszcz stawia ultimatum marionetkowania 
+	id = swiecie.9
+	title = swiecie.9.t
+	desc = swiecie.9.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.9"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.9.a
+		ai_chance = { base = 3 }
+		BYD = {
+			puppet = {
 				target = SWC
-				autonomy_state = autonomy_puppet
+				end_wars = no
+			}
+			country_event = {
+				id = swiecie.10
+				days = 2
+			}
+		}
+		SWC = {
+			set_politics = {
+				ruling_party = euroliberalism
+			}
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.9.b
+		ai_chance = { base = 1 }
+		BYD = {
+			country_event = {
+				id = swiecie.11
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #Bydgoszcz dowiaduje się że zmarionetkowali świecie
+	id = swiecie.10
+	title = swiecie.10.t
+	desc = swiecie.10.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.10"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.10.a
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Bydgoszcz dowiaduje się że nie zmarionetkowali świecia
+	id = swiecie.11
+	title = swiecie.11.t
+	desc = swiecie.11.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.11"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.11.a
+		ai_chance = { base = 10 }
+		BYD = {
+			declare_war_on = {
+				target = SWC
+				type = voivodeship_war
+			}
+		}
+		SWC = {
+			set_country_flag = SWC_attacked_by_BYD
+		}
+	}
+	option = {
+		name = swiecie.11.b
+		ai_chance = { base = 1 }
+		add_political_power = -50
+	}
+}
+
+country_event = { #Świecie jakimś chujem zabija Bydgoszcz
+	id = swiecie.12
+	title = swiecie.12.t
+	desc = swiecie.12.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.12"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = SWC
+		SWC = {
+			has_country_flag = SWC_attacked_by_BYD
+			NOT = {
+				has_war_with = BYD
+			}
+		}
+	}
+	option = {
+		name = swiecie.12.a
+		ai_chance = { base = 1 }
+		release = BYD
+		SWC = {
+			diplomatic_relation = {
+				country = BYD
+				relation = puppet
+				active = yes
+			}
+			clr_country_flag = SWC_attacked_by_BYD
+		}
+		BYD = {
+			set_cosmetic_tag = BYD_folk
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Event kiedy przyjęło się pomoc i od Krajny i od Bydgoszczy i tamta druga chce marionetkę
+	id = swiecie.13
+	title = swiecie.13.t
+	desc = swiecie.13.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.13"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.13.a
+		ai_chance = { base = 25 }
+		BYD = {
+			puppet = {
+				target = SWC
+				end_wars = no
+			}
+			country_event = {
+				id = swiecie.10
+				days = 2
+			}
+		}
+		SWC = {
+			set_politics = {
+				ruling_party = euroliberalism
+			}
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.13.b
+		ai_chance = { base = 75 }
+		KUJ = {
+			add_to_faction = SWC
+			country_event = {
+				id = swiecie.7
+				days = 1
+			}
+		}
+		BYD = {
+			country_event = {
+				id = swiecie.14
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = swiecie.13.c
+		ai_chance = { base = 10 }
+		BYD = {
+			country_event = {
+				id = swiecie.11
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #Bydgoszcz dowiaduje się że nie zmarionetkowali świecia i krajna ich jeszcze broni
+	id = swiecie.14
+	title = swiecie.14.t
+	desc = swiecie.14.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.14"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.14.a
+		ai_chance = { base = 1 }
+		BYD = {
+			declare_war_on = {
+				target = SWC
+				type = voivodeship_war
+			}
+			declare_war_on = {
+				target = KUJ
+				type = voivodeship_war
+			}
+			declare_war_on = {
+				target = PLK
+				type = voivodeship_war
+			}
+		}
+		set_global_flag = SWC_hyperwar
+	}
+	option = {
+		name = swiecie.14.b
+		ai_chance = { base = 1 }
+		add_political_power = -50
+	}
+}
+
+country_event = { #Krajna ostrzeżona w co się właśnie wplątali
+	id = swiecie.15
+	title = swiecie.15.t
+	desc = swiecie.15.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.15"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.15.a
+		ai_chance = { base = 1 }
+		FMT = {
+			country_event = swiecie.16
+		}
+		NED = {
+			country_event = swiecie.16
+		}
+	}
+}
+
+country_event = { #Krajna stara poprosić się Koronowo i Lichte Brigade o mil access
+	id = swiecie.16
+	title = swiecie.16.t
+	desc = swiecie.16.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.16"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.16.a
+		ai_chance = { base = 1 }
+		give_military_access = KUJ
+		give_military_access = PLK
+	}
+	option = {
+		name = swiecie.16.a
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Bydgoszcz zabija świecie, ale KUJPLK są nadal w wojnie
+	id = swiecie.17
+	title = swiecie.17.t
+	desc = swiecie.17.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.17"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = BYD
+		has_global_flag = SWC_hyperwar
+		BYD = {
+			owns_state = 99
+			NOT = {
+				has_war_with = SWC
+			}
+			has_war_with = KUJ
+			has_war_with = PLK
+		}
+	}
+	option = {
+		name = swiecie.17.a
+		ai_chance = { base = 1 }
+		BYD = {
+			white_peace = KUJ
+			white_peace = PLK
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Bydgoszcz jakimś cudem zajmuje terytorium KUJPLK i ich odstrasza
+	id = swiecie.18
+	title = swiecie.18.t
+	desc = swiecie.18.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.18"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = BYD
+		has_global_flag = SWC_hyperwar
+		BYD = {
+			has_war_with = SWC
+			has_war_with = KUJ
+			has_war_with = PLK
+			OR = {
+				KUJ = {
+					surrender_progress > 0.1
+				}
+				PLK = {
+					surrender_progress > 0.1
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.18.a
+		ai_chance = { base = 1 }
+		BYD = {
+			white_peace = KUJ
+			white_peace = PLK
+		}
+		BYD = {
+			set_country_flag = BYD_not_lost
+		}
+	}
+}
+
+country_event = { #Bydgoszcz dostaje wpierdol od Konfederacji
+	id = swiecie.181
+	title = swiecie.181.t
+	desc = swiecie.181.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.181"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = KUJ
+		has_global_flag = SWC_hyperwar
+		KUJ = {
+			has_war_with = BYD
+			BYD = {
+				surrender_progress > 0.9
+			}
+		}
+		BYD = {
+			NOT = {
+				has_country_flag = BYD_not_lost
+			}
+		}
+	}
+	option = {
+		name = swiecie.181.a
+		ai_chance = { base = 1 }
+		KUJ = {
+			white_peace = BYD
+			diplomatic_relation = {
+				country = BYD
+				relation = puppet
+				active = yes
+			}
+		}
+		BYD = {
+			set_cosmetic_tag = BYD_folk
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Stalemate z Garnizonem
+	id = swiecie.19
+	title = swiecie.19.t
+	desc = swiecie.19.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.19"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = SWC
+		SWC = {
+			has_war_with = GSW
+			has_country_flag = {
+				flag = SWC_fighting_GSW
+				days > 180
+			}
+		}
+	}
+	option = {
+		name = swiecie.19.a
+		ai_chance = { base = 1 }
+		hidden_effect = {
+			GRU = {
+				annex_country = {
+					target = GSW
+					transfer_troops = yes
+				}
+			}
+			SWC = {
+				transfer_state = 1059
+				transfer_state = 1058
+				transfer_state = 1060
+				add_state_core = 1059
+				add_state_core = 1058
+				add_state_core = 1060
+				clr_country_flag = SWC_fighting_GSW
+			}
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Garnizon wygrywa ze Świeciem
+	id = swiecie.20
+	title = swiecie.20.t
+	desc = swiecie.20.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.20"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = GRU
+		GSW = {
+			NOT = {
+				has_war_with = SWC
 			}
 		}
 	}
 
 	option = {
-		name = swiecie.7.b
-		ai_chance = {
-			base = 3	
+		name = swiecie.20.a
+		ai_chance = { base = 1 }
+		GRU = {
+			diplomatic_relation = {
+				country = GSW
+				relation = puppet
+				active = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = swiecie.21
+					days = 60
+				}
+			}
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.22
+					days = 14
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Grudziądz anektuje świecie
+	id = swiecie.21
+	title = swiecie.21.t
+	desc = swiecie.21.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.21"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.21.a
+		ai_chance = { base = 1 }
+		GRU = {
+			annex_country = {
+				target = GSW
+				transfer_troops = yes
+			}
+			add_state_core = 1059
+			add_state_core = 1058
+			add_state_core = 1060
+			add_state_core = 99
+		}
+	}
+}
+
+country_event = { #Cejrowski rozważa czy spróbować zając kawałek świecia, czy całe świecie, czy nie
+	id = swiecie.22
+	title = swiecie.22.t
+	desc = swiecie.22.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.22"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.22.a
+		ai_chance = { base = 5 }	
+		if = {
+			limit = {
+				country_exists = SWC
+				SWC = {
+					is_subject = no
+					is_in_faction = no
+				}
+			}
+			SWC = {
+				country_event = swiecie.23
+			}
+		}
+		if = {
+			limit = {
+				country_exists = BYD
+				SWC = {
+					exists = no
+				}
+				BYD = {
+					owns_state = 99
+				}
+			}
+			BYD = {
+				country_event = swiecie.29
+			}
+		}
+		if = {
+			limit = {
+				country_exists = SWC
+				SWC = {
+					exists = yes
+					is_in_faction = yes
+				}
+			}
+			SWC = {
+				country_event = swiecie.37
+			}
+		}
+		if = {
+			limit = {
+				country_exists = SWC
+				SWC = {
+					exists = yes
+					is_subject = yes
+				}
+			}
+			BYD = {
+				country_event = swiecie.45
+			}
+		}
+		if = {
+			limit = {
+				country_exists = GSW
+			}
+			GRU = {
+				country_event = swiecie.48
+			}
+		}
+		if = {
+			limit = {
+				GRU = {
+					owns_state = 99
+				}
+			}
+			GRU = {
+				country_event = swiecie.48
+			}
+		}
+	}
+	option = {
+		name = swiecie.22.b
+		ai_chance = { base = 1 }	
+		add_political_power = 100
+	}
+}
+
+country_event = { #Cejrowski chce zmarionetkować wolne świecie
+	id = swiecie.23
+	title = swiecie.23.t
+	desc = swiecie.23.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.23"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.23.a
+		ai_chance = { base = 1 }
+		LOT = {
+			country_event = swiecie.24
+			diplomatic_relation = {
+				country = SWC
+				relation = puppet
+				active = no
+			}
+		}	
+		SWC = {
+			set_cosmetic_tag = SWC_kociewie
+			set_politics = {
+				ruling_party = autocracy
+			}
+		}
+	}
+	option = {
+		name = swiecie.23.b
+		ai_chance = { base = 3 }	
+		LOT = {
+			country_event = swiecie.26
+		}
+	}
+}
+
+country_event = { #Cejro dowiaduje się że zmarionetkował Świecie
+	id = swiecie.24
+	title = swiecie.24.t
+	desc = swiecie.24.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.24"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.24.a
+		ai_chance = { base = 1 }
+		LOT = {
+			country_event = {	
+				id = swiecie.25
+				days = 90
+			}
+		}
+	}
+}
+
+country_event = { #Cejro anektuje świecie
+	id = swiecie.25
+	title = swiecie.25.t
+	desc = swiecie.25.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.25"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.25.a
+		ai_chance = { base = 1 }
+		LOT = {
+			annex_country = {
+				target = SWC
+				transfer_troops = yes
+			}
+			add_state_core = 99
+			add_state_core = 1058
+			add_state_core = 1059
+			add_state_core = 1060 
+		}
+	}
+}
+
+country_event = { #Cejro decyduje się czy boi się Świecia czy nie
+	id = swiecie.26
+	title = swiecie.26.t
+	desc = swiecie.26.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.26"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.26.a
+		ai_chance = { base = 5 }
+		LOT = {
+			declare_war_on = {
+				target = SWC
+				type = voivodeship_war
+			}
+		}
+		LOT = {
+			set_country_flag = SWC_fighting_LOT
+		}
+	}
+	option = {
+		name = swiecie.26.a
+		ai_chance = { base = 1 }
+		add_political_power = -75
+	}
+}
+
+country_event = { #Świecie jakimś cudem wygrywa z Cejrowskim
+	id = swiecie.27
+	title = swiecie.27.t
+	desc = swiecie.27.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.27"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = SWC
+		SWC = {
+			owns_state = 853
+			is_in_faction = no
+			is_subject = no
+		}
+		LOT = {
+			surrender_progress > 30
+			has_country_flag = SWC_fighting_LOT
+		}
+	}
+
+	option = {
+		name = swiecie.27.a
+		ai_chance = { base = 1 }
+		SWC = {
+			white_peace = LOT
+			white_peace = LTT
+			transfer_state = 853
+		}
+		LOT = {
+			clr_country_flag = SWC_fighting_LOT
+		}
+		remove_from_array = { 
+				global.states_for_kuyavia_unification = 853
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 853
+		}
+	}
+}
+
+country_event = { #Cejro wygrywa ze świeciem, ale Bydgoszcz była ich marionetką 
+	id = swiecie.28
+	title = swiecie.28.t
+	desc = swiecie.28.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.28"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = LOT
+		LOT = {
+			has_country_flag = SWC_fighting_LOT
+			NOT = {
+				has_war_with = SWC
+				has_war_with = KUJ
+				has_war_with = PLK
+			}
+			has_war_with = BYD
+		}
+	}
+
+	option = {
+		name = swiecie.28.a
+		ai_chance = { base = 1 }
+		LOT = {
+			white_peace = BYD
+			transfer_state = 99
+			transfer_state = 1058
+			transfer_state = 1059
+			transfer_state = 1060
+			clr_country_flag = SWC_fighting_LOT
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 99
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 99
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1059
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1059
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1060
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1060
+		}
+	}
+}
+
+country_event = { #Cejro straszy Bydogszcz że zajebie im Jeżewo
+	id = swiecie.29
+	title = swiecie.29.t
+	desc = swiecie.29.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.29"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.29.a
+		ai_chance = { base = 1 }
+		1058 = {
+			transfer_state_to = LOT
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+			}
+	}
+	option = {
+		name = swiecie.29.b
+		ai_chance = { base = 4 }
+		LOT = {
+			country_event = {
+				id = swiecie.30
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = { #Cejro dowiaduje się że Bydgoszcz każe mu się bujać
+	id = swiecie.30
+	title = swiecie.30.t
+	desc = swiecie.30.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.30"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.30.a
+		ai_chance = { base = 4 }
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 853
+				num_provinces = 3
+				on_win = swiecie.31
+				on_lose = swiecie.32
+				on_cancel = swiecie.33
+			}	
+			defender = {
+				state = 1058
+				num_provinces = 3
+				on_win = swiecie.32
+				on_lose = swiecie.31
+				on_cancel = swiecie.33
+			}
+		}
+		hidden_effect = {
+			BYD = {
+				country_event = {
+					id = swiecie.34
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.30.b
+		ai_chance = { base = 1 }
+		add_political_power = -75
+	}
+}
+
+country_event = { #Cejro wygrywa border conflict
+	id = swiecie.31
+	title = swiecie.31.t
+	desc = swiecie.31.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.31"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.31.a
+		ai_chance = { base = 1 }
+		1058 = {
+			transfer_state_to = LOT
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+		}
+	}
+}
+
+country_event = { #Cejro przegrywa border conflict
+	id = swiecie.32
+	title = swiecie.32.t
+	desc = swiecie.32.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.32"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.32.a
+		ai_chance = { base = 1 }
+		99 = {
+			controller = {
+				ROOT = {
+					army_experience = 50
+				}
+			}
+		}
+	}
+}
+
+country_event = { #każdy idzie do domu
+	id = swiecie.33
+	title = swiecie.33.t
+	desc = swiecie.33.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.33"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.33.a
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #bydgoszcz eskaluje konflikt
+	id = swiecie.34
+
+	title = swiecie.34.t
+	desc = swiecie.34.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.34"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.34.a
+		ai_chance = { base = 1 }
+		cancel_border_war = {
+			dont_fire_events = yes
+			defender = 1058
+			attacker = 853
+		}
+		BYD = {
+			declare_war_on = {
+				target = LOT
+				type = voivodeship_war
+			}
+		}
+		set_global_flag = LOT_escalation_war
+	}
+	option = {
+		name = swiecie.34.b
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Bydgoszcz wygrywa eskalację
+	id = swiecie.35
+	title = swiecie.35.t
+	desc = swiecie.35.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.35"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = BYD
+		has_global_flag = LOT_escalation_war
+		LOT = {
+			surrender_progress > 30
+		}
+	}
+
+	option = {
+		name = swiecie.35.a
+		ai_chance = { base = 1 }
+		clr_global_flag = LOT_escalation_war
+		BYD = {
+			transfer_state = 853
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 853
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 853
+		}
+	}
+}
+
+country_event = { #Cejro sprzedaje liścia Bydgoszczy za to że eskalowali
+	id = swiecie.36
+	title = swiecie.36.t
+	desc = swiecie.36.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.36"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = LOT
+		has_global_flag = LOT_escalation_war
+		BYD = {
+			OR = {
+				LOT = {
+					owns_state = 99
+					owns_state = 1058
+					owns_state = 1059
+					owns_state = 1060
+				}
+				surrender_progress > 30
+			}
+		}
+		
+	}
+
+	option = {
+		name = swiecie.36.a
+		ai_chance = { base = 1 }
+		LOT = {
+			white_peace = BYD
+			transfer_state = 99
+			transfer_state = 1058
+			transfer_state = 1059
+			transfer_state = 1060
+		}
+		BYD = {
+			clr_country_flag = LOT_escalation_war
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 99
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 99
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1059
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1059
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1060
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1060
+		}
+	}
+}
+
+country_event = { #Cejro chce jeżewo od Świecia które jest we frakcji z Krajną
+	id = swiecie.37
+	title = swiecie.37.t
+	desc = swiecie.37.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.37"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = swiecie.37.a
+		ai_chance = { base = 1 }
+		LOT = {
+			country_event = swiecie.38
+		}
+	}
+	option = {
+		name = swiecie.37.b
+		ai_chance = { base = 1 }
+		LOT = {
+			transfer_state = 1058
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+		}
+	}
+}
+
+country_event = { #Cejro rozważa czy chce ryzykować wojnę z sojuszem
+	id = swiecie.38
+	title = swiecie.38.t
+	desc = swiecie.38.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.38"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.38.a
+		ai_chance = { base = 1 }
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 853
+				num_provinces = 3
+				on_win = swiecie.31
+				on_lose = swiecie.32
+				on_cancel = swiecie.33
+			}	
+			defender = {
+				state = 1058
+				num_provinces = 3
+				on_win = swiecie.32
+				on_lose = swiecie.31
+				on_cancel = swiecie.33
+			}
+		}
+		hidden_effect = {
+			KUJ = {
+				country_event = {
+					id = swiecie.39
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.38.b
+		ai_chance = { base = 1 }
+		add_political_power = -50
+	}
+}
+
+country_event = { #Krajna dowiaduje się o konflikcie granicznym i rozważa co zrobić
+	id = swiecie.39
+	title = swiecie.39.t
+	desc = swiecie.39.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.39"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.39.a
+		ai_chance = { base = 1 }
+		SWC = {
+			country_event = swiecie.40
+		}
+		add_equipment_to_stockpile = {
+			type = ranged_equipment
+			amount = -200
+		}
+	}
+	option = {
+		name = swiecie.39.b
+		ai_chance = { base = 1 }
+	}
+	option = {
+		name = swiecie.39.c
+		ai_chance = { base = 1 }
+		SWC = {
+			country_event = {
+				id = swiecie.41
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #Świecie dostaje wsparcie od Krajny
+	id = swiecie.40
+	title = swiecie.40.t
+	desc = swiecie.40.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.40"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.40.a
+		ai_chance = { base = 1 }
+		add_equipment_to_stockpile = {
+			type = ranged_equipment
+			amount = 200
+		}
+	}
+}
+
+country_event = { #Krajna naciska na świecie żeby oddało jeżewo
+	id = swiecie.41
+	title = swiecie.41.t
+	desc = swiecie.41.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.41"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.41.a
+		ai_chance = { base = 1 }
+		KUJ = {
+			country_event = swiecie.42
+		}
+	}
+	option = {
+		name = swiecie.41.b
+		ai_chance = { base = 1 }
+		cancel_border_war = {
+			dont_fire_events = yes
+			defender = 1058
+			attacker = 853
+		}
+		LOT = {
+			transfer_state = 1058
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+		}
+	}
+}
+
+country_event = { #Krajna wypierdala cię z sojuszu, elo
+	id = swiecie.42
+	title = swiecie.42.t
+	desc = swiecie.42.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.42"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.42.a
+		ai_chance = { base = 1 }
+		KUJ = {
+			remove_from_faction = SWC
+		}
+		SWC = {
+			country_event = swiecie.43
+		}
+		hidden_effect = {
+			LOT = {
+				country_event = {
+					id = swiecie.44
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.42.b
+		ai_chance = { base = 1 }
+		add_political_power = -100
+	}
+}
+
+country_event = { #Świecie dowiaduje się że wyleciało z sojuszu
+	id = swiecie.43
+	title = swiecie.43.t
+	desc = swiecie.43.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.43"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.43.a
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Cejro decyduje się czy chce eskalować wojnę z Osamotnionym Świeciem
+	id = swiecie.44
+	title = swiecie.44.t
+	desc = swiecie.44.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.44"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.44.a
+		ai_chance = { base = 1 }
+		cancel_border_war = {
+			dont_fire_events = yes
+			defender = 1058
+			attacker = 853
 		}
 		LOT = {
 			declare_war_on = {
@@ -283,269 +1595,398 @@ country_event = {
 				type = voivodeship_war
 			}
 		}
+		LOT = {
+			set_country_flag = SWC_fighting_LOT
+		}
+	}
+	option = {
+		name = swiecie.44.b
+		ai_chance = { base = 1 }
 	}
 }
 
-country_event = {
-	id = swiecie.8
-	title = swiecie.8.t
-	desc = swiecie.8.desc
+country_event = { #Cejro chce jeżewo od twojej Świecio-marionetki
+	id = swiecie.45
+	title = swiecie.45.t
+	desc = swiecie.45.desc
 
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.45"}
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.8" }
-
 	option = {
-		name = swiecie.8.a
-		ai_chance = {
-			base = 1
-			modifier = {
-				is_subject_of = BYD
-				factor = 0
-			}
-			
+		name = swiecie.45.a
+		ai_chance = { base = 1 }
+		LOT = {
+			transfer_state = 1058
 		}
-		1058 = {
-			transfer_state_to = LOT
-		}
-	}
-
-	option = {
-		name = swiecie.8.b
-		ai_chance = {
-			base = 3	
-		}
-		if = {
-			limit = {
-				is_subject_of = BYD
-			}
-			start_border_war = {
-				change_state_after_war = no
-				attacker = {
-					state = 853
-					num_provinces = 2
-					on_win = swiecie.10
-					on_lose = swiecie.11
-				}
-				defender = {
-					state = 1058
-					num_provinces = 2
-					on_win = swiecie.9
-					on_lose = swiecie.9
-				}
-			}
-		}
-		else = {
-			start_border_war = {
-				change_state_after_war = no
-				attacker = {
-					state = 853
-					num_provinces = 2
-					on_win = swiecie.10
-					on_lose = swiecie.11
-				}
-				defender = {
-					state = 1058
-					num_provinces = 2
-					on_win = swiecie.12
-					on_lose = swiecie.13
-				}
-			}
-		}
-	}
-}
-
-country_event = {
-	id = swiecie.9
-	title = swiecie.9.t
-	desc = swiecie.9.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.9" }
-
-	option = {
-		name = swiecie.9.a
-		BYD = {
-			country_event = swiecie.14
-		}
-	}
-}
-
-country_event = {
-	id = swiecie.10
-	title = swiecie.10.t
-	desc = swiecie.10.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.10" }
-
-	option = {
-		name = swiecie.10.a
-		1058 = {
-			transfer_state_to = LOT
-		}
-	}
-}
-
-country_event = {
-	id = swiecie.11
-	title = swiecie.11.t
-	desc = swiecie.11.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.11" }
-
-	option = {
-		name = swiecie.11.a
-		add_war_support = -0.1
-	}
-}
-
-country_event = {
-	id = swiecie.12
-	title = swiecie.12.t
-	desc = swiecie.12.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.12" }
-
-	option = {
-		name = swiecie.12.a
-		add_war_support = 0.1
-	}
-}
-
-country_event = {
-	id = swiecie.13
-	title = swiecie.13.t
-	desc = swiecie.13.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.13" }
-
-	option = {
-		name = swiecie.13.a
-		add_war_support = -0.1
-	}
-}
-
-country_event = {
-	id = swiecie.14
-	title = swiecie.14.t
-	desc = swiecie.14.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.14" }
-
-	option = {
-		name = swiecie.14.a
-		ai_chance = {
-			base = 3
-		}
-		declare_war_on = {
-			target = LOT
-			type = voivodeship_war
-		}
-		add_to_war = {
-			targeted_alliance = SWC
-			enemy = LOT
-		}
-	}
-	option = {
-		name = swiecie.14.b
-		ai_chance = {
-			base = 1
-		}
-	}
-}
-
-country_event = {
-	id = swiecie.15
-	title = swiecie.15.t
-	desc = swiecie.15.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	trigger = {
-		tag = LOT
-		has_war_with = SWC
-		SWC = {
-			is_subject_of = BYD
-		}
-		surrender_progress > 0.5
-	}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.15" }
-
-	option = {
-		name = swiecie.15.a
-		white_peace = SWC
-		white_peace = BYD
-		
-		if = {
-			limit = {
-				1058 = {
-					NOT = {
-						is_owned_by = SWC
-					}
-				}	
-			}
-			1058 = {
-				transfer_state_to = SWC
-			}
-		}
-		853 = {
-			transfer_state_to = SWC
-		}
-	}
-}
-
-
-country_event = {
-	id = swiecie.16
-	title = swiecie.16.t
-	desc = swiecie.16.desc
-
-	fire_only_once = yes
-
-	trigger = {
-		original_tag = LOT
-		has_war = no
-		NOT = { has_war_with = SWC }
-		OR = {
-			99 = {
-				is_owned_and_controlled_by = LOT
-			}
-			SWC = {
-				is_subject_of = LOT
-			}
-		}
-	}
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.16" }
-
-	option = {
-		name = swiecie.16.a
 		remove_from_array = { 
-			global.states_for_kuyavia_unification = 99
+			global.states_for_kuyavia_unification = 1058
 		}
 		add_to_array = { 
-			global.states_for_pomerelia_unification = 99
+			global.states_for_pomerelia_unification = 1058
 		}
-		
+	}
+	option = {
+		name = swiecie.45.b
+		ai_chance = { base = 1 }
+		LOT = {
+			country_event = {
+				id = swiecie.46
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #Cejro dowiaduje się, że bydgoszcz to brzydgoszcz i troszczy się o swoje Świecie
+	id = swiecie.46
+	title = swiecie.46.t
+	desc = swiecie.46.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.46"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.46.a
+		ai_chance = { base = 1 }
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 853
+				num_provinces = 3
+				on_win = swiecie.31
+				on_lose = swiecie.32
+				on_cancel = swiecie.33
+			}	
+			defender = {
+				state = 1058
+				num_provinces = 3
+				on_win = swiecie.32
+				on_lose = swiecie.31
+				on_cancel = swiecie.33
+			}
+		}
+		hidden_effect = {
+			BYD = {
+				country_event = {
+					id = swiecie.47
+					days = 2
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.46.b
+		ai_chance = { base = 1 }
+		add_political_power = -50
+	}
+}
+
+country_event = { #Bydgoszcz wspiera Świecie, albo nie, xd
+	id = swiecie.47
+	title = swiecie.47.t
+	desc = swiecie.47.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.47"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.47.a
+		ai_chance = { base = 1 }
+		add_equipment_to_stockpile = {
+			type = ranged_equipment
+			amount = -200
+		}
+		hidden_effect = {
+			SWC = {
+				add_equipment_to_stockpile = {
+					type = ranged_equipment
+					amount = 200
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.47.b
+		ai_chance = { base = 1 }
+	}
+}
+
+country_event = { #Grudziądz jest straszone przez Cejrowskiego
+	id = swiecie.48
+	title = swiecie.48.t
+	desc = swiecie.48.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.48"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.48.a
+		ai_chance = { base = 1 }
+		LOT = {
+			transfer_state = 1058
+		}
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 1058
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 1058
+		}
+	}
+	option = {
+		name = swiecie.48.b
+		ai_chance = { base = 1 }
+		LOT = {
+			country_event = {
+				id = swiecie.49
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #Cejro decyduje się czy chce napierdalać się z czołgami
+	id = swiecie.49
+	title = swiecie.49.t
+	desc = swiecie.49.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.49"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.49.a
+		ai_chance = { base = 1 }
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 853
+				num_provinces = 3
+				on_win = swiecie.31
+				on_lose = swiecie.32
+				on_cancel = swiecie.33
+			}	
+			defender = {
+				state = 1058
+				num_provinces = 3
+				on_win = swiecie.32
+				on_lose = swiecie.31
+				on_cancel = swiecie.33
+			}
+		}
+		hidden_effect = {
+			GRU = {
+				country_event = {
+					id = swiecie.50
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = swiecie.49.b
+		ai_chance = { base = 1 }
+		add_political_power = -50
+	}
+}
+
+country_event = { #Grudziądz decyduje się czy chce sprzedać prawilny wpierdol cejrowskiemu
+	id = swiecie.50
+	title = swiecie.50.t
+	desc = swiecie.50.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.50"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.50.a
+		ai_chance = { base = 1 }
+	}
+	option = {
+		name = swiecie.50.b
+		ai_chance = { base = 1 }
+		LOT = {
+			country_event = swiecie.51
+		}
+	}
+}
+
+country_event = { #Cejro decyduje się czy cyka się Adamczaka
+	id = swiecie.51
+	title = swiecie.51.t
+	desc = swiecie.51.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.51"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.51.a
+		ai_chance = { base = 1 }
+		GRU = {
+			country_event = swiecie.52
+		}
+	}
+	option = {
+		name = swiecie.51.b
+		ai_chance = { base = 1 }
+		cancel_border_war = {
+			dont_fire_events = yes
+			defender = 1058
+			attacker = 853
+		}
+	}
+}
+
+country_event = { #Czy Grudziądz blefował, czy nie?
+	id = swiecie.52
+	title = swiecie.52.t
+	desc = swiecie.52.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.52"}
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = swiecie.52.a
+		ai_chance = { base = 1 }
+		cancel_border_war = {
+			dont_fire_events = yes
+			defender = 1058
+			attacker = 853
+		}
+		GRU = {
+			declare_war_on = {
+				target = LOT
+				type = voivodeship_war
+			}
+			set_country_flag = GRU_fighting_LOT
+		}
+	}
+	option = {
+		name = swiecie.52.b
+		ai_chance = { base = 1 }
+		add_political_power = -100
+		add_stability = -0.25
+		add_war_support = -0.25
+	}
+}
+
+country_event = { #Cejro dostaje łomot od Adamczaka
+	id = swiecie.53
+	title = swiecie.53.t
+	desc = swiecie.53.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.53"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = GRU
+		LOT = {
+			surrender_progress > 30
+		}
+		GRU = {
+			has_country_flag = GRU_fighting_LOT
+		}
+	}
+
+	option = {
+		name = swiecie.53.a
+		ai_chance = { base = 1 }
+		GRU = {
+			white_peace = LOT
+		}
+		GSW = {
+			white_peace = LOT
+		}
+		if = {
+			limit = {
+				country_exists = GSW
+			}
+			GSW = {
+				transfer_state = 853
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = GSW
+				}
+			}
+			GRU = {
+				transfer_state = 853
+			}
+		}
+		clr_country_flag = GRU_fighting_LOT
+		remove_from_array = { 
+			global.states_for_kuyavia_unification = 853
+		}
+		add_to_array = { 
+			global.states_for_pomerelia_unification = 853
+		}
+	}
+}
+
+country_event = { #Adamczak dostaje wpierdol od Cejrowskiego
+	id = swiecie.54
+	title = swiecie.54.t
+	desc = swiecie.54.desc
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires swiecie.54"}
+	fire_only_once = yes
+	trigger = {
+		original_tag = LOT
+		OR = {
+			GRU = {
+				surrender_progress > 20
+			}
+			LOT = {
+				controls_state = 1060
+				controls_state = 1059
+				controls_state = 1058
+				controls_state = 99
+			}
+		}
+	}
+
+	option = {
+		name = swiecie.54.a
+		ai_chance = { base = 1 }
+		LOT = {
+			transfer_state = 1060
+			transfer_state = 1059
+			transfer_state = 1058
+			transfer_state = 99
+		}
+		hidden_effect = {
+			remove_from_array = { 
+				global.states_for_kuyavia_unification = 99
+			}
+			add_to_array = { 
+				global.states_for_pomerelia_unification = 99
+			}
+			remove_from_array = { 
+				global.states_for_kuyavia_unification = 1058
+			}
+			add_to_array = { 
+				global.states_for_pomerelia_unification = 1058
+			}
+			remove_from_array = { 
+				global.states_for_kuyavia_unification = 1059
+			}
+			add_to_array = { 
+				global.states_for_pomerelia_unification = 1059
+			}
+			remove_from_array = { 
+				global.states_for_kuyavia_unification = 1060
+			}
+			add_to_array = { 
+				global.states_for_pomerelia_unification = 1060
+			}
+		}
 	}
 }
