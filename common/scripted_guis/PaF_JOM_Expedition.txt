@@ -3,7 +3,7 @@ scripted_gui = {
 	JOM_container_gui = {
 		window_name = "PaF_JOM_container_gui"
 		context_type = decision_category
-		parent_window_token = decision_tab
+		#parent_window_token = decision_tab
 
 		properties = {
 			EXPEDITION_BAR = { frame = JOM_mission_success_var }
@@ -46,7 +46,7 @@ scripted_gui = {
 	JOM_map_container_gui = {
 		window_name = "PaF_JOM_map_container_gui"
 		context_type = player_context
-		parent_window_token = PaF_JOM_map_container_gui
+		parent_window_name = PaF_JOM_container_gui
 		visible = {
 			has_country_flag = JOM_map_open
 		}
@@ -59,6 +59,7 @@ scripted_gui = {
 		}
 
 		triggers = {
+			#BAŁTYK
 			JOM_expedition_baltic_map_visible = {
 				has_country_flag = JOM_baltic_map_open
 			}
@@ -71,28 +72,32 @@ scripted_gui = {
 				NOT = { has_country_flag = JOM_gotland_success }
 			}
 			
+			#EUROPA
 			JOM_expedition_europe_map_visible = {
 				has_country_flag = JOM_europe_map_open
 			}
-			
+			#NORTH AM
 			JOM_expedition_NA_map_visible = {
 				has_country_flag = JOM_NA_map_open
 			}
-			
+			#SOUTH AM
 			JOM_expedition_SA_map_visible = {
 				has_country_flag = JOM_SA_map_open
 			}
-			
+			#TOTO AFRICA
 			JOM_expedition_Africa_map_visible = {
 				has_country_flag = JOM_Africa_map_open
 			}
-			
+			#AAAASIA
 			JOM_expedition_Asia_map_visible = {
 				has_country_flag = JOM_Asia_map_open
 			}
 		}
 
 		effects = {
+			JOM_map_close_button_click = {
+				clr_country_flag = JOM_map_open
+			}
 			JOM_europe_button_click = {
 				set_country_flag = JOM_europe_map_open
 				clr_country_flag = JOM_baltic_map_open
@@ -145,40 +150,16 @@ scripted_gui = {
 				JOM_vikinging_forever = yes
 				set_country_flag = JOM_vikinging_selected
 				#dla późniejszej aktywacji proper ekspedycji po preparacji
-				if = {
-					limit = {
-						NOT = { 
-							has_country_flag = JOM_vikinging_bornholm
-						}
-					}
-					set_country_flag = JOM_vikinging_bornholm
-				}
-				else_if = {
-					limit = {
-						has_country_flag = JOM_vikinging_bornholm
-					}
-					clr_country_flag = JOM_vikinging_bornholm
-				}
+				set_country_flag = JOM_vikinging_bornholm
+				###
 				set_variable = { JOM_mission_success_var = 80 }
 			}
 			JOM_expedition_button_gotland_click = {
 				JOM_vikinging_forever = yes
 				set_country_flag = JOM_vikinging_selected
 				#dla późniejszej aktywacji proper ekspedycji po preparacji
-				if = {
-					limit = {
-						NOT = { 
-							has_country_flag = JOM_vikinging_gotland
-						}
-					}
-					set_country_flag = JOM_vikinging_gotland
-				}
-				else_if = {
-					limit = {
-						has_country_flag = JOM_vikinging_gotland
-					}
-					clr_country_flag = JOM_vikinging_gotland
-				}
+				set_country_flag = JOM_vikinging_gotland
+				###
 				set_variable = { JOM_mission_success_var = 75 }
 			}
 		}
