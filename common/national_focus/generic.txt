@@ -1056,7 +1056,7 @@ focus_tree = {
 			custom_effect_tooltip = gen_poli_dynamic_modified_tt
 			custom_effect_tooltip = gen_plus_5_pp_tt
 			add_to_variable = {
-				var = gen_poli_political_power_gain_var
+				var = gen_political_power_gain_var
 				value = 0.05
 			}
 			custom_effect_tooltip = gen_minus_2_5_stability_tt
@@ -1736,6 +1736,139 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			if = {
+				limit = {
+					ROOT = {
+						has_idea = energy_natural
+					}
+				}
+				swap_ideas = {
+					remove_idea = energy_natural
+					add_idea = energy_sustainable_mix 
+				}				
+			}			
+			if = {
+				limit = {
+					ROOT = {
+						has_idea = energy_full_emission
+					}
+				}
+				swap_ideas = {
+					remove_idea = energy_full_emission
+					add_idea = energy_coal_based 
+				}			
+			}
+			if = {
+				limit = {
+					ROOT = {
+						has_idea = energy_sustainable_mix
+					}
+				}
+				swap_ideas = {
+					remove_idea = energy_sustainable_mix
+					add_idea = energy_renewable
+				}		
+			}
+			if = {
+				limit = {
+					ROOT = {
+						has_idea = energy_coal_based
+					}
+				}
+				swap_ideas = {
+					remove_idea = energy_coal_based
+					add_idea = energy_sustainable_mix
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						has_idea = energy_renewable
+					}
+				}
+				if = {
+					limit = {
+						has_completed_focus = generic_securing_our_industry
+					}
+					custom_effect_tooltip = gen_eco_dynamic_modified_tt
+					custom_effect_tooltip = gen_plus_2_5_factory_output_tt
+					add_to_variable = {
+						var = gen_industrial_capacity_factory_var
+						value = 0.025
+					}
+					custom_effect_tooltip = gen_plus_5_stability_tt					
+					add_to_variable = {
+						var = gen_stability_factor_var
+						value = 0.05
+					}
+					custom_effect_tooltip = gen_minus_2_5_consumer_goods_tt						
+					add_to_variable = {
+						var = gen_consumer_goods_factor_var
+						value = -0.025
+					}
+					custom_effect_tooltip = gen_plus_3_monthly_population_tt						
+					add_to_variable = {
+						var = gen_monthly_population_var
+						value = 0.03
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_completed_focus = generic_securing_our_industry
+						}
+					}
+					add_ideas = generic_advocate_energetic_transformation_idea				
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}				
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}						
+			}
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}				
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}			
+			}		
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}				
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}			
+			}		
 		}
 	}
 	
@@ -2413,7 +2546,7 @@ focus_tree = {
 			custom_effect_tooltip = gen_poli_dynamic_modified_tt
 			custom_effect_tooltip = gen_plus_1_compliance_gain_tt
 			add_to_variable = {
-				var = gen_compliance_gain_var
+				var = gen_comp_growth_var
 				value = 0.1
 			}
 			custom_effect_tooltip = gen_plus_5_stability_tt
@@ -2423,7 +2556,7 @@ focus_tree = {
 			}		
 			custom_effect_tooltip = gen_minus_1_consumer_goods_tt
 			add_to_variable = {
-				var = gen_consumer_goods_factor_var
+				var = gen_poli_consumer_goods_factor_var
 				value = -0.1
 			}		
 		}
