@@ -229,16 +229,8 @@ country_event = { #Rugen Arrival
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires jom_expedition.10" 
 		GER = {
-			43 = {
-				add_building_construction = {
-					type = naval_base
-					level = 1
-					instant_build = yes
-					province = 4169
-				}
-			}
 			create_equipment_variant = {
-				name = "Jörmungandr Class"								
+				name = "Jormungandr Class"								
 				type = ship_hull_submarine_2
 				modules = {
 					fixed_ship_torpedo_slot = ship_torpedo_sub_1
@@ -281,45 +273,24 @@ country_event = { #Rugen Trade
 		JOM = {
 			JOM_suceed_expedition = yes
 		}
-		GER = {
+	}
+
+	option = {
+		name = jom_expedition.11.a
 			create_ship = {
 				type = ship_hull_submarine_2
-				equipment_variant = "Jörmungandr Class"
+				equipment_variant = "Jormungandr Class"
 				creator = GER
 				name = "FJM Kraken"
 			}
 			create_ship = {
 				type = ship_hull_submarine_2
-				equipment_variant = "Jörmungandr Class"
+				equipment_variant = "Jormungandr Class"
 				creator = GER
 				name = "FJM Hafgufa"
 			}
-		}
 	}
 
-	option = {
-		name = jom_expedition.11.a
-		GER = {
-			transfer_ship = {
-				prefer_name = "FJM Kraken"
-				type = ship_hull_submarine_2
-				target = JOM
-				exclude_refitting = no
-			}
-			transfer_ship = {
-				prefer_name = "FJM Hafgufa"
-				type = ship_hull_submarine_2
-				target = JOM
-				exclude_refitting = no
-			}
-			43 = {
-				remove_building = {
-					type = naval_base
-					level = 1
-				}
-			}
-		}
-	}
 }
 country_event = { #Rugen Raid
 	id = jom_expedition.12 
@@ -394,6 +365,7 @@ country_event = { #Hansa Trade
 
 	option = {
 		name = jom_expedition.14.a
+		add_ideas = JOM_hanza_trade
 	}
 }
 country_event = { #Hansa Raid
@@ -413,6 +385,11 @@ country_event = { #Hansa Raid
 
 	option = {
 		name = jom_expedition.15.a
+		add_manpower = -200
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = -10
+		}
 	}
 }
 
@@ -464,6 +441,7 @@ country_event = { #Lithuania Trade
 
 	option = {
 		name = jom_expedition.17.a
+		add_timed_idea = { idea = JOM_klaipeda_trade days = 90 }
 	}
 }
 country_event = { #Lithuania Raid
@@ -483,6 +461,13 @@ country_event = { #Lithuania Raid
 
 	option = {
 		name = jom_expedition.18.a
+		add_fuel = 500
+		ORL = {
+			add_opinion_modifier = {
+				target = JOM
+				modifier = modifier_JOM_raid
+			}
+		}
 	}
 }
 
@@ -534,6 +519,7 @@ country_event = { #Latvia Trade
 
 	option = {
 		name = jom_expedition.20.a
+		add_timed_idea = { idea = JOM_lotva_trade days = 90 }
 	}
 }
 country_event = { #Latvia Raid
@@ -553,6 +539,7 @@ country_event = { #Latvia Raid
 
 	option = {
 		name = jom_expedition.21.a
+		add_fuel = 750
 	}
 }
 
@@ -604,6 +591,7 @@ country_event = { #Estonia Trade
 
 	option = {
 		name = jom_expedition.23.a
+		add_timed_idea = { idea = JOM_estonia_trade days = 90 }
 	}
 }
 country_event = { #Estonia Raid
@@ -623,6 +611,7 @@ country_event = { #Estonia Raid
 
 	option = {
 		name = jom_expedition.24.a
+		add_manpower = 500
 	}
 }
 
@@ -674,6 +663,16 @@ country_event = { #Finlandia Trade
 
 	option = {
 		name = jom_expedition.26.a
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = electronics
+		}
+		add_unit_bonus = {
+			medium_armor = {
+				armor_value = 0.15
+			}
+		}
 	}
 }
 country_event = { #Finlandia Raid
@@ -693,6 +692,11 @@ country_event = { #Finlandia Raid
 
 	option = {
 		name = jom_expedition.27.a
+		add_manpower = -200
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = -10
+		}
 	}
 }
 
@@ -706,6 +710,22 @@ country_event = { #Petersburg Arrival
 
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires jom_expedition.28" 
+		RUS = {
+			create_equipment_variant = {
+				name = "Aurora Class"								
+				type = heavy_monitor_hull_3_equipment
+				modules = {
+					fixed_ship_anti_air_slot = anti_air_equipment_1
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+					fixed_ship_radar_slot = ship_radar_1
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_bb_3
+					front_1_custom_slot = ship_heavy_battery_2
+					rear_2_custom_slot = ship_heavy_battery_2
+				}
+			}
+		}
 	}
 	option = {
 		name = jom_expedition.28.b
@@ -734,6 +754,7 @@ country_event = { #Grenlandia Pituffik
 
 	option = {
 		name = jom_expedition.29.a
+		add_nuclear_bombs = 1
 	}
 }
 country_event = { #Petersburg Raid
@@ -753,6 +774,14 @@ country_event = { #Petersburg Raid
 
 	option = {
 		name = jom_expedition.30.a
+		JOM = {
+			create_ship = {
+				type = heavy_monitor_hull_3_equipment
+				equipment_variant = "Aurora Class"
+				creator = RUS
+				name = "Aurora"
+			}
+		}
 	}
 }
 
@@ -795,6 +824,12 @@ country_event = { #Arka Trade
 
 	option = {
 		name = jom_expedition.32.a
+		add_manpower = 250
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = tp_tech
+		}
 	}
 }
 country_event = { #EMPTY
@@ -856,6 +891,7 @@ country_event = { #Kopenhagen Trade
 
 	option = {
 		name = jom_expedition.35.a
+		add_ideas = JOM_myto
 	}
 }
 country_event = { #Oslo Raid
