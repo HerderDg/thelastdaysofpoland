@@ -1346,17 +1346,58 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = BBW_atlas_shrugged
+		icon = BBW_atlas_shrugged
+		available = {
+			has_completed_focus = BBW_autumn
+		}
+		
+		bypass = {
+		}
+		
+		x = 40
+		y = 6
+		
+		cost = 1
+		
+		completion_reward = {
+
+		}
+	}
 	
+	focus = {
+		id = BBW_cut_off_power_lines
+		icon = BBW_cut_off_power_lines
+		relative_position_id = BBW_atlas_shrugged
+		prerequisite = { focus = BBW_atlas_shrugged }
+		available = {
+
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
 
 	focus = {
 		id = BBW_poor_examples
 		icon = BBW_poor_examples
 		will_lead_to_war_with = ZHP
+		relative_position_id = BBW_cut_off_power_lines
+		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
 			NOT = {
 			has_war = yes
 			}
-			has_completed_focus = BBW_autumn
 		}
 		
 		bypass = {
@@ -1369,8 +1410,8 @@ focus_tree = {
 			}
 		}
 		
-		x = 38
-		y = 8
+		x = -2
+		y = 1
 		
 		cost = 1
 		
@@ -1381,6 +1422,7 @@ focus_tree = {
 				}
 		}
 	}
+	
 	focus = {
 		id = BBW_rapid_electrification
 		icon = BBW_rapid_electrification
@@ -1454,11 +1496,12 @@ focus_tree = {
 		id = BBW_revolution_avantgarde
 		icon = BBW_revolution_avantgarde
 		will_lead_to_war_with = ZYD
+		relative_position_id = BBW_cut_off_power_lines
+		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
 			NOT = {
 			has_war = yes
 			}
-			has_completed_focus = BBW_autumn
 		}
 		
 		bypass = {
@@ -1471,8 +1514,8 @@ focus_tree = {
 			}
 		}
 		
-		x = 41
-		y = 8
+		x = 0
+		y = 1
 		
 		cost = 1
 		
@@ -1483,6 +1526,7 @@ focus_tree = {
 				}
 		}
 	}
+
 	focus = {
 		id = BBW_order_in_red_wilderness
 		icon = BBW_order_in_red_wilderness
@@ -1495,7 +1539,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -1
+		x = 0
 		y = 1
 		
 		cost = 4.3
@@ -1505,22 +1549,130 @@ focus_tree = {
 			every_controlled_state = {
 				limit = { is_core_of = ZYD }
 					add_compliance = 20
-					}
+			}
 		}
 	}
+
+	focus = {
+		id = BBW_counterrevolution_rearguard
+		icon = BBW_counterrevolution_rearguard
+		will_lead_to_war_with = LKS
+		relative_position_id = BBW_cut_off_power_lines
+		prerequisite = { focus = BBW_cut_off_power_lines }
+		available = {
+			NOT = {
+			has_war = yes
+			}
+		}
+		
+		bypass = {
+		OR = { 
+			AND = {	
+				LKS = { num_of_controlled_states < 1 }
+				309 = { is_controlled_by = BBW }
+				}
+			has_war_with = LKS
+			}
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+				declare_war_on = {
+					target = LKS
+					type = voivodeship_war
+				}
+		}
+	}
+
+	focus = {
+		id = BBW_securing_southern_flank
+		icon = BBW_securing_southern_flank
+		will_lead_to_war_with = RDM
+		relative_position_id = BBW_cut_off_power_lines
+		prerequisite = { focus = BBW_cut_off_power_lines }
+		available = {
+			NOT = {
+			has_war = yes
+			}
+		}
+		
+		bypass = {
+		OR = { 
+			AND = {	
+				RDM = { num_of_controlled_states < 1 }
+				370 = { is_controlled_by = BBW }
+				}
+			has_war_with = RDM
+			}
+		}
+		
+		x = 4
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+			declare_war_on = {
+				target = RDM
+				type = voivodeship_war
+			}
+		}
+	}
+	
+	focus = {
+		id = BBW_anarchist_punks
+		icon = BBW_anarchist_punks
+		will_lead_to_war_with = TIG
+		relative_position_id = BBW_cut_off_power_lines
+		prerequisite = { focus = BBW_cut_off_power_lines }
+		available = {
+			NOT = {
+			has_war = yes
+			}
+		}
+		
+		bypass = {
+		OR = { 
+			AND = {	
+				TIG = { num_of_controlled_states < 1 }
+				321 = { is_controlled_by = BBW }
+				}
+			has_war_with = TIG
+			}
+		}
+		
+		x = -4
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+			declare_war_on = {
+				target = TIG
+				type = voivodeship_war
+			}
+		}
+	}	
+	
 	focus = {
 		id = BBW_rehab_conscription
 		icon = BBW_rehab_conscription
-		relative_position_id = BBW_revolution_avantgarde
+		relative_position_id = BBW_counterrevolution_rearguard
 		prerequisite = { focus = BBW_revolution_avantgarde }
+		prerequisite = { focus = BBW_counterrevolution_rearguard }
 		available = {
 		NOT = { country_exists = ZYD }
+		NOT = { country_exists = LKS }
 		}
 		
 		bypass = {
 		}
 		
-		x = 1
+		x = 0
 		y = 1
 		
 		cost = 4.3
@@ -1652,16 +1804,20 @@ focus_tree = {
 		prerequisite = { focus = BBW_order_in_red_wilderness }
 		prerequisite = { focus = BBW_rehab_conscription }
 		prerequisite = { focus = BBW_rapid_electrification }
+		mutually_exclusive = {
+			focus = BBW_unsavory_types
+		}
 		available = {
 			has_war = no
 			KRS = { num_of_controlled_states > 1 }
+			KRS = { surrender_progress > 0.7 }
 		}
 		
 		bypass = {
 			KRS = { num_of_controlled_states < 1 }
 		}
 		
-		x = 0
+		x = -1
 		y = 1
 		
 		cost = 1
@@ -1679,6 +1835,57 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = BBW_unsavory_types
+		icon = BBW_unsavory_types
+		will_lead_to_war_with = KRS
+		relative_position_id = BBW_rapid_electrification
+		prerequisite = { focus = BBW_order_in_red_wilderness }
+		prerequisite = { focus = BBW_rehab_conscription }
+		prerequisite = { focus = BBW_rapid_electrification }
+		will_lead_to_war_with = POG
+		will_lead_to_war_with = RUT
+		will_lead_to_war_with = KRS
+		mutually_exclusive = {
+			focus = BBW_ordinary_people
+		}
+		available = {
+			has_war = no
+			KRS = { num_of_controlled_states > 1 }
+		}
+		
+		bypass = {
+			KRS = { num_of_controlled_states < 1 }
+			POG = { num_of_controlled_states < 1 }
+			RUT = { num_of_controlled_states < 1 }
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+			if = { limit = { NOT = { has_war_with = KRS } } 
+				declare_war_on = {
+					target = KRS
+					type = voivodeship_war
+				}
+			}
+			if = { limit = { NOT = { has_war_with = POG } } 
+				declare_war_on = {
+					target = POG
+					type = voivodeship_war
+				}
+			}
+			if = { limit = { NOT = { has_war_with = RUT } } 
+				declare_war_on = {
+					target = RUT
+					type = voivodeship_war
+				}
+			}			
+		}
+	}	
+	focus = {
 		id = BBW_northern_retrograde
 		icon = BBW_northern_retrograde
 		relative_position_id = BBW_rehab_conscription
@@ -1695,7 +1902,7 @@ focus_tree = {
 			SAP = { num_of_controlled_states < 1 }
 		}
 		
-		x = 0
+		x = -1
 		y = 1
 		
 		cost = 1
@@ -1713,11 +1920,45 @@ focus_tree = {
 			}
 		}
 	}
+
+	focus = {
+		id = BBW_final_judgement
+		icon = BBW_final_judgement
+		relative_position_id = BBW_rehab_conscription
+		prerequisite = { focus = BBW_rehab_conscription }
+		prerequisite = { focus = BBW_order_in_red_wilderness }
+		prerequisite = { focus = BBW_rapid_electrification }
+		will_lead_to_war_with = AMW
+		available = {
+			has_war = no
+			AMW = { num_of_controlled_states > 1 }
+		}
+		
+		bypass = {
+			AMW = { num_of_controlled_states < 1 }
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+			if = { limit = { NOT = { has_war_with = AMW } } 
+				declare_war_on = {
+					target = AMW
+					type = voivodeship_war
+				}
+			}
+		}
+	}
+
 	focus = {
 		id = BBW_divide_et_impera
 		icon = BBW_divide_et_impera
 		relative_position_id = BBW_northern_retrograde
 		prerequisite = { focus = BBW_northern_retrograde }
+		prerequisite = { focus = BBW_final_judgement }
 		available = {
 			SAP = { num_of_controlled_states < 1 }
 			269 = { is_controlled_by = BBW }
@@ -1726,7 +1967,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = 1
 		y = 1
 		
 		cost = 1
@@ -1775,7 +2016,9 @@ focus_tree = {
 		id = BBW_normalcy_guarantee
 		icon = BBW_normalcy_guarantee
 		relative_position_id = BBW_ordinary_people
-		prerequisite = { focus = BBW_ordinary_people }
+		prerequisite = { focus = BBW_ordinary_people
+		focus = BBW_unsavory_types
+		}
 		available = {
 			KRS = { num_of_controlled_states < 1 }
 			any_controlled_state = { 
@@ -1786,7 +2029,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = 1
 		y = 1
 		
 		cost = 4.3
@@ -1826,50 +2069,21 @@ focus_tree = {
 			clr_country_flag = BBW_war_time
 		}
 	}
-
-	focus = {
-		id = BBW_dissemination_of_bulletproof_vests
-		icon = BBW_dissemination_of_bulletproof_vests
-		relative_position_id = BBW_poor_examples
-
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -4
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-			swap_ideas = {	
-			add_idea = BBW_one_man_tank_of_progress3
-			remove_idea = BBW_one_man_tank_of_progress2
-			}
-		}
-	}
 	focus = {
 		id = BBW_paladin_tomasz_sommer_zpw
 		icon = BBW_paladin_tomasz_sommer_zpw
-		relative_position_id = BBW_dissemination_of_bulletproof_vests
-		prerequisite = { focus = BBW_dissemination_of_bulletproof_vests }
+		relative_position_id = BBW_poor_examples
+
 		available = {
-		
+			has_completed_focus = BBW_autumn
 		}
 
 
 		bypass = {
 		}
 		
-		x = 0
-		y = 1
+		x = -6
+		y = 0
 		
 		ai_will_do = {
 		factor = 100
@@ -1899,10 +2113,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = BBW_rapid_responding
-		icon = BBW_rapid_responding
+		id = BBW_key_fortifications
+		icon = BBW_key_fortifications
 		relative_position_id = BBW_paladin_tomasz_sommer_zpw
-		prerequisite = { focus = BBW_paladin_tomasz_sommer_zpw }
+		prerequisite = {
+			focus = BBW_paladin_tomasz_sommer_zpw
+		}
+
 		available = {
 		
 		}
@@ -1920,17 +2137,46 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_future_tanks_fast
-				add_idea = BBW_future_tanks_faster
-			} 
+
 		}
 	}
 	focus = {
-		id = BBW_first_contact_forces
-		icon = BBW_first_contact_forces
+		id = BBW_east_west_rail_line
+		icon = BBW_east_west_rail_line
 		relative_position_id = BBW_paladin_tomasz_sommer_zpw
-		prerequisite = { focus = BBW_paladin_tomasz_sommer_zpw }
+		prerequisite = {
+			focus = BBW_paladin_tomasz_sommer_zpw
+		}
+
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}		
+
+	focus = {
+		id = BBW_dissemination_of_bulletproof_vests
+		icon = BBW_dissemination_of_bulletproof_vests
+		relative_position_id = BBW_east_west_rail_line
+		prerequisite = {
+			focus = BBW_east_west_rail_line
+		}
+
 		available = {
 		
 		}
@@ -1939,6 +2185,144 @@ focus_tree = {
 		}
 		
 		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {	
+			add_idea = BBW_one_man_tank_of_progress3
+			remove_idea = BBW_one_man_tank_of_progress2
+			}
+		}
+	}
+	focus = {
+		id = BBW_rapid_responding
+		icon = BBW_rapid_responding
+		relative_position_id = BBW_key_fortifications
+		prerequisite = { focus = BBW_key_fortifications }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_future_tanks_fast
+				add_idea = BBW_future_tanks_faster
+			} 
+		}
+	}
+
+	focus = {
+		id = BBW_artillery_support
+		icon = BBW_artillery_support
+		relative_position_id = BBW_rapid_responding
+		prerequisite = { focus = BBW_rapid_responding }
+		prerequisite = { focus = BBW_dissemination_of_bulletproof_vests }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_rzymkowski_doctrine
+		icon = BBW_rzymkowski_doctrine
+		relative_position_id = BBW_artillery_support
+		prerequisite = { focus = BBW_artillery_support }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = BBW_come_fly_with_me
+		icon = BBW_come_fly_with_me
+		relative_position_id = BBW_artillery_support
+		prerequisite = { focus = BBW_artillery_support }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	
+	
+	focus = {
+		id = BBW_first_contact_forces
+		icon = BBW_first_contact_forces
+		relative_position_id = BBW_come_fly_with_me
+		prerequisite = { focus = BBW_come_fly_with_me }
+		prerequisite = { focus = BBW_rzymkowski_doctrine }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
 		y = 2
 		
 		ai_will_do = {
@@ -1963,7 +2347,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 50
+		x = 53
 		y = 2
 		
 		cost = 4.3
@@ -3057,7 +3441,6 @@ focus_tree = {
 		}
 	}	
 
-
 	focus = {
 		id = BBW_moment_of_peace
 		icon = BBW_moment_of_peace
@@ -3087,8 +3470,6 @@ focus_tree = {
 			}
 	}
 
-
-
 	focus = {
 		id = BBW_our_inspiration
 		icon = BBW_our_inspiration
@@ -3099,7 +3480,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 40
+		x = 47
 		y = 21
 		
 		cost = 4.3
@@ -3110,7 +3491,6 @@ focus_tree = {
 			}
 		}
 	}
-
 
 	focus = {
 		id = BBW_initial_start
@@ -5775,8 +6155,1405 @@ focus_tree = {
 		completion_reward = {
 
 		}
+	}
+	
+	focus = {
+		id = BBW_artisan_apartments
+		icon = BBW_artisan_apartments
+		relative_position_id = BBW_metropolisation
+		prerequisite = { focus = BBW_metropolisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
 	}	
 
+	focus = {
+		id = BBW_belchatow_lodz_high_speed
+		icon = BBW_belchatow_lodz_high_speed
+		relative_position_id = BBW_metropolisation
+		prerequisite = { focus = BBW_metropolisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_ever_closer_to_moloch
+		icon = BBW_ever_closer_to_moloch
+		relative_position_id = BBW_metropolisation
+		prerequisite = { focus = BBW_metropolisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_incentives_for_businessmen
+		icon = BBW_incentives_for_businessmen
+		relative_position_id = BBW_artisan_apartments
+		prerequisite = { focus = BBW_artisan_apartments }
+		prerequisite = { focus = BBW_belchatow_lodz_high_speed }
+		prerequisite = { focus = BBW_ever_closer_to_moloch }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_belchatow_technical_university
+		icon = BBW_belchatow_technical_university
+		relative_position_id = BBW_belchatow_lodz_high_speed
+		prerequisite = { focus = BBW_artisan_apartments }
+		prerequisite = { focus = BBW_belchatow_lodz_high_speed }
+		prerequisite = { focus = BBW_ever_closer_to_moloch }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_slash_heating_prices
+		icon = BBW_slash_heating_prices
+		relative_position_id = BBW_incentives_for_businessmen
+		prerequisite = { focus = BBW_incentives_for_businessmen }
+		prerequisite = { focus = BBW_belchatow_technical_university }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_brotherhood_citadel
+		icon = BBW_brotherhood_citadel
+		relative_position_id = BBW_incentives_for_businessmen
+		prerequisite = { focus = BBW_incentives_for_businessmen }
+		prerequisite = { focus = BBW_belchatow_technical_university }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_police_force
+		icon = BBW_police_force
+		relative_position_id = BBW_incentives_for_businessmen
+		prerequisite = { focus = BBW_incentives_for_businessmen }
+		prerequisite = { focus = BBW_belchatow_technical_university }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_lamplight_in_the_smog
+		icon = BBW_lamplight_in_the_smog
+		relative_position_id = BBW_brotherhood_citadel
+		prerequisite = { focus = BBW_brotherhood_citadel }
+		prerequisite = { focus = BBW_slash_heating_prices }
+		prerequisite = { focus = BBW_police_force }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_gadomski_budget
+		icon = BBW_gadomski_budget
+		relative_position_id = BBW_resource_plan
+		prerequisite = { focus = BBW_resource_plan }
+		mutually_exclusive = {
+			focus = BBW_silesian_committee
+		}
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -19
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_usage_optimisation
+		icon = BBW_usage_optimisation
+		relative_position_id = BBW_gadomski_budget
+		prerequisite = { focus = BBW_gadomski_budget }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_lowering_tax_burden
+		icon = BBW_lowering_tax_burden
+		relative_position_id = BBW_gadomski_budget
+		prerequisite = { focus = BBW_gadomski_budget }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_mining_optimisation
+		icon = BBW_mining_optimisation
+		relative_position_id = BBW_gadomski_budget
+		prerequisite = { focus = BBW_gadomski_budget }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_fuel_diversification
+		icon = BBW_fuel_diversification
+		relative_position_id = BBW_usage_optimisation
+		prerequisite = { focus = BBW_usage_optimisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_free_trade
+		icon = BBW_free_trade
+		relative_position_id = BBW_fuel_diversification
+		prerequisite = { focus = BBW_fuel_diversification }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_cutting_social
+		icon = BBW_cutting_social
+		relative_position_id = BBW_lowering_tax_burden
+		prerequisite = { focus = BBW_lowering_tax_burden }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_anti_famine_shield
+		icon = BBW_anti_famine_shield
+		relative_position_id = BBW_cutting_social
+		prerequisite = { focus = BBW_cutting_social }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_desulphurisation
+		icon = BBW_desulphurisation
+		relative_position_id = BBW_mining_optimisation
+		prerequisite = { focus = BBW_mining_optimisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_privatisation_of_mines
+		icon = BBW_privatisation_of_mines
+		relative_position_id = BBW_desulphurisation
+		prerequisite = { focus = BBW_desulphurisation }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_economic_shock_therapy
+		icon = BBW_economic_shock_therapy
+		relative_position_id = BBW_anti_famine_shield
+		prerequisite = { focus = BBW_free_trade }
+		prerequisite = { focus = BBW_anti_famine_shield }
+		prerequisite = { focus = BBW_privatisation_of_mines }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_brotherhood_economic_miracle
+		icon = BBW_brotherhood_economic_miracle
+		relative_position_id = BBW_economic_shock_therapy
+		prerequisite = { focus = BBW_economic_shock_therapy }
+
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_silesian_committee
+		icon = BBW_silesian_committee
+		relative_position_id = BBW_resource_plan
+		prerequisite = { focus = BBW_resource_plan }
+		mutually_exclusive = {
+			focus = BBW_gadomski_budget
+		}
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -7
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_dabrowa_basin_wing
+		icon = BBW_dabrowa_basin_wing
+		relative_position_id = BBW_silesian_committee
+		prerequisite = { focus = BBW_silesian_committee }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_demolition_dg
+		icon = BBW_demolition_dg
+		relative_position_id = BBW_dabrowa_basin_wing
+		prerequisite = { focus = BBW_dabrowa_basin_wing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_demolition_sosnowiec
+		icon = BBW_demolition_sosnowiec
+		relative_position_id = BBW_dabrowa_basin_wing
+		prerequisite = { focus = BBW_dabrowa_basin_wing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_demolition_jaworzno
+		icon = BBW_demolition_jaworzno
+		relative_position_id = BBW_dabrowa_basin_wing
+		prerequisite = { focus = BBW_dabrowa_basin_wing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_deploy_peacekeepers
+		icon = BBW_deploy_peacekeepers
+		relative_position_id = BBW_demolition_dg
+		prerequisite = { focus = BBW_demolition_dg }
+		prerequisite = { focus = BBW_demolition_sosnowiec }
+		prerequisite = { focus = BBW_demolition_jaworzno }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_high_density_housing
+		icon = BBW_high_density_housing
+		relative_position_id = BBW_demolition_dg
+		prerequisite = { focus = BBW_demolition_dg }
+		prerequisite = { focus = BBW_demolition_sosnowiec }
+		prerequisite = { focus = BBW_demolition_jaworzno }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_supersize_przyjazn
+		icon = BBW_supersize_przyjazn
+		relative_position_id = BBW_deploy_peacekeepers
+		prerequisite = { focus = BBW_deploy_peacekeepers }
+		prerequisite = { focus = BBW_high_density_housing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_relocate_industry_to_cop
+		icon = BBW_relocate_industry_to_cop
+		relative_position_id = BBW_deploy_peacekeepers
+		prerequisite = { focus = BBW_deploy_peacekeepers }
+		prerequisite = { focus = BBW_high_density_housing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_shoring_up_power_plants
+		icon = BBW_shoring_up_power_plants
+		relative_position_id = BBW_deploy_peacekeepers
+		prerequisite = { focus = BBW_deploy_peacekeepers }
+		prerequisite = { focus = BBW_high_density_housing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_expand_slawkow_terminal
+		icon = BBW_expand_slawkow_terminal
+		relative_position_id = BBW_supersize_przyjazn
+		prerequisite = { focus = BBW_supersize_przyjazn }
+		prerequisite = { focus = BBW_relocate_industry_to_cop }
+		prerequisite = { focus = BBW_shoring_up_power_plants }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_repurpose_pogoria
+		icon = BBW_repurpose_pogoria
+		relative_position_id = BBW_supersize_przyjazn
+		prerequisite = { focus = BBW_supersize_przyjazn }
+		prerequisite = { focus = BBW_relocate_industry_to_cop }
+		prerequisite = { focus = BBW_shoring_up_power_plants }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_huta_huta_huta_huta
+		icon = BBW_huta_huta_huta_huta
+		relative_position_id = BBW_repurpose_pogoria
+		prerequisite = { focus = BBW_expand_slawkow_terminal }
+		prerequisite = { focus = BBW_repurpose_pogoria }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_basin_restored
+		icon = BBW_basin_restored
+		relative_position_id = BBW_huta_huta_huta_huta
+		prerequisite = { focus = BBW_huta_huta_huta_huta }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_upper_silesia_wing
+		icon = BBW_upper_silesia_wing
+		relative_position_id = BBW_silesian_committee
+		prerequisite = { focus = BBW_silesian_committee }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_demolition_rybnik
+		icon = BBW_demolition_rybnik
+		relative_position_id = BBW_upper_silesia_wing
+		prerequisite = { focus = BBW_upper_silesia_wing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_demolition_katowice
+		icon = BBW_demolition_katowice
+		relative_position_id = BBW_upper_silesia_wing
+		prerequisite = { focus = BBW_upper_silesia_wing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_demolition_pszczyna
+		icon = BBW_demolition_pszczyna
+		relative_position_id = BBW_upper_silesia_wing
+		prerequisite = { focus = BBW_upper_silesia_wing }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_strengthening_silesian_chapter
+		icon = BBW_strengthening_silesian_chapter
+		relative_position_id = BBW_demolition_rybnik
+		prerequisite = { focus = BBW_demolition_rybnik }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_bureaucratic_giants
+		icon = BBW_bureaucratic_giants
+		relative_position_id = BBW_demolition_katowice
+		prerequisite = { focus = BBW_demolition_katowice }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_prospecting_in_south
+		icon = BBW_prospecting_in_south
+		relative_position_id = BBW_demolition_pszczyna
+		prerequisite = { focus = BBW_demolition_pszczyna }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_restart_the_plants
+		icon = BBW_restart_the_plants
+		relative_position_id = BBW_strengthening_silesian_chapter
+		prerequisite = { focus = BBW_strengthening_silesian_chapter }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+	
+	focus = {
+		id = BBW_automatization_experts
+		icon = BBW_automatization_experts
+		relative_position_id = BBW_bureaucratic_giants
+		prerequisite = { focus = BBW_bureaucratic_giants }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_model_city_tychy
+		icon = BBW_model_city_tychy
+		relative_position_id = BBW_prospecting_in_south
+		prerequisite = { focus = BBW_prospecting_in_south }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_PIWO
+		icon = BBW_PIWO
+		relative_position_id = BBW_automatization_experts
+		prerequisite = { focus = BBW_model_city_tychy }
+		prerequisite = { focus = BBW_automatization_experts }
+		prerequisite = { focus = BBW_restart_the_plants }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_silesian_coal_company
+		icon = BBW_silesian_coal_company
+		relative_position_id = BBW_automatization_experts
+		prerequisite = { focus = BBW_model_city_tychy }
+		prerequisite = { focus = BBW_automatization_experts }
+		prerequisite = { focus = BBW_restart_the_plants }
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_silesian_minority_status
+		icon = BBW_silesian_minority_status
+		relative_position_id = BBW_silesian_coal_company
+		prerequisite = { focus = BBW_silesian_coal_company }
+
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_adaptation_of_railways
+		icon = BBW_adaptation_of_railways
+		relative_position_id = BBW_silesian_coal_company
+		prerequisite = { focus = BBW_PIWO }
+		prerequisite = { focus = BBW_silesian_coal_company }
+
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_evacuating_metalworks
+		icon = BBW_evacuating_metalworks
+		relative_position_id = BBW_PIWO
+		prerequisite = { focus = BBW_PIWO }
+
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_grey_clouds_and_steam
+		icon = BBW_grey_clouds_and_steam
+		relative_position_id = BBW_adaptation_of_railways
+		prerequisite = { focus = BBW_silesian_minority_status }
+		prerequisite = { focus = BBW_adaptation_of_railways }
+		prerequisite = { focus = BBW_evacuating_metalworks }
+
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_tried_and_tested_method
+		icon = BBW_tried_and_tested_method
+		relative_position_id = BBW_grey_clouds_and_steam
+		prerequisite = { focus = BBW_grey_clouds_and_steam }
+		prerequisite = { focus = BBW_basin_restored }
+
+		available = {
+			
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}
+
+	
+	
 
 	focus = {
 		id = BBW_lungs_full_of_hope
@@ -5803,268 +7580,12 @@ focus_tree = {
 	}
 
 	focus = {
-		id = BBW_regionalisation_of_brotherhood
-		icon = BBW_regionalisation_of_brotherhood
-		available = {
-			has_completed_focus = BBW_lungs_full_of_hope
-		}
-		
-		bypass = {
-		}
-		
-		x = 40
-		y = 45
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			add_ideas = BBW_regionalisation_brotherhood
-		}
-	}
-	focus = {
-		id = BBW_even_angry
-		icon = BBW_even_angry
-		relative_position_id = BBW_regionalisation_of_brotherhood
-		prerequisite = { focus = BBW_regionalisation_of_brotherhood}
-		mutually_exclusive = { focus = BBW_most_obedient }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -1
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			add_ideas = BBW_even_angry_1
-			country_event = {
-				id = belchatow.58
-			}
-			add_popularity = {
-				ideology = freemarketism
-				popularity = 0.05
-			}
-			add_popularity = {
-				ideology = autocracy
-				popularity = 0.05
-			}
-		}
-	}
-	focus = {
-		id = BBW_most_obedient
-		icon = BBW_most_obedient
-		relative_position_id = BBW_regionalisation_of_brotherhood
-		prerequisite = { focus = BBW_regionalisation_of_brotherhood }
-		mutually_exclusive = { focus = BBW_even_angry }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			add_ideas = BBW_most_obedient_1
-			country_event = {
-				id = belchatow.60
-			}
-			add_popularity = {
-				ideology = reactionary
-				popularity = 0.05
-			}
-		}
-	}
-	focus = {
-		id = BBW_adaptation_of_factories
-		icon = BBW_adaptation_of_factories
-		relative_position_id = BBW_even_angry
-		prerequisite = { focus = BBW_even_angry }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_even_angry_1
-				add_idea = BBW_even_angry_2
-			}
-		}
-	}
-	focus = {
-		id = BBW_humility
-		icon = BBW_humility
-		relative_position_id = BBW_adaptation_of_factories
-		prerequisite = { focus = BBW_adaptation_of_factories }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_even_angry_2
-				add_idea = BBW_even_angry_3
-			}
-			country_event = {
-				id = belchatow.59
-			}
-			add_popularity = {
-				ideology = autocracy
-				popularity = 0.05
-			}
-		}
-	}
-	focus = {
-		id = BBW_full_remodeling
-		icon = BBW_full_remodeling
-		relative_position_id = BBW_most_obedient
-		prerequisite = { focus = BBW_most_obedient }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_most_obedient_1
-				add_idea = BBW_most_obedient_2
-			}
-		}
-	}
-	focus = {
-		id = BBW_pride
-		icon = BBW_pride
-		relative_position_id = BBW_full_remodeling
-		prerequisite = { focus = BBW_full_remodeling }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_most_obedient_2
-				add_idea = BBW_most_obedient_3
-			}
-			country_event = {
-				id = belchatow.61
-			}
-			add_popularity = {
-				ideology = reactionary
-				popularity = 0.05
-			}
-		}
-	}	
-	
-	focus = {
-		id = BBW_future_or_fall
-		icon = BBW_future_or_fall
-		relative_position_id = BBW_regionalisation_of_brotherhood
-		prerequisite = { 
-			focus = BBW_humility 
-			focus = BBW_pride
-		}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 4
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			country_event = {
-			id = belchatow.85
-			}
-			add_stability = -0.1
-			swap_ideas = {
-				add_idea = extreme_security
-				remove_idea = direct_security
-			}
-		}
-	}
-	
-	focus = {
 		id = BBW_impulse
 		icon = BBW_impulse
-		relative_position_id = BBW_future_or_fall
-		prerequisite = { focus = BBW_future_or_fall }
+		relative_position_id = BBW_lungs_full_of_hope
+
 		available = {
-		
+			has_completed_focus = BBW_lungs_full_of_hope
 		}
 		
 		bypass = {
@@ -6089,8 +7610,269 @@ focus_tree = {
 	}
 
 	focus = {
-		id = BBW_overcrowded_hospitals
-		icon = BBW_overcrowded_hospitals
+		id = BBW_elder_files
+		icon = BBW_elder_files
+		relative_position_id = BBW_impulse
+		prerequisite = { focus = BBW_impulse }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_induction_of_willing
+		icon = BBW_induction_of_willing
+		relative_position_id = BBW_elder_files
+		prerequisite = { focus = BBW_elder_files }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_bureaucratic_mishaps
+		icon = BBW_bureaucratic_mishaps
+		relative_position_id = BBW_induction_of_willing
+		prerequisite = { focus = BBW_induction_of_willing }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_empty_fuel_reserves
+		icon = BBW_empty_fuel_reserves
+		relative_position_id = BBW_induction_of_willing
+		prerequisite = { focus = BBW_induction_of_willing }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_weather_forecast
+		icon = BBW_weather_forecast
+		relative_position_id = BBW_bureaucratic_mishaps
+		prerequisite = { focus = BBW_bureaucratic_mishaps }
+		prerequisite = { focus = BBW_empty_fuel_reserves }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_random_security_checkup
+		icon = BBW_random_security_checkup
+		relative_position_id = BBW_impulse
+		prerequisite = { focus = BBW_impulse }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_loyalty_of_armed
+		icon = BBW_loyalty_of_armed
+		relative_position_id = BBW_random_security_checkup
+		prerequisite = { focus = BBW_random_security_checkup }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_delegations_for_trusted
+		icon = BBW_delegations_for_trusted
+		relative_position_id = BBW_loyalty_of_armed
+		prerequisite = { focus = BBW_loyalty_of_armed }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_vacations_for_veterans
+		icon = BBW_vacations_for_veterans
+		relative_position_id = BBW_loyalty_of_armed
+		prerequisite = { focus = BBW_loyalty_of_armed }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_ace_in_the_hole
+		icon = BBW_ace_in_the_hole
+		relative_position_id = BBW_delegations_for_trusted
+		prerequisite = { focus = BBW_delegations_for_trusted }
+		prerequisite = { focus = BBW_vacations_for_veterans }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 2
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = BBW_adaptation_of_factories
+		icon = BBW_adaptation_of_factories
 		relative_position_id = BBW_impulse
 		prerequisite = { focus = BBW_impulse }
 		available = {
@@ -6110,41 +7892,18 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			country_event = {
-			id = belchatow.86
-			}
-			if = {
-				limit = {
-					has_idea = BBW_falling_economy_and_slums #from BBW_exodus
-				}
-				swap_ideas = {
-					remove_idea = BBW_falling_economy_and_slums
-					add_idea = BBW_falling_economy_lungs_and_slums
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = BBW_falling_economy_slums_and_morale #from BBW_desperation
-				}
-				swap_ideas = {
-					remove_idea = BBW_falling_economy_slums_and_morale
-					add_idea = BBW_falling_economy_lungs_slums_and_morale
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = BBW_falling_economy1
-					add_idea = BBW_falling_economy_and_lungs
-				}
+			swap_ideas = {
+				remove_idea = BBW_even_angry_1
+				add_idea = BBW_even_angry_2
 			}
 		}
 	}
-	
+
 	focus = {
-		id = BBW_insecurity
-		icon = BBW_insecurity
-		relative_position_id = BBW_overcrowded_hospitals
-		prerequisite = { focus = BBW_overcrowded_hospitals }
+		id = BBW_efficiency_farming
+		icon = BBW_efficiency_farming
+		relative_position_id = BBW_adaptation_of_factories
+		prerequisite = { focus = BBW_adaptation_of_factories }
 		available = {
 		
 		}
@@ -6153,6 +7912,138 @@ focus_tree = {
 		}
 		
 		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy4
+				add_idea = BBW_reviving_economy5
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_tightening_the_belt
+		icon = BBW_tightening_the_belt
+		relative_position_id = BBW_impulse
+		prerequisite = { focus = BBW_impulse }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy1
+				add_idea = BBW_reviving_economy2
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_further_resettlements
+		icon = BBW_further_resettlements
+		relative_position_id = BBW_tightening_the_belt
+		prerequisite = { focus = BBW_tightening_the_belt }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = -20000
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = -20000
+			}
+			random_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = 20000
+			}
+			random_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = 20000
+			}
+			add_stability = -0.1
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.05
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_insecurity
+		icon = BBW_insecurity
+		relative_position_id = BBW_efficiency_farming
+		prerequisite = { focus = BBW_efficiency_farming }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
 		y = 1
 		
 		ai_will_do = {
@@ -6192,60 +8083,12 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = BBW_exodus
-		icon = BBW_exodus
-		relative_position_id = BBW_impulse
-		prerequisite = { focus = BBW_impulse }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			if = {
-				limit = {
-					has_idea = BBW_falling_economy_and_lungs #from BBW_overcrowded_hospitals
-				}
-				swap_ideas = {
-					remove_idea = BBW_falling_economy_and_lungs
-					add_idea = BBW_falling_economy_lungs_and_slums
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = BBW_falling_economy_lungs_and_security #from BBW_insecurity
-				}
-				swap_ideas = {
-					remove_idea = BBW_falling_economy_lungs_and_security
-					add_idea = BBW_falling_economy_lungs_security_and_slums
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = BBW_falling_economy1
-					add_idea = BBW_falling_economy_and_slums
-				}
-			}
-		}
-	}
-	
+
 	focus = {
 		id = BBW_desperation
 		icon = BBW_desperation
-		relative_position_id = BBW_exodus
-		prerequisite = { focus = BBW_exodus }
+		relative_position_id = BBW_further_resettlements
+		prerequisite = { focus = BBW_further_resettlements }
 		available = {
 		
 		}
@@ -6253,7 +8096,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = -1
 		y = 1
 		
 		ai_will_do = {
@@ -6312,12 +8155,63 @@ focus_tree = {
 			}
 		}
 	}
-	
+
 	focus = {
-		id = BBW_bunkers_adaptation
-		icon = BBW_bunkers_adaptation
-		relative_position_id = BBW_impulse
+		id = BBW_overcrowded_hospitals
+		icon = BBW_overcrowded_hospitals
+		relative_position_id = BBW_insecurity
 		prerequisite = { focus = BBW_insecurity }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			country_event = {
+			id = belchatow.86
+			}
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_and_slums #from BBW_exodus
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_slums
+					add_idea = BBW_falling_economy_lungs_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_slums_and_morale #from BBW_desperation
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_slums_and_morale
+					add_idea = BBW_falling_economy_lungs_slums_and_morale
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy1
+					add_idea = BBW_falling_economy_and_lungs
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_maximization_of_processing
+		icon = BBW_maximization_of_processing
+		relative_position_id = BBW_desperation
 		prerequisite = { focus = BBW_desperation }
 		available = {
 		
@@ -6327,7 +8221,256 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 3
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			add_ideas = BBW_maximized_processing
+		}
+	}
+
+	focus = {
+		id = BBW_exodus
+		icon = BBW_exodus
+		relative_position_id = BBW_maximization_of_processing
+		prerequisite = { focus = BBW_overcrowded_hospitals }
+		prerequisite = { focus = BBW_maximization_of_processing }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_falling_economy_and_lungs #from BBW_overcrowded_hospitals
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_and_lungs
+					add_idea = BBW_falling_economy_lungs_and_slums
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BBW_falling_economy_lungs_and_security #from BBW_insecurity
+				}
+				swap_ideas = {
+					remove_idea = BBW_falling_economy_lungs_and_security
+					add_idea = BBW_falling_economy_lungs_security_and_slums
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = BBW_falling_economy1
+					add_idea = BBW_falling_economy_and_slums
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_future_or_fall
+		icon = BBW_future_or_fall
+		relative_position_id = BBW_exodus
+		prerequisite = { focus = BBW_exodus }
+		prerequisite = { focus = BBW_weather_forecast
+		focus = BBW_ace_in_the_hole
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			country_event = {
+			id = belchatow.85
+			}
+			add_stability = -0.1
+			swap_ideas = {
+				add_idea = extreme_security
+				remove_idea = direct_security
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_new_ideas
+		icon = BBW_new_ideas
+		relative_position_id = BBW_future_or_fall
+		prerequisite = { focus = BBW_future_or_fall }
+		available = {
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			add_political_power = 100
+
+		}
+	}
+
+	focus = {
+		id = BBW_new_housing
+		icon = BBW_new_housing
+		relative_position_id = BBW_new_ideas
+		prerequisite = { focus = BBW_new_ideas }
+		available = {
+
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			country_event = {
+			id = belchatow.88
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = -10000
+				
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = -10000
+			}
+			random_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = 10000
+			}
+			random_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				add_manpower = 10000
+			}
+			add_timed_idea = {
+				idea = BBW_resettlement_efforts
+				days = 30
+			}
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.05
+			}
+		}
+	}	
+
+	focus = {
+		id = BBW_full_remodeling
+		icon = BBW_full_remodeling
+		relative_position_id = BBW_new_ideas
+		prerequisite = { focus = BBW_new_ideas }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_most_obedient_1
+				add_idea = BBW_most_obedient_2
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_bunkers_adaptation
+		icon = BBW_bunkers_adaptation
+		relative_position_id = BBW_new_housing
+		prerequisite = { focus = BBW_new_housing }
+		prerequisite = { focus = BBW_full_remodeling }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
 		
 		ai_will_do = {
 		factor = 100
@@ -6342,9 +8485,10 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
-		id = BBW_tightening_the_belt
-		icon = BBW_tightening_the_belt
+		id = BBW_insight_on_the_market
+		icon = BBW_insight_on_the_market
 		relative_position_id = BBW_bunkers_adaptation
 		prerequisite = { focus = BBW_bunkers_adaptation }
 		available = {
@@ -6364,17 +8508,24 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_reviving_economy1
-				add_idea = BBW_reviving_economy2
+			country_event = {
+				id = belchatow.67
 			}
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.05
+			}
+			country_event = {
+				id = belchatow.71
+			}			
 		}
 	}
+
 	focus = {
-		id = BBW_doctors_without_borders
-		icon = BBW_doctors_without_borders
-		relative_position_id = BBW_tightening_the_belt
-		prerequisite = { focus = BBW_tightening_the_belt }
+		id = BBW_coal_liquefaction
+		icon = BBW_coal_liquefaction
+		relative_position_id = BBW_insight_on_the_market
+		prerequisite = { focus = BBW_insight_on_the_market }
 		available = {
 		
 		}
@@ -6383,6 +8534,70 @@ focus_tree = {
 		}
 		
 		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			
+		}
+	}
+	
+	focus = {
+		id = BBW_even_angry
+		icon = BBW_even_angry
+		relative_position_id = BBW_future_or_fall
+		prerequisite = { focus = BBW_future_or_fall }
+		mutually_exclusive = { focus = BBW_most_obedient }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -6
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			add_ideas = BBW_even_angry_1
+			country_event = {
+				id = belchatow.58
+			}
+			add_popularity = {
+				ideology = freemarketism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.05
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_doctors_without_borders
+		icon = BBW_doctors_without_borders
+		relative_position_id = BBW_even_angry
+		prerequisite = { focus = BBW_even_angry }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
 		y = 1
 		
 		ai_will_do = {
@@ -6471,11 +8686,12 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
-		id = BBW_optimization
-		icon = BBW_optimization
-		relative_position_id = BBW_doctors_without_borders
-		prerequisite = { focus = BBW_doctors_without_borders }
+		id = BBW_spring_cleaning
+		icon = BBW_spring_cleaning
+		relative_position_id = BBW_even_angry
+		prerequisite = { focus = BBW_even_angry }
 		available = {
 		
 		}
@@ -6483,7 +8699,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = 1
 		y = 1
 		
 		ai_will_do = {
@@ -6493,86 +8709,60 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_reviving_economy3
-				add_idea = BBW_reviving_economy4
-			}
-		}
-	}
-	focus = {
-		id = BBW_efficiency_farming
-		icon = BBW_efficiency_farming
-		relative_position_id = BBW_optimization
-		prerequisite = { focus = BBW_optimization }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_reviving_economy4
-				add_idea = BBW_reviving_economy5
-			}
-		}
-	}
-	focus = {
-		id = BBW_new_ideas
-		icon = BBW_new_ideas
-		relative_position_id = BBW_efficiency_farming
-		prerequisite = { focus = BBW_efficiency_farming }
-		available = {
-			OR = {
-				has_completed_focus = BBW_quick_impressment
-				has_completed_focus = BBW_black_market
-			}
-			has_country_flag = poland_mountain
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			add_political_power = 100
 
 		}
 	}
+	
 	focus = {
-		id = BBW_show_trials
-		icon = BBW_show_trials
-		relative_position_id = BBW_insecurity
-		prerequisite = { focus = BBW_insecurity }
+		id = BBW_humility
+		icon = BBW_humility
+		relative_position_id = BBW_doctors_without_borders
+		prerequisite = { focus = BBW_doctors_without_borders }
+		prerequisite = { focus = BBW_spring_cleaning }
 		available = {
-			has_country_leader = {
-				character = BBW_roksi_wegiel
-				ruling_only = yes
-			}
+		
 		}
 		
 		bypass = {
 		}
 		
-		x = -2
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_even_angry_2
+				add_idea = BBW_even_angry_3
+			}
+			country_event = {
+				id = belchatow.59
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.05
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_show_trials
+		icon = BBW_show_trials
+		relative_position_id = BBW_humility
+		prerequisite = { focus = BBW_humility }
+		available = {
+
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
 		y = 1
 		
 		ai_will_do = {
@@ -6619,6 +8809,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = BBW_insubordination
 		icon = BBW_insubordination
@@ -6631,7 +8822,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = -2
 		y = 1
 		
 		ai_will_do = {
@@ -6653,6 +8844,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = BBW_accelerated_training
 		icon = BBW_accelerated_training
@@ -6693,8 +8885,8 @@ focus_tree = {
 	focus = {
 		id = BBW_curbed_lawlessness
 		icon = BBW_curbed_lawlessness
-		relative_position_id = BBW_accelerated_training
-		prerequisite = { focus = BBW_accelerated_training }
+		relative_position_id = BBW_show_trials
+		prerequisite = { focus = BBW_show_trials }
 		available = {
 		
 		}
@@ -6723,6 +8915,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = BBW_quick_impressment
 		icon = BBW_quick_impressment
@@ -6757,16 +8950,14 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
-		id = BBW_new_housing
-		icon = BBW_new_housing
-		relative_position_id = BBW_desperation
-		prerequisite = { focus = BBW_desperation }
+		id = BBW_regionalisation_of_brotherhood
+		icon = BBW_regionalisation_of_brotherhood
+		relative_position_id = BBW_show_trials
+		prerequisite = { focus = BBW_show_trials }
 		available = {
-			has_country_leader = {
-				character = BBW_rafal_ziemkiewicz
-				ruling_only = yes
-			}
+			
 		}
 		
 		bypass = {
@@ -6782,242 +8973,362 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
+			add_ideas = BBW_regionalisation_brotherhood
+		}
+	}
+
+	focus = {
+		id = BBW_optimization
+		icon = BBW_optimization
+		relative_position_id = BBW_regionalisation_of_brotherhood
+		prerequisite = { focus = BBW_regionalisation_of_brotherhood }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_reviving_economy3
+				add_idea = BBW_reviving_economy4
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_most_obedient
+		icon = BBW_most_obedient
+		relative_position_id = BBW_future_or_fall
+		prerequisite = { focus = BBW_future_or_fall }
+		mutually_exclusive = { focus = BBW_even_angry }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 6
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			add_ideas = BBW_most_obedient_1
 			country_event = {
-			id = belchatow.88
-			}
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = -10000
-				
-			}
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = -10000
-			}
-			random_owned_state = {
-				limit = {
-					OR = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = 10000
-			}
-			random_owned_state = {
-				limit = {
-					OR = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = 10000
-			}
-			add_timed_idea = {
-				idea = BBW_resettlement_efforts
-				days = 30
+				id = belchatow.60
 			}
 			add_popularity = {
-				ideology = postpolonism
+				ideology = reactionary
 				popularity = 0.05
 			}
+		}
+	}
+
+	focus = {
+		id = BBW_black_ranks
+		icon = BBW_black_ranks
+		relative_position_id = BBW_most_obedient
+		prerequisite = { focus = BBW_most_obedient }
+
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+		
+	focus = {
+		id = BBW_state_of_emergency
+		icon = BBW_state_of_emergency
+		relative_position_id = BBW_most_obedient
+		prerequisite = { focus = BBW_most_obedient }
+
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+
+		}
+	}
+
+	focus = {
+		id = BBW_pride
+		icon = BBW_pride
+		relative_position_id = BBW_black_ranks
+		prerequisite = { focus = BBW_black_ranks }
+		prerequisite = { focus = BBW_state_of_emergency }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_most_obedient_2
+				add_idea = BBW_most_obedient_3
+			}
+			country_event = {
+				id = belchatow.61
+			}
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = BBW_traitor_shopping_list
+		icon = BBW_traitor_shopping_list
+		relative_position_id = BBW_pride
+		prerequisite = { focus = BBW_pride }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_come_at_me_bro
+		icon = BBW_come_at_me_bro
+		relative_position_id = BBW_traitor_shopping_list
+		prerequisite = { focus = BBW_traitor_shopping_list }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_last_embers
+		icon = BBW_last_embers
+		relative_position_id = BBW_traitor_shopping_list
+		prerequisite = { focus = BBW_traitor_shopping_list }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_cutting_corporations
+		icon = BBW_cutting_corporations
+		relative_position_id = BBW_traitor_shopping_list
+		prerequisite = { focus = BBW_traitor_shopping_list }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_winds_from_the_east
+		icon = BBW_winds_from_the_east
+		relative_position_id = BBW_come_at_me_bro
+		prerequisite = { focus = BBW_come_at_me_bro }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_threats_from_outer_world
+		icon = BBW_threats_from_outer_world
+		relative_position_id = BBW_last_embers
+		prerequisite = { focus = BBW_last_embers }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
+		}
+	}
+	
+	focus = {
+		id = BBW_strengthen_northern_garrisons
+		icon = BBW_strengthen_northern_garrisons
+		relative_position_id = BBW_cutting_corporations
+		prerequisite = { focus = BBW_cutting_corporations }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 2
+		
+		completion_reward = {
+
 		}
 	}	
-	focus = {
-		id = BBW_further_resettlements
-		icon = BBW_further_resettlements
-		relative_position_id = BBW_new_housing
-		prerequisite = { focus = BBW_new_housing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = -20000
-			}
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = -20000
-			}
-			random_owned_state = {
-				limit = {
-					OR = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = 20000
-			}
-			random_owned_state = {
-				limit = {
-					OR = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = 20000
-			}
-			add_stability = -0.1
-			add_popularity = {
-				ideology = postpolonism
-				popularity = 0.05
-			}
-		}
-	}
 	
-	focus = {
-		id = BBW_maximization_of_processing
-		icon = BBW_maximization_of_processing
-		relative_position_id = BBW_further_resettlements
-		prerequisite = { focus = BBW_further_resettlements }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			add_ideas = BBW_maximized_processing
-		}
-	}
-	focus = {
-		id = BBW_insight_on_the_market
-		icon = BBW_insight_on_the_market
-		relative_position_id = BBW_maximization_of_processing
-		prerequisite = { focus = BBW_maximization_of_processing }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			country_event = {
-				id = belchatow.67
-			}
-			add_popularity = {
-				ideology = neonationalism
-				popularity = 0.05
-			}
-		}
-	}
-	
-	focus = {
-		id = BBW_black_market
-		icon = BBW_black_market
-		relative_position_id = BBW_insight_on_the_market
-		prerequisite = { focus = BBW_insight_on_the_market }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 10
-		
-		completion_reward = {
-			country_event = {
-				id = belchatow.71
-			}
-		}
-	}
-
-
-
 	focus = {
 		id = BBW_no_step_back
 		icon = BBW_no_step_back
 		available = {
-			has_country_leader = {
-				character = BBW_rafal_ziemkiewicz
-				ruling_only = yes
-			}	
-			has_completed_focus = BBW_black_market
-			has_completed_focus = BBW_new_ideas	
 		}
-		
+		prerequisite = { focus = BBW_coal_liquefaction }
+		prerequisite = { focus = BBW_winds_from_the_east }
+		prerequisite = { focus = BBW_threats_from_outer_world }
+		prerequisite = { focus = BBW_strengthen_northern_garrisons }
+		relative_position_id = BBW_threats_from_outer_world
+
 		bypass = {
 		}
 		
-		x = 47
-		y = 62
+		x = 0
+		y = 2
 		
 		ai_will_do = {
 		factor = 100
@@ -7742,19 +10053,18 @@ focus_tree = {
 		id = BBW_fresh_opening
 		icon = BBW_fresh_opening
 		available = {
-			has_country_leader = {
-				character = BBW_roksi_wegiel
-				ruling_only = yes
-			}
-			has_completed_focus = BBW_quick_impressment
-			has_completed_focus = BBW_new_ideas
 		}
+		prerequisite = { focus = BBW_coal_liquefaction }
+		prerequisite = { focus = BBW_optimization }
+		prerequisite = { focus = BBW_quick_impressment }
+		prerequisite = { focus = BBW_accelerated_training }
+		relative_position_id = BBW_quick_impressment
 		
 		bypass = {
 		}
 		
-		x = 33
-		y = 62
+		x = 0
+		y = 2
 		
 		ai_will_do = {
 		factor = 100
