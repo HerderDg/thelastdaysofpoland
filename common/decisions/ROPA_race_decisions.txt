@@ -13,6 +13,9 @@ ROPA_race_category = {
     			convoy > 9
 			}
 			has_navy_experience > 10
+			OIL = {
+				owns_state = 1107
+			}
 		}
 		cost = 20
 		days_remove = 14
@@ -54,6 +57,9 @@ ROPA_race_category = {
     			ranged_equipment > 49
 			}
 			has_army_experience > 5
+			OIL = {
+				owns_state = 1107
+			}
 		}
 		cost = 20
 		days_remove = 14
@@ -89,6 +95,11 @@ ROPA_race_category = {
 				is_pomerelia = yes
 			}
 			has_country_flag = ROPA_race_start
+		}
+		available = {
+			OIL = {
+				owns_state = 1107
+			}
 		}
 		cost = 20
 		days_remove = 14
@@ -131,6 +142,9 @@ ROPA_race_category = {
     			convoy > 9
 			}
 			has_navy_experience > 10
+			OIL = {
+				owns_state = 1108
+			}
 		}
 		cost = 20
 		days_remove = 14
@@ -174,6 +188,9 @@ ROPA_race_category = {
     			ranged_equipment > 49
 			}
 			has_army_experience > 5
+			OIL = {
+				owns_state = 1108
+			}
 		}
 		cost = 20
 		days_remove = 14
@@ -211,6 +228,11 @@ ROPA_race_category = {
 				is_pomerelia = yes
 			}
 			has_country_flag = ROPA_race_start
+		}
+		available  = {
+			OIL = {
+				owns_state = 1108
+			}
 		}
 		cost = 20
 		days_remove = 14
@@ -250,6 +272,9 @@ ROPA_race_category = {
 				is_pomerelia = yes
 			}
 			has_country_flag = ROPA_race_start
+			OIL = {
+				owns_state = 1107
+			}
     	}
 		
     	cancel_trigger = {
@@ -287,12 +312,15 @@ ROPA_race_category = {
 				is_pomerelia = yes
 			}
 			has_country_flag = ROPA_race_start
+			OIL = {
+				owns_state = 1108
+			}
     	}
 		
     	cancel_trigger = {
     	}
 		available = {
-			ships_in_area = { area = 176 size < 10 } 
+			ships_in_area = { area = 176 size < 10 }	
 		}
     	days_mission_timeout = 30
 		selectable_mission = no
@@ -333,8 +361,14 @@ ROPA_race_category = {
     	cancel_trigger = {
     	}
 		available = {
-			owns_state = 1108
-			owns_state = 1107
+			OIL = {
+				NOT = {
+					OR = {
+						owns_state = 1108
+						owns_state = 1107
+					}
+				}	
+			}
 		}
     	days_mission_timeout = 360
 		selectable_mission = no
@@ -342,12 +376,27 @@ ROPA_race_category = {
     	complete_effect = {
     	}
     	timeout_effect = {
-			ARK = {
-				set_state_owner = 1108
-				set_state_owner = 1107
+			if = {
+				limit = {
+					OIL = {
+						owns_state = 1108
+					}
+				}
+				ARK = {
+					set_state_owner = 1108
+				}
+			}
+			if = {
+				limit = {
+					OIL = {
+						owns_state = 1107
+					}
+				}
+				ARK = {
+					set_state_owner = 1107
+				}
 			}
     	}
 	}
-	
 }
 
