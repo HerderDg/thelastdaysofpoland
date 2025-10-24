@@ -6620,6 +6620,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.15
+			add_war_support = 0.15
 		}
 	}
 	
@@ -6650,6 +6653,50 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			if = {
+				limit = {has_goverment = euroliberalism}
+				add_ideas = generic_european_state_idea
+			}
+			else_if = {
+				limit = {has_goverment = socialdemocrature}
+				add_ideas = generic_social_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = freemarketism}
+				add_ideas = generic_free_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = paternal_conservatism}
+				add_ideas = generic_conservative_state_idea
+			}
+			else_if = {
+				limit = {has_goverment = neonationalism}
+				add_ideas = generic_national_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = reactionary}
+				add_ideas = generic_glorious_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = corporativism}
+				add_ideas = generic_profit_state_idea
+			}
+			else_if = {
+				limit = {has_goverment = autocracy}
+				add_ideas = generic_iron_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = marxism_cranism}
+				add_ideas = generic_workers_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = squattism}
+				add_ideas = generic_people_state_idea 
+			}
+			else_if = {
+				limit = {has_goverment = postpolonism}
+				add_ideas = generic_new_state_idea 
+			}
 		}
 	}
 	
@@ -6666,6 +6713,54 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			if = {
+				limit = {
+					OR = {
+                		has_government = paternal_conservatism
+                		has_government = socialdemocrature
+                		has_government = squattism
+                		has_government = euroliberalism
+						has_government = freemarketism
+            		}
+				}
+				every_other_country = {
+					add_opinion_modifier = {
+					target = this
+					modifier = medium_increase
+					}
+				}
+				
+			}
+			else_if = {
+				limit = {
+					OR = {
+                		has_government = autocracy
+                		has_government = reactionary
+                		has_government = corporativism
+            		}
+				}
+				every_other_country = {
+					add_opinion_modifier = {
+					target = this
+					modifier = medium_increase
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+                		has_government = neonationalism
+                		has_government = marxism_cranism
+                		has_government = postpolonism
+            		}
+				}
+				every_other_country = {
+					add_opinion_modifier = {
+					target = this
+					modifier = small_decrease
+					}
+				}
+			}
 		}
 	}
 	
