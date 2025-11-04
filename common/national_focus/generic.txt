@@ -9435,6 +9435,30 @@ focus_tree = {
 		y = 1
 		
 		cost = 1
+
+		available = {
+			if = {
+				limit = {
+					OR = {
+						original_tag = CCH
+						original_tag = JWK
+						original_tag = JUR
+					}
+				}
+			count_triggers = {
+				amount = 3
+					BRZ = { exists = no }
+					JWK = { exists = no }
+					JUR = { exists = no }
+					CCH = { exists = no }
+				}
+				ROOT = {
+					NOT = {
+						is_in_faction_with = SOS
+					}
+				}
+			}
+		}
 		
 		completion_reward = {
 		}
@@ -9450,16 +9474,43 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = DGR
+			NOT = { ROOT = { original_tag = DGR } }
+			NOT = { ROOT = { is_subject_of = DGR } }
+			NOT = { ROOT = { is_in_faction_with = DGR } }
+			ROOT = { is_neighbor_of = DGR }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = DGR }
+				AND = {
+					NOT = { country_exists = DGR }
+					NOT = { country_exists = DGA }
 				}
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			declare_war_on = {
+				target = DGR
+				type = voivodeship_war
+			}
+			if = {
+				limit = { 
+					country_exists = DGA
+				}
+				declare_war_on = {
+					target = DGA
+					type = voivodeship_war
+				}
+			}
 		}
 	}
 
@@ -9474,8 +9525,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 737
+				owns_state = 737
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = DGR }
 		}
 		
 		cost = 1
@@ -9494,16 +9549,31 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = SOS
-				}
+			NOT = { ROOT = { original_tag = SOS } }
+			NOT = { ROOT = { is_subject_of = SOS } }
+			NOT = { ROOT = { is_in_faction_with = SOS } }
+			ROOT = { is_neighbor_of = SOS }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = SOS }
+				NOT = { country_exists = SOS }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			declare_war_on = {
+				target = SOS
+				type = voivodeship_war
+			}		
 		}
 	}
 	
@@ -9518,8 +9588,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 481
+				owns_state = 481
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = SOS }
 		}
 		
 		cost = 1
@@ -9538,16 +9612,31 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = JAW
-				}
+			NOT = { ROOT = { original_tag = JAW } }
+			NOT = { ROOT = { is_subject_of = JAW } }
+			NOT = { ROOT = { is_in_faction_with = JAW } }
+			ROOT = { is_neighbor_of = JAW }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = JAW }
+				NOT = { country_exists = JAW }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			declare_war_on = {
+				target = JAW
+				type = voivodeship_war
+			}	
 		}
 	}
 	
@@ -9562,8 +9651,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 487
+				owns_state = 487
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = JAW }
 		}
 		
 		cost = 1
@@ -9582,11 +9675,22 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = ZAW
-				}
+			NOT = { ROOT = { original_tag = ZAW } }
+			NOT = { ROOT = { is_subject_of = ZAW } }
+			NOT = { ROOT = { is_in_faction_with = ZAW } }
+			ROOT = { is_neighbor_of = ZAW }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = ZAW }
+				NOT = { country_exists = ZAW }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
@@ -9606,8 +9710,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 739
+				owns_state = 739
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = ZAW }
 		}
 		
 		cost = 1
@@ -9626,6 +9734,51 @@ focus_tree = {
 		
 		x = 5
 		y = 1
+
+		available = {
+			if = {
+				limit = {
+					OR = {
+						original_tag = SOS
+						original_tag = JAW
+						original_tag = ZAW
+					}
+				}
+				OR = {
+					AND = {
+					count_triggers = {
+						amount = 3
+							SOS = { exists = no }
+							DGR = { exists = no }
+							ZAW = { exists = no }
+							JAW = { exists = no }
+					}
+					has_global_flag = ZAG_congress_of_bedzin_failure
+					}
+					AND = {
+						has_global_flag = ZAG_congress_of_bedzin_success
+						OR = {
+							AND = {
+							original_tag = ZAW
+							count_triggers = {
+								amount = 3
+									SOS = { exists = no }
+									DGR = { exists = no }
+									JAW = { exists = no }
+							}
+							}
+							AND = {
+								OR = {
+									original_tag = SOS
+									original_tag = JAW
+								}
+								ZAW = { exists = no }
+							}										
+						}
+					}
+				}
+			}
+		}
 		
 		cost = 1
 		
@@ -9643,16 +9796,36 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = BRZ
-				}
+			NOT = { ROOT = { original_tag = BRZ } }
+			NOT = { ROOT = { is_subject_of = BRZ } }
+			NOT = { ROOT = { is_in_faction_with = BRZ } }
+			ROOT = { is_neighbor_of = BRZ }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = BRZ }
+				NOT = { country_exists = BRZ }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			if = { 
+				limit = { country_exists = BRZ 
+				BRZ = { NOT = { has_cosmetic_tag = BRZ_intercounty } }
+			} 
+			declare_war_on = {
+				target = BRZ
+				type = voivodeship_war
+			}
+			}
 		}
 	}
 
@@ -9667,13 +9840,18 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 390
+				owns_state = 390
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = BRZ }
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+	
 		}
 	}
 
@@ -9687,16 +9865,34 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = CCH
-				}
+			NOT = { ROOT = { original_tag = CCH } }
+			NOT = { ROOT = { is_subject_of = CCH } }
+			NOT = { ROOT = { is_in_faction_with = CCH } }
+			ROOT = { is_neighbor_of = CCH }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = CCH }
+				NOT = { country_exists = CCH }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			if = { limit = { country_exists = CCH 
+			CCH = { NOT = { has_cosmetic_tag = CCH_intercounty } } } 
+			declare_war_on = {
+				target = CCH
+				type = voivodeship_war
+			}
+			}
 		}
 	}
 
@@ -9711,8 +9907,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 592
+				owns_state = 592
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = CCH }
 		}
 		
 		cost = 1
@@ -9731,16 +9931,35 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = JWK
-				}
+			NOT = { ROOT = { original_tag = JWK } }
+			NOT = { ROOT = { is_subject_of = JWK } }
+			NOT = { ROOT = { is_in_faction_with = JWK } }
+			ROOT = { is_neighbor_of = JWK }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = JWK }
+				NOT = { country_exists = JWK }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			if = { limit = { country_exists = JWK
+			JWK = { NOT = { has_cosmetic_tag = JWK_intercounty } }
+			} 
+			declare_war_on = {
+				target = JWK
+				type = voivodeship_war
+			}
+			}
 		}
 	}
 
@@ -9755,8 +9974,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 421
+				owns_state = 421
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = JWK }
 		}
 		
 		cost = 1
@@ -9775,16 +9998,36 @@ focus_tree = {
 		y = 1
 		
 		available = {
-			NOT = {
-				ROOT = {
-					original_tag = JUR
-				}
+			NOT = { ROOT = { original_tag = JUR } }
+			NOT = { ROOT = { is_subject_of = JUR } }
+			NOT = { ROOT = { is_in_faction_with = JUR } }
+			ROOT = { is_neighbor_of = JUR }
+			ROOT = { has_war = no }
+		}
+
+		bypass = {
+			OR = {
+				ROOT = { original_tag = JUR }
+				NOT = { country_exists = JUR }
 			}
+		}
+
+		cancel = {
+			has_war = yes
 		}
 		
 		cost = 1
 		
 		completion_reward = {
+			if = { limit = { 
+				country_exists = JUR
+				JUR = { NOT = { has_cosmetic_tag = JUR_intercounty } }
+			} 
+			declare_war_on = {
+				target = JUR
+				type = voivodeship_war
+			}
+			}
 		}
 	}
 
@@ -9799,8 +10042,12 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 738
+				owns_state = 738
 			}
+		}
+
+		bypass = {
+			ROOT = { original_tag = JUR }
 		}
 		
 		cost = 1
@@ -9819,8 +10066,71 @@ focus_tree = {
 		y = 4
 		
 		cost = 1
+
+		available = {
+			OR = {
+				AND = {
+					has_global_flag = ZAG_congress_of_bedzin_failure
+					count_triggers = {
+						amount = 7
+						DGR = { exists = no }
+						SOS = { exists = no }
+						JAW = { exists = no }
+						ZAW = { exists = no }
+						JUR = { exists = no }
+						JWK = { exists = no }	
+						CCH = { exists = no }
+						BRZ = { exists = no }
+					}
+					OR = {
+					SIE = { exists = yes }
+					BED = { exists = yes }
+					}
+					SIE = { NOT = { has_cosmetic_tag = SIE_intercounty }}
+					BED = { NOT = { has_cosmetic_tag = BED_intercounty }}
+				}
+				AND = {
+					has_global_flag = ZAG_congress_of_bedzin_success
+					SIE = { NOT = { has_cosmetic_tag = SIE_intercounty }}
+					BED = { NOT = { has_cosmetic_tag = BED_intercounty }}
+				}
+			}
+			has_war = no
+		}
+
+		bypass = {
+			AND = {
+				NOT = { country_exists = BED }
+				NOT = { country_exists = SIE }
+			}
+		}
+
+		cancel = {
+			has_war = yes
+		}
 		
 		completion_reward = {
+			if = {
+				limit = { 
+					BED = { exists = yes } 
+					ROOT = { NOT = { original_tag = BED }}
+			}
+
+			declare_war_on = {
+				target = BED
+				type = voivodeship_war
+			}
+			}
+			if = {
+				limit = { SIE = { exists = yes } 
+				ROOT = { NOT = { original_tag = SIE }}
+			}
+
+			declare_war_on = {
+				target = SIE
+				type = voivodeship_war
+			}
+			}
 		}
 	}
 
@@ -9894,7 +10204,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 362
+				owns_state = 362
 			}
 		}
 		
@@ -9938,7 +10248,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 434
+				owns_state = 434
 			}
 		}
 		
@@ -9982,7 +10292,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 378
+				owns_state = 378
 			}
 		}
 		
@@ -10026,7 +10336,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 420
+				owns_state = 420
 			}
 		}
 		
@@ -10086,7 +10396,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 670
+				owns_state = 670
 			}
 		}
 		
@@ -10130,7 +10440,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 416
+				owns_state = 416
 			}
 		}
 		
@@ -10174,7 +10484,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 392
+				owns_state = 392
 			}
 		}
 		
@@ -10240,7 +10550,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 603
+				owns_state = 603
 			}
 		}
 		
@@ -10284,7 +10594,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 449
+				owns_state = 449
 			}
 		}
 		
@@ -10328,7 +10638,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 402
+				owns_state = 402
 			}
 		}
 		
@@ -10372,7 +10682,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 478
+				owns_state = 478
 			}
 		}
 		
@@ -10416,7 +10726,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 383
+				owns_state = 383
 			}
 		}
 		
@@ -10460,7 +10770,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 428
+				owns_state = 428
 			}
 		}
 		
@@ -10518,7 +10828,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 362
+				owns_state = 362
 			}
 		}
 		
@@ -10861,7 +11171,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -10905,7 +11215,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 788
+				owns_state = 788
 			}
 		}
 		
@@ -10949,7 +11259,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 466
+				owns_state = 466
 			}
 		}
 		
@@ -10993,7 +11303,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 483
+				owns_state = 483
 			}
 		}
 		
@@ -11037,7 +11347,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 516
+				owns_state = 516
 			}
 		}
 		
@@ -11081,7 +11391,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 475
+				owns_state = 475
 			}
 		}
 		
@@ -11125,7 +11435,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 603
+				owns_state = 603
 			}
 		}
 		
@@ -11169,7 +11479,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 510
+				owns_state = 510
 			}
 		}
 		
@@ -11441,7 +11751,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -11462,7 +11772,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -11506,7 +11816,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -11553,7 +11863,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -11597,7 +11907,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -11642,7 +11952,7 @@ focus_tree = {
 		
 		available = {
 			ROOT = {
-				controls_state = 496
+				owns_state = 496
 			}
 		}
 		
@@ -12771,7 +13081,7 @@ focus_tree = {
 		completion_reward = {
 			#declare_war_on = {
 				#target = WIL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12791,7 +13101,7 @@ focus_tree = {
 		completion_reward = {
 			#declare_war_on = {
 				#target = AGR
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12841,7 +13151,7 @@ focus_tree = {
 		completion_reward = {
 			#declare_war_on = {
 				#target = SAW
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12861,7 +13171,7 @@ focus_tree = {
 		completion_reward = {
 			#declare_war_on = {
 				#target = SDL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12898,7 +13208,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = TNO
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12921,7 +13231,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = OSO
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12943,7 +13253,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = DAM
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12965,7 +13275,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = COL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -12987,7 +13297,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = ZAM
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13009,7 +13319,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = HMA
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13031,7 +13341,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = BAG
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13053,7 +13363,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = MON
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13075,7 +13385,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = UHL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13097,7 +13407,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = DRO
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13119,7 +13429,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = SUP
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13141,7 +13451,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = ZAB
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13163,7 +13473,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = GRO
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13185,7 +13495,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = TYK
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13207,7 +13517,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = BRD
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13229,7 +13539,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = AUG
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13251,7 +13561,7 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = SEI
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13289,7 +13599,7 @@ focus_tree = {
 		#ZKP co to zkp
 			#declare_war_on = {
 				#target = BOM
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13308,7 +13618,7 @@ focus_tree = {
 		completion_reward = {
 			#declare_war_on = {
 				#target = KON
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		#ZKP
 		}
@@ -13329,7 +13639,7 @@ focus_tree = {
 		#ZKP
 			#declare_war_on = {
 				#target = BEL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13349,7 +13659,7 @@ focus_tree = {
 		#ZKP
 			#declare_war_on = {
 				#target = LMZ
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13369,7 +13679,7 @@ focus_tree = {
 		#ZKP
 			#declare_war_on = {
 				#target = TAT
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13389,7 +13699,7 @@ focus_tree = {
 		#ZKP
 			#declare_war_on = {
 				#target = SAN
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 		}
 	}
@@ -13411,19 +13721,19 @@ focus_tree = {
 			country_event = generic.1
 			#declare_war_on = {
 				#target = WIL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 			#declare_war_on = {
 				#target = SDL
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 			#declare_war_on = {
 				#target = SAW
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 			#declare_war_on = {
 				#target = AGR
-				#type = annex_everything
+				#type = voivodeship_war
 			#}
 			
 		}
@@ -13456,11 +13766,11 @@ focus_tree = {
 		completion_reward = {
 			declare_war_on = {
 				target = CAL
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = ALP
-				type = annex_everything
+				type = voivodeship_war
 			}
 		}
 	}
@@ -13479,15 +13789,15 @@ focus_tree = {
 		completion_reward = {
 			declare_war_on = {
 				target = LIS
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = LSZ
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = FEL
-				type = annex_everything
+				type = voivodeship_war
 			}
 		}
 	}
@@ -13521,13 +13831,13 @@ focus_tree = {
 				}
 				declare_war_on = {
 					target = LIS
-					type = annex_everything
+					type = voivodeship_war
 				}
 			}
 			else = {
 				declare_war_on = {
 					target = FEL
-					type = annex_everything
+					type = voivodeship_war
 				}
 			}
 		}
@@ -13547,27 +13857,27 @@ focus_tree = {
 		completion_reward = {
 			declare_war_on = {
 				target = GNI
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = CAL
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = ALP
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = KNN
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = KLO
-				type = annex_everything
+				type = voivodeship_war
 			}
 			declare_war_on = {
 				target = PRT
-				type = annex_everything
+				type = voivodeship_war
 			}	
 		}
 	}
@@ -13594,7 +13904,7 @@ focus_tree = {
 		completion_reward = {
 			declare_war_on = {
 				target = LIS
-				type = annex_everything
+				type = voivodeship_war
 			}
 		}
 	}
