@@ -7612,7 +7612,186 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = generic_un_diplo_pit_fight_rules_tt
+			hidden_effect = {
+			#rozpoznanie zawodnika
+				every_country = {
+					limit = { 
+						has_idea = generic_un_recognition 
+					}
+					save_global_event_target_as = diplo_defending_country
+				}
+			
+			CHI = { save_global_event_target_as = temp_un_bank } #Variables Bank
+			
+			#BATTLES
+			set_variable = { un_contestant_number = 0 }
+			
+			#UK BATTLE
+			add_to_variable = { un_contestant_number = 1 }
+			GENERIC_diplo_pit_un_sc_ef = yes
+			
+			ENG = { save_global_event_target_as = temp_country }
+			event_target:temp_country = {
+				set_temp_variable = { eng_temp = attacker_opinion_level }
+			}
+			set_variable = { eng_attacker_opinion_level = var.eng_temp }
+			
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_opinion_level = eng_defender_opinion_level }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { eng_attacker_opinion_level > defender_opinion_level }
+				}
+				add_to_variable = { attacker_supporters = 1}
+			}
+			
+			#FRA BATTLE
+			add_to_variable = { un_contestant_number = 1 }
+			GENERIC_diplo_pit_un_sc_ef = yes
+			
+			FRA = { save_global_event_target_as = temp_country }
+			event_target:temp_country = {
+				set_temp_variable = { fra_temp = attacker_opinion_level }
+			}
+			set_variable = { fra_attacker_opinion_level = var.fra_temp }
+			
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_opinion_level = fra_defender_opinion_level }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { fra_attacker_opinion_level > defender_opinion_level }
+				}
+				add_to_variable = { attacker_supporters = 1}
+			}
+			
+			#GER BATTLE
+			add_to_variable = { un_contestant_number = 1 }
+			GENERIC_diplo_pit_un_sc_ef = yes
+			
+			GER = { save_global_event_target_as = temp_country }
+			event_target:temp_country = {
+				set_temp_variable = { ger_temp = attacker_opinion_level }
+			}
+			set_variable = { ger_attacker_opinion_level = var.ger_temp }
+			
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_opinion_level = ger_defender_opinion_level }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { ger_attacker_opinion_level > defender_opinion_level }
+				}
+				add_to_variable = { attacker_supporters = 1}
+			}
+			
+			#USA BATTLE
+			add_to_variable = { un_contestant_number = 1 }
+			GENERIC_diplo_pit_un_sc_ef = yes
+			
+			USA = { save_global_event_target_as = temp_country }
+			event_target:temp_country = {
+				set_temp_variable = { usa_temp = attacker_opinion_level }
+			}
+			set_variable = { usa_attacker_opinion_level = var.usa_temp }
+			
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_opinion_level = usa_defender_opinion_level }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { usa_attacker_opinion_level > defender_opinion_level }
+				}
+				add_to_variable = { attacker_supporters = 1}
+			}
+			
+			#RUS BATTLE
+			add_to_variable = { un_contestant_number = 1 }
+			GENERIC_diplo_pit_un_sc_ef = yes
+			
+			RUS = { save_global_event_target_as = temp_country }
+			event_target:temp_country = {
+				set_temp_variable = { rus_temp = attacker_opinion_level }
+			}
+			set_variable = { rus_attacker_opinion_level = var.rus_temp }
+			
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_opinion_level = rus_defender_opinion_level }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { rus_attacker_opinion_level > defender_opinion_level }
+				}
+				add_to_variable = { attacker_supporters = 1}
+			}
+			
+			#CHI BATTLE - kaioh grand tournament
+			add_to_variable = { un_contestant_number = 1 }
+			GENERIC_diplo_pit_un_sc_ef = yes
+			
+			CHI = { save_global_event_target_as = temp_country }
+			event_target:temp_country = {
+				set_temp_variable = { chi_temp = attacker_opinion_level }
+			}
+			set_variable = { chi_attacker_opinion_level = var.chi_temp }
+			
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_opinion_level = chi_defender_opinion_level }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { chi_attacker_opinion_level > defender_opinion_level }
+				}
+				add_to_variable = { attacker_supporters = 1}
+			}
+			
+			#GRAND TOURNAMENT FINISH
+			event_target:temp_un_bank = {
+				set_temp_variable = { defender_supporters_temp = defender_supporters }
+			}
+			
+			if = {
+				limit = {
+					check_variable = { attacker_supporters > defender_supporters_temp }
+				}
+				#przepisywanie osiagniec nowego miszcza
+				
+				set_temp_variable = { temp_eng = eng_attacker_opinion_level }
+				set_temp_variable = { temp_fra = fra_attacker_opinion_level }
+				set_temp_variable = { temp_ger = ger_attacker_opinion_level }
+				set_temp_variable = { temp_usa = usa_attacker_opinion_level }
+				set_temp_variable = { temp_rus = rus_attacker_opinion_level }
+				set_temp_variable = { temp_chi = chi_attacker_opinion_level }
+				set_temp_variable = { attacker_supporters_temp = attacker_supporters }
+
+				CHI = {
+					set_variable = { eng_defender_opinion_level = var:temp_eng }
+					set_variable = { fra_defender_opinion_level = var:temp_fra }
+					set_variable = { ger_defender_opinion_level = var:temp_ger }
+					set_variable = { usa_defender_opinion_level = var:temp_usa }
+					set_variable = { rus_defender_opinion_level = var:temp_rus }
+					set_variable = { chi_defender_opinion_level = var:temp_chi }
+					set_variable = { defender_supporters = var:attacker_supporters_temp }
+				}
+				event_target:un_contestant = {
+					country_event = generic.6
+				}
+				country_event = generic.5
+			}
+			else = {
+				country_event = generic.7
+				}
+			}
 		}
+		
 	}
 	
 	focus = {
