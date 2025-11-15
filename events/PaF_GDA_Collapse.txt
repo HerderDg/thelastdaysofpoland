@@ -68,6 +68,17 @@ country_event = {
 					reactionary = 100
 				}
 
+				remove_ideas = {
+					BOL_cut_from_the_world
+					BOL_brewing_discontent
+				}
+
+				add_ideas = {
+					BOL_united_in_solidarity
+					BOL_with_those_hands
+					BOL_birhtplace_of_solidarnosc
+				}
+
 				add_state_core = 897
 				transfer_state = 897
 
@@ -242,6 +253,46 @@ country_event = {
 					original_tag = GDA
 					is_ai = yes
 				}
+			}
+		}
+	}
+}
+
+country_event = { #rozpad sojuszu
+	id = gdarozpad.7
+	title = gdarozpad.7.t
+	desc = gdarozpad.7.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		GDA = {
+			exists = no
+		}
+		owns_state = 39
+		OR = {
+			original_tag = BOL
+			original_tag = MPR
+		}
+	}
+
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires gdarozpad.7"
+	}
+
+	option = {
+		name = gdarozpad.7.a
+		BOL = {
+			dismantle_faction = yes
+			swap_ideas = {
+				remove_idea = BOL_united_in_solidarity
+				add_idea = BOL_and_the_walls_will_fall
+			}
+		}
+		MPR = {
+			swap_ideas = {
+				remove_idea = MPR_united_front_for_a_different_way
+				add_idea = MPR_disjoined_gdansk_way
 			}
 		}
 	}
