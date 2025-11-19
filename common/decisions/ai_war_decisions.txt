@@ -1385,6 +1385,12 @@ silesian_war = {
 		}
 	}
 
+ 	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+ 	}
+
 }
 
 
@@ -2049,7 +2055,7 @@ silesian_war = {
 #╚═╝░░░░░░╚════╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝╚══════╝
 #PODKARPACKIE - FAZA PIERWSZA
 
- CHR_LEZ_war = {
+ PDKRP_01_CHR_LEZ = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -2061,6 +2067,13 @@ silesian_war = {
 		has_war = no
 		country_exists = LEZ
 		date > 2027.09.01
+	}
+
+	targets = { LEZ }
+	target_trigger = {
+		FROM = {
+			original_tag = LEZ
+		}
 	}
 
 	ai_will_do = {
@@ -2086,7 +2099,7 @@ silesian_war = {
  	}
  }
 
- KRO_JSO_war = {
+ PDKRP_01_KRO_JSO = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -2100,12 +2113,17 @@ silesian_war = {
 		date > 2027.07.13
 	}
 
-	
-
 	ai_will_do = {
 		factor = 100
-
 	}
+
+	targets = { JSO }
+	target_trigger = {
+		FROM = {
+			original_tag = JSO
+		}
+	}
+
 	fire_only_once = yes
 	days_remove = 14
 	remove_effect  = {
@@ -2125,7 +2143,7 @@ silesian_war = {
  	}
  }
 
- BSC_ANC_war = {
+ PDKRP_01_BSC_ANC = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -2139,6 +2157,12 @@ silesian_war = {
 		date > 2027.07.01
 	}
 
+	targets = { ANC }
+	target_trigger = {
+		FROM = {
+			original_tag = ANC
+		}
+	}
 	
 
 	ai_will_do = {
@@ -2164,7 +2188,7 @@ silesian_war = {
  	}
  }
 
- TAR_KOL_war = {
+ PDKRP_01_TAR_KOL = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -2180,8 +2204,15 @@ silesian_war = {
 
 	ai_will_do = {
 		factor = 100
-
 	}
+
+	targets = { KOL }
+	target_trigger = {
+		FROM = {
+			original_tag = KOL
+		}
+	}
+
 	fire_only_once = yes
 	days_remove = 14
 	remove_effect  = {
@@ -2203,7 +2234,7 @@ silesian_war = {
 
 #PODKARPACKIE - FAZA DRUGA
 
- mielec_debica = {
+ PDKRP_02_MIELEC_DEBICA = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -2239,238 +2270,52 @@ silesian_war = {
  	}
  }
 
- podkarpacie_TAR = {
-
+ PDKRP_02_BATTLE_ROYALE = { 
 	icon = GFX_decision_generic_prepare_civil_war
-	
+
 	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = KRO
-		}
+		is_subcarpathia_unifier = yes
+	}
+	ai_will_do = {
+		factor = 100
 	}
 
+	visible = {
+		NOT = { has_country_flag = unified_voivodeship }
+	}
 	available = {
-		NOT = { 
-			has_idea = cooldown
-		}
-		ROOT = { any_neighbor_country = { original_tag = TAR } }
-		has_war = no
 		date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_TAR"
-			if = { limit = { country_exists = TAR }
-			declare_war_on = {
-				target = TAR
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = KOL }
-			declare_war_on = {
-				target = KOL
-				type = voivodeship_war
-			}
-			}				
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_BSC = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = KRO
-			original_tag = TAR
-		}
-	}
-
-	available = {
-		NOT = { 
-			has_idea = cooldown
-		}
-		ROOT = { any_neighbor_country = { original_tag = BSC } }
 		has_war = no
-		date > 2028.04.20
+		FROM = {
+			is_neighbor_of = ROOT
+		}
+		ROOT = { NOT = { has_idea = cooldown }}
 	}
 
-	
-
-	ai_will_do = {
-		factor = 100
-
+	targets = {
+		KRO LGP UHR UPA CHR RZE KOZ BSC TAR
 	}
-	fire_only_once = yes
-	days_remove = 10
+
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}
+	war_with_target_on_complete = yes
+	days_remove = 7
 	complete_effect = {
 		ROOT = { add_timed_idea = {
 			idea = cooldown
-			days = 11
+			days = 9
 		}
 	 }
 	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_BSC"
-			if = { limit = { country_exists = BSC }
-			declare_war_on = {
-				target = BSC
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = ANC }
-			declare_war_on = {
-				target = ANC
-				type = voivodeship_war
-			}
-			}			
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_KOZ = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KRO
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-		NOT = { 
-			has_idea = cooldown
-		}
-		ROOT = { any_neighbor_country = { original_tag = KOZ } }
-		has_war = no
-		date > 2028.04.20
-	}
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_KOZ"
-			if = { limit = { country_exists = KOZ }
-			declare_war_on = {
-				target = KOZ
-				type = voivodeship_war
-			}
-			}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_RZE = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = KRO
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-		NOT = { 
-			has_idea = cooldown
-			}
-		ROOT = { any_neighbor_country = { original_tag = RZE } }
-		has_war = no
-		date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_RZE"
-			if = { limit = { country_exists = RZE }
-			declare_war_on = {
-				target = RZE
-				type = voivodeship_war
-			}
+	remove_effect = {
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
 		}
 	}
 
@@ -2479,462 +2324,47 @@ silesian_war = {
 			has_war = yes
 		}
  	}
- }
 
- podkarpacie_CHR = {
+}
 
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = KRO
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-		NOT = { 
-			has_idea = cooldown
-			}
-		ROOT = { any_neighbor_country = { original_tag = CHR } }
-		has_war = no
-		date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_CHR"
-			if = { limit = { country_exists = CHR }
-			declare_war_on = {
-				target = CHR
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = LEZ }
-			declare_war_on = {
-				target = LEZ
-				type = voivodeship_war
-			}
-			}				
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_UPA = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = KRO
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-		NOT = { 
-			has_idea = cooldown
-		}
-		ROOT = { any_neighbor_country = { original_tag = UPA } }
-		has_war = no
-		date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_UPA"
-			if = { limit = { country_exists = UPA }
-			declare_war_on = {
-				target = UPA
-				type = voivodeship_war
-			}
-			}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_UHR = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = KRO
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-			NOT = { 
-				has_idea = cooldown
-				}
-			ROOT = { any_neighbor_country = { original_tag = UHR } }
-			has_war = no
-			date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_UHR"
-			if = { limit = { country_exists = UHR }
-			declare_war_on = {
-				target = UHR
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = LCZ }
-			declare_war_on = {
-				target = LCZ
-				type = voivodeship_war
-			}
-			}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_LGP = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = KRO
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-			NOT = { 
-				has_idea = cooldown
-				}
-			ROOT = { any_neighbor_country = { original_tag = LGP } }
-			has_war = no
-			date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_LGP"
-			if = { limit = { country_exists = LGP }
-			declare_war_on = {
-				target = LGP
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = LCZ }
-			declare_war_on = {
-				target = LCZ
-				type = voivodeship_war
-			}
-			}				
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- podkarpacie_KRO = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-		}
-	}
-
-	available = {
-			NOT = { 
-				has_idea = cooldown
-			}
-			ROOT = { any_neighbor_country = { original_tag = KRO } }
-			has_war = no
-			date > 2028.04.20
-	}
-
-	
-
-	ai_will_do = {
-		factor = 100
-
-	}
-	fire_only_once = yes
-	days_remove = 10
-	complete_effect = {
-		ROOT = { add_timed_idea = {
-			idea = cooldown
-			days = 11
-		}
-	 }
-	}
-	remove_effect  = {
-		log = "[GetDateText]: Decision podkarpacie_KRO"
-			if = { limit = { country_exists = KRO }
-			declare_war_on = {
-				target = KRO
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = JSO }
-			declare_war_on = {
-				target = JSO
-				type = voivodeship_war
-			}
-			}				
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
-
- tarnobrzeg_war = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		original_tag = TAR
-	}
-
-	available = {
-		has_war = no
-		date > 2028.03.01
-		KOL = { exists = no }
-	}
-
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 18
-	remove_effect  = {
-		log = "[GetDateText]: Decision tarnobrzeg_war"
-			if = { limit = { country_exists = CHR }
-			declare_war_on = {
-				target = CHR
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = KOZ }
-			declare_war_on = {
-				target = KOZ
-				type = voivodeship_war
-			}
-			}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
 #PODKARPACKIE - FAZA OSTATECZNA
 
- heart_of_darkness = {
+ PDKRP_03_MINORS = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
-		is_subcarpathia = yes		
+		is_subcarpathia_unifier = yes
 	}	
 	available = {
 		has_war = no
+		FROM = {
+			is_neighbor_of = ROOT
+		}
+		ROOT = { NOT = { has_idea = cooldown }}
 		count_triggers = {
-			amount = 14
-			KOL = { exists = no }
-			LEZ = { exists = no }
-			ANC = { exists = no }
-			JSO = { exists = no }
+			amount = 8
 			KRO = { exists = no }
-			TAR = { exists = no }	
+			LGP = { exists = no }
+			UHR = { exists = no }
 			UPA = { exists = no }
+			CHR = { exists = no }
+			RZE = { exists = no }
 			KOZ = { exists = no }
 			BSC = { exists = no }
-			UHR = { exists = no }
-			LGP = { exists = no }
-			CHR = { exists = no }	
-			RZE = { exists = no }	
-			DBI = { exists = no }	
-			MIE = { exists = no }	
-			LCZ = { exists = no }
+			TAR = { exists = no }				
 		}
-		ROOT = { any_neighbor_country = { original_tag = BEX } }
 	}
 
-
-	ai_will_do = {
-		factor = 100
-	}
-	fire_only_once = yes
-	days_remove = 10
-	remove_effect  = {
-		log = "[GetDateText]: Decision heart_of_darkness"
-			if = { limit = { country_exists = BEX }
-			annex_country = {
-				target = BEX
-				transfer_troops = no
-			}
-			every_country = {
-				limit = { NOT = { is_ai = yes } }
-				news_event = {
-					id = sanok.1
-				}
-			}
-			}
+	targets = {
+		LEZ DBI MIE KOL STL LCZ ANC JSO
 	}
 
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
 		}
- 	}
- }
-
- podkarpacie_mielec_debica = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	allowed = {
-		OR = {
-			original_tag = LGP
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = CHR
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = BSC
-			original_tag = TAR
-			original_tag = KRO
-		}
-	}	
-	available = {
-		OR = {
-			ROOT = { any_neighbor_country = { original_tag = DBI } }
-			ROOT = { any_neighbor_country = { original_tag = MIE } }				
-			}
-			has_war = no
-			count_triggers = {
-				amount = 12
-				KOL = { exists = no }
-				LEZ = { exists = no }
-				ANC = { exists = no }
-				JSO = { exists = no }
-				KRO = { exists = no }
-				TAR = { exists = no }	
-				UPA = { exists = no }
-				KOZ = { exists = no }
-				BSC = { exists = no }
-				UHR = { exists = no }
-				LGP = { exists = no }
-				CHR = { exists = no }	
-				RZE = { exists = no }							
-			}
 	}
 
 	ai_will_do = {
@@ -2965,45 +2395,65 @@ silesian_war = {
  	}
  }
 
- rozpierdol_lubaczow = {
+ PDKRP_03_BEX = {
 
 	icon = GFX_decision_generic_prepare_civil_war
-	
 	allowed = {
-		OR = {
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = LGP
-			original_tag = TAR
-			original_tag = BSC
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = KRO
-			original_tag = CHR
+		is_subcarpathia = yes		
+	}	
+	available = {
+		has_war = no
+		count_triggers = {
+			amount = 14
+			KOL = { exists = no }
+			LEZ = { exists = no }
+			ANC = { exists = no }
+			JSO = { exists = no }
+			KRO = { exists = no }
+			TAR = { exists = no }	
+			UPA = { exists = no }
+			KOZ = { exists = no }
+			BSC = { exists = no }
+			UHR = { exists = no }
+			LGP = { exists = no }
+			CHR = { exists = no }	
+			RZE = { exists = no }	
+			DBI = { exists = no }	
+			MIE = { exists = no }	
+			LCZ = { exists = no }
+		}
+		ROOT = { any_neighbor_country = { original_tag = BEX } }
+	}
+
+	targets = { BEX }
+	target_trigger = {
+		FROM = {
+			original_tag = BEX
 		}
 	}
 
-	available = {
-		has_war = no
-		country_exists = LCZ
-		date > 2029.09.01
-		ROOT = { any_neighbor_country = { original_tag = LCZ } }
-		NOT = { has_country_flag = unified_voivodeship }
-	}
 
 	ai_will_do = {
 		factor = 100
 	}
-	days_re_enable = 1
-	days_remove = 14
+	fire_only_once = yes
+	days_remove = 10
 	remove_effect  = {
-		log = "[GetDateText]: Decision rozpierdol_lubaczow"
-			if = { limit = { country_exists = LCZ }
-			declare_war_on = {
-				target = LCZ
-				type = voivodeship_war
+		log = "[GetDateText]: Decision heart_of_darkness"
+		if = { limit = { country_exists = BEX }
+			annex_country = {
+				target = BEX
+				transfer_troops = no
 			}
+			hidden_effect = { 
+				every_country = {
+					limit = { NOT = { is_ai = yes } }
+					news_event = {
+						id = sanok.1
+					}
+				}
 			}
+		}
 	}
 
  	cancel_trigger = {
@@ -3013,52 +2463,7 @@ silesian_war = {
  	}
  }
 
- lezajsk_final_destination = {
 
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = UHR
-			original_tag = UPA
-			original_tag = LGP
-			original_tag = TAR
-			original_tag = BSC
-			original_tag = RZE
-			original_tag = KOZ
-			original_tag = KRO
-			original_tag = CHR
-		}
-	}
-
-	available = {
-		has_war = no
-		country_exists = LEZ
-		date > 2029.09.01
-		ROOT = { any_neighbor_country = { original_tag = LEZ } }
-	}
-
-	ai_will_do = {
-		factor = 100
-	}
-
-	days_remove = 14
-	remove_effect  = {
-		log = "[GetDateText]: Decision rozpierdol_lezajsk"
-			if = { limit = { country_exists = LEZ }
-			declare_war_on = {
-				target = LEZ
-				type = voivodeship_war
-			}
-			}
-	}
-
- 	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
- 	}
- }
 #██╗░░██╗░█████╗░██╗░░░░░██╗░░░██╗  ░█████╗░██████╗░░█████╗░░██████╗░██████╗
 #██║░░██║██╔══██╗██║░░░░░╚██╗░██╔╝  ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝
 #███████║██║░░██║██║░░░░░░╚████╔╝░  ██║░░╚═╝██████╔╝██║░░██║╚█████╗░╚█████╗░
