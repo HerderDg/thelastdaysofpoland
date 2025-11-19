@@ -9,77 +9,6 @@ ai_war_decisions = {
 #╚═════╝░╚══════╝╚═════╝░╚═╝░░╚═╝╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #BESKIDZKIE - FAZA PIERWSZA
 
-
-annex_podbeskidzie = {
-	allowed = {
-		is_tatry_region = yes
-		NOT = {
-			original_tag = BBA
-			original_tag = WYM
-		}
-	}
-	available = {
-		count_triggers = {
-			amount = 7
-			LEM = { exists = no }
-			SCZ = { exists = no }
-			TYM = { exists = no }
-			ZGR = { exists = no }
-			GUR = { exists = no }
-			ZKP = { exists = no }
-			CIE = { exists = no }
-			BSK = { exists = no }
-		}
-	}
-	fire_only_once = yes
-	days_remove = 14
-	ai_will_do = {
-		base = 1000
-	}
-	remove_effect = {
-		if = {
-			limit = {
-				country_exists = BBA
-				BBA = { is_subject_of = ROOT }
-			}
-		annex_country = {
-			target = BBA
-			transfer_troops = yes
-		}
-		}
-		if = {
-			limit = {
-				country_exists = BBA
-				BBA = { NOT = { is_subject_of = ROOT } }
-			}
-			declare_war_on = {
-				target = BBA
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = WYM
-				WYM = { is_subject_of = ROOT }
-			}
-		annex_country = {
-			target = WYM
-			transfer_troops = yes
-		}
-		}
-		if = {
-			limit = {
-				country_exists = WYM
-				WYM = { NOT = { is_subject_of = ROOT } }
-			}
-			declare_war_on = {
-				target = WYM
-				type = voivodeship_war
-			}
-		}				
-	}
-}
-
 CARPAT_01_GORCE = {
 
 	icon = GFX_decision_generic_prepare_civil_war
@@ -117,6 +46,15 @@ CARPAT_01_GORCE = {
 		}
 	}
 
+	targets = {
+		ZGR
+	}
+	target_trigger = {
+		FROM = {
+			original_tag = ZGR
+		}
+	}
+	war_with_target_on_complete = yes
 	ai_will_do = {
 		factor = 100
 	}
@@ -126,45 +64,6 @@ CARPAT_01_GORCE = {
 		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
 		declare_war_on = {
 			target = ZGR
-			type = voivodeship_war
-		}
-	}
-	cancel_trigger = {
-		ROOT = {
-			has_war = yes
-		}
-	}
-}
-
-CARPAT_01_TYMBARK = {
-
-	icon = GFX_decision_generic_prepare_civil_war
-	
-	allowed = {
-		OR = {
-			original_tag = LEM
-			original_tag = GUR
-			original_tag = BSK
-		}
-	}
-
-	available = {
-		has_war = no
-		date > 2029.02.11
-		TYM = { exists = yes }	
-		TYM = { is_subject = no }	
-		TYM = { is_neighbor_of = ROOT }	
-	}
-
-	ai_will_do = {
-		factor = 100
-	}
-
-	days_remove = 14
-	remove_effect  = {
-		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
-		declare_war_on = {
-			target = TYM
 			type = voivodeship_war
 		}
 	}
@@ -188,6 +87,18 @@ CARPAT_01_LEMKO = {
 		}
 	}
 
+	targets = {
+		LEM
+	}
+
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}
+	war_with_target_on_complete = yes
 	available = {
 		if = {
 			limit = {
@@ -502,7 +413,142 @@ CARPAT_02_EAST_V_WEST = {
 			has_war = yes
 		}
 	}
- } 
+} 
+
+#BESKIDZKIE - FAZA TRZECIA
+
+CARPAT_03_TYMBARK = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			original_tag = LEM
+			original_tag = GUR
+			original_tag = BSK
+		}
+	}
+
+	available = {
+		has_war = no
+		date > 2029.02.11
+		TYM = { exists = yes }	
+		TYM = { is_subject = no }	
+		TYM = { is_neighbor_of = ROOT }	
+	}
+	
+	targets = {
+		TYM
+	}
+	target_trigger = {
+		FROM = {
+			original_tag = TYM
+		}
+	}
+	war_with_target_on_complete = yes
+	ai_will_do = {
+		factor = 100
+	}
+
+	days_remove = 14
+	remove_effect  = {
+		log = "[GetDateText]: Decision GAL_01_SALT_HYPERWAR"
+		declare_war_on = {
+			target = TYM
+			type = voivodeship_war
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
+
+CARPAT_03_FINISH_HIM = {
+	allowed = {
+		is_tatry_region = yes
+		NOT = {
+			original_tag = BBA
+			original_tag = WYM
+		}
+	}
+	icon = GFX_decision_generic_prepare_civil_war
+	available = {
+		count_triggers = {
+			amount = 7
+			LEM = { exists = no }
+			SCZ = { exists = no }
+			TYM = { exists = no }
+			ZGR = { exists = no }
+			GUR = { exists = no }
+			ZKP = { exists = no }
+			CIE = { exists = no }
+			BSK = { exists = no }
+		}
+		OR = {
+			BBA = {exists = yes}
+			WYM = {exists = yes}
+		}
+	}
+
+	targets = {
+		BBA
+	}
+	war_with_target_on_complete = yes
+	fire_only_once = yes
+	days_remove = 14
+	ai_will_do = {
+		base = 1000
+	}
+	remove_effect = {
+		if = {
+			limit = {
+				country_exists = BBA
+				BBA = { is_subject_of = ROOT }
+			}
+		annex_country = {
+			target = BBA
+			transfer_troops = yes
+		}
+		}
+		if = {
+			limit = {
+				country_exists = BBA
+				BBA = { NOT = { is_subject_of = ROOT } }
+			}
+			declare_war_on = {
+				target = BBA
+				type = voivodeship_war
+			}
+		}
+		if = {
+			limit = {
+				country_exists = WYM
+				WYM = { is_subject_of = ROOT }
+			}
+		annex_country = {
+			target = WYM
+			transfer_troops = yes
+		}
+		}
+		if = {
+			limit = {
+				country_exists = WYM
+				WYM = { NOT = { is_subject_of = ROOT } }
+			}
+			declare_war_on = {
+				target = WYM
+				type = voivodeship_war
+			}
+		}				
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+}
 
 
 #███████╗░█████╗░░██████╗░██╗░░░░░███████╗██████╗░██╗███████╗  ██╗ ░░░░░██╗██╗░░░██╗██████╗░░█████╗░
@@ -514,7 +560,7 @@ CARPAT_02_EAST_V_WEST = {
 #ZAGŁĘBIE I JURA - FAZA PIERWSZA
 
 
- jura_JWK = {
+ ZAGJUR_01_JWK = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -544,7 +590,15 @@ CARPAT_02_EAST_V_WEST = {
 		JUR = { NOT = { has_cosmetic_tag = JUR_intercounty }}
 	}
 
-	
+	targets = {
+		JWK
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = JWK
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -559,7 +613,7 @@ CARPAT_02_EAST_V_WEST = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision jura_JWK"
+		log = "[GetDateText]: Decision ZAGJUR_01_JWK"
 			if = { limit = { country_exists = JWK }
 			declare_war_on = {
 				target = JWK
@@ -575,7 +629,7 @@ CARPAT_02_EAST_V_WEST = {
  	}
  }
 
-jura_JUR = {
+ZAGJUR_01_JUR = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -604,7 +658,15 @@ jura_JUR = {
 			CCH = { NOT = { has_cosmetic_tag = CCH_intercounty }}
 	}
 
-	
+	targets = {
+		JUR
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = JUR
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -635,7 +697,7 @@ jura_JUR = {
  	}
 }
 
- jura_BRZ = {
+ ZAGJUR_01_BRZ = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -671,7 +733,15 @@ jura_JUR = {
 			JUR = { NOT = { has_cosmetic_tag = JUR_intercounty }}
 	}
 
-	
+	targets = {
+		BRZ
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = BRZ
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -686,7 +756,7 @@ jura_JUR = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision jura_BRZ"
+		log = "[GetDateText]: Decision ZAGJUR_01_BRZ"
 			if = { limit = { country_exists = BRZ }
 			declare_war_on = {
 				target = BRZ
@@ -703,7 +773,7 @@ jura_JUR = {
  }
 
 
- jura_CCH = {
+ ZAGJUR_01_CCH = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -732,7 +802,15 @@ jura_JUR = {
 		JUR = { NOT = { has_cosmetic_tag = JUR_intercounty }}
 	}
 
-	
+	targets = {
+		CCH
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = CCH
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -748,7 +826,7 @@ jura_JUR = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision jura_CCH"
+		log = "[GetDateText]: Decision ZAGJUR_01_CCH"
 			if = { limit = { country_exists = CCH }
 			declare_war_on = {
 				target = CCH
@@ -763,7 +841,7 @@ jura_JUR = {
 		}
  	}
  }
- zaglebie_SOS = {
+ ZAGJUR_01_SOS = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -787,7 +865,15 @@ jura_JUR = {
 			has_global_flag = ZAG_congress_of_bedzin_failure
 	}
 
-	
+	targets = {
+		SOS
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = SOS
+		}
+	}		
 
 	ai_will_do = {
 		factor = 100
@@ -802,7 +888,7 @@ jura_JUR = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision zaglebie_SOS"
+		log = "[GetDateText]: Decision ZAGJUR_01_SOS"
 			if = { limit = { country_exists = SOS }
 			declare_war_on = {
 				target = SOS
@@ -833,7 +919,7 @@ jura_JUR = {
 		}
  	}
  }
- zaglebie_DGR = {
+ ZAGJUR_01_DGR = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -859,7 +945,15 @@ jura_JUR = {
 			has_global_flag = ZAG_congress_of_bedzin_failure
 	}
 
-	
+	targets = {
+		DGR
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = DGR
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -874,7 +968,7 @@ jura_JUR = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision zaglebie_DGR"
+		log = "[GetDateText]: Decision ZAGJUR_01_DGR"
 			if = { limit = { country_exists = DGR }
 			declare_war_on = {
 				target = DGR
@@ -896,7 +990,7 @@ jura_JUR = {
  	}
  }
 
- zaglebie_JAW = {
+ ZAGJUR_01_JAW = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -920,7 +1014,15 @@ jura_JUR = {
 			has_global_flag = ZAG_congress_of_bedzin_failure
 	}
 
-	
+	targets = {
+		JAW
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = JAW
+		}
+	}		
 
 	ai_will_do = {
 		factor = 100
@@ -935,7 +1037,7 @@ jura_JUR = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision zaglebie_JAW"
+		log = "[GetDateText]: Decision ZAGJUR_01_JAW"
 			if = { limit = { country_exists = JAW }
 			declare_war_on = {
 				target = JAW
@@ -951,7 +1053,7 @@ jura_JUR = {
  	}
  }
 
-zaglebie_ZAW = {
+ZAGJUR_01_ZAW = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -988,7 +1090,15 @@ zaglebie_ZAW = {
 			}
 	}
 
-	
+	targets = {
+		ZAW
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			original_tag = ZAW
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -1003,7 +1113,7 @@ zaglebie_ZAW = {
 		}
 	}
 	remove_effect  = {
-		log = "[GetDateText]: Decision zaglebie_ZAW"
+		log = "[GetDateText]: Decision ZAGJUR_01_ZAW"
 			if = { limit = { country_exists = ZAW }
 			declare_war_on = {
 				target = ZAW
@@ -1022,7 +1132,7 @@ zaglebie_ZAW = {
 #ZAGŁĘBIE I JURA - FAZA DRUGA
 
 
- zaglebie_war_1 = {
+ ZAGJUR_02_ZAGLEBIE = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -1055,7 +1165,17 @@ zaglebie_ZAW = {
 		}
 	}
 
-	
+	targets = {
+		DGR DGA BED SIE SOS JAW ZAW
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}	
 
 	ai_will_do = {
 		factor = 100
@@ -1064,70 +1184,11 @@ zaglebie_ZAW = {
 	fire_only_once = yes
 	days_remove = 21
 	remove_effect  = {	
-		log = "[GetDateText]: Decision zaglebie_war_1"
-			if = { limit = { country_exists = DGR
-			ROOT = { NOT = { original_tag = DGR }}
-			ROOT = { NOT = { is_in_faction_with = DGR }}
-			 } 
-			declare_war_on = {
-				target = DGR
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = DGA
-			ROOT = { NOT = { original_tag = DGA }}
-			ROOT = { NOT = { is_in_faction_with = DGA }}
-			 } 
-			declare_war_on = {
-				target = DGA
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = BED
-			ROOT = { NOT = { original_tag = BED }}
-			ROOT = { NOT = { is_in_faction_with = BED }}
-			 } 
-			declare_war_on = {
-				target = BED
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = SIE
-			ROOT = { NOT = { original_tag = SIE }}
-			ROOT = { NOT = { is_in_faction_with = SIE }}
-			 } 
-			declare_war_on = {
-				target = SIE
-				type = voivodeship_war
-			}
-			}									
-			if = { limit = { country_exists = SOS 
-			ROOT = { NOT = { original_tag = SOS }}
-			ROOT = { NOT = { is_in_faction_with = SOS }}			
-			} 
-			declare_war_on = {
-				target = SOS
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = JAW
-			ROOT = { NOT = { original_tag = JAW }}
-			ROOT = { NOT = { is_in_faction_with = JAW }}			
-			 } 
-			declare_war_on = {
-				target = JAW
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = ZAW
-			ROOT = { NOT = { original_tag = ZAW }}
-			ROOT = { NOT = { is_in_faction_with = ZAW }}			
-			 } 
-			declare_war_on = {
-				target = ZAW
-				type = voivodeship_war
-			}
-			}
+		log = "[GetDateText]: Decision ZAGJUR_02_ZAGLEBIE"
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
+		}
 	}
 
  	cancel_trigger = {
@@ -1137,7 +1198,7 @@ zaglebie_ZAW = {
  	}
  }
 
- zaglebie_war_2 = {
+ ZAGJUR_02_JURA = {
 
 	icon = GFX_decision_generic_prepare_civil_war
 	
@@ -1191,7 +1252,18 @@ zaglebie_ZAW = {
 		has_war = no
 	}
 
-	
+	targets = {
+		JUR CCH JWK BRZ
+	}	
+	war_with_target_on_complete = yes
+
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}
 
 	ai_will_do = {
 		factor = 100
@@ -1200,40 +1272,11 @@ zaglebie_ZAW = {
 	fire_only_once = yes
 	days_remove = 21
 	remove_effect  = {
-		log = "[GetDateText]: Decision zaglebie_war_2"
-			if = { limit = { 
-				country_exists = JUR
-				JUR = { NOT = { has_cosmetic_tag = JUR_intercounty } }
-			} 
-			declare_war_on = {
-				target = JUR
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = CCH 
-			CCH = { NOT = { has_cosmetic_tag = CCH_intercounty } } } 
-			declare_war_on = {
-				target = CCH
-				type = voivodeship_war
-			}
-			}
-			if = { limit = { country_exists = JWK
-			JWK = { NOT = { has_cosmetic_tag = JWK_intercounty } }
-		} 
-			declare_war_on = {
-				target = JWK
-				type = voivodeship_war
-			}
-			}
-			if = { 
-				limit = { country_exists = BRZ 
-				BRZ = { NOT = { has_cosmetic_tag = BRZ_intercounty } }
-			} 
-			declare_war_on = {
-				target = BRZ
-				type = voivodeship_war
-			}
-			}
+		log = "[GetDateText]: Decision ZAGJUR_02_JURA"
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
+		}
 	}
 
  	cancel_trigger = {
@@ -1244,7 +1287,7 @@ zaglebie_ZAW = {
  }
 #ZAGŁĘBIE I JURA - FAZA OSTATECZNA
 
- invade_zaglebie_puppets = {
+ ZAGJUR_03_PUPPETS = {
 	allowed = {
 		OR = {
 			original_tag = SOS
@@ -1255,6 +1298,7 @@ zaglebie_ZAW = {
 			original_tag = CCH
 		}
 	}
+	icon = GFX_decision_generic_prepare_civil_war
 	available = {
 		OR = {
 			AND = {
@@ -1284,27 +1328,27 @@ zaglebie_ZAW = {
 			}
 		}
 	}
+	targets = {
+		SIE BED DGA
+	}
+	war_with_target_on_complete = yes
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}
+
 	fire_only_once = yes
 	days_remove = 14
 	ai_will_do = {
 		base = 1000
 	}
 	remove_effect = {
-		if = {
-			limit = { BED = { exists = yes } }
-			
 		declare_war_on = {
-			target = BED
+			target = FROM
 			type = voivodeship_war
-		}
-		}
-		if = {
-			limit = { SIE = { exists = yes } }
-			
-		declare_war_on = {
-			target = SIE
-			type = voivodeship_war
-		}
 		}
 	}
 
@@ -1326,7 +1370,7 @@ zaglebie_ZAW = {
 #GÓRNY ŚLĄSK - FAZA DRUGA
 #GÓRNY ŚLĄSK - FAZA OSTATECZNA
 
-silesian_war = { 
+GSIL_01_HANYS_WAR = { 
 	icon = GFX_decision_generic_prepare_civil_war
 
 	allowed = {
@@ -1642,6 +1686,15 @@ silesian_war = {
 			date > 2028.02.01
 		}
 
+		targets = {
+			NHT
+		}
+		target_trigger = {
+			FROM = {
+				original_tag = NHT
+			}
+		}
+	war_with_target_on_complete = yes
 		ai_will_do = {
 			factor = 100
 		}
@@ -1662,7 +1715,7 @@ silesian_war = {
 				has_war = yes
 			}
 		}
-	}
+ }
 
  MPOL_01_NAL_HUTTA_STRIKES_BACK = {
 
@@ -1685,6 +1738,7 @@ silesian_war = {
 			has_war = no
 			date > 2028.06.01
 		}
+		
 
 		ai_will_do = {
 			factor = 100
@@ -1748,7 +1802,7 @@ silesian_war = {
 				has_war = yes
 			}
 		}
-	}
+ }
 
 
 #MPOL_015_GREAT_NIEPOLOMICE_AUCTION_BID = {    #WORK IN PROGRESS - TO BE REFINED LATER
@@ -2026,8 +2080,6 @@ silesian_war = {
 		NOT = { has_country_flag = unified_voivodeship }
 	}
 
-	
-
 	ai_will_do = {
 		factor = 100
 	}
@@ -2075,7 +2127,7 @@ silesian_war = {
 			original_tag = LEZ
 		}
 	}
-
+	war_with_target_on_complete = yes
 	ai_will_do = {
 		factor = 100
 	}
@@ -2123,7 +2175,7 @@ silesian_war = {
 			original_tag = JSO
 		}
 	}
-
+	war_with_target_on_complete = yes
 	fire_only_once = yes
 	days_remove = 14
 	remove_effect  = {
@@ -2163,7 +2215,7 @@ silesian_war = {
 			original_tag = ANC
 		}
 	}
-	
+	war_with_target_on_complete = yes
 
 	ai_will_do = {
 		factor = 100
@@ -2212,7 +2264,7 @@ silesian_war = {
 			original_tag = KOL
 		}
 	}
-
+	war_with_target_on_complete = yes
 	fire_only_once = yes
 	days_remove = 14
 	remove_effect  = {
@@ -2366,7 +2418,7 @@ silesian_war = {
 			NOT = { is_in_faction_with = ROOT }
 		}
 	}
-
+	war_with_target_on_complete = yes
 	ai_will_do = {
 		factor = 100
 	}
@@ -2510,6 +2562,12 @@ silesian_war = {
 			set_country_flag = holy_cross_round_one_fought
 		}
 	}
+
+	targets = {
+		HOL
+	}
+	target_non_existing = yes
+
 	remove_effect  = {
 		log = "[GetDateText]: Decision holy_cross_round_one - fight"
 		random_neighbor_country = { 
@@ -2518,7 +2576,7 @@ silesian_war = {
 				NOT = { original_tag = KIE }
 			}
 			declare_war_on = {
-				target = FROM
+				target = ROOT
 				type = voivodeship_war
 			}
 		}
@@ -2569,6 +2627,11 @@ silesian_war = {
 		factor = 100		
 	}
 
+	targets = {
+		HOL
+	}
+	target_non_existing = yes
+
 	days_remove = 14
 	complete_effect = {
 		ROOT = {
@@ -2582,7 +2645,7 @@ silesian_war = {
 				is_holy_cross = yes
 			}
 			declare_war_on = {
-				target = FROM
+				target = ROOT
 				type = voivodeship_war
 			}
 		}
@@ -3464,6 +3527,16 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 		factor = 100
 	}
 
+	targets = {
+		CZA
+	}
+
+	target_trigger = {
+		FROM = {
+			original_tag = CZA
+		}
+	}
+	war_with_target_on_complete = yes
 	fire_only_once = yes
 	days_remove = 14
 	remove_effect  = {
@@ -3504,8 +3577,19 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 		date > 2028.04.05
 	}
 
-	
+	targets = {
+		AIR PAB
+	}
 
+	target_trigger = {
+		FROM = {
+			OR = { 
+				original_tag = PAB
+				original_tag = AIR
+			}
+		}
+	}	
+	war_with_target_on_complete = yes
 	ai_will_do = {
 		factor = 100
 	}
@@ -3514,26 +3598,11 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 	days_remove = 14
 	remove_effect  = {
 		log = "[GetDateText]: Decision RADOM_01_MILITARY_CLASH"
-		if = { 
-			limit = { 
-				ROOT = { original_tag = AIR }
-				country_exists = PAB 
-				}
 		declare_war_on = {
-			target = PAB
+			target = FROM
 			type = voivodeship_war
 		}
-		}
-		if = { 
-			limit = { 
-				ROOT = { original_tag = PAB }
-				country_exists = AIR 
-				}
-		declare_war_on = {
-			target = AIR
-			type = voivodeship_war
-		}
-		}
+
 	}
 	cancel_trigger = {
 		ROOT = {
@@ -3566,8 +3635,20 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 		date > 2028.06.01
 	}
 
-	
+	targets = {
+		APC SZY
+	}
 
+	target_trigger = {
+		FROM = {
+			OR = { 
+				original_tag = APC
+				original_tag = SZY
+			}
+		}
+	}	
+
+	war_with_target_on_complete = yes
 	ai_will_do = {
 		factor = 100
 	}
@@ -3576,25 +3657,9 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 	days_remove = 14
 	remove_effect  = {
 		log = "[GetDateText]: Decision RADOM_01_COUNTY_OF_HORTEX"
-		if = { 
-			limit = { 
-				ROOT = { original_tag = APC }
-				country_exists = SZY 
-				}
 		declare_war_on = {
-			target = SZY
+			target = FROM
 			type = voivodeship_war
-		}
-		}
-		if = { 
-			limit = { 
-				ROOT = { original_tag = SZY }
-				country_exists = APC 
-				}
-		declare_war_on = {
-			target = APC
-			type = voivodeship_war
-		}
 		}
 	}
 	cancel_trigger = {
@@ -3623,7 +3688,18 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 		date > 2028.11.01
 	}
 
-	
+	targets = {
+		AIR PAB SKA CZA
+	}
+
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject = yes }
+			NOT = { is_in_faction = yes }
+		}			
+	}
+	war_with_target_on_complete = yes
 
 	ai_will_do = {
 		factor = 100
