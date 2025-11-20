@@ -8,7 +8,7 @@ faction_template_generic = {
 		always = no # Fallback template, should not be selectable 
 	}
 	available = {
-		has_government = democratic
+		has_government = euroliberalism
 	}
 
 	goals = {
@@ -71,7 +71,7 @@ faction_template_defensive_democratic = {
 		always = yes 
 	}
 	available = {
-		has_government = democratic
+		has_government = euroliberalism
 	}
 
 	goals = {
@@ -107,7 +107,7 @@ faction_template_anti_communist = {
 		always = yes 
 	}
 	available = {
-		NOT = { has_government = communism }
+		NOT = { has_government = marxism_cranism }
 	}
 
 	goals = {
@@ -143,14 +143,14 @@ faction_template_anti_fascist = {
 	visible = {
 		always = yes 
 		any_other_country = {
-			has_government = fascism
+			has_government = neonationalism
 			is_on_same_continent_as = ROOT
 		}
 	}
 	available = {
-		NOT = { has_government = fascism }
+		NOT = { has_government = neonationalism }
 		any_other_country = {
-			has_government = fascism
+			has_government = neonationalism
 			is_on_same_continent_as = ROOT
 		}
 	}
@@ -186,14 +186,14 @@ faction_template_regional_anti_communist = {
 	visible = {
 		always = yes 
 		any_other_country = {
-			has_government = communism
+			has_government = marxism_cranism
 			is_on_same_continent_as = ROOT
 		}
 	}
 	available = {
-		NOT = { has_government = communism }
+		NOT = { has_government = marxism_cranism }
 		any_other_country = {
-			has_government = communism
+			has_government = marxism_cranism
 			is_on_same_continent_as = ROOT
 		}
 	}
@@ -229,14 +229,14 @@ faction_template_regional_anti_democratic = {
 	visible = {
 		always = yes 
 		any_other_country = {
-			has_government = democratic
+			has_government = euroliberalism
 			is_on_same_continent_as = ROOT
 		}
 	}
 	available = {
-		NOT = { has_government = democratic }
+		NOT = { has_government = euroliberalism }
 		any_other_country = {
-			has_government = democratic
+			has_government = euroliberalism
 			is_on_same_continent_as = ROOT
 		}
 	}
@@ -269,8 +269,8 @@ faction_template_regional = {
 	# color = { 255 0 255 }
 	can_leader_join_other_factions = yes
 	visible = {
-		NOT = { has_government = communism }
-		NOT = { has_government = fascism }
+		NOT = { has_government = marxism_cranism }
+		NOT = { has_government = neonationalism }
 		NOT = { capital_scope = { is_on_continent = europe } } # There is a European one so no need to use the generic one there
 	}
 
@@ -309,7 +309,7 @@ faction_template_world_revolution = {
 		always = yes 
 	}
 	available = {
-		has_government = communism 
+		has_government = marxism_cranism 
 	}
 
 	goals = {
@@ -373,126 +373,6 @@ faction_template_industrial_focus = {
 	
 }
 
-# African Unity 
-faction_template_african_unity = {
-	name = african_unity_faction
-	manifest = faction_manifest_african_domination
-	can_leader_join_other_factions = yes
-	icon = GFX_faction_logo_generic_18
-	visible = {
-		capital_scope = {
-			is_on_continent = africa
-		}
-	}
-	
-	goals = {
-		# Short term
-		# faction_goal_growing_the_faction
-
-		# Medium term
-		faction_goal_control_suez_canal
-
-		# Long term
-		faction_goal_defeating_our_enemies
-
-	}
-
-	default_rules = {
-		joining_rule_africa_only
-		faction_peace_rule_liberation_focus
-		generate_wargoal_threat_reduction_20
-		change_leader_rule_industry
-	}
-
-}
-
-# Pan-American 
-faction_template_pan_american = {
-	name = pan_american_faction
-	manifest = faction_manifest_pan_americanism
-	can_leader_join_other_factions = yes
-	icon = GFX_faction_logo_generic_17
-	visible = {
-		capital_scope = {
-			OR = {
-				is_on_continent = north_america
-				is_on_continent = south_america
-			}
-		}
-	}
-	
-	goals = {
-		# Short term
-		# faction_goal_spy_master
-
-		# Medium term
-		faction_goal_control_panama_canal
-		
-		# Long term
-		faction_goal_defeating_our_enemies
-	}
-
-	default_rules = {
-		joining_rule_americas_only
-		faction_peace_rule_liberation_focus
-		guarantee_threat_reduction_15
-		change_leader_rule_manpower
-	}
-
-}
-
-# Hispanic Alliance 
-faction_template_hipanic_alliance_faction = {
-	name = CHL_hipanic_alliance_faction
-	manifest = faction_manifest_pan_americanism
-	can_leader_join_other_factions = no
-	icon = GFX_faction_logo_generic_17
-	visible = {
-		OR = {
-			original_tag = MEX
-			original_tag = RIG
-			original_tag = YUC
-			original_tag = ARG
-			original_tag = CHL
-			original_tag = PRU
-			original_tag = PAR
-			original_tag = URG
-			original_tag = BOL
-			original_tag = ECU
-			original_tag = COL
-			original_tag = VEN
-			original_tag = PAN
-			original_tag = PUE
-			original_tag = DOM
-			original_tag = CUB
-			original_tag = PAN
-			original_tag = COS
-			original_tag = NIC
-			original_tag = HON
-			original_tag = ELS
-			original_tag = EQG
-			original_tag = SPR
-		}
-	}
-	
-	goals = {
-		# Short term
-		# faction_goal_an_infantry_army
-
-		# Medium term
-		faction_goal_control_panama_canal
-		
-		# Long term
-		faction_goal_defeating_our_enemies
-	}
-
-	default_rules = {
-		joining_rule_hispanic_only
-		change_leader_rule_manpower
-	}
-
-}
-
 # European Unity 
 faction_template_european_unity = {
 	name = european_unity_faction
@@ -504,12 +384,12 @@ faction_template_european_unity = {
 			is_on_continent = europe
 		}
 		NOT = {
-			has_government = fascism 
+			has_government = neonationalism 
 		}
 	}
 	available = {
 		NOT = {
-			has_government = fascism 
+			has_government = neonationalism 
 		}
 	}
 	
@@ -543,7 +423,7 @@ faction_template_european_dominance = {
 		capital_scope = {
 			is_on_continent = europe
 		}
-		has_government = fascism
+		has_government = neonationalism
 	}
 	
 	goals = {
@@ -575,7 +455,7 @@ faction_template_european_dominance_monarchist = {
 		capital_scope = {
 			is_on_continent = europe
 		}
-		has_government = neutrality
+		has_government = autocracy
 	}
 	
 	goals = {
@@ -592,70 +472,6 @@ faction_template_european_dominance_monarchist = {
 	default_rules = {
 		joining_rule_neighbors_only
 		faction_peace_take_claimed_focus
-		change_leader_rule_manpower
-	}
-
-}
-
-# Asian Dominance 
-faction_template_asian_dominance = {
-	name = asian_dominance_faction
-	manifest = faction_manifest_asian_dominance
-	can_leader_join_other_factions = yes
-	icon = GFX_faction_logo_generic_15
-	visible = {
-		capital_scope = {
-			is_on_continent = asia
-		}
-	}
-	
-	goals = {
-		# Short term
-		# faction_goal_an_infantry_army
-
-		# Medium term
-		faction_goal_control_chinese_metals
-		
-		# Long term
-		faction_goal_rule_the_waves
-	}
-
-	default_rules = {
-		joining_rule_same_continent_only
-		faction_peace_rule_puppeting_focus
-		generate_wargoal_threat_reduction_20
-		change_leader_rule_manpower
-	}
-
-}
-
-# Middle Eastern Dominance 
-faction_template_middle_east_dominance = {
-	name = middle_east_dominance_faction
-	manifest = faction_manifest_middle_east_dominance
-	can_leader_join_other_factions = yes
-	icon = GFX_faction_logo_generic_15
-	visible = {
-		capital_scope = {
-			is_on_continent = middle_east
-		}
-	}
-	
-	goals = {
-		# Short term
-		# faction_goal_growing_the_faction
-
-		# Medium term
-		faction_goal_control_persian_oil
-
-		# Long term
-		faction_goal_defeating_our_enemies
-	}
-
-	default_rules = {
-		joining_rule_same_continent_only
-		faction_peace_rule_puppeting_focus
-		generate_wargoal_threat_reduction_20
 		change_leader_rule_manpower
 	}
 
