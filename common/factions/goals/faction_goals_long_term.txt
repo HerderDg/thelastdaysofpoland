@@ -36,7 +36,12 @@ faction_goal_rule_the_waves = {
 	}
 	available = {
 		FROM = {
-			NOT = { has_government = euroliberalism }
+			OR = {
+				NOT = { has_government = euroliberalism }
+				NOT = { has_government = freemarketism }
+				NOT = { has_government = socialdemocrature }
+				NOT = { has_government = paternal_conservatism }
+			}
 		}
 	}
 	completed = {
@@ -69,22 +74,22 @@ faction_goal_rule_the_waves = {
 				limit = {
 					is_navy_leader = yes
 					NOT = { has_trait = seawolf }
-					NOT = { has_trait = battleship_adherent }
+					#NOT = { has_trait = battleship_adherent }
 				}
 				gain_xp = 400
 				add_coordination = 1
-				add_trait = { trait = battleship_adherent }
+				#add_trait = { trait = battleship_adherent }
 			}
-			add_mastery = {
-				amount = 100
-				track = capital_ships
-			}
-			add_tech_bonus = {
-				name = rule_the_waves_tech_bonus
-				bonus = 1
-				uses = 1
-				category = naval_equipment
-			}
+			#add_mastery = {
+			#	amount = 100
+			#	track = capital_ships
+			#}
+			#add_tech_bonus = {
+			#	name = rule_the_waves_tech_bonus
+			#	bonus = 1
+			#	uses = 1
+			#	category = naval_equipment
+			#}
 		}
 	}
 	ai_will_do = {
@@ -126,7 +131,7 @@ faction_goal_strategic_bombing_campaign = {
 				operators = { faction_members }
 				name = FACTION
 		    }
-			unit = strategic_bomber
+			unit = bomber
 			size > 199
 		}
 		collection_size = {
@@ -166,10 +171,10 @@ faction_goal_strategic_bombing_campaign = {
 			add_faction_initiative = 1
 			add_war_support = 0.1
 			air_experience = 50
-			add_mastery = {
-				amount = 100
-				track = heavy_aircraft
-			}
+			#add_mastery = {
+			#	amount = 100
+			#	track = heavy_aircraft
+			#}
 		}
 	}
 	ai_will_do = {
@@ -359,39 +364,39 @@ faction_goal_great_offensive = {
 	}
 }
 
-faction_goal_defeating_our_enemies = {
-	name = defeating_our_enemies_goal_name
-	description = defeating_our_enemies_goal_desc
-	group = FOCUS_FILTER_ANNEXATION
-	category = long_term
-	visible = {
-		NOT = { has_country_flag = peace_winner_flag}
-	}
-	completed = {
-		custom_trigger_tooltip = {
-			tooltip = is_victor_in_pc_tt
-			has_country_flag = peace_winner_flag
-		}
-		
-	}
-	complete_effect = {
-		add_faction_power_projection = 200
-		custom_effect_tooltip = generic_skip_one_line_tt
-		custom_effect_tooltip = ALL_FACTION_MEMBERS
-		every_faction_member = {
-			add_war_support = 0.1
-		}
-		custom_effect_tooltip = generic_skip_one_line_tt
-		custom_effect_tooltip = PEACE_CONFERENCE_WINNERS
-		every_faction_member = {
-			visible_when_empty = yes
-			limit = {
-				has_country_flag = peace_winner_flag
-			}
-			add_faction_initiative = 1
-		}
-	}
-}
+#faction_goal_defeating_our_enemies = {
+#	name = defeating_our_enemies_goal_name
+#	description = defeating_our_enemies_goal_desc
+#	group = FOCUS_FILTER_ANNEXATION
+#	category = long_term
+#	visible = {
+#		NOT = { has_country_flag = peace_winner_flag}
+#	}
+#	completed = {
+#		custom_trigger_tooltip = {
+#			tooltip = is_victor_in_pc_tt
+#			has_country_flag = peace_winner_flag
+#		}
+#		
+#	}
+#	complete_effect = {
+#		add_faction_power_projection = 200
+#		custom_effect_tooltip = generic_skip_one_line_tt
+#		custom_effect_tooltip = ALL_FACTION_MEMBERS
+#		every_faction_member = {
+#			add_war_support = 0.1
+#		}
+#		custom_effect_tooltip = generic_skip_one_line_tt
+#		custom_effect_tooltip = PEACE_CONFERENCE_WINNERS
+#		every_faction_member = {
+#			visible_when_empty = yes
+#			limit = {
+#				has_country_flag = peace_winner_flag
+#			}
+#			add_faction_initiative = 1
+#		}
+#	}
+#}
 
 ### INDUSTRY
 
@@ -455,7 +460,7 @@ faction_goal_the_atomic_race = {
 	group = FOCUS_FILTER_RESEARCH
 	category = long_term
 	visible = {
-		date > 1940.1.1
+		date > 2040.1.1
 	}
 	completed = {
 		custom_override_tooltip = {
@@ -597,7 +602,7 @@ faction_goal_defeat_of_fascism = {
 	completed = {
 		collection_size = {
 			input = {
-				input = collection:fascist_controlled_states_my_continent
+				input = collection:neonationalist_controlled_states_my_continent
 				name = COLLECTION_AMOUNT_OF_FASCIST_CONTROLLED_STATES_SAME_CONTINENT
 			}
 			value < 1
@@ -635,8 +640,10 @@ faction_goal_defeat_of_anti_fascists = {
 					faction_members
 					limit = {
 						OR = {
-							has_government = neonationalism
+							has_government = marxism_cranism
+							has_government = squattism
 							has_government = euroliberalism
+							has_government = socialdemocrature
 						}
 					}
 				}
@@ -651,7 +658,7 @@ faction_goal_defeat_of_anti_fascists = {
 	completed = {
 		collection_size = {
 			input = {
-				input = collection:anti_fascist_controlled_states_my_continent
+				input = collection:anti_neonationalist_controlled_states_my_continent
 				name = COLLECTION_STATES_MY_CONTINENT_CONTROLLED_DEMOCRATIC_COMMUNIST
 			}
 			value < 1
@@ -700,6 +707,8 @@ faction_goal_defeat_of_anti_communists = {
 						OR = {
 							has_government = neonationalism
 							has_government = euroliberalism
+							has_government = reactionary
+							has_government = autocracy
 						}
 					}
 				}
@@ -714,7 +723,7 @@ faction_goal_defeat_of_anti_communists = {
 	completed = {
 		collection_size = {
 			input = {
-				input = collection:anti_communist_controlled_states_my_continent
+				input = collection:anti_marxist_cranist_controlled_states_my_continent
 				name = COLLECTION_STATES_MY_CONTINENT_CONTROLLED_DEMOCRATIC_FASCIST
 			}
 			value < 1
@@ -758,7 +767,6 @@ faction_goal_the_red_tide = {
 	}
 	visible = {
 		FROM = {
-			is_major = yes
 			has_government = marxism_cranism
 		}
 	}

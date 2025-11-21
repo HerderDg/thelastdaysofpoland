@@ -115,7 +115,7 @@ faction_goal_spy_master = {
 			limit = {
 				has_intelligence_agency = yes
 				has_done_agency_upgrade = upgrade_crypto_strength
-				has_tech = mechanical_computing
+				has_tech = adhoc_trollbrigades
 				NOT = { has_done_agency_upgrade = upgrade_crypto_strength_2 }
 			}
 			add_faction_initiative = 1
@@ -127,7 +127,7 @@ faction_goal_spy_master = {
 				NOT = { agency_upgrade_number > 30 }
 				OR = {
 					has_done_agency_upgrade = upgrade_crypto_strength_2
-					NOT = { has_tech = mechanical_computing }
+					NOT = { has_tech = adhoc_trollbrigades }
 				}
 			}
 			add_faction_initiative = 1
@@ -577,7 +577,6 @@ faction_goal_war_on_communism = {
 			has_government = marxism_cranism
 			is_on_same_continent_as = FROM
 		}
-		NOT = { original_tag = JAP } # they have their own goal 
 	}
 	completed = {
 		OR = {
@@ -617,23 +616,43 @@ faction_goal_war_on_democracy = {
 	visible = {
 		FROM = {
 			NOT = {
+			OR = { 
 				has_government = euroliberalism
+				has_government = freemarketism
+				has_government = socialdemocrature
+				has_government = paternal_conservatism
+			}
 			}
 		}
 		any_country = {
-			has_government = euroliberalism
+			OR = { 
+				has_government = euroliberalism
+				has_government = freemarketism
+				has_government = socialdemocrature
+				has_government = paternal_conservatism
+			}
 			is_on_same_continent_as = FROM
 		}
 	}
 	completed = {
 		OR = {
 			any_enemy_country = {
-				has_government = euroliberalism
+				OR = { 
+					has_government = euroliberalism
+					has_government = freemarketism
+					has_government = socialdemocrature
+					has_government = paternal_conservatism
+				}
 				is_on_same_continent_as = ROOT
 			}
 			any_allied_country = {
 				any_enemy_country = {
-					has_government = euroliberalism
+						OR = { 
+							has_government = euroliberalism
+							has_government = freemarketism
+							has_government = socialdemocrature
+							has_government = paternal_conservatism
+						}
 					is_on_same_continent_as = PREV
 				}
 			}
