@@ -174,6 +174,20 @@ leader_traits = {
 		planning_skill_factor = 1
 		logistics_skill_factor = 1
 	}
+
+	brave = {
+		type = land
+		trait_type = personality_trait
+		
+		modifier = {
+			org_loss_at_low_org_factor = -0.1
+		}
+		new_commander_weight = {
+			factor = 0
+		}
+		
+		defense_skill = 1
+	}
 	
 	war_hero = { 
 		type = { land navy }
@@ -575,7 +589,45 @@ leader_traits = {
 		planning_skill_factor = 1
 	}
 
+	irregulars_officer = { 
+		type = corps_commander
 
+		trait_type = personality_trait
+
+
+		unit_type = {
+			type = militia
+		}
+
+		unit_trigger = {
+			OR = {
+				division_has_majority_template = militia
+			}
+			owner = {
+				NOT = {
+					OR = {
+						has_idea = best_of_the_best_spirit
+						has_idea = academy_scholarships_spirit
+					}
+				}
+			}
+		}
+		
+		modifier = {
+			modifier_army_sub_unit_militia_attack_factor = 0.05
+			out_of_supply_factor = -0.1
+			plains = {
+				movement = 0.1
+			}
+		}
+
+		new_commander_weight = {
+			base = 0
+		}
+
+		attack_skill_factor = 1
+		planning_skill_factor = 1
+	}
 
 	
 ##################################
@@ -1698,6 +1750,26 @@ leader_traits = {
 ##################################
 # Naval traits.
 ##################################
+
+	blockade_runner = { 
+		type = navy
+		cost = 500
+		gain_xp = {
+			fastest_unit > 3.7
+		}
+		modifier = {
+			naval_retreat_chance = 0.2
+			naval_retreat_speed = 0.15
+			convoy_retreat_speed = 0.05
+		}
+		custom_gain_xp_trigger_tooltip = BLOCKADE_RUNNER_TRIGGER_TT
+		
+		ai_will_do = {
+			factor = 1
+		}
+		gui_row = 0
+		gui_column = 0
+	}
 	
 	seawolf = { 
 		type = navy
@@ -1718,7 +1790,26 @@ leader_traits = {
 		ai_will_do = {
 			factor = 1
 		}
-		gui_row = 1
+		gui_row = 2
+		gui_column = 0
+	}
+
+	spotter = { 
+		type = navy
+		gain_xp = { # This trigger is not needed as it gets xp from spotting (not by combat)
+			always = no 
+		}
+		gain_xp_on_spotting = 10
+		cost = 500
+		modifier = {
+			spotting_chance = 0.1
+		}
+		custom_gain_xp_trigger_tooltip = SPOTTER_TRIGGER_TT
+		
+		ai_will_do = {
+			factor = 1
+		}
+		gui_row = 4
 		gui_column = 0
 	}
 
@@ -1742,7 +1833,7 @@ leader_traits = {
 		ai_will_do = {
 			factor = 1
 		}
-		gui_row = 3
+		gui_row = 5
 		gui_column = 0
 	}
 
@@ -1789,24 +1880,6 @@ leader_traits = {
 		gui_column = 0
 	}
 
-	spotter = { 
-		type = navy
-		gain_xp = { # This trigger is not needed as it gets xp from spotting (not by combat)
-			always = no 
-		}
-		gain_xp_on_spotting = 10
-		cost = 500
-		modifier = {
-			spotting_chance = 0.1
-		}
-		custom_gain_xp_trigger_tooltip = SPOTTER_TRIGGER_TT
-		
-		ai_will_do = {
-			factor = 1
-		}
-		gui_row = 8
-		gui_column = 0
-	}
 
 	fly_swatter = {
 		type = navy
