@@ -17,6 +17,39 @@
 # This is the generic artillery/infantry entity (no country specific).
 
 entity = {
+	name = "artillery_gun_entity"
+	pdxmesh = "unit_artillery_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"				animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "retreat"			animation = "idle" 	 				animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "training"			animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "death"			animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "support_attack"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
+		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
+		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
+		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+	}
+	state = { name = "attack"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
+		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
+		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
+		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+	}
+	state = { name = "defend"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
+		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
+		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
+		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
+	}
+	state = { name = "move"				animation = "move" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	state = { name = "retreat"			animation = "move" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	
+	scale = 1.0
+}
+
+entity = {
 	name = "anti_tank_entity"
 	pdxmesh = "frame_artillery_mesh"
 	
@@ -187,7 +220,7 @@ entity = {
 	name = "GER_anti_tank_entity"
 	pdxmesh = "frame_artillery_mesh"
 	
-	attach = { name = artillery			artillery = "artillery_gun_entity" } #TODO_Manu: anti_tank_gun_entity
+	attach = { name = artillery			artillery = "artillery_gun_entity" }
 	attach = { name = infantry			infantry = "GER_infantry_entity" }
 }
 
@@ -196,7 +229,7 @@ entity = {
 	name = "GER_anti_tank_entity_snow"
 	pdxmesh = "frame_artillery_mesh"
 	
-	attach = { name = artillery			artillery = "artillery_gun_entity" } #TODO_Manu: anti_tank_gun_entity #Note: It is necessary to have this line (even if we are cloning, otherwise it falls back to artillery gun)
+	attach = { name = artillery			artillery = "artillery_gun_entity" }  #Note: anti_tank_gun_entity #Note: It is necessary to have this line (even if we are cloning, otherwise it falls back to artillery gun)
 	attach = { name = infantry			infantry = "GER_infantry_entity_snow" }
 }
 
@@ -628,36 +661,58 @@ entity = {
 }
 
 entity = {
-	name = "artillery_gun_entity"
-	pdxmesh = "unit_artillery_mesh"
+	clone = "artillery_gun_entity"
+	name = "JAP_anti_tank_gun_entity"
+	pdxmesh = "JAP_anti_tank_type_97_mesh"
+}
+
+##########################################################################################
+############# 	  DEFAULT JAPANESE INFANTRY  - all acclimatization versions     ##########
+##########################################################################################
+
+entity = {
+	clone = "artillery_entity"
+	name = "JAP_artillery_entity_snow"
+	pdxmesh = "frame_artillery_mesh"
+		
+	attach = { name = artillery			artillery = "artillery_gun_entity" }
+	attach = { name = infantry			infantry = "JAP_infantry_entity_snow" }
+}
+
+entity = {
+	clone = "artillery_entity"
+	name = "JAP_artillery_entity_desert"
+	pdxmesh = "frame_artillery_mesh"
+		
+	attach = { name = artillery			artillery = "artillery_gun_entity" }
+	attach = { name = infantry			infantry = "JAP_infantry_entity_desert" }
+}
+
+entity = {
+	clone = "artillery_entity"
+	name = "JAP_anti_tank_entity"
+	pdxmesh = "frame_artillery_mesh"
 	
-	default_state = "idle"
-	state = { name = "idle"				animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
-	state = { name = "retreat"			animation = "idle" 	 				animation_blend_time = 0.3 animation_speed = 1.0 }
-	state = { name = "training"			animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
-	state = { name = "death"			animation = "idle" 					animation_blend_time = 0.3 animation_speed = 1.0 }
-	state = { name = "support_attack"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
-		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
-		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
-		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
-		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
-	}
-	state = { name = "attack"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
-		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
-		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
-		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
-		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
-	}
-	state = { name = "defend"			animation = "attack" 					animation_blend_time = 0.0 animation_speed = 1.0 
-		event = { time = 0 node="muzzle" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = artillery_unit_fire_01 } } 
-		event = { time = 0.3 node="smoke" particle = "artillery_cartridge_particle"  keep_particle = yes }
-		event = { time = 0.0 node="left_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
-		event = { time = 0.0 node="right_wheel" particle = "artillery_tyre_tracks_particle"  keep_particle = yes }
-	}
-	state = { name = "move"				animation = "move" 					animation_blend_time = 0.3 animation_speed = 1.0 }
-	state = { name = "retreat"			animation = "move" 					animation_blend_time = 0.3 animation_speed = 1.0 }
+	attach = { name = artillery			artillery = "JAP_anti_tank_gun_entity" }
+	attach = { name = infantry			infantry = "JAP_infantry_entity" }
+}
+
+entity = {
+	clone = "artillery_entity"
+	name = "JAP_anti_tank_entity_snow"
+	pdxmesh = "frame_artillery_mesh"
 	
-	scale = 1.0
+	attach = { name = artillery			artillery = "JAP_anti_tank_gun_entity" } #Note: It is necessary to have this line (even if we are cloning, otherwise it falls back to artillery gun)
+	attach = { name = infantry			infantry = "JAP_infantry_entity_snow" }
+}
+
+entity = {
+	clone = "artillery_entity"
+	name = "JAP_anti_tank_entity_desert"
+	pdxmesh = "frame_artillery_mesh"
+	
+	attach = { name = artillery			artillery = "JAP_anti_tank_gun_entity" }
+	attach = { name = infantry			infantry = "JAP_infantry_entity_desert" }
 }
 
 ####################################################### FINLAND ###########################################################
