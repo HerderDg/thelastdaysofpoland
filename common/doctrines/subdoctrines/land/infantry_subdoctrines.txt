@@ -1,10 +1,10 @@
-mobile_infantry = {
+elite_tech_infantry = {
     track = infantry
-    name = SUBDOCTRINE_MOBILE_INFANTRY
-    description = SUBDOCTRINE_MOBILE_INFANTRY_DESC
-    icon = GFX_doctrine_mobile_infantry_medium
+    name = elite_technology
+    description = elite_technology_desc
+    icon = GFX_support_implants_medium
 
-    xp_cost = 100
+    xp_cost = 150
     xp_type = army
 
     available = {
@@ -15,13 +15,8 @@ mobile_infantry = {
         base = 1
         modifier = {
             factor = 95
-            original_tag = GER
+            original_tag = KAT
         }
-        modifier = {
-            factor = 0.5
-            is_major = no
-        }
-    
     }
 
     # EFFECTS
@@ -30,12 +25,13 @@ mobile_infantry = {
         add_tech_bonus = {
             bonus = 0.5
             uses = 1
-            category = motorized_equipment
+            category = electronics
             name = SUBDOCTRINE_MOBILE_INFANTRY
         }
     }
 
-    rewards = {
+
+    rewards = { #todo
         cavalry_charge = {
             #
         }
@@ -61,11 +57,11 @@ mobile_infantry = {
     }
 }
 
-defensive_postures = {
+common_tech_infantry = {
     track = infantry
-    name = SUBDOCTRINE_DEFENSIVE_POSTURES
-    description = SUBDOCTRINE_DEFENSIVE_POSTURES_DESC
-    icon = GFX_doctrine_defensive_postures_medium
+    name = common_use_of_tech
+    description = common_use_of_tech_desc
+    icon = GFX_doctrine_superior_firepower_medium
 
     xp_cost = 100
     xp_type = army
@@ -79,12 +75,9 @@ defensive_postures = {
         modifier = {
             factor = 95
             OR = {
-            original_tag = ENG
-            original_tag = AST
-            original_tag = NZL
-            original_tag = CAN
-            original_tag = SAF
-            original_tag = ITA
+              original_tag = BBW
+              original_tag = SBW
+              original_tag = LBW
             }
         }
     }
@@ -121,90 +114,11 @@ defensive_postures = {
     }
 }
 
-large_unit_tactics = {
+nato_infantry = {
     track = infantry
-    name = SUBDOCTRINE_LARGE_UNIT_TACTICS
-    description = SUBDOCTRINE_LARGE_UNIT_TACTICS_DESC
-    icon = GFX_doctrine_human_infantry_offensive_medium
-
-    xp_cost = 100
-    xp_type = army
-
-    available = {
-        always = yes
-    }
-
-    ai_will_do = {
-        base = 1
-        modifier = {
-            factor = 95
-            OR = {
-                original_tag = SOV
-                original_tag = CHI
-                original_tag = JAP
-            }
-        }
-        modifier = {
-            factor = 0.5
-            is_major = no
-        }
-
-
-    }
-
-    # EFFECTS
-    effect = {
-
-    }
-   
-    #OTHER BASE REWARDS
-    
-    category_all_infantry = {
-        supply_consumption = -0.01
-    }
-
-    rewards = {
-        wide_trench_networks = {
-            dig_in_speed_factor = 0.10
-        }
-        flexible_division_structures = {
-        #2
-           unit_infantry_design_cost_factor = -1
-           infantry = {
-                combat_width = -0.3
-            }
-        }
-        unit_knowledge_sharing = {
-        #3
-            category_all_infantry = {
-                experience_loss_factor = -0.01
-            }
-        }
-        large_front_offensive = {
-        #4
-            category_all_infantry = {
-                max_organisation = 10
-                soft_attack = 0.1
-            }
-            army_morale = 0.2
-            
-        }
-        motorization_initiative = {
-        #5
-            category_all_infantry = {
-                breakthrough = 0.1
-                soft_attack = 0.1
-            }
-        }
-
-    }
-}
-
-assault_infantry = {
-    track = infantry
-    name = SUBDOCTRINE_ASSAULT_INFANTRY
-    description = SUBDOCTRINE_ASSAULT_INFANTRY_DESC
-    icon = GFX_doctrine_assault_infantry_medium
+    name = legacy_of_nato
+    description = legacy_of_nato_desc
+    icon = GFX_legacy_of_nato_medium
 
     xp_cost = 100
     xp_type = army
@@ -219,10 +133,6 @@ assault_infantry = {
         modifier = {
             factor = 95
             original_tag = USA
-        }
-        modifier = {
-            factor = 0.5
-            is_major = no
         }
     }
 
@@ -289,202 +199,104 @@ assault_infantry = {
     }
 }
 
-mounted_infantry = {
+warsaw_pact_infantry = {
     track = infantry
-    name = SUBDOCTRINE_MOUNTED_INFANTRY
-    description = SUBDOCTRINE_MOUNTED_INFANTRY_DESC
-    icon = GFX_doctrine_mounted_infantry_medium
+    name = legacy_of_warsaw_pact
+    description = legacy_of_warsaw_pact_desc
+    icon = GFX_legacy_of_warsaw_pact_medium
 
     xp_cost = 100
     xp_type = army
 
-
-    mastery = {
-        #
-    }
     available = {
         always = yes
     }
-    visible = {
-        has_dlc = "No Compromise, No Surrender"
-    }
 
-    ai_will_do = { 
+    ai_will_do = {
         base = 1
         modifier = {
-            factor = 0.5
-            is_major = yes
-        }
-    }
-
-    unit_cavalry_design_cost_factor = -1
-
-    # EFFECTS
-
-    rewards = {
-        dragoon_traditions = {
-            #
-        }
-        mounted_skirmish_groups = {
-            recon = {
-                max_organisation = 10
-                soft_attack = 0.2
-                battalion_mult = {
-                    category = category_light_infantry
-                    soft_attack = 0.1
-                    defense = 0.1
-                }
-                battalion_mult = {
-                    category = category_light_infantry
-                    max_organisation = 5
-                    add = yes
-                }
+            factor = 95
+            OR = {
+                original_tag = ROS
+                original_tag = RUS
+                original_tag = RMA
+                original_tag = DGR
+                original_tag = SOS
+                original_tag = WDW
+                has_government = marxism_cranism
             }
         }
-        anti_mechanized_cavalry_groups = {
-            #
-        }        
-        beasts_of_war = {
-            recon = {
-                maximum_speed = 0.5
-            }
-        }
-        limbered_combat_support = {
-            artillery_brigade = {
-                maximum_speed = 0.5
-            }
-            anti_tank_brigade = {
-                maximum_speed = 0.5
-            }
-            anti_air_brigade = {
-                maximum_speed = 0.5
-            }
-            rocket_artillery_brigade = {
-                maximum_speed = 0.5
-            }
-        }
-
-    }
-}
-
-commandos = {
-    track = infantry
-    name = SUBDOCTRINE_COMMANDOS
-    description = SUBDOCTRINE_COMMANDOS_DESC
-    icon = GFX_doctrine_commandos_medium
-
-    xp_cost = 100
-    xp_type = army
-
-    available = {
-       
-    }
-    visible = {
-        has_dlc = "No Compromise, No Surrender"
-    }
-
-
-    ai_will_do = { base = 0 }
-    enable_tactic = tactic_infantry_charge
-    category_light_infantry = {
-        max_strength = 0.15
     }
 
     # EFFECTS
+    effect = {
+
+    }
+   
+    #OTHER BASE REWARDS
+    
+    category_all_infantry = {
+        supply_consumption = -0.01
+    }
 
     rewards = {
-        isolated_combat_elements = { 
-            category_light_infantry = {
-                supply_consumption = -0.01
-                reliability = 0.05
-            }
-            field_hospital = {
-                casualty_trickleback = 0.05
-            }          
-
+        wide_trench_networks = {
+            dig_in_speed_factor = 0.10
         }
-        security_zone_operations = {
-
-            signal_company = {
-                battalion_mult = {
-                    category = category_all_infantry
-                    defense = 0.1
-                }
-            }
-            
-        }
-        rigorous_training_regimen = {
-            recon = {
-                battalion_mult = {
-                    category = category_all_infantry
-                    soft_attack = 0.1
-                }
-            }
-            mot_recon = {
-                battalion_mult = {
-                    category = category_all_infantry
-                    soft_attack = 0.1
-                }
-            }
-            
-            infantry = {
-                desert = {
-                    attack = 0.05
-                    movement = 0.1
-                }
-                jungle = {
-                    attack = 0.05
-                    movement = 0.1
-                }
-                hills = {
-                    attack = 0.05
-                    movement = 0.1
-                }
+        flexible_division_structures = {
+        #2
+           unit_infantry_design_cost_factor = -1
+           infantry = {
+                combat_width = -0.3
             }
         }
-
-        field_intel_retrieval = {
-            intel_from_combat_factor = 0.15
-        }
-
-        integrated_assaults = {
+        unit_knowledge_sharing = {
+        #3
             category_all_infantry = {
-                soft_attack = 0.1
-                breakthrough = 0.1
+                experience_loss_factor = -0.01
             }
-            
-
         }
+        large_front_offensive = {
+        #4
+            category_all_infantry = {
+                max_organisation = 10
+                soft_attack = 0.1
+            }
+            army_morale = 0.2
+            
+        }
+        motorization_initiative = {
+        #5
+            category_all_infantry = {
+                breakthrough = 0.1
+                soft_attack = 0.1
+            }
+        }
+
     }
 }
 
-irregulars = {
+partisan_infantry = {
     track = infantry
-    name = SUBDOCTRINE_IRREGULARS
-    description = SUBDOCTRINE_IRREGULARS_DESC
+    name = partisan_warfare
+    description = partisan_warfare_desc
     icon = GFX_doctrine_irregulars_medium
 
     xp_cost = 50
     xp_type = army
 
     available = {
-        
+        always = yes
     }
-    visible = {
-        has_dlc = "No Compromise, No Surrender"
-    }
-
 
     ai_will_do = { 
         base = 1
         modifier = {
-            factor = 2
-            is_major = no
-        }
-        modifier = {
-            factor = 0
-            NOT = {
-                has_template_containing_unit = militia
+            factor = 95
+            OR = {
+                original_tag = ZHP
+                original_tag = NSZ
+                original_tag = OPO
             }
         }
     }
@@ -542,33 +354,21 @@ irregulars = {
     }
 }
 
-peoples_war = {
+terrorist_infantry = {
     track = infantry
-    name = SUBDOCTRINE_PEOPLES_WAR
-    description = SUBDOCTRINE_PEOPLES_WAR_DESC
-    icon = GFX_doctrine_peoples_war_medium
-   
-    xp_cost = 50
+    name = spreading_of_terror
+    description = spreading_of_terror_desc
+    icon = GFX_spreading_of_terror_medium
+
+    xp_cost = 75
     xp_type = army
 
     available = {
-        #
-    }
-    visible = {
-        has_dlc = "No Compromise, No Surrender"
-    }
-    ai_will_do = {
-
-        base = 1
-
-        modifier = {
-            factor = 2
-            is_major = no
-        }
-
+       always = yes
     }
 
-    # EFFECTS
+    ai_will_do = { base = 0 }
+
     enable_tactic = tactic_guerrilla_tactics
 
     militia = {
@@ -607,8 +407,6 @@ peoples_war = {
                breakthrough = 0.2
             }
             
-
-
         }
         people_not_things = {
         #4
@@ -621,25 +419,124 @@ peoples_war = {
     }
 }
 
-great_war_infantry = {
-    track = infantry
-    name = SUBDOCTRINE_GREAT_WAR_INFANTRY
-    description = SUBDOCTRINE_GREAT_WAR_INFANTRY_DESC
-    icon = GFX_doctrine_great_war_infantry_medium
 
-    xp_cost = 50
+honor_infantry = {
+    track = infantry
+    name = warriors_of_modern_age
+    description = warriors_of_modern_age_desc
+    icon = GFX_warriors_of_modern_age_medium
+
+    xp_cost = 100
+    xp_type = army
+
+    mastery = {
+        #
+    }
+    available = {
+        always = yes
+    }
+
+    ai_will_do = { 
+        base = 1
+        modifier = {
+            factor = 0.5
+            OR = {
+                original_tag = SAP
+                original_tag = GNI
+                original_tag = FEL
+            }
+        }
+    }
+
+    unit_melee_infantry_design_cost_factor = -1
+
+    # EFFECTS
+
+    rewards = {
+        rigorous_training = {
+
+        }
+        adoption_of_polearms = {
+
+        }
+        pike_and_shot = {
+
+        }        
+        modern_material_plating = {
+
+        }
+        warrior_creed = {
+
+        }
+    }
+}
+
+roman_legion = {
+    track = infantry
+    name = roman_legion
+    description = roman_legion_desc
+    icon = GFX_doctrine_roman_legion
+
+    xp_cost = 100
+    xp_type = army
+    visible = {
+        OR = {
+            original_tag = CAL
+            original_tag = ALP
+            original_tag = PRT
+        }
+    }
+    mastery = {
+        #
+    }
+    available = {
+        always = yes
+    }
+
+    ai_will_do = { 
+        base = 1
+        modifier = {
+            factor = 100
+            OR = {
+                original_tag = CAL
+                original_tag = ALP
+                original_tag = PRT
+            }
+        }
+    }
+
+    unit_melee_infantry_design_cost_factor = -1
+
+    # EFFECTS
+
+    rewards = {
+        flexible_cohesion = { }
+        auxiliary_engineering = { }
+        manipular_organisation = { }        
+        testudo = { }
+        disciplinary_measures = { }
+    }
+}
+
+
+horde_infantry = {
+    track = infantry
+    name = for_the_horde
+    description = for_the_horde_desc
+    icon = GFX_for_the_horde_medium
+
+    xp_cost = 150
     xp_type = army
 
     available = {
         always = yes
-
     }
 
     ai_will_do = {
         base = 1
         modifier = {
             factor = 95
-            original_tag = FRA
+            original_tag = BEX
         }
     }
      # EFFECTS
