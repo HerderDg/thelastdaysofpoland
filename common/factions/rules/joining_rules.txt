@@ -1,3 +1,63 @@
+joining_rule_nation_eurozone = {
+	type = joining_rules
+	visible = { NOT = { is_eurozone = yes } }
+	ai_will_do = {
+		base = 0
+	}
+
+	trigger = {
+		is_eurozone = yes
+	}
+}
+
+joining_rule_nation_szkop = {
+	type = joining_rules
+	visible = { NOT = { core_is_german = yes } }
+	ai_will_do = {
+		base = 0
+	}
+
+	trigger = {
+		core_is_german = yes
+	}
+}
+
+joining_rule_nation_kacap = {
+	type = joining_rules
+	visible = { NOT = { core_is_kacap = yes } }
+	ai_will_do = {
+		base = 0
+	}
+
+	trigger = {
+		core_is_kacap = yes
+	}
+}
+
+joining_rule_nation_niepolak = {
+	type = joining_rules
+	visible = { NOT = { core_is_niepolak = yes } }
+	ai_will_do = {
+		base = 0
+	}
+
+	trigger = {
+		core_is_niepolak = yes
+	}
+}
+
+joining_rule_nation_polak = {
+	type = joining_rules
+	visible = { core_is_niepolak = yes }
+	ai_will_do = {
+		base = 0
+	}
+
+	trigger = {
+		core_is_niepolak = no
+	}
+}
+
 ##########################################################################################
 
 ### ###  ###  ##  #    ##   ##  #   #     ###   ##   ## ### ###      ###  #  # #   ###  ## 
@@ -8,22 +68,200 @@
 
 ########################################################################################## 
 
-joining_rule_neonationalism_only = {
+joining_rule_ideology_radical = {
 	type = joining_rules
+
 	ai_will_do = {
 		base = 0
 	}
 	available = {
-		has_government = neonationalism
+		OR = { 
+			has_government = neonationalism 
+			has_government = reactionary 
+			has_government = postpolonism 
+		}
 	}
 	trigger = {
-		has_government = neonationalism
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
 			has_government = FROM
-		}
+		}	
+		has_government = neonationalism 
+		has_government = reactionary 
+		has_government = postpolonism 
 	}
 }
+
+joining_rule_ideology_not_radical = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		NOT = { has_government = neonationalism }
+		NOT = { has_government = reactionary }
+		NOT = { has_government = postpolonism }
+		NOT = { has_government = marxism_cranism }
+		NOT = { has_government = squattism }
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		NOT = { has_government = neonationalism }
+		NOT = { has_government = reactionary }
+		NOT = { has_government = postpolonism }
+		NOT = { has_government = marxism_cranism }
+		NOT = { has_government = squattism }
+	}
+}
+
+joining_rule_ideology_democratic = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		OR = {
+			has_government = socialdemocrature 
+			has_government = euroliberalism 
+			has_government = paternal_conservatism 
+			has_government = freemarketism 
+			has_government = corporativism 			
+		}
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		has_government = socialdemocrature 
+		has_government = euroliberalism 
+		has_government = paternal_conservatism 
+		has_government = freemarketism 
+		has_government = corporativism 
+	}
+}
+
+joining_rule_ideology_not_democratic = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		NOT = { has_government = socialdemocrature }
+		NOT = { has_government = euroliberalism }
+		NOT = { has_government = paternal_conservatism }
+		NOT = { has_government = freemarketism }
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		NOT = { has_government = socialdemocrature }
+		NOT = { has_government = euroliberalism }
+		NOT = { has_government = paternal_conservatism }
+		NOT = { has_government = freemarketism }
+	}
+}
+
+joining_rule_ideology_capitalist = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		OR = {
+		has_government = euroliberalism 
+		has_government = freemarketism 
+		has_government = corporativism 		
+		}
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		has_government = euroliberalism 
+		has_government = freemarketism 
+		has_government = corporativism 
+	}
+}
+
+joining_rule_ideology_not_capitalist = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		NOT = { has_government = euroliberalism }
+		NOT = { has_government = freemarketism }
+		NOT = { has_government = corporativism }
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		NOT = { has_government = euroliberalism }
+		NOT = { has_government = freemarketism }
+		NOT = { has_government = corporativism }
+	}
+}
+
+joining_rule_ideology_socialist = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		OR = {
+		has_government = marxism_cranism 
+		has_government = squattism 
+		has_government = socialdemocrature 			
+		}
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		has_government = marxism_cranism 
+		has_government = squattism 
+		has_government = socialdemocrature 
+	}
+}
+
+joining_rule_ideology_not_socialist = {
+	type = joining_rules
+
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		NOT = { has_government = marxism_cranism }
+		NOT = { has_government = squattism }
+		NOT = { has_government = socialdemocrature }
+	}
+	trigger = {
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}	
+		NOT = { has_government = marxism_cranism }
+		NOT = { has_government = squattism }
+		NOT = { has_government = socialdemocrature }
+	}
+}
+
 
 joining_rule_same_ideology = {
 	type = joining_rules
@@ -121,6 +359,32 @@ joining_rule_has_no_offensive_war = {
  ##  ###  ##   ##  #  # #  # #    #  # ###  ##  #  # ###
 
 ######################################################## 
+
+joining_rule_lodz_only = {
+	type = joining_rules
+	ai_will_do = {
+		base = 0
+	}
+	
+	trigger = {
+		is_lodzkie = yes
+	}
+
+	modifier = {
+		improve_relations_maintain_cost_factor = -0.1
+	}
+}
+
+joining_rule_zaglebie_jura_only = {
+	type = joining_rules
+	ai_will_do = {
+		base = 0
+	}
+	
+	trigger = {
+		is_zaglebie_and_jura = yes
+	}
+}
 
 joining_rule_neighbors_only = {
 	type = joining_rules
