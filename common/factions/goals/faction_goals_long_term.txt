@@ -37,10 +37,8 @@ faction_goal_rule_the_waves = {
 	available = {
 		FROM = {
 			OR = {
-				NOT = { has_government = euroliberalism }
-				NOT = { has_government = freemarketism }
-				NOT = { has_government = socialdemocrature }
-				NOT = { has_government = paternal_conservatism }
+				is_pomerelia = yes
+				is_west_pomerania = yes
 			}
 		}
 	}
@@ -773,6 +771,39 @@ faction_goal_the_red_tide = {
 		effect_tooltip = {
 			add_faction_influence_ratio = 0.05
 			army_experience = 50 
+		}	
+	}
+	ai_will_do = {
+		base = 1
+	}
+}
+
+
+faction_goal_unify_poland = {
+	name = unify_poland_goal_name
+	description = unify_poland_goal_desc
+	category = long_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	visible = {
+		is_poland_unifier = yes
+	}
+	completed = {
+		var:faction_leader = {
+			has_country_flag = poland_mountain
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 250
+		custom_effect_tooltip = generic_skip_one_line_tt
+		every_faction_member = {
+			hidden_effect = {
+				add_stability = 0.3
+				add_political_power = 200
+			} 
+		}
+		effect_tooltip = {
+			add_stability = 0.3
+			add_political_power = 200
 		}	
 	}
 	ai_will_do = {

@@ -1,6 +1,45 @@
 #category = short_term medium_term or long_term
 # ROOT is faction leader, FROM is faction member who opens UI and views goals, completed/cancel/complete_effect do not have FROM scopes
 
+faction_goal_bedzin_congress = {
+	name = bedzin_congress_goal_name
+	description = bedzin_congress_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_POLITICAL_CHARACTER
+	visible = {
+		FROM = {
+			OR = {
+				original_tag = SOS
+				original_tag = DGR
+				original_tag = JAW
+			}
+		}
+	}
+	available = {
+		always = yes
+	}
+	completed = {
+		OR = {
+			has_global_flag = ZAG_congress_of_bedzin_success
+			has_global_flag = ZAG_congress_of_bedzin_failure
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			army_experience = 25
+			add_war_support = 0.05
+		}
+	}
+	ai_will_do = {
+		base = 10
+	}
+}
 
 ######################################################################
 
