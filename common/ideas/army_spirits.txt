@@ -9,6 +9,10 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
 			}
 		}
 		tenacious_defense_spirit = {
@@ -19,6 +23,10 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
 			}
 		}
 		meticulous_preparation_spirit = {
@@ -29,18 +37,22 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
 			}
 		}
 		best_of_the_best_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
-			visible = { 
+			visible = {
+				 has_military_academy = yes
 				OR = {
 					has_government = socialdemocrature
 					has_government = paternal_conservatism
 					has_government = freemarketism
 					has_government = euroliberalism
-					}
+				}
 			}
 			modifier = {
 				army_leader_start_level = 2
@@ -48,14 +60,38 @@ ideas = {
 				custom_modifier_tooltip = best_of_the_best_spirit_tt
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { has_dlc = "No Step Back" }
+						NOT = { 	
+							OR = {
+					has_government = socialdemocrature
+					has_government = paternal_conservatism
+					has_government = freemarketism
+					has_government = euroliberalism
+				} }
+					}
+				}
+
+				modifier = {
+					factor = 2
+				OR = {
+					has_government = socialdemocrature
+					has_government = paternal_conservatism
+					has_government = freemarketism
+					has_government = euroliberalism
+				}
+				}
 			}
 
 		}
 		academy_scholarships_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
 			visible = { 
+				has_military_academy = yes
 				OR = {
 				has_government = squattism
 				has_government = marxism_cranism
@@ -68,13 +104,34 @@ ideas = {
 				custom_modifier_tooltip = academy_scholarships_spirit_tt
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { has_dlc = "No Step Back" }
+						NOT = { 
+							OR = {
+							has_government = squattism
+							has_government = marxism_cranism
+							}
+						 }
+					}
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+					has_government = squattism
+					has_government = marxism_cranism
+					}
+				}
 			}
 		}
 		political_loyalty_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
 			visible = { 
+				has_military_academy = yes
 				OR = {
 					has_government = autocracy
 					has_government = neonationalism
@@ -84,12 +141,35 @@ ideas = {
 				}
 			}
 			modifier = {
-				military_leader_cost_factor = -0.5
-				party_popularity_stability_factor = 0.15
+				army_leader_cost_factor = -0.5
+				party_popularity_stability_factor = 0.10
 				custom_modifier_tooltip = political_loyalty_spirit_tt
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { has_dlc = "No Step Back" }
+						NOT = { has_government = autocracy }
+						NOT = { has_government = neonationalism }
+						NOT = { has_government = corporativism }
+						NOT = { has_government = postpolonism }
+						NOT = { has_government = reactionary }
+					}
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+						has_government = autocracy
+						has_government = neonationalism
+						has_government = corporativism
+						has_government = postpolonism
+						has_government = reactionary
+					}
+				}
 			}
 		}
 		inventive_leadership_spirit = {
@@ -103,107 +183,314 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2
+					OR = {
+						has_doctrine = partisan_infantry
+						has_doctrine = honor_operations
+						has_doctrine = terrorist_infantry
+						has_doctrine = warsaw_pact_infantry		
+					}
+				}
 			}
 		}
 		mobile_warfare_academy_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
+			available = {
+				AND = {
+				has_military_academy = yes 
+					OR = { 
+						has_doctrine = nato_armor
+						has_doctrine = elite_tech_armor
+					}	
+				}
+			}
 			#visible = { has_tech = technological_supremacy }
 			modifier = {
 				custom_modifier_tooltip = mobile_warfare_academy_spirit_tt
 				trait_panzer_leader_xp_gain_factor = 0.2
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+					OR = { 
+						has_doctrine = nato_armor
+						has_doctrine = elite_tech_armor
+					}	
+					}
 			}
 		}
 		superior_firepower_academy_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
-			#visible = { has_tech = conventional_warfare }
+			available = { 
+				AND = {
+				has_military_academy = yes 
+				OR = {
+				has_doctrine = warsaw_pact_operations	
+				has_doctrine = nato_operations	
+				}
+				}
+			}
 			modifier = {
 				custom_modifier_tooltip = superior_firepower_academy_spirit_tt
 				trait_engineer_xp_gain_factor = 0.2
-				trait_fortress_buster_xp_gain_factor = 0.1
-				trait_scavenger_xp_gain_factor = 0.1
+				initiative_factor = 0.04
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = warsaw_pact_operations	
+					has_doctrine = nato_operations	
+					}
+				}
 			}
 		}
 		theatre_training_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
-			#visible = { has_tech = asymetrical_warfare }
+			available = {
+				AND = { 
+				has_military_academy = yes 
+				OR = {
+				has_doctrine = honor_operations
+				has_doctrine = nato_operations
+				}
+				}
+			}
 			modifier = {
 				custom_modifier_tooltip = theatre_training_academy_spirit_tt
 				terrain_trait_xp_gain_factor = 0.2
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = honor_operations
+					has_doctrine = nato_operations
+					}
+				}
 			}
 		}
 		mass_assault_academy_spirit = {
 			ledger = army
-			available = { has_military_academy = yes }
-			#visible = { has_tech = cqc_theory }
+			available = {
+				AND = { 
+				has_military_academy = yes 
+				OR = {
+				has_doctrine = horde_operations
+				has_doctrine = honor_operations
+				has_doctrine = warsaw_pact_operations
+				}
+				}
+			}
 			modifier = {
 				custom_modifier_tooltip = mass_assault_academy_spirit_tt
 				trait_infantry_leader_xp_gain_factor = 0.2
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+				OR = {
+				has_doctrine = horde_operations
+				has_doctrine = honor_operations
+				has_doctrine = warsaw_pact_operations
+				}
+				}
 			}
 		}
 	}
+#		NOR_flexible_officers_academy_spirit = {
+#			ledger = army
+#			visible = { 
+#				has_military_academy = yes 
+#				has_completed_focus = NOR_officers_academy
+#			}
+#			available = { 
+#				NOR_AAT = yes 
+#			}
+#			modifier = {
+#				army_leader_start_level = 2
+#				promote_cost_factor = -0.3
+#				reassignment_duration_factor = -0.3 
+#				skill_bonus_factor = 0.1
+#			}
+#			ai_will_do = {
+#				base = 1
+#
+#				modifier = {
+#					factor = 0
+#					NOT = { has_dlc = "No Step Back" }
+#				}
+#			}
+#
+#		}	
+#		CHI_whampoa_military_academy_spirit = {
+#			ledger = army
+#			available = { 
+#				has_military_academy = yes 
+#				NOT = {
+#					has_completed_focus = CHI_close_whampoa
+#					has_completed_focus = CHI_end_military_primacy
+#				}
+#			}
+#			visible = { 
+#				tag = CHI
+#				has_dlc = "No Compromise, No Surrender"
+#			}
+#			modifier = {
+#				planning_speed = -0.05
+#				max_planning_factor = -0.05
+#				army_leader_start_level = 1
+#				party_popularity_stability_factor = 0.15
+#				army_leader_cost_factor = -0.15
+#				custom_modifier_tooltip = political_loyalty_spirit_tt
+#			}
+#			allowed_to_remove = {
+#				OR = {
+#					has_completed_focus = CHI_end_military_primacy
+#					has_completed_focus = CHI_close_whampoa 
+#					has_completed_focus = CHI_focus_on_meritocratic_principles
+#				}
+#			}
+#			ai_will_do = {
+#				base = 1
+#				modifier = {
+#					factor = 0
+#					NOT = { has_dlc = "No Step Back" }
+#				}
+#			}
+#		}
 
-	army_spirit = {
-		professional_officer_corps_spirit = {
+		cult_of_heroism_army_spirit = {
 			ledger = army
-			modifier = {
-				experience_gain_army_factor = 0.05
-				land_doctrine_cost_factor = -0.05
-				command_power_gain = 0.2
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = { 
+				OR = {
+				has_doctrine = nato_operations
+				has_doctrine = partisan_operations
+				}
 			}
+
+			modifier = {
+				automatic_grant_medal_chance = 0.50
+				unit_medal_effectiveness = -0.25    		  			    			    			 			    			 				
+			}
+
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = partisan_infantry					
+				}
 			}
 		}
 
-		elevated_engineering_corps_spirit = {
+		professional_officer_corps_spirit = {
 			ledger = army
 			modifier = {
-				trait_engineer_xp_gain_factor = 0.25
-				unit_engineer_design_cost_factor = -1
-				dig_in_speed_factor = 0.1
-				railway_gun_bombardment_factor = 0.20
+				experience_gain_army_unit_factor = 0.15
+				max_command_power = 30
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+			}
+		}
+
+
+	army_spirit = {
+		elevated_engineering_corps_spirit = {
+			ledger = army
+
+			modifier = {
+				unit_engineer_design_cost_factor = -1
+				dig_in_speed_factor = 0.1
+				railway_gun_bombardment_factor = 0.25
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = warsaw_pact_operations
+					has_doctrine = terrorist_support
+					has_doctrine = partisan_support
+					has_doctrine = elite_tech_operations
+					}
+				}
 			}
 		}
 
 		proper_heritage_spirit = {
 			ledger = army
+			available = {
+				OR = {
+					has_doctrine = partisan_armor
+					has_doctrine = honor_armor
+				}
+			}
 			modifier = {
+				experience_gain_factor = 0.1
 				unit_cavalry_design_cost_factor = -1
-				cavalry_attack_factor = 0.05
 				supply_combat_penalties_on_core_factor = -0.2
 			}
 			ai_will_do = {
 				factor = 1
-			}
-		}
-
-		quick_improvisation_spirit = {
-			ledger = army
-			modifier = {
-				command_abilities_cost_factor = -0.20
-				command_power_gain = 0.2
-				planning_speed = 0.2
-			}
-			ai_will_do = {
-				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = honor_armor
+					has_doctrine = partisan_infantry
+					has_doctrine = common_tech_infantry
+					}
+				}
 			}
 		}
 
@@ -215,14 +502,35 @@ ideas = {
 					has_government = paternal_conservatism
 					has_government = freemarketism
 					has_government = euroliberalism
-					} 
+				} 
 				}
 			modifier = {
 				experience_gain_army_factor = 0.25
 				army_advisor_cost_factor = -0.5
 			}
 			ai_will_do = {
-				factor = 0.5
+				base = 1
+
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { has_dlc = "No Step Back" }
+						NOT = {has_government = socialdemocrature}
+						NOT = {has_government = paternal_conservatism}
+						NOT = {has_government = freemarketism}
+						NOT = {has_government = euroliberalism}
+					}
+				}
+
+				modifier = {
+					factor = 2
+				OR = {
+					has_government = socialdemocrature
+					has_government = paternal_conservatism
+					has_government = freemarketism
+					has_government = euroliberalism
+				} 
+				}
 			}
 		}
 
@@ -239,7 +547,24 @@ ideas = {
 				weekly_manpower = 500
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { has_dlc = "No Step Back" }
+						NOT = {has_government = marxism_cranism }
+						NOT = {has_government = squattism }
+					}
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+						has_government = marxism_cranism
+						has_government = squattism
+						}  
+				}
 			}
 		}
 
@@ -255,33 +580,73 @@ ideas = {
 				}
 			}
 			modifier = {
-				political_power_factor = 0.1
-				mobilization_level_cost_factor = -0.25
+				offensive_war_stability_factor = 0.1
+				mobilization_laws_cost_factor = -0.25
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { has_dlc = "No Step Back" }
+						NOT = {has_government = autocracy}
+						NOT = {has_government = neonationalism}
+						NOT = {has_government = corporativism}
+						NOT = {has_government = postpolonism}
+						NOT = {has_government = reactionary}
+					}
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+						has_government = autocracy
+						has_government = neonationalism
+						has_government = corporativism
+						has_government = postpolonism
+						has_government = reactionary
+					}
+				}
 			}
 		}
 
 		mobile_warfare_army_spirit = {
-			#visible = { has_tech = technological_supremacy }
+			available = { has_doctrine = nato_armor }
 			ledger = army
 			modifier = {
 
 				experience_gain_motorized_combat_factor = 0.1
 				experience_gain_mechanized_combat_factor = 0.1
-				unit_motorbike_battalion_design_cost_factor = -1
+				unit_light_armor_design_cost_factor = -1
+				#light_tank_destroyer_brigade
 				unit_medium_armor_design_cost_factor = -1
+				#medium_tank_destroyer_brigade 
+				unit_modern_armor_design_cost_factor = -1
+				unit_heavy_armor_design_cost_factor = -1
+				#heavy_tank_destroyer_brigade 
+				unit_super_heavy_armor_design_cost_factor = -1
 				unit_motorized_design_cost_factor = -1
 				unit_mechanized_design_cost_factor = -1
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0.5
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+						has_doctrine = nato_armor
+				}
+
 			}
 		}
 
 		superior_firepower_army_spirit = {
-			#visible = { has_tech = conventional_warfare  }
+			available = { has_doctrine = warsaw_pact_armor }
 			ledger = army
 			modifier = {
 				experience_gain_artillery_combat_factor = 0.1
@@ -295,30 +660,51 @@ ideas = {
 				unit_motorized_rocket_brigade_design_cost_factor = -1
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+					has_doctrine = warsaw_pact_armor
+				}
 			}
 		}
 
 		grand_battleplan_army_spirit = {
-			#visible = { has_tech = asymetrical_warfare }
+			available = { has_doctrine = elite_tech_operations }
 			ledger = army
 			modifier = {
-				unit_marine_design_cost_factor = -1
-				unit_mountaineers_design_cost_factor = -1
-				unit_paratrooper_design_cost_factor = -1
-				naval_invasion_capacity = 10
+				unit_marine_design_cost_factor = -0.5
+				unit_mountaineers_design_cost_factor = -0.5
+				unit_paratrooper_design_cost_factor = -0.5
+				unit_ranger_battalion_design_cost_factor = -0.5
+				special_forces_cap_flat = 24
 				extra_paratrooper_supply_grace = 24
 				extra_marine_supply_grace = 24
-				naval_invasion_planning_bonus_speed = 0.2
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+
+					has_doctrine = elite_tech_operations
+				}
 			}
 		}
 
 		mass_assault_army_spirit = {
 			ledger = army
-			#visible = { has_tech = cqc_theory }
+			available = { has_doctrine = honor_operations }
 			modifier = {
 				experience_gain_infantry_combat_factor = 0.1
 				unit_infantry_design_cost_factor = -1
@@ -328,40 +714,241 @@ ideas = {
 				unit_melee_infantry_design_cost_factor = -1
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+
+					has_doctrine = honor_operations				
+				}
 			}
 		}
 		
 		heritage_of_accomplishment = {
 			ledger = army
 			available = { has_dlc = "By Blood Alone" }
-			visible = { has_dlc = "By Blood Alone" }
 			modifier = {
 				grant_medal_cost_factor = -0.5
 				field_officer_promotion_penalty = -1.0
 			}
 			ai_will_do = {
-				factor = 0
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
 			}
 		}
-		
-	}
 
-	division_command_spirit = {
-		static_warfare_spirit = {
+		living_off_the_land_army_spirit = {
 			ledger = army
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = { has_doctrine = partisan_operations }
 			modifier = {
-				tactic_elastic_defense_preferred_weight_factor = 1
-				tactic_overwhelming_fire_preferred_weight_factor = 1
-				max_dig_in_factor = 0.1
-				dig_in_speed_factor = 0.1
+				out_of_supply_factor = -0.10
+				attrition = -0.10
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = partisan_infantry
+				}
+			}
+		}
+		
+		subsidized_contracts_army_spirit = {
+			ledger = army
+			visible = { 
+				AND = {
+				has_dlc = "No Compromise, No Surrender"
+				has_dlc = "La Resistance" 
+				}
+			}
+			available = { 
+				OR = {
+					has_doctrine = nato_armor
+					has_doctrine = warsaw_pact_armor 
+				}
+			}
+				equipment_bonus = {
+  					armored_car_equipment = {
+  					instant = yes
+ 					build_cost_ic = -0.15
+ 					}
+ 				}
+				equipment_bonus = {
+  					ifv_chassis = {
+  					instant = yes
+ 					build_cost_ic = -0.10
+ 					}
+ 				}  	
+ 				equipment_bonus = {
+  					apc_equipment = {
+  					instant = yes
+ 					build_cost_ic = -0.10
+ 					}
+ 				}  					    		  			    			    			 			    			 				
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = warsaw_pact_armor
+				}
+			}
+		}	
+		subsidized_contracts_no_lar_army_spirit = {
+			ledger = army
+			visible = { 
+				AND = {
+				has_dlc = "No Compromise, No Surrender"
+					NOT = {
+					has_dlc = "La Resistance"
+					}
+				} 
+			}
+			available = { 
+				OR = {
+					has_doctrine = nato_armor
+					has_doctrine = warsaw_pact_armor 
+				}
+			}
+			
+				equipment_bonus = {
+  					ifv_chassis = {
+  					instant = yes
+ 					build_cost_ic = -0.10
+ 					}
+ 				}  	
+ 				equipment_bonus = {
+  					apc_equipment = {
+  					instant = yes
+ 					build_cost_ic = -0.10
+ 					}
+ 				}  				    		  			    			    			 			    			 				
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = warsaw_pact_armor
+				}
+			}
+		}	
+
+		spirit_of_defiance_army_spirit = {
+			ledger = army
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = { 
+				OR = {
+					has_doctrine = warsaw_pact_infantry 
+					has_doctrine = partisan_infantry
+					has_doctrine = terrorist_infantry
+				}
+			}
+			modifier = {
+				resistance_target_on_our_occupied_states = 0.25
+				resistance_growth_on_our_occupied_states = 0.5			    		  			    			    			 			    			 				
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = warsaw_pact_infantry 
+					has_doctrine = partisan_infantry
+					has_doctrine = terrorist_infantry
+					}
+				}
 			}
 		}
 
+		proxy_wars_army_spirit = {
+			ledger = army
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = { 
+				OR = {
+					has_doctrine = warsaw_pact_operations
+					has_doctrine = partisan_operations
+				}
+			}
+
+			modifier = {
+				army_experience_from_volunteers = 0.5    		  			    			    			 			    			 				
+			}
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = expeditionary_warfare					
+				}
+			}
+		}							
+	}
+
+
+	division_command_spirit = {
+		static_warfare_spirit = {
+			available = { 
+				OR = {
+					has_doctrine = honor_operations	
+					has_doctrine = warsaw_pact_infantry
+				}
+			}
+			ledger = army
+			modifier = {
+				tactic_elastic_defense_preferred_weight_factor = 1
+				max_dig_in_factor = 0.1
+				dig_in_speed_factor = 0.1
+			}
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+				OR = {
+					has_doctrine = honor_operations	
+					has_doctrine = warsaw_pact_infantry
+				}
+				}
+		}
+
 		flexible_organization_spirit = {
+			available = {
+				OR = {
+					has_doctrine = nato_armor 
+					has_doctrine = terrorist_armor
+				}
+			}
 			ledger = army
 			modifier = {
 				org_loss_when_moving = -0.15
@@ -370,10 +957,27 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 4
+					original_tag = GER #Right now this is just better for AI Germany
+				}
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = nato_armor
+					has_doctrine = terrorist_armor
+					has_doctrine = partisan_armor
+					}
+				}
 			}
 		}
 
 		aggressive_reconnaisance_spirit = {
+			available = { has_doctrine = nato_armor }
 			ledger = army
 			modifier = {
 				tactic_infantry_charge_preferred_weight_factor = 1
@@ -382,21 +986,51 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2
+					OR = {
+						has_doctrine = nato_armor
+						has_doctrine = warsaw_pact_armor
+						has_doctrine = elite_tech_support
+					}
+				}
 			}
 		}
 
 		reserve_officers_spirit = {
+			available = { has_doctrine = superior_firepower }	
 			ledger = army
 			modifier = {
-				tactic_delay_preferred_weight_factor = 1
 				training_time_army_factor = -0.15
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = warsaw_pact_infantry
+					has_doctrine = honor_support
+					}
+				}
 			}
 		}
 
 		victory_or_death_spirit = {
+			available = { 
+				OR = { 
+					has_doctrine = warsaw_pact_operations
+					has_doctrine = honor_operations
+					has_doctrine = partisan_operations
+				} 
+				}		
 			ledger = army
 			modifier = {
 				tactic_human_wave_tactics_preferred_weight_factor = 1
@@ -404,57 +1038,315 @@ ideas = {
 			}
 			ai_will_do = {
 				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2
+					OR = { 
+						has_doctrine = warsaw_pact_operations
+						has_doctrine = honor_operations
+						has_doctrine = partisan_operations
+					} 
+				}
 			}
 		}
 
 		maneuver_warfare_spirit = {
-			#visible = { has_tech = technological_supremacy }
+			available = { has_doctrine = elite_tech_armor }
 			modifier = {
 				tactic_unexpected_thrust_preferred_weight_factor = 1
 				army_speed_factor = 0.05
 				coordination_bonus = 0.05
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = elite_tech_armor
+					has_doctrine = nato_support
+					has_doctrine = common_tech_operations
+					}
+				}
+
 			}
 		}
 
 		smoke_and_fire_spirit = {
 			ledger = army
-			#visible = { has_tech = conventional_warfare }
+			available = { 
+				OR = {
+				has_doctrine = warsaw_pact_operations
+				has_doctrine = common_tech_operations
+				has_doctrine = terrorist_operations
+				}
+			}
 			modifier = {
 				tactic_barrage_preferred_weight_factor = 1
-				breakthrough_factor = 0.05
+				breakthrough_factor = 0.06
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+				OR = {
+				has_doctrine = warsaw_pact_operations
+				has_doctrine = common_tech_operations
+				has_doctrine = terrorist_operations
+				}
+				}
 			}
 		}
 
 		logistical_focus_spirit = {
 			ledger = army
-			#visible = { has_tech = asymetrical_warfare }
+			available = { 
+				OR = {
+				has_doctrine = honor_support
+				has_doctrine = nato_support
+				has_doctrine = elite_tech_support
+				}
+			}
 			modifier = {
 				tactic_planned_attack_preferred_weight_factor = 1
-				supply_consumption_factor = -0.05
-				air_fuel_consumption_factor = -0.05
-				navy_fuel_consumption_factor = -0.05
+				supply_consumption_factor = -0.10
+				air_fuel_consumption_factor = -0.10
+				navy_fuel_consumption_factor = -0.10
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+				OR = {
+				has_doctrine = honor_support
+				has_doctrine = nato_support
+				has_doctrine = elite_tech_support
+				}
+				}
 			}
 		}
 
 		operational_reserve_spirit = {
 			ledger = army
-			#visible = { has_tech = cqc_theory }
+				OR = { 
+					has_doctrine = warsaw_pact_operations
+					has_doctrine = honor_operations
+					has_doctrine = partisan_operations
+				} 
 			modifier = {
 				tactic_relentless_assault_preferred_weight_factor = 1
 				army_strength_factor = 0.1
 			}
 			ai_will_do = {
-				factor = 1
+				base = 1
+
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2
+					OR = {
+					has_doctrine = warsaw_pact_operations
+					has_doctrine = honor_operations
+					has_doctrine = partisan_operations
+					}
+				}
 			}
 		}
+		all_arms_at_defense_army_spirit = {
+			ledger = army
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = { 
+				OR = { 
+					has_doctrine = warsaw_pact_operations
+					has_doctrine = nato_operations
+				}
+			}
+			
+			modifier = {
+				tactic_tactical_withdrawal_preferred_weight_factor = 1
+			}
+			
+			equipment_bonus = {
+				ranged_equipment = {
+					instant = yes
+					hard_attack = 0.25
+				}
+			}    			    			 			    			 				
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = nato_operations
+				}
+			}
+		}
+		
+		direct_fire_support_army_spirit = {
+			ledger = army
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = {
+				OR = {
+					has_doctrine = warsaw_pact_operations 
+					has_doctrine = common_tech_armor
+				}
+			}
+			
+			modifier = {
+				tactic_overwhelming_fire_preferred_weight_factor = 1
+			}
+			
+			equipment_bonus = {
+				light_artillery_equipment = {
+				instant = yes
+					hard_attack = 0.50
+					ap_attack = 1
+				}
+			}
+			equipment_bonus = {
+				self_propelled_mortar_equipment = {
+				instant = yes
+					hard_attack = 0.50
+					ap_attack = 1
+				}
+			}
+			equipment_bonus = {
+				motorized_artillery_equipment = {
+				instant = yes
+					hard_attack = 0.50
+					ap_attack = 1
+				}
+			} 				
+			equipment_bonus = {
+				heavy_artillery_equipment = {
+				instant = yes
+					hard_attack = 0.50
+					ap_attack = 1
+				}
+			}			    		  			    			    			 			    			 				
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = warsaw_pact_operations
+				}
+			}
+		}
+		
+		rapid_emplacement_army_spirit = {
+			ledger = army
+			visible = { has_dlc = "No Compromise, No Surrender" }
+			available = { 
+				OR = {
+				has_doctrine = warsaw_pact_operations
+				has_doctrine = terrorist_operations
+				}
+			}
+				
+				modifier = {
+					tactic_breakthrough_preferred_weight_factor = 1
+				}
+			
+
+				equipment_bonus = {
+  					rocket_artillery_equipment = {
+						instant = yes
+						breakthrough = 0.10
+						defense = 0.10
+    				}
+    			}   
+
+				equipment_bonus = {
+  					motorized_rocket_equipment = {
+						instant = yes
+						breakthrough = 0.10
+						defense = 0.10
+    				}
+    			}   			
+
+				equipment_bonus = {
+  					anti_air_equipment = {
+						instant = yes
+						breakthrough = 0.10
+						defense = 0.10
+    				}
+    			}
+    		  			    			    			 			    			 				
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Compromise, No Surrender" }
+				}
+				modifier = {
+					factor = 2
+					has_doctrine = warsaw_pact_operations
+				}
+			}
+		}
+		
+		quick_improvisation_spirit = {
+			ledger = army
+			available = {
+				OR = {
+				has_doctrine = partisan_infantry
+				has_doctrine = terrorist_infantry
+				}
+			}
+			modifier = {
+				command_abilities_cost_factor = -0.20
+				command_power_gain = 0.2
+				planning_speed = 0.2
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					NOT = { has_dlc = "No Step Back" }
+				}
+
+				modifier = {
+					factor = 2.0
+				OR = {
+				has_doctrine = partisan_infantry
+				has_doctrine = terrorist_infantry
+				}
+				}
+			}
+		}
+
 	}
 }
