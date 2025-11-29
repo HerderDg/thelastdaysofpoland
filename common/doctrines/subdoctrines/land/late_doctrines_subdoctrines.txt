@@ -2,7 +2,7 @@ late_cyber_army = {
     track = late_doctrine
     name = the_cyber_army
     description = the_cyber_army_desc
-    icon = GFX_doctrine_last_stand_medium
+    icon = GFX_the_cyber_army_medium
 
     xp_cost = 150
     xp_type = army
@@ -30,12 +30,10 @@ late_cyber_army = {
             has_completed_subdoctrine = common_tech_operations
         }                        
     }
-    # EFFECTS
-    conscription = 0.05
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
     }
 
@@ -95,7 +93,7 @@ late_new_army = {
     track = late_doctrine
     name = the_new_war
     description = the_new_war_desc
-    icon = GFX_doctrine_commandos_medium
+    icon = GFX_the_new_war_medium
 
     xp_cost = 150
     xp_type = army
@@ -124,42 +122,49 @@ late_new_army = {
         }                        
     }
     # EFFECTS
-    conscription = 0.05
+    command_power_gain = 0.3
+    max_planning = 0.15
+    planning_speed = 0.15
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        advanced_drills = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            category_army = {
+            	max_organisation = 5
+            	default_morale = 0.25
+            }       
         }
-
-        pocket_consolidation = {
+        dispersed_marching_fire = {
         #2
             category_all_infantry = {
-                defense = 0.1
+            	soft_attack = 0.15
+            	maximum_speed = 0.1
             }
         }
-        digging_in = {
+        precise_firepower_support = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
+            category_line_artillery = {
+            	soft_attack = 0.1
+            	breakthrough = 0.1
             }
         }
-        stocking_up = {
+        bounding_overwatch = {
         #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
+            category_all_infantry = {
+            	max_strength = 0.15
             }
+            org_loss_when_moving = -0.1
+        }        
+        new_model_army = {
+        #5
+            army_org_factor = 0.2
+            coordination_bonus = 0.2
         }
     }
 }
@@ -168,7 +173,7 @@ late_cursed_soldiers = {
     track = late_doctrine
     name = condemned_soldiers
     description = condemned_soldiers_desc
-    icon = GFX_doctrine_guerilla_warfare_medium
+    icon = GFX_condemned_soldiers_medium
 
     xp_cost = 150
     xp_type = army
@@ -197,42 +202,47 @@ late_cursed_soldiers = {
         }                        
     }
     # EFFECTS
-    conscription = 0.05
+    cas_damage_reduction = 0.25
+    river_crossing_factor = -0.25
+    unit_upkeep_attrition_factor = -0.25
+    
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        weather_training = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            acclimatization_cold_climate_gain_factor = 0.5
+            acclimatization_hot_climate_gain_factor = 0.5
+            terrain_penalty_reduction = 0.2            
         }
 
-        pocket_consolidation = {
+        united_in_spirit = {
         #2
-            category_all_infantry = {
-                defense = 0.1
-            }
+            local_supplies = 0.2
+            mobilization_speed = 0.2
         }
-        digging_in = {
+        anti_vehicle_measures = {
         #3
-            out_of_supply_factor = -0.20
             category_all_infantry = {
-                entrenchment = 0.1
+            	hard_attack = 0.2
+            	ap_attack = 0.2
             }
         }
-        stocking_up = {
+        no_mercy_for_the_enemy = {
         #4
-            no_supply_grace = 72 # more hours before supply penalty changes
+            resistance_damage_to_garrison_on_our_occupied_states = 0.2		
+            resistance_garrison_penetration_chance = -0.2  
+            army_attack_factor = 0.1
         }
-        breaking_out = {
+        ghosts = {
         #5
-            category_army = {
-                soft_attack = 0.2
-            }
+            tactic_ambush_preferred_weight_factor = 0.2
+            land_night_attack = 0.2
         }
     }
 }
@@ -241,7 +251,7 @@ late_might = {
     track = late_doctrine
     name = might_makes_right
     description = might_makes_right_desc
-    icon = GFX_doctrine_human_infantry_offensive_medium
+    icon = GFX_might_makes_right_medium
 
     xp_cost = 150
     xp_type = army
@@ -270,41 +280,56 @@ late_might = {
         }                        
     }
     # EFFECTS
-    conscription = 0.05
+    melee_infantry = {
+    	soft_attack = 0.2
+    }		
+    skill_bonus_factor = 0.2   
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        shattering_charges = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            melee_infantry = {
+            	breakthrough = 0.15
+            	default_morale = 0.1
+            }		
+            cavalry = {
+                breakthrough = 0.15
+            	default_morale = 0.1
+            }           
         }
 
-        pocket_consolidation = {
+        relics = {
         #2
-            category_all_infantry = {
-                defense = 0.1
-            }
-        }
-        digging_in = {
-        #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
-            }
-        }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
+            compliance_growth = 0.15
+            resistance_decay = 0.15	
             category_army = {
-                soft_attack = 0.2
+            	default_morale = 0.2
+            }
+        }
+
+        praetorian_guard = {
+        #3
+            special_forces_cap = 0.5
+            special_forces_attack_factor = 0.2
+            special_forces_defence_factor = 0.2
+        }
+        blood_loyalty = {
+        #4
+            land_reinforce_rate = 0.2
+            recruitable_population_factor = 0.1
+            pocket_penalty = -0.2        
+        }
+        goliaths = {
+        #5
+            melee_infantry = {
+            	max_strength = 0.25
+            	armor_value = 0.25
             }
         }
     }
@@ -314,7 +339,7 @@ late_tech_conv_fusion = {
     track = late_doctrine
     name = tech_conv_fusion
     description = tech_conv_fusion_desc
-    icon = GFX_doctrine_armored_cavalry_medium
+    icon = GFX_tech_conv_fusion_medium
 
     xp_cost = 200
     xp_type = army
@@ -393,42 +418,50 @@ late_tech_conv_fusion = {
         
     }
     # EFFECTS
-    conscription = 0.05
+    category_all_armor = {
+    	soft_attack = 0.05
+    	hard_attack = 0.05
+    }
+    mechanized = {
+    	soft_attack = 0.05
+    	hard_attack = 0.05
+    }
+    motorized =	{
+    	soft_attack = 0.05
+    	hard_attack = 0.05
+    }   
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        instant_information_support = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            initiative_factor = 0.25
+            army_defence_factor = 0.15            
         }
 
-        pocket_consolidation = {
+        standardization_of_experimental_technology = {
         #2
-            category_all_infantry = {
-                defense = 0.1
+            land_equipment_upgrade_xp_cost = -0.25
+            equipment_bonus = {
+                ranged_equipment_laser = {
+                    build_cost_ic = -0.5
+                }
+                ranged_equipment_plasma = {
+                    build_cost_ic = -0.5
+                }
+                ranged_equipment_tesla = {
+                    build_cost_ic = -0.5
+                }
             }
         }
-        digging_in = {
+        advanced_warfare = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
-            }
-        }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
-            }
+
         }
     }
 }
@@ -437,7 +470,7 @@ late_conv_asm_fusion = {
     track = late_doctrine
     name = conv_asm_fusion
     description = conv_asm_fusion_desc
-    icon = GFX_doctrine_armored_cavalry_medium
+    icon = GFX_conv_asm_fusion_medium
 
     xp_cost = 200
     xp_type = army
@@ -516,42 +549,41 @@ late_conv_asm_fusion = {
         
     }
     # EFFECTS
-    conscription = 0.05
+    army_morale = 0.25
+    army_org_regain = 0.1
+    cas_damage_reduction = 0.15
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        coup_de_main = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            initiative_factor = 0.25
+            extra_paratrooper_supply_grace = 96
+            #		
+            paratrooper = {
+            	soft_attack = 0.1
+            	max_organisation = 6
+            }          
         }
 
-        pocket_consolidation = {
+        field_works = {
         #2
-            category_all_infantry = {
-                defense = 0.1
+            max_dig_in = 8
+            recon_factor_while_entrenched = 0.25
+            #		
+            engineer = {
+            	defense = 0.2
             }
         }
-        digging_in = {
+
+        hybrid_terror = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
-            }
-        }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
-            }
+
         }
     }
 }
@@ -560,7 +592,7 @@ late_asm_cqc_fusion = {
     track = late_doctrine
     name = asm_cqc_fusion
     description = asm_cqc_fusion_desc
-    icon = GFX_doctrine_armored_cavalry_medium
+    icon = GFX_asm_cqc_fusion_medium
 
     xp_cost = 200
     xp_type = army
@@ -639,43 +671,32 @@ late_asm_cqc_fusion = {
         
     }
     # EFFECTS
-    conscription = 0.05
+    army_defence_factor = 0.15
+    command_abilities_cost_factor = -0.3    
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        chevauchee = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            fortification_collateral_chance = 0.15
+            equipment_capture = 0.15
+            attrition = -0.15           
         }
 
-        pocket_consolidation = {
+        warmian_shot = {
         #2
-            category_all_infantry = {
-                defense = 0.1
-            }
+            cavalry_attack_factor = 0.25
         }
-        digging_in = {
+        order_of_assassins = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
-            }
+
         }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
-            }
-        }
+
     }
 }
 
@@ -683,7 +704,7 @@ late_tech_asm_fusion = {
     track = late_doctrine
     name = tech_asm_fusion
     description = tech_asm_fusion_desc
-    icon = GFX_doctrine_armored_cavalry_medium
+    icon = GFX_tech_asm_fusion_medium
 
     xp_cost = 200
     xp_type = army
@@ -762,43 +783,39 @@ late_tech_asm_fusion = {
         
     }
     # EFFECTS
-    conscription = 0.05
+    land_night_attack = 1
+    militia = {
+    	soft_attack = 0.25
+    }
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        emp_traps = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+            sp_emp_speed_factor = 0.2
+            category_army = {
+            	hard_attack = 0.1
+            	ap_attack = 0.25
+            }
         }
 
-        pocket_consolidation = {
+        reconnaissance_in_force = {
         #2
-            category_all_infantry = {
-                defense = 0.1
-            }
+            coordination_bonus = 0.1
+            recon_factor = 0.2
+            org_loss_at_low_org_factor = 0.2
         }
-        digging_in = {
+
+        anonymous = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
-            }
+
         }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
-            }
-        }
+
     }
 }
 
@@ -806,7 +823,7 @@ late_conv_cqc_fusion = {
     track = late_doctrine
     name = conv_cqc_fusion
     description = conv_cqc_fusion_desc
-    icon = GFX_doctrine_armored_cavalry_medium
+    icon = GFX_conv_cqc_fusion_medium
 
     xp_cost = 200
     xp_type = army
@@ -885,42 +902,37 @@ late_conv_cqc_fusion = {
         
     }
     # EFFECTS
-    conscription = 0.05
+        category_army = {
+        	max_organisation = 4
+        }		
+        melee_infantry = {
+        	max_organisation = 8
+        }  
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
+        masters_of_siege = {
         #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+             melee_infantry= {
+            	breakthrough = 0.15
+            }
+            fortification_damage = 0.5           
         }
 
-        pocket_consolidation = {
+        chosen_infantry = {
         #2
-            category_all_infantry = {
-                defense = 0.1
-            }
+            recruitable_population = 0.025
+            required_garrison_factor = 0.5
         }
-        digging_in = {
+
+        cavalry_operation_groups = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
-            }
-        }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
-            }
+
         }
     }
 }
@@ -929,7 +941,7 @@ late_tech_cqc_fusion = {
     track = late_doctrine
     name = tech_cqc_fusion
     description = tech_cqc_fusion_desc
-    icon = GFX_doctrine_armored_cavalry_medium
+    icon = GFX_tech_cqc_fusion_medium
 
     xp_cost = 200
     xp_type = army
@@ -1008,42 +1020,43 @@ late_tech_cqc_fusion = {
         
     }
     # EFFECTS
-    conscription = 0.05
+    melee_infantry = {
+    	maximum_speed = 0.25
+    	default_morale = 0.2
+    }   
 
     ai_will_do = {
 
-        base = 0
+        base = 1
 
         }
 
     rewards = {
-        werwolf_groups = {
-        #1
-            resistance_damage_to_garrison_on_our_occupied_states = 0.25
+        laboratories_of_steel = {
+        #1 
+            equipment_bonus = {
+                melee_equipment = {
+                    reliability_factor = 0.5
+                    soft_attack = 0.5
+                }
+            }         
         }
 
-        pocket_consolidation = {
+        power_armors = {
         #2
-            category_all_infantry = {
-                defense = 0.1
+            category_all_infantry  = {
+            	hardness = 0.2
+            	max_strength = 0.2
             }
         }
-        digging_in = {
+        posthumanous_soldiers = {
         #3
-            out_of_supply_factor = -0.20
-            category_all_infantry = {
-                entrenchment = 0.1
+            melee_infantry = {
+            	soft_attack = 0.15
+            	maximum_speed = 0.05
+            	ap_attack = 0.15
             }
         }
-        stocking_up = {
-        #4
-            no_supply_grace = 72 # more hours before supply penalty changes
-        }
-        breaking_out = {
-        #5
-            category_army = {
-                soft_attack = 0.2
-            }
-        }
+
     }
 }
