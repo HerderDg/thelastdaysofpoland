@@ -22,6 +22,7 @@ elite_tech_support = {
     unit_robot_unit_design_cost_factor = -0.5
     unit_android_unit_design_cost_factor = -0.5
     unit_robodog_military_police_design_cost_factor = -0.5
+    special_project_speed_factor = 0.05
 
     rewards = {
         next_gen_gadgets = {
@@ -171,6 +172,15 @@ nato_support = {
         always = yes
     }
 
+    effect = {
+        add_tech_bonus = {
+            bonus = 0.5
+            uses = 1
+            category = sp_artillery
+            name = defence_of_supply_chains
+        }
+    }
+
     ai_will_do = { base = 0 }
 
     motorized = {
@@ -235,31 +245,73 @@ warsaw_pact_support = {
     ai_will_do = {
         base = 1
     }
-    
 
-    armored_car = {
-        max_organisation = 3
+    effect = {
+        add_tech_bonus = {
+            bonus = 0.5
+            uses = 1
+            category = rocket_artillery
+            name = quick_replacements
+        }
     }
+    
     light_armor = {
-        max_organisation = 5
+    	max_organisation = 5
+    }	
+    mechanized = {
+    	max_organisation = 5
+    }
+    category_artillery = {
+    	max_organisation = 10
     }
 
     rewards = {
-
-        motorization_support = {
-            #
+        spirit_of_kalashnikov = {
+            equipment_bonus = {
+                ranged_equipment = {
+                    reliability_factor = 0.25
+                }
+            }          
         }
-        long_range_reconnaissance = {
-
+        child_could_use_it = {
+            category_all_armor = {
+                max_strength = 0.1
+            }
+            category_artillery = {
+                max_strength = 0.1
+            }            
+            training_time_army_factor = -0.1
         }
-        mobile_operational_deployments = {
-
+        legacy_electronics = {
+           production_lack_of_resource_penalty_factor = -0.1
+            heli_recon = {
+                battalion_mult = {
+                    category = category_artillery
+                    recon = 0.1
+                }
+                max_organisation = 10
+            }
         }
-        self_propelled_support_elements = {
-
+        hello_from_the_sky = {
+            medevac = {
+                battalion_mult = {
+                category = category_all_infantry
+                    max_strength = 0.05 
+                }
+                max_organisation = 5
+            }
+            category_paratroopers = {
+                max_organisation = 10
+                maximum_speed = 0.1
+            }
         }
-        deep_reconnaissance_focus = {
-
+        everlasting_technology = {
+            category_support_battalions = {
+                max_strength = 0.1
+            }
+            category_support_artillery = {
+                reliability_factor = 0.05
+            }
         }
     }
 }
@@ -281,28 +333,77 @@ partisan_support = {
         base = 1
     }
     
-
-    light_armor = {
-        max_organisation = 5
+    effect = {
+        add_tech_bonus = {
+            bonus = 0.5
+            uses = 1
+            category = rocket_artillery
+            name = quick_replacements
+        }
+    }
+    
+    militia = {
+    	max_organisation = 5
+    }	
+    forest_infantry = {
+    	max_organisation = 5
+    }
+    logistics_company = {
+    	max_organisation = 10
     }
 
     rewards = {
-
-        motorization_support = {
-            #
+        what_nature_provides = {
+            supply_consumption_factor = -0.15
+            effect = {
+                capital_scope = {
+                    add_resource = {
+                        type = food
+                        amount = 10
+                    }
+                }
+            }
         }
-        long_range_reconnaissance = {
-
+        hidden_in_the_woods = {
+            militia = {
+                forest = {
+                    movement = 0.2
+                    defence = 0.1
+                }
+            }
+            melee_infantry = {
+                forest = {
+                    movement = 0.2
+                    defence = 0.1
+                }
+            }            
         }
-        mobile_operational_deployments = {
-
-
+        nothing_left_behind = {
+            equipment_capture_factor = 0.1
+            equipment_upgrade_xp_cost = -0.2 
         }
-        self_propelled_support_elements = {
-            #
+        enemy_will_supply_us = {
+            fuel_gain_factor = 0.05
+            logistics_company = {
+                supply_consumption = -0.01
+                battalion_mult = {
+                    category = category_all_infantry
+                    reliability = 0.05
+                }
+                max_strength = 0.1
+            }
         }
-        deep_reconnaissance_focus = {
-
+        our_bastille = {
+            militia = {
+                combat_width = -0.4
+            }
+            dig_in_speed_factor = 0.05
+            engineer = {
+                battalion_mult = {
+                    category = category_light_infantry
+                    entrenchment = 0.05
+                }
+            }
         }
     }
 }
@@ -325,23 +426,11 @@ terrorist_support = {
 
 
     rewards = {
-
-        mobile_battery_management_platoons = {
-            #
-        }
-        screening_attacks = {
-
-        }
-        all_terrain_mobility = {
-            #
-        }
-        multirole_support_vehicles = {
-            #
-        }
-        shoot_and_scoot = {
-            #
-        }
-
+        jury_rigged_equipment = {}
+        press_ganged_pow = {}
+        foreign_expertise = {}
+        field_labs = {}
+        equipment_acquisition = {}
     }
 
     
@@ -382,22 +471,11 @@ honor_support = {
     }
 
     rewards = {
-
-        fortress_busters = {
-
-        }
-        improved_transport_preparation = {
-
-        }
-        precomputed_firing_data = {
-
-        }
-        urban_strongpoint_sieges = {
-
-        }
-        mobile_artillery_command = {
-
-        }
+        squire_company = {}
+        supply_trains = {}
+        anointing_of_the_wounded = {}
+        anti_tank_handgonnes = {}
+        siege_bombards = {}
     }
 }
 
@@ -440,21 +518,10 @@ horde_support = {
     }
 
     rewards = {
-        rapid_fire_lane_clearance = {
-            
-        }
-        sapper_fieldcraft = {
-
-        }
-        engineerdug_gun_emplacements = {
-
-        }
-        smoke_projector_training = {
-
-        }
-        charge_and_flame = {
-
-        }
-
+        great_devourer = {}
+        acid_glands = {}
+        what_is_dead_may_never_die = {}
+        evolution_perfected = {}
+        fear_given_form = {}
     }
 }
