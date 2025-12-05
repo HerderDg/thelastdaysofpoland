@@ -12,21 +12,64 @@ elite_tech_armor = {
         base = 0
     }  
 
-    category_all_armor = {
-        defense = 0.1
-        hard_attack = 0.1
-        ap_attack = 0.1
+    effect = {
+        add_tech_bonus = {
+            bonus = 1
+            uses = 1
+            category = ifv
+            name = SUBDOCTRINE_ARMORED_INFANTRY_SUPPORT
+        }
+        add_tech_bonus = {
+            bonus = 0.5
+            uses = 1
+            category = armor
+            name = SUBDOCTRINE_ARMORED_INFANTRY_SUPPORT
+        }
     }
     enable_tactic = tactic_breakthrough
 
     rewards = {
         ubiquitous_autoloaders = {
-
+            category_all_armor = {
+                hard_attack = 0.1
+                armor_value = -0.05
+            }
         }
-        minimized_crew = {}
-        overengineering = {}
-        onboard_computing = {}
-        future_armor = {}
+        minimized_crew = {
+            category_all_armor = {
+                experience_loss_factor = -0.5
+                casualty_trickleback = 0.01
+            }
+        }
+        overengineering = {
+            maintenance_company = {
+                battalion_mult = {
+                    category = category_all_armor
+                    reliability = 0.1
+                    max_strength = 0.1
+                }
+            }
+            equipment_bonus = {
+                mbt_chassis = {
+                    build_cost_ic = 0.1
+                }
+                ifv_chassis = {
+                    build_cost_ic = 0.1
+                }
+            }
+        }
+        onboard_computing = {
+            coordination_bonus = 0.1
+            category_all_armor = {
+                soft_attack = 0.1
+                initiative = 0.15
+            }            
+        }
+        future_armor = {
+            category_all_armor = {
+                max_organisation = 15
+            }                          
+        }
     }
 }
 
@@ -52,7 +95,13 @@ common_tech_armor = {
         add_tech_bonus = {
             bonus = 1
             uses = 1
-            category = armor
+            category = apc
+            name = SUBDOCTRINE_ARMORED_INFANTRY_SUPPORT
+        }
+        add_tech_bonus = {
+            bonus = 0.5
+            uses = 1
+            category = ifv
             name = SUBDOCTRINE_ARMORED_INFANTRY_SUPPORT
         }
     }
@@ -118,31 +167,71 @@ nato_armor = {
         base = 1  
     }
 
-    effect = {
-        add_tech_bonus = {
-            bonus = 1
-            uses = 1
-            category = apc
-            name = brilliant_organisation
-        }
-    }
 
      # EFFECTS
-     enable_tactic = tactic_overwhelming_fire
+    enable_tactic = tactic_overwhelming_fire
 
-     artillery_brigade = {
-        combat_width = -0.8
-     }
-     category_line_artillery = {
-        max_organisation = 5
-     }
+    motorized = {
+       max_organisation = 5
+    }
+    mechanized = {
+       max_organisation = 5
+    }    
 
     rewards = {
-        army_mechanization_drive = {}
-        forward_fuel_deliveries = {}
-        tank_desant = {}
-        cas_integration = {}
-        joint_armored_strike = {}
+        army_mechanization_drive = {
+            mechanized = {
+                max_organisation = 5
+                default_morale = 0.2
+            }
+            category_all_armor = {
+                default_morale = 0.2
+            }
+        }
+        forward_fuel_deliveries = {
+            category_all_armor = {
+                reliability = 0.05
+                supply_consumption = -0.02
+            }
+            armored_maintenance = {
+                battalion_mult = {
+                    category = category_all_armor
+                    max_strength = 0.15
+                    add = yes
+                }
+            }
+        }
+        tank_desant = {
+            armored_signal = {
+                battalion_mult = {
+                    category = category_all_infantry
+                    maximum_speed = 0.05
+                }
+            }
+            mot_recon = {
+                battalion_mult = {
+                    category = category_all_infantry
+                    maximum_speed = 0.05
+                }
+            }
+        }
+        cas_integration = {
+            army_bonus_air_superiority_factor = 0.05 
+            coordination_bonus = 0.1
+            category_mobile_and_mobile_combat_sup = {
+                max_organisation = 5
+            }
+        }
+        joint_armored_strike = {
+            medium_armor = {
+                breakthrough = 0.05
+                soft_attack = 0.1
+            }
+            mechanized = {
+                breakthrough = 0.05
+                soft_attack = 0.1
+            }
+        }
     }
 }
 
@@ -181,11 +270,42 @@ warsaw_pact_armor = {
 
 
     rewards = {
-        armoured_storm = {}
-        deep_battle = {}
-        improvised_defensive_measures = {}
-        ample_support = {}
-        symphony_of_steel = {}
+        armoured_storm = {
+            light_armor = {
+                max_organisation = 5
+                default_morale = 0.2
+            }
+            category_all_armor = {
+                default_morale = 0.2
+            }
+        }
+        deep_battle = {
+            category_tanks = {
+                max_organisation = 4
+            }
+            land_reinforce_rate = 0.05
+        }
+        improvised_defensive_measures = {
+            category_mobile_and_mobile_combat_sup = {
+                armor_value = 0.15
+                maximum_speed = -0.05
+            }
+            category_all_armor = {
+                armor_value = 0.15
+                maximum_speed = -0.05
+            }
+        }
+        ample_support = {
+            army_intel_to_others = -10.0
+            airforce_intel_to_others = -5.0
+            army_intel_factor = 0.05
+        }
+        symphony_of_steel = {
+            category_all_armor = {
+                default_morale = 0.2
+                max_strength = 0.2
+            }
+        }
     }
 
 
@@ -208,24 +328,70 @@ partisan_armor = {
         base = 1
     }
 
-    effect = {
-        add_tech_bonus = {
-            bonus = 1
-            uses = 1
-            category = armored_cars
-            name = false_flag_operations
-        }
+    armored_car = {
+        max_organisation = 5
+        defense = 0.1
     }
-
+    motorbike_battalion = {
+        max_organisation = 5
+        defense = 0.05
+    }
     # EFFECTS
     enable_tactic = tactic_delay
 
     rewards = {
-        swift_assault_disengage = {}
-        tactical_mobility = {}
-        fighting_recon = {}
-        scorch_the_earth = {}
-        rapid_execution = {}
+        swift_assault_disengage = {
+            motorbike_battalion = {
+                maximum_speed = 0.05
+                breakthrough = 0.05
+            }
+            armored_car = {
+                maximum_speed = 0.05
+                breakthrough = 0.1
+                soft_attack = 0.1
+            }
+        }
+        tactical_mobility = {
+            org_loss_when_moving = -0.2
+            motorbike_battalion = {
+                low_urban = {
+                    movement = 0.1
+                }
+                plains = {
+                    movement = 0.1
+                }                
+            }
+            armored_car = {
+                low_urban = {
+                    movement = 0.1
+                }
+                plains = {
+                    movement = 0.1
+                }                
+            }            
+        }
+        fighting_recon = {
+            armored_car_recon = {
+                max_organisation = 3
+                 soft_attack = 0.05
+            }
+            mot_recon = {
+                max_organisation = 2
+                soft_attack = 0.05
+            }
+        }
+        scorch_the_earth = {
+           resistance_damage_to_garrison_on_our_occupied_states = 0.1
+           resistance_target_on_our_occupied_states = 0.1
+           category_army = {
+                defense = 0.1
+           }
+        }
+        rapid_execution = {
+            category_mobile_and_mobile_combat_sup = {
+                breakthrough = 0.1
+            }
+        }
     }
 }
 
@@ -259,20 +425,58 @@ terrorist_armor = {
 
     armored_engineer = {
         battalion_mult = {
-            category = category_all_armor
+            category = category_mobile_and_mobile_combat_sup
             entrenchment = 0.02
         }
     }
-    category_all_armor = {
+    motorized = {
         defense = 0.1
     }
 
     rewards = {
-        truck_attack = {}
-        all_terrain_adaptation = {}
-        armored_scrapsmithing = {}
-        riders_of_the_storm = {}
-        low_mass_vehicle_superiority = {}
+        truck_attack = {
+            motorized = {
+                max_organisation = 5
+                soft_attack = 0.05
+                default_morale = 0.2
+                reliability_factor = -0.15 
+            }
+        }
+        all_terrain_adaptation = {
+            motorized = {
+                urban = {
+                    movement = 0.1
+                }
+                forest = {
+                    movement = 0.1
+                } 
+                river = {
+                    movement = 0.1
+                }                                
+            }
+        }
+        armored_scrapsmithing = {
+            category_all_armor = {
+                reliability_factor = -0.1
+            }
+            category_mobile_and_mobile_combat_sup = {
+                hardness = 0.1
+                armor_value = 0.05
+            }
+        }
+        riders_of_the_storm = {
+            motorbike_battalion = {
+                breakthrough = 0.1
+                soft_attack = 0.1
+            }     
+        }
+        low_mass_vehicle_superiority = {
+            org_loss_when_moving = -0.1
+            category_mobile_and_mobile_combat_sup = {
+                max_organisation = 10
+                maximum_speed = 0.1
+            }
+        }
     }
 }
 
@@ -287,8 +491,12 @@ honor_armor = {
 
 
     mastery = {
-        #
+        categories = {
+            category_cavalry
+            category_all_infantry
+        }
     }
+
     available = {
         always = yes
     }
@@ -297,7 +505,6 @@ honor_armor = {
         base = 1
     }
 
-
     unit_cavalry_design_cost_factor = -1
     enable_tactic = tactic_unexpected_thrust
 
@@ -305,9 +512,38 @@ honor_armor = {
 
     rewards = {
         longer_lances = {
-            #
+            category_cavalry = {
+                soft_attack = 0.1
+            }
+            equipment_bonus = {
+                melee_equipment = {
+                    reliability_factor = 0.1
+                }
+            }
         }
         applied_shock_tactics = {
+            coordination_bonus = 0.1
+            experience_gain_cavalry_combat_factor = 0.2
+            category_cavalry = {
+                hard_attack = 0.05
+            }            
+        }
+        tight_charge_formations = {
+            category_cavalry = {
+                breakthrough = 0.20
+                max_organisation = 10
+            }
+        }        
+        horse_breeding_programmes = {
+            category_cavalry = {
+                maximum_speed = 0.5 
+                max_strength = 0.05 
+            }
+            recon = {
+                maximum_speed = 0.5
+            }
+        }
+        lava_tactics = {
             recon = {
                 max_organisation = 10
                 soft_attack = 0.2
@@ -321,28 +557,9 @@ honor_armor = {
                     max_organisation = 5
                     add = yes
                 }
-            }
-        }
-        tight_charge_formations = {
-            #
-        }        
-        horse_breeding_programmes = {
-            recon = {
-                maximum_speed = 0.5
-            }
-        }
-        lava_tactics = {
-            artillery_brigade = {
-                maximum_speed = 0.5
-            }
-            anti_tank_brigade = {
-                maximum_speed = 0.5
-            }
-            anti_air_brigade = {
-                maximum_speed = 0.5
-            }
-            rocket_artillery_brigade = {
-                maximum_speed = 0.5
+            } 
+            category_cavalry = {
+                max_organisation = 5
             }
         }
 
@@ -367,22 +584,48 @@ horde_armor = {
     }
 
     enable_tactic = tactic_blitz
+    attrition = 0.05
 
-    armored_car = {
-        max_organisation = 5
-        defense = 0.1
-    }
-    mechanized =  {
-        max_organisation = 5
-        defense = 0.05
-    }
     # EFFECTS
     rewards = {
-        unorthodox_fueling = {}
-        roadkill = {}
-        keep_the_engines_running = {}
-        not_a_moments_rest = {}
-        fury_road = {}
+        unorthodox_fueling = {
+            army_fuel_consumption_factor = -0.3
+            base_fuel_gain_factor = 0.2
+            truck_attrition_factor = 0.05
+        }
+        roadkill = {
+            category_all_armor = {
+                breakthrough = 0.3
+            }
+            truck_attrition_factor = 0.1
+        }
+        keep_the_engines_running = {
+            category_mobile_and_mobile_combat_sup = {
+                maximum_speed = 0.2
+                fuel_consumption_factor = -0.2
+            }
+            truck_attrition_factor = 0.05
+        }
+        not_a_moments_rest = {
+            category_mobile_and_mobile_combat_sup = {
+                recovery = 0.2
+            }
+            category_all_armor = {
+                recovery = 0.2
+            }
+            org_loss_when_moving = -0.2            
+        }
+        fury_road = {
+            category_mobile_and_mobile_combat_sup = {
+                soft_attack = 0.3
+                max_strength = -0.1
+            }
+            category_all_armor = {
+                soft_attack = 0.3
+                max_strength = -0.1
+            } 
+            unit_upkeep_attrition_factor = 0.2            
+        }
     }
 }
 
