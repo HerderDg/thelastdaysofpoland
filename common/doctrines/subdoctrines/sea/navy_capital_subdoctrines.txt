@@ -18,9 +18,6 @@ line_of_battle = {
             OR = {
                 original_tag = ENG
                 original_tag = USA
-                original_tag = JAP
-                original_tag = ITA
-                original_tag = SOV
             }
         }
     }
@@ -34,6 +31,9 @@ line_of_battle = {
             battleship= {
                 max_organisation = 5
             }
+			heavy_monitor = {
+				max_organisation = 5
+			}
         }
         ordnance_handling_training = {
 			battleship = {
@@ -41,9 +41,15 @@ line_of_battle = {
 				lg_attack = 0.05
 				hg_armor_piercing = 0.05
 			}
+			heavy_monitor = {
+				hg_attack = 0.05
+			}
         }
         blue_water_logistics = { #TODO see if these make sense
             battleship = {
+				supply_consumption = -0.1
+			}
+			heavy_monitor = {
 				supply_consumption = -0.1
 			}
         }
@@ -51,10 +57,16 @@ line_of_battle = {
             battleship = {
 				naval_torpedo_damage_reduction_factor = 0.1
 			}
+			heavy_monitor = {
+				naval_torpedo_damage_reduction_factor = 0.1
+			}
         }
         modernized_line_of_battle={
             battleship = {
 				max_organisation = 10
+			}
+			heavy_monitor = {
+				max_organisation = 5
 			}
         }
     }
@@ -86,24 +98,38 @@ battlecruiser_supremacy = {
 	naval_critical_score_chance_factor = 0.03
 
     rewards = {
-        ship_of_the_line={
-            #
+       ship_of_the_line={
+			heavy_monitor = {
+				max_organisation = 10
+			}
         }
         coordinated_strike_protocol = {
+			heavY_monitor = {
+				hg_attack = 0.10
+				lg_attack = 0.05
+			}
 			battleship = {
 				lg_attack = 0.05
 			}
         }
         open_water_patrolling = {
-            #
+			heavy_monitor = {
+				surface_detection = 0.10
+			}
         }
         planning_at_speed = {
             battleship = {
 				naval_speed = 0.1
 			}
+			heavy_monitor = {
+				naval_speed = 0.05
+			}
         }
         capital_drills={
             battleship = {
+				max_organisation = 5
+			}
+			heavy_monitor = {
 				max_organisation = 5
 			}
         }
@@ -137,6 +163,9 @@ armored_raiders = {
 
     rewards = {
         expert_reconnaissance={
+            heavy_monitor= {
+                surface_detection = 0.1
+            }
 			battleship = {
 				surface_detection = 0.1
 			}
@@ -150,6 +179,9 @@ armored_raiders = {
             }
         }
         modernized_officer_education = {
+            heavy_monitor= {
+                max_organisation = 5
+            }
 			battleship = {
 				max_organisation = 5
 			}
@@ -159,6 +191,11 @@ armored_raiders = {
 				max_organisation = 5
 				convoy_raiding_coordination = 0.25
 				surface_detection = 0.10
+			}
+			heavy_monitor = {
+				max_organisation = 5
+				convoy_raiding_coordination = 0.15
+				surface_detection = 0.15
 			}
         }
         crisis_management={
@@ -185,32 +222,31 @@ coastal_defence_fleet = {
 
     ai_will_do = { }
 
-    # EFFECTS
-	#effect = {
-	#	IF = {
-	#		limit = {
-	#			NOT = {
-	#				has_tech = coastal_defense_ships
-	#			}
-	#		}
-	#		set_technology = { 
-	#			coastal_defense_ships = 1 
-	#		}
-	#	}
-	#}
+
 	naval_supply_consumption_factor = -0.15
 	navy_max_range_factor = -0.10
 
 
     rewards = {
-        aging_navy={
+       aging_navy={
             modifier = { refit_speed = 0.15 }
         }
         casemate_upgrades = {
-            #
+            equipment_bonus = {
+                monitor_hull = {
+                    anti_air_attack = 0.15
+                    lg_attack = 0.05
+                    instant = yes
+                }
+            }
         }
         escort_duties= {
-            #
+            heavy_monitor = {
+                sub_detection = 0.15
+            }
+			monitor = {
+                sub_detection = 0.10
+            }
         }
         hail_of_fire = {
             modifier = {
@@ -247,7 +283,7 @@ naval_gunfire_support = {
 	shore_bombardment_bonus = 0.25
 	navy_fuel_consumption_factor = -0.10
 
-    rewards = {
+   rewards = {
         landing_lane_clearance = {
             modifier = { 
             naval_mine_hit_chance = -0.10
@@ -255,16 +291,19 @@ naval_gunfire_support = {
             }
         }
 
-        inshore_aa_screen = {		
+        inshore_aa_screen = {	
 			battleship = {
 				anti_air_attack = 0.15
 			}
+			heavy_monitor = {
+				anti_air_attack = 0.15
+			}				
         }
 
         joint_operations= {
         	naval_invasion_planning_bonus_speed = 0.20
-        	#naval_repair_support_value_factor = 0.10
-    		#naval_general_support_value_factor = 0.10
+        	naval_repair_support_value_factor = 0.10
+    		naval_general_support_value_factor = 0.10
         }
 
         floating_base={
@@ -272,12 +311,14 @@ naval_gunfire_support = {
         		navy_casualty_on_hit = -0.20
         		navy_casualty_on_sink = -0.10
     			floating_harbor_supply = 0.25
-    			
         	}
         }
 
         green_water_operations={
     		battleship = {
+    			surface_visibility = -0.10
+			}
+			heavy_monitor = {
     			surface_visibility = -0.10
 			}
 			naval_coordination = 0.1
@@ -306,16 +347,19 @@ battleship_antiair_screen = {
 
     navy_anti_air_attack_factor = 0.1
 
-    rewards = {
+   rewards = {
 
     	all_seas_anti_aircraft = {
     		battleship = {
     			anti_air_attack = 0.1
     		}
+    		heavy_monitor = {
+    			anti_air_attack = 0.1
+    		}
     	}
 
     	efficient_navigation = {
-    		battleship = {
+    		heavy_monitor = {
     			fuel_consumption = -0.1
     		}
     	}
@@ -325,9 +369,17 @@ battleship_antiair_screen = {
     			max_organisation = 15
     			surface_detection = 0.05
     		}
+    		heavy_monitor = {
+    			max_organisation = 15
+    			surface_detection = 0.05
+    		}
     	}
     	inaccessible_skies = {
             battleship = {
+                anti_air_attack = 0.15
+                lg_attack = 0.05
+            }
+            heavy_monitor = {
                 anti_air_attack = 0.15
                 lg_attack = 0.05
             }
@@ -335,7 +387,7 @@ battleship_antiair_screen = {
 
     	capital_screens = {
     		equipment_bonus = {
-    			ship_hull_heavy = {
+    			heavy_monitor_hull = {
     				armor_value = 0.15
     				max_strength = 0.05
     				lg_attack = 0.05
