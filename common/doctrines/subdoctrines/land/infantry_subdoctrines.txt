@@ -8,7 +8,7 @@ elite_tech_infantry = {
     xp_type = army
 
     available = {
-        always = yes
+        is_special_project_completed = sp:sp_civilian_implants
     }
 
     ai_will_do = { 
@@ -29,14 +29,56 @@ elite_tech_infantry = {
             name = elite_technology
         }
     }
+    planning_speed = 0.1
 
 
     rewards = { 
-        soldier_tech_integration = {}
-        augmented_vision = {}
-        smart_uniforms = {}
-        nanomachines_son = {}
-        cog_in_a_war_machine = {}
+        soldier_tech_integration = {
+            experience_loss_factor = -0.1
+            category_all_infantry = {
+                initiative_factor = 0.15
+            }
+        }
+        augmented_vision = {
+            recon = {
+                battalion_mult = {
+                    category = category_all_infantry
+                    soft_attack = 0.1
+                }
+            }
+            mot_recon = {
+                battalion_mult = {
+                    category = category_all_infantry
+                    soft_attack = 0.1
+                }
+            }
+            land_night_attack = 0.1
+        }
+        smart_uniforms = {
+            category_all_infantry = {
+                max_strength = 0.1
+            }
+            acclimatization_cold_climate_gain_factor = 0.1
+            acclimatization_hot_climate_gain_factor = 0.1            
+        }
+        nanomachines_son = {
+            melee_infantry = {
+                breakthrough = 0.1
+                defense = 0.25
+            }
+        }
+        cog_in_a_war_machine = {
+            category_vehicle_infantry = {
+                max_organisation = 10
+            }
+            maintenance_company = {
+                battalion_mult = {
+                    category = category_vehicle_infantry
+                    reliability_factor = 0.1
+                    maximum_speed = 0.1
+                }
+            }            
+        }
     }
 }
 
@@ -66,16 +108,50 @@ common_tech_infantry = {
     }
 
     #OTHER BASE REWARDS
-    category_all_infantry = {
-        entrenchment = 0.2
+    motorized = {
+    	soft_attack = 0.05
+    	initiative = 0.2
     }
+    armored_car = {
+    	soft_attack = 0.05
+    	initiative = 0.2
+    }		
 
     rewards = {
-        repurposed_civilian_tech = {}
-        mass_night_vision = {}
-        attachments_galore = {}
-        unified_weapon_pattern = {}
-        standard_issue_skull_domes = {}
+        repurposed_civilian_tech = {
+            category_all_infantry = {
+                soft_attack = 0.1
+                reliability_factor = -0.05
+            }
+            supply_consumption_factor = -0.1
+        }
+        mass_night_vision = {
+            land_night_attack = 0.2
+            signal_company = {
+                battalion_mult = {
+                    category = category_artillery
+                    soft_attack = 0.1
+                }
+            }
+        }
+        attachments_galore = {
+            category_support_battalions = {
+                max_organisation = 10
+                soft_attack = 0.1
+            }
+        }
+        unified_weapon_pattern = {
+            category_all_infantry = {
+                breakthrough = 0.1
+                max_organisation = 10
+            }
+        }
+        standard_issue_skull_domes = {
+            category_all_infantry = {
+                defense = 0.1
+                max_strength = 0.05
+            }
+        }
     }
 }
 
@@ -464,25 +540,51 @@ honor_infantry = {
     }
 
     unit_melee_infantry_design_cost_factor = -1
+    category_cavalry = {
+        supply_consumption = -0.02
+    }
+    production_speed_bunker_factor = 0.25
 
 
     # EFFECTS
 
     rewards = {
         rigorous_training = {
-
+            experience_gain_melee_infantry_training_factor = 0.2
+            experience_loss_factor = -0.1
         }
-        adoption_of_polearms = {
-
+        siege_engineering = {
+            dig_in_speed_factor = 0.1
+            engineer = {
+                battalion_mult = {
+                    category = category_light_infantry
+                    entrenchment = 0.1
+                }
+            }
         }
         pike_and_shot = {
-
+            category_ranged_infantry = {
+                soft_attack = 0.1
+                defense = 0.1
+            }
+            melee_infantry = {
+                initiative_factor = 0.1
+                defense = 0.1
+            }
         }        
         modern_material_plating = {
-
+            melee_infantry = {
+                reliability = 0.1
+                defense = 0.1
+                max_organisation = 10
+            }
         }
         warrior_creed = {
-
+            land_reinforce_rate = 0.15
+            weekly_casualties_war_support = 0.005
+            melee_infantry = {
+                max_strength = 0.05
+            }
         }
     }
 }
@@ -526,11 +628,41 @@ roman_legion = {
     # EFFECTS
 
     rewards = {
-        flexible_cohesion = { }
-        auxiliary_engineering = { }
-        manipular_organisation = { }        
-        testudo = { }
-        disciplinary_measures = { }
+        flexible_cohesion = { 
+            melee_infantry = {
+                maximum_speed = 0.15
+            }
+            org_loss_when_moving = -0.15
+        }
+        auxiliary_engineering = { 
+            dig_in_speed_factor = 0.15
+            engineer = {
+                battalion_mult = {
+                    category = category_light_infantry
+                    entrenchment = 0.2
+                }
+            }
+        }
+        manipular_organisation = { 
+            melee_infantry = {
+                max_organisation = 10
+            }
+            max_planning_factor = 0.2
+            
+        }        
+        testudo = {
+            melee_infantry = {
+                defense = 0.2
+                max_organisation = 5
+            }
+        }
+        disciplinary_measures = { 
+            experience_gain_melee_infantry_combat_factor = 0.1
+            melee_infantry = {
+                max_strength = 0.1
+                supply_consumption_factor = -0.1
+            }
+        }
     }
 }
 
@@ -545,7 +677,7 @@ horde_infantry = {
     xp_type = army
 
     available = {
-        always = yes
+        has_idea = golem_army
     }
 
     ai_will_do = {
@@ -563,10 +695,35 @@ horde_infantry = {
     production_speed_bunker_factor = 0.25
 
     rewards = {
-        swarm = {}
-        devastating_approach = {}
-        single_mind = {}
-        primal_instincts = {}
-        beyond_humanity = {}
+        swarm = {
+            category_army = {
+            	max_organisation = -5
+            }
+            category_all_infantry = {
+            	combat_width = -0.4
+            }
+        }
+        devastating_approach = {
+            category_all_infantry = {
+            	breakthrough = 0.1
+                maximum_speed = 0.1
+                initiative_factor = 0.1
+            }
+        }
+        single_mind = {
+            max_planning_factor = 0.2
+            command_power_gain_mult = 0.1
+            coordination_bonus = 0.2
+        }
+        primal_instincts = {
+            supply_consumption_factor = -0.3
+            land_night_attack = 0.15
+        }
+        beyond_humanity = {
+            category_army = {
+            	soft_attack = 0.15
+            	hard_attack = 0.05
+            }
+        }
     }
 }
