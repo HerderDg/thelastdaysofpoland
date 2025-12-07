@@ -16,18 +16,66 @@ elite_tech_operations = {
     }
 
     # EFFECTS
-    
-    send_volunteer_divisions_required = -0.5
-    send_volunteer_factor = 0.25
-    send_volunteers_tension = -0.1
-
+    research_speed_factor = 0.025
 
     rewards = {
-        drone_corps = {}
-        machine_learned_advice = {}
-        total_control = {}
-        jamming_arms_race = {}
-        cyber_central_command = {}
+        drone_corps = {
+            uav_recon = {
+                recon = 0.1
+                battalion_mult = {
+                    category = category_all_infantry
+                    soft_attack = 0.1
+                }
+            }            
+        }
+
+        machine_learned_advice = {
+            max_command_power = 30
+            logistics_company = {
+                battalion_mult = {
+                    category = category_all_infantry
+                    defense = 0.05
+                }
+            }
+        }
+
+        total_control = {
+            land_reinforce_rate = 0.05
+            category_recon = {
+                recon = 1
+            }
+            signal_company = {
+                battalion_mult = {
+                    category = category_vehicle_infantry
+                    initiative = 0.1
+                }
+            }
+        }
+
+        jamming_arms_race = {
+            anti_air = {
+                air_attack = 0.1
+            }
+            anti_air_brigade = {
+                battalion_mult = {
+                    category = category_army
+                    soft_attack = 0.1
+                    defense = 0.1
+                    air_attack = 0.05
+                }
+            }
+        }
+        cyber_central_command = {
+            max_planning = 0.05
+            coordination_bonus = 0.05
+            category_all_infantry = {
+                max_organisation = 10
+            }
+            category_all_armor = {
+                max_organisation = 5
+            }
+        }
+
     }
 }
 
@@ -55,11 +103,65 @@ common_tech_operations = {
     }
 
     rewards = {
-        perfect_is_enemy_of_good = {}
-        strength_in_numbers = {}
-        made_from_anything = {}
-        fixed_by_anything = {}
-        fire_saturation = {}
+        perfect_is_enemy_of_good = {
+            category_vehicle_infantry = {
+                maximum_speed = 0.1
+            }
+            category_army = {
+                breakthrough = 0.1
+            }
+        }
+        strength_in_numbers = {
+            equipment_bonus = {
+                mbt_chassis = {
+                    build_cost_ic = -0.05
+                }
+                ifv_chassis = {
+                    build_cost_ic = -0.1
+                }
+                apc_equipment = {
+                    build_cost_ic = -0.2
+                } 
+                ucav_equipment = {
+                    build_cost_ic = -0.3
+                }                              
+            }
+        }
+        made_from_anything = {
+            production_lack_of_resource_penalty_factor = -0.2
+            logistics_company = {
+                battalion_mult = {
+                    category = category_army
+                    supply_consumption = -0.05
+                }
+            }
+        }
+        fixed_by_anything = {
+            armored_maintenance = {
+                battalion_mult = {
+                    category = category_all_armor
+                    reliability_factor = 0.1
+                    add = yes
+                }
+            }
+            maintenance_company = {
+                battalion_mult = {
+                    category = category_all_infantry
+                    reliability_factor = 0.1
+                    add = yes
+                }
+            }            
+        }
+        fire_saturation = {
+            army_bonus_air_superiority_factor = 0.05 
+            coordination_bonus = 0.1
+            category_all_infantry = {
+                max_organisation = 5
+            }
+            category_tanks = {
+                max_organisation = 2
+            }
+        }
     }
 }
 
@@ -369,11 +471,36 @@ honor_operations = {
 
 
     rewards = {
-        chansons_de_geste = {}
-        the_last_stand = {}
-        chevauchee = {}
-        spirit_of_cannae = {}
-        the_art_of_war = {}
+        chansons_de_geste = {
+            category_melee_infantry = {
+                max_organisation = 5
+                reliability_factor = 0.2
+            }
+        }
+        the_last_stand = {
+            category_all_infantry = {
+                entrenchment = 0.1
+                defense = 0.1
+            }
+        }
+        chevauchee = {
+            category_cavalry = {
+                breakthrough = 0.05
+                maximum_speed = 0.05
+                supply_consumption_factor = -0.2
+            }
+        }
+        spirit_of_cannae = {
+            coordination_bonus = 0.1
+            melee_infantry = {
+                initiative = 0.2
+            }
+        }
+        the_art_of_war = {
+            max_planning_factor = 0.1
+            experience_gain_cavalry_combat_factor = 0.05
+            experience_gain_melee_infantry_combat_factor = 0.05
+        }
     }
 }
 
@@ -398,11 +525,54 @@ horde_operations = {
 
 
     rewards = {
-        total_mobilization = {}
-        total_utilisation = {}
-        total_control = {}
-        total_damage = {}
-        totality = {}
+        total_mobilization = {
+            mobilization_speed = 0.25
+            org_loss_when_moving = -0.2
+        }
+        total_utilisation = {
+            no_supply_grace = 64
+            equipment_bonus = {
+                melee_equipment = {
+                    build_cost_ic = -0.5
+                }
+                ranged_equipment = {
+                    build_cost_ic = -0.5
+                }                
+            }           
+        }
+        total_control = {
+            land_reinforce_rate = 0.05
+            category_recon = {
+                recon = 1
+            }
+            signal_company = {
+                battalion_mult = {
+                    category = category_melee_infantry
+                    soft_attack = 0.1
+                }
+            }
+        }
+        total_damage = {
+            category_army = {
+                soft_attack = 0.1
+            }
+            category_all_infantry = {
+                soft_attack = 0.1
+                hard_attack = 0.1
+            }
+        }
+        totality = {
+            surrender_limit = 0.3
+            category_all_infantry = {
+                supply_consumption = -0.2
+
+                battalion_mult = {
+                    category = category_army
+                    default_morale = 0.15
+                    add = yes
+                }
+            }
+        }
     }
 }
 
