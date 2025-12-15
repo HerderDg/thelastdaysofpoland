@@ -246,4 +246,6 @@ static const float3 BORDER_SUN_INTENSITY = float3(1.5, 1.5, 1.6);
 static const float3 BORDER_SUN_DIRECTION = float3(-0.2, 0.9, 0.1);
 //static const float3 BORDER_SUN_DIRECTION = float3(-0.1, 0.5, 0.0);
 //static const float3 BORDER_SUN_DIRECTION = float3(0.2, 0.5, 0.0);
+static const float CUSTOM_DIFFUSE_RGB_FACTOR = 0.5f;
+
 ]]
