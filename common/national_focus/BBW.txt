@@ -39,7 +39,7 @@ focus_tree = {
 		cost = 1
 
 		completion_reward = { 
-			country_event = belchatow_exp.1
+			country_event = belchatow_dlc.1
 			BBW_unlock_certain_mines = yes		
 			set_country_flag = BBW_started_exporting	
 		}
@@ -68,7 +68,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			country_event = belchatow_exp.2
+			country_event = belchatow_dlc.2
 		}
 	}
 	
@@ -173,7 +173,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			country_event = belchatow_exp.4
+			country_event = belchatow_dlc.4
 		}
 	}	
 
@@ -199,7 +199,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			country_event = belchatow_exp.5
+			country_event = belchatow_dlc.5
 		}
 	}	
 
@@ -376,12 +376,10 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			hidden_effect = {
-			load_oob = "BBW_militia"
+			swap_ideas = {
+				add_idea = advanced_security
+				remove_idea = basic_security
 			}
-			custom_effect_tooltip = BBW_militia_tooltip
-			add_stability = -0.15
-			add_political_power = -100
 		}
 	}	
 	
@@ -407,10 +405,9 @@ focus_tree = {
 		cost = 3.7
 		
 		completion_reward = {
-			# country_event = {
-			# 	id = belchatow.2
-			# }
-			add_political_power = 20
+			country_event = {
+				id = belchatow.2
+			}
 		}
 	}
 
@@ -420,7 +417,7 @@ focus_tree = {
 		relative_position_id = BBW_riots
 		prerequisite = { focus = BBW_riots }
 		available = {
-			has_completed_focus = BBW_autumn
+
 		}
 		
 		bypass = {
@@ -435,8 +432,9 @@ focus_tree = {
 			add_political_power = 25
 			country_event = {
 				id = belchatow.9
-				days = 1 }
-			add_war_support = 0.15
+				days = 1 
+			}
+			add_war_support = 0.05
 			}
 			
 	}
@@ -516,19 +514,9 @@ focus_tree = {
 			add_war_support = 0.1
 			country_event = {
 				id = belchatow.10
-				days = 1 }
-			swap_ideas = {
-				add_idea = advanced_security
-				remove_idea = basic_security
+				days = 1 
 			}
-			swap_ideas = {
-				add_idea = taxes_high
-				remove_idea = taxes_medium
-			}
-			swap_ideas = {
-				add_idea = BBW_carbon_fever3
-				remove_idea = BBW_carbon_fever2
-			}
+
 		}
 	}
 
@@ -656,7 +644,7 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = {
-			country_event = belchatow_exp.3
+			country_event = belchatow_dlc.3
 			add_ideas = BBW_army_reforms
 		}
 	}
@@ -736,7 +724,10 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = BBW_army_reforms
+				add_idea = BBW_army_reforms_2
+			}
 		}
 	}	
 	
@@ -813,9 +804,17 @@ focus_tree = {
 		
 		completion_reward = {
 			add_tech_bonus = {
-				name = "Chinese Blueprints"
+				name = BBW_copying_foreing_designs
 				bonus = 0.5
 				category = ranged_weapons
+			}
+			add_equipment_bonus = {
+				name = BBW_copying_foreing_designs
+				bonus = {
+					ranged_equipment = {
+						soft_attack = 0.05
+					}
+				}
 			}
 		}
 	}
@@ -841,7 +840,15 @@ focus_tree = {
 		
 		completion_reward = {
 			custom_effect_tooltip = {
-				localization_key = "We will put a motorized battalion in every division"
+				localization_key = mass_motorization_tt
+			}
+			add_unit_bonus = {
+           		motorized = {
+           		    battalion_mult = {
+           		        category = category_all_infantry
+           		        initiative = 0.1
+           		    }
+				}
 			}
 		}
 	}	
@@ -867,8 +874,9 @@ focus_tree = {
 		
 		completion_reward = {
 			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = bunker
+					type = arms_factory
 					level = 1
 					instant_build = yes
 				}
@@ -896,9 +904,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = "Unlock Zeppelin Special Project"
-			}
+			complete_special_project = sp:sp_zeppelin
 		}
 	}	
 
@@ -924,8 +930,14 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = "Unlock Liberty Prime Special Project"
+			complete_special_project = sp:sp_gigamech
+			add_equipment_production = {
+			    equipment = {
+			        type = mech_equipment_2
+			    }
+			    requested_factories = 1
+			    progress = 0.95
+			    amount = 1
 			}
 		}
 	}
@@ -950,9 +962,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = "Unlock Flamethrower Special Project"
-			}
+			complete_special_project = sp:sp_miotacz_ognia
 		}
 	}
 	
@@ -1475,7 +1485,7 @@ focus_tree = {
 			if = {
 			limit = { any_controlled_state = { is_core_of = ZHP } }
 			random_controlled_state = {
-				prioritize = { 321 357 368 370 379 396 352 680 848 } 
+				prioritize = { 321 357 368 396 352 680 } 
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
@@ -1486,7 +1496,7 @@ focus_tree = {
 			if = {
 			limit = { any_controlled_state = { is_core_of = ZHP } }
 			random_controlled_state = {
-				prioritize = { 321 357 368 370 379 396 352 680 848 } 
+				prioritize = { 321 357 368 396 352 680 } 
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
@@ -1497,7 +1507,7 @@ focus_tree = {
 			if = {
 			limit = { any_controlled_state = { is_core_of = ZHP } }
 			random_controlled_state = {
-				prioritize = { 321 357 368 370 379 396 352 680 848 } 
+				prioritize = { 321 357 368 396 352 680 } 
 				add_building_construction = {
 					type = arms_factory
 					level = 1
