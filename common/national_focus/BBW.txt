@@ -120,7 +120,12 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			add_ideas = BBW_pge_gornictwo
+			custom_effect_tooltip = BBW_gwarectwo_tt
+			add_popularity = {
+				ideology = corporativism
+				popularity = 0.01
+			}
+			add_political_power = 50
 		}
 	}
 	
@@ -146,7 +151,11 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-
+			add_intel = {
+			    target = WML
+			    civilian_intel = 25
+			}
+			add_faction_influence_score = 5
 		}
 	}
 	
@@ -200,6 +209,13 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.5
+			if = {
+				limit = { has_intelligence_agency = no }
+			create_intelligence_agency = {
+				name = "Węglowy Krąg"
+				icon = GFX_intelligence_agency_logo_bbw
+			}
+			}
 		}
 	}	
 
@@ -225,7 +241,7 @@ focus_tree = {
 				id = belchatow.3
 				days = 1 }
 			add_political_power = 50
-			add_stability = 0.1
+			add_stability = 0.05
 		}
 	}
 
@@ -247,7 +263,16 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-
+			add_stability = 0.05
+			create_operative_leader = {
+				name = "Jakub Zgierski"
+				GFX = GFX_zgierski
+				traits = { operative_natural_orator operative_well_groomed }
+				bypass_recruitment = yes
+				available_to_spy_master = yes
+				nationalities = { BBW }
+			}
+			upgrade_intelligence_agency = upgrade_passive_defense
 		}
 	}
 	
@@ -349,7 +374,7 @@ focus_tree = {
 			load_oob = "BBW_militia"
 			}
 			custom_effect_tooltip = BBW_militia_tooltip
-			add_stability = -0.15
+			add_stability = -0.1
 			add_political_power = -100
 		}
 	}
@@ -389,7 +414,7 @@ focus_tree = {
 		relative_position_id = BBW_more_power_to_state
 		prerequisite = { focus = BBW_more_power_to_state }
 		available = {
-		
+			always = no
 		}
 		
 		bypass = {
@@ -407,6 +432,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = belchatow.2
+				days = 1
 			}
 		}
 	}
@@ -460,11 +486,7 @@ focus_tree = {
 			add_political_power = 100
 			country_event = {
 				id = belchatow.4
-			 }	
-			swap_ideas = {
-				add_idea = BBW_street_anger3
-				remove_idea = BBW_street_anger2
-				}				
+			}					
 		}
 	}
 
@@ -489,7 +511,11 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = belchatow.5
-				days = 1 }	
+			}
+			swap_ideas = {
+				add_idea = BBW_street_anger2
+				remove_idea = BBW_street_anger
+			}	
 		}
 	}
 
@@ -780,6 +806,17 @@ focus_tree = {
 				id = belchatow.7
 				days = 1 
 			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = BBW_copying_foreing_designs
+					}
+					country_event = {
+						id = belchatow_dlc.6
+						days = 7
+					}
+				}
+			}
 		}
 	}
 	
@@ -816,6 +853,17 @@ focus_tree = {
 					}
 				}
 			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = BBW_brutal_hazing
+					}
+					country_event = {
+						id = belchatow_dlc.6
+						days = 7
+					}
+				}
+			}
 		}
 	}
 	
@@ -824,6 +872,7 @@ focus_tree = {
 		icon = BBW_mass_motorisation
 		relative_position_id = BBW_copying_foreing_designs
 		prerequisite = { focus = BBW_copying_foreing_designs }
+		prerequisite = { focus = BBW_brutal_hazing }
 
 
 		available = {
@@ -857,6 +906,7 @@ focus_tree = {
 		id = BBW_giants_of_military_industry
 		icon = BBW_giants_of_military_industry
 		relative_position_id = BBW_brutal_hazing
+		prerequisite = { focus = BBW_copying_foreing_designs }
 		prerequisite = { focus = BBW_brutal_hazing }
 
 
@@ -881,6 +931,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			
 		}
 	}
 	
@@ -1455,7 +1506,11 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-
+			add_ideas = BBW_privileged_miners_1
+			add_popularity = {
+				ideology = corporativism
+				popularity = 0.01
+			}
 		}
 	}
 
@@ -2653,8 +2708,8 @@ focus_tree = {
 	focus = {
 		id = BBW_electricity_stamps
 		icon = BBW_electricity_stamps
-		relative_position_id = BBW_SYSTEM_OVERLOAD
-		prerequisite = { focus = BBW_SYSTEM_OVERLOAD }
+		relative_position_id = BBW_crisis_staff
+		prerequisite = { focus = BBW_crisis_staff}
 		available = {
 		
 		}
@@ -4015,6 +4070,32 @@ focus_tree = {
 		icon = BBW_currency_based_on_coal
 		relative_position_id = BBW_invest_in_crypto
 		prerequisite = { focus = BBW_invest_in_crypto }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+
+		}
+	}	
+
+	focus = {
+		id = BBW_capital_petrol
+		icon = BBW_capital_petrol
+		relative_position_id = BBW_currency_based_on_coal
+		prerequisite = { focus = BBW_currency_based_on_coal }
 		available = {
 		
 		}
