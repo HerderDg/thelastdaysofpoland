@@ -1587,9 +1587,7 @@ focus_tree = {
 		relative_position_id = BBW_cut_off_power_lines
 		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			has_war = no
 		}
 		
 		bypass = {
@@ -1633,17 +1631,28 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = {
-			add_tech_bonus = {
-				bonus = 0.5
-				uses = 2
-				category = electronics
-				}
 			if = {
 			limit = { any_controlled_state = { is_core_of = ZHP } }
 			random_controlled_state = {
 				prioritize = { 321 357 368 396 352 680 } 
 				add_building_construction = {
-					type = industrial_complex
+					type = power_plant
+					level = 1
+					instant_build = yes
+				}
+			}
+			}
+			hidden_effect = {
+				add_to_variable = {
+					budget = 700
+				}
+			}
+			if = {
+			limit = { any_controlled_state = { is_core_of = ZHP } }
+			every_controlled_state = {
+				limit = { is_core_of = ZHP }
+				add_building_construction = {
+					type = infrastructure
 					level = 1
 					instant_build = yes
 				}
@@ -1651,21 +1660,10 @@ focus_tree = {
 			}
 			if = {
 			limit = { any_controlled_state = { is_core_of = ZHP } }
-			random_controlled_state = {
-				prioritize = { 321 357 368 396 352 680 } 
+			every_controlled_state = {
+				limit = { is_core_of = ZHP }
 				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			}
-			if = {
-			limit = { any_controlled_state = { is_core_of = ZHP } }
-			random_controlled_state = {
-				prioritize = { 321 357 368 396 352 680 } 
-				add_building_construction = {
-					type = arms_factory
+					type = infrastructure
 					level = 1
 					instant_build = yes
 				}
@@ -1691,18 +1689,16 @@ focus_tree = {
 		relative_position_id = BBW_cut_off_power_lines
 		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			has_war = no
 		}
 		
 		bypass = {
-		OR = { 
-			AND = {	
-				ZYD = { num_of_controlled_states < 1 }
-				353 = { is_controlled_by = BBW }
+			OR = { 
+				AND = {	
+					ZYD = { num_of_controlled_states < 1 }
+					353 = { is_controlled_by = BBW }
 				}
-			has_war_with = ZYD
+				has_war_with = ZYD
 			}
 		}
 		
@@ -1712,10 +1708,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-				declare_war_on = {
-					target = ZYD
-					type = voivodeship_war
-				}
+			declare_war_on = {
+				target = ZYD
+				type = voivodeship_war
+			}
 		}
 	}
 
@@ -1752,9 +1748,7 @@ focus_tree = {
 		relative_position_id = BBW_cut_off_power_lines
 		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			has_war = no
 		}
 		
 		bypass = {
@@ -1773,10 +1767,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-				declare_war_on = {
-					target = LKS
-					type = voivodeship_war
-				}
+			declare_war_on = {
+				target = LKS
+				type = voivodeship_war
+			}
 		}
 	}
 
@@ -1787,9 +1781,7 @@ focus_tree = {
 		relative_position_id = BBW_cut_off_power_lines
 		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			has_war = no
 		}
 		
 		bypass = {
@@ -1822,9 +1814,7 @@ focus_tree = {
 		relative_position_id = BBW_cut_off_power_lines
 		prerequisite = { focus = BBW_cut_off_power_lines }
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			has_war = no
 		}
 		
 		bypass = {
@@ -1870,6 +1860,8 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			custom_effect_tooltip = BBW_rehab_conscription_tt
+			hidden_effect = {
 			random_list = {
 			50 = { 	country_event = {
 				id = belchatow.16
@@ -1879,6 +1871,7 @@ focus_tree = {
 				id = belchatow.17
 				days = 1 }
 				}
+			}
 			}
 		}
 	}
@@ -1959,8 +1952,10 @@ focus_tree = {
 					level = -1
 					instant_build = yes
 				}
+				add_dynamic_modifier = {
+					modifier = BBW_lodz_chaos
+				}
 			}
-
 		}
 	}
 	focus = {
@@ -2201,7 +2196,15 @@ focus_tree = {
 				character = SAP_jacek_bartyzel
 				civilian = { large ="GFX_BBW_Bartyzel" }
 			}
-
+			add_command_power = 50
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = BBW_divide_et_impera
+			    # FILTERS:
+			    folder = land
+			    grand_doctrine = cqc_theory
+			}
 		}
 	}
 	focus = {
@@ -2228,10 +2231,11 @@ focus_tree = {
 		
 		completion_reward = {
 			add_manpower = 5000
-			swap_ideas = {
-				add_idea = BBW_street_anger5
-				remove_idea = BBW_street_anger4
+			every_controlled_state = {
+				limit = { is_core_of = KRS }
+				add_compliance = 20
 			}
+			add_stability = 0.1
 		}
 	}
 	focus = {
@@ -2288,10 +2292,11 @@ focus_tree = {
 			id = belchatow.77
 			}
 			add_tech_bonus = {
+				name = BBW_paladin_tomasz_sommer_zpw
 				bonus = 0.5
-				uses = 2
+				uses = 1
 				category = infantry_weapons
-				}
+			}
 			296 = {
 				add_building_construction = {
 					type = arms_factory
@@ -2302,6 +2307,8 @@ focus_tree = {
 			hidden_effect = {
 				set_country_flag = zpw_sommer_flag
 			}
+			unlock_military_industrial_organization_tooltip = mio:BBW_sommer_zpw_mio
+			custom_effect_tooltip = budget_subtract_150M
 		}
 	}
 	focus = {
@@ -2329,7 +2336,65 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+		    903 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10253
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10248
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10247
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10251
+				}
+			}
+		    341 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10255
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10258
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10259
+				}
+			}
+			358 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10264
+				}
+			}
+			hidden_effect = {
+				add_to_variable = {
+					budget = 32
+				}
+			}			
 		}
 	}
 	focus = {
@@ -2357,7 +2422,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			build_railway = {
+			  level = 1
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
 
+				modifier = {
+				  tag = BBW
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 509 10271 10272 10292 3869 10315 3405 10376 10377 3323 10375 10381 10403 10235 }
+			  start_province = 509
+			  target_province = 10235
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}		
 
