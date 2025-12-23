@@ -6,10 +6,13 @@ scripted_gui = {
 		window_name = "religion_button_container"
 		effects = {
 			show_religion_gui_click = {
-				
 				if = {
 					limit = { has_variable = global.PaF_ReligionGUI }
 					clear_variable = global.PaF_ReligionGUI
+					if = {
+						limit = { has_variable = global.PaF_ReligiousLawPicker }
+						clear_variable = global.PaF_ReligiousLawPicker
+					}
 				}
 				else = {
 					set_variable = { global.PaF_ReligionGUI = 1 }
@@ -24,9 +27,63 @@ scripted_gui = {
 		visible = {
 			has_variable = global.PaF_ReligionGUI
 		}
+		effects = {
+			religious_law_close_click = {
+				if = {
+					limit = { has_variable = global.PaF_ReligionGUI }
+					clear_variable = global.PaF_ReligionGUI
+					if = {
+						limit = { has_variable = global.PaF_ReligiousLawPicker }
+						clear_variable = global.PaF_ReligiousLawPicker
+					}
+				}
+				else = {
+					set_variable = { global.PaF_ReligionGUI = 1 }
+				}
+			}
+
+			religious_law_value_click = {
+				if = {
+					limit = { has_variable = global.PaF_ReligiousLawPicker }
+					clear_variable = global.PaF_ReligiousLawPicker
+				}
+				else = {
+					set_variable = { global.PaF_ReligiousLawPicker = 1 }
+				}	
+			}
+		}
+	}
+
+	religious_law_picker_gui = {
+		window_name = "religious_law_picker_gui"
+		context_type = player_context
+		visible = {
+			has_variable = global.PaF_ReligiousLawPicker
+		}
+		dynamic_lists = {
+			religious_law_list = {
+				array = global.religious_laws
+				entry_container = "religious_law_entry"
+				index = ReligousLawEntity
+			}
+		}
 		properties = {
-			religious_law_value = { 
-				image = "[GetCurrentReligionLawIcon]"
+			religious_law_entry_icon = {
+				image = "[GetReligiousLawEntryIcon]"
+			}
+		}
+		effects = {
+			religious_law_value_click = {
+				if = {
+					limit = { has_variable = global.PaF_ReligiousLawPicker }
+					clear_variable = global.PaF_ReligiousLawPicker
+				}
+				else = {
+					set_variable = { global.PaF_ReligiousLawPicker = 1 }
+				}	
+			}
+			religious_law_entry_button_click = {
+				log = "[?ReligousLawEntity]"
 			}
 		}
 	}
