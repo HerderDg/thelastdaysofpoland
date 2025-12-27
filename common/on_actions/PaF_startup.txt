@@ -787,26 +787,6 @@ on_actions = {
 					days = 14
 					}
 			}
-			BBW = {
-				set_variable = { energy_exported = 0 }
-				set_variable = { ideological_factor = 1}
-				every_neighbor_country = {
-					set_variable = { energy_imported = 0 }
-				}
-				BBW_calculate_smog_penalties = yes
-				every_state = {
-					limit = {
-						is_owned_by = BBW
-					}
-					add_dynamic_modifier = {
-						modifier = BBW_smog_effect
-					}
-				}
-				country_event = {
-					id = belchatow.101
-					days = 278 
-					}
-			}
 			#WML = {
 			#	if = {
 			#		limit = { WML = { is_ai = yes } }
@@ -1735,108 +1715,7 @@ on_actions = {
 				reset_vp_name = yes
 			}
 		}
-	}	
-	on_weekly_BBW = {
-		effect = {
-			every_owned_state = {
-				limit = {
-					NOT = {
-						has_dynamic_modifier = {
-							modifier = BBW_smog_effect
-						}
-					}
-					any_neighbor_state = {
-						has_dynamic_modifier = {
-							modifier = BBW_smog_effect
-						}
-					}
-				}
-				add_dynamic_modifier = {
-					modifier = BBW_smog_effect
-				}
-			}
-			BBW_calculate_smog_penalties = yes
-		}
-	}
-	on_weekly_ATM = {
-		effect = {
-			if = {
-				limit = {
-					has_completed_focus = ATM_green_fury
-					has_completed_focus = ATM_suffocating_smoke
-					has_completed_focus = ATM_black_eagle
-					has_completed_focus = ATM_hearts_and_minds
-					NOT = {
-						has_completed_focus = ATM_at_least_fair_trial
-						has_completed_focus = ATM_captain_planet
-						has_completed_focus = ATM_rad_eaters
-						has_completed_focus = ATM_knowledge_is_death_of_fear
-					}
-					OR ={
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@autocracy
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@corporativism
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@euroliberalism
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@freemarketism
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@marxism_cranism
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@neonationalism
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@postpolonism
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@reactionary
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@socialdemocrature
-						}
-						check_variable = {
-							var:party_popularity@paternal_conservatism < var:party_popularity@squattism
-						}
-					}
-					NOT = {
-						has_active_mission = ATM_brewing_tensions
-					}
-				}
-				activate_mission = ATM_brewing_tensions
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_country_flag = fought_the_smog
-					}
-				}
-				every_owned_state = {
-					limit = {
-						NOT = {
-							has_dynamic_modifier = {
-								modifier = BBW_smog_effect
-							}
-						}
-						any_neighbor_state = {
-							has_dynamic_modifier = {
-								modifier = BBW_smog_effect
-							}
-						}
-					}
-					add_dynamic_modifier = {
-						modifier = BBW_smog_effect
-					}
-				}
-			}	
-			BBW_calculate_smog_penalties = yes
-		}
-	}	
+	}		
 	on_monthly_BEX = {
 		effect = {
 			damage_units = {
@@ -1881,60 +1760,6 @@ on_actions = {
 				ROOT = {
 					clr_country_flag = getting_ready_to_war
 				}
-			}
-			if = {
-				limit = {
-					FROM = { tag = BBW }
-					has_country_flag = importing_energy
-				}
-				clr_country_flag = importing_energy
-				remove_opinion_modifier = {
-					target = BBW
-					modifier = aided_industry
-				}
-				remove_ideas = importing_energy_idea
-				subtract_from_variable = {energy_imported = 750}
-				BBW = {
-					add_offsite_building = {
-						type = industrial_complex
-						level = -1
-					}
-					if = {
-						limit = {
-							check_variable = { energy_exported > 0 }
-						}
-						subtract_from_variable = {energy_exported = 750}
-					}
-				}
-				log = "[GetDateText]: [ROOT.GetName] cancels energy imports"
-			}
-			if = {
-				limit = {
-					original_tag = BBW
-					FROM = { has_country_flag = importing_energy }
-				}
-				FROM = {
-					clr_country_flag = importing_energy
-					remove_opinion_modifier = {
-						target = BBW
-						modifier = aided_industry
-					}
-					remove_ideas = importing_energy_idea
-					subtract_from_variable = {energy_imported = 750}
-				}
-				BBW = {
-					add_offsite_building = {
-						type = industrial_complex
-						level = -1
-					}
-					if = {
-						limit = {
-							check_variable = { energy_exported > 0 }
-						}
-						subtract_from_variable = {energy_exported = 750}
-					}
-				}
-				log = "[GetDateText]: [FROM.GetName] cancels energy imports"
 			}
 		}
 	}
