@@ -64,9 +64,9 @@ country_event = {
 	picture = GFX_event_belchatow.2
 	
 	fire_only_once = yes
-	is_triggered_only = yes
 
 	trigger = {
+		original_tag = BBW
 		has_completed_focus = BBW_more_power_to_state
 	}
 
@@ -83,10 +83,8 @@ country_event = {
 		activate_advisor = BBW_min_rzymkowski
 		random_unit_leader = { limit = { has_id = 11 } promote_leader = yes }
 		log = "[GetDateText]: sommer wypierdolony"
-		add_popularity = {
-			ideology = neonationalism
-			popularity = -0.05
-		}
+		set_country_flag = sommer_happened
+		mark_focus_tree_layout_dirty = yes
 	}
 	
 }
@@ -139,6 +137,10 @@ country_event = {
 		add_manpower = -500
 		add_stability = 0.1
 		add_political_power = 50
+		swap_ideas = {
+			add_idea = BBW_street_anger2
+			remove_idea = BBW_street_anger
+		}	
 		log = "[GetDateText]: belchatow.5.done"
 	}
 }
@@ -188,7 +190,7 @@ country_event = {
 
 	option = {
 		name = belchatow.8.a
-		add_political_power = -100
+		add_political_power = -25
 		#hidden_effect = {
 		#	load_focus_tree = belchatow_war_focus
 		#}
@@ -3048,6 +3050,7 @@ country_event = { #szczercow bombing
 		name = belchatow_dlc.6.a
 		add_stability = -0.2
 		add_manpower = -7
+		set_country_flag = szczercow_bombing_happened
 	}
 }
 
@@ -3446,5 +3449,37 @@ country_event = { #spring cleaning
 	is_triggered_only = yes
 	option = {
 		name = belchatow_dlc.39.a
+	}
+}
+
+
+country_event = { #giga piknik
+	id = belchatow_dlc.100
+	title = belchatow_dlc.100.t
+	desc = belchatow_dlc.100.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = belchatow_dlc.100.a
+		WML = {
+			remove_opinion_modifier = {
+				target = BBW
+				modifier = small_increase
+			}
+		}
+		add_faction_influence_score = -2
+	}
+}
+country_event = { #szczercow bombers captured
+	id = belchatow_dlc.101
+	title = belchatow_dlc.101.t
+	desc = belchatow_dlc.101.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = belchatow_dlc.101.a
+		set_country_flag = szczercow_bombers_captured
 	}
 }

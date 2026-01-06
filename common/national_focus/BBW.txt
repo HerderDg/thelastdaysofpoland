@@ -236,7 +236,7 @@ focus_tree = {
 		relative_position_id = BBW_szczercow_bombing_memorial
 		prerequisite = { focus = BBW_szczercow_bombing_memorial }
 		available = {
-		
+			has_completed_focus = BBW_youth_agents
 		}
 		
 		bypass = {
@@ -251,6 +251,10 @@ focus_tree = {
 			country_event = belchatow.3
 			add_political_power = 50
 			add_stability = 0.05
+			add_to_variable = {
+				budget = -0.02
+			}
+			custom_effect_tooltip = budget_subtract_20K
 		}
 	}
 
@@ -279,7 +283,7 @@ focus_tree = {
 				GFX = GFX_zgierski
 				traits = { operative_natural_orator operative_well_groomed }
 				bypass_recruitment = yes
-				available_to_spy_master = yes
+				available_to_spy_master = no
 				nationalities = { LDZ }
 			}
 			upgrade_intelligence_agency = upgrade_passive_defense
@@ -297,6 +301,15 @@ focus_tree = {
 		}
 		
 		bypass = {
+
+		}
+
+		select_effect = {
+			WML = {
+				country_event = {
+					id = belchatow_dlc.100
+				}
+			}
 		}
 		
 		x = 0
@@ -305,7 +318,28 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-
+			add_stability = 0.05
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.02
+			}
+			add_to_variable = {
+				budget = -0.1
+			}
+			custom_effect_tooltip = budget_subtract_100K
+			hidden_effect = {
+				country_event = {
+					id = belchatow_dlc.101
+					days = 3
+				}
+			}
+			add_faction_influence_score = 5
+			WML = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = small_increase
+				}
+			}
 		}
 	}
 	
@@ -317,7 +351,7 @@ focus_tree = {
 		prerequisite = { focus = BBW_grand_picnic }
 		prerequisite = { focus = BBW_youth_agents }
 		available = {
-		
+			has_country_flag = szczercow_bombers_captured
 		}
 		
 		bypass = {
@@ -326,10 +360,12 @@ focus_tree = {
 		x = 0
 		y = 3
 		
-		cost = 2
+		cost = 0.5
 		
 		completion_reward = {
-
+			add_stability = 0.1
+			add_political_power = 50
+			add_command_power = 25
 		}
 	}	
 
@@ -350,7 +386,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 1
 
 		completion_reward = { 
 			add_stability = 0.05
@@ -381,7 +417,7 @@ focus_tree = {
 		factor = 100
 		}
 		
-		cost = 3.7
+		cost = 2
 		
 		completion_reward = {
 			hidden_effect = {
@@ -390,6 +426,12 @@ focus_tree = {
 			custom_effect_tooltip = BBW_militia_tooltip
 			add_stability = -0.1
 			add_political_power = -100
+			341 = {
+				damage_building = {
+					type = infrastructure
+					damage = 1
+				}
+			}
 		}
 	}
 
@@ -446,7 +488,10 @@ focus_tree = {
 		cost = 3.7
 		
 		completion_reward = {
-			country_event = belchatow.2
+			add_popularity = {
+				ideology = neonationalism
+				popularity = -0.05
+			}
 		}
 	}
 
@@ -483,7 +528,7 @@ focus_tree = {
 		relative_position_id = BBW_emergency_council
 		prerequisite = { focus = BBW_emergency_council }
 		available = {
-		has_idea = BBW_street_anger2
+
 		}
 		
 		bypass = {
@@ -495,7 +540,7 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = {
-			add_political_power = 100
+			add_political_power = 50
 			country_event = {
 				id = belchatow.4
 			}					
@@ -525,10 +570,6 @@ focus_tree = {
 			country_event = {
 				id = belchatow.5
 			}
-			swap_ideas = {
-				add_idea = BBW_street_anger2
-				remove_idea = BBW_street_anger
-			}	
 		}
 	}
 
@@ -553,6 +594,9 @@ focus_tree = {
 		completion_reward = {
 			add_war_support = 0.1
 			country_event = belchatow.10
+			903 = {
+				add_claim_by = ATM
+			}
 		}
 	}
 
@@ -622,6 +666,10 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow.13
+			swap_ideas = {
+				add_idea = BBW_street_anger3
+				remove_idea = BBW_street_anger2
+			}
 		}
 	}
 	focus = {
@@ -886,10 +934,12 @@ focus_tree = {
 		relative_position_id = BBW_copying_foreing_designs
 		prerequisite = { focus = BBW_copying_foreing_designs }
 		prerequisite = { focus = BBW_brutal_hazing }
-
+		allow_branch = {
+			NOT = { has_country_flag = sommer_happened }
+		}
 
 		available = {
-		
+			NOT = { has_country_flag = szczercow_bombing_happened }
 		}
 		
 		bypass = {
@@ -923,9 +973,11 @@ focus_tree = {
 		prerequisite = { focus = BBW_copying_foreing_designs }
 		prerequisite = { focus = BBW_brutal_hazing }
 
-
+		allow_branch = {
+			NOT = { has_country_flag = sommer_happened }
+		}
 		available = {
-		
+			NOT = { has_country_flag = szczercow_bombing_happened }
 		}
 		
 		bypass = {
@@ -958,7 +1010,7 @@ focus_tree = {
 
 
 		available = {
-		
+			NOT = { has_country_flag = szczercow_bombing_happened }
 		}
 		
 		bypass = {
@@ -985,7 +1037,7 @@ focus_tree = {
 
 
 		available = {
-		
+			NOT = { has_country_flag = szczercow_bombing_happened }
 		}
 		
 		bypass = {
@@ -1018,7 +1070,7 @@ focus_tree = {
 
 
 		available = {
-		
+			NOT = { has_country_flag = szczercow_bombing_happened }
 		}
 		
 		bypass = {
@@ -1369,6 +1421,11 @@ focus_tree = {
 		}
 		
 		bypass = {
+			BBW = {
+				NOT = {
+					is_in_faction_with = ZHP
+				}
+			}
 		}
 		
 		x = 0
