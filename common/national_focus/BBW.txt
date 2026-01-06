@@ -333,6 +333,9 @@ focus_tree = {
 					days = 3
 				}
 			}
+			country_event = {
+				id = belchatow_dlc.40
+			}			
 			add_faction_influence_score = 5
 			WML = {
 				add_opinion_modifier = {
@@ -2832,6 +2835,34 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.8
+			if = {
+				limit = { has_idea = BBW_overextended_grid }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid
+					add_idea = BBW_overextended_grid2_partisans
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_ruins }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_ruins
+					add_idea = BBW_overextended_grid2_partisans_ruins
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_trade }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_trade
+					add_idea = BBW_overextended_grid2_partisans_trade
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_ruins_trade }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_ruins_trade
+					add_idea = BBW_overextended_grid3
+				}
+			}							
 		}
 	}
 	
@@ -2859,6 +2890,34 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.9
+			if = {
+				limit = { has_idea = BBW_overextended_grid }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid
+					add_idea = BBW_overextended_grid2_trade
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_ruins }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_ruins
+					add_idea = BBW_overextended_grid2_ruins_trade
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_partisans }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_partisans
+					add_idea = BBW_overextended_grid2_partisans_trade
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_partisans_ruins }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_partisans_ruins
+					add_idea = BBW_overextended_grid3
+				}
+			}	
 		}
 	}
 	
@@ -2886,6 +2945,35 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.10
+			if = {
+				limit = { has_idea = BBW_overextended_grid }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid
+					add_idea = BBW_overextended_grid2_ruins
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_trade }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_trade
+					add_idea = BBW_overextended_grid2_ruins_trade
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_partisans }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_partisans
+					add_idea = BBW_overextended_grid2_partisans_ruins
+				}
+			}
+			if = {
+				limit = { has_idea = BBW_overextended_grid2_partisans_trade }
+				swap_ideas = {
+					remove_idea = BBW_overextended_grid2_partisans_trade
+					add_idea = BBW_overextended_grid3
+				}
+			}
+												
 		}
 	}	
 	
@@ -2914,10 +3002,20 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_blackout
-				add_idea = BBW_blackout2
-			}
+			remove_ideas = BBW_overextended_grid3			
+			add_dynamic_modifier = { modifier = BBW_blackout } 
+			force_update_dynamic_modifier = yes
+			add_to_variable = { BBW_blackout_industrial_capacity_factory_var = -0.75 }
+			add_to_variable = { BBW_blackout_production_speed_buildings_factor_var = -0.2 }
+			add_to_variable = { BBW_blackout_stability_factor_var = -0.75 }
+			add_to_variable = { BBW_blackout_political_power_gain_var = -0.75 }
+			add_to_variable = { BBW_blackout_local_resources_factor_var = -0.5 }
+			add_to_variable = { BBW_blackout_energy_modifier_var = -0.7 }
+			add_to_variable = { BBW_blackout_monthly_population_var = -0.2 }
+			add_to_variable = { BBW_blackout_winter_attrition_factor_var = 0.5 }
+			add_to_variable = { BBW_blackout_compliance_growth_var = -0.5 }
+			add_to_variable = { BBW_blackout_resistance_growth_var = 0.3 }
+			add_to_variable = { BBW_blackout_industry_repair_factor_var = -0.3 }
 			hidden_effect = {
 				calculate_energy_balance = yes
 			}
@@ -2953,6 +3051,18 @@ focus_tree = {
 			country_event = {
 				id = belchatow.43
 			}
+			add_advisor_role = {
+				character = BBW_wroblewski
+				activate = yes
+				advisor = {
+					slot = minister_of_economy
+					cost = 50
+					idea_token = BBW_min_wroblewski
+					traits = { renovation_expert }
+					removal_cost = -1
+					can_be_fired = no
+				}
+			}
 		create_corps_commander = {
 			name = "Tomasz Wróblewski"
 			picture = "Portrait_Twroblewski.dds"
@@ -2963,7 +3073,11 @@ focus_tree = {
 			planning_skill = 4
 			logistics_skill = 3
 		}
+			hidden_effect = {
+				calculate_energy_balance = yes
+			}
 		}
+
 	}
 	
 	focus = {
@@ -2989,10 +3103,16 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_blackout2
-				add_idea = BBW_blackout3
+			add_to_variable = { BBW_blackout_energy_modifier_var = 0.2 }
+			custom_effect_tooltip = BBW_electricity_stamps_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = { BBW_blackout_compliance_growth_var = 0.15 }
+			custom_effect_tooltip = BBW_electricity_stamps_compliance_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = {
+				BBW_blackout_monthly_population_var = 0.15
 			}
+			custom_effect_tooltip = BBW_electricity_stamps_population_tt
 			hidden_effect = {
 				calculate_energy_balance = yes
 			}
@@ -3023,9 +3143,75 @@ focus_tree = {
 		
 		completion_reward = {
 			add_stability = 0.05
-			country_event = {
-				id = belchatow.42
+			if = {
+				limit = {
+					579 = {
+						industrial_complex > 1
+					}
+				}
+				579 = {
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
 			}
+			if = {
+				limit = {
+					302 = {
+						industrial_complex > 1
+					}
+				}
+				302 = {
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			if = {
+				limit = {
+					577 = {
+						industrial_complex > 1
+					}
+				}
+				577 = {
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			if = {
+				limit = {
+					758 = {
+						industrial_complex > 1
+					}
+				}
+				758 = {
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			if = {
+				limit = {
+					576 = {
+						industrial_complex > 1
+					}
+				}
+				576 = {
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			custom_effect_tooltip = BBW_blow_up_lodz_tooltip
+			hidden_effect = {
+				calculate_energy_balance = yes
+			}													
 		}
 	}
 
@@ -3052,18 +3238,12 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-			if = { 
-				limit = { has_idea = BBW_green_counter_revolution6 }
-			swap_ideas = {
-				remove_idea = BBW_green_counter_revolution6
-				add_idea = BBW_green_counter_revolution7
+			country_event = {
+				id = belchatow.42
 			}			
-				}
-			else = {
 			swap_ideas = {
 				remove_idea = BBW_green_counter_revolution5
 				add_idea = BBW_green_counter_revolution6
-				}
 			}
 		}
 	}
@@ -3090,18 +3270,9 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-			if = { 
-				limit = { has_idea = BBW_green_counter_revolution6 }
 			swap_ideas = {
 				remove_idea = BBW_green_counter_revolution6
 				add_idea = BBW_green_counter_revolution7
-			}			
-				}
-			else = {
-			swap_ideas = {
-				remove_idea = BBW_green_counter_revolution5
-				add_idea = BBW_green_counter_revolution6
-				}
 			}
 			add_manpower = -500
 			random_owned_state = {
@@ -3148,7 +3319,14 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			add_to_variable = { BBW_blackout_energy_modifier_var = 0.1 }
+			clear_variable = BBW_blackout_industry_repair_factor_var
+			custom_effect_tooltip = BBW_employing_electricians_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BBW_blackout_energy_boost_tt
+			hidden_effect = {
+				calculate_energy_balance = yes
+			}
 		}
 	}
 
@@ -3175,7 +3353,7 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			add_ideas = BBW_conglomeration_idea
 		}
 	}	
 	
@@ -3186,7 +3364,14 @@ focus_tree = {
 		relative_position_id = BBW_crisis_staff
 		prerequisite = { focus = BBW_crisis_staff }
 		available = {
-		
+			divisions_in_state = {
+			    size > 3
+			    state = 903
+			}
+			divisions_in_state = {
+			    size > 1
+			    state = 680
+			}			
 		}
 		
 		bypass = {
@@ -3202,7 +3387,15 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			clear_variable = BBW_blackout_resistance_growth_var
+			add_to_variable = { BBW_blackout_local_resources_factor_var = 0.35 }
+			remove_ideas = BBW_lodz_coal_deposits_exhausted
+			custom_effect_tooltip = BBW_protecting_our_assets_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BBW_protecting_our_assets_2tt
+			hidden_effect = {
+				calculate_energy_balance = yes
+			}
 		}
 	}	
 
@@ -3264,6 +3457,15 @@ focus_tree = {
 				}
 			}
 			add_manpower = -500
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = { BBW_blackout_cic_construction_boost_var = -1 }
+			custom_effect_tooltip = BBW_take_whoever_you_can_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = { BBW_blackout_industrial_capacity_factory_var = 0.35 }
+			custom_effect_tooltip = BBW_take_whoever_you_can_ic_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = { BBW_blackout_local_resources_factor_var = 0.35 }
+			custom_effect_tooltip = BBW_take_whoever_you_can_lr_tt
 		}
 	}
 	focus = {
@@ -3401,6 +3603,12 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			deactivate_advisor = BBW_min_wroblewski
+			remove_advisor_role = {
+			  character = "BBW_wroblewski"
+			  slot = minister_of_economy
+			}
+			activate_advisor = BBW_min_gadomski
 		}
 	}
 	focus = {
