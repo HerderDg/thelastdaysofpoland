@@ -3006,7 +3006,7 @@ focus_tree = {
 			add_dynamic_modifier = { modifier = BBW_blackout } 
 			force_update_dynamic_modifier = yes
 			add_to_variable = { BBW_blackout_industrial_capacity_factory_var = -0.75 }
-			add_to_variable = { BBW_blackout_production_speed_buildings_factor_var = -0.2 }
+			add_to_variable = { BBW_blackout_production_speed_buildings_factor_var = -0.7 }
 			add_to_variable = { BBW_blackout_stability_factor_var = -0.75 }
 			add_to_variable = { BBW_blackout_political_power_gain_var = -0.75 }
 			add_to_variable = { BBW_blackout_local_resources_factor_var = -0.5 }
@@ -3021,6 +3021,10 @@ focus_tree = {
 			}
 			country_event = {
 				id = belchatow.41
+			}
+			add_popularity = {
+				ideology = reactionary
+				popularity = -0.15
 			}
 		}
 	}
@@ -3116,6 +3120,8 @@ focus_tree = {
 			hidden_effect = {
 				calculate_energy_balance = yes
 			}
+			add_to_variable = { BBW_blackout_stability_factor_var = 0.1 }
+			add_to_variable = { BBW_blackout_political_power_gain_var = 0.1 }
 		}
 	}
 
@@ -3211,6 +3217,10 @@ focus_tree = {
 			custom_effect_tooltip = BBW_blow_up_lodz_tooltip
 			hidden_effect = {
 				calculate_energy_balance = yes
+			}
+			add_popularity = {
+				ideology = reactionary
+				popularity = -0.05
 			}													
 		}
 	}
@@ -3293,6 +3303,33 @@ focus_tree = {
 					level = 1
 				}
 			}
+			add_to_variable = { BBW_blackout_compliance_growth_var = 0.35 }
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BBW_green_faction_tt
+			set_temp_variable = {
+				var = destroy_euroliberalism_var
+				value = party_popularity@euroliberalism
+			}
+			multiply_temp_variable = {
+				var = destroy_euroliberalism_var
+				value = -1
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = destroy_euroliberalism_var
+			}
+			set_temp_variable = {
+				var = destroy_squattism_var
+				value = party_popularity@squattism
+			}
+			multiply_temp_variable = {
+				var = destroy_squattism_var
+				value = -1
+			}
+			add_popularity = {
+				ideology = squattism
+				popularity = destroy_squattism_var
+			}			
 		}
 	}
 
@@ -3320,10 +3357,13 @@ focus_tree = {
 		
 		completion_reward = {
 			add_to_variable = { BBW_blackout_energy_modifier_var = 0.1 }
+			custom_effect_tooltip = BBW_blackout_energy_boost_tt			
+			custom_effect_tooltip = rozdzielacz_efektow			
 			clear_variable = BBW_blackout_industry_repair_factor_var
 			custom_effect_tooltip = BBW_employing_electricians_tt
-			custom_effect_tooltip = rozdzielacz_efektow
-			custom_effect_tooltip = BBW_blackout_energy_boost_tt
+
+			add_to_variable = { BBW_blackout_stability_factor_var = 0.1 }
+			add_to_variable = { BBW_blackout_political_power_gain_var = 0.1 }
 			hidden_effect = {
 				calculate_energy_balance = yes
 			}
@@ -3396,6 +3436,8 @@ focus_tree = {
 			hidden_effect = {
 				calculate_energy_balance = yes
 			}
+			add_to_variable = { BBW_blackout_stability_factor_var = 0.1 }
+			add_to_variable = { BBW_blackout_political_power_gain_var = 0.1 }
 		}
 	}	
 
@@ -3466,6 +3508,9 @@ focus_tree = {
 			custom_effect_tooltip = rozdzielacz_efektow
 			add_to_variable = { BBW_blackout_local_resources_factor_var = 0.35 }
 			custom_effect_tooltip = BBW_take_whoever_you_can_lr_tt
+			hidden_effect = {
+				calculate_energy_balance = yes
+			}
 		}
 	}
 	focus = {
@@ -3492,21 +3537,6 @@ focus_tree = {
 		
 		completion_reward = {
 			custom_effect_tooltip = BBW_cut_trees_tt
-			if = {
-				limit = {
-					has_idea = BBW_blackout3
-				}
-				swap_ideas = {
-					remove_idea = BBW_blackout3
-					add_idea = BBW_blackout4
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = BBW_blackout4
-					add_idea = BBW_blackout5
-				}
-			}
 			hidden_effect = {
 				calculate_energy_balance = yes
 				random_state = {
@@ -3521,6 +3551,10 @@ focus_tree = {
 						type = industrial_complex
 						level = 1
 					}
+					add_resource = {
+						type = coal
+						amount = 10
+					}
 				}
 				random_state = {
 					limit = {
@@ -3534,8 +3568,15 @@ focus_tree = {
 						type = industrial_complex
 						level = 1
 					}
+					add_resource = {
+						type = coal
+						amount = 10
+					}					
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = { BBW_blackout_production_speed_buildings_factor_var = 0.35 }
+			custom_effect_tooltip = BBW_chop_whatever_you_can_tt
 		}
 	}
 	focus = {
@@ -3561,13 +3602,30 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_blackout5
-				add_idea = BBW_blackout6
-			}
-			add_manpower = -500
+			add_to_variable = { BBW_blackout_energy_modifier_var = 0.1 }
+			custom_effect_tooltip = BBW_blackout_energy_boost_tt			
+			custom_effect_tooltip = rozdzielacz_efektow		
+			add_political_power = 50
+			add_manpower = -3457
 			hidden_effect = {
 				calculate_energy_balance = yes
+			}
+			random_state = {
+				limit = {
+					is_controlled_by = BBW
+					OR = {
+						has_state_category = rural
+						has_state_category = pastoral
+					}
+				}
+				remove_building = {
+					type = infrastructure
+					level = 1
+				}
+				add_resource = {
+					type = coal
+					amount = 5
+				}
 			}
 		}
 	}
@@ -3580,7 +3638,24 @@ focus_tree = {
 		prerequisite = { focus = BBW_search_wherever_you_can }
 
 		available = {
-		
+			custom_trigger_tooltip = {
+				tooltip = BBW_blackout_overcome_tt
+				has_war = no
+				OR = {
+					AND = {
+						NOT = {
+							has_country_flag = ATM_has_risen
+						}
+						NOT = { has_dynamic_modifier = BBW_blackout }
+					}
+					AND = {
+						has_country_flag = ATM_has_risen
+						ATM = {
+							exists = no
+						}
+					}
+				}
+			}
 		}
 		
 		bypass = {
@@ -3599,7 +3674,7 @@ focus_tree = {
 			341 = {
 				add_building_construction = {
 					type = power_plant
-					level = 1 #id state'a bełchatowa pls
+					level = 1 
 					instant_build = yes
 				}
 			}
@@ -3609,6 +3684,7 @@ focus_tree = {
 			  slot = minister_of_economy
 			}
 			activate_advisor = BBW_min_gadomski
+			country_event = belchatow_dlc.108
 		}
 	}
 	focus = {
@@ -3651,24 +3727,7 @@ focus_tree = {
 			focus = BBW_a_curious_find
 		}
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = "Managed to overcome the blackout"
-				has_war = no
-				OR = {
-					AND = {
-						NOT = {
-							has_country_flag = ATM_has_risen
-						}
-						check_variable = { current_balance > 0 }
-					}
-					AND = {
-						has_country_flag = ATM_has_risen
-						ATM = {
-							exists = no
-						}
-					}
-				}
-			}
+
 		}
 		
 		bypass = {
@@ -3703,7 +3762,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -5
+		x = -4
 		y = 1
 		
 		ai_will_do = {
@@ -3713,27 +3772,12 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = BBW_blackout3
-				}
-				swap_ideas = {
-					remove_idea = BBW_blackout3
-					add_idea = BBW_blackout4
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = BBW_blackout4
-					add_idea = BBW_blackout5
-				}
-			}
-			hidden_effect = {
-				calculate_energy_balance = yes
-			}	
-		
 			country_event = {
 				id = belchatow.44
+			}
+			swap_ideas = {
+				remove_idea = BBW_new_coal_policy
+				add_idea = BBW_new_coal_policy_militia
 			}
 		}
 	}
@@ -3751,7 +3795,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = -1
 		y = 1
 		
 		ai_will_do = {
@@ -3793,6 +3837,11 @@ focus_tree = {
 			country_event = {
 				id = belchatow.45
 			}
+			swap_ideas = {
+				remove_idea = BBW_new_coal_policy_militia
+				add_idea = BBW_new_coal_policy_everything
+			}
+			custom_effect_tooltip = BBW_new_brotherhood_spokesman_tt
 		}
 	}
 
@@ -3810,7 +3859,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 5
+		x = 4
 		y = 1
 		
 		ai_will_do = {
@@ -3821,6 +3870,10 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.11
+			swap_ideas = { 
+				add_idea = direct_security
+				remove_idea = advanced_security
+			}
 		}
 	}	
 
@@ -3837,7 +3890,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = 1
 		y = 1
 		
 		ai_will_do = {
@@ -3847,34 +3900,25 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			272 = {
-			create_unit = {
-				division = "name = \"1 Batalion Adeptów 'Łowicz'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
-				owner = BBW
+			add_mastery_bonus = {
+			    bonus = 0.3
+			    days = 90
+			    name = BBW_temporary_adepts
+			    folder = land
+			    sub_doctrine = common_tech_infantry
 			}
-			}
-			576 = {
-			create_unit = {
-				division = "name = \"2 Batalion Adeptów 'Teofilów'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
-				owner = BBW
-			}
-			}
-			236= {
-			create_unit = {
-				division = "name = \"3 Batalion Adeptów 'Kutno'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
-				owner = BBW
-			}
-		}
-		357 = {
-			create_unit = {
-				division = "name = \"4 Batalion Adeptów 'Wieluń'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
-				owner = BBW
-			}
-			}
-			swap_ideas = { 
-				add_idea = direct_security
-				remove_idea = advanced_security
-			}
+			add_unit_bonus = {
+           		militia = {
+           		    urban = {
+           		        movement = 0.1
+						attack = 0.1
+           		    }                
+           		    industrial = {
+           		        movement = 0.1
+						attack = 0.1
+           		    }           
+           		}
+			}			
 		}
 	}	
 
@@ -3902,26 +3946,35 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-			341 = {
+			272 = {
 				create_unit = {
-					division = "name = \"5 Batalion Adeptów 'Bełchatów'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					division = "name = \"1 Batalion Adeptów 'Łowicz'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
 					owner = BBW
 				}
 			}
-			if = {
-				limit = {
-					has_idea = BBW_new_coal_policy_spokesman
-				}
-				swap_ideas = {
-					remove_idea = BBW_new_coal_policy_spokesman
-					add_idea = BBW_new_coal_policy_everything
+			576 = {
+				create_unit = {
+					division = "name = \"2 Batalion Adeptów 'Teofilów'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = BBW
 				}
 			}
-			else = {
-				swap_ideas = {
-					remove_idea = BBW_new_coal_policy
-					add_idea = BBW_new_coal_policy_militia
+			236= {
+				create_unit = {
+					division = "name = \"3 Batalion Adeptów 'Kutno'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = BBW
 				}
+			}
+			341 = {
+				create_unit = {
+					division = "name = \"4 Batalion Adeptów 'Bełchatów'\" division_template = \"Milicja Bractwa\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = BBW
+				}
+			}
+			add_unit_bonus = {
+           		militia = {
+           		    supply_consumption = -0.02
+					max_organisation = 5              
+           		}
 			}
 		}
 	}
@@ -4124,7 +4177,10 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = media_shunned
+				add_idea = state_press
+			}
 		}
 	}	
 
@@ -8757,7 +8813,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = state_press
+				add_idea = absolute_censorship
+			}
 		}
 	}
 

@@ -823,31 +823,17 @@ country_event = {
 
 	option = {
 		name = belchatow.45.a #roxana
+		set_country_flag = BBW_carbonari_roksana_chosen
 		BBW_roksi_wegiel = {
 			add_corps_commander_role = {
 				traits = {
-					media_personality
+					media_personality hidden_sympathies
 				}
-				skill = 2
-				attack_skill = 2
-				defense_skill = 2
-				planning_skill = 2
-				logistics_skill = 2
-			}
-		}
-		if = {
-			limit = {
-				has_idea = BBW_new_coal_policy_militia
-			}
-			swap_ideas = {
-				remove_idea = BBW_new_coal_policy_militia
-				add_idea = BBW_new_coal_policy_everything
-			}
-		}
-		else = {
-			swap_ideas = {
-				remove_idea = BBW_new_coal_policy
-				add_idea = BBW_new_coal_policy_spokesman
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 3
 			}
 		}
 	}
@@ -855,31 +841,25 @@ country_event = {
 	option = {
 		name = belchatow.45.b #zgierski
 		add_political_power = 100
-		if = {
-			limit = {
-				has_idea = BBW_new_coal_policy_militia
-			}
-			swap_ideas = {
-				remove_idea = BBW_new_coal_policy_militia
-				add_idea = BBW_new_coal_policy_everything
-			}
-		}
-		else = {
-			swap_ideas = {
-				remove_idea = BBW_new_coal_policy
-				add_idea = BBW_new_coal_policy_spokesman
-			}
-		}
+		set_country_flag = BBW_carbonari_zgierski_chosen
 		BBW_zgierski = {
 			add_corps_commander_role = {
 				traits = {
-					media_personality
+					media_personality politically_connected
 				}
 				skill = 2
-				attack_skill = 2
-				defense_skill = 2
-				planning_skill = 2
-				logistics_skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 3
+				logistics_skill = 1
+			}
+		}
+		every_operative = {
+			limit = {
+				has_nationality = LDZ
+			}
+			kill_operative = {
+				killed_by = ROOT
 			}
 		}
 	}
@@ -898,10 +878,7 @@ country_event = {
 
 	option = {
 		name = belchatow.46.a 
-		remove_ideas = BBW_blackout6
-		hidden_effect = {
-			calculate_energy_balance = yes
-		}
+		add_ideas = BBW_new_coal_policy
 	}
 }
 
@@ -918,7 +895,6 @@ country_event = {
 
 	option = {
 		name = belchatow.47.a
-		add_ideas = BBW_new_coal_policy
 	}
 }
 
@@ -3774,6 +3750,23 @@ country_event = { #nie interesuj się ekologu
 					}
 				}
 			}
+		}
+	}
+}
+
+country_event = { #koniec blackoutu
+	id = belchatow_dlc.108
+	title = belchatow_dlc.108.t
+	desc = belchatow_dlc.108.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = belchatow_dlc.108.a
+		add_stability = 0.1
+		remove_dynamic_modifier = {
+			modifier = BBW_blackout
 		}
 	}
 }
