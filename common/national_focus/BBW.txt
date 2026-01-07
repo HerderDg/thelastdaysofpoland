@@ -4033,7 +4033,7 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			add_ideas = BBW_graphene_fever
 		}
 	}
 	
@@ -4061,7 +4061,19 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			every_controlled_state = {
+				limit = {
+					is_controlled_by = BBW
+					power_plant > 0
+				}
+				add_dynamic_modifier = {
+					modifier = BBW_energy_storages
+				}
+			}
+			add_to_variable = {
+				budget = -20
+			}
+			custom_effect_tooltip = budget_subtract_20M
 		}
 	}
 
@@ -4118,7 +4130,7 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			upgrade_tax_law = yes
 		}
 	}
 	
@@ -4146,7 +4158,21 @@ focus_tree = {
 		cost = 8.6
 		
 		completion_reward = {
-
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.15
+			}
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.05
+			}
+			add_stability = 0.05
+			add_war_support = -0.1
+			add_political_power = 50			
 		}
 	}
 	
@@ -7554,10 +7580,16 @@ focus_tree = {
 		
 		completion_reward = {
 			add_tech_bonus = {
-				name = "Airship Efforts"
+				name = BBW_airships_of_the_future
 				bonus = 0.5
-				category = air_equipment
+				category = helicopters
 			}
+			add_tech_bonus = {
+				name = BBW_airships_of_the_future
+				bonus = 0.5
+				category = advanced_aircrafts
+			}	
+			air_experience = 100		
 		}
 	}
 	focus = {
@@ -7583,10 +7615,22 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			add_unit_bonus = {
+				category_drone = {
+					soft_attack = 0.1
+				}
+			}			
 			add_tech_bonus = {
-				name = "Cinder drones Project"
+				name = BBW_cinder_drones
 				bonus = 0.5
 				category = drones
+			}
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 90
+			    name = BBW_cinder_drones
+			    folder = air
+			    track = medium_aircraft
 			}
 		}
 	}
@@ -7614,7 +7658,26 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = BBW_smog
+				add_idea = BBW_smog2
+			}
+			add_tech_bonus = {
+				name = BBW_smog_countermeasures
+				bonus = 0.5
+				category = radar_tech
+			}
+			580 = {
+				add_building_construction = {
+					type = radar_station
+					level = 4
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 0.6
+			}
+			custom_effect_tooltip = budget_subtract_1M
 		}
 	}
 
@@ -7641,7 +7704,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_zeppelin
+					}
+				}
+				complete_special_project = sp:sp_zeppelin
+			}
+			add_equipment_bonus = {
+				name = BBW_militarisation_of_airships
+				bonus = {
+					zeppelin_equipment = {
+						reliability_factor = 0.1
+						build_cost_ic = -0.1
+					}
+				}
+			}
 		}
 	}	
 
@@ -7995,10 +8074,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {	
-				add_idea = BBW_one_man_tank_of_progress_alt
-				remove_idea = BBW_one_man_tank_of_progress2
-			}
+
 		}
 	}
 	
@@ -8028,19 +8104,6 @@ focus_tree = {
 			country_event = {
 		id = belchatow.80
 		}
-		if = { limit = { has_idea = BBW_one_man_tank_of_progress_alt }
-		swap_ideas = {
-				remove_idea = BBW_one_man_tank_of_progress_alt
-				add_idea = BBW_one_man_tank_of_progress4_alt
-			}
-		}
-		else_if = { limit = { has_idea = BBW_one_man_tank_of_progress3 }
-		swap_ideas = {
-				remove_idea = BBW_one_man_tank_of_progress3
-				add_idea = BBW_one_man_tank_of_progress4
-			}
-		}
-
 		}
 	}
 	
@@ -8098,8 +8161,8 @@ focus_tree = {
 		
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = BBW_one_man_tank_of_progress
-				add_idea = BBW_one_man_tank_of_progress2
+				remove_idea = BBW_army_reforms_3
+				add_idea = BBW_one_man_tank_of_progress
 			}
 		}
 	}
@@ -8127,249 +8190,26 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses =1
-				category = land_common_tech
-			}
-		}
-	}
-
-	focus = {
-		id = BBW_harder_is_better
-		icon = BBW_harder_is_better
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_need
-		prerequisite = { focus = BBW_need }
-		mutually_exclusive = { focus = BBW_fast_is_good }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_future_tanks
-				add_idea = BBW_future_tanks_hard
-			}
-		}
-	}
-
-	focus = {
-		id = BBW_machines_of_future
-		icon = BBW_machines_of_future
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_harder_is_better
-		prerequisite = { focus = BBW_harder_is_better }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
 			add_tech_bonus = {
 				bonus = 0.5
-				name = BBW_machines_of_future
+				name = BBW_need
 				uses = 1
 				category = armor
 			}
-			add_ideas = BBW_future_tanks
-		}
-	}
+			add_tech_bonus = {
+				bonus = 0.5
+				name = BBW_need
+				uses = 1
+				category = ifv
+			}			
 
-	focus = {
-		id = BBW_necessity
-		icon = BBW_necessity
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_soldiers_of_future
-		prerequisite = { focus = BBW_soldiers_of_future }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 3
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_one_man_tank_of_progress2
-				add_idea = BBW_one_man_tank_of_progress3
+			add_unit_bonus = {
+				category_all_armor = {
+					build_cost_ic = -0.1
+				}
 			}
 		}
 	}
-
-	focus = {
-		id = BBW_battle_carbon
-		icon = WML_carbon_based_stimulants
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_necessity
-		prerequisite = { focus = BBW_necessity }
-		mutually_exclusive = {
-			focus = BBW_coalmissars
-		}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-
-		}
-	}
-
-	focus = {
-		id = BBW_graphene_implants
-		icon = BBW_graphene_implants
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_battle_carbon
-		prerequisite = { focus = BBW_battle_carbon }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-
-		}
-	}	
-	
-	focus = {
-		id = BBW_coalmissars
-		icon = BBW_coalmissars
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_necessity
-		prerequisite = { focus = BBW_necessity }
-		mutually_exclusive = {
-			focus = BBW_battle_carbon
-		}
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-
-		}
-	}	
-
-	focus = {
-		id = BBW_flamer_corps2
-		icon = BBW_flamer_corps2
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_coalmissars
-		prerequisite = { focus = BBW_coalmissars }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-
-		}
-	}
-
-	focus = {
-		id = BBW_human_potential
-		icon = BBW_human_potential
-		text_icon = BBW_coalblackmen_focus_style
-		relative_position_id = BBW_graphene_implants
-		prerequisite = { focus = BBW_graphene_implants }
-		prerequisite = { focus = BBW_flamer_corps2 }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		ai_will_do = {
-		factor = 100
-		}
-		
-		cost = 4.3
-		
-		completion_reward = {
-
-		}
-	}	
 
 	focus = {
 		id = BBW_fast_is_good
@@ -8395,10 +8235,20 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_future_tanks
-				add_idea = BBW_future_tanks_fast
+			add_unit_bonus = {
+				category_vehicle_infantry = {
+					maximum_speed = 0.1
+					breakthrough = 0.05
+				}
 			}
+			add_tech_bonus = {
+				bonus = 0.5
+				name = BBW_fast_is_good
+				uses = 1
+				category = apc
+			}			
+			add_fuel = 20000
+
 		}
 	}
 
@@ -8425,9 +8275,102 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			add_tech_bonus = {
+				bonus = 0.5
+				name = BBW_18_wheels_of_steel
+				uses = 1
+				category = trucks
+			}
+			add_equipment_bonus = {
+				name = BBW_18_wheels_of_steel
+				bonus = {
+					motorized_equipment = {
+						reliability_factor = 0.1
+						max_strength = 0.1
+					}
+				}
+			}
 		}
 	}	
+
+	focus = {
+		id = BBW_harder_is_better
+		icon = BBW_harder_is_better
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_need
+		prerequisite = { focus = BBW_need }
+		mutually_exclusive = { focus = BBW_fast_is_good }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			add_unit_bonus = {
+				category_all_armor = {
+					breakthrough = 0.1
+					soft_attack = 0.1
+				}
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				name = BBW_harder_is_better
+				uses = 1
+				category = armor
+			}			
+			add_fuel = 20000
+		}
+	}
+
+	focus = {
+		id = BBW_machines_of_future
+		icon = BBW_machines_of_future
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_harder_is_better
+		prerequisite = { focus = BBW_harder_is_better }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			add_breakthrough_points = {
+			  specialization = specialization_land
+			  value = 1
+			}
+			add_equipment_bonus = {
+				name = BBW_machines_of_future
+				bonus = {
+					mbt_chassis = {
+						armor_value = 0.1
+						max_strength = 0.1
+					}
+				}
+			}
+		}
+	}
 
 	focus = {
 		id = BBW_armored_roller_grace
@@ -8459,6 +8402,272 @@ focus_tree = {
 			add_ideas = BBW_armored_waltz
 		}
 	}
+
+	focus = {
+		id = BBW_necessity
+		icon = BBW_necessity
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_soldiers_of_future
+		prerequisite = { focus = BBW_soldiers_of_future }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 3
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_one_man_tank_of_progress
+				add_idea = BBW_one_man_tank_of_progress2
+			}
+			add_tech_bonus = {
+				name = BBW_necessity
+				bonus = 0.5
+				category = infantry_weapons
+				uses = 2
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_battle_carbon
+		icon = BBW_battle_carbon
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_necessity
+		prerequisite = { focus = BBW_necessity }
+		mutually_exclusive = {
+			focus = BBW_coalmissars
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_one_man_tank_of_progress2
+				add_idea = BBW_one_man_tank_of_progress3
+			}
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_pervitin
+					}
+				}
+				complete_special_project = sp:sp_pervitin
+			}
+			else = {
+				army_experience = 100
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_graphene_implants
+		icon = BBW_graphene_implants
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_battle_carbon
+		prerequisite = { focus = BBW_battle_carbon }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_graphene_fever
+				add_idea = BBW_graphene_fever2
+			}
+			add_unit_bonus = {
+				category_army = {
+					recovery = 0.1
+					hardness = 0.05
+				}
+			}
+		}
+	}	
+	
+	focus = {
+		id = BBW_coalmissars
+		icon = BBW_coalmissars
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_necessity
+		prerequisite = { focus = BBW_necessity }
+		mutually_exclusive = {
+			focus = BBW_battle_carbon
+		}
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BBW_one_man_tank_of_progress2
+				add_idea = BBW_one_man_tank_of_progress3_alt
+			}
+			add_unit_bonus = {
+				category_all_infantry = {
+					suppression_factor = 0.2
+				}
+			}
+			army_experience = 100
+		}
+	}	
+
+	focus = {
+		id = BBW_flamer_corps2
+		icon = BBW_flamer_corps2
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_coalmissars
+		prerequisite = { focus = BBW_coalmissars }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_miotacz_ognia
+					}
+				}
+				complete_special_project = sp:sp_miotacz_ognia
+			}
+			custom_effect_tooltip = BBW_flamer_corps_tt
+			division_template = {
+				name = "Popielaty Batalion"
+				template_counter = 1
+				regiments = {
+					melee_infantry = { x = 0 y = 0 }
+					melee_infantry = { x = 0 y = 1 }
+					melee_infantry = { x = 0 y = 2 }
+					melee_infantry = { x = 0 y = 3 }
+				}
+				support = {
+					flamethrower_battalion = { x = 0 y = 0 }
+					flamethrower_battalion = { x = 0 y = 1 }
+					flamethrower_battalion = { x = 0 y = 2 }	
+					flamethrower_battalion = { x = 0 y = 3 }								
+				}
+				division_names_group = BBW_PAL_01
+			} 
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Krematorzy\" division_template = \"Popielaty Batalion\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BBW
+				}
+				create_unit = {
+					division = "name = \"Pylarze\" division_template = \"Popielaty Batalion\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BBW
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = BBW_human_potential
+		icon = BBW_human_potential
+		text_icon = BBW_coalblackmen_focus_style
+		relative_position_id = BBW_graphene_implants
+		prerequisite = { focus = BBW_graphene_implants }
+		prerequisite = { focus = BBW_flamer_corps2 }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		ai_will_do = {
+		factor = 100
+		}
+		
+		cost = 4.3
+		
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_one_man_tank_of_progress3
+				}
+			swap_ideas = {
+				remove_idea = BBW_one_man_tank_of_progress3
+				add_idea = BBW_one_man_tank_of_progress4
+			}
+			}
+			if = {
+				limit = {
+					has_idea = BBW_one_man_tank_of_progress3_alt
+				}
+			swap_ideas = {
+				remove_idea = BBW_one_man_tank_of_progress3_alt
+				add_idea = BBW_one_man_tank_of_progress4_alt
+			}
+			}
+			add_mastery = {
+				amount = 100
+				folder = land
+			}		
+		}
+	}	
 
 	focus = {
 		id = BBW_full_success
@@ -8571,10 +8780,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = BBW_future_tanks_hard
-				add_idea = BBW_future_tanks_koala
-			}
+
 		}
 	}
 
