@@ -7223,10 +7223,6 @@ focus_tree = {
 				budget = -500
 			}
 			custom_effect_tooltip = budget_subtract_500M
-			add_timed_idea = {
-				idea = BBW_gigakopary_in_progress
-				days = 180
-			}
 		}
 	}
 	
@@ -8031,6 +8027,7 @@ focus_tree = {
 			country_event = {
 				id = belchatow.51
 			}
+			
 		}
 	}
 
@@ -8058,6 +8055,13 @@ focus_tree = {
 		
 		completion_reward = {
 			every_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+					}
+				}
 				add_building_construction = {
 					type = bunker
 					level = 3
@@ -10404,10 +10408,28 @@ focus_tree = {
 		factor = 100
 		}
 		
-		cost = 4.3
+		cost = 1
 		
 		completion_reward = {
-
+			add_timed_idea = {
+				idea = BBW_gigakopary_in_progress
+				days = 180
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment_1
+				amount = 500
+				producer = BBW
+			}
+			add_equipment_to_stockpile = {
+				type = melee_equipment_0
+				amount = 1000
+				producer = BBW
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_20M	
+			add_to_variable = {
+				budget = -20
+			}	
 		}
 	}
 
@@ -10799,7 +10821,30 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_land_stronghold_network
+					}
+				}
+				complete_special_project = sp:sp_land_stronghold_network
+			}
+			302 = {
+				remove_building = {
+					type = landmark_lodz_manufaktura
+					level = 1
+					province = 11520
+				}
+				set_province_name = {
+					id = 11520
+					name = VICTORY_POINTS_11250_CYTADELA
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = stronghold_network
+					level = 1
+				}
+			}
 		}
 	}	
 
