@@ -1168,8 +1168,9 @@ focus_tree = {
 					type = recycling_plant
 						level = 1
 						instant_build = yes
-					}
+				}
 			}
+			custom_effect_tooltip = budget_subtract_100M
 			set_country_flag = parzno_cytadela
 			custom_effect_tooltip = BBW_cytadela_tt
 			custom_effect_tooltip = BBW_tramki_tt
@@ -1215,7 +1216,9 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			
+			add_to_variable = {
+				budget = 200
+			}
 		}
 	}
 
@@ -3672,6 +3675,9 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			add_to_variable = {
+				budget = 700
+			}
 			deactivate_advisor = BBW_min_wroblewski
 			remove_advisor_role = {
 			  character = "BBW_wroblewski"
@@ -4097,6 +4103,10 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.12
+			swap_ideas = {
+				remove_idea = BBW_privileged_miners_1
+				add_idea = BBW_privileged_miners_2
+			}
 		}
 	}
 
@@ -6694,6 +6704,18 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = BBW_book_economy_3_gadomski
+				}
+				remove_ideas = BBW_book_economy_3_gadomski
+			}
+			if = {
+				limit = {
+					has_idea = BBW_book_economy_2_warzecha
+				}
+				remove_ideas = BBW_book_economy_2_warzecha
+			}			
 			swap_ideas = {
 				remove_idea = BBW_10h_work_week
 				add_idea = BBW_12h_work_week
@@ -6786,6 +6808,16 @@ focus_tree = {
 		
 		completion_reward = {
 			add_ideas = BBW_factory1
+			modify_building_resources = {
+			    building = industrial_complex
+			    resource = junk
+			    amount = 1
+			}
+			modify_building_resources = {
+			    building = arms_factory
+			    resource = steel
+			    amount = 1
+			}			
 		}
 	}
 
@@ -6812,7 +6844,50 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			
+			309 = {
+				add_extra_state_shared_building_slots = -1
+				add_resource = {
+					type = junk
+					amount = 5
+				}
+				add_resource = {
+					type = steel
+					amount = 5
+				}				
+			}
+			684 = {
+				add_extra_state_shared_building_slots = -1
+				add_resource = {
+					type = junk
+					amount = 5
+				}
+				add_resource = {
+					type = steel
+					amount = 5
+				}				
+			}
+			303 = {
+				add_extra_state_shared_building_slots = -1
+				add_resource = {
+					type = junk
+					amount = 5
+				}
+				add_resource = {
+					type = steel
+					amount = 5
+				}				
+			}
+			370 = {
+				add_extra_state_shared_building_slots = -1
+				add_resource = {
+					type = junk
+					amount = 10
+				}
+				add_resource = {
+					type = steel
+					amount = 10
+				}				
+			}						
 		}
 	}
 
@@ -6840,6 +6915,24 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.13
+			add_stability = -0.05
+			add_unit_bonus = {
+           		militia = {
+           		    forest = {
+           		        movement = -0.3
+           		    }                      
+           		}
+           		infantry = {
+           		    forest = {
+           		        movement = -0.3
+           		    }                      
+           		}	
+           		melee_infantry = {
+           		    forest = {
+           		        movement = -0.3
+           		    }                      
+           		}							
+			}
 		}
 	}	
 
@@ -6866,7 +6959,15 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			
+			swap_ideas = {
+				add_idea = BBW_factory2 
+				remove_idea = BBW_factory1
+			}
+			modify_building_resources = {
+			    building = steel_works
+			    resource = aluminium
+			    amount = 1
+			}
 		}
 	}
 
@@ -6893,7 +6994,36 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			
+			341 = {
+				add_dynamic_modifier = {
+					modifier = BBW_water_purifiers
+				}
+			}
+			578 = {
+				add_dynamic_modifier = {
+					modifier = BBW_water_purifiers
+				}
+			}
+			340 = {
+				add_dynamic_modifier = {
+					modifier = BBW_water_purifiers
+				}
+			}
+			305 = {
+				add_dynamic_modifier = {
+					modifier = BBW_water_purifiers
+				}
+			}
+			272 = {
+				add_dynamic_modifier = {
+					modifier = BBW_water_purifiers
+				}
+			}
+			269 = {
+				add_dynamic_modifier = {
+					modifier = BBW_water_purifiers
+				}
+			}
 		}
 	}
 
@@ -6991,14 +7121,26 @@ focus_tree = {
 				bonus = 0.25
 				name = BBW_american_licenses
 				uses = 1
-				category = electronics				
+				category = cars				
 			}
 			add_tech_bonus = {
 				bonus = 0.25
 				name = BBW_american_licenses
 				uses = 1
-				category = armor				
+				category = industry				
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_opinion_modifier = {
+				target = USA
+				modifier = trade_agreement
+			}
+			USA = {
+				add_opinion_modifier = {
+					target = BBW
+					modifier = trade_agreement
+				}
+				give_market_access = BBW
+			}			
 		}
 	}
 	
@@ -7025,16 +7167,21 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			swap_ideas = {
-				add_idea = BBW_factory2 
-				remove_idea = BBW_factory1
-				}
 			add_tech_bonus = {
 				bonus = 0.5
 				name = BBW_tube_terminals
 				uses = 1
 				category = electronics				
 			}
+			687 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = high_tech_complex
+					level = 1
+				}
+			}
+			custom_effect_tooltip = budget_subtract_350M
+			custom_effect_tooltip = zgierz_elektronika_tt
 		}
 	}
 
@@ -9568,7 +9715,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = BBW_privileged_miners_3
+				add_idea = BBW_privileged_miners_4
+			}
 		}
 	}
 
@@ -9648,7 +9798,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-
+			swap_ideas = {
+				remove_idea = BBW_privileged_miners_2
+				add_idea = BBW_privileged_miners_3
+			}
 		}
 	}
 	
