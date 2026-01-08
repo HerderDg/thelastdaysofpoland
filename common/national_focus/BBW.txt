@@ -10047,7 +10047,11 @@ focus_tree = {
 		relative_position_id = BBW_progress_day
 		prerequisite = { focus = BBW_progress_day }
 		available = {
-		
+			903 = {
+				NOT = { 
+					has_dynamic_modifier = coal_deposit_modifier_903
+				}
+			}
 		}
 		
 		bypass = {
@@ -10074,7 +10078,7 @@ focus_tree = {
 		relative_position_id = BBW_progress_day
 		prerequisite = { focus = BBW_progress_day }
 		available = {
-		
+			always = no
 		}
 		
 		bypass = {
@@ -10091,6 +10095,21 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.29
+			modify_building_resources = {
+				building = big_ass_farm
+				resource = food
+				amount = -1
+			}
+			every_controlled_state = {
+				limit = {
+					has_dynamic_modifier = BBW_smog_effect
+					food > 1
+				}
+				add_resource = {
+					type = food
+					amount = -1
+				}
+			}
 		}
 	}	
 
@@ -10118,6 +10137,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_ideas = BBW_eat_beef_leave_potatoes
+			add_ideas = diet_meat
 		}
 	}
 
@@ -10145,6 +10165,15 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.30
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_gmo
+					}
+				}
+				complete_special_project = sp:sp_gmo
+			}
+			add_stability = -0.1
 		}
 	}
 	
@@ -10221,13 +10250,15 @@ focus_tree = {
 				}
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
 			country_event = {
 				id = belchatow.53
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_800M
 		}
 	}
 
@@ -10259,6 +10290,16 @@ focus_tree = {
 				remove_idea = BBW_privileged_miners_3
 				add_idea = BBW_privileged_miners_4
 			}
+			every_controlled_state = {
+				limit = {
+					NOT = { is_core_of = BBW }
+					is_controlled_by = BBW
+				}
+				add_compliance = 0.2
+			}
+			ROOT = { set_occupation_law_where_available = harsh_quotas_occupation }
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BBW_wpierdol_tt
 		}
 	}
 
@@ -10288,10 +10329,10 @@ focus_tree = {
 			country_event = {
 			id = belchatow.84
 			}
-			add_manpower = -1000
+			add_manpower = -6892
 			add_popularity = {
 				ideology = postpolonism
-				popularity = 0.05
+				popularity = 0.1
 			}
 		}
 	}
@@ -10510,7 +10551,7 @@ focus_tree = {
 			}
 		}
 	}
-	
+
 	focus = {
 		id = BBW_procure_equipment
 		icon = BBW_procure_equipment
