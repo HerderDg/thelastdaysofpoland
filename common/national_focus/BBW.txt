@@ -6554,7 +6554,7 @@ focus_tree = {
 			}
 		}
 	}
-###czwarte drzewko###
+ ###czwarte drzewko###
 
 	focus = {
 		id = BBW_our_inspiration
@@ -13212,7 +13212,7 @@ focus_tree = {
 		relative_position_id = BBW_new_ideas
 		prerequisite = { focus = BBW_new_ideas }
 		available = {
-
+			is_special_project_completed = sp:sp_smog_bricks
 		}
 		
 		bypass = {
@@ -13375,12 +13375,10 @@ focus_tree = {
 				id = belchatow.67
 			}
 			add_popularity = {
-				ideology = neonationalism
+				ideology = freemarketism
 				popularity = 0.05
 			}
-			country_event = {
-				id = belchatow.71
-			}			
+			add_cic = 300
 		}
 	}
 
@@ -13407,7 +13405,17 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = oil
+				amount = 1
+			}
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = coal
+				amount = -1
+			}
+			add_fuel = 50000			
 		}
 	}
 	
@@ -13913,6 +13921,10 @@ focus_tree = {
 				ideology = reactionary
 				popularity = 0.05
 			}
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.05
+			}			
 		}
 	}
 
@@ -14004,9 +14016,9 @@ focus_tree = {
 				id = belchatow.61
 			}
 			add_popularity = {
-				ideology = reactionary
+				ideology = postpolonism
 				popularity = 0.05
-			}
+			}			
 		}
 	}
 	
@@ -15056,21 +15068,70 @@ focus_tree = {
 		
 		completion_reward = {
 			random_owned_controlled_state = {
+				limit = {
+					food > 1
+				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
+					type = synthetic_refinery
 					level = 1
 					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
+				limit = {
+					food > 1
+				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
+					type = synthetic_refinery
 					level = 1
 					instant_build = yes
 				}
 			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = refinery_eq1
+					}
+				}
+				set_technology = {
+					refinery_eq1 = 1
+					popup = no
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = refinery_eq2
+					}
+				}
+				set_technology = {
+					refinery_eq2 = 1
+					popup = no
+				}
+			}	
+			if = {
+				limit = {
+					NOT = {
+						has_tech = refinery_eq3
+					}
+				}
+				set_technology = {
+					refinery_eq3 = 1
+					popup = yes
+				}
+			}
+			if = {
+				limit = {
+					has_tech = refinery_eq3
+				}
+				modify_building_resources = {
+					building = synthetic_refinery
+					resource = oil
+					amount = 1
+				}
+			}	
 		}
 	}	
 	focus = {
@@ -15122,7 +15183,8 @@ focus_tree = {
 				add_idea = BBW_greenisation_of_brotherhood2
 			}
 		}
-	}	
+	}
+
 	focus = {
 		id = BBW_sewage_relocations
 		icon = BBW_sewage_relocations
@@ -15151,8 +15213,43 @@ focus_tree = {
 				remove_idea = BBW_greenisation_of_brotherhood2
 				add_idea = BBW_greenisation_of_brotherhood3
 			}
+			1091 = {
+				add_resource = {
+					type = junk
+					amount = 10
+				}
+			}
+			every_controlled_state = {
+				limit = {
+					OR = {
+						state = 603 
+						state = 488 
+						state = 793 
+						state = 440 
+						state = 256 
+						state = 206 
+						state = 613 
+						state = 122 
+						state = 192 
+						state = 707 
+						state = 1085 
+						state = 216 
+						state = 1096 
+						state = 607 
+						state = 573 
+						state = 429 
+						state = 330 
+						state = 301 
+						state = 1029 
+						state = 428 
+						state = 715 
+					}
+				}
+				add_dynamic_modifier = { modifier = BBW_water_purifiers }
+			}
 		}
 	}
+
 	focus = {
 		id = BBW_consumption_reduction
 		icon = BBW_consumption_reduction
@@ -15329,9 +15426,11 @@ focus_tree = {
 		
 		completion_reward = {
 			swap_ideas = {
-				add_idea = one_religion_favoured
-				remove_idea = state_religion
+				add_idea = partial_secularism
+				remove_idea = one_religion_favoured
 			}
+
+			custom_effect_tooltip = change_religion_catholicism
 		}
 	}
 	focus = {
@@ -15389,7 +15488,11 @@ focus_tree = {
 			swap_ideas = {
 				add_idea = controlled_opposition
 				remove_idea = regime_council
-				}
+			}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.1
+			}
 		}
 	}
 	focus = {
@@ -15429,6 +15532,7 @@ focus_tree = {
 						atomic_enthusiast
 					}
 				}
+				activate = yes
 			}
 		}
 	}
