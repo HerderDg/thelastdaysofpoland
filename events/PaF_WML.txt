@@ -1491,62 +1491,21 @@ country_event = { #why you heff to be mad
 
 
 
-
-
-
-
-
-
-
-	#####NEWS EVENTY DLA HOŁOWNI####
-
-news_event = {			#WML_convene_general_assembly - Świat dowiaduje się o Wielkiej Łódzkiej Popijawie :P
-	id = WML_news.1 
-	title = WML_news.1.t
-	desc = WML_news.1.desc
-	
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires WML_news.1" }
-	
-	major = yes
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = {
-		name = WML_news.1.a
-	}
-}
-
 country_event = {
-	id = WML_dialogue.1 # sprawy sądowe
+	id = WML_dialogue.1 # sprawa #1 (Wesołowska v. Rabin)
 	title = WML_dialogue.1.t
 	desc = WML_dialogue.1.desc
 
-	is_triggered_only = yes
-
+	trigger = {
+		tag = WML
+		date > 2027.03.22
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	fire_only_once = yes
 	immediate = {
 		hidden_effect = {
-			set_variable_to_random = {
-				min = 1
-				max = 20
-				var = caseScenario
-				integer = yes
-			}
-			log = "[?caseScenario]"
-			if = {
-				limit = {
-					has_variable = plaintiff
-				}
-				clear_variable = plaintiff
-			}
-			if = {
-				limit = {
-					has_variable = defendant
-				}
-				clear_variable = defendant
-			}
-			random = {
-				chance = x
-			}
 			if = {
 				limit = {
 					OR = {
@@ -1568,79 +1527,528 @@ country_event = {
 					caseNo = 1
 				}
 			}
-			
-			random_list = {
-				10 = {
-					set_variable = { plaintiff = BBW }
-				}
-				10 = {
-					set_variable = { plaintiff = KRS }
-				}
-				10 = {
-					set_variable = { plaintiff = SAP }
-				}
-				10 = {
-					set_variable = { plaintiff = ZHP }
-				}
-				10 = {
-					set_variable = { plaintiff = ZYD }
+			set_variable = {
+				plaintiff = AMW
+			}
+			set_variable = {
+				defendant = ZYD
+			}
+			hidden_effect = {
+				country_event = {
+					id = WML_dialogue.2
+					days = 17
 				}
 			}
-			while_loop_effect = {
-				limit = {
-					OR = {
-						NOT = {
-							has_variable = defendant
-						}
-						check_variable = { plaintiff = defendant }
-					}
-				}
-				random_list = {
-					10 = {
-						set_variable = { defendant = BBW }
-					}
-					10 = {
-						set_variable = { defendant = KRS }
-					}
-					10 = {
-						set_variable = { defendant = SAP }
-					}
-					10 = {
-						set_variable = { defendant = ZHP }
-					}
-					10 = {
-						set_variable = { defendant = ZYD }
-					}
-				}
-			}
-		
-		}
-		
+		}			
 	}
+		
 	option = {
 		name = WML_dialogue.1.a # pozywający wygrywa
 		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
 		set_variable = {
 			yearOfLastCase = year
 		}
-		hidden_effect = {
-			country_event = {
-				id = WML_dialogue.1
-				days = 30
-			}
-		}
+
 	}
 	option = {
 		name = WML_dialogue.1.b # pozywany wygrywa
 		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
 		set_variable = {
 			yearOfLastCase = year
 		}
-		hidden_effect = {
-			country_event = {
-				id = WML_dialogue.1
-				days = 30
-			}
+	}
+	option = {
+		name = WML_dialogue.1.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
 		}
 	}
 }
+
+country_event = {
+	id = WML_dialogue.2 # sprawa #1 (Skrzydlewski v. Wesołowska)
+	title = WML_dialogue.2.t
+	desc = WML_dialogue.2.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = KRS
+			}
+			set_variable = {
+				defendant = AMW
+			}
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.1.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.1.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.1.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.3 # sprawa #3 (wycinka lasów)
+	title = WML_dialogue.3.t
+	desc = WML_dialogue.3.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = ZHP
+			}
+			set_variable = {
+				defendant = BBW
+			}
+
+			country_event = {
+				id = WML_dialogue.4
+				days = 7
+			}
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.3.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.3.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.3.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.4 # sprawa #3 (wycinka lasów)
+	title = WML_dialogue.4.t
+	desc = WML_dialogue.4.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = BBW
+			}
+			set_variable = {
+				defendant = ZHP
+			}
+
+			country_event = {
+				id = WML_dialogue.5
+				days = 30
+			}
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.4.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.4.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.4.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.5 # sprawa #3 (wycinka lasów)
+	title = WML_dialogue.5.t
+	desc = WML_dialogue.5.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = KRS
+			}
+			set_variable = {
+				defendant = SAP
+			}
+
+			country_event = {
+				id = WML_dialogue.6
+				days = 30
+			}
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.5.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.5.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.5.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.6
+	title = WML_dialogue.6.t
+	desc = WML_dialogue.6.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = POG
+			}
+			set_variable = {
+				defendant = TIG
+			}
+
+			country_event = {
+				id = WML_dialogue.7
+				days = 30
+			}
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.6.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.6.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.6.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.7
+	title = WML_dialogue.7.t
+	desc = WML_dialogue.7.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = LKS
+			}
+			set_variable = {
+				defendant = RUT
+			}
+
+			country_event = {
+				id = WML_dialogue.8
+				days = 30
+			}
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.7.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.7.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.7.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+}
+
+	#####NEWS EVENTY DLA HOŁOWNI####
+
+news_event = {			#WML_convene_general_assembly - Świat dowiaduje się o Wielkiej Łódzkiej Popijawie :P
+	id = WML_news.1 
+	title = WML_news.1.t
+	desc = WML_news.1.desc
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires WML_news.1" }
+	
+	major = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = WML_news.1.a
+	}
+}
+
+
+
