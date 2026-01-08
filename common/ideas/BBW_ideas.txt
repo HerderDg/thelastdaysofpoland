@@ -1160,39 +1160,9 @@ ideas = {
 			picture = BBW_press_freedom_institute
 			modifier = {
 				encryption_factor = 0.05
-			}
-		}
-
-		BBW_climatology_institute_spirit = {
-			allowed = {
-				original_tag = BBW
-			}
-			allowed_civil_war = {
-				always = yes
-			}
-			removal_cost = -1
-			picture = BBW_climatology_institute
-			modifier = {
-				research_speed_factor = -0.1
-				local_resources_factor = 0.1
-			}
-		}
-
-		BBW_brotherhood_u_spirit = {
-			allowed = {
-				original_tag = BBW
-			}
-			allowed_civil_war = {
-				always = yes
-			}
-			removal_cost = -1
-			picture = BBW_brotherhood_u
-			modifier = {
-				encryption_factor = 0.05
-				research_speed_factor = -0.1
-				local_resources_factor = 0.1
-				industrial_capacity_factory = 0.1
-				monthly_population = -0.1
+				propaganda_mission_factor = 0.05
+				intel_network_gain_factor = 0.05
+				subversive_activites_upkeep = -0.05
 			}
 		}
 
@@ -1207,8 +1177,11 @@ ideas = {
 			removal_cost = -1
 			picture = BBW_one_truth
 			modifier = {
-				war_support_factor = 0.05
-				political_power_gain = -0.01
+				encryption_factor = 0.05
+				propaganda_mission_factor = 0.05
+				intel_network_gain_factor = 0.1
+				subversive_activites_upkeep = -0.05
+				drift_defence_factor = 0.1
 			}
 		}
 
@@ -1223,10 +1196,69 @@ ideas = {
 			removal_cost = -1
 			picture = BBW_one_truth
 			modifier = {
-				war_support_factor = 0.08
+				encryption_factor = 0.15
+				propaganda_mission_factor = 0.15
+				intel_network_gain_factor = 0.15
+				subversive_activites_upkeep = -0.1
 				drift_defence_factor = 0.1
 			}
+		}		
+
+		BBW_climatology_institute_spirit = {
+			allowed = {
+				original_tag = BBW
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = BBW_climatology_institute
+			modifier = {
+				research_speed_factor = -0.05
+				local_resources_factor = 0.05
+				acclimatization_cold_climate_gain_factor = 0.1
+				acclimatization_hot_climate_gain_factor = -0.1
+			}
 		}
+
+		BBW_brotherhood_u_spirit = {
+			allowed = {
+				original_tag = BBW
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = BBW_brotherhood_u
+			modifier = {
+				research_speed_factor = -0.1
+				local_resources_factor = 0.1
+				industrial_capacity_factory = 0.05
+				acclimatization_cold_climate_gain_factor = 0.15
+				acclimatization_hot_climate_gain_factor = -0.1
+			}
+		}
+
+		BBW_brotherhood_u_spirit_2 = {
+			allowed = {
+				original_tag = BBW
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = BBW_brotherhood_u
+			name = BBW_brotherhood_u_spirit
+			modifier = {
+				research_speed_factor = -0.1
+				local_resources_factor = 0.1
+				industrial_capacity_factory = 0.1
+				monthly_population = -0.05
+				special_project_speed_factor = 0.1
+				acclimatization_cold_climate_gain_factor = 0.15
+				acclimatization_hot_climate_gain_factor = -0.15
+			}
+		}		
 
 		#BBW_first_contact_forces_spirit={
 		#	allowed = {
@@ -2119,6 +2151,108 @@ ideas = {
 			modifier = {
 				budget_spendings = 0.3
 			}
+		}
+		
+		BBW_crypto_investments = {
+			picture = BBW_crypto_investments
+			allowed = {
+				original_tag = BBW
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				budget_spendings = 0.1
+				cic_construction_boost_factor = 0.1
+				civilian_factory_use = 2
+			}
+		}
+		
+		BBW_coalcoin_influx = {
+			picture = BBW_coalcoin_influx
+			allowed = {
+				original_tag = BBW
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				budget_spendings = -0.15
+				tax_rate = 0.15
+			}
+			on_remove = {
+				ROOT = {
+					add_timed_idea = {
+						idea = BBW_coalcoin_outflux
+						days = 90
+					}
+					random_list = {
+						40 = {
+							add_to_variable = {
+								budget = 250
+							}
+							add_to_variable = {
+								rate_of_inflation = 0.01
+							}
+						}
+						40 = {
+							add_to_variable = {
+								budget = 100
+							}
+						}
+						20 = {
+							add_to_variable = {
+								budget = 500
+							}
+							add_to_variable = {
+								rate_of_inflation = 0.02
+							}
+						}						
+					}
+				}
+			}
+		}	
+		
+		BBW_coalcoin_outflux = {
+			picture = BBW_coalcoin_outflux
+			allowed = {
+				original_tag = BBW
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				budget_spendings = 0.15
+				tax_rate = -0.15
+			}
+			on_remove = {
+				ROOT = {
+					add_timed_idea = {
+						idea = BBW_coalcoin_influx
+						days = 90
+					}
+					random_list = {
+						40 = {
+							add_to_variable = {
+								budget = -250
+							}
+						}
+						40 = {
+							add_to_variable = {
+								budget = -100
+							}
+						}
+						20 = {
+							add_to_variable = {
+								budget = -500
+							}
+						}						
+					}
+				}
+			}			
 		}		
 		
 		
