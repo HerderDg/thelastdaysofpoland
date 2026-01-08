@@ -4,6 +4,13 @@
 
 add_namespace = belchatow
 add_namespace = belchatow_dlc
+add_namespace = belchatow_inner_circle_rzymkowski
+add_namespace = belchatow_inner_circle_zychosiak
+add_namespace = belchatow_inner_circle_warzecha
+add_namespace = belchatow_inner_circle_janecki
+add_namespace = belchatow_inner_circle_gadomski
+add_namespace = belchatow_inner_circle_wegiel
+add_namespace = belchatow_inner_circle_zgierski
 add_namespace = energydeals
 add_namespace = postsmog
 add_namespace = wunderwegiel
@@ -1136,7 +1143,7 @@ country_event = {
 }
 
 country_event = {
-	id = belchatow.61 # Roksana spada se z rowerka
+	id = belchatow.61 # BBW_roksi_wegiel spada se z rowerka
 	title = belchatow.61.t
 	desc = belchatow.61.desc
 	picture = GFX_event_belchatow.flag
@@ -1154,7 +1161,7 @@ country_event = {
 }
 
 country_event = {
-	id = belchatow.62 # Roksana przejmuje władzę
+	id = belchatow.62 # BBW_roksi_wegiel przejmuje władzę
 	title = belchatow.62.t
 	desc = belchatow.62.desc
 	picture = GFX_event_belchatow.flag
@@ -1177,7 +1184,7 @@ country_event = {
 }
 
 country_event = {
-	id = belchatow.63 # Roksana wyrzucona do śmietnika
+	id = belchatow.63 # BBW_roksi_wegiel wyrzucona do śmietnika
 	title = belchatow.63.t
 	desc = belchatow.63.desc
 	picture = GFX_event_belchatow.roxie
@@ -2949,6 +2956,12 @@ country_event = { #bbw_hubris
 
 	option = {
 		name = belchatow_dlc.1.a
+		set_variable = {
+			BBW_ending_roxi_counter = 0
+		}
+		set_variable = {
+			BBW_ending_smog_counter = 0
+		}		
 	}
 }
 
@@ -3400,6 +3413,10 @@ country_event = { #impulse
 	is_triggered_only = yes
 	option = {
 		name = belchatow_dlc.32.a
+		swap_ideas = {
+			remove_idea = BBW_factory3
+			add_idea = BBW_falling_economy1
+		}
 	}
 }
 
@@ -3884,3 +3901,915 @@ country_event = { #koniec blackoutu
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+country_event = {
+	id = BBW_inner_circle_rzymkowski.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_rzymkowski
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 1 }
+			check_variable = { BBW_ascended_advisor_2 = 1 }
+			check_variable = { BBW_ascended_advisor_3 = 1 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_armoured_fists }
+			}
+			activate_shine_on_focus = BBW_armoured_fists
+			set_country_flag = { flag = BBW_armoured_fists_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+			country_event = { id = BBW_inner_circle_rzymkowski.02 days = @inner_circle_time_tier_1 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_mechanized_machine }
+				NOT = { check_variable = { BBW_industrialist_prevailed = 2 } } #Zychosiak Prevailed in the Industrialist Intrigue
+				NOT = { check_variable = { BBW_industrialist_prevailed = 3 } } #Göring Prevailed in the Industrialist Intrigue
+			}
+			activate_shine_on_focus = BBW_mechanized_machine
+			set_country_flag = { flag = BBW_mechanized_machine_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+			country_event = { id = BBW_inner_circle_rzymkowski.02 days = @inner_circle_time_tier_2 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_technological_superiority }
+				NOT = { has_shine_effect_on_focus = BBW_technological_superiority } #Zychosiak is working on this already
+				NOT = { check_variable = { BBW_industrialist_prevailed = 2 } } #Zychosiak Prevailed in the Industrialist Intrigue
+				NOT = { check_variable = { BBW_industrialist_prevailed = 3 } } #Göring Prevailed in the Industrialist Intrigue
+			}
+			activate_shine_on_focus = BBW_technological_superiority
+			set_country_flag = { flag = BBW_technological_superiority_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+			country_event = { id = BBW_inner_circle_rzymkowski.02 days = @inner_circle_time_tier_3 }
+			set_variable = { BBW_wonder_weapons_focus_advisor = 1 }
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH RZYMKOWSKI's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# RZYMKOWSKI - Complete Focus
+country_event = {
+	id = BBW_inner_circle_rzymkowski.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_rzymkowski
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 1 }
+			check_variable = { BBW_ascended_advisor_2 = 1 }
+			check_variable = { BBW_ascended_advisor_3 = 1 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_armoured_fists
+			}
+			complete_national_focus = {
+				focus = BBW_armoured_fists
+				use_side_message = yes
+				originator_name = BBW_gen_rzymkowski
+			}
+			clr_country_flag = BBW_armoured_fists_in_progress_flag
+			country_event = { id = BBW_inner_circle_rzymkowski.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_mechanized_machine
+			}
+			complete_national_focus = {
+				focus = BBW_mechanized_machine
+				use_side_message = yes
+				originator_name = BBW_gen_rzymkowski
+			}
+			clr_country_flag = BBW_mechanized_machine_in_progress_flag
+			country_event = { id = BBW_inner_circle_rzymkowski.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_technological_superiority
+				check_variable = { BBW_wonder_weapons_focus_advisor = 1 } #It is Rzymkowski working on it
+			}
+			complete_national_focus = {
+				focus = BBW_technological_superiority
+				use_side_message = yes
+				originator_name = BBW_gen_rzymkowski
+			}
+			clr_country_flag = BBW_technological_superiority_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH RZYMKOWSKI's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
+
+
+# ZYCHOSIAK - Start work on Focus
+country_event = {
+	id = BBW_inner_circle_zychosiak.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_zychosiak
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 2 }
+			check_variable = { BBW_ascended_advisor_2 = 2 }
+			check_variable = { BBW_ascended_advisor_3 = 2 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_securing_rimland }
+			}
+			activate_shine_on_focus = BBW_securing_rimland
+			set_country_flag = { flag = BBW_securing_rimland_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+			country_event = { id = BBW_inner_circle_zychosiak.02 days = @inner_circle_time_tier_1 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_new_model_army }
+				NOT = { check_variable = { BBW_industrialist_prevailed = 1 } } #Rzymkowski Prevailed in the Industrialist Intrigue
+				NOT = { check_variable = { BBW_industrialist_prevailed = 3 } } #Göring Prevailed in the Industrialist Intrigue
+			}
+			activate_shine_on_focus = BBW_new_model_army
+			set_country_flag = { flag = BBW_new_model_army_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+			country_event = { id = BBW_inner_circle_zychosiak.02 days = @inner_circle_time_tier_2 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_technological_superiority }
+				NOT = { has_shine_effect_on_focus = BBW_technological_superiority } #Rzymkowski is working on this already
+				NOT = { check_variable = { BBW_industrialist_prevailed = 1 } } #Rzymkowski Prevailed in the Industrialist Intrigue
+				NOT = { check_variable = { BBW_industrialist_prevailed = 3 } } #Göring Prevailed in the Industrialist Intrigue
+			}
+			activate_shine_on_focus = BBW_technological_superiority
+			set_country_flag = { flag = BBW_technological_superiority_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+			country_event = { id = BBW_inner_circle_zychosiak.02 days = @inner_circle_time_tier_3 }
+			set_variable = { BBW_wonder_weapons_focus_advisor = 2 }
+
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH ZYCHOSIAK's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# ZYCHOSIAK - Complete Focus
+country_event = {
+	id = BBW_inner_circle_zychosiak.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_zychosiak
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 2 }
+			check_variable = { BBW_ascended_advisor_2 = 2 }
+			check_variable = { BBW_ascended_advisor_3 = 2 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_securing_rimland
+			}
+			complete_national_focus = {
+				focus = BBW_securing_rimland
+				use_side_message = yes
+				originator_name = BBW_zychosiak
+			}
+			clr_country_flag = BBW_securing_rimland_in_progress_flag
+			country_event = { id = BBW_inner_circle_zychosiak.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_new_model_army
+			}
+			complete_national_focus = {
+				focus = BBW_new_model_army
+				use_side_message = yes
+				originator_name = BBW_zychosiak
+			}
+			clr_country_flag = BBW_new_model_army_in_progress_flag
+			country_event = { id = BBW_inner_circle_zychosiak.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_technological_superiority
+				check_variable = { BBW_wonder_weapons_focus_advisor = 2 } #It is Zychosiak working on it
+			}
+			complete_national_focus = {
+				focus = BBW_technological_superiority
+				use_side_message = yes
+				originator_name = BBW_zychosiak
+			}
+			clr_country_flag = BBW_technological_superiority_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH ZYCHOSIAK's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
+# WARZECHA - Start work on Focus
+country_event = {
+	id = BBW_inner_circle_warzecha.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_warzecha
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 3 }
+			check_variable = { BBW_ascended_advisor_2 = 3 }
+			check_variable = { BBW_ascended_advisor_3 = 3 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_mining_expansion_plan }
+			}
+			activate_shine_on_focus = BBW_mining_expansion_plan
+			set_country_flag = { flag = BBW_mining_expansion_plan_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+			country_event = { id = BBW_inner_circle_warzecha.02 days = @inner_circle_time_tier_1 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_increasing_emission_quotas }
+				NOT = { check_variable = { BBW_industrialist_prevailed = 1 } } #Rzymkowski Prevailed in the Industrialist Intrigue
+				NOT = { check_variable = { BBW_industrialist_prevailed = 2 } } #Zychosiak Prevailed in the Industrialist Intrigue
+			}
+			activate_shine_on_focus = BBW_increasing_emission_quotas
+			set_country_flag = { flag = BBW_increasing_emission_quotas_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+			country_event = { id = BBW_inner_circle_warzecha.02 days = @inner_circle_time_tier_2 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_appropration_of_sectors }
+				NOT = { check_variable = { BBW_industrialist_prevailed = 1 } } #Rzymkowski Prevailed in the Industrialist Intrigue
+				NOT = { check_variable = { BBW_industrialist_prevailed = 2 } } #Zychosiak Prevailed in the Industrialist Intrigue
+			}
+			activate_shine_on_focus = BBW_appropration_of_sectors
+			set_country_flag = { flag = BBW_appropration_of_sectors_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+			country_event = { id = BBW_inner_circle_warzecha.02 days = @inner_circle_time_tier_3 }
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH WARZECHA's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# WARZECHA - Complete Focus
+country_event = {
+	id = BBW_inner_circle_warzecha.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_warzecha
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 3 }
+			check_variable = { BBW_ascended_advisor_2 = 3 }
+			check_variable = { BBW_ascended_advisor_3 = 3 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_mining_expansion_plan
+			}
+			complete_national_focus = {
+				focus = BBW_mining_expansion_plan
+				use_side_message = yes
+				originator_name = BBW_gen_warzecha
+			}
+			clr_country_flag = BBW_mining_expansion_plan_in_progress_flag
+			country_event = { id = BBW_inner_circle_warzecha.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_increasing_emission_quotas
+			}
+			complete_national_focus = {
+				focus = BBW_increasing_emission_quotas
+				use_side_message = yes
+				originator_name = BBW_gen_warzecha
+			}
+			clr_country_flag = BBW_increasing_emission_quotas_in_progress_flag
+			country_event = { id = BBW_inner_circle_warzecha.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_appropration_of_sectors
+			}
+			complete_national_focus = {
+				focus = BBW_appropration_of_sectors
+				use_side_message = yes
+				originator_name = BBW_gen_warzecha
+			}
+			clr_country_flag = BBW_appropration_of_sectors_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH WARZECHA's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
+
+# JANECKI - Pick branch
+country_event = {
+	id = BBW_inner_circle_janecki.00
+	title = BBW_inner_circle_janecki.00.t
+	desc = BBW_inner_circle_janecki.00.desc
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = BBW_inner_circle_event_pending_flag
+		}
+	}
+
+	option = { #Skarbnicy
+		name = BBW_inner_circle_janecki.00.a
+		ai_chance = {
+			base = 10
+		}
+		custom_effect_tooltip = BBW_inner_circle_janecki_ss_tt
+
+		hidden_effect = {
+			BBW_gen_janecki = {
+				set_character_flag = BBW_janecki_ss_focus_flag
+			}
+			country_event = { id = BBW_inner_circle_janecki.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+
+			clr_country_flag = BBW_inner_circle_event_pending_flag
+		}
+	}
+
+	option = { #Karbonariusze
+		name = BBW_inner_circle_janecki.00.b
+		ai_chance = {
+			base = 10
+		}
+		custom_effect_tooltip = BBW_inner_circle_janecki_gestapo_tt
+
+		hidden_effect = {
+			BBW_gen_janecki = {
+				set_character_flag = BBW_janecki_gestapo_focus_flag
+			}
+			country_event = { id = BBW_inner_circle_janecki.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+
+			clr_country_flag = BBW_inner_circle_event_pending_flag
+		}
+	}
+}
+
+
+# JANECKI - Start work on Focus
+country_event = {
+	id = BBW_inner_circle_janecki.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_janecki
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 4 }
+			check_variable = { BBW_ascended_advisor_2 = 4 }
+			check_variable = { BBW_ascended_advisor_3 = 4 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				BBW_gen_janecki = { has_character_flag = BBW_janecki_ss_focus_flag }
+			}
+			if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_skarbnicy }
+				}
+				activate_shine_on_focus = BBW_skarbnicy
+				set_country_flag = { flag = BBW_skarbnicy_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+				country_event = { id = BBW_inner_circle_janecki.02 days = @inner_circle_time_tier_1 }
+			}
+			else_if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_militarization_of_skarbnicy }
+				}
+				activate_shine_on_focus = BBW_militarization_of_skarbnicy
+				set_country_flag = { flag = BBW_militarization_of_skarbnicy_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+				country_event = { id = BBW_inner_circle_janecki.02 days = @inner_circle_time_tier_2 }
+			}
+			else_if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_brotherhood_control_center }
+				}
+				activate_shine_on_focus = BBW_brotherhood_control_center
+				set_country_flag = { flag = BBW_brotherhood_control_center_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+				country_event = { id = BBW_inner_circle_janecki.02 days = @inner_circle_time_tier_3 }
+			}
+		}
+		else_if = {
+			limit = {
+				BBW_gen_janecki = { has_character_flag = BBW_janecki_gestapo_focus_flag }
+			}
+			if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_carbonari_investigative_department }
+				}
+				activate_shine_on_focus = BBW_carbonari_investigative_department
+				set_country_flag = { flag = BBW_carbonari_investigative_department_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+				country_event = { id = BBW_inner_circle_janecki.02 days = @inner_circle_time_tier_1 }
+			}
+			else_if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_expand_weglowy_krag }
+				}
+				activate_shine_on_focus = BBW_expand_weglowy_krag
+				set_country_flag = { flag = BBW_expand_weglowy_krag_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+				country_event = { id = BBW_inner_circle_janecki.02 days = @inner_circle_time_tier_2 }
+			}
+			else_if = {
+				limit = {
+					NOT = { has_completed_focus = BBW_brotherhood_control_center }
+				}
+				activate_shine_on_focus = BBW_brotherhood_control_center
+				set_country_flag = { flag = BBW_brotherhood_control_center_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+				country_event = { id = BBW_inner_circle_janecki.02 days = @inner_circle_time_tier_2 }
+			}
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH JANECKI's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# JANECKI - Complete Focus
+country_event = {
+	id = BBW_inner_circle_janecki.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_janecki
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 4 }
+			check_variable = { BBW_ascended_advisor_2 = 4 }
+			check_variable = { BBW_ascended_advisor_3 = 4 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_skarbnicy
+			}
+			complete_national_focus = {
+				focus = BBW_skarbnicy
+				use_side_message = yes
+				originator_name = BBW_gen_janecki
+			}
+			clr_country_flag = BBW_skarbnicy_in_progress_flag
+			country_event = { id = BBW_inner_circle_janecki.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_militarization_of_skarbnicy
+			}
+			complete_national_focus = {
+				focus = BBW_militarization_of_skarbnicy
+				use_side_message = yes
+				originator_name = BBW_gen_janecki
+			}
+			clr_country_flag = BBW_militarization_of_skarbnicy_in_progress_flag
+			country_event = { id = BBW_inner_circle_janecki.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_carbonari_investigative_department
+			}
+			complete_national_focus = {
+				focus = BBW_carbonari_investigative_department
+				use_side_message = yes
+				originator_name = BBW_gen_janecki
+			}
+			clr_country_flag = BBW_carbonari_investigative_department_in_progress_flag
+			country_event = { id = BBW_inner_circle_janecki.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_expand_weglowy_krag
+			}
+			complete_national_focus = {
+				focus = BBW_expand_weglowy_krag
+				use_side_message = yes
+				originator_name = BBW_gen_janecki
+			}
+			clr_country_flag = BBW_expand_weglowy_krag_in_progress_flag
+			country_event = { id = BBW_inner_circle_janecki.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_brotherhood_control_center
+			}
+			complete_national_focus = {
+				focus = BBW_brotherhood_control_center
+				use_side_message = yes
+				originator_name = BBW_gen_janecki
+			}
+			clr_country_flag = BBW_brotherhood_control_center_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH JANECKI's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
+
+# GADOMSKI - Start work on Focus
+country_event = {
+	id = BBW_inner_circle_gadomski.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_gadomski
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 5 }
+			check_variable = { BBW_ascended_advisor_2 = 5 }
+			check_variable = { BBW_ascended_advisor_3 = 5 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_resource_extraction_committee }
+			}
+			activate_shine_on_focus = BBW_resource_extraction_committee
+			set_country_flag = { flag = BBW_resource_extraction_committee_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+			country_event = { id = BBW_inner_circle_gadomski.02 days = @inner_circle_time_tier_1 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_hold_the_emission_urge }
+			}
+			activate_shine_on_focus = BBW_hold_the_emission_urge
+			set_country_flag = { flag = BBW_hold_the_emission_urge_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+			country_event = { id = BBW_inner_circle_gadomski.02 days = @inner_circle_time_tier_2 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_state_market_monopoly }
+			}
+			activate_shine_on_focus = BBW_state_market_monopoly
+			set_country_flag = { flag = BBW_state_market_monopoly_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+			country_event = { id = BBW_inner_circle_gadomski.02 days = @inner_circle_time_tier_3 }
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH GADOMSKI's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# GADOMSKI - Complete Focus
+country_event = {
+	id = BBW_inner_circle_gadomski.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_ascension_of_gadomski
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 5 }
+			check_variable = { BBW_ascended_advisor_2 = 5 }
+			check_variable = { BBW_ascended_advisor_3 = 5 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_resource_extraction_committee
+			}
+			complete_national_focus = {
+				focus = BBW_resource_extraction_committee
+				use_side_message = yes
+				originator_name = BBW_gen_gadomski
+			}
+			clr_country_flag = BBW_resource_extraction_committee_in_progress_flag
+			country_event = { id = BBW_inner_circle_gadomski.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_hold_the_emission_urge
+			}
+			complete_national_focus = {
+				focus = BBW_hold_the_emission_urge
+				use_side_message = yes
+				originator_name = BBW_gen_gadomski
+			}
+			clr_country_flag = BBW_hold_the_emission_urge_in_progress_flag
+			country_event = { id = BBW_inner_circle_gadomski.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_state_market_monopoly
+			}
+			complete_national_focus = {
+				focus = BBW_state_market_monopoly
+				use_side_message = yes
+				originator_name = BBW_gen_gadomski
+			}
+			clr_country_flag = BBW_state_market_monopoly_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH GADOMSKI's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
+# ROKSANA - Start work on Focus
+country_event = {
+	id = BBW_inner_circle_wegiel.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_youth_leader_roxi
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 6 }
+			check_variable = { BBW_ascended_advisor_2 = 6 }
+			check_variable = { BBW_ascended_advisor_3 = 6 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_loyal_to_axioms }
+				NOT = { has_shine_effect_on_focus = BBW_loyal_to_axioms } #Zgierski is working on this already (Should never happen anyways)
+			}
+			activate_shine_on_focus = BBW_loyal_to_axioms
+			set_country_flag = { flag = BBW_loyal_to_axioms_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+			country_event = { id = BBW_inner_circle_wegiel.02 days = @inner_circle_time_tier_1 }
+			set_variable = { BBW_optimize_reich_service_focus_advisor = 6 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_resume_the_concert_tour }
+			}
+			activate_shine_on_focus = BBW_resume_the_concert_tour
+			set_country_flag = { flag = BBW_resume_the_concert_tour_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+			country_event = { id = BBW_inner_circle_wegiel.02 days = @inner_circle_time_tier_2 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_1st_carbonari_battalion }
+				NOT = { has_shine_effect_on_focus = BBW_1st_carbonari_battalion } #Zgierski is working on this already (Should never happen anyways)
+			}
+			activate_shine_on_focus = BBW_1st_carbonari_battalion
+			set_country_flag = { flag = BBW_1st_carbonari_battalion_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+			country_event = { id = BBW_inner_circle_wegiel.02 days = @inner_circle_time_tier_3 }
+			set_variable = { BBW_1st_carbonari_battalion_focus_advisor = 6 }
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH ROKSANA's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# ROKSANA - Complete Focus
+country_event = {
+	id = BBW_inner_circle_wegiel.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_youth_leader_roxi
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 6 }
+			check_variable = { BBW_ascended_advisor_2 = 6 }
+			check_variable = { BBW_ascended_advisor_3 = 6 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_loyal_to_axioms
+				check_variable = { BBW_optimize_reich_service_focus_advisor = 6 } #It is Roksana completing it
+			}
+			complete_national_focus = {
+				focus = BBW_loyal_to_axioms
+				use_side_message = yes
+				originator_name = BBW_roksi_wegiel
+			}
+			clr_country_flag = BBW_loyal_to_axioms_in_progress_flag
+			country_event = { id = BBW_inner_circle_wegiel.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_resume_the_concert_tour
+			}
+			complete_national_focus = {
+				focus = BBW_resume_the_concert_tour
+				use_side_message = yes
+				originator_name = BBW_roksi_wegiel
+			}
+			clr_country_flag = BBW_resume_the_concert_tour_in_progress_flag
+			country_event = { id = BBW_inner_circle_wegiel.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_1st_carbonari_battalion
+				check_variable = { BBW_1st_carbonari_battalion_focus_advisor = 6 } #It is Roksana completing it
+			}
+			complete_national_focus = {
+				focus = BBW_1st_carbonari_battalion
+				use_side_message = yes
+				originator_name = BBW_roksi_wegiel
+			}
+			clr_country_flag = BBW_1st_carbonari_battalion_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH ROKSANA's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
+
+# ZGIERSKI - Start work on Focus
+country_event = {
+	id = BBW_inner_circle_zgierski.01
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_youth_leader_zgierski
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 7 }
+			check_variable = { BBW_ascended_advisor_2 = 7 }
+			check_variable = { BBW_ascended_advisor_3 = 7 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_loyal_to_axioms }
+				NOT = { has_shine_effect_on_focus = BBW_loyal_to_axioms } #Roksana is working on this already (Should never happen anyways)
+			}
+			activate_shine_on_focus = BBW_loyal_to_axioms
+			set_country_flag = { flag = BBW_loyal_to_axioms_in_progress_flag days = @inner_circle_time_tier_1_flag value = 1 }
+			country_event = { id = BBW_inner_circle_zgierski.02 days = @inner_circle_time_tier_1 }
+			set_variable = { BBW_optimize_reich_service_focus_advisor = 7 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_master_debate_clubs }
+			}
+			activate_shine_on_focus = BBW_master_debate_clubs
+			set_country_flag = { flag = BBW_master_debate_clubs_in_progress_flag days = @inner_circle_time_tier_2_flag value = 1 }
+			country_event = { id = BBW_inner_circle_zgierski.02 days = @inner_circle_time_tier_2 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = BBW_1st_carbonari_battalion }
+				NOT = { has_shine_effect_on_focus = BBW_1st_carbonari_battalion } #Roksana is working on this already (Should never happen anyways)
+			}
+			activate_shine_on_focus = BBW_1st_carbonari_battalion
+			set_country_flag = { flag = BBW_1st_carbonari_battalion_in_progress_flag days = @inner_circle_time_tier_3_flag value = 1 }
+			country_event = { id = BBW_inner_circle_zgierski.02 days = @inner_circle_time_tier_3 }
+			set_variable = { BBW_1st_carbonari_battalion_focus_advisor = 7 }
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH ZGIERSKI's FOCUS BRANCH - Cannot start new focus"
+		}
+	}
+}
+
+# ZGIERSKI - Complete Focus
+country_event = {
+	id = BBW_inner_circle_zgierski.02
+
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_completed_focus = BBW_youth_leader_zgierski
+		OR = {
+			check_variable = { BBW_ascended_advisor_1 = 7 }
+			check_variable = { BBW_ascended_advisor_2 = 7 }
+			check_variable = { BBW_ascended_advisor_3 = 7 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_loyal_to_axioms
+				check_variable = { BBW_optimize_reich_service_focus_advisor = 7 } #It is Zgierski completing it
+			}
+			complete_national_focus = {
+				focus = BBW_loyal_to_axioms
+				use_side_message = yes
+				originator_name = BBW_zgierski
+			}
+			clr_country_flag = BBW_loyal_to_axioms_in_progress_flag
+			country_event = { id = BBW_inner_circle_zgierski.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_master_debate_clubs
+			}
+			complete_national_focus = {
+				focus = BBW_master_debate_clubs
+				use_side_message = yes
+				originator_name = BBW_zgierski
+			}
+			clr_country_flag = BBW_master_debate_clubs_in_progress_flag
+			country_event = { id = BBW_inner_circle_zgierski.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
+		}
+		else_if = {
+			limit = {
+				has_shine_effect_on_focus = BBW_1st_carbonari_battalion
+				check_variable = { BBW_1st_carbonari_battalion_focus_advisor = 7 } #It is Zgierski completing it
+			}
+			complete_national_focus = {
+				focus = BBW_1st_carbonari_battalion
+				use_side_message = yes
+				originator_name = BBW_zgierski
+			}
+			clr_country_flag = BBW_1st_carbonari_battalion_in_progress_flag
+		}
+		else = { #Debug logs
+			#log = "SOMETHING WENT WRONG WITH ZGIERSKI's FOCUS BRANCH - Cannot complete focus"
+		}
+	}
+}
+
