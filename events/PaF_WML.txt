@@ -5,6 +5,7 @@
 add_namespace = WML
 add_namespace = WML_news
 add_namespace = WML_total
+add_namespace = WML_dialogue
 
 country_event = {
 	id = WML.1
@@ -1512,5 +1513,122 @@ news_event = {			#WML_convene_general_assembly - Świat dowiaduje się o Wielkie
 
 	option = {
 		name = WML_news.1.a
+	}
+}
+
+country_event = {
+	id = WML_dialogue.1 # sprawy sądowe
+	title = WML_dialogue.1.t
+	desc = WML_dialogue.1.desc
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_variable_to_random = {
+				min = 1
+				max = 20
+				var = caseScenario
+				integer = yes
+			}
+			log = "[?caseScenario]"
+			if = {
+				limit = {
+					has_variable = plaintiff
+				}
+				clear_variable = plaintiff
+			}
+			if = {
+				limit = {
+					has_variable = defendant
+				}
+				clear_variable = defendant
+			}
+			random = {
+				chance = x
+			}
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			
+			random_list = {
+				10 = {
+					set_variable = { plaintiff = BBW }
+				}
+				10 = {
+					set_variable = { plaintiff = KRS }
+				}
+				10 = {
+					set_variable = { plaintiff = SAP }
+				}
+				10 = {
+					set_variable = { plaintiff = ZHP }
+				}
+				10 = {
+					set_variable = { plaintiff = ZYD }
+				}
+			}
+			while_loop_effect = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = defendant
+						}
+						check_variable = { plaintiff = defendant }
+					}
+				}
+				random_list = {
+					10 = {
+						set_variable = { defendant = BBW }
+					}
+					10 = {
+						set_variable = { defendant = KRS }
+					}
+					10 = {
+						set_variable = { defendant = SAP }
+					}
+					10 = {
+						set_variable = { defendant = ZHP }
+					}
+					10 = {
+						set_variable = { defendant = ZYD }
+					}
+				}
+			}
+		
+		}
+		
+	}
+	option = {
+		name = WML_dialogue.1.a # pozywający wygrywa
+		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		set_variable = {
+			yearOfLastCase = year
+		}
+	}
+	option = {
+		name = WML_dialogue.1.b # pozywany wygrywa
+		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		set_variable = {
+			yearOfLastCase = year
+		}
 	}
 }
