@@ -6,6 +6,8 @@ add_namespace = WML
 add_namespace = WML_news
 add_namespace = WML_total
 add_namespace = WML_dialogue
+add_namespace = WML_border_skirmishes
+add_namespace = WML_monologue
 
 country_event = {
 	id = WML.1
@@ -2032,6 +2034,144 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = WML_dialogue.8
+	title = WML_dialogue.8.t
+	desc = WML_dialogue.8.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							has_variable = yearOfLastCase
+						}
+						check_variable = {
+							yearOfLastCase < year
+						}
+					}
+					
+				}
+				set_variable = {
+					caseNo = 1
+				}
+			}
+			else = {
+				add_to_variable = {
+					caseNo = 1
+				}
+			}
+			set_variable = {
+				plaintiff = LKS
+			}
+			set_variable = {
+				defendant = ZYD
+			}
+
+			# country_event = {
+			# 	id = WML_dialogue.9
+			# 	days = 30
+			# }
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.8.a #sprzedaż
+		#todo: efekty budżetowe
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+
+	}
+	option = {
+		name = WML_dialogue.8.b # odsunięcie katastrofy w czasie
+		ai_chance = {
+			base = 0
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+		hidden_effect = {
+			country_event = {
+				id = WML_dialogue.8
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = WML_dialogue.8.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		set_variable = {
+			yearOfLastCase = year
+		}
+		ZYD = {
+			leave_faction = yes
+		}
+		start_border_war = {
+			change_state_after_war = no
+			attacker = { 
+				state = 683
+				num_provinces = 3
+				# on_win = todo:event z przekazaniem 
+			}
+			defender = {
+				state = 328
+				num_provinces = 3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = WML_border_skirmishes.1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.1 #kwestia wolborza
+	title = WML_border_skirmishes.1.t
+	desc = WML_border_skirmishes.1.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.1.a #zapłacić
+	}
+
+	option = {
+		name = WML_border_skirmishes.1.b #wysłać 2 bataliony
+	}
+
+	option = {
+		name = WML_border_skirmishes.1.c #poddać się
+		hidden_effect = {
+			country_event = {
+				id = WML_monologue.1
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {
+	id = WML_monologue.1 #kwestia wolborza
+	title = WML_monologue.1.t
+	desc = WML_monologue.1.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_monologue.1.a #zapłacić
+		dismantle_faction = yes
+		complete_national_focus = WML_or_will_it
+	}
+
+}
 	#####NEWS EVENTY DLA HOŁOWNI####
 
 news_event = {			#WML_convene_general_assembly - Świat dowiaduje się o Wielkiej Łódzkiej Popijawie :P
