@@ -5425,7 +5425,7 @@ focus_tree = {
 					tooltip = {
 						localization_key = BBW_focus_can_only_be_completed_by_advisor_tt
 						CHARACTER = BBW_gen_janecki
-						FOCUS = BBW_
+						FOCUS = BBW_ascension_of_janecki
 					}
 					always = no
 				}
@@ -5435,32 +5435,21 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			#BBW_add_or_modify_military_intelligence_service = yes
 			if = {
 				limit = {
+					NOT = {
+						has_done_agency_upgrade = upgrade_anti_partisan
+					}
 					has_dlc = "La Resistance"
 				}
-				add_to_variable = { 
-					BBW_military_intelligence_service_intelligence_agency_defense = 0.15
-					tooltip = intelligence_agency_defense_tt
-				}
-				add_to_variable = { 
-					BBW_military_intelligence_service_agency_upgrade_time = -0.2
-					tooltip = agency_upgrade_time_tt
-				}
-				add_to_variable = { 
-					BBW_military_intelligence_root_out_resistance_effectiveness_factor = 0.2
-					tooltip = root_out_resistance_effectiveness_factor_tt
-				}
-			}
-			else = {
-				add_to_variable = { 
-					BBW_military_intelligence_service_encryption_factor = 0.1
-					tooltip = encryption_factor_tt
-				}
+				upgrade_intelligence_agency = upgrade_anti_partisan
 			}
 			add_to_variable = {
 				BBW_ending_roxi_counter = 1
+			}
+			swap_ideas = {
+				remove_idea = BBW_carbonari
+				add_idea = BBW_carbonari2
 			}
 		}
 	}
@@ -5497,7 +5486,7 @@ focus_tree = {
 					tooltip = {
 						localization_key = BBW_focus_can_only_be_completed_by_advisor_tt
 						CHARACTER = BBW_gen_janecki
-						FOCUS = BBW_
+						FOCUS = BBW_carbonari_investigative_department
 					}
 					always = no
 				}
@@ -5546,7 +5535,7 @@ focus_tree = {
 					tooltip = {
 						localization_key = BBW_focus_can_only_be_completed_by_advisor_tt
 						CHARACTER = BBW_gen_janecki
-						FOCUS = BBW_
+						FOCUS = BBW_ascension_of_janecki
 					}
 					always = no
 				}
@@ -5595,7 +5584,7 @@ focus_tree = {
 					tooltip = {
 						localization_key = BBW_focus_can_only_be_completed_by_advisor_tt
 						CHARACTER = BBW_gen_janecki
-						FOCUS = BBW_
+						FOCUS = BBW_skarbnicy
 					}
 					always = no
 				}
@@ -5642,9 +5631,11 @@ focus_tree = {
 			else = { #NOT BEEN WORKED ON (Just Explain)
 				custom_override_tooltip = {
 					tooltip = {
-						localization_key = BBW_focus_can_only_be_completed_by_advisor_tt
+						localization_key = BBW_focus_can_only_be_completed_by_advisor_multiple_tt
 						CHARACTER = BBW_gen_janecki
-						FOCUS = BBW_
+						CHARACTER_2 = BBW_gen_janecki
+						FOCUS = BBW_expand_weglowy_krag
+						FOCUS_2 = BBW_militarization_of_skarbnicy
 					}
 					always = no
 				}
@@ -7260,7 +7251,7 @@ focus_tree = {
 					oil > 0
 				}
 				add_dynamic_modifier = {
-					modifier = BBW_capital_petrol
+					modifier = BBW_capital_petrol_modifier
 				}
 			}
 		}
@@ -12223,7 +12214,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			complete_special_project = sp:sp_shackled_ai
 		}
 	}
 
@@ -13654,7 +13645,7 @@ focus_tree = {
 		factor = 100
 		}
 		
-		cost = 5
+		cost = 1
 		
 		completion_reward = {
 			country_lock_all_division_template = no
@@ -13662,10 +13653,6 @@ focus_tree = {
 			id = belchatow.85
 			}
 			add_stability = -0.1
-			swap_ideas = {
-				add_idea = extreme_security
-				remove_idea = direct_security
-			}
 			hidden_effect = {
 				if = {
 					limit = {
@@ -13673,7 +13660,7 @@ focus_tree = {
 					}
 					country_event = {
 						id = belchatow.62
-						days = 7
+						days = 3
 					}
 				}
 				if = {
@@ -13682,7 +13669,7 @@ focus_tree = {
 					}
 					country_event = {
 						id = belchatow.63
-						days = 7
+						days = 3
 					}
 				}
 			}
@@ -14522,7 +14509,24 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {
-
+			if = {
+				limit = {
+					has_idea = BBW_carbonari
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari
+					add_idea = BBW_carbonari_black
+				}
+			}
+			if = {
+				limit = {
+					has_idea = BBW_carbonari2
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari2
+					add_idea = BBW_carbonari_black
+				}
+			}			
 		}
 	}
 		
@@ -14550,7 +14554,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {
-
+			swap_ideas = {
+				add_idea = extreme_security
+				remove_idea = direct_security
+			}
 		}
 	}
 
@@ -14616,6 +14623,10 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = belchatow_dlc.37
+			retire_character = BBW_gen_gadomski
+			retire_character = BBW_zychowicz
+			retire_character = BBW_bartosiak
+			retire_character = BBW_roksi_wegiel
 		}
 	}
 	
@@ -14696,7 +14707,24 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = BBW_capital_petrol_modifier
+					NOT = { state = 642 }
+				}
+				remove_dynamic_modifier = {
+					modifier = BBW_capital_petrol_modifier
+				}
+			}
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = BBW_kghm_experimental_zone
+					NOT = { state = 1096 }
+				}
+				remove_dynamic_modifier = {
+					modifier = BBW_kghm_experimental_zone
+				}
+			}			
 		}
 	}
 	
@@ -16048,7 +16076,7 @@ focus_tree = {
 		completion_reward = {
 			swap_ideas = {
 				add_idea = advanced_security 
-				remove_idea = extreme_security
+				remove_idea = direct_security
 			}
 		}
 	}
