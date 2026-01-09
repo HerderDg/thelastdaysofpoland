@@ -4263,7 +4263,7 @@ focus_tree = {
 				}
 			}
 	}
-	
+
  ###inner circle###
  	focus = {
 		id = BBW_elderprinzip
@@ -9500,6 +9500,12 @@ focus_tree = {
 			add_to_variable = {
 				BBW_ending_smog_counter = 1
 			}
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_gas_one }
+				}
+				complete_special_project = sp:sp_gas_one
+			}	
 		}
 	}	
 
@@ -9960,6 +9966,9 @@ focus_tree = {
 		completion_reward = {
 			country_event = belchatow_dlc.27
 			add_stability = 0.1
+			set_country_leader_portrait = {
+				portrait = GFX_ZIEMKIEWICZ_SUPERPORTRET
+			}
 		}
 	}
 	
@@ -14629,6 +14638,25 @@ focus_tree = {
 					}
 				}				
 			}
+			if = {
+				limit = {
+					SBW = { exists = no }
+				}
+				BBW_create_wos_effect = yes
+				SBW = {
+					add_opinion_modifier = {
+						target = BBW
+						modifier = faction_traitor
+					}
+				}
+				BBW = {
+					add_opinion_modifier = {
+						target = SBW
+						modifier = faction_traitor
+					}
+					end_puppet = SBW
+				}	
+			}
 		}
 	}
 	
@@ -14905,7 +14933,7 @@ focus_tree = {
 					ideology = postpolonism_subtype
 					expire = "1.1.1.1"
 					}
-				}
+			}
 			set_politics = {
 				ruling_party = postpolonism
 				long_name = "Brotherhood of Coal - Black Paladins"
@@ -14940,6 +14968,23 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = BBW_steam_power
 				add_idea = BBW_full_plastic_production
+			}
+			every_collection_element = {
+				input = {
+					input = collection:desolation_states
+					operators = {
+						limit = {
+							food > 2
+						}
+					}					
+				}
+				custom_effect_tooltip = BBW_life_in_plastic_tt
+				hidden_effect = {
+					add_resource = {
+						type = food
+						amount = -1
+					}
+				}
 			}
 		##zmienic ktorys pozostaly spirit ekonomiczny zeby nie dalo sie w chuj nic budowac
 		}
@@ -14993,6 +15038,23 @@ focus_tree = {
 						modifier = BBW_attrition_modifier_2
 					}
 				}				
+			}
+			every_collection_element = {
+				input = {
+					input = collection:desolation_states
+					operators = {
+						limit = {
+							food > 1
+						}
+					}					
+				}
+				custom_effect_tooltip = BBW_wildlife_tt
+				hidden_effect = {
+					add_resource = {
+						type = food
+						amount = -1
+					}
+				}
 			}			
 		}
 	}
@@ -15044,6 +15106,33 @@ focus_tree = {
 						modifier = BBW_attrition_modifier_2
 					}
 				}				
+			}
+
+			every_collection_element = {
+				input = {
+					input = collection:desolation_states
+					operators = {
+						limit = {
+							food > 1
+						}
+					}					
+				}
+				custom_effect_tooltip = BBW_soil_burning_tt
+				hidden_effect = {
+					add_resource = {
+						type = food
+						amount = -1
+					}
+					if = {
+						limit = {
+							big_ass_farm > 0
+						}
+						remove_building = {
+							type = big_ass_farm
+							level = 1
+						}
+					}
+				}
 			}
 		}
 	}
@@ -15287,6 +15376,12 @@ focus_tree = {
 				remove_idea = trade_minimal
 			}
 			add_manpower = -5000
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_android }
+				}
+				complete_special_project = sp:sp_android
+			}
 		}
 	}
 
@@ -15362,6 +15457,19 @@ focus_tree = {
 					multiply_temp_variable = {to_exterminate = -0.001}
 				}
 			}
+
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_gas_two }
+				}
+				complete_special_project = sp:sp_gas_two
+			}			
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_gas_three }
+				}
+				complete_special_project = sp:sp_gas_three
+			}
 			#ludzie umieraja
 		}
 	}
@@ -15389,7 +15497,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			add_ideas = minorities_ethnic_purity
+			swap_ideas = {
+				remove_idea = minorities_recognition
+				add_idea = minorities_ethnic_purity
+			}
 			#ZABIJAJLUDZIZM MASOWY
 			every_owned_state = {
 				custom_effect_tooltip = BBW_DECIMATION
@@ -15426,72 +15537,24 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
+			every_collection_element = {
+				input = {
+					input = collection:desolation_states
+					operators = {
+						limit = {
+							infrastructure > 1
+						}
+					}					
+				}
+				custom_effect_tooltip = BBW_rozjebanie_miast_tt
+				hidden_effect = {
+					remove_building = {
+						type = infrastructure
+						level = 1
+					}
 				}
 			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_state = {
-				remove_building = {
-					type = infrastructure
-					level = 1
-				}
-			}
+			remove_ideas = BBW_green_counter_revolution7
 			#rozjebanie infrastuktury w losowych stejtach
 		}
 	}	
