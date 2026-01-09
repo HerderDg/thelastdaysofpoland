@@ -4471,12 +4471,22 @@ focus_tree = {
 			}
 		}
 
-		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_INNER_CIRCLE }
 
 		completion_reward = {
-
-
-			custom_effect_tooltip = generic_skip_one_line_tt
+			add_unit_bonus = {
+				category_all_armor = {
+					breakthrough = 0.1
+				}
+			}
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 90
+			    name = BBW_armoured_fists
+			    # FILTERS:
+			    folder = land
+			    track = armor
+			}
 		}
 	}
 
@@ -4486,8 +4496,7 @@ focus_tree = {
 		text_icon = BBW_coalblackmen_focus_style
 		prerequisite = { focus = BBW_armoured_fists }
 
-		
-
+	
 		x = 0
 		y = 1
 		relative_position_id = BBW_armoured_fists
@@ -4570,12 +4579,16 @@ focus_tree = {
 				localization_key = BBW_ascended_character_trait_swap_tt
 				CHARACTER = BBW_gen_rzymkowski
 			}
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = {
-				localization_key = BBW_inner_circle_industrial_me_focuses_tt
-				FOCUS_1 = BBW_new_model_army
-				FOCUS_2 = BBW_increasing_emission_quotas
+			add_tech_bonus = {
+				bonus = 0.5
+				name = BBW_mechanized_machine
+				uses = 1
+				category = ifv				
+			}
+			add_trait = {
+				character = BBW_gen_rzymkowski
+				slot = minister_of_war
+				trait = panzer_general
 			}
 		}
 	}
@@ -4714,8 +4727,6 @@ focus_tree = {
 		text_icon = BBW_coalblackmen_focus_style
 		prerequisite = { focus = BBW_ascension_of_zychosiak }
 
-		
-
 		x = 0
 		y = 1
 		relative_position_id = BBW_ascension_of_zychosiak
@@ -4752,7 +4763,22 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			custom_effect_tooltip = generic_skip_one_line_tt
+			add_unit_bonus = {
+				militia = {
+					defense = 0.1
+				}
+				melee_infantry = {
+					defense = 0.1
+				}				
+			}
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 90
+			    name = BBW_securing_rimland
+			    # FILTERS:
+			    folder = land
+			    track = operations
+			}	
 		}
 	}
 
@@ -4847,13 +4873,19 @@ focus_tree = {
 				localization_key = BBW_ascended_character_trait_swap_tt
 				CHARACTER = BBW_zychosiak
 			}
-
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = {
-				localization_key = BBW_inner_circle_industrial_me_focuses_tt
-				FOCUS_1 = BBW_mechanized_machine
-				FOCUS_2 = BBW_increasing_emission_quotas
+			add_tech_bonus = {
+				bonus = 0.5
+				name = BBW_new_model_army
+				uses = 1
+				category = infantry_training		
+			}
+			every_unit_leader = {
+				limit = {
+					NOT = {
+						has_trait = ruthless_player
+					}
+				}
+				add_logistics = 1
 			}
 		}
 	}
@@ -4919,8 +4951,18 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_MILITARY_CHARACTER FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-
-
+			add_mastery = {
+			    amount = 100
+			    # FILTERS:
+			    folder = land
+			    grand_doctrine = technological_supremacy
+			}
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_laser_rifle } 
+				}
+				complete_special_project = sp:sp_laser_rifle
+			}
 		}
 	}
 
@@ -5045,7 +5087,6 @@ focus_tree = {
 				country_event = { id = BBW_inner_circle_warzecha.01 days = BBW_inner_circle_days_to_start_focus random_days = BBW_inner_circle_random_days }
 				clr_country_flag = BBW_warzecha_ascension_flag
 
-				#BBW_inner_circle_set_ascension_cd = yes
 				add_to_variable = {
 					BBW_ending_smog_counter = 1
 				}
@@ -5102,7 +5143,22 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel
+				days = 45
+			}
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel2
+				days = 45
+			}
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel3
+				days = 45
+			}
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel_small
+				days = 30
+			}									
 		}
 	}
 
@@ -5111,8 +5167,6 @@ focus_tree = {
 		icon = BBW_increasing_emission_quotas
 		text_icon = BBW_coalblackmen_focus_style
 		prerequisite = { focus = BBW_mining_expansion_plan }
-
-		
 
 		x = 0
 		y = 1
@@ -5196,12 +5250,9 @@ focus_tree = {
 				localization_key = BBW_ascended_character_trait_swap_tt
 				CHARACTER = BBW_gen_warzecha
 			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = {
-				localization_key = BBW_inner_circle_industrial_me_focuses_tt
-				FOCUS_1 = BBW_mechanized_machine
-				FOCUS_2 = BBW_new_model_army
+			swap_ideas = {
+				remove_idea = energy_full_emission
+				add_idea = energy_total_emission
 			}
 		}
 	}
@@ -5448,10 +5499,24 @@ focus_tree = {
 			add_to_variable = {
 				BBW_ending_roxi_counter = 1
 			}
-			swap_ideas = {
-				remove_idea = BBW_carbonari
-				add_idea = BBW_carbonari2
+			if = {
+				limit = {
+					has_idea = BBW_carbonari
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari
+					add_idea = BBW_carbonari2
+				}
 			}
+			if = {
+				limit = {
+					has_idea = BBW_carbonari2
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari2
+					add_idea = BBW_carbonari3
+				}
+			}	
 		}
 	}
 
@@ -5497,7 +5562,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER }
 
 		completion_reward = {
-
+			gain_random_agency_upgrade = yes
+			gain_random_agency_upgrade = yes
 		}
 	}
 
@@ -5549,6 +5615,23 @@ focus_tree = {
 			add_to_variable = {
 				BBW_ending_smog_counter = 1
 			}
+			division_template = {
+				name = "Gwardyjski Batalion Skarbników"
+				template_counter = 101
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }	
+				}
+				support = {
+					maintenance_company = { x = 0 y = 0 }
+					engineer = { x = 0 y = 1 }
+					signal_company = { x = 0 y = 2 }
+					logistics_company = { x = 0 y = 3 }
+				}
+			}
+			custom_effect_tooltip = BBW_skarbnicy_tt
 		}
 	}
 
@@ -5595,8 +5678,44 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_CHARACTER }
 
 		completion_reward = {
-
-
+			division_template = {
+				name = "Zmechanizowany Gwardyjski Batalion Skarbników"
+				template_counter = 95
+				regiments = {
+					mechanized = { x = 0 y = 0 }
+					mechanized = { x = 0 y = 1 }
+					mechanized = { x = 1 y = 0 }
+					mechanized = { x = 1 y = 1 }	
+					motorized = { x = 2 y = 0 }
+					motorized = { x = 2 y = 1 }						
+				}
+				support = {
+					armored_car_recon = { x = 0 y = 0 }
+					maintenance_company = { x = 0 y = 1 }
+					logistics_company = { x = 0 y = 2 }
+					rocket_artillery = { x = 0 y = 3 }
+					signal_company = { x = 0 y = 4 }
+				}
+			}
+			custom_effect_tooltip = BBW_skarbnicy_mech_tt
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1. Gwardyjski Batalion Skarbników 'Starszy Ziemkiewicz'\" division_template = \"Gwardyjski Batalion Skarbników\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BBW
+				}
+				create_unit = {
+					division = "name = \"2. Gwardyjski Batalion Skarbników 'Bractwo'\" division_template = \"Gwardyjski Batalion Skarbników\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BBW
+				}
+				create_unit = {
+					division = "name = \"3. Gwardyjski Batalion Skarbników 'Sztygar'\" division_template = \"Zmechanizowany Gwardyjski Batalion Skarbników\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BBW
+				}
+				create_unit = {
+					division = "name = \"4. Gwardyjski Batalion Skarbników 'Paladyn'\" division_template = \"Zmechanizowany Gwardyjski Batalion Skarbników\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BBW
+				}
+			}				
 		}
 	}
 
@@ -5646,7 +5765,11 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_MILITARY_CHARACTER }
 
 		completion_reward = {
-
+			add_trait = {
+				character = BBW_gen_janecki
+				slot = interior_minister
+				trait = illusive_master
+			}
 		}
 	}
 
@@ -6207,7 +6330,24 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			
+			if = {
+				limit = {
+					has_idea = BBW_carbonari
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari
+					add_idea = BBW_carbonari2
+				}
+			}
+			if = {
+				limit = {
+					has_idea = BBW_carbonari2
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari2
+					add_idea = BBW_carbonari3
+				}
+			}	
 		}
 	}
 
@@ -6256,7 +6396,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-
+			add_trait = {
+				character = BBW_roksi_wegiel
+				trait = famous_singer
+			}
 		}
 	}
 
@@ -6305,7 +6448,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-
+			add_trait = {
+				character = BBW_zgierski
+				trait = masterdebater
+			}
 		}
 	}
 
@@ -14479,7 +14625,16 @@ focus_tree = {
 					remove_idea = BBW_carbonari2
 					add_idea = BBW_carbonari_black
 				}
-			}			
+			}
+			if = {
+				limit = {
+					has_idea = BBW_carbonari3
+				}
+				swap_ideas = {
+					remove_idea = BBW_carbonari3
+					add_idea = BBW_carbonari_black
+				}
+			}						
 		}
 	}
 		
@@ -15778,9 +15933,23 @@ focus_tree = {
 		completion_reward = {
 			country_event = { id = belchatow.69 }
 			add_war_support = -0.05
-			swap_ideas = {
-				remove_idea = energy_full_emission
-				add_idea = energy_coal_based
+			if = {
+				limit = {
+					has_idea = energy_full_emission
+				}
+				swap_ideas = {
+					remove_idea = energy_full_emission
+					add_idea = energy_coal_based
+				}				
+			}
+			if = {
+				limit = {
+					has_idea = energy_total_emission
+				}
+				swap_ideas = {
+					remove_idea = energy_total_emission
+					add_idea = energy_coal_based
+				}				
 			}
 		}
 	}

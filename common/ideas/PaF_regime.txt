@@ -256,6 +256,12 @@ ideas = {
 			
 		energy_full_emission = {
 			available = { always = no }
+			visible = {
+				if = {
+					limit = { ROOT = { original_tag = BBW } }
+					NOT = { has_completed_focus = BBW_increasing_emission_quotas }
+				}
+			}
 			removal_cost = -1
 			ledger = civilian
 			modifier = {
@@ -265,6 +271,27 @@ ideas = {
 				energy_modifier = 0.25
 				production_speed_wind_farm_factor = -0.5
 				production_speed_power_plant_factor = 0.25
+			}
+			cancel_if_invalid = no 
+		}
+		energy_total_emission = {
+			available = { always = no }
+			visible = { 
+				AND = {
+					original_tag = BBW
+					has_completed_focus = BBW_increasing_emission_quotas
+				}
+			}
+			picture = energy_full_emission
+			removal_cost = -1
+			ledger = civilian
+			modifier = {
+				industrial_capacity_factory = 0.2
+				stability_factor = -0.15
+				monthly_population = -0.075
+				energy_modifier = 0.35
+				production_speed_wind_farm_factor = -1
+				production_speed_power_plant_factor = 0.35
 			}
 			cancel_if_invalid = no 
 		}
