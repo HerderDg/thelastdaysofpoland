@@ -419,3 +419,34 @@ BBW_industrial_missions_category = {
 	}
 }
 
+BBW_deploy_peacekeepers_category = {
+	BBW_deploy_peacekeepers_decision = {
+		state_target = yes
+		visible = {
+			FROM = {
+				AND = {
+					is_owned_by = BBW
+					is_zaglebie_state = yes
+					has_active_resistance = yes
+				}
+			}
+			BBW = {
+				has_completed_focus = BBW_deploy_peacekeepers
+			}
+		}
+		custom_cost_trigger = {
+			has_manpower > 100
+		}
+		custom_cost_text = decision_cost_100_manpower
+		days_remove = 30
+		days_re_enable = 90
+		complete_effect = {
+			log = "Pałujemy górników jak Jaruzel w [From.GetName]"
+			add_manpower = -100
+			FROM = {
+				add_resistance = -20
+			}
+		}
+	}
+}
+
