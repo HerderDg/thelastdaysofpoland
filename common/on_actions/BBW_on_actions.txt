@@ -57,53 +57,137 @@ on_actions = {
 			if = {
 				limit = {
 					FROM = { tag = BBW }
-					has_country_flag = importing_energy
-				}
-				clr_country_flag = importing_energy
-				remove_opinion_modifier = {
-					target = BBW
-					modifier = aided_industry
-				}
-				remove_ideas = importing_energy_idea
-				subtract_from_variable = {energy_imported = 750}
-				BBW = {
-					add_offsite_building = {
-						type = industrial_complex
-						level = -1
-					}
-					if = {
-						limit = {
-							check_variable = { energy_exported > 0 }
+					ROOT = {
+						OR = {
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_1_offline
+									}
+									PREV = {
+										OR = {
+											tag = ZHP
+											tag = TIG
+										}
+									}
+								}
+							}
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_2_offline
+									}
+									PREV = {
+										OR = {
+											tag = ZYD
+											tag = RDM
+										}
+									}
+								}
+							}
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_3_offline
+									}
+									PREV = {
+										OR = {
+											tag = LKS
+											tag = AMW
+											tag = SAP
+											tag = KAR
+										}
+									}
+								}
+							}
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_4_offline
+									}
+									PREV = {
+										OR = {
+											tag = WML
+											tag = RUT
+											tag = KRS
+										}
+									}
+								}
+							}
 						}
-						subtract_from_variable = {energy_exported = 750}
 					}
+				}
+				add_offsite_building = {
+					type = power_plant
+					level = -1
 				}
 				log = "[GetDateText]: [ROOT.GetName] cancels energy imports"
 			}
 			if = {
 				limit = {
 					original_tag = BBW
-					FROM = { has_country_flag = importing_energy }
+					OR = {
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_1_offline
+									}
+									PREV = {
+										OR = {
+											tag = ZHP
+											tag = TIG
+										}
+									}
+								}
+							}
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_2_offline
+									}
+									PREV = {
+										OR = {
+											tag = ZYD
+											tag = RDM
+										}
+									}
+								}
+							}
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_3_offline
+									}
+									PREV = {
+										OR = {
+											tag = LKS
+											tag = AMW
+											tag = SAP
+											tag = KAR
+										}
+									}
+								}
+							}
+							AND = {
+								BBW = {
+									NOT = {
+										has_country_flag = sector_4_offline
+									}
+									PREV = {
+										OR = {
+											tag = WML
+											tag = RUT
+											tag = KRS
+										}
+									}
+								}
+							}
+						}
 				}
 				FROM = {
-					clr_country_flag = importing_energy
-					remove_opinion_modifier = {
-						target = BBW
-						modifier = aided_industry
-					}
-					remove_ideas = importing_energy_idea
-					subtract_from_variable = {energy_imported = 750}
-				}
-				BBW = {
 					add_offsite_building = {
-						type = industrial_complex
+						type = power_plant
 						level = -1
-					}
-					if = {
-						limit = {
-							check_variable = { energy_exported > 0 }
-						}
-						subtract_from_variable = {energy_exported = 750}
 					}
 				}
 				log = "[GetDateText]: [FROM.GetName] cancels energy imports"
