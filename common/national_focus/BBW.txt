@@ -8161,7 +8161,9 @@ focus_tree = {
 						has_state_category = large_city
 						has_state_category = metropolis
 					}
+					is_lodz_state = yes
 				}
+				display_individual_scopes = yes
 				add_building_construction = {
 					type = bunker
 					level = 3
@@ -8172,6 +8174,12 @@ focus_tree = {
 					}
 				}
 			}
+
+			add_to_variable = {
+				budget = -100
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_100M
 		}
 	}
 
@@ -8910,7 +8918,7 @@ focus_tree = {
 		relative_position_id = BBW_contracts_of_our_dreams
 		prerequisite = { focus = BBW_contracts_of_our_dreams }
 		available = {
-		
+			is_special_project_completed = sp:sp_exoskeletons
 		}
 		
 		bypass = {
@@ -8941,7 +8949,7 @@ focus_tree = {
 			focus = BBW_contracts_of_our_dreams
 		}
 		available = {
-		
+			has_completed_focus = BBW_militarisation_of_airships
 		}
 		
 		bypass = {
@@ -8958,7 +8966,30 @@ focus_tree = {
 		
 		completion_reward = {
 			air_experience = 50
-			add_ideas = BBW_terror_of_skies
+			add_equipment_bonus = {
+				name = BBW_terror_of_skies
+				bonus = {
+					zeppelin_equipment = {
+						reliability_factor = 0.1
+						max_strength = 0.2
+						build_cost_ic = 0.1
+						air_defence = 0.15
+						air_bombing = 0.15
+					}
+					helicopter_equipment = {
+						air_ground_attack = 0.1
+						build_cost_ic = -0.1
+					}
+				}
+			}
+			create_equipment_variant = {
+			    name = "Rycerz Święty Jerzy"
+			    type = zeppelin_equipment_0
+			    upgrades = {
+			        plane_range_upgrade = 5
+			        plane_reliability_upgrade = 5
+			    }
+			}
 		}
 	}
 
@@ -9570,7 +9601,7 @@ focus_tree = {
 		relative_position_id = BBW_contracts_of_our_dreams
 		prerequisite = { focus = BBW_contracts_of_our_dreams }
 		available = {
-		
+			has_tech = railway_gun
 		}
 		
 		bypass = {
@@ -9589,7 +9620,26 @@ focus_tree = {
 			country_event = {
 			id = belchatow.78
 			}
-			add_ideas = BBW_blessed_by_saint_barbara
+			if = {
+				limit = {
+					is_special_project_completed = sp:sp_land_super_heavy_railway_gun
+				}
+				add_ideas = BBW_blessed_by_saint_barbara
+			}
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_land_super_heavy_railway_gun }
+				}
+				complete_special_project = sp:sp_land_super_heavy_railway_gun
+				add_equipment_bonus = {
+					name = BBW_cham21
+					bonus = {
+						railway_gun_equipment = {
+							railway_gun_attack = 0.15
+						}
+					}
+				}
+			}			
 		}
 	}
 
@@ -9616,7 +9666,16 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			complete_special_project = sp:sp_land_land_cruiser
+			add_equipment_bonus = {
+				name = BBW_zgred37
+				bonus = {
+					land_cruiser_equipment = {
+						soft_attack = 0.1
+						hard_attack = 0.1
+					}
+				}
+			}
 		}
 	}
 
@@ -10584,8 +10643,37 @@ focus_tree = {
 			country_event = {
 				id = belchatow.52
 			}
+			every_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 579
+						state = 576
+						state = 578
+						state = 759
+						state = 302
+						state = 577
+						state = 758
+						state = 757
+						state = 580
+					}
+					is_lodz_state = yes
+					has_state_flag = coal_deposit_found
+				}
+				
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.1}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_belchatow = to_resettle}
+				multiply_temp_variable = { to_resettle_belchatow = -1 }		
+				341 = { add_manpower = to_resettle_belchatow }	
+			}
 			341 = {
-				add_manpower = 15431
 				add_victory_points = {
 					province = 2707
 					value = 7
@@ -10763,12 +10851,54 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 579
+						state = 576
+						state = 578
+						state = 759
+						state = 302
+						state = 577
+						state = 758
+						state = 757
+						state = 580
+						state_population_k < 4
+					}
+				}
+				add_manpower = -1265
+			}
 			759 = {
 				add_manpower = 1265
 				add_victory_points = {
 					province = 11493
 					value = 3
 				}
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 579
+						state = 576
+						state = 578
+						state = 759
+						state = 302
+						state = 577
+						state = 758
+						state = 757
+						state = 580
+						state_population_k < 4
+					}
+				}
+				add_manpower = -2374
 			}
 			759 = {
 				add_manpower = 2374
@@ -10777,12 +10907,54 @@ focus_tree = {
 					value = 5
 				}
 			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 579
+						state = 576
+						state = 578
+						state = 759
+						state = 302
+						state = 577
+						state = 758
+						state = 757
+						state = 580
+						state_population_k < 4
+					}
+				}
+				add_manpower = -2853
+			}
 			341 = {
 				add_manpower = 2853
 				add_victory_points = {
 					province = 10263
 					value = 5
 				}
+			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 579
+						state = 576
+						state = 578
+						state = 759
+						state = 302
+						state = 577
+						state = 758
+						state = 757
+						state = 580
+						state_population_k < 4
+					}
+				}
+				add_manpower = -1073
 			}
 			341 = {
 				add_manpower = 1073
@@ -10791,6 +10963,27 @@ focus_tree = {
 					value = 3
 				}
 			}
+			random_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 579
+						state = 576
+						state = 578
+						state = 759
+						state = 302
+						state = 577
+						state = 758
+						state = 757
+						state = 580
+						state_population_k < 4
+					}
+				}
+				add_manpower = -3852
+			}
 			341 = {
 				add_manpower = 3852
 				add_victory_points = {
@@ -10798,6 +10991,26 @@ focus_tree = {
 					value = 3
 				}
 			}
+			759 = { 
+				add_extra_state_shared_building_slots = 1
+				if = {
+					limit = {
+						759 = {
+							infrastructure < 10
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					} 
+				}
+			}
+			341 = { add_extra_state_shared_building_slots = 1 }
+			add_to_variable = {
+				budget = -100
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_100M	
 		}
 	}
 	
@@ -10853,6 +11066,11 @@ focus_tree = {
 				}
 			}
 			country_event = belchatow_dlc.19
+			add_to_variable = {
+				budget = -100
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_100M
 		}
 	}	
 
@@ -10960,7 +11178,12 @@ focus_tree = {
 						id = 3826
 					}
 				}
-			}													
+			}
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M													
 		}
 	}	
 
@@ -11008,6 +11231,11 @@ focus_tree = {
 					value = 5
 				}
 			}
+			add_to_variable = {
+				budget = -100
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_100M
 		}
 	}	
 
@@ -11036,7 +11264,43 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			341 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+				}
+			}
+			903 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+				}
+			}
+			578 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+				}
+			}
+			758 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+				}
+			}
+			576 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+				}
+			}	
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_500M							
 		}
 	}
 	
@@ -11083,6 +11347,8 @@ focus_tree = {
 					value = 10
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_1B	
 		}
 	}
 	
@@ -11131,6 +11397,11 @@ focus_tree = {
 					value = 3
 				}
 			}
+			add_to_variable = {
+				budget = -150
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_150M
 		}
 	}
 	
@@ -11183,6 +11454,9 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_800M
 		}
 	}	
 
@@ -11224,6 +11498,15 @@ focus_tree = {
             	    }
             	}
 			}
+			903 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = prison
+					level = 1
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M	
 		}
 	}	
 
