@@ -427,7 +427,6 @@ BBW_deploy_peacekeepers_category = {
 				AND = {
 					is_owned_by = BBW
 					is_zaglebie_state = yes
-					has_active_resistance = yes
 				}
 			}
 			BBW = {
@@ -439,12 +438,33 @@ BBW_deploy_peacekeepers_category = {
 		}
 		custom_cost_text = decision_cost_100_manpower
 		days_remove = 30
-		days_re_enable = 90
+		fire_only_once = yes
 		complete_effect = {
 			log = "Pałujemy górników jak Jaruzel w [From.GetName]"
 			add_manpower = -100
-			FROM = {
-				add_resistance = -20
+			if = {
+				limit = {
+					FROM = {
+						NOT = {
+							is_core_of = BBW
+						}
+					}
+				}
+				FROM = {
+					add_resistance = -50
+				}
+				add_stability = 0.02
+			}
+			else = {
+				FROM = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = prison
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_stability = 0.01
 			}
 		}
 	}
