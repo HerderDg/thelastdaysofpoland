@@ -12775,7 +12775,7 @@ focus_tree = {
 						state = 500
 						state = 790
 						state = 510
-						state = 540
+						state = 504
 						state = 516
 						state = 511
 						state = 496
@@ -13214,7 +13214,71 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			787 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = -1
+				}
+				set_province_name = {
+					id = 7836
+					name = VICTORY_POINTS_7836_GZM
+				}
+				set_province_name = {
+					id = 7837
+					name = VICTORY_POINTS_7837_GZM
+				}				
+				set_province_name = {
+					id = 7851
+					name = VICTORY_POINTS_7851_GZM
+				}	
+				add_resource = {
+					type = coal
+					amount = 5
+				}	
+				add_manpower = -14789		
+			}
+			501 = {
+				add_manpower = 14789
+			}
+			509 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = -1
+				}
+				set_province_name = {
+					id = 7847
+					name = VICTORY_POINTS_7847_GZM
+				}	
+				add_resource = {
+					type = coal
+					amount = 5
+				}	
+				add_manpower = -6943		
+			}	
+			501 = {
+				add_manpower = 6943
+			}
+			788 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = -1
+				}
+				set_province_name = {
+					id = 7874
+					name = VICTORY_POINTS_7874_GZM
+				}	
+				add_resource = {
+					type = coal
+					amount = 5
+				}	
+				add_manpower = -1453		
+			}	
+			501 = {
+				add_manpower = 1453
+			}					
 		}
 	}
 
@@ -13315,7 +13379,77 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			add_to_temp_variable = {
+				model_tychy = 501.building_level@infrastructure
+			}
+			add_to_temp_variable = {
+				model_tychy = -10
+			}
+			multiply_temp_variable = {
+				model_tychy = -1
+			}
+			501 = {
+				add_building_construction = {
+					type = infrastructure
+					level = model_tychy
+				}
+				add_extra_state_shared_building_slots = 3
+				set_province_name = {
+					id = 7912
+					name = VICTORY_POINTS_7912_GZM
+				}
+				add_victory_points = {
+					province = 7918
+					value = 3
+				}
+				add_victory_points = {
+					province = 4048
+					value = 3
+				}		
+				add_victory_points = {
+					province = 7910
+					value = 3
+				}
+				add_victory_points = {
+					province = 4056
+					value = 3
+				}	
+				add_victory_points = {
+					province = 7916
+					value = 3
+				}
+				add_victory_points = {
+					province = 7913
+					value = 3
+				}				
+			}
+			every_state = {
+				limit = {
+					NOT = {
+						state = 501
+					}
+					OR = {
+						is_owned_by = BBW
+						OWNER = {
+							is_subject_of = BBW
+						}
+					}
+					OR = {
+						has_state_category = large_city
+						has_state_category = city
+					}
+					is_upper_silesia_state = yes
+					has_state_flag = coal_deposit_found
+				}
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.1}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_tychy = to_resettle}
+				multiply_temp_variable = { to_resettle_tychy = -1 }		
+				501 = { add_manpower = to_resettle_tychy }		
+			}		
 		}
 	}
 	
@@ -13344,7 +13478,24 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			add_stability = 0.1
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.01
+			}
+			501 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+				add_building_construction = {
+					type = januszex
+					level = 1
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_300M
 		}
 	}
 	
@@ -13373,7 +13524,21 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			every_state = {
+				limit = {
+					OR = {
+						is_owned_by = BBW
+						OWNER = {
+							is_subject_of = BBW
+						}
+					}
+					is_upper_silesia_state = yes
+					has_state_flag = coal_deposit_found
+				}
+				add_dynamic_modifier = {
+					modifier = BBW_jsw
+				}
+			}
 		}
 	}
 	
@@ -13433,7 +13598,22 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			every_state = {
+				limit = {
+					OR = {
+						is_owned_by = BBW
+						OWNER = {
+							is_subject_of = BBW
+						}
+					}
+					is_upper_silesia_state = yes
+					has_state_flag = coal_deposit_found
+					rail_way > 0
+				}
+				add_dynamic_modifier = {
+					modifier = BBW_coalpiercer
+				}
+			}
 		}
 	}
 	
@@ -13445,7 +13625,7 @@ focus_tree = {
 		prerequisite = { focus = BBW_PIWO }
 
 		available = {
-			
+			has_completed_focus = BBW_begin_construction
 		}
 		
 		bypass = {
@@ -13461,7 +13641,38 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			every_state = {
+				limit = {
+					OR = {
+						is_owned_by = BBW
+						OWNER = {
+							is_subject_of = BBW
+						}
+					}
+					is_upper_silesia_state = yes
+					has_state_flag = coal_deposit_found
+					steel_works > 0
+				}
+				add_building_construction = {
+					type = steel_works
+					level = -1
+				}
+				display_individual_scopes = yes
+			}
+			361 = {
+				add_building_construction = {
+					type = steel_works
+					level = 4
+				}
+				add_victory_points = {
+					province = 12653
+					value = 3
+				}
+				add_victory_points = {
+					province = 12098
+					value = 3
+				}				
+			}
 		}
 	}
 	
