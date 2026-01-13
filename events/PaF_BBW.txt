@@ -989,7 +989,6 @@ country_event = {
 
 	option = {
 		name = belchatow.51.a
-		add_ideas = BBW_city_adjustments 
 	}
 }
 
@@ -1617,12 +1616,24 @@ country_event = {
 	picture = GFX_event_belchatow.flag
 
 	fire_only_once = yes
-	is_triggered_only = yes
+	trigger = {
+		original_tag = BBW
+		OR = {
+			is_special_project_being_researched = sp:sp_power_armor
+			has_completed_focus = BBW_knights_of_progress
+		}
+	}
+	mean_time_to_happen = {
+		months = 4
+	}
 
 	immediate = { log =  "[GetDateText]: [ROOT.GetName] fires belchatow.81" }
 
 	option = {
 		name = belchatow.81.a
+		BBW = { set_country_flag = BBW_fucked_up_power_armor }
+		mark_focus_tree_layout_dirty = yes		
+		complete_national_focus = BBW_moderate_success
 		BBW_tarkowski = {
     		remove_scientist_role = yes
 		}
@@ -1641,7 +1652,7 @@ country_event = {
 	immediate = { log =  "[GetDateText]: [ROOT.GetName] fires belchatow.82" }
 
 	option = {
-		name = belchatow.80.a
+		name = belchatow.82.a
 	}
 }
 
@@ -3280,6 +3291,11 @@ country_event = { #gadomski budget
 	is_triggered_only = yes
 	option = {
 		name = belchatow_dlc.21.a
+		uncomplete_national_focus = {
+			focus = BBW_gadomski_budget
+		}
+		set_country_flag = BBW_gadomski_fucked_up
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 
@@ -3295,17 +3311,6 @@ country_event = { #brotherhood redefined - podpucha event
 	}
 }
 
-country_event = { #silesian metropolis committee
-	id = belchatow_dlc.23
-	title = belchatow_dlc.23.t
-	desc = belchatow_dlc.23.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	option = {
-		name = belchatow_dlc.23.a
-	}
-}
 
 country_event = { #grey clouds and steam
 	id = belchatow_dlc.24
@@ -3943,6 +3948,51 @@ country_event = { #kghm
 			add_dynamic_modifier = {
 				modifier = BBW_kghm_experimental_zone
 			}
+		}
+	}
+}
+
+country_event = { #hey cheater, i cast power armor failure
+	id = belchatow_dlc.110
+	title = belchatow_dlc.110.t
+	desc = belchatow_dlc.110.desc
+
+	fire_only_once = yes
+	trigger = {
+		is_special_project_completed = sp:sp_power_armor
+		original_tag = BBW
+	}
+	mean_time_to_happen = {
+		days = 30
+	}
+
+	option = {
+		name = belchatow_dlc.110.a
+		add_equipment_bonus = {
+			name = "Fuck You"
+			bonus = {
+				special_forces_equipment_3 = {
+					reliability_factor = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = BBW_full_success
+			}
+			uncomplete_national_focus = {
+				focus = BBW_full_success
+			}
+			complete_national_focus = BBW_moderate_success
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_completed_focus = BBW_full_success
+					has_completed_focus = BBW_moderate_success
+				}
+			}	
+			complete_national_focus = BBW_moderate_success
 		}
 	}
 }

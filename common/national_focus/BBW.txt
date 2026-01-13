@@ -8224,10 +8224,141 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			country_event = {
-				id = belchatow.51
+			903 = {
+				set_state_name = STATE_903_EXTENDED
+				increase_state_category = yes
 			}
-			
+			358 = {
+				increase_state_category = yes
+				set_state_name = STATE_358_EXTENDED
+				add_victory_points = {
+					province = 10265
+					value = 3
+				}
+				add_victory_points = {
+					province = 10272
+					value = 3
+				}
+				add_victory_points = {
+					province = 10273
+					value = 3
+				}								
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10265
+				state = 358
+				rotation = 0.7
+				scale = 2
+				min_zoom = 400.0
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10272
+				state = 358
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10273
+				state = 358
+				rotation = 0.2
+				scale = 2
+				min_zoom = 400.0
+			}						
+			341 = {
+				increase_state_category = yes
+				set_state_name = STATE_341_EXTENDED
+			}
+			309 = {
+				increase_state_category = yes
+				set_state_name = STATE_309_EXTENDED
+				add_victory_points = {
+					province = 12651
+					value = 2
+				}
+				add_victory_points = {
+					province = 3839
+					value = 2
+				}
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 12651
+				state = 309
+				rotation = 0.2
+				scale = 2
+				min_zoom = 400.0
+			}	
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 3839
+				state = 309
+				rotation = 0.2
+				scale = 2
+				min_zoom = 400.0
+			}					
+			684 = {
+				increase_state_category = yes
+				set_state_name = STATE_684_EXTENDED
+				add_victory_points = {
+					province = 10340
+					value = 2
+				}
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10340
+				state = 684
+				rotation = 0.2
+				scale = 2
+				min_zoom = 400.0
+			}			
+			685 = {
+				increase_state_category = yes
+				set_state_name = STATE_685_EXTENDED
+				set_province_name = {
+					id = 3109
+					name = VICTORY_POINTS_3109_EXTENDED
+				}
+				add_victory_points = {
+					province = 7455
+					value = 2
+				}
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 7455
+				state = 685
+				rotation = 0.2
+				scale = 2
+				min_zoom = 400.0
+			}			
+			686 = {
+				set_state_name = STATE_686_EXTENDED
+				set_province_name = {
+					id = 3112
+					name = VICTORY_POINTS_3112_EXTENDED
+				}
+			}
+			303 = {
+				increase_state_category = yes
+				set_state_name = STATE_303_EXTENDED
+				add_victory_points = {
+					province = 11626
+					value = 2
+				}
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 11626
+				state = 303
+				rotation = 0.2
+				scale = 2
+				min_zoom = 400.0
+			}			
 		}
 	}
 
@@ -8306,7 +8437,77 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			every_owned_state = {
+				limit = {
+					NOT = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						state = 903
+						state = 341
+						state = 309
+						state = 358
+						state = 684
+						state = 685
+						state = 686
+						state = 303
+					}
+					OR = {
+					is_lodz_state = yes
+					is_zaglebie_and_jura_state = yes
+					}
+					
+				}
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.1}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_zelow = to_resettle}
+				set_temp_variable = {to_resettle_rzgow = to_resettle}
+				set_temp_variable = {to_resettle_moskwa = to_resettle}
+				set_temp_variable = {to_resettle_pabianice = to_resettle}
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 358
+							}
+						}
+						multiply_temp_variable = {to_resettle_zelow = -0.4}
+						add_manpower = to_resettle_zelow
+					}
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 303
+							}
+						}
+						multiply_temp_variable = {to_resettle_moskwa = -0.1}
+						add_manpower = to_resettle_moskwa
+					}
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 309
+							}
+						}
+						multiply_temp_variable = {to_resettle_pabianice = -0.2}
+						add_manpower = to_resettle_pabianice
+					}										
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 684
+							}
+						}
+						multiply_temp_variable = {to_resettle_rzgow = -0.3}
+						add_manpower = to_resettle_rzgow
+					}								
+				}
 
+			}
 		}
 	}
 
@@ -9035,8 +9236,18 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = {
-		id = belchatow.80
-		}
+				id = belchatow.80
+			}
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_exoskeletons }
+				}
+				complete_special_project = sp:sp_exoskeletons
+			}
+			custom_effect_tooltip = BBW_knights_of_progress_tt
+			hidden_effect = {
+				add_ideas = BBW_no_power_armor_for_you
+			}
 		}
 	}
 	
@@ -9644,7 +9855,12 @@ focus_tree = {
 		prerequisite = { focus = BBW_knights_of_progress }
 		mutually_exclusive = { focus = BBW_moderate_success }
 		available = {
-			has_country_flag = BBW_power_armor_full_success
+			is_special_project_completed = sp:sp_power_armor
+		}
+		allow_branch = {
+			NOT = {
+				has_country_flag = BBW_fucked_up_power_armor
+			}
 		}
 		
 		bypass = {
@@ -9670,14 +9886,19 @@ focus_tree = {
 		relative_position_id = BBW_knights_of_progress
 		prerequisite = { focus = BBW_knights_of_progress }
 		mutually_exclusive = { focus = BBW_full_success }
+		allow_branch = {
+			BBW = {
+				has_country_flag = BBW_fucked_up_power_armor
+			}
+		}
 		available = {
-		
+			always = no
 		}
 		
 		bypass = {
 		}
 		
-		x = 2
+		x = 0
 		y = 1
 		
 		ai_will_do = {
@@ -9687,9 +9908,6 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			country_event = {
-			id = belchatow.81
-			}
 			##add_ideas = BBW_armored_infantry 
 		}
 	}
@@ -9838,7 +10056,19 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = {
-			id = belchatow.82
+				id = belchatow.82
+			}
+			every_state = {
+				limit = {
+					OR = {
+					is_owned_and_controlled_by = BBW
+					OWNER = { is_subject_of = BBW }
+					}
+					coal > 0
+				}
+				add_dynamic_modifier = {
+					modifier = BBW_big_daddy_miner
+				}
 			}
 			##add_ideas = BBW_power_armor ?
 		}
@@ -10634,6 +10864,17 @@ focus_tree = {
 				remove_idea = BBW_privileged_miners_2
 				add_idea = BBW_privileged_miners_3
 			}
+			every_owned_state = {
+				limit = {
+					is_lodz_state = yes
+					has_state_flag = coal_deposit_found
+				}
+				display_individual_scopes = yes
+				add_resource = {
+					type = coal
+					amount = 5
+				}
+			}
 		}
 	}
 	
@@ -10907,6 +11148,10 @@ focus_tree = {
 					province = 42
 					value = 3
 				}
+				add_resource = {
+					type = coal
+					amount = 15
+				}
 			}
 			361 = {
 				add_manpower = 120
@@ -10914,12 +11159,20 @@ focus_tree = {
 					province = 12087
 					value = 3
 				}
+				add_resource = {
+					type = coal
+					amount = 15
+				}
 			}
 			352 = {
 				add_manpower = 120
 				add_victory_points = {
 					province = 7720
 					value = 3
+				}
+				add_resource = {
+					type = coal
+					amount = 15
 				}
 			}
 			country_event = belchatow_dlc.18
@@ -11035,6 +11288,14 @@ focus_tree = {
 					value = 5
 				}
 			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10263
+				state = 341
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
+			}
 			random_owned_state = {
 				limit = {
 					NOT = {
@@ -11062,6 +11323,14 @@ focus_tree = {
 					province = 10259
 					value = 3
 				}
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10259
+				state = 341
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
 			}
 			random_owned_state = {
 				limit = {
@@ -11091,6 +11360,30 @@ focus_tree = {
 					value = 3
 				}
 			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10262
+				state = 341
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
+			}
+			create_entity = {
+				entity = french_city_4_04_entity
+				province = 10257
+				state = 341
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
+			}
+			create_entity = {
+				entity = french_city_4_02_entity
+				province = 10261
+				state = 341
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
+			}						
 			759 = { 
 				add_extra_state_shared_building_slots = 1
 				if = {
@@ -11137,7 +11430,31 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			300 = {
+				add_manpower = -2321
+			}
+			236 = {
+				add_manpower = -4144
+			}	
+			272 = {
+				add_manpower = -1956
+			}	
+			357 = {
+				add_manpower = -2824
+			}	
 			302 = {
+				if = {
+					limit = {
+						302 = {
+							infrastructure < 10
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				add_extra_state_shared_building_slots = 1
 				add_manpower = 5482
 				add_victory_points = {
 					province = 11517
@@ -11145,6 +11462,7 @@ focus_tree = {
 				}
 			}
 			302 = {
+				add_extra_state_shared_building_slots = 1
 				add_manpower = 2364
 				add_victory_points = {
 					province = 11518
@@ -11152,6 +11470,18 @@ focus_tree = {
 				}
 			}
 			579 = {
+				if = {
+					limit = {
+						579 = {
+							infrastructure < 10
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				add_extra_state_shared_building_slots = 1
 				add_manpower = 1367
 				add_victory_points = {
 					province = 11503
@@ -11159,6 +11489,18 @@ focus_tree = {
 				}
 			}
 			578 = {
+				if = {
+					limit = {
+						578 = {
+							infrastructure < 10
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				add_extra_state_shared_building_slots = 1
 				add_manpower = 2032
 				add_victory_points = {
 					province = 11497
@@ -11310,6 +11652,15 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			353 = {
+				add_manpower = -1549
+			}
+			340 = {
+				add_manpower = -2134
+			}
+			272 = {
+				add_manpower = -1730
+			}			
 			341 = {
 				add_manpower = 1139
 				add_victory_points = {
@@ -11317,7 +11668,20 @@ focus_tree = {
 					value = 3
 				}
 			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10280
+				state = 341
+				rotation = 0.1
+				scale = 2
+				min_zoom = 400.0
+			}
 			903 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+				}
 				add_manpower = 1522
 				add_victory_points = {
 					province = 10242
@@ -11330,6 +11694,22 @@ focus_tree = {
 					province = 10241
 					value = 5
 				}
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10242
+				state = 903
+				rotation = 0.5
+				scale = 2
+				min_zoom = 400.0
+			}
+			create_entity = {
+				entity = french_city_4_01_entity
+				province = 10241
+				state = 903
+				rotation = 1.0
+				scale = 2
+				min_zoom = 400.0
 			}
 			add_to_variable = {
 				budget = -100
@@ -11476,22 +11856,66 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			every_owned_state = {
+				limit = {
+					NOT = {
+						state = 903
+						state = 358
+						state = 684
+						state = 685
+						state = 686
+						state = 303
+						state_population_k < 3
+					}
+					has_state_category = rural
+					OR = {
+					is_lodz_state = yes
+					is_upper_silesia_state = yes
+					is_zaglebie_and_jura_state = yes
+					}
+				}
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.15}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_widzew = to_resettle}
+				set_temp_variable = {to_resettle_belchatow = to_resettle}
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 341
+							}
+						}
+						multiply_temp_variable = {to_resettle_belchatow = -0.7}
+						add_manpower = to_resettle_belchatow
+					}					
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 758
+							}
+						}
+						multiply_temp_variable = {to_resettle_widzew = -0.3}
+						add_manpower = to_resettle_widzew
+					}								
+				}
+
+			}
 			341 = {
-				add_manpower = 2513
 				add_victory_points = {
 					province = 10260
 					value = 5
 				}
 			}
 			341 = {
-				add_manpower = 5411
 				add_victory_points = {
 					province = 10256
 					value = 7
 				}
 			}
 			341 = {
-				add_manpower = 1167
 				add_victory_points = {
 					province = 10255
 					value = 3
@@ -11635,6 +12059,8 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 150
 			country_event = belchatow_dlc.20
 			add_to_variable = {
 				BBW_ending_roxi_counter = 1
@@ -11650,6 +12076,11 @@ focus_tree = {
 		prerequisite = { focus = BBW_resource_plan }
 		mutually_exclusive = {
 			focus = BBW_silesian_committee
+		}
+		allow_branch = {
+			NOT = { 
+				has_country_flag = BBW_gadomski_fucked_up
+			}
 		}
 		available = {
 			
@@ -12097,7 +12528,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-			country_event = belchatow_dlc.23
+			country_event = {
+				id = belchatow.51
+			}
+			add_political_power = 150
 		}
 	}
 	
@@ -12127,7 +12561,12 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			add_political_power = 50
+			add_ideas = BBW_zaglebie_plan
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.02
+			}
 		}
 	}	
 
@@ -12755,6 +13194,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_political_power = 100
+			remove_ideas = BBW_zaglebie_plan
 			country_event = belchatow_dlc.25
 		}
 	}
@@ -12785,7 +13225,12 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
-
+			add_political_power = 50
+			add_ideas = BBW_silesia_plan
+			add_popularity = {
+				ideology = postpolonism
+				popularity = 0.02
+			}
 		}
 	}	
 
@@ -13746,6 +14191,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_political_power = 100
+			remove_ideas = BBW_silesia_plan
 			country_event = belchatow_dlc.24
 		}
 	}
