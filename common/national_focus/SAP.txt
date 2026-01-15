@@ -33,7 +33,6 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = sapek.1
-				days = 1 
 			}
 			hidden_effect = { 
 				set_variable = {
@@ -64,9 +63,9 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = sapek.2
-				days = 1 
 			}
 			add_stability = 0.1
+			add_war_support = 0.1
 		}
 	}
 	
@@ -93,7 +92,6 @@ focus_tree = {
 			}
 			country_event = {
 				id = sapek.3
-				days = 1 
 			}
 			add_war_support = 0.1			
 			hidden_effect = {
@@ -187,7 +185,7 @@ focus_tree = {
 		relative_position_id = SAP_attack_on_kaer_nevitz
 		prerequisite = { focus = SAP_attack_on_kaer_nevitz }
 		available = {
-		
+			has_completed_focus = SAP_put_out_fires
 		}
 		
 		bypass = {
@@ -201,31 +199,6 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = sapek.6
-			}
-			set_equipment_fraction = 0.9
-			269 = {
-				damage_building = {
-					type = infrastructure
-					damage = 2
-				}
-			}
-			272 = {
-				damage_building = {
-					type = infrastructure
-					damage = 1
-				}
-			}
-			682 = {
-				damage_building = {
-					type = infrastructure
-					damage = 1
-				}
-			}
-			269 = {
-				damage_building = {
-					type = industrial_complex
-					damage = 1
-				}
 			}
 		}
 	}
@@ -250,6 +223,10 @@ focus_tree = {
 		completion_reward = {
 			add_command_power = 20
 			add_political_power = 50
+			add_opinion_modifier = {
+				target = JAS
+				modifier = tsr_bandit_suppresion_opm
+			}
 		}
 	}
 	
@@ -394,20 +371,26 @@ focus_tree = {
 				}
 			}
 			if = { 
-				limit = { NOT = {
-							OR = {
-								has_idea = SAP_army_of_wiewiorki_2
-								has_idea = SAP_army_of_wiewiorki }}}
-					add_ideas = SAP_wkurwione_wiewiory
-					}			
-			else_if = { 
-				limit = { has_idea = SAP_army_of_wiewiorki }
-					remove_ideas = SAP_army_of_wiewiorki
+				limit = { 
+					NOT = {
+						has_idea = SAP_army_of_wiewiorki_2
+						has_idea = SAP_army_of_wiewiorki 
 					}
-			else_if = { 
-				limit = { has_idea = SAP_army_of_wiewiorki_2 }
-					remove_ideas = SAP_army_of_wiewiorki_2
 				}
+				add_ideas = SAP_wkurwione_wiewiory
+			}			
+			else_if = { 
+				limit = { 
+					has_idea = SAP_army_of_wiewiorki 
+				}
+				remove_ideas = SAP_army_of_wiewiorki
+			}
+			else_if = { 
+				limit = { 
+					has_idea = SAP_army_of_wiewiorki_2 
+				}
+				remove_ideas = SAP_army_of_wiewiorki_2
+			}
 			add_power_balance_value = {
 				id = SAP_power_balance
 				value = -0.1
@@ -442,20 +425,26 @@ focus_tree = {
 				}
 			}
 			if = { 
-				limit = { NOT = {
-							OR = {
-								has_idea = SAP_army_of_bartyzel_2
-								has_idea = SAP_army_of_bartyzel }}}
-					add_ideas = SAP_wkurwiony_zakon
-					}				
+				limit = { 
+					NOT = {
+						has_idea = SAP_army_of_bartyzel_2
+						has_idea = SAP_army_of_bartyzel 
+						}
+				}
+				add_ideas = SAP_wkurwiony_zakon
+			}				
 			else_if = { 
-				limit = { has_idea = SAP_army_of_bartyzel }
-					remove_ideas = SAP_army_of_bartyzel
-					}
+				limit = { 
+					has_idea = SAP_army_of_bartyzel 
+				}
+				remove_ideas = SAP_army_of_bartyzel
+			}
 			else_if = { 
-				limit = { has_idea = SAP_army_of_bartyzel_2 }
-					remove_ideas = SAP_army_of_bartyzel_2
-					}
+				limit = { 
+					has_idea = SAP_army_of_bartyzel_2 
+				}
+				remove_ideas = SAP_army_of_bartyzel_2
+			}
 			add_power_balance_value = {
 				id = SAP_power_balance
 				value = 0.1
@@ -488,6 +477,18 @@ focus_tree = {
 				target = KRS
 				ratio = 0.5
 			}
+			add_opinion_modifier = {
+				target = KRS
+				modifier = TUR_aiding_our_enemies
+			}
+			add_opinion_modifier = {
+				target = POG
+				modifier = TUR_aiding_our_enemies
+			}
+			add_opinion_modifier = {
+				target = GOS
+				modifier = TUR_aiding_our_enemies
+			}						
 		}
 	}
 	
@@ -512,8 +513,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = sapek.17
-				}
-
+			}
 		}
 	}
 	
@@ -537,7 +537,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = sapek.8
-				}
+			}
 		}
 	}
 	
@@ -794,6 +794,14 @@ focus_tree = {
 				level = 1
 				instant_build = yes
 			}
+			}
+			custom_effect_tooltip = budget_add_500M
+			add_to_variable = {
+				budget = 600
+			}
+			custom_effect_tooltip = inflation_growth_2
+			add_to_variable = {
+				rate_of_inflation = 0.02
 			}
 		}
 	}
@@ -1595,7 +1603,11 @@ focus_tree = {
 		relative_position_id = SAP_visit_to_melitele
 		prerequisite = { focus = SAP_visit_to_melitele }
 		available = {
-		
+			NOT = { has_completed_focus = SAP_white_rose_crusade }
+			is_power_balance_in_range = {
+			    id = SAP_power_balance
+			    range > SAP_balance_range
+			}
 		}
 		
 		bypass = {
@@ -1607,7 +1619,16 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_power_balance_value = {
+				id = SAP_power_balance
+				value = 0.1
+			}
+			add_mastery = {
+			    amount = 100
+			    folder = land
+			    sub_doctrine = honor_operations
+			}
+			army_experience = 100			
 		}
 	}
 	
@@ -1629,7 +1650,23 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				melee_infantry = {
+					max_strength = 0.1
+				}
+				militia = {
+					forest = {
+						attack = 0.1
+						movement = 0.15
+					}
+				}
+				melee_infantry = {
+					forest = {
+						attack = 0.1
+						movement = 0.15
+					}
+				}				
+			}
 		}
 	}
 		
@@ -1651,7 +1688,23 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				engineer = {
+            	    battalion_mult = {
+            	        category = category_light_infantry
+            	        entrenchment = 0.05
+            	    }
+					max_strength = 0.1
+            	}
+			}
+			add_equipment_bonus = {
+				name = SAP_dwarven_ingenuity
+				bonus = {
+					heavy_artillery_equipment = {
+						reliability = 0.1
+					}
+				}
+			}
 		}
 	}
 	
@@ -1673,7 +1726,23 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+            	logistics_company = {
+            	    battalion_mult = {
+            	        category = category_all_infantry
+            	        reliability = 0.05
+            	    }
+            	    max_strength = 0.1
+            	}
+			}
+			add_equipment_bonus = {
+				name = SAP_gnomish_craftsmanship
+				bonus = {
+					melee_equipment = {
+						reliability = 0.1
+					}
+				}
+			}			
 		}
 	}
 	
@@ -1695,7 +1764,14 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				category_light_infantry = {
+					maximum_speed = 0.1
+				}
+				militia = {
+					max_strength = 0.1
+				}					
+			}
 		}
 	}
 	
@@ -1718,7 +1794,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = minorities_hidden_oppresion
+				add_idea = minorities_multiculturalism
+			}
 		}
 	}
 	
@@ -1728,7 +1807,11 @@ focus_tree = {
 		relative_position_id = SAP_visit_to_melitele
 		prerequisite = { focus = SAP_visit_to_melitele }
 		available = {
-		
+			NOT = { has_completed_focus = SAP_invasion_of_squirrels }
+			is_power_balance_in_range = {
+			    id = SAP_power_balance
+			    range < SAP_balance_range
+			}
 		}
 		
 		bypass = {
@@ -1740,7 +1823,16 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_power_balance_value = {
+				id = SAP_power_balance
+				value = -0.1
+			}
+			add_mastery = {
+			    amount = 100
+			    folder = land
+			    sub_doctrine = honor_operations
+			}
+			army_experience = 100	
 		}
 	}
 	
@@ -1762,7 +1854,16 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				melee_infantry = {
+					max_organisation = 10
+					suppression_factor = 0.1
+				}
+				militia = {
+					max_organisation = 10
+					suppression_factor = 0.1
+				}							
+			}
 		}
 	}
 		
@@ -1784,7 +1885,22 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				engineer = {
+            	    battalion_mult = {
+            	        category = category_light_infantry
+            	        entrenchment = 0.1
+            	    }
+            	}
+			}
+			add_equipment_bonus = {
+				name = SAP_engineers_order
+				bonus = {
+					heavy_artillery_equipment  = {
+						build_cost_ic = -0.1
+					}
+				}
+			}
 		}
 	}
 	
@@ -1806,7 +1922,19 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				melee_infantry = {
+					soft_attack = 0.1
+				}
+			}
+			add_equipment_bonus = {
+				name = SAP_steel_of_faithful
+				bonus = {
+					melee_equipment = {
+						build_cost_ic = -0.1
+					}
+				}
+			}
 		}
 	}
 	
@@ -1828,7 +1956,19 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			add_unit_bonus = {
+				category_ranged_infantry  = {
+					soft_attack = 0.1
+				}
+			}
+			add_equipment_bonus = {
+				name = SAP_cross_in_crossbow
+				bonus = {
+					ranged_equipment = {
+						build_cost_ic = -0.1
+					}
+				}
+			}
 		}
 	}
 	
@@ -1851,7 +1991,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = minorities_hidden_oppresion
+				add_idea = minorities_system_oppresion
+			}
 		}
 	}
 	
