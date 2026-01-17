@@ -465,6 +465,14 @@ regional_conquest_category = {
 			NOT = {
 				original_tag = ATM
 			}
+			NOT = {
+				OR = {
+					has_global_flag = BBW_is_player
+					BBW = {
+						is_ai = no
+					}
+				}
+			}
 		}
 		available = {
 			date > "2037.03.01"
@@ -477,76 +485,244 @@ regional_conquest_category = {
 		cost = 100
 		days_remove = 14
 		remove_effect = {
-			if = {
+			every_country = {
 				limit = {
-					or = {
-						BBW = {
-							is_ai = no
-						}
-						has_global_flag = BBW_is_player
+					NOT = {
+						original_tag = root
+						is_subject_of = ROOT
+					}
+					OR = {
+						is_northwest_unifier = yes
+						original_tag = KSZ
+					}
+					
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
 					}
 				}
-				if = {
-					limit = {
-						is_pomerelia_unifier = yes
-					}
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-								is_subject_of = ROOT
-							}
-							is_warmia_and_masuria_unifier = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-				}
-				else = {
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-								is_subject_of = ROOT
-							}
-							is_greater_lower_silesia_unifier = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-				}
-				
 			}
-			else = {
-				every_country = {
-					limit = {
-						NOT = {
-							original_tag = root
-							is_subject_of = ROOT
-						}
-						OR = {
-							is_northwest_unifier = yes
-							original_tag = KSZ
-						}
-						
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = superregional_war
-						}
-					}
+		}
+	}
+	north_unification_war = {
+		visible = {
+			ROOT = {
+				or = {
+					is_pomerelia_unifier = yes
+					is_warmia_and_masuria_unifier = yes
+				}
+			}
+			has_country_flag = unified_regional
+			has_global_flag = story_unification
+			NOT = {
+				original_tag = ATM
+			}
+			OR = {
+				has_global_flag = BBW_is_player
+				BBW = {
+					is_ai = no
 				}
 			}
 			
+		}
+		available = {
+			date > "2037.03.01"
+			has_war = no
+			
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = root
+						is_subject_of = ROOT
+					}
+					OR = {
+						is_pomerelia_unifier = yes
+						is_warmia_and_masuria_unifier = yes
+						original_tag = KSZ
+					}
+					
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
+					}
+				}
+			}
+		}
+	}
+	southwest_unification_war = {
+		visible = {
+			ROOT = {
+				or = {
+					is_greater_poland_unifier = yes
+					is_greater_lower_silesia_unifier = yes
+				}
+			}
+			has_country_flag = unified_regional
+			has_global_flag = story_unification
+			NOT = {
+				original_tag = ATM
+			}
+			OR = {
+				has_global_flag = BBW_is_player
+				BBW = {
+					is_ai = no
+				}
+			}
+		}
+		available = {
+			date > "2037.03.01"
+			has_war = no
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = root
+						is_subject_of = ROOT
+					}
+					OR = {
+						is_greater_poland_unifier = yes
+						is_greater_lower_silesia_unifier = yes
+						original_tag = KSZ
+					}
+					
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
+					}
+				}
+			}
+		}
+	}
+	kuyavia_podlachia_belt_unification_war = {
+		visible = {
+			ROOT = {
+				or = {
+					and = {
+						is_podlasie_unifier = yes
+						has_country_flag = unified_voivodeship
+					}
+					and = {
+						is_kuyavia_mazovia_unifier = yes
+						has_country_flag = unified_regional
+					}
+				}
+			}
+			has_global_flag = story_unification
+			NOT = {
+				original_tag = ATM
+			}
+			OR = {
+				has_global_flag = BBW_is_player
+				BBW = {
+					is_ai = no
+				}
+			}
+		}
+		available = {
+			date > "2037.03.01"
+			has_war = no
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = root
+						is_subject_of = ROOT
+					}
+					OR = {
+						is_podlasie_unifier = yes
+						is_kuyavia_mazovia_unifier = yes
+					}
+					
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
+					}
+				}
+			}
+		}
+	}
+	warsaw_kielce_unification_war = {
+		visible = {
+			ROOT = {
+				or = {
+					is_capital_district_unifier = yes
+					and = {
+						is_old_polish_basin_unifier = yes
+						has_country_flag = unified_regional
+					}
+				}
+			}
+			has_global_flag = story_unification
+			NOT = {
+				original_tag = ATM
+			}
+			OR = {
+				has_global_flag = BBW_is_player
+				BBW = {
+					is_ai = no
+				}
+			}
+		}
+		available = {
+			date > "2037.03.01"
+			has_war = no
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = root
+						is_subject_of = ROOT
+					}
+					OR = {
+						is_capital_district_unifier = yes
+						is_old_polish_basin_unifier = yes
+					}
+					
+				}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
+					}
+				}
+			}
 		}
 	}
 	northeast_unification_war = {
@@ -561,7 +737,14 @@ regional_conquest_category = {
 					has_country_flag = unified_voivodeship
 				}
 			}
-			
+			NOT = {
+				OR = {
+					has_global_flag = BBW_is_player
+					BBW = {
+						is_ai = no
+					}
+				}
+			}
 			has_global_flag = story_unification
 			NOT = {
 				original_tag = ATM
@@ -578,64 +761,17 @@ regional_conquest_category = {
 		cost = 100
 		days_remove = 14
 		remove_effect = {
-			if = {
+			every_country = {
 				limit = {
-					or = {
-						BBW = {
-							is_ai = no
-						}
-						has_global_flag = BBW_is_player
+					NOT = {
+						original_tag = root
 					}
+					is_northeast_unifier = yes
 				}
-				if = {
-					limit = {
-						is_warmia_and_masuria_unifier = yes
-					}
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-							}
-							is_pomerelia_unifier = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-				}
-				else = {
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-							}
-							is_kuyavia_mazovia_unifier  = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-				}
-			}
-			else = {
-				every_country = {
-					limit = {
-						NOT = {
-							original_tag = root
-						}
-						is_northeast_unifier = yes
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = superregional_war
-						}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
 					}
 				}
 			}
@@ -689,6 +825,14 @@ regional_conquest_category = {
 			NOT = {
 				original_tag = ATM
 			}
+			NOT = {
+				OR = {
+					has_global_flag = BBW_is_player
+					BBW = {
+						is_ai = no
+					}
+				}
+			}
 		}
 		available = {
 			date > "2037.03.01"
@@ -701,64 +845,17 @@ regional_conquest_category = {
 		cost = 100
 		days_remove = 14
 		remove_effect = {
-			if = {
+			every_country = {
 				limit = {
-					or = {
-						BBW = {
-							is_ai = no
-						}
-						has_global_flag = BBW_is_player
+					NOT = {
+						original_tag = root
 					}
+					is_silesia_unifier = yes
 				}
-				if = {
-					limit = {
-						is_greater_lower_silesia_unifier = yes
-					}
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-							}
-							is_greater_poland_unifier = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-				}
-				else = {
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-							}
-							is_lodz_jura_unifier = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-				}
-			}
-			else = {
-				every_country = {
-					limit = {
-						NOT = {
-							original_tag = root
-						}
-						is_silesia_unifier = yes
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = superregional_war
-						}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
 					}
 				}
 			}
@@ -777,6 +874,14 @@ regional_conquest_category = {
 			NOT = {
 				original_tag = ATM
 			}
+			NOT = {
+				OR = {
+					has_global_flag = BBW_is_player
+					BBW = {
+						is_ai = no
+					}
+				}
+			}
 		}
 		available = {
 			date > "2037.03.01"
@@ -789,64 +894,17 @@ regional_conquest_category = {
 		cost = 100
 		days_remove = 14
 		remove_effect = {
-			if = {
+			every_country = {
 				limit = {
-					or = {
-						BBW = {
-							is_ai = no
-						}
-						has_global_flag = BBW_is_player
+					NOT = {
+						original_tag = root
 					}
+					is_capital_region_unifier = yes
 				}
-				if = {
-					limit = {
-						is_capital_district = yes
-					}
-					every_country = {
-						limit = {
-							NOT = {
-								original_tag = root
-							}
-							is_old_polish_basin_unifier = yes
-						}
-						ROOT = {
-							declare_war_on = {
-								target = PREV
-								type = superregional_war
-							}
-						}
-					}
-					else = {
-						every_country = {
-							limit = {
-								NOT = {
-									original_tag = root
-								}
-								is_podlasie_unifier = yes
-							}
-							ROOT = {
-								declare_war_on = {
-									target = PREV
-									type = superregional_war
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				every_country = {
-					limit = {
-						NOT = {
-							original_tag = root
-						}
-						is_capital_region_unifier = yes
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = superregional_war
-						}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
 					}
 				}
 			}
@@ -865,7 +923,7 @@ regional_conquest_category = {
 					original_tag = BBW
 					is_ai = no
 				}
-				
+				has_global_flag = BBW_is_player
 			}
 		}
 		available = {
@@ -879,43 +937,17 @@ regional_conquest_category = {
 		cost = 100
 		days_remove = 14
 		remove_effect = {
-			if = {
+			every_country = {
 				limit = {
-					or = {
-						BBW = {
-							is_ai = no
-						}
-						has_global_flag = BBW_is_player
+					NOT = {
+						original_tag = root
 					}
+					is_central_poland_unifier = yes
 				}
-				every_country = {
-					limit = {
-						NOT = {
-							original_tag = root
-						}
-						is_capital_district = yes
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = superregional_war
-						}
-					}
-				}
-			}
-			else = {
-				every_country = {
-					limit = {
-						NOT = {
-							original_tag = root
-						}
-						is_central_poland_unifier = yes
-					}
-					ROOT = {
-						declare_war_on = {
-							target = PREV
-							type = superregional_war
-						}
+				ROOT = {
+					declare_war_on = {
+						target = PREV
+						type = superregional_war
 					}
 				}
 			}
@@ -954,6 +986,39 @@ regional_conquest_category = {
 			}
 		}
 	}
+
+	strike_at_brotherhood= {
+		visible = {
+			has_country_flag = unified_regional
+			has_global_flag = story_unification
+			is_upper_silesian_unifier = yes
+			OR = {
+				has_global_flag = BBW_is_player
+				BBW = {
+					is_ai = no
+				}
+			}
+		}
+		available = {
+			date > "2037.03.01"
+			has_war = no
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		cost = 100
+		days_remove = 14
+		remove_effect = {
+			
+			declare_war_on = {
+				target = BBW
+				type = superregional_war
+			}
+		}
+	}
+
+
 	declare_war_on_neighbour_decision = {
 		visible = {			
 			OR ={
