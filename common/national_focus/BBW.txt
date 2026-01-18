@@ -5208,7 +5208,11 @@ focus_tree = {
 			add_days_remove = {
 				decision = kop_kurwa_ten_wegiel_small
 				days = 30
-			}									
+			}
+			add_days_remove = {
+				decision = BBW_kop_kurwa_ten_wegiel
+				days = 50
+			}												
 		}
 	}
 
@@ -5351,11 +5355,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			custom_effect_tooltip = {
-				localization_key = unlock_decision_category_explained
-				CATEGORY = BBW_appropration_of_sectors_dec_cat
-				DESC = BBW_appropration_of_sectors_decisions_tt
-			}
+			add_ideas = economy_corporationism
 		}
 	}
 
@@ -5999,7 +5999,26 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel
+				days = 50
+			}
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel2
+				days = 30
+			}
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel3
+				days = 15
+			}
+			add_days_remove = {
+				decision = kop_kurwa_ten_wegiel_small
+				days = 50
+			}
+			add_days_remove = {
+				decision = BBW_kop_kurwa_ten_wegiel
+				days = -100
+			}
 		}
 	}
 
@@ -6047,7 +6066,14 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-
+			custom_effect_tooltip = {
+				localization_key = BBW_ascended_character_trait_swap_tt
+				CHARACTER = BBW_gen_gadomski
+			}
+			swap_ideas = {
+				remove_idea = energy_full_emission
+				add_idea = energy_coal_based
+			}
 		}
 	}
 
@@ -6095,7 +6121,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INNER_CIRCLE FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-
+			add_ideas = economy_authoritarian_capitalism
 		}
 	}
 
@@ -6640,7 +6666,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_government = reactionary
+			has_completed_focus = BBW_future_or_fall
 
 			custom_trigger_tooltip = {
 				tooltip = BBW_local_warming_trigger_tt
@@ -6713,7 +6739,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-
+			add_political_power = 100
+			set_politics = {
+				ruling_party = autocracy
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.3
+			}
 			if = {
 				limit = {
 					OR = {
@@ -6743,7 +6776,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_government = reactionary
+			has_completed_focus = BBW_future_or_fall
 
 			custom_trigger_tooltip = {
 				tooltip = BBW_local_warming_trigger_tt
@@ -6817,9 +6850,20 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 100
-
 			#add_country_leader_trait = BBW_loyal_inner_circle
-
+			add_country_leader_role = {
+				character = BBW_rafal_ziemkiewicz
+				promote_leader = yes
+				country_leader = { 
+					ideology = postpolonism_subtype
+					expire = "1.1.1.1"
+					}
+			}
+			set_politics = {
+				ruling_party = postpolonism
+				long_name = "Brotherhood of Coal - Black Paladins"
+				name = "Bractwo Węgla - Czarni Paladyni"
+			}
 			hidden_effect = {
 				clr_country_flag = BBW_old_order_flag
 			}
@@ -15113,10 +15157,33 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {
-			swap_ideas = {
-				add_idea = economy_criminal
-				remove_idea = economy_militarism
+			if = {
+				limit = {
+					has_idea = economy_militarism
+				}
+				swap_ideas = {
+					remove_idea = economy_militarism
+					add_idea = economy_criminal
+				}
 			}
+			if = {
+				limit = {
+					has_idea = economy_corporationism
+				}
+				swap_ideas = {
+					remove_idea = economy_corporationism
+					add_idea = economy_criminal
+				}
+			}
+			if = {
+				limit = {
+					has_idea = economy_authoritarian_capitalism
+				}
+				swap_ideas = {
+					remove_idea = economy_authoritarian_capitalism
+					add_idea = economy_criminal
+				}
+			}			
 			every_controlled_state = {
 				limit = {
 					NOT = { is_core_of = BBW }
@@ -16755,19 +16822,6 @@ focus_tree = {
 			country_event = {
 			id = belchatow.94
 			}
-			add_country_leader_role = {
-				character = BBW_rafal_ziemkiewicz
-				promote_leader = yes
-				country_leader = { 
-					ideology = postpolonism_subtype
-					expire = "1.1.1.1"
-					}
-			}
-			set_politics = {
-				ruling_party = postpolonism
-				long_name = "Brotherhood of Coal - Black Paladins"
-				name = "Bractwo Węgla - Czarni Paladyni"
-			}
 		}
 	}
 	
@@ -17241,7 +17295,7 @@ focus_tree = {
 			swap_ideas = {
 				add_idea = economy_anarchy
 				remove_idea = economy_criminal
-				}
+			}
 		}
 	}
 
@@ -17625,6 +17679,15 @@ focus_tree = {
 					add_idea = energy_coal_based
 				}				
 			}
+			if = {
+				limit = {
+					has_idea = energy_coal_based
+				}
+				swap_ideas = {
+					remove_idea = energy_coal_based
+					add_idea = energy_sustainable_mix
+				}				
+			}			
 		}
 	}
 
