@@ -1092,13 +1092,15 @@ focus_tree = {
 		id = ZYD_meeting
 		icon = ZYD_meeting
 		available = {
-			has_completed_focus = ZYD_rts_is_a_power
+			NOT = { 
+				is_in_faction_with = WML
+			}
 		}
 		
 		bypass = {
 		}
 		
-		x = 20
+		x = 22
 		y = 0
 		
 		cost = 2
@@ -1141,7 +1143,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -2
+		x = -4
 		y = 1
 		
 		cost = 2
@@ -1149,7 +1151,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = zydzew.11
-				}
+			}
 		}
 	}
 	
@@ -1166,7 +1168,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 2
+		x = 4
 		y = 1
 		
 		cost = 2
@@ -1174,7 +1176,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = zydzew.12
-				}
+			}
 		}
 	}
 	
@@ -1209,9 +1211,9 @@ focus_tree = {
 		prerequisite = { focus = ZYD_seven_miracles }
 		will_lead_to_war_with = BBW
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			has_war = no
+			BBW = { is_neighbor_of = ZYD }
+			LKS = { exists = no }
 		}
 		
 		bypass = {
@@ -1228,9 +1230,9 @@ focus_tree = {
 		
 		completion_reward = {
 			declare_war_on = {
-					target = BBW
-					type = voivodeship_war
-				}
+				target = BBW
+				type = voivodeship_war
+			}
 		}
 	}
 	
@@ -1241,15 +1243,15 @@ focus_tree = {
 		prerequisite = { focus = ZYD_seven_miracles }
 		will_lead_to_war_with = ZHP
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			LKS = { exists = no }
+			has_war = no
+			ZHP = { is_neighbor_of = ZYD }
 		}
 		
 		bypass = {
-			 OR = {
-			NOT = { country_exists = ZHP }
-			ZYD = { has_war_with = ZHP }
+			OR = {
+				NOT = { country_exists = ZHP }
+				ZYD = { has_war_with = ZHP }
 			}
 		}
 		
@@ -1326,6 +1328,9 @@ focus_tree = {
 			NOT = { country_exists = KRS }
 			ZYD = { has_war_with = KRS }
 			}
+			KRS = { is_neighbor_of = ZYD }
+			POG = { is_neighbor_of = ZYD }
+			RUT = { is_neighbor_of = ZYD }
 		}
 		
 		x = -1
@@ -1356,6 +1361,7 @@ focus_tree = {
 		prerequisite = { focus = ZYD_new_synagogues_and_stadiums }
 		will_lead_to_war_with = SAP
 		available = {
+			SAP = { is_neighbor_of = ZYD }
 		}
 		
 		bypass = {
@@ -1413,9 +1419,9 @@ focus_tree = {
 		prerequisite = { focus = ZYD_central_committee_meeting }
 		will_lead_to_war_with = BBW
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			LKS = { exists = no }
+			has_war = no
+			BBW = { is_neighbor_of = ZYD }
 		}
 		
 		bypass = {
@@ -1445,9 +1451,9 @@ focus_tree = {
 		prerequisite = { focus = ZYD_central_committee_meeting }
 		will_lead_to_war_with = ZHP
 		available = {
-			NOT = {
-			has_war = yes
-			}
+			LKS = { exists = no }
+			has_war = no
+			ZHP = { is_neighbor_of = ZYD }
 		}
 		
 		bypass = {
@@ -1524,10 +1530,15 @@ focus_tree = {
 		will_lead_to_war_with = KRS
 		available = {
 			NOT = { has_war_with = KRS }
+			OR = {
+				KRS = { is_neighbor_of = ZYD }
+				POG = { is_neighbor_of = ZYD }
+				RUT = { is_neighbor_of = ZYD }
+			}
 		}
 		
 		bypass = {
-				  OR = {
+			OR = {
 			NOT = { country_exists = KRS }
 			ZYD = { has_war_with = KRS}
 			}
