@@ -2040,7 +2040,7 @@ country_event = {
 	}
 }
 
-country_event = {
+country_event = { #kwestia wolborza
 	id = WML_dialogue.8
 	title = WML_dialogue.8.t
 	desc = WML_dialogue.8.desc
@@ -2052,36 +2052,16 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					OR = {
-						NOT = {
-							has_variable = yearOfLastCase
-						}
-						check_variable = {
-							yearOfLastCase < year
-						}
+					not = {
+						has_country_flag = WML_dialogue_9_event_triggered
 					}
-					
 				}
-				set_variable = {
-					caseNo = 1
-				}
-			}
-			else = {
-				add_to_variable = {
-					caseNo = 1
+				country_event = {
+					id = WML_dialogue.9
+					days = 30
 				}
 			}
-			set_variable = {
-				plaintiff = LKS
-			}
-			set_variable = {
-				defendant = ZYD
-			}
-
-			# country_event = {
-			# 	id = WML_dialogue.9
-			# 	days = 30
-			# }
+			set_country_flag = WML_dialogue_9_event_triggered
 		}			
 	}
 		
@@ -2091,18 +2071,12 @@ country_event = {
 		ai_chance = {
 			base = 0
 		}
-		set_variable = {
-			yearOfLastCase = year
-		}
 
 	}
 	option = {
 		name = WML_dialogue.8.b # odsunięcie katastrofy w czasie
 		ai_chance = {
 			base = 0
-		}
-		set_variable = {
-			yearOfLastCase = year
 		}
 		hidden_effect = {
 			country_event = {
@@ -2117,10 +2091,7 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
-		set_variable = {
-			yearOfLastCase = year
-		}
-		ZYD = {
+		LKS = {
 			leave_faction = yes
 		}
 		start_border_war = {
@@ -2128,7 +2099,7 @@ country_event = {
 			attacker = { 
 				state = 683
 				num_provinces = 3
-				# on_win = todo:event z przekazaniem 
+				on_win = WML_border_skirmishes.2
 			}
 			defender = {
 				state = 328
@@ -2143,8 +2114,234 @@ country_event = {
 	}
 }
 
+
 country_event = {
-	id = WML_border_skirmishes.1 #kwestia wolborza
+	id = WML_dialogue.9
+	title = WML_dialogue.9.t
+	desc = WML_dialogue.9.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.9"
+		hidden_effect = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = WML_dialogue_last_event_triggered
+					}
+				}
+				random_list = {
+					1 = {		
+						country_event = { #zhp atakuje bbw
+							id = WML_dialogue.10
+							days = 30
+						}
+					}
+					1 = {
+						country_event = { #bbw atakuje zhp
+							id = WML_dialogue.11
+							days = 30
+						}
+					}
+				}
+			}
+			
+			set_country_flag = WML_dialogue_last_event_triggered
+		}			
+	}
+		
+	option = {
+		name = WML_dialogue.9.a #sprzedaż
+		#todo: efekty budżetowe
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = WML_dialogue.9.b # odsunięcie katastrofy w czasie
+		ai_chance = {
+			base = 0
+		}
+		hidden_effect = {
+			country_event = {
+				id = WML_dialogue.9
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = WML_dialogue.9.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		SAP = { #overlord łowicza
+			leave_faction = yes
+		}
+		start_border_war = {
+			change_state_after_war = no
+			attacker = { 
+				state = 1128
+				num_provinces = 2
+				on_win = WML_border_skirmishes.2
+			}
+			defender = {
+				state = 682
+				num_provinces = 3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = WML_border_skirmishes.1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.10
+	title = WML_dialogue.10.t
+	desc = WML_dialogue.10.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.9"
+					
+	}
+		
+	option = {
+		name = WML_dialogue.10.a #sprzedaż
+		#todo: efekty budżetowe
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = WML_dialogue.10.b # odsunięcie katastrofy w czasie
+		ai_chance = {
+			base = 0
+		}
+		hidden_effect = {
+			random_list = {
+					1 = {		
+						country_event = { #zhp atakuje bbw
+							id = WML_dialogue.10
+							days = 30
+						}
+					}
+					1 = {
+						country_event = { #bbw atakuje zhp
+							id = WML_dialogue.11
+							days = 30
+						}
+					}
+				}
+		}
+	}
+	option = {
+		name = WML_dialogue.10.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		ZHP = { 
+			leave_faction = yes
+		}
+		start_border_war = {
+			change_state_after_war = no
+			attacker = { 
+				state = 396
+				num_provinces = 2
+				on_win = WML_border_skirmishes.2
+			}
+			defender = {
+				state = 903
+				num_provinces = 3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = WML_border_skirmishes.1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = WML_dialogue.11
+	title = WML_dialogue.11.t
+	desc = WML_dialogue.11.desc
+
+
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.9"
+					
+	}
+		
+	option = {
+		name = WML_dialogue.11.a #sprzedaż
+		#todo: efekty budżetowe
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = WML_dialogue.11.b # odsunięcie katastrofy w czasie
+		ai_chance = {
+			base = 0
+		}
+		hidden_effect = {
+			random_list = {
+					1 = {		
+						country_event = { #zhp atakuje bbw
+							id = WML_dialogue.10
+							days = 30
+						}
+					}
+					1 = {
+						country_event = { #bbw atakuje zhp
+							id = WML_dialogue.11
+							days = 30
+						}
+					}
+				}
+		}
+	}
+	option = {
+		name = WML_dialogue.11.c # Hołownia larpuje piłata
+		#todo: -5 dialogu dla obu stron
+		ai_chance = {
+			base = 1
+		}
+		BBW = { 
+			leave_faction = yes
+		}
+		start_border_war = {
+			change_state_after_war = no
+			attacker = { 
+				state = 903
+				num_provinces = 3
+				on_win = WML_border_skirmishes.2
+			}
+			defender = {
+				state = 396
+				num_provinces = 2
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = WML_border_skirmishes.1
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = WML_border_skirmishes.1 #konflikt graniczny
 	title = WML_border_skirmishes.1.t
 	desc = WML_border_skirmishes.1.desc
 	is_triggered_only = yes
@@ -2178,6 +2375,69 @@ country_event = {
 }
 
 country_event = {
+	id = WML_border_skirmishes.2 #konflikt graniczny - zwycięstwo agresora z jego punktu
+	title = WML_border_skirmishes.2.t
+	desc = WML_border_skirmishes.2.desc
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			WML = {
+				country_event = WML_border_skirmishes.3
+				if = {
+					limit = {
+						ROOT = {
+							tag = KAS
+						}
+					}
+					add_to_faction = SAP #overlord łowicza
+				}
+				else = {
+					add_to_faction = ROOT
+				}
+			}
+		}
+	}
+	option = {
+		name = WML_border_skirmishes.2.a #heh
+		if = {
+			limit = {
+				tag = LKS
+			}
+			328 = {
+				transfer_state_to = ROOT
+			}
+			
+		}
+		if = {
+			limit = {
+				tag = KAS
+			}
+			682 = {
+				transfer_state_to = ROOT
+			}
+		}
+		if = {
+			limit = {
+				tag = ZHP
+			}
+			903 = {
+				set_demilitarized_zone = yes #nie oddadzą przecież elektrowni lmao
+			}
+		}
+		if = {
+			limit = {
+				tag = BBW
+			}
+			396 = {
+				transfer_state_to = ROOT
+			}
+		}
+	}
+}
+
+
+
+country_event = {
 	id = WML_monologue.1
 	title = WML_monologue.1.t
 	desc = WML_monologue.1.desc
@@ -2186,13 +2446,14 @@ country_event = {
 		name = WML_monologue.1.a
 		dismantle_faction = yes
 		complete_national_focus = WML_or_will_it
+		set_global_flag = dialogue_collapsed
 		every_country = {
 			limit = { NOT = { is_ai = yes } }
 			news_event = { id = WML_news.1 }
 		}
 	}
-
 }
+
 	#####NEWS EVENTY DLA HOŁOWNI####
 
 news_event = {			#rozpierdolenie dialogu
