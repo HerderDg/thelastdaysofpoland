@@ -804,33 +804,41 @@ resource_decisions = {
 		}
 	}
 
-	BBW_kop_kurwa_ten_wegiel = {
+	kop_kurwa_ten_wegiel_BBW = {
 		icon = GFX_decision_generic_pickandhammer
 		allowed = {
 			OR = {
 				original_tag = BBW
 				original_tag = SBW
+				original_tag = LBW
 			}
 		}
 		state_target = yes		
-		target_array = brotherhood_mines
-
+		targets = { 598 782 784 791 800 927 585 726 727 }
+    
 		target_trigger = {
 			FROM = {
-				AND = {
+				OR = { 
 					is_controlled_by = ROOT
-					meta_trigger = {	
-						text = {
-							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
-						}
-						STATE_ID = "[?THIS.GetID]"
-					}								
+					OWNER = { is_subject_of = BBW }
 				}
 			}
 		}
-
+    
+		available = {
+			meta_trigger = {	
+				text = {
+					[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+				}
+				STATE_ID = "[?THIS.GetID]"
+			}
+		}
+    
 		target_root_trigger = {
-			has_country_flag = unified_voivodeship
+			AND = {
+				has_country_flag = unified_voivodeship
+				has_completed_focus = BBW_tried_and_tested_method
+			}
 		}
 
 		cost = 100
@@ -855,7 +863,179 @@ resource_decisions = {
 				BBW_add_mine_extraction = yes
 				remove_building = {
 					type = infrastructure
-					level = 3
+					level = 2
+				}
+				set_temp_variable = {to_resettle = -0.5}
+				multiply_temp_variable = {to_resettle = 1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							NOT = {
+								has_state_flag = coal_deposit_found
+							}
+							OR = {
+								has_state_category = city
+								has_state_category = large_city
+								has_state_category = metropolis
+							}
+						}
+						multiply_temp_variable = {to_resettle = -1}
+						multiply_temp_variable = {to_resettle = 0.7}
+						add_manpower = to_resettle
+					}
+					add_stability = -0.05			
+				}
+			}
+		}
+	}	
+
+	kop_kurwa_ten_wegiel_slask_BBW = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			OR = {
+				original_tag = BBW
+				original_tag = SBW
+				original_tag = LBW
+			}
+		}
+		state_target = yes		
+		targets = { 464 474 475 479 486 496 501 510 763 767 768 }
+
+		available = {
+			FROM = {
+				AND = {
+					OR = { 
+						is_controlled_by = ROOT
+						OWNER = { is_subject_of = BBW }
+					}
+					meta_trigger = {	
+						text = {
+							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+						}
+						STATE_ID = "[?THIS.GetID]"
+					}								
+				}
+			}
+		}
+
+		target_root_trigger = {
+			AND = {
+			has_country_flag = unified_voivodeship
+			has_completed_focus = BBW_grey_clouds_and_steam
+			}
+		}
+
+		cost = 100
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 6
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine"
+			FROM = {
+				set_state_flag = BBW_mines_build
+				BBW_add_mine_extraction = yes
+				remove_building = {
+					type = infrastructure
+					level = 2
+				}
+				set_temp_variable = {to_resettle = -0.5}
+				multiply_temp_variable = {to_resettle = 1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							NOT = {
+								has_state_flag = coal_deposit_found
+							}
+							OR = {
+								has_state_category = city
+								has_state_category = large_city
+								has_state_category = metropolis
+							}
+						}
+						multiply_temp_variable = {to_resettle = -1}
+						multiply_temp_variable = {to_resettle = 0.7}
+						add_manpower = to_resettle
+					}
+					add_stability = -0.05			
+				}
+			}
+		}
+	}
+	
+	kop_kurwa_ten_wegiel_zaglebie_BBW = {
+		icon = GFX_decision_generic_pickandhammer
+		allowed = {
+			OR = {
+				original_tag = BBW
+				original_tag = SBW
+				original_tag = LBW
+			}
+		}
+		state_target = yes		
+		targets = { 453 460 481 589 798 732 }
+
+		available = {
+			FROM = {
+				AND = {
+					OR = { 
+						is_controlled_by = ROOT
+						OWNER = { is_subject_of = BBW }
+					}
+					meta_trigger = {	
+						text = {
+							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] > 0 } }
+						}
+						STATE_ID = "[?THIS.GetID]"
+					}								
+				}
+			}
+		}
+
+		target_root_trigger = {
+			AND = {
+				has_country_flag = unified_voivodeship
+				has_completed_focus = BBW_basin_restored
+			}
+		}
+
+		cost = 100
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = -1
+				surrender_progress > 0.25
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 180
+		modifier = {
+			civilian_factory_use = 6
+		}
+		remove_effect  = {
+			log = "[GetDateText]: [ROOT.GetName] builds a mine"
+			FROM = {
+				set_state_flag = BBW_mines_build
+				BBW_add_mine_extraction = yes
+				remove_building = {
+					type = infrastructure
+					level = 2
 				}
 				set_temp_variable = {to_resettle = -0.5}
 				multiply_temp_variable = {to_resettle = 1000}
