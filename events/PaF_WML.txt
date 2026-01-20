@@ -3143,7 +3143,7 @@ country_event = {
 					tag = var:dialogue_sided_with
 				}
 			}
-			#country_event = WML_border_skirmishes.6
+			country_event = WML_border_skirmishes.6
 		}
 		add_manpower = -500
 		subtract_from_variable = {
@@ -3179,7 +3179,7 @@ country_event = {
 }
 
 country_event = {
-	id = WML_border_skirmishes.6
+	id = WML_border_skirmishes.6 #prośba o wsparcie
 	title = WML_border_skirmishes.6.t
 	desc = WML_border_skirmishes.6.desc
 	is_triggered_only = yes
@@ -3191,7 +3191,7 @@ country_event = {
 				factor = 6
 				if = {
 					limit = {
-						WML.dialogue_sided_with = {
+						var:WML.dialogue_sided_with = {
 							tag = KRS
 						}
 					}
@@ -3204,7 +3204,7 @@ country_event = {
 		}
 		if = {
 			limit = {
-				WML.dialogue_sided_with = {
+				var:WML.dialogue_sided_with = {
 					tag = KRS
 				}
 			}
@@ -3225,6 +3225,142 @@ country_event = {
 			base = 2
 		}
 		name = WML_border_skirmishes.6.b
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.7 #ultimatum o wypuszczenie podbitego watażki
+	title = WML_border_skirmishes.7.t
+	desc = WML_border_skirmishes.7.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.7.a #tak
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 1
+		}
+		name = WML_border_skirmishes.7.b #tak, ALE
+	}
+	option = {
+		ai_chance = {
+			base = 1
+		}
+		name = WML_border_skirmishes.7.c #nie (AHHAHAHA)
+		hidden_effect = {
+			WML = {
+				set_variable = {
+					renegade = ROOT
+				}
+				country_event = WML_border_skirmishes.8
+			}
+		}
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.8 #pacyfikacja watażki
+	title = WML_border_skirmishes.8.t
+	desc = WML_border_skirmishes.8.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.8.a #ok, let's go
+		declare_war_on = {
+			target = renegade
+			type = dialogue_breakdown
+		}
+		ai_chance = {
+			base = 1
+		}
+		every_country = {
+			limit = {
+				is_in_faction_with = ROOT
+			}
+			country_event = WML_border_skirmishes.9
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 1
+		}
+		name = WML_border_skirmishes.8.b #to szymoniec
+		country_event = {
+			id = WML_monologue.1
+			DAYS = 7
+		}
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.9 #wezwanie do pacyfikacji watażki
+	title = WML_border_skirmishes.9.t
+	desc = WML_border_skirmishes.9.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.9.a #ok, let's go
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 3 
+				is_our_dialogue_between_50_and_75 = yes
+			}
+		}
+		if = {
+			limit = {
+				var:WML.renegade = {
+					tag = LKS
+				}
+			}
+			add_to_war = {
+				targeted_alliance = WML
+				enemy = LKS #add to war nie przyjmuje zmiennych
+			}
+		}
+		else_if = {
+			limit = {
+				var:WML.renegade = {
+					tag = KAR
+				}
+			}
+			add_to_war = {
+				targeted_alliance = WML
+				enemy = KAR #add to war nie przyjmuje zmiennych
+			}
+		}
+		else_if = {
+			limit = {
+				var:WML.renegade = {
+					tag = BBW
+				}
+			}
+			add_to_war = {
+				targeted_alliance = WML
+				enemy = BBW #add to war nie przyjmuje zmiennych
+			}
+		}
+		else = {
+			add_to_war = {
+				targeted_alliance = WML
+				enemy = ZHP #add to war nie przyjmuje zmiennych
+			}
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 3
+				is_our_dialogue_less_than_25 = yes
+			}
+			modifier = {
+				factor = 0
+				is_our_dialogue_at_least_75 = yes
+			}
+		}
+		name = WML_border_skirmishes.9.b #nie
 	}
 }
 
