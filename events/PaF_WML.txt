@@ -3122,8 +3122,109 @@ country_event = {
 					target = ZYD
 					type = dialogue_breakdown
 				}
+				set_country_flag = is_dialogue_breaker
 			}
 		}
+		country_event = WML_border_skirmishes.5
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.5 #konflikt graniczny - a więc wojna
+	title = WML_border_skirmishes.5.t
+	desc = WML_border_skirmishes.5.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.5.a #prosimy wszystkich o wsparcie
+		every_country = {
+			limit = {
+				is_in_faction_with = ROOT
+				NOT = {
+					tag = var:dialogue_sided_with
+				}
+			}
+			#country_event = WML_border_skirmishes.6
+		}
+		add_manpower = -500
+		subtract_from_variable = {
+			budget = 1.5
+		}
+		if = {
+			limit = {
+				var:dialogue_sided_with = {
+					tag = KRS
+				}
+			}
+			POG = {
+				add_manpower = 500
+				add_equipment_to_stockpile = {
+					amount = 750
+					type = ranged_equipment_5
+					producer = GER
+				}
+			}
+		}
+		else = {
+			var:dialogue_sided_with = {
+				add_manpower = 500
+				add_equipment_to_stockpile = {
+					amount = 750
+					type = ranged_equipment_5
+					producer = GER
+				}
+			}
+		}
+		custom_effect_tooltip = "The weapons are paid by [ROOT.GetName] for 1.5 mln zloty"
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.6
+	title = WML_border_skirmishes.6.t
+	desc = WML_border_skirmishes.6.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.6.a
+		ai_chance = {
+			base = 3
+			modifier = {
+				factor = 6
+				if = {
+					limit = {
+						WML.dialogue_sided_with = {
+							tag = KRS
+						}
+					}
+					is_neighbor_of = POG
+				}
+				else = {
+					is_neighbor_of = WML.dialogue_sided_with
+				}
+			}
+		}
+		if = {
+			limit = {
+				WML.dialogue_sided_with = {
+					tag = KRS
+				}
+			}
+			send_equipment_fraction = {
+				target = POG
+				value = 0.1
+			}
+		}
+		else = {
+			send_equipment_fraction = {
+				target = WML.dialogue_sided_with
+				value = 0.1
+			}
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 2
+		}
+		name = WML_border_skirmishes.6.b
 	}
 }
 
