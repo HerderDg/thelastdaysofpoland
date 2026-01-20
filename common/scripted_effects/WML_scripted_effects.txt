@@ -59,22 +59,218 @@ WML_peace_enforcing = {
 WML_clamp_dialogue_vars = {
 	clamp_variable = {
 		var = dialogue_BBW
+		min = 0
 		max = 100
 	}
 	clamp_variable = {
 		var = dialogue_SAP
+		min = 0
 		max = 100
 	}
 	clamp_variable = {
 		var = dialogue_ZHP
+		min = 0
 		max = 100
 	}
 	clamp_variable = {
 		var = dialogue_ZYD
+		min = 0 
 		max = 100
 	}
 	clamp_variable = {
 		var = dialogue_KRS
+		min = 0
 		max = 100
 	}
+}
+
+WML_calculate_action_cost_ZYD = {
+	if = {
+		limit = {
+			check_variable = {
+				dialogue_ZYD < 25
+			}
+		}
+		set_variable = {
+			action_cost = 20
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_ZYD < 50
+			}
+		}
+		set_variable = {
+			action_cost = 15
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_ZYD < 75
+			}
+		}
+		set_variable = {
+			action_cost = 10
+		}
+	}
+	else = {
+		set_variable = {
+			action_cost = 5
+		}
+	}
+	if = {
+		limit = {
+			has_variable = dialogue_ZYD_multiplier
+		}
+		multiply_variable = {
+			action_cost = dialogue_ZYD_multiplier
+		}
+	}
+	log = "Action cost: [?var:action_cost]"
+}
+
+WML_calculate_action_cost_KRS = {
+	if = {
+		limit = {
+			check_variable = {
+				dialogue_KRS < 25
+			}
+		}
+		set_variable = {
+			action_cost = 20
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_KRS < 50
+			}
+		}
+		set_variable = {
+			action_cost = 15
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_KRS < 75
+			}
+		}
+		set_variable = {
+			action_cost = 10
+		}
+	}
+	else = {
+		set_variable = {
+			action_cost = 5
+		}
+	}
+	if = {
+		limit = {
+			has_variable = dialogue_KRS_multiplier
+		}
+		multiply_variable = {
+			action_cost = dialogue_KRS_multiplier
+		}
+	}
+	multiply_variable = {
+		action_cost = 0.5 #gdy nie dotyczy bezpośrednio podmiotu Dialogu
+	}
+	log = "Action cost: [?var:action_cost]"
+}
+
+WML_calculate_action_cost_ZHP = {
+	if = {
+		limit = {
+			check_variable = {
+				dialogue_ZHP < 25
+			}
+		}
+		set_variable = {
+			action_cost = 20
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_ZHP < 50
+			}
+		}
+		set_variable = {
+			action_cost = 15
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_ZHP < 75
+			}
+		}
+		set_variable = {
+			action_cost = 10
+		}
+	}
+	else = {
+		set_variable = {
+			action_cost = 5
+		}
+	}
+	if = {
+		limit = {
+			has_variable = dialogue_ZHP_multiplier
+		}
+		multiply_variable = {
+			action_cost = dialogue_ZHP_multiplier
+		}
+	}
+	log = "Action cost: [?var:action_cost]"
+}
+
+WML_calculate_action_cost_BBW = {
+	if = {
+		limit = {
+			check_variable = {
+				dialogue_BBW < 25
+			}
+		}
+		set_variable = {
+			action_cost = 20
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_BBW < 50
+			}
+		}
+		set_variable = {
+			action_cost = 15
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				dialogue_BBW < 75
+			}
+		}
+		set_variable = {
+			action_cost = 10
+		}
+	}
+	else = {
+		set_variable = {
+			action_cost = 5
+		}
+	}
+	if = {
+		limit = {
+			has_variable = dialogue_BBW_multiplier
+		}
+		multiply_variable = {
+			action_cost = dialogue_BBW_multiplier
+		}
+	}
+	log = "Action cost: [?var:action_cost]"
 }

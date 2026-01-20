@@ -2058,7 +2058,10 @@ country_event = {
 		
 	option = {
 		name = WML_dialogue.6.a # pozywający wygrywa
-		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		add_to_variable = {
+			dialogue_KRS = 5
+		}
+		custom_effect_tooltip = WML_krs_dialogue_buff_5
 		ai_chance = {
 			base = 0
 		}
@@ -2069,7 +2072,10 @@ country_event = {
 	}
 	option = {
 		name = WML_dialogue.6.b # pozywany wygrywa
-		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		subtract_from_variable = {
+			dialogue_KRS = 5
+		}
+		custom_effect_tooltip = WML_krs_dialogue_nerf_5
 		ai_chance = {
 			base = 0
 		}
@@ -2079,7 +2085,10 @@ country_event = {
 	}
 	option = {
 		name = WML_dialogue.6.c # Hołownia larpuje piłata
-		#todo: -5 dialogu dla obu stron
+		subtract_from_variable = {
+			dialogue_KRS = 2.5
+		}
+		custom_effect_tooltip = WML_krs_dialogue_nerf_2_5
 		ai_chance = {
 			base = 1
 		}
@@ -2137,6 +2146,10 @@ country_event = {
 	option = {
 		name = WML_dialogue.7.a # pozywający wygrywa
 		#todo: +5 dialogu wobec pozywającego, -5 wobec pozwanego
+		subtract_from_variable = {
+			dialogue_KRS = 5
+		}
+		custom_effect_tooltip = WML_krs_dialogue_nerf_5
 		ai_chance = {
 			base = 0
 		}
@@ -2148,6 +2161,10 @@ country_event = {
 	option = {
 		name = WML_dialogue.7.b # pozywany wygrywa
 		#todo: +5 dialogu wobec pozwanego, -5 wobec pozywającego
+		add_to_variable = {
+			dialogue_KRS = 5
+		}
+		custom_effect_tooltip = WML_krs_dialogue_buff_5
 		ai_chance = {
 			base = 0
 		}
@@ -2157,7 +2174,10 @@ country_event = {
 	}
 	option = {
 		name = WML_dialogue.7.c # Hołownia larpuje piłata
-		#todo: -5 dialogu dla obu stron
+		subtract_from_variable = {
+			dialogue_KRS = 2.5
+		}
+		custom_effect_tooltip = WML_krs_dialogue_nerf_2_5
 		ai_chance = {
 			base = 1
 		}
@@ -2189,18 +2209,12 @@ country_event = { #kwestia wolborza
 				}
 			}
 			set_country_flag = WML_dialogue_9_event_triggered
-		}
-		set_variable = {
-			action_cost = -1
-		}
-		multiply_variable = {
-			action_cost = dialogue_to_add
+			WML_calculate_action_cost_ZYD = yes
 		}
 	}
 		
 	option = {
 		name = WML_dialogue.8.a #sprzedaż
-		#todo: efekty budżetowe
 		trigger = {
 			check_variable = {
 				compare = greater_than_or_equals
@@ -2214,6 +2228,12 @@ country_event = { #kwestia wolborza
 		328 = {
 			transfer_state_to = LKS
 		}
+		ZYD = {
+
+		}
+		LKS = {
+			
+		}
 		subtract_from_variable = {
 			dialogue_ZYD = 20
 		}
@@ -2222,31 +2242,33 @@ country_event = { #kwestia wolborza
 	option = {
 		name = WML_dialogue.8.b # odsunięcie katastrofy w czasie
 		trigger = {
-			if = {
-				limit = {
-					not = {
-						has_variable = dialogue_ZYD_multiplier
+			OR = {
+				is_ai = yes
+				if = {
+					limit = {
+						not = {
+							has_variable = dialogue_ZYD_multiplier
+						}
+					}
+					check_variable = {
+						compare = greater_than_or_equals
+						value = 20
+						var = dialogue_ZYD
 					}
 				}
-				check_variable = {
-					compare = greater_than_or_equals
-					value = 20
-					var = dialogue_ZYD
+				else = {	
+					check_variable = {
+						compare = greater_than_or_equals
+						value = action_cost
+						var = dialogue_ZYD
+					}
 				}
-			}
-			else = {
-				
-				check_variable = {
-					compare = greater_than_or_equals
-					value = action_cost
-					var = dialogue_ZYD
-				}
-			}
-				
+			}		
 		}
 		ai_chance = {
 			base = 1
 		}
+		
 		custom_effect_tooltip = WML_zyd_dialogue_nerf_var
 		if = {
 			limit = {
@@ -2254,30 +2276,17 @@ country_event = { #kwestia wolborza
 					dialogue_ZYD < 25
 				}
 			}
-			set_variable = {
-				dialogue_to_add = -20
-			}
 			if = {
 				limit = {
 					not = {
 						has_variable = dialogue_ZYD_multiplier
 					}
 				}
-				add_to_variable = {
-					dialogue_ZYD = dialogue_to_add
-				}
-				
 				set_variable = {
 					dialogue_ZYD_multiplier = 3
 				}
 			}
 			else = {
-				multiply_variable = {
-					dialogue_to_add = dialogue_ZYD_multiplier
-				}
-				add_to_variable = {
-					dialogue_ZYD = dialogue_to_add
-				}
 				add_to_variable = {
 					dialogue_ZYD_multiplier = 2
 				}
@@ -2290,17 +2299,11 @@ country_event = { #kwestia wolborza
 					dialogue_ZYD < 50
 				}
 			}
-			set_variable = {
-				dialogue_to_add = -15
-			}
 			if = {
 				limit = {
 					not = {
 						has_variable = dialogue_ZYD_multiplier
 					}
-				}
-				add_to_variable = {
-					dialogue_ZYD = dialogue_to_add
 				}
 				
 				set_variable = {
@@ -2312,51 +2315,13 @@ country_event = { #kwestia wolborza
 					dialogue_to_add = dialogue_ZYD_multiplier
 				}
 				add_to_variable = {
-					dialogue_ZYD = dialogue_to_add
-				}
-				add_to_variable = {
 					dialogue_ZYD_multiplier = 1
 				}
 			}
-			
 			custom_effect_tooltip = dialogue_multiplier_plus_1
 		}
-		else_if = {
-			limit = {
-				check_variable = {
-					dialogue_ZYD < 75
-				}
-			}
-			set_variable = {
-				dialogue_to_add = -10
-			}
-			if = {
-				limit = {
-					has_variable = dialogue_ZYD_multiplier
-				}
-				multiply_variable = {
-					dialogue_to_add = dialogue_ZYD_multiplier
-				}
-			}
-			add_to_variable = {
-				dialogue_ZYD = dialogue_to_add
-			}
-		}
-		else = {
-			set_variable = {
-				dialogue_to_add = -5
-			}
-			if = {
-				limit = {
-					has_variable = dialogue_ZYD_multiplier
-				}
-				multiply_variable = {
-					dialogue_to_add = dialogue_ZYD_multiplier
-				}
-			}
-			add_to_variable = {
-				dialogue_ZYD = dialogue_to_add
-			}
+		subtract_from_variable = {
+			dialogue_ZYD = action_cost
 		}
 		WML_clamp_dialogue_vars = yes
 		hidden_effect = {
@@ -2368,7 +2333,6 @@ country_event = { #kwestia wolborza
 	}
 	option = {
 		name = WML_dialogue.8.c # Hołownia larpuje piłata
-		#todo: -5 dialogu dla obu stron
 		ai_chance = {
 			base = 0
 		}
@@ -2427,23 +2391,115 @@ country_event = {
 					}
 				}
 			}
-			
+			WML_calculate_action_cost_KRS = yes
 			set_country_flag = WML_dialogue_last_event_triggered
 		}			
 	}
 		
 	option = {
 		name = WML_dialogue.9.a #sprzedaż
-		#todo: efekty budżetowe
+		trigger = {
+			check_variable = {
+				compare = greater_than_or_equals
+				value = 10
+				var = dialogue_KRS
+			}
+		}
 		ai_chance = {
 			base = 0
 		}
+		682 = {
+			transfer_state_to = KAR
+		}
+		subtract_from_variable = {
+			dialogue_KRS = 10
+		}
+		custom_effect_tooltip = WML_krs_dialogue_nerf_10
 	}
 	option = {
 		name = WML_dialogue.9.b # odsunięcie katastrofy w czasie
+		trigger = {
+			OR = {
+				is_ai = yes
+				if = {
+					limit = {
+						not = {
+							has_variable = dialogue_KRS_multiplier
+						}
+					}
+					check_variable = {
+						compare = greater_than_or_equals
+						value = 10
+						var = dialogue_KRS
+					}
+				}
+				else = {	
+					check_variable = {
+						compare = greater_than_or_equals
+						value = action_cost
+						var = dialogue_KRS
+					}
+				}
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
+		custom_effect_tooltip = WML_krs_dialogue_nerf_var
+		if = {
+			limit = {
+				check_variable = {
+					dialogue_KRS < 25
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_KRS_multiplier
+					}
+				}
+				set_variable = {
+					dialogue_KRS_multiplier = 3
+				}
+			}
+			else = {
+				add_to_variable = {
+					dialogue_KRS_multiplier = 2
+				}
+			}
+			custom_effect_tooltip = dialogue_multiplier_plus_2
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					dialogue_KRS < 50
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_KRS_multiplier
+					}
+				}
+				
+				set_variable = {
+					dialogue_KRS_multiplier = 2
+				}
+			}
+			else = {
+				multiply_variable = {
+					dialogue_to_add = dialogue_KRS_multiplier
+				}
+				add_to_variable = {
+					dialogue_KRS_multiplier = 1
+				}
+			}
+			custom_effect_tooltip = dialogue_multiplier_plus_1
+		}
+		subtract_from_variable = {
+			dialogue_KRS = action_cost
+		}
+		log = "[?var:dialogue_KRS]"
 		hidden_effect = {
 			country_event = {
 				id = WML_dialogue.9
@@ -2453,7 +2509,6 @@ country_event = {
 	}
 	option = {
 		name = WML_dialogue.9.c # Hołownia larpuje piłata
-		#todo: -5 dialogu dla obu stron
 		ai_chance = {
 			base = 0
 		}
@@ -2489,20 +2544,107 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.9"
-					
+		WML_calculate_action_cost_BBW = yes			
 	}
 		
 	option = {
 		name = WML_dialogue.10.a #sprzedaż
 		#todo: efekty budżetowe
+		#ZA CHUJ bractwo nie sprzeda elektrowni xD
+		trigger = {
+			check_variable = {
+				compare = greater_than_or_equals
+				value = 20
+				var = dialogue_BBW
+			}
+		}
 		ai_chance = {
 			base = 0
 		}
+		subtract_from_variable = {
+			dialogue_BBW = 20
+		}
+		custom_effect_tooltip = WML_bbw_dialogue_nerf_20
 	}
 	option = {
 		name = WML_dialogue.10.b # odsunięcie katastrofy w czasie
 		ai_chance = {
 			base = 0
+		}
+		trigger = {
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_BBW_multiplier
+					}
+				}
+				check_variable = {
+					compare = greater_than_or_equals
+					value = 20
+					var = dialogue_BBW
+				}
+			}
+			else = {	
+				check_variable = {
+					compare = greater_than_or_equals
+					value = action_cost
+					var = dialogue_BBW
+				}
+			}
+		}
+		custom_effect_tooltip = WML_bbw_dialogue_nerf_var
+		if = {
+			limit = {
+				check_variable = {
+					dialogue_BBW < 25
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_BBW_multiplier
+					}
+				}
+				set_variable = {
+					dialogue_BBW_multiplier = 3
+				}
+			}
+			else = {
+				add_to_variable = {
+					dialogue_BBW_multiplier = 2
+				}
+			}
+			custom_effect_tooltip = dialogue_multiplier_plus_2
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					dialogue_BBW < 50
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_BBW_multiplier
+					}
+				}
+				
+				set_variable = {
+					dialogue_BBW_multiplier = 2
+				}
+			}
+			else = {
+				multiply_variable = {
+					dialogue_to_add = dialogue_BBW_multiplier
+				}
+				add_to_variable = {
+					dialogue_BBW_multiplier = 1
+				}
+			}
+			custom_effect_tooltip = dialogue_multiplier_plus_1
+		}
+		subtract_from_variable = {
+			dialogue_BBW = action_cost
 		}
 		hidden_effect = {
 			random_list = {
@@ -2559,12 +2701,29 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.9"
-					
+		WML_calculate_action_cost_ZHP = yes		
 	}
 		
 	option = {
 		name = WML_dialogue.11.a #sprzedaż
 		#todo: efekty budżetowe
+		trigger = {
+			check_variable = {
+				compare = greater_than_or_equals
+				value = 20
+				var = dialogue_ZHP
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+		subtract_from_variable = {
+			dialogue_ZHP = 20
+		}
+		396 = {
+			transfer_state_to = BBW
+		}
+		custom_effect_tooltip = WML_zhp_dialogue_nerf_20
 		ai_chance = {
 			base = 0
 		}
@@ -2573,6 +2732,81 @@ country_event = {
 		name = WML_dialogue.11.b # odsunięcie katastrofy w czasie
 		ai_chance = {
 			base = 0
+		}
+		trigger = {
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_ZHP_multiplier
+					}
+				}
+				check_variable = {
+					compare = greater_than_or_equals
+					value = 20
+					var = dialogue_ZHP
+				}
+			}
+			else = {	
+				check_variable = {
+					compare = greater_than_or_equals
+					value = action_cost
+					var = dialogue_ZHP
+				}
+			}
+		}
+		custom_effect_tooltip = WML_zhp_dialogue_nerf_var
+		if = {
+			limit = {
+				check_variable = {
+					dialogue_ZHP < 25
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_ZHP_multiplier
+					}
+				}
+				set_variable = {
+					dialogue_ZHP_multiplier = 3
+				}
+			}
+			else = {
+				add_to_variable = {
+					dialogue_ZHP_multiplier = 2
+				}
+			}
+			custom_effect_tooltip = dialogue_multiplier_plus_2
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					dialogue_ZHP < 50
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_variable = dialogue_ZHP_multiplier
+					}
+				}
+				
+				set_variable = {
+					dialogue_ZHP_multiplier = 2
+				}
+			}
+			else = {
+				multiply_variable = {
+					dialogue_to_add = dialogue_ZHP_multiplier
+				}
+				add_to_variable = {
+					dialogue_ZHP_multiplier = 1
+				}
+			}
+			custom_effect_tooltip = dialogue_multiplier_plus_1
+		}
+		subtract_from_variable = {
+			dialogue_ZHP = action_cost
 		}
 		hidden_effect = {
 			random_list = {
@@ -2667,7 +2901,7 @@ country_event = {
 				if = {
 					limit = {
 						ROOT = {
-							tag = KAS
+							tag = KAR
 						}
 					}
 					add_to_faction = SAP #overlord łowicza
@@ -2691,7 +2925,7 @@ country_event = {
 		}
 		if = {
 			limit = {
-				tag = KAS
+				tag = KAR
 			}
 			682 = {
 				transfer_state_to = ROOT
