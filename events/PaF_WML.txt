@@ -2339,6 +2339,9 @@ country_event = { #kwestia wolborza
 		LKS = {
 			leave_faction = yes
 		}
+		set_variable = {
+			dialogue_sided_with = ZYD
+		}
 		start_border_war = {
 			change_state_after_war = no
 			attacker = { 
@@ -2355,6 +2358,7 @@ country_event = { #kwestia wolborza
 			country_event = {
 				id = WML_border_skirmishes.1
 			}
+			activate_mission = WML_escalation
 		}
 	}
 }
@@ -2862,6 +2866,80 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = WML_border_skirmishes.1.a #zapłacić
+		trigger = {
+			check_variable = {
+				var = num_of_civilian_factories
+				value = num_of_military_factories
+				compare = greater_than_or_equals
+			}
+		}
+		hidden_effect = {
+			random_owned_state = {
+				limit = {
+					check_variable = {
+						var = industrial_complex_level
+						value = 1
+						compare = greater_than_or_equals
+					}
+				}
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					check_variable = {
+						var = industrial_complex_level
+						value = 1
+						compare = greater_than_or_equals
+					}
+				}
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		subtract_from_variable = {
+			budget = 20
+		}
+		if = {
+			limit = {
+				var:dialogue_sided_with = {
+					tag = ZYD
+				}
+			}
+			hidden_effect = {
+				LKS = {
+					random_owned_state = {
+						add_building_construction = {
+							type = industrial_complex
+							level = 2
+							instant_build = yes
+						}
+					}
+					add_to_variable = {
+						budget = 20
+					}
+				}
+				random_list = {
+					1 = {
+						cancel_border_war = {
+							dont_fire_events = yes
+							defender = 328
+							attacker = 683
+						}
+					}
+					1 = {
+
+					}
+				}
+			}
+			custom_effect_tooltip = "Pay 20 mln zloty and 2 civilian factories to [LKS.GetName], hoping that they will cease hostilities..."
+		}
+		
+		
 		ai_chance = {
 			base = 0
 		}
@@ -2869,8 +2947,36 @@ country_event = {
 
 	option = {
 		name = WML_border_skirmishes.1.b #wysłać 2 bataliony
+		trigger = {
+			has_manpower > 200
+			if = {
+				limit = {
+					var:dialogue_sided_with = {
+						tag = ZYD
+					}
+				}
+				check_variable = {
+					var = dialogue_ZYD
+					value = 40
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		
 		ai_chance = {
 			base = 0
+		}
+		add_manpower = -200
+		
+		if = {
+			limit = {
+				var:dialogue_sided_with = {
+					tag = ZYD
+				}
+			}
+			ZYD = {
+				add_manpower = 200
+			}
 		}
 	}
 
@@ -2952,11 +3058,72 @@ country_event = {
 
 country_event = {
 	id = WML_border_skirmishes.3 #konflikt graniczny - zwycięstwo agresora z punktu hołowni
-	title = WML_border_skirmishes.2.t
-	desc = WML_border_skirmishes.2.desc
+	title = WML_border_skirmishes.3.t
+	desc = WML_border_skirmishes.3.desc
 	is_triggered_only = yes
 	option = {
 		name = WML_border_skirmishes.3.a #oh no...
+	}
+}
+
+country_event = {
+	id = WML_border_skirmishes.4 #konflikt graniczny - ostatni moment przed eskalacją w wojnę
+	title = WML_border_skirmishes.4.t
+	desc = WML_border_skirmishes.4.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_border_skirmishes.4.a #daj agresorowi civkę i 10 mln żeby przestał
+		hidden_effect = {
+			random_owned_state = {
+				limit = {
+					check_variable = {
+						var = industrial_complex_level
+						value = 1
+						compare = greater_than_or_equals
+					}
+				}
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+	}
+	option = {
+		trigger = {
+			if = {
+				limit = {
+					check_variable = {
+						dialogue_sided_with = ZYD
+					}
+				}
+				check_variable = {
+					var = dialogue_ZYD
+					value = 40
+					compare = greater_than_or_equals
+				}
+			}
+			else = {
+				always = yes
+			}
+		}
+		name = WML_border_skirmishes.4.b #daj obrońcy 4 civki i 40 mln żeby przestał (za 40 pkt dialogu)
+	}
+	option = {
+		name = WML_border_skirmishes.4.c
+		if = {
+			limit = {
+				check_variable = {
+					dialogue_sided_with = ZYD
+				}
+			}
+			LKS = {
+				declare_war_on = {
+					target = ZYD
+					type = dialogue_breakdown
+				}
+			}
+		}
 	}
 }
 
