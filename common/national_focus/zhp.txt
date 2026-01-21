@@ -990,6 +990,32 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = ZHP_cut_the_plug
+		icon = ZHP_cut_the_plug
+		relative_position_id = ZHP_last_touches
+		prerequisite = { focus = ZHP_last_touches }
+		will_lead_to_war_with = TIG
+		available = {
+			has_war = no
+			TIG = { is_neighbor_of = ZHP }
+		}
+		
+		bypass = {
+			NOT = { country_exists = TIG }
+		}
+		x = -4
+		y = 1
+		cost = 2
+		
+		
+		completion_reward = {
+			declare_war_on = {
+				target = TIG
+				type = voivodeship_war
+			}
+		}
+	}	
+	focus = {
 		id = ZHP_destroy_coal_lords
 		icon = ZHP_destroy_coal_lords
 		relative_position_id = ZHP_last_touches
@@ -1003,7 +1029,7 @@ focus_tree = {
 		bypass = {
 			NOT = { country_exists = BBW }
 		}
-		x = -1
+		x = -2
 		y = 1
 		cost = 2
 		
@@ -1067,6 +1093,60 @@ focus_tree = {
 			}
 		}
 	}
+
+	focus = {
+		id = ZHP_RDM_war
+		icon = ZHP_RDM_war
+		relative_position_id = ZHP_last_touches
+		prerequisite = { focus = ZHP_last_touches}
+		will_lead_to_war_with = RDM
+		available = {
+			has_war = no
+			RDM = { is_neighbor_of = ZHP }
+		}
+		
+		bypass = {
+			NOT = { country_exists = RDM }
+		}
+		x = 0
+		y = 1
+		cost = 2
+		
+		
+		completion_reward = {
+			declare_war_on = {
+				target = RDM
+				type = voivodeship_war
+			}
+		}
+	}	
+
+	focus = {
+		id = ZHP_LKS_war
+		icon = ZHP_LKS_war
+		relative_position_id = ZHP_last_touches
+		prerequisite = { focus = ZHP_last_touches}
+		will_lead_to_war_with = LKS
+		available = {
+			has_war = no
+			LKS = { is_neighbor_of = ZHP }
+		}
+		
+		bypass = {
+			NOT = { country_exists = LKS }
+		}
+		x = 4
+		y = 1
+		cost = 2
+		
+		
+		completion_reward = {
+			declare_war_on = {
+				target = LKS
+				type = voivodeship_war
+			}
+		}
+	}		
 
 	focus = {
 		id = ZHP_ZYD_war 
@@ -1139,7 +1219,7 @@ focus_tree = {
 		bypass = {
 			
 		}
-		x = 0
+		x = 1
 		y = 1
 		cost = 2
 		
@@ -1160,7 +1240,11 @@ focus_tree = {
 		}
 		
 		bypass = {
+			AND = { 
 			NOT = { country_exists = KRS }
+			NOT = { country_exists = POG }
+			NOT = { country_exists = RUT }
+			}
 		}
 		x = -1
 		y = 1
@@ -1224,7 +1308,11 @@ focus_tree = {
 		}
 		
 		bypass = {
-			NOT = { country_exists = SAP }
+			AND = { 
+				NOT = { country_exists = SAP }
+				NOT = { country_exists = KAR }
+				NOT = { country_exists = AMW }
+			}
 		}
 		x = 1
 		y = 1
@@ -1239,6 +1327,15 @@ focus_tree = {
 			declare_war_on = {
 				target = KAR
 				type = voivodeship_war
+			}
+			if = {
+				limit = {
+					AMW = { exists = yes }
+				}
+				declare_war_on = {
+					target = AMW
+					type = voivodeship_war
+				}					
 			}
 		}
 	}
