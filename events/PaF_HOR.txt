@@ -386,3 +386,35 @@ country_event = {
 		}
 	}
 }
+
+
+country_event = {
+	id = procesja_final.7 #zamkniecie mordy papiezowi
+	title = procesja_final.7.t
+	desc = procesja_final.7.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = PAP
+		HOR = { has_country_flag = HOR_procession_has_landed }
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires procesja_final.7" }
+
+	option = {
+		name = procesja_final.5.a
+		every_country = {
+			limit = {
+				is_in_faction_with = PAP
+			}
+			PREV = { leave_faction = yes }
+		}
+		PAP = { dismantle_faction = yes }
+		every_country = {
+			limit = {
+				has_war_with = PAP
+			}
+			white_peace = PAP
+		}
+	}
+}
