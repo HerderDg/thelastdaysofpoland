@@ -3542,10 +3542,13 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
 		OR = {
-			original_tag = KRS
-			original_tag = WML
-			original_tag = ZHP
-			original_tag = ZYD
+			original_tag = AMW
+			original_tag = RDM
+			original_tag = TIG
+			original_tag = KAR
+			original_tag = LKS
+			original_tag = POG
+			original_tag = RUT
 		}
 	}
 
@@ -3554,25 +3557,17 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 	}
 
 	target_root_trigger = {
-		date > 2028.03.01
-		has_war = no
-		OR = {
-			original_tag = KRS
-			original_tag = SAP
-			AND = {
-				original_tag = WML
-				NOT = {
-				country_exists = BBW
-				country_exists = KRS
-				country_exists = SAP
-				country_exists = ZHP
-				country_exists = ZYD
-				}
-			}
-			original_tag = ZHP
-			original_tag = ZYD
+		AND = { 
+			date > 2030.03.01
+			has_war = no
+			NOT = { country_exists = BBW }
+			NOT = { country_exists = KRS }
+			NOT = { country_exists = SAP }
+			NOT = { country_exists = ZHP }
+			NOT = { country_exists = ZYD }
+			NOT = { country_exists = WML }
+			ROOT = { NOT = { has_idea = cooldown } }
 		}
-		ROOT = { NOT = { has_idea = cooldown } }
 	}
 
 	targets = {
@@ -6067,7 +6062,7 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 	}
 
 	target_root_trigger = {
-		date > 2028.06.16
+		date > 2029.03.01
 		SAW = { exists = no }
 		WIL = { exists = no }
 		has_war = no
@@ -6118,17 +6113,6 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 				is_podlasie_tribe = yes
 			}
 		}
-		
-		target_array = global.podlasie_tribes
-		target_trigger = {
-			FROM = {
-				is_neighbor_of = ROOT
-				is_podlasie_tribe = yes
-				NOT = { has_war_with = ROOT }
-				NOT = { is_subject_of = ROOT }
-				NOT = { is_in_faction_with = ROOT }
-			}	
-		}
 
 		target_root_trigger = {
 			OR = {
@@ -6153,21 +6137,32 @@ WARSZAWA_gar_vs_wrc = { #gar vs wrc
 						}
 					ROOT = { any_neighbor_country = { is_podlasie_tribe = yes } }
 					count_triggers = {
-							amount = 7
+							amount = 5
 							TAT = {exists = no}
 							SAN = {exists = no}
 							LMZ = {exists = no}
 							BEL = {exists = no}
 							BOM = {exists = no}
 							KON = {exists = no}
-							SDL = {exists = no}
-							AGR = {exists = no}
 					}
 					has_war = no
 					NOT = { has_idea = cooldown }
+					date > 2031.04.01
 				}
 			}
+		}		
+		
+		target_array = global.podlasie_tribes
+		target_trigger = {
+			FROM = {
+				is_neighbor_of = ROOT
+				is_podlasie_tribe = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}	
 		}
+
 
 		ai_will_do = {
 			factor = 100
@@ -7854,7 +7849,7 @@ lake_war2 = {
 		}
 
 		target_root_trigger = {
-			date > 2029.02.01
+			date > 2028.10.01
 			NOT = { has_war_with = ROS }
 			NOT = { country_exists = TEU }
 			NOT = { country_exists = LUB }
@@ -7902,7 +7897,7 @@ lake_war2 = {
 		}
 
 		target_root_trigger = {
-			date > 2029.02.01
+			date > 2028.10.01
 			NOT = { has_war_with = ROS }
 			NOT = { country_exists = TEU }
 			NOT = { country_exists = LUB }
@@ -7950,7 +7945,7 @@ lake_war2 = {
 		}
 
 		target_root_trigger = {
-			date > 2029.03.01
+			date > 2029.01.01
 			NOT = { has_war_with = ROS }
 			NOT = { has_war_with = OLS }
 			NOT = { country_exists = ELB }
@@ -8004,7 +7999,7 @@ lake_war2 = {
 		}
 
 		target_root_trigger = {
-			date > 2029.03.01
+			date > 2029.01.01
 			NOT = { has_war_with = ROS }
 			NOT = { country_exists = TEU }
 			NOT = { country_exists = LUB }
@@ -8057,7 +8052,7 @@ warmia_mazury_lastwar = {
 	}
 
 	target_root_trigger = {
-		date > 2030.03.01
+		date > 2029.06.01
 		NOT = { has_war_with = ROS }
 		has_war = no
 	}

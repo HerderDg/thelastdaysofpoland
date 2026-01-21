@@ -1321,16 +1321,20 @@ focus_tree = {
 		prerequisite = { focus = ZYD_new_synagogues_and_stadiums }
 		will_lead_to_war_with = KRS
 		available = {
+			OR = { 
+			KRS = { is_neighbor_of = ZYD }
+			POG = { is_neighbor_of = ZYD }
+			RUT = { is_neighbor_of = ZYD }	
+			}	
+			has_war = no	
 		}
 		
 		bypass = {
-		OR = {
-			NOT = { country_exists = KRS }
-			ZYD = { has_war_with = KRS }
+			AND = { 
+				NOT = { country_exists = KRS }
+				NOT = { country_exists = POG }
+				NOT = { country_exists = RUT }
 			}
-			KRS = { is_neighbor_of = ZYD }
-			POG = { is_neighbor_of = ZYD }
-			RUT = { is_neighbor_of = ZYD }
 		}
 		
 		x = -1
@@ -1362,12 +1366,14 @@ focus_tree = {
 		will_lead_to_war_with = SAP
 		available = {
 			SAP = { is_neighbor_of = ZYD }
+			has_war = no
 		}
 		
 		bypass = {
-		OR = {
-			NOT = { country_exists = SAP }
-			ZYD = { has_war_with = SAP }
+			AND = { 
+				NOT = { country_exists = SAP }
+				NOT = { country_exists = KAR }
+				NOT = { country_exists = AMW }
 			}
 		}
 		
@@ -1385,6 +1391,13 @@ focus_tree = {
 					target = KAR
 					type = voivodeship_war
 				}
+			if = {
+				limit = { country_exists = AMW }
+				declare_war_on = {
+					target = AMW
+					type = voivodeship_war
+				}
+			}
 		}
 	}
 	
@@ -1419,7 +1432,6 @@ focus_tree = {
 		prerequisite = { focus = ZYD_central_committee_meeting }
 		will_lead_to_war_with = BBW
 		available = {
-			LKS = { exists = no }
 			has_war = no
 			BBW = { is_neighbor_of = ZYD }
 		}
@@ -1440,9 +1452,111 @@ focus_tree = {
 			declare_war_on = {
 				target = BBW 
 				type = voivodeship_war
-				}
+			}
 		}
 	}
+
+	focus = {
+		id = ZYD_LKS_war
+		icon = ZYD_LKS_war
+		relative_position_id = ZYD_meeting
+		prerequisite = { 
+			focus = ZYD_sanhedryn 
+			focus = ZYD_rabbi_is_dead
+		}
+		will_lead_to_war_with = LKS
+		available = {
+			has_war = no
+			LKS = { is_neighbor_of = ZYD }
+		}
+		
+		bypass = {
+		 OR = {
+			NOT = { country_exists = LKS }
+			ZYD = { has_war_with = LKS }
+			}
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		
+		completion_reward = {
+			declare_war_on = {
+				target = LKS 
+				type = voivodeship_war
+			}
+		}
+	}
+	
+	focus = {
+		id = ZYD_RDM_war
+		icon = ZYD_RDM_war
+		relative_position_id = ZYD_meeting
+		prerequisite = { 
+			focus = ZYD_sanhedryn 
+			focus = ZYD_rabbi_is_dead
+		}
+		will_lead_to_war_with = RDM
+		available = {
+			has_war = no
+			RDM = { is_neighbor_of = ZYD }
+		}
+		
+		bypass = {
+		 OR = {
+			NOT = { country_exists = RDM }
+			ZYD = { has_war_with = RDM }
+			}
+		}
+		
+		x = 2
+		y = 2
+		
+		cost = 2
+		
+		completion_reward = {
+			declare_war_on = {
+				target = RDM 
+				type = voivodeship_war
+			}
+		}
+	}
+	
+	focus = {
+		id = ZYD_TIG_war
+		icon = ZYD_TIG_war
+		relative_position_id = ZYD_meeting
+		prerequisite = { 
+			focus = ZYD_sanhedryn 
+			focus = ZYD_rabbi_is_dead
+		}
+		will_lead_to_war_with = TIG
+		available = {
+			has_war = no
+			TIG = { is_neighbor_of = ZYD }
+		}
+		
+		bypass = {
+		 OR = {
+			NOT = { country_exists = TIG }
+			ZYD = { has_war_with = TIG }
+			}
+		}
+		
+		x = -2
+		y = 2
+		
+		cost = 2
+		
+		completion_reward = {
+			declare_war_on = {
+				target = TIG 
+				type = voivodeship_war
+			}
+		}
+	}	
 	
 	focus = {
 		id = ZYD_fifth_generation_of_ak
@@ -1451,7 +1565,6 @@ focus_tree = {
 		prerequisite = { focus = ZYD_central_committee_meeting }
 		will_lead_to_war_with = ZHP
 		available = {
-			LKS = { exists = no }
 			has_war = no
 			ZHP = { is_neighbor_of = ZYD }
 		}
@@ -1529,7 +1642,7 @@ focus_tree = {
 		prerequisite = { focus = ZYD_recruit_collaborators }
 		will_lead_to_war_with = KRS
 		available = {
-			NOT = { has_war_with = KRS }
+			has_war = no
 			OR = {
 				KRS = { is_neighbor_of = ZYD }
 				POG = { is_neighbor_of = ZYD }
@@ -1538,9 +1651,10 @@ focus_tree = {
 		}
 		
 		bypass = {
-			OR = {
+			AND = {
 			NOT = { country_exists = KRS }
-			ZYD = { has_war_with = KRS}
+			NOT = { country_exists = POG }
+			NOT = { country_exists = RUT }
 			}
 		}
 		
@@ -1572,14 +1686,14 @@ focus_tree = {
 		prerequisite = { focus = ZYD_recruit_collaborators }
 		will_lead_to_war_with = SAP
 		available = {
-			NOT = { has_war_with = SAP	}
-			NOT = { has_war_with = KAR	}
+			has_war = no
 		}
 		
 		bypass = {
-				  OR = {
+			AND = {
 			NOT = { country_exists = SAP }
-			ZYD = { has_war_with = SAP }
+			NOT = { country_exists = KAR }
+			NOT = { country_exists = AMW }
 			}
 		}
 		
@@ -1596,7 +1710,16 @@ focus_tree = {
 			declare_war_on = {
 					target = KAR
 					type = voivodeship_war
-				}				
+			}
+			if = {
+				limit = {
+					AMW = { exists = yes  }
+				}
+				declare_war_on = {
+					target = AMW
+					type = voivodeship_war
+				}
+			}				
 		}
 	}
 	
@@ -1612,7 +1735,7 @@ focus_tree = {
 			focus = ZYD_blooming_business 
 			}
 		available = {
-		  NOT = { has_war = yes }
+		  has_war = no
 		  NOT = { country_exists = BBW }
 		  NOT = { country_exists = ZHP }
 		  NOT = { country_exists = KRS }
@@ -1648,7 +1771,7 @@ focus_tree = {
 		relative_position_id = ZYD_promised_land
 		prerequisite = { focus = ZYD_promised_land }
 		available = {
-		  NOT = { has_war = yes }
+			has_war = no
 		}
 		
 		bypass = {
