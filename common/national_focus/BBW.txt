@@ -2183,7 +2183,7 @@ focus_tree = {
 		}
 		
 		bypass = {
-			KRS = { num_of_controlled_states < 1 }
+			
 		}
 		
 		x = -1
@@ -2228,9 +2228,11 @@ focus_tree = {
 		}
 		
 		bypass = {
-			KRS = { num_of_controlled_states < 1 }
-			POG = { num_of_controlled_states < 1 }
-			RUT = { num_of_controlled_states < 1 }
+			AND = {
+				KRS = { exists = no }
+				POG = { exists = no }
+				RUT = { exists = no }
+			}	
 		}
 		
 		x = 1
@@ -2239,19 +2241,19 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			if = { limit = { NOT = { has_war_with = KRS } } 
+			if = { limit = { KRS = { exists = yes } } 
 				declare_war_on = {
 					target = KRS
 					type = voivodeship_war
 				}
 			}
-			if = { limit = { NOT = { has_war_with = POG } } 
+			if = { limit = { POG = { exists = yes } } 
 				declare_war_on = {
 					target = POG
 					type = voivodeship_war
 				}
 			}
-			if = { limit = { NOT = { has_war_with = RUT } } 
+			if = { limit = { RUT = { exists = yes } } 
 				declare_war_on = {
 					target = RUT
 					type = voivodeship_war
