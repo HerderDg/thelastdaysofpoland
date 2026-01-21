@@ -1438,14 +1438,14 @@ focus_tree = {
 		relative_position_id = KRS_start_the_war_machine
 		prerequisite = { focus = KRS_start_the_war_machine }
 		available = {
-			NOT = { has_war = yes }
+			has_war = no
 		}
 		
 		bypass = {
-		OR = {
-			SAP = { num_of_controlled_states < 1 }
-			269 = { is_controlled_by = KRS }
-			SAP = { has_war_with = KRS }
+			AND = {
+				SAP = { exists = no }
+				KAR = { exists = no }
+				AMW = { exists = no }
 			}
 		}
 		
@@ -1463,6 +1463,13 @@ focus_tree = {
 				target = KAR
 				type = voivodeship_war 
 				}
+			if = { 
+				limit = { country_exists = AMW }
+				declare_war_on = { 
+					target = AMW
+					type = voivodeship_war 
+				}
+			}
 		}
 	}
 	focus = {
@@ -1472,13 +1479,15 @@ focus_tree = {
 		prerequisite = { focus = KRS_start_the_war_machine }
 		will_lead_to_war_with = WML
 		available = {
-			NOT = { has_war = yes }
-			SAP = { num_of_controlled_states < 1 }			
+			has_war = no
+			SAP = { exists = no }			
+			KAR = { exists = no }
+			AMW = { exists = no }
 		}
 		
 		bypass = {
 		OR = {
-			WML = { num_of_controlled_states < 1 }
+			WML = { exists = no }
 			302 = { is_controlled_by = KRS }
 			WML = { has_war_with = KRS }
 			}
@@ -1493,7 +1502,7 @@ focus_tree = {
 			declare_war_on = { 
 				target = WML
 				type = voivodeship_war 
-				}
+			}
 		}
 	}
 	
@@ -1507,17 +1516,20 @@ focus_tree = {
 		will_lead_to_war_with = ZYD
 		
 		available = {
-			WML = { num_of_controlled_states < 1 }
+			WML = { exists = no }
+			has_war = no
 		}
 		
 		bypass = {
-		count_triggers  = {
-			amount = 3
-			ZYD = { num_of_controlled_states < 1 }
-			BBW = { num_of_controlled_states < 1 }
-			ZHP = { num_of_controlled_states < 1 }
-		}
-		
+			count_triggers  = {
+				amount = 6
+				ZYD = { exists = no }
+				BBW = { exists = no }
+				ZHP = { exists = no }
+				LKS = { exists = no }
+				RDM = { exists = no }
+				TIG = { exists = no }
+			}
 		}
 		
 		x = 2
@@ -1547,6 +1559,27 @@ focus_tree = {
 						type = voivodeship_war 
 						}
 					}
+			if = {
+				limit = { country_exists = RDM }
+					declare_war_on = {
+						target = RDM
+						type = voivodeship_war 
+						}
+					}
+			if = {
+				limit = { country_exists = TIG }
+					declare_war_on = {
+						target = TIG
+						type = voivodeship_war 
+						}
+					}
+			if = {
+				limit = { country_exists = LKS }
+					declare_war_on = {
+						target = LKS
+						type = voivodeship_war 
+						}
+					}					
 		}
 	}
 	focus = {
