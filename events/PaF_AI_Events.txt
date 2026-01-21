@@ -1,6 +1,7 @@
 ﻿add_namespace = aievent
 add_namespace = aievent_paths
 add_namespace = aievent_tarnow
+add_namespace = aievent_gory
 
 country_event = {
 	id = aievent_paths.1 #twardoch ścieżka
@@ -1992,4 +1993,75 @@ country_event = {
 }
 
 
+country_event = {
+	id = aievent_gory.1 #anektowanie puppetow gory
+	title = aievent_gory.1.t
+	desc = aievent_gory.1.desc
 
+	fire_only_once = yes
+	trigger = {
+		AND = {
+			is_tatry_region = yes
+			NOT = { original_tag = TSZ }
+			has_country_flag = unified_voivodeship
+			any_country = {
+				is_tatry_region = yes
+				NOT = { original_tag = TSZ }
+				is_subject_of = ROOT
+			}
+		}
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_gory.1" }
+	option = {
+		name = aievent_gory.1.a #
+		log = "[GetDateText]: beskidzkie paluszki om nom nom"
+		every_country = {
+			limit = {
+				is_tatry_region = yes
+				is_subject_of = ROOT
+				NOT = { original_tag = TSZ }
+			}
+			annex_country = {
+				target = PREV
+				transfer_troops = yes
+			}
+		}
+	}
+}
+
+country_event = {
+	id = aievent_gory.2 #cieszyn grand sojusz
+	title = aievent_gory.2.t
+	desc = aievent_gory.2.desc
+
+	fire_only_once = yes
+	trigger = {
+		AND = {
+			original_tag = CIE
+			has_country_flag = unified_voivodeship
+			OR = {
+				BBA = { is_in_faction_with = CIE }
+				WYM = { is_in_faction_with = CIE }
+			}
+		}
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_gory.2" }
+	option = {
+		name = aievent_gory.2.a 
+		log = "[GetDateText]: cieszyn grand sojusz"
+		every_country = {
+			limit = {
+				is_tatry_region = yes
+				is_in_faction_with = ROOT
+				NOT = { original_tag = ROOT }
+				NOT = { original_tag = TSZ }
+			}
+			ROOT = {
+				annex_country = {
+					target = PREV
+					transfer_troops = yes
+				}
+			}
+		}		
+	}
+}
