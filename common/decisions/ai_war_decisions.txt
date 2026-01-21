@@ -3538,6 +3538,72 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 #███████╗╚█████╔╝██████╔╝███████╗██║░╚██╗██║███████╗
 #╚══════╝░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #ŁÓDZKIE - FAZA PIERWSZA
+ cleanup_lodzig_wars = { 
+	icon = GFX_decision_generic_prepare_civil_war
+	allowed = {
+		OR = {
+			original_tag = AMW
+			original_tag = RDM
+			original_tag = TIG
+			original_tag = KAR
+			original_tag = LKS
+			original_tag = POG
+			original_tag = RUT
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	target_root_trigger = {
+		AND = { 
+			date > 2030.03.01
+			has_war = no
+			NOT = { country_exists = BBW }
+			NOT = { country_exists = KRS }
+			NOT = { country_exists = SAP }
+			NOT = { country_exists = ZHP }
+			NOT = { country_exists = ZYD }
+			NOT = { country_exists = WML }
+			ROOT = { NOT = { has_idea = cooldown } }
+		}
+	}
+
+	targets = {
+		KAR TIG AMW RDM LKS RUT POG
+	}
+
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}			
+	}
+	war_with_target_on_complete = yes
+	complete_effect = {
+		ROOT = { add_timed_idea = {
+			idea = cooldown
+			days = 9
+		}
+	 }
+	}
+	days_remove = 7
+	remove_effect = {
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
+		}
+	}
+
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+
+ }
 #ŁÓDZKIE - FAZA DRUGA
 #ŁÓDZKIE - FAZA OSTATECZNA
 #░██╗░░░░░░░██╗░█████╗░██████╗░░██████╗███████╗░█████╗░░██╗░░░░░░░██╗░█████╗░
