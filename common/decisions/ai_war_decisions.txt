@@ -1417,7 +1417,6 @@ GSIL_01_HANYS_WAR = {
 	target_root_trigger = {
 		date > 2028.04.01
 		has_war = no		
-		NOT = { has_country_flag = unified_voivodeship }
 		has_global_flag = chosen_silesian_behemoth
 		ROOT = { NOT = { has_idea = cooldown }}
 		NOT = { is_upper_silesia_minor = yes }
@@ -1968,7 +1967,6 @@ GSIL_01_HANYS_WAR = {
 	target_root_trigger = {
 		has_war = no
 		date > 2030.03.01
-		NOT = { has_country_flag = unified_voivodeship }
 	}
 
 	target_trigger = {
@@ -2239,7 +2237,6 @@ GSIL_01_HANYS_WAR = {
 	}
 
 	target_root_trigger = {
-		NOT = { has_country_flag = unified_voivodeship }
 		date > 2028.04.20
 		has_war = no
 		ROOT = { NOT = { has_idea = cooldown }}
@@ -2442,6 +2439,13 @@ GSIL_01_HANYS_WAR = {
 			has_country_flag = holy_cross_round_one_fought
 		}
 	}
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}
 
 	ai_will_do = {
 		factor = 100		
@@ -2518,7 +2522,13 @@ GSIL_01_HANYS_WAR = {
 	ai_will_do = {
 		factor = 100		
 	}
-
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}
+	}
 	targets = {
 		HOL
 	}
@@ -8808,31 +8818,31 @@ warmia_mazury_lastwar = {
 	}
 
 	target_root_trigger = {
-		OR = {
-			count_triggers = {
-				amount = 8
-				HEL = { exists = no }
-				OWS = { exists = no }
-				GAY = { exists = no }
-				RLE = { exists = no }
-				KSZ = { exists = no }
-				KSC = { exists = no }	
-				GDA = { exists = no }
-				BOL = { exists = no }
-				MPR = { exists = no }
-				KOR = { exists = no }
-				CZL = { exists = no }
-				LOT = { exists = no }	
+		AND = {
+			has_war = no
+			is_subject = no
+			OR = {
+				count_triggers = {
+					amount = 8
+					HEL = { exists = no }
+					OWS = { exists = no }
+					GAY = { exists = no }
+					RLE = { exists = no }
+					KSZ = { exists = no }
+					KSC = { exists = no }	
+					GDA = { exists = no }
+					BOL = { exists = no }
+					MPR = { exists = no }
+					KOR = { exists = no }
+					CZL = { exists = no }
+					LOT = { exists = no }	
+				}
+				date > 2029.06.01
 			}
-			date > 2029.06.01
+			NOT = { 
+				has_idea = war_declaration_cooldown
+			}
 		}
-		NOT = { 
-			has_country_flag = unified_voivodeship 
-			#has_country_flag = getting_ready_to_war_pomerelia
-			has_idea = war_declaration_cooldown
-		}
-		has_war = no
-		is_subject = no
 	}
 
 	ai_will_do = {
@@ -10835,6 +10845,13 @@ chelminsko_kujawska = {
 		targets = {
 			PIL WRT POZ SYJ SLU
 		}
+		target_trigger = {
+			FROM = {
+				is_neighbor_of = ROOT
+				NOT = { is_subject_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}
+		}
 
 		ai_will_do = {
 			factor = 100
@@ -10876,6 +10893,13 @@ chelminsko_kujawska = {
 		}
 		targets = {
 			MOT KAM NAC SUS
+		}
+		target_trigger = {
+			FROM = {
+				is_neighbor_of = ROOT
+				NOT = { is_subject_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}
 		}
 
 		ai_will_do = {
