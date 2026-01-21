@@ -1483,9 +1483,7 @@ country_event = {
 		}
 		ROOT = { 
 			set_country_flag = ZAG_intercounty_voted
-			add_to_array = {
-				global.intercounty_voted_sos = this
-			}
+			set_country_flag = ZAG_intercounty_voted_SOS
 		}
 
 	}
@@ -1512,9 +1510,7 @@ country_event = {
 		}
 		ROOT = { 
 			set_country_flag = ZAG_intercounty_voted
-			add_to_array = {
-				global.intercounty_voted_dgr = this
-			}
+			set_country_flag = ZAG_intercounty_voted_DGR
 		}
 	}	
 	option = {
@@ -1537,9 +1533,7 @@ country_event = {
 		}
 		ROOT = { 
 			set_country_flag = ZAG_intercounty_voted
-			add_to_array = {
-				global.intercounty_voted_jaw = this
-			}
+			set_country_flag = ZAG_intercounty_voted_JAW
 		}
 	}	
 }
@@ -1550,18 +1544,20 @@ country_event = {
 	desc = bedzincon.16.desc
 	fire_only_once = yes
 	trigger = {
-		original_tag = SOS
-		has_global_flag = ZAG_congress_of_bedzin_success
-		SOS = {
-		all_allied_country = {
-			has_country_flag = ZAG_intercounty_voted
-		}
-		}
-		check_variable = {
-			vote_intercounty_sos > vote_intercounty_jaw
-		}
-		check_variable = {
-			vote_intercounty_sos > vote_intercounty_dgr
+		AND = {
+			original_tag = SOS
+			has_global_flag = ZAG_congress_of_bedzin_success
+			SOS = {
+			all_allied_country = {
+				has_country_flag = ZAG_intercounty_voted
+			}
+			}
+			check_variable = {
+				vote_intercounty_sos > vote_intercounty_jaw
+			}
+			check_variable = {
+				vote_intercounty_sos > vote_intercounty_dgr
+			}
 		}		 
 	}
 	
@@ -1601,18 +1597,20 @@ country_event = {
 	desc = bedzincon.17.desc
 	fire_only_once = yes
 	trigger = {
-		original_tag = DGR
-		has_global_flag = ZAG_congress_of_bedzin_success
-		SOS = {
-		all_allied_country = {
-			has_country_flag = ZAG_intercounty_voted
-		}
-		}
-		check_variable = {
-			vote_intercounty_dgr > vote_intercounty_jaw
-		}
-		check_variable = {
-			vote_intercounty_dgr > vote_intercounty_sos
+		AND = { 
+			original_tag = DGR
+			has_global_flag = ZAG_congress_of_bedzin_success
+			SOS = {
+			all_allied_country = {
+				has_country_flag = ZAG_intercounty_voted
+			}
+			}
+			check_variable = {
+				vote_intercounty_dgr > vote_intercounty_jaw
+			}
+			check_variable = {
+				vote_intercounty_dgr > vote_intercounty_sos
+			}
 		}		 
 	}
 	
@@ -1739,6 +1737,7 @@ country_event = {
 	desc = bedzincon.19.desc
 	fire_only_once = yes
 	trigger = {
+		AND = { 
 		original_tag = SOS
 		has_global_flag = ZAG_congress_of_bedzin_success
 		SOS = {
@@ -1779,6 +1778,7 @@ country_event = {
 					vote_intercounty_dgr = vote_intercounty_jaw
 				}
 			}								
+		}
 		}		 
 	}
 	
@@ -1792,31 +1792,31 @@ country_event = {
 		set_global_flag = ZAG_intercounty_civil_war
 		every_country = {
 			limit = {
-				is_in_array = { global.intercounty_voted_dgr = THIS }
+				has_country_flag = ZAG_intercounty_voted_DGR
 			}
 			DGR = {
 				annex_country = {
-					target = THIS
+					target = PREV
 				}
 			}
 		}
 		every_country = {
 			limit = {
-				is_in_array = { global.intercounty_voted_jaw = THIS }
+				has_country_flag = ZAG_intercounty_voted_JAW
 			}
 			JAW = {
 				annex_country = {
-					target = THIS
+					target = PREV
 				}
 			}
 		}	
 		every_country = {
 			limit = {
-				is_in_array = { global.intercounty_voted_sos = THIS }
+				has_country_flag = ZAG_intercounty_voted_SOS
 			}
 			SOS = {
 				annex_country = {
-					target = THIS
+					target = PREV
 				}
 			}
 		}
@@ -1845,14 +1845,17 @@ country_event = {
 	desc = bedzincon.20.desc
 	fire_only_once = yes
 	trigger = {
-		OR = {
-		original_tag = DGR
-		original_tag = SOS
-		original_tag = JAW
+		AND = { 
+			OR = {
+			original_tag = DGR
+			original_tag = SOS
+			original_tag = JAW
+			}
+			has_global_flag = ZAG_intercounty_civil_war	
+			is_in_faction = no
+			can_unify_zaglebie = yes
+			has_war = no
 		}
-		has_global_flag = ZAG_intercounty_civil_war	
-		is_in_faction = no
-		can_unify_zaglebie = yes
 	}
 	
 	immediate = { 
@@ -1880,6 +1883,18 @@ country_event = {
 				}
 			}
 		}
+		if = {
+			limit = { original_tag = JAW }
+			set_cosmetic_tag = JAW_intercounty_voivodeship
+		}
+		if = {
+			limit = { original_tag = DGR }
+			set_cosmetic_tag = DGR_intercounty_voivodeship
+		}
+		if = {
+			limit = { original_tag = SOS }
+			set_cosmetic_tag = SOS_intercounty_voivodeship
+		}				
 	}
 }
 
