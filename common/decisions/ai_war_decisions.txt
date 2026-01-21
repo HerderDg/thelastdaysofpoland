@@ -2443,13 +2443,6 @@ GSIL_01_HANYS_WAR = {
 			has_country_flag = holy_cross_round_one_fought
 		}
 	}
-	target_trigger = {
-		FROM = {
-			is_neighbor_of = ROOT
-			NOT = { is_subject_of = ROOT }
-			NOT = { is_in_faction_with = ROOT }
-		}
-	}
 
 	ai_will_do = {
 		factor = 100		
@@ -2526,13 +2519,7 @@ GSIL_01_HANYS_WAR = {
 	ai_will_do = {
 		factor = 100		
 	}
-	target_trigger = {
-		FROM = {
-			is_neighbor_of = ROOT
-			NOT = { is_subject_of = ROOT }
-			NOT = { is_in_faction_with = ROOT }
-		}
-	}
+
 	targets = {
 		HOL
 	}
@@ -3552,6 +3539,61 @@ LBL_03_LUBELSZCZYZNA_HYPERWAR = {
 #███████╗╚█████╔╝██████╔╝███████╗██║░╚██╗██║███████╗
 #╚══════╝░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═╝╚══════╝
 #ŁÓDZKIE - FAZA PIERWSZA
+ the_monolog_war = { 
+	icon = GFX_decision_generic_prepare_civil_war
+	allowed = {
+		original_tag = WML
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+
+	target_root_trigger = {
+		AND = { 
+			date > 2031.03.01
+			has_war = no
+			NOT = { is_in_faction = yes }
+			ROOT = { NOT = { has_idea = cooldown } }
+		}
+	}
+
+	targets = {
+		KAR TIG AMW RDM LKS RUT POG SAP BBW KRS ZHP ZYD
+	}
+
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+		}			
+	}
+	war_with_target_on_complete = yes
+	complete_effect = {
+		ROOT = { add_timed_idea = {
+			idea = cooldown
+			days = 9
+		}
+	 }
+	}
+	days_remove = 7
+	remove_effect = {
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
+		}
+	}
+
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+
+ }
+
+
  cleanup_lodzig_wars = { 
 	icon = GFX_decision_generic_prepare_civil_war
 	allowed = {
