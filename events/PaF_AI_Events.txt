@@ -1804,6 +1804,121 @@ country_event = {
 	}	
 }
 
+country_event = {
+	id = aievent.44 #KRS POG RUT chuj
+	title = aievent.44.t
+	desc = aievent.44.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.44" }
+	fire_only_once = yes
+	trigger = { 
+		OR = {
+			original_tag = KRS
+			original_tag = POG
+			original_tag = RUT
+		}
+		is_faction_leader = yes
+		has_country_flag = unified_voivodeship
+	}
+
+	option = {
+		name = aievent.44.a #lecimy kurwa tu
+		log = "[GetDateText]: KRS post unification wombo combo"
+		every_other_country = {
+			limit = { is_in_faction_with = ROOT }
+			country_event = aievent.45
+		}
+	}	
+}
+
+country_event = {
+	id = aievent.45 #KRS POG RUT cd
+	title = aievent.45.t
+	desc = aievent.45.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.45" }
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aievent.45.a #poddajemy sie
+		ai_chance = { 
+			base = 10 
+			modifier = {
+				factor = 50
+				num_of_controlled_states < 25 
+			}
+		}
+		log = "[GetDateText]: KRS post unification wombo combo - submit"
+		faction_leader = {
+			annex_country = {
+				target = ROOT
+			}
+		}
+	}
+	option = {
+		name = aievent.45.b #spieprzaj dziadu
+		log = "[GetDateText]: KRS post unification wombo combo - fight"
+		ai_chance = { 
+			base = 10 
+			modifier = {
+				factor = 50
+				num_of_controlled_states > 25 
+			}
+		}
+		faction_leader = {
+			declare_war_on = {
+				target = ROOT
+				type = voivodeship_war
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_global_flag = KRS_triumvirate_war }
+			}
+			set_global_flag = KRS_triumvirate_war
+		}		
+	}		
+}
+
+country_event = {
+	id = aievent.46 #KRS POG RUT cd
+	title = aievent.46.t
+	desc = aievent.46.desc
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.46" }
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			original_tag = KRS
+			original_tag = POG
+			original_tag = RUT
+		}
+		has_global_flag = KRS_triumvirate_war
+		NOT = { has_country_flag = unified_voivodeship }
+		has_war = no
+		count_triggers = {
+			amount = 2
+			KRS = { exists = no }
+			POG = { exists = no }
+			RUT = { exists = no }
+		}
+	}
+
+	option = {
+		name = aievent.46.a 
+		log = "[GetDateText]: KRS post unification wombo combo - submit"
+		set_country_flag = unified_voivodeship
+		add_research_slot = 1
+		hidden_effect = {
+			add_dynamic_modifier = {
+				modifier = developed_economy_modifier
+			}
+			add_ideas = administrative_strain
+			set_technology = {
+				public_services = 1
+			}
+		}
+	}		
+}
+
 
 country_event = {
 	id = aievent_tarnow.1 #przyszlosc tarnowa - WKK decyduje
