@@ -2902,6 +2902,98 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = WML_dialogue.12 #ostateczne rozwiązanie kwestii Bełchatowa
+	title = WML_dialogue.12.t
+	desc = WML_dialogue.12.desc
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.12"
+	}
+		
+	option = {
+		name = WML_dialogue.12.a 
+		BBW = {
+			leave_faction = yes
+		}
+		WML = {
+			declare_war_on = {
+				target = BBW
+				type = dialogue_breakdown
+			}
+		}
+		every_country = {
+			limit = {
+				is_in_faction_with = WML
+			}
+			add_to_war = {
+			    targeted_alliance = WML
+			    enemy = BBW
+			    hostility_reason = asked_to_join
+			}
+		}
+		set_global_flag = BBW_fucked_up
+	}
+}
+
+country_event = {
+	id = WML_dialogue.13 #ostateczne rozwiązanie kwestii Bełchatowa
+	title = WML_dialogue.13.t
+	desc = WML_dialogue.13.desc
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires WML_dialogue.13"
+	}
+		
+	option = {
+		name = WML_dialogue.13.a 
+		every_state = {
+			limit = {
+				is_core_of = BBW
+				is_lodz_state = yes
+			}
+			transfer_state_to = BBW
+		}
+		BBW = { get_current_government_type = yes }
+		WML = {
+		diplomatic_relation = {
+				country = BBW
+				relation = puppet
+				active = yes
+			}
+		}
+		BBW = { restore_previous_government_type = yes }
+		BBW = {
+			add_country_leader_role = {
+				character = BBW_ogorek
+				promote_leader = yes
+				country_leader = {
+					ideology = paternal_conservatism_liberal_conservatism_subtype
+				}
+			}
+			set_party_name = {
+				ideology = paternal_conservatism
+				long_name = "Sojusz Prawicy Demokratycznej"
+				name = "Democratic Right Alliance"
+			}
+			set_politics = {
+				ruling_party = paternal_conservatism
+			}
+			add_popularity = {
+			    ideology = paternal_conservatism
+			    popularity = 0.2
+			}
+			set_cosmetic_tag = BBW_dialog
+			load_focus_tree = generic_focus
+		}
+		WML = {
+			add_to_faction = BBW
+			
+		}
+		clr_global_flag = BBW_fucked_up
+	}
+}
+
 
 country_event = {
 	id = WML_border_skirmishes.1 #konflikt graniczny
