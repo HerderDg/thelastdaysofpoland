@@ -4641,59 +4641,35 @@ focus_tree = {
 		
 		cost = 5
 		available = {
-			OR = {
-				has_idea = two_party_system
-				has_idea = multiparty
-				has_idea = non_partisan_system					
-				has_idea = no_party			
+			if = { 
+				limit = {
+					generic_is_eligible_for_election = yes
+				}
+				generic_is_eligible_for_election = yes
+			}
+			else = {
+				OR = {
+					has_idea = two_party_system
+					has_idea = multiparty
+					has_idea = non_partisan_system					
+					has_idea = no_party			
+				}
 			}
 		}		
 		completion_reward = {
 			if = {
 				limit = {
-					OR = {			
-						NOT = {
-							original_tag = TAT
-							original_tag = KIE
-							original_tag = BYD
-							original_tag = KAT
-							original_tag = JUR							
-							
-						}
-					}
+					generic_is_eligible_for_election = yes
 				}
-				add_political_power = 25			
-			}			
-			else_if = {
-				limit = {
-					original_tag = JUR
+				generic_election_event = yes
+			}
+			else = {
+				add_political_power = 150
+				add_popularity = {
+					ideology = ROOT
+					popularity = 0.1
 				}
-				country_event = aievent_paths.4
-			}				
-			else_if = {
-				limit = {
-					original_tag = KAT
-				}
-				country_event = aievent_paths.5
-			}		
-			else_if = {
-				limit = {
-					original_tag = BYD
-				}
-				country_event = aievent_paths.7
-			}		
-			else_if = {
-				limit = {
-					original_tag = TAT
-				}
-				country_event = aievent_paths.10
-			}		
-			else_if = {
-				limit = {
-					original_tag = KIE
-				}
-				country_event = aievent_paths.12
-			}		
+			}
 		}
 	}
 
@@ -4772,62 +4748,37 @@ focus_tree = {
 		cost = 7
 
 		available = {
-			OR = {			
-				has_idea = one_man_party
-				has_idea = monoparty
-				has_idea = regime_council
-				has_idea = controlled_opposition					
-				has_idea = no_party				
+			if = { 
+				limit = { 
+					generic_is_eligible_for_regime_change = yes
+				}
+				generic_is_eligible_for_regime_change = yes
+			}
+			else = { 
+				OR = {			
+					has_idea = one_man_party
+					has_idea = monoparty
+					has_idea = regime_council
+					has_idea = controlled_opposition					
+					has_idea = no_party				
+				}
 			}
 		}		
 		
 		completion_reward = {
-			if = {
-				limit = {
-					OR = {			
-						NOT = {
-							original_tag = GLI
-							original_tag = SOS
-							original_tag = CCH
-							original_tag = AMA
-							original_tag = SAN							
-							
-						}
-					}
+			if = { 
+				limit = { 
+					generic_is_eligible_for_regime_change = yes
 				}
-				add_political_power = 50		
-				add_stability = -0.01			
-			}			
-			else_if = {
-				limit = {
-					original_tag = GLI
+				generic_regime_change_event = yes
+			}
+			else = {
+				add_political_power = 150
+				add_popularity = {
+					ideology = ROOT
+					popularity = 0.1
 				}
-				country_event = aievent_paths.1
-			}		
-			else_if = {
-				limit = {
-					original_tag = SOS
-				}
-				country_event = aievent_paths.2
-			}		
-			else_if = {
-				limit = {
-					original_tag = CCH
-				}
-				country_event = aievent_paths.3
-			}		
-			else_if = {
-				limit = {
-					original_tag = AMA
-				}
-				country_event = aievent_paths.8
-			}		
-			else_if = {
-				limit = {
-					original_tag = SAN
-				}
-				country_event = aievent_paths.11
-			}				
+			}
 		}
 	}
 	focus = {
