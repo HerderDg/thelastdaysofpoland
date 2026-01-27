@@ -1990,15 +1990,22 @@ debug_category = {
 
 	debug_activate_koala_now = {
 		visible = {
-			tag = MSL
+			always = yes
 		}
 		complete_effect = {
-			every_controlled_state = {
-				limit = {
-					is_core_of = HOR
+			for_each_loop = {
+				array = global.states_for_pomerelia_unification
+				value = s
+				if = {
+					limit = {
+						ROOT = {
+							controls_state = s
+						}
+					}
+					log = "Mam [?s.GetName]"
 				}
-				HOR = {
-					set_state_controller = PREV
+				else = {
+					log = "Nie mam [?s.GetName] x_x"
 				}
 			}
 		}
