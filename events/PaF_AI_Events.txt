@@ -21,6 +21,10 @@ country_event = {
 			ruling_party = socialdemocrature
 			}
 		}
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.15
+		}
 		log = "[GetDateText]: socdem twardoch"
 	}
 	option = {
@@ -129,10 +133,7 @@ country_event = {
 	desc = aievent_paths.4.desc
 
 	fire_only_once = yes
-	trigger = { 
-		original_tag = JUR
-		has_country_flag = unified_voivodeship
-	}
+	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.4 "}
 	option = {
 		name = aievent_paths.4.a #gowin bezkręgowiec
@@ -450,11 +451,11 @@ country_event = {
 		ai_chance = { base = 45 }
 		set_politics = {
 			ruling_party = reactionary
-			}
-			add_popularity = {
-				ideology = reactionary
-				popularity = 0.2
-			}
+		}
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.2
+		}
 		set_party_name = { 
 			ideology = reactionary 
 			long_name = "Polish Republican Party"
@@ -573,9 +574,6 @@ country_event = {
 	}
 	option = {
 		name = aievent_paths.15.b #komori
-		trigger = {
-			GYP = { exists = no }
-		}
 		ai_chance = { base = 35 }
 		set_politics = {
 			ruling_party = paternal_conservatism
@@ -588,7 +586,349 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = aievent_paths.16 #dupa
+	title = aievent_paths.16.t
+	desc = aievent_paths.16.desc
 
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.16"}
+	option = {
+		name = aievent_paths.16.a #tanajno
+		ai_chance = { base = 65 }
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.1
+		}
+		log = "[GetDateText]: DUP-tramwajno"
+	}
+	option = {
+		name = aievent_paths.16.b #walaszek
+		ai_chance = { base = 35 }
+		set_politics = {
+			ruling_party = autocracy
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.2
+			}
+		log = "[GetDateText]: DUP-otyly-pan"
+	}
+}
+
+country_event = {
+	id = aievent_paths.17 #EKS
+	title = aievent_paths.17.t
+	desc = aievent_paths.17.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = EKS
+		EKS = { is_ai = no }
+		date > 2028.04.01
+		country_exists = ECO
+		country_exists = BOG
+	}
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.17"}
+	option = {
+		name = aievent_paths.17.a #schetyna
+		ai_chance = { base = 50 }
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.1
+		}
+		EKS = {
+			annex_country = {
+				target = BOG
+				transfer_troops = no
+			}
+			annex_country = {
+				target = ECO
+				transfer_troops = yes
+			}			
+		}
+		log = "[GetDateText]: EKS-schetyna"
+	}
+	option = {
+		name = aievent_paths.17.b #eurocorps
+		ai_chance = { base = 25 }
+		ECO = {
+			change_tag_from = EKS
+		}		
+		ECO = {
+			annex_country = {
+				target = EKS
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = BOG
+				transfer_troops = no
+			}			
+		}
+		log = "[GetDateText]: EKS-eurocorps"
+	}
+	option = {
+		name = aievent_paths.17.c #petru
+		ai_chance = { base = 25 }
+		BOG = {
+			change_tag_from = EKS
+		}		
+		BOG = {
+			annex_country = {
+				target = EKS
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = ECO
+				transfer_troops = yes
+			}
+			set_cosmetic_tag = BOG_eurokom			
+		}
+		log = "[GetDateText]: EKS-petru"
+	}	
+}
+
+country_event = {
+	id = aievent_paths.18 #EKW
+	title = aievent_paths.18.t
+	desc = aievent_paths.18.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.18"}
+	option = {
+		name = aievent_paths.18.a #fur polen
+		ai_chance = { base = 50 }
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.1
+		}
+		log = "[GetDateText]: EKW - fur polen"
+	}
+	option = {
+		name = aievent_paths.18.b #fur deutschland
+		ai_chance = { base = 35 }
+		set_politics = {
+			ruling_party = autocracy
+			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = 0.2
+			}
+			add_country_leader_role = {
+			    character = EKW_donald_tusk
+			    promote_leader = yes
+			    country_leader = {
+			        ideology = autocracy_emergency_government_subtype
+			    }
+			}
+			
+		log = "[GetDateText]: EKW - fur deutschland"
+	}
+	option = {
+		name = aievent_paths.18.c #fur europa
+		ai_chance = { base = 15 }
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.2
+		}
+		add_country_leader_role = {
+		    character = EKW_donald_tusk
+		    promote_leader = yes
+		    country_leader = {
+		        ideology = postpolonism_subtype
+		    }
+		}
+		log = "[GetDateText]: EKW - fur europa"
+	}	
+}
+
+
+country_event = {
+	id = aievent_paths.19 #GUR
+	title = aievent_paths.19.t
+	desc = aievent_paths.19.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.19"}
+	option = {
+		name = aievent_paths.19.a #goralenvolk
+		trigger = { NOT = { has_government = paternal_conservatism} }
+		ai_chance = { base = 50 }
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 0.1
+		}
+		log = "[GetDateText]: GUR - piton"
+	}
+	option = {
+		name = aievent_paths.19.b #gurale syckich swiata stron
+		ai_chance = { base = 35 }
+		set_politics = {
+			ruling_party = paternal_conservatism
+			}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.2
+			}
+			
+		log = "[GetDateText]: GUR - prawe tokp"
+	}
+	option = {
+		name = aievent_paths.19.c #zapierdalamy
+		ai_chance = { base = 15 }
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.2
+		}
+		log = "[GetDateText]: GUR - lewe tokp"
+	}	
+}
+
+country_event = {
+	id = aievent_paths.20 #JAS
+	title = aievent_paths.20.t
+	desc = aievent_paths.20.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.20"}
+	option = {
+		name = aievent_paths.20.a #wyrywajsercyzm
+		trigger = { has_country_flag = JAS_wyrywajsercyzm }
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.2
+		}			
+		log = "[GetDateText]: JAS - wyrwe im kurwa serce"
+	}
+	option = {
+		name = aievent_paths.20.b #sendele
+		trigger = { has_country_flag = JAS_allied_sendecki }
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 0.1
+		}
+		log = "[GetDateText]: JAS - sendele"
+	}
+	option = {
+		name = aievent_paths.20.c #ppporęba
+		trigger = { has_country_flag = JAS_allied_poreba }
+		add_country_leader_role = {
+		    character = JAS_aleksander_jabłonowski
+		    promote_leader = yes
+		    country_leader = {
+		        ideology = autocracy_subtype
+		    }
+		}		
+		set_politics = {
+			ruling_party = autocracy
+		}
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.2
+		}
+		log = "[GetDateText]: JAS - ppporeba"
+	}	
+}
+
+country_event = {
+	id = aievent_paths.21 #lublyniec
+	title = aievent_paths.21.t
+	desc = aievent_paths.21.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.21 - lubliniec "}
+	option = {
+		name = aievent_paths.21.a #kukuła wot
+		ai_chance = { base = 40 }
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.15
+		}
+		log = "[GetDateText]: JWK - WOT"
+	}
+	option = {
+		name = aievent_paths.21.b #kukuła sparta
+		ai_chance = { base = 30 }
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.3
+		}
+		log = "[GetDateText]: JWK - SPARTAAAAAAAAAAAAAAAAA"
+	}
+	option = {
+		name = aievent_paths.21.c #komandosi
+		ai_chance = { base = 30 }
+		set_politics = {
+			ruling_party = neonationalism
+		}
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 0.2
+		}
+		log = "[GetDateText]: JWK - Commando Coup"
+	}
+}
+
+
+country_event = {
+	id = aievent_paths.22 #kelkuc
+	title = aievent_paths.22.t
+	desc = aievent_paths.22.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_paths.22 - kelkuc "}
+	option = {
+		name = aievent_paths.22.a
+		ai_chance = { base = 45 }
+		add_popularity = {
+			ideology = freemarketism
+			popularity = 0.15
+		}
+		log = "[GetDateText]: KEL - kapitalizm albo chuj w dupe twa"
+	}
+	option = {
+		name = aievent_paths.22.b
+		ai_chance = { base = 40 }
+		set_politics = {
+			ruling_party = neonationalism
+		}
+		add_popularity = {
+			ideology = neonationalism
+			popularity = 0.2
+		}
+		log = "[GetDateText]: KEL - nadejdzie w koncu taki dzien"
+	}
+	option = {
+		name = aievent_paths.22.c
+		ai_chance = { base = 15 }
+		set_politics = {
+			ruling_party = postpolonism
+		}
+		add_popularity = {
+			ideology = postpolonism
+			popularity = 0.3
+		}
+		log = "[GetDateText]: KEL - zabijmy sie"
+	}
+}
 
 ### MISC ###
 
@@ -1496,51 +1836,7 @@ country_event = {
 	}	
 }
 
-country_event = {
-	id = aievent.36 #lublyniec
-	title = aievent.36.t
-	desc = aievent.36.desc
 
-	fire_only_once = yes
-	trigger = { 
-		original_tag = JWK
-		has_country_flag = unified_voivodeship
-	}
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent.36 - lubliniec "}
-	option = {
-		name = aievent.36.a #kukuła wot
-		ai_chance = { base = 40 }
-		add_popularity = {
-			ideology = autocracy
-			popularity = 0.15
-		}
-		log = "[GetDateText]: JWK - WOT"
-	}
-	option = {
-		name = aievent.36.b #kukuła sparta
-		ai_chance = { base = 30 }
-		set_politics = {
-			ruling_party = postpolonism
-		}
-		add_popularity = {
-			ideology = postpolonism
-			popularity = 0.4
-		}
-		log = "[GetDateText]: JWK - SPARTAAAAAAAAAAAAAAAAA"
-	}
-	option = {
-		name = aievent.36.c #komandosi
-		ai_chance = { base = 30 }
-		set_politics = {
-			ruling_party = neonationalism
-		}
-		add_popularity = {
-			ideology = neonationalism
-			popularity = 0.2
-		}
-		log = "[GetDateText]: JWK - Commando Coup"
-	}
-}
 
 
 country_event = {
