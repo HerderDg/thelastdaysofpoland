@@ -1001,6 +1001,10 @@ focus_tree = {
 		}
 		
 		bypass = {
+			OR = {
+				JWK = { exists = no }
+				has_war_with = JWK
+			}
 		}
 		
 		x = 0
@@ -1025,9 +1029,8 @@ focus_tree = {
 		text_icon = TRUSKOLASY_focus_style
 		icon = BRZ_lubliniec_training_camp
 		available = {
-			not = {
-				country_exists = JWK
-			}
+			JWK = { exists = no }
+			421 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1051,11 +1054,13 @@ focus_tree = {
 		prerequisite = { focus = BRZ_lubliniec_training_camp }
 		available = {
 			has_war = no
+			JUR = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = JUR
+			OR = {
+				JUR = { exists = no }
+				has_war_with = JUR
 			}
 		}
 		
@@ -1080,11 +1085,13 @@ focus_tree = {
 		prerequisite = { focus = BRZ_jurassic_hooligan_fights }
 		available = {
 			has_war = no
+			ZAW = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = ZAW
+			OR = {
+				ZAW = { exists = no }
+				has_war_with = ZAW
 			}
 		}
 		
@@ -1161,10 +1168,10 @@ focus_tree = {
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
-			not = {
-				country_exists = JUR
-				country_exists = ZAW
-			}
+			JUR = { exists = no }
+			ZAW = { exists = no }
+			738 = { is_controlled_by = BRZ }
+			739 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1195,10 +1202,8 @@ focus_tree = {
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
-			not = {
-				country_exists = JUR
-				country_exists = ZAW
-			}
+			JUR = { exists = no }
+			ZAW = { exists = no }
 		}
 		
 		bypass = {
@@ -1222,6 +1227,7 @@ focus_tree = {
 		prerequisite = { focus = BRZ_lubliniec_training_camp }
 		available = {
 			has_war = no
+			CCH = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
@@ -1247,11 +1253,13 @@ focus_tree = {
 		prerequisite = { focus = BRZ_pilgrimage_to_czestochowa }
 		available = {
 			has_war = no
+			CCH = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = CCH
+			OR = {
+				CCH = { exists = no }
+				has_war_with = CCH
 			}
 		}
 		
@@ -1327,9 +1335,8 @@ focus_tree = {
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
-			not = {
-				country_exists = CCH
-			}
+			CCH = { exists = no }
+			969 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1362,9 +1369,8 @@ focus_tree = {
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
-			not = {
-				country_exists = CCH
-			}
+			CCH = { exists = no }
+			592 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1391,6 +1397,7 @@ focus_tree = {
 			NOT = {
 				country_exists = CCH
 				country_exists = JUR
+				country_exists = JWK
 			}
 		}
 		
@@ -1404,11 +1411,17 @@ focus_tree = {
 		
 		completion_reward = {
 			if = {
-				limit = { country_exists = SIE }
-					declare_war_on = {
-						target = SIE
-						type = voivodeship_war
-					}
+				limit = { 
+					country_exists = SIE 
+					SIE = { is_subject = no }
+				}
+				declare_war_on = {
+					target = SIE
+					type = voivodeship_war
+				}
+			}
+			else = {
+				army_experience = 100
 			}
 		}
 	}
@@ -1461,12 +1474,12 @@ focus_tree = {
 		completion_reward = { 
 			add_equipment_to_stockpile = {
 				type = ranged_equipment
-				amount = 200
+				amount = 300
 				producer = JWK
 			}
 			add_equipment_to_stockpile = {
 				type = motorized_equipment
-				amount = 10
+				amount = 50
 				producer = JWK
 			}
 		}
@@ -1480,11 +1493,13 @@ focus_tree = {
 		prerequisite = { focus = BRZ_away_game_in_zaglebie }
 		available = {
 			has_war = no
+			DGR = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = DGR
+			OR = {
+				DGR = { exists = no }
+				has_war_with = DGR
 			}
 		}
 		
@@ -1561,12 +1576,30 @@ focus_tree = {
 		prerequisite = { focus = BRZ_away_game_in_zaglebie }
 		available = {
 			has_war = no 
+			OR = {
+				SOS = { is_neighbor_of = BRZ }
+				BED = { is_neighbor_of = BRZ }
+			}
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = SOS
-				country_exists = BED
+			OR = {
+				AND = {
+					SOS = { exists = no }
+					BED = { exists = no }
+				}
+				AND = { 
+					has_war_with = SOS
+					has_war_with = BED
+				}
+				AND = {
+					has_war_with = SOS
+					BED = { exists = no }
+				}
+				AND = {
+					has_war_with = BED
+					SOS = { exists = no }
+				}				
 			}
 		}
 		
@@ -1650,11 +1683,13 @@ focus_tree = {
 		prerequisite = { focus = BRZ_away_game_in_zaglebie }
 		available = {
 			has_war = no
+			JAW = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
-			NOT = {
-				country_exists = JAW
+			OR = {
+				JAW = { exists = no }
+				has_war_with = JAW
 			}
 		}
 		
@@ -1730,9 +1765,8 @@ focus_tree = {
 		relative_position_id = BRZ_zaglebie_sosnowiec_match
 		prerequisite = { focus = BRZ_zaglebie_sosnowiec_match }
 		available = {
-			NOT = {
-				country_exists = SOS
-			}
+			SOS = { exists = no }
+			481 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1755,9 +1789,8 @@ focus_tree = {
 		relative_position_id = BRZ_unia_dg_match
 		prerequisite = { focus = BRZ_unia_dg_match }
 		available = {
-			NOT = {
-				country_exists = DGR
-			}
+			DGR = { exists = no }
+			460 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1779,9 +1812,8 @@ focus_tree = {
 		relative_position_id = BRZ_szczakowianka_jaworzno_match
 		prerequisite = { focus = BRZ_szczakowianka_jaworzno_match }
 		available = {
-			NOT = {
-				country_exists = JAW
-			}
+			JAW = { exists = no }
+			487 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1825,6 +1857,7 @@ focus_tree = {
 						is_core_of = DGR
 						is_core_of = SOS
 					}
+					NOT = { is_core_of = BRZ }
 				}
 				add_compliance = 40
 			}

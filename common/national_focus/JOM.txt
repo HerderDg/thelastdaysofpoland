@@ -1,7 +1,7 @@
 
 
 focus_tree = {
-	id = jomsborg_pre_invasion_focus
+	id = jomsborg_focus
 	
 	country = {
 		factor = 0
@@ -555,10 +555,11 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		    every_state = {
+		    every_controlled_state = {
 				limit = {
 					is_core_of = POM
 					is_controlled_by = JOM
+					NOT = { is_core_of = JOM }
 				}
 				add_compliance = 30
 			}
@@ -857,11 +858,14 @@ focus_tree = {
 				remove_idea = training_battle
 				add_idea = training_basic
 			}
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
-				category = land_honor
-			} 
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = JOM_skeggold
+			    # FILTERS:
+			    folder = land
+			    grand_doctrine = cqc_theory
+			}
 		}
 	}
 	focus = {
@@ -1094,6 +1098,7 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_tech_bonus = {
+				name = JOM_forging_spears
 				bonus = 0.5
 				uses = 1
 				category = melee_weapons
@@ -1201,6 +1206,7 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_doctrine_cost_reduction = {
+				name = JOM_hit_run_doctrine
 				cost_reduction = 0.5
 				uses = 2
 				category = cat_marines_doctrine
@@ -1225,11 +1231,14 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
-				category = naval_brown
-			} 
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = JOM_riverine_warfare
+			    # FILTERS:
+			    folder = naval
+			    track = screens
+			}
 		}
 	}
 	focus = {
@@ -2201,11 +2210,12 @@ focus_tree = {
 		completion_reward = { 
 		    add_ideas = JOM_lizard_proving_grounds
 			army_experience = 50
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 1
-				category = land_partisan
-				name = "I'LL TEAR YOUR FUCKING HEART OUT AND EAT IT LIKE THAT AAAAAAAAAAR"
+			add_mastery_bonus = {
+			    bonus = 0.3
+			    days = 180
+			    name = "I'LL TEAR YOUR FUCKING HEART OUT AND EAT IT LIKE THAT AAAAAAAAAAR"
+			    folder = land
+			    track = infantry
 			}
 		}
 	}
@@ -4902,8 +4912,7 @@ focus_tree = {
 				}
 				every_possible_country = {
 					limit = { has_character = AMA_matysiak }
-					random_character = {
-						limit = { is_character = AMA_matysiak }
+					AMA_matysiak = {
 						set_nationality = JOM
 					}
 				}
@@ -4914,8 +4923,7 @@ focus_tree = {
 				}
 				every_possible_country = {
 					limit = { has_character = JAW_gosekpopiolek }
-					random_character = {
-						limit = { is_character = JAW_gosekpopiolek }
+					JAW_gosekpopiolek = {
 						set_nationality = JOM
 					}
 				}
@@ -4932,18 +4940,15 @@ focus_tree = {
 				}
 				every_possible_country = {
 					limit = { has_character = JAW_konieczny }
-					random_character = {
-						limit = { is_character = JAW_konieczny }
+					JAW_konieczny = {
 						set_nationality = JOM
 					}
 				}
 			}
 			if = {
 				limit = {
-					AND = {
-						JAW = { exists = yes }
-						AMA = { exists = yes }
-					}
+					JAW = { exists = yes }
+					AMA = { exists = yes }
 				}
 				add_popularity = {
 					ideology = squattism
@@ -6106,6 +6111,7 @@ focus_tree = {
 				}
 			}
 			add_tech_bonus = {
+				name = JOM_strength_of_the_bear
 				uses = 1
 				bonus = 0.5
 				category = melee_weapons
@@ -6415,6 +6421,7 @@ focus_tree = {
 				}
 			}
 			add_tech_bonus = {
+				name = JOM_a_steel_reality
 				uses = 2
 				bonus = 0.5
 				category = smelting_tech
@@ -6836,6 +6843,7 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_tech_bonus = {
+				name = JOM_industrial_light_of_northern_star
 				uses = 2
 				bonus = 0.5
 				category = industry
@@ -6940,12 +6948,16 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
-				category = land_partisan
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = JOM_deep_raids_into_enemy_territory
+			    # FILTERS:
+			    folder = land
+			    grand_doctrine = cqc_theory
 			}
 			add_doctrine_cost_reduction = {
+				name = JOM_deep_raids_into_enemy_territory
 				cost_reduction = 0.5
 				uses = 2
 				category = cat_marines_doctrine
@@ -7004,11 +7016,13 @@ focus_tree = {
 		completion_reward = { 
 			country_event = jomsborg.61
 			add_tech_bonus = {
+				name = JOM_ladies_of_the_slain
 				uses = 1
 				bonus = 1
 				category = hospital_tech
 			}
 			add_tech_bonus = {
+				name = JOM_ladies_of_the_slain
 				uses = 1
 				bonus = 1
 				category = transport_helis
@@ -7159,11 +7173,13 @@ focus_tree = {
 				add_idea = JOM_tyr_idea_6_alt
 			}
 			add_tech_bonus = {
+				name = JOM_total_ground_defense
 				bonus = 0.5
 				uses = 1
 				category = radar_tech
 			}
 			add_tech_bonus = {
+				name = JOM_total_ground_defense
 				bonus = 0.5
 				uses = 1
 				category = cat_fortification
@@ -7217,10 +7233,13 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = { 
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
-				category = air_parity
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = JOM_air_power_survival
+			    # FILTERS:
+			    folder = air
+			    grand_doctrine = air_parity
 			}
 			83 = {
 				add_extra_state_shared_building_slots = 1
