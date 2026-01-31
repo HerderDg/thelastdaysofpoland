@@ -7642,13 +7642,23 @@ podlasie_traktor_boss = {
 		WRM = { dismantle_faction = yes }
 		log = "[GetDateText]: [WRM.GetName] dismantles faction"
 		ROS = {
-			remove_wargoal = {
-				type = all
-				target = TEU
+			if = {
+				limit = {
+					has_wargoal_against = TEU
+				}
+				remove_wargoal = {
+					type = all
+					target = TEU
+				}
 			}
-			remove_wargoal = {
-				type = all
-				target = LUB
+			if = {
+				limit = {
+					has_wargoal_against = LUB
+				}
+				remove_wargoal = {
+					type = all
+					target = LUB
+				}
 			}
 		}	
 		every_state = {
@@ -7817,13 +7827,27 @@ great_teutonic_war = {
 			set_faction_name = anti_teuton_league
 			add_to_faction = ELB
 			add_to_faction = PRU
-			declare_war_on = {
-				target = TEU
-				type = voivodeship_war
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = TEU
+					}
+				}
+				declare_war_on = {
+					target = TEU
+					type = voivodeship_war
+				}
 			}
-			declare_war_on = {
-				target = LUB
-				type = voivodeship_war
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = LUB
+					}
+				}
+				declare_war_on = {
+					target = LUB
+					type = voivodeship_war
+				}
 			}
 		}
 		ELB = {
