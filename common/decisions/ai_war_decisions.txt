@@ -445,12 +445,12 @@ CARPAT_03_TYMBARK = {
 		TYM
 	}
 	target_trigger = {
-			FROM = {
-				is_neighbor_of = ROOT
-				NOT = { is_subject_of = ROOT }
-				NOT = { is_in_faction_with = ROOT }
-				NOT = { has_war_with = ROOT }
-			}
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+			NOT = { has_war_with = ROOT }
+		}
 	}
 	war_with_target_on_complete = yes
 	ai_will_do = {
@@ -498,9 +498,14 @@ CARPAT_03_FINISH_HIM = {
 			WYM = {exists = yes}
 		}		
 	}
-
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { has_war_with = ROOT }
+		}
+	}
 	targets = {
-		BBA
+		BBA WYM
 	}
 	war_with_target_on_complete = yes
 	days_remove = 7
@@ -510,41 +515,20 @@ CARPAT_03_FINISH_HIM = {
 	remove_effect = {
 		if = {
 			limit = {
-				country_exists = BBA
-				BBA = { is_subject_of = ROOT }
+				FROM = { is_subject_of = ROOT }
 			}
 		annex_country = {
-			target = BBA
+			target = FROM
 			transfer_troops = yes
 		}
 		}
 		if = {
 			limit = {
-				country_exists = BBA
-				BBA = { NOT = { is_subject_of = ROOT } }
+				country_exists = FROM
+				FROM = { NOT = { is_subject_of = ROOT } }
 			}
 			declare_war_on = {
-				target = BBA
-				type = voivodeship_war
-			}
-		}
-		if = {
-			limit = {
-				country_exists = WYM
-				WYM = { is_subject_of = ROOT }
-			}
-		annex_country = {
-			target = WYM
-			transfer_troops = yes
-		}
-		}
-		if = {
-			limit = {
-				country_exists = WYM
-				WYM = { NOT = { is_subject_of = ROOT } }
-			}
-			declare_war_on = {
-				target = WYM
+				target = FROM
 				type = voivodeship_war
 			}
 		}				
