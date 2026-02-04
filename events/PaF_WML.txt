@@ -2343,28 +2343,14 @@ country_event = { #kwestia wolborza
 		}
 		LKS = {
 			leave_faction = yes
+			hidden_effect = {
+				country_event = WML_dialogue.14
+			}
 		}
 		set_variable = {
 			dialogue_sided_with = ZYD
 		}
-		start_border_war = {
-			change_state_after_war = no
-			attacker = { 
-				state = 683
-				num_provinces = 3
-				on_win = WML_border_skirmishes.2
-			}
-			defender = {
-				state = 328
-				num_provinces = 3
-			}
-		}
-		hidden_effect = {
-			country_event = {
-				id = WML_border_skirmishes.1
-			}
-			activate_mission = WML_escalation
-		}
+		
 	}
 }
 
@@ -2544,23 +2530,14 @@ country_event = {
 		SAP = { #overlord łowicza
 			leave_faction = yes
 		}
-		start_border_war = {
-			change_state_after_war = no
-			attacker = { 
-				state = 1128
-				num_provinces = 2
-				on_win = WML_border_skirmishes.2
-			}
-			defender = {
-				state = 682
-				num_provinces = 3
+		KAR = {
+			hidden_effect = {
+				country_event = {
+					id = WML_dialogue.14
+				}
 			}
 		}
-		hidden_effect = {
-			country_event = {
-				id = WML_border_skirmishes.1
-			}
-		}
+		
 	}
 }
 
@@ -2710,6 +2687,11 @@ country_event = {
 		}
 		ZHP = { 
 			leave_faction = yes
+			hidden_effect = {
+				country_event = {
+					id = WML_dialogue.14
+				}
+			}
 		}
 		start_border_war = {
 			change_state_after_war = no
@@ -2721,11 +2703,6 @@ country_event = {
 			defender = {
 				state = 903
 				num_provinces = 3
-			}
-		}
-		hidden_effect = {
-			country_event = {
-				id = WML_border_skirmishes.1
 			}
 		}
 	}
@@ -2882,24 +2859,13 @@ country_event = {
 		}
 		BBW = { 
 			leave_faction = yes
-		}
-		start_border_war = {
-			change_state_after_war = no
-			attacker = { 
-				state = 903
-				num_provinces = 3
-				on_win = WML_border_skirmishes.2
-			}
-			defender = {
-				state = 396
-				num_provinces = 2
+			hidden_effect = {
+				country_event = {
+					id = WML_dialogue.14
+				}
 			}
 		}
-		hidden_effect = {
-			country_event = {
-				id = WML_border_skirmishes.1
-			}
-		}
+		
 	}
 }
 
@@ -2995,7 +2961,139 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = WML_dialogue.14
+	title = WML_dialogue.14.t
+	desc = WML_dialogue.14.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_dialogue.14.a
+		log = "dialogue border war starts"
+		if = { 
+			limit = {
+				tag = LKS
+			}
+			start_border_war = {
+				change_state_after_war = no
+				attacker = { 
+					state = 683
+					num_provinces = 3
+					on_win = WML_border_skirmishes.2
+				}
+				defender = {
+					state = 328
+					num_provinces = 3
+				}
+			}
+			if = {
+				limit = {
+					ZYD = {
+						is_ai = no
+					}
+				}
+				ZYD = {
+					country_event = WML_dialogue.15
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				tag = KAR
+			}
+			start_border_war = {
+				change_state_after_war = no
+				attacker = { 
+					state = 1128
+					num_provinces = 2
+					on_win = WML_border_skirmishes.2
+				}
+				defender = {
+					state = 682
+					num_provinces = 3
+				}
+			}
+			if = {
+				limit = {
+					POG = {
+						is_ai = no
+					}
+				}
+				POG = {
+					country_event = WML_dialogue.15
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				tag = ZHP
+			}
+			start_border_war = {
+				change_state_after_war = no
+				attacker = { 
+					state = 396
+					num_provinces = 2
+					on_win = WML_border_skirmishes.2
+				}
+				defender = {
+					state = 903
+					num_provinces = 3
+				}
+			}
+			if = {
+				limit = {
+					BBW = {
+						is_ai = no
+					}
+				}
+				BBW = {
+					country_event = WML_dialogue.15
+				}
+			}
+		}
+		else = {
+			start_border_war = {
+				change_state_after_war = no
+				attacker = { 
+					state = 903
+					num_provinces = 3
+					on_win = WML_border_skirmishes.2
+				}
+				defender = {
+					state = 396
+					num_provinces = 2
+				}
+			}
+			if = {
+				limit = {
+					ZHP = {
+						is_ai = no
+					}
+				}
+				ZHP = {
+					country_event = WML_dialogue.15
+				}
+			}
+		}
+		hidden_effect = {
+			WML = {
+				country_event = {
+					id = WML_border_skirmishes.1
+				}
+			activate_mission = WML_escalation
+			}		
+		}
+	}
+}
 
+country_event = {
+	id = WML_dialogue.15
+	title = WML_dialogue.15.t
+	desc = WML_dialogue.15.desc
+	is_triggered_only = yes
+	option = {
+		name = WML_dialogue.15.a
+	}
+}
 country_event = {
 	id = WML_border_skirmishes.1 #konflikt graniczny
 	title = WML_border_skirmishes.1.t
