@@ -987,6 +987,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			689 = {
+				add_compliance = 20
+			}
 		}
 	}
 
@@ -1000,7 +1003,7 @@ focus_tree = {
 			KNN = {
 				exists = no
 			}
-		    owns_state = 256
+		    owns_state = 1145
 			has_war = no
 		}
 		
@@ -1028,6 +1031,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			1145 = {
+				add_compliance = 20
+			}
 		}
 	}
 	
@@ -1046,7 +1052,6 @@ focus_tree = {
 					is_subject_of = ROOT
 				}
 			}
-			
 		}
 		
 		bypass = {
@@ -1059,6 +1064,18 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = calisia.27
+			689 = {
+				create_unit = {
+					division = "division_template = \"Auxilia\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+					owner = CAL
+				}
+			}
+			260 = {
+				create_unit = {
+					division = "division_template = \"Auxilia\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+					owner = CAL
+				}
+			}			
 		}
 	}
 	
@@ -1208,6 +1225,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			240 = {
+				add_compliance = 20
+			}
 		}
 	}
 	
@@ -1232,7 +1252,12 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = calisia.18
-			add_manpower = 3000
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = CAL_cavalry_experience
+				sub_doctrine = honor_armor
+			}
 		}
 	}
 	
@@ -1274,6 +1299,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			299 = {
+				add_compliance = 20
+			}
 		}
 	}
 	
@@ -1448,6 +1476,7 @@ focus_tree = {
 				tooltip = CAL_change_gravitas_populares_tt
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			add_political_power = 100
 		}
 	}
 
@@ -1554,6 +1583,7 @@ focus_tree = {
 				remove_idea = training_battle 
 				add_idea = training_basic 
 			}
+			army_experience = 50
 		}
 	}
 
@@ -1578,6 +1608,7 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = { id = calisia.22 }
+			add_ideas = CAL_gladiators_idea
 		}
 	}
 
@@ -2290,23 +2321,43 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-			314 = {
-				add_manpower = 2000
-			}
-			846 = {
-				add_manpower = 5000
-			}
-			688 = {
-				add_manpower = -1500
-			}
-			286 = {
-				add_manpower = -1500
-			}
-			285 = {
-				add_manpower = -2000
-			}
-			851 = {
-				add_manpower = -2000
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 688
+						state = 286
+						state = 285
+						state = 851
+					}
+				}
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.15}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_calisia = to_resettle}
+				set_temp_variable = {to_resettle_west_calisia = to_resettle}
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 846
+							}
+						}
+						multiply_temp_variable = {to_resettle_west_calisia = -0.4}
+						add_manpower = to_resettle_west_calisia
+					}					
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 314
+							}
+						}
+						multiply_temp_variable = {to_resettle_calisia = -0.6}
+						add_manpower = to_resettle_calisia
+					}								
+				}
+
 			}
 		}
 	}
@@ -2417,6 +2468,7 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
+			navy_experience = 100
 			256 = {
 				add_building_construction = {
 					type = naval_base
@@ -4051,10 +4103,18 @@ focus_tree = {
 				add_dynamic_modifier = {
 					modifier = CAL_gardens_modifier
 				}
+				add_resource = {
+					type = food
+					amount = 1
+				}
 			}
 			846 = {
 				add_dynamic_modifier = {
 					modifier = CAL_gardens_modifier
+				}
+				add_resource = {
+					type = food
+					amount = 1
 				}
 			}
 			CAL_project_funding = yes
@@ -5234,6 +5294,7 @@ focus_tree = {
 					THIS.coring_cost = 0.8
 				}
 			}
+			#todo - add tooltip about coring cost reduction
 			846 = {
 			    add_manpower = 2150 }
 			add_victory_points = {
