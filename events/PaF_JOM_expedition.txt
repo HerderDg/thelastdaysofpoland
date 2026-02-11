@@ -228,14 +228,16 @@ country_event = { #Rugen Arrival
 
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires jom_expedition.10" 
-		GER = {
-			create_equipment_variant = {
-				name = "Jormungandr Class"								
-				type = ship_hull_submarine_2
-				modules = {
-					fixed_ship_torpedo_slot = ship_torpedo_sub_1
-					fixed_ship_engine_slot = sub_ship_engine_1
-					rear_1_custom_slot = ship_mine_layer_sub
+		hidden_effect = {
+			GER = {
+				create_equipment_variant = {
+					name = "Jormungandr Class"								
+					type = ship_hull_submarine_2
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_1
+						fixed_ship_engine_slot = sub_ship_engine_1
+						rear_1_custom_slot = ship_mine_layer_sub
+					}
 				}
 			}
 		}
@@ -722,23 +724,27 @@ country_event = { #Petersburg Arrival
 
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires jom_expedition.28" 
-		RUS = {
-			create_equipment_variant = {
-				name = "Aurora Class"								
-				type = heavy_monitor_hull_3_equipment
-				modules = {
-					fixed_ship_battery_slot = ship_heavy_battery_2
-					fixed_ship_anti_air_slot = ship_anti_air_1
-					fixed_ship_fire_control_system_slot = ship_fire_control_system_2
-					fixed_ship_radar_slot = ship_radar_1
-					fixed_ship_engine_slot = heavy_ship_engine_3
-					fixed_ship_secondaries_slot = ship_secondaries_2
-					fixed_ship_armor_slot = ship_armor_bb_3
-					front_1_custom_slot = ship_heavy_battery_2
-					rear_2_custom_slot = ship_heavy_battery_2
+		hidden_effect = {
+			RUS = {
+				unlock_all_navy_stuff = yes
+				create_equipment_variant = {
+					name = "Pallada Class"								
+					type = heavy_monitor_hull_3_equipment
+					modules = {
+						fixed_ship_battery_slot = ship_heavy_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_bc_3
+						front_1_custom_slot = ship_heavy_battery_2
+						rear_2_custom_slot = ship_heavy_battery_2
+					}
 				}
 			}
 		}
+		
 	}
 	option = {
 		name = jom_expedition.28.b
@@ -793,8 +799,8 @@ country_event = { #Petersburg Raid
 		name = jom_expedition.30.a
 		JOM = {
 			create_ship = {
-				type = heavy_monitor_hull_3_equipment
-				equipment_variant = "Aurora Class"
+				type = heavy_monitor_hull
+				equipment_variant = "Pallada Class"
 				creator = RUS
 				name = "Aurora"
 			}
@@ -1295,7 +1301,14 @@ country_event = { #Danelaw Raid na Londyn
 	option = {
 		name = jom_expedition.48.a
 		JOM_zandberg_little_less_sane = yes
-		JOM_one_more_step_to_un_intervention = yes
+		
+		hidden_effect = {
+			add_to_variable = {
+				budget = -0.001
+			}
+		}
+		custom_effect_tooltip = budget_subtract_1K	
+		custom_effect_tooltip = expedition_londyn_memoberlia	
 	}
 }
 
@@ -1347,6 +1360,12 @@ country_event = { #Shetland Trade
 
 	option = {
 		name = jom_expedition.50.a
+		add_tech_bonus = {
+			bonus = 0.75
+			uses = 1
+			name = naval_mines
+			category = naval_mines
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -1368,6 +1387,11 @@ country_event = { #Shetland Raid
 	option = {
 		name = jom_expedition.51.a
 		JOM_zandberg_little_less_sane = yes
+		70 = {
+			add_dynamic_modifier = {
+				modifier = JOM_nessie_mod
+			}
+		}
 	}
 }
 
@@ -1415,6 +1439,16 @@ country_event = { #Iceland Trade
 		JOM = {
 			JOM_suceed_expedition = yes
 		}
+		JOM_sportakus = {
+			add_corps_commander_role = {
+				traits = {politically_connected}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+		}
 	}
 
 	option = {
@@ -1440,6 +1474,7 @@ country_event = { #Danelaw - raid na Lindisfarne
 	option = {
 		name = jom_expedition.54.a
 		JOM_zandberg_little_less_sane = yes
+		JOM_one_more_step_to_un_intervention = yes
 	}
 }
 
@@ -1500,6 +1535,7 @@ country_event = { #Greenland Trade
 
 	option = {
 		name = jom_expedition.56.a
+		add_timed_idea = { idea = JOM_greenland_trade days = 90 }
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -1521,7 +1557,6 @@ country_event = { #Greenland Raid
 	option = {
 		name = jom_expedition.57.a
 		JOM_zandberg_little_less_sane = yes
-		JOM_one_more_step_to_un_intervention = yes
 	}
 }
 
@@ -1574,6 +1609,10 @@ country_event = { #Vinland Trade
 	option = {
 		name = jom_expedition.59.a
 		JOM_zandberg_little_more_sane = yes
+		add_breakthrough_points = {
+			specialization = specialization_nuclear
+			value = 2
+		}
 	}
 }
 country_event = { #Vinland Raid
@@ -1594,6 +1633,10 @@ country_event = { #Vinland Raid
 	option = {
 		name = jom_expedition.60.a
 		JOM_zandberg_little_less_sane = yes
+		add_to_variable = {
+			budget = 1
+		}
+		custom_effect_tooltip = budget_add_1M
 		JOM_one_more_step_to_un_intervention = yes
 	}
 }
@@ -1647,6 +1690,7 @@ country_event = { #New York Trade
 	option = {
 		name = jom_expedition.62.a
 		JOM_zandberg_little_more_sane = yes
+		add_timed_idea = { idea = JOM_wall_street_trade days = 90 }
 	}
 }
 country_event = { #New York Raid
@@ -1667,6 +1711,10 @@ country_event = { #New York Raid
 	option = {
 		name = jom_expedition.63.a
 		JOM_zandberg_little_less_sane = yes
+		add_to_variable = {
+			budget = 1000
+		}
+		custom_effect_tooltip = budget_add_1B
 		JOM_one_more_step_to_un_intervention = yes
 	}
 }
@@ -1710,6 +1758,7 @@ country_event = { #USA Trade
 
 	option = {
 		name = jom_expedition.65.a
+		add_manpower = 1776
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -1730,6 +1779,11 @@ country_event = { #karaiby guantanamo
 
 	option = {
 		name = jom_expedition.66.a
+		add_manpower = -300
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = -15
+		}
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -1791,6 +1845,10 @@ country_event = { #Caribbean Trade
 
 	option = {
 		name = jom_expedition.68.a
+		add_timed_idea = {
+			idea = JOM_caribbean_trade
+			days = 90
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -1809,8 +1867,9 @@ country_event = { #Caribbean Raid
 		}		
 	}
 
-	option = {
+	option = {	
 		name = jom_expedition.69.a
+		add_stability = -0.01
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -1863,6 +1922,10 @@ country_event = { #Central America Trade
 
 	option = {
 		name = jom_expedition.71.a
+		add_timed_idea = {
+			idea = JOM_centam_trade
+			days = 90
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -1883,6 +1946,12 @@ country_event = { #Central America Raid
 
 	option = {
 		name = jom_expedition.72.a
+		custom_effect_tooltip = JOM_mayan_artifacts_tt
+		add_stability = 0.05
+		add_to_variable = {
+			budget = 250
+		}
+		custom_effect_tooltip = budget_add_250M
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -1936,6 +2005,10 @@ country_event = { #Colombia/Venezuela/Guyana Trade
 	option = {
 		name = jom_expedition.74.a
 		JOM_zandberg_little_more_sane = yes
+		add_timed_idea = {
+			idea = JOM_venezuela_trade
+			days = 90
+		}
 	}
 }
 country_event = { #Colombia/Venezuela/Guyana Raid
@@ -1956,6 +2029,15 @@ country_event = { #Colombia/Venezuela/Guyana Raid
 	option = {
 		name = jom_expedition.75.a
 		JOM_zandberg_little_less_sane = yes
+		sp:sp_rockets_ballistic_missile = {
+			add_project_progress_ratio = 0.2
+		}
+		sp:sp_rockets_cosmos = {
+			add_project_progress_ratio = 0.2
+		}
+		sp:sp_rockets_cosmos_2 = {
+			add_project_progress_ratio = 0.2
+		}
 	}
 }
 
@@ -2007,6 +2089,10 @@ country_event = { #Brazil/Argentina Trade
 
 	option = {
 		name = jom_expedition.77.a
+		add_timed_idea = {
+			idea = JOM_brazil_trade
+			days = 90
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2027,6 +2113,7 @@ country_event = { #Brazil/Argentina Raid
 
 	option = {
 		name = jom_expedition.78.a
+		custom_effect_tooltip = gain_two_sheeps_tt
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2079,6 +2166,11 @@ country_event = { #Inca/Moai Trade
 
 	option = {
 		name = jom_expedition.80.a
+		add_unit_bonus = {
+			cavalry = {
+				soft_attack = 0.1
+			}
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2099,6 +2191,10 @@ country_event = { #Inca/Moai Raid
 
 	option = {
 		name = jom_expedition.81.a
+		add_to_variable = {
+			budget = 500000
+		}
+		custom_effect_tooltip = budget_add_500B
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2152,6 +2248,7 @@ country_event = { #Normandy Trade
 	option = {
 		name = jom_expedition.83.a
 		JOM_zandberg_little_more_sane = yes
+		add_ideas = JOM_normandy_settlement
 	}
 }
 country_event = { #Normandy Raid
@@ -2172,6 +2269,7 @@ country_event = { #Normandy Raid
 	option = {
 		name = jom_expedition.84.a
 		JOM_zandberg_little_less_sane = yes
+		add_ideas = JOM_bayeaux_tapestry
 	}
 }
 
@@ -2223,6 +2321,7 @@ country_event = { #Paris Trade
 
 	option = {
 		name = jom_expedition.86.a
+		add_ideas = JOM_france_trade
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2244,6 +2343,7 @@ country_event = { #Paris Raid
 	option = {
 		name = jom_expedition.87.a
 		JOM_zandberg_little_less_sane = yes
+		add_war_support = 0.1
 		JOM_one_more_step_to_un_intervention = yes
 	}
 }
@@ -2296,6 +2396,8 @@ country_event = { #Iberia Trade
 
 	option = {
 		name = jom_expedition.89.a
+		set_country_flag = JOM_more_chance_for_succeed
+		custom_effect_tooltip = JOM_more_chance_for_succeed
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2316,6 +2418,8 @@ country_event = { #Iberia Raid
 
 	option = {
 		name = jom_expedition.90.a
+		add_stability = 0.05
+		add_war_support = 0.05
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2368,6 +2472,11 @@ country_event = { #Sycylia Trade
 
 	option = {
 		name = jom_expedition.92.a
+		add_unit_bonus = {
+			category_all_infantry = {
+				suppression_factor = 0.1
+			}
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2388,6 +2497,15 @@ country_event = { #Sycylia Raid
 
 	option = {
 		name = jom_expedition.93.a
+		add_manpower = -15
+		custom_effect_tooltip = budget_add_2M
+		add_to_variable = {
+			budget = 2
+		}
+		custom_effect_tooltip = JOM_world_grateful
+		subtract_from_variable = {
+			JOM_un_intervention_var = 1
+		}
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2435,6 +2553,7 @@ country_event = { #Rome Trade
 		log = "[GetDateText]: [ROOT.GetName] fires jom_expedition.95"
 		JOM = {
 			JOM_suceed_expedition = yes
+			#add_resource 40 food
 		}
 	}
 
@@ -2460,6 +2579,11 @@ country_event = { #Rome Raid
 
 	option = {
 		name = jom_expedition.96.a
+		custom_effect_tooltip = budget_add_2M
+		custom_effect_tooltip = add_papamobile
+		add_to_variable = {
+			budget = 2
+		}
 		JOM_zandberg_little_less_sane = yes
 		JOM_one_more_step_to_un_intervention = yes
 	}
@@ -2524,6 +2648,10 @@ country_event = { #EMPTY
 
 	option = {
 		name = jom_expedition.99.a
+		add_breakthrough_points = {
+			specialization = all
+			value = 10
+		}
 	}
 }
 
@@ -2575,6 +2703,20 @@ country_event = { #Greece Trade
 
 	option = {
 		name = jom_expedition.101.a
+		add_doctrine_cost_reduction = {
+			cost_reduction = 0.5
+			category = naval_brown
+			name = brown_water_navy
+			uses = 1
+		}
+		add_equipment_bonus = {
+			name = "Greek Art Of Sailing"
+			bonus = {
+				convoy = {
+					build_cost_ic = -0.2
+				}
+			}
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2595,6 +2737,7 @@ country_event = { #Greece Raid
 
 	option = {
 		name = jom_expedition.102.a
+		add_war_support = 0.1
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2647,6 +2790,18 @@ country_event = { #Istanbul Trade
 
 	option = {
 		name = jom_expedition.104.a
+		add_manpower = -15
+		add_unit_bonus = {
+			category_melee_infantry = {
+				defense = 0.1
+			}
+		}
+		add_doctrine_cost_reduction = {
+			cost_reduction = 0.5
+			category = land_close_combat_doctrine
+			name = cqc_theory
+			uses = 1
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2720,6 +2875,18 @@ country_event = { #Holy Land Trade
 
 	option = {
 		name = jom_expedition.107.a
+		add_unit_bonus = {
+			category_anti_air = {
+				anti_air_attack  = 0.1
+			}
+			category_self_propelled_anti_air = {
+				anti_air_attack = 0.1
+			}
+		}
+		add_equipment_to_stockpile = {
+			amount = 1
+			type = mbt_equipment_4
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2740,6 +2907,10 @@ country_event = { #Holy Land Raid
 
 	option = {
 		name = jom_expedition.108.a
+		custom_effect_tooltip = budget_add_lootM
+		add_to_variable = {
+			budget = 7.931
+		}
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2792,6 +2963,13 @@ country_event = { #Safari Trade
 
 	option = {
 		name = jom_expedition.110.a
+		add_tech_bonus = {
+			name = "African cobalt"
+			uses = 1
+			bonus = 0.5
+			category = electronics
+		}
+		# +10 do elektroniki?
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2812,6 +2990,14 @@ country_event = { #Safari Raid
 
 	option = {
 		name = jom_expedition.111.a
+		sp:sp_kontrola_knura = {
+			add_project_progress_ratio = 0.1
+		}
+		add_unit_bonus = {
+			category_army = {
+				max_organisation = 0.1
+			}
+		}
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2864,6 +3050,10 @@ country_event = { #Cape Trade
 
 	option = {
 		name = jom_expedition.113.a
+		custom_effect_tooltip = budget_add_5M
+		add_to_variable = {
+			budget = 5
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2884,6 +3074,8 @@ country_event = { #Cape Raid
 
 	option = {
 		name = jom_expedition.114.a
+		add_political_power = 100
+		add_stability = 0.2
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -2936,6 +3128,7 @@ country_event = { #Horn of Africa Trade
 
 	option = {
 		name = jom_expedition.116.a
+		#+10 scrap
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -2956,6 +3149,12 @@ country_event = { #Horn of Africa Raid
 
 	option = {
 		name = jom_expedition.117.a
+		add_tech_bonus = {
+			name = "Somalian Pirate Experience"
+			category = naval_artillery
+			uses = 3
+			bonus = 0.5
+		}
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -3008,6 +3207,7 @@ country_event = { #Mekka Trade
 
 	option = {
 		name = jom_expedition.119.a
+		#+40 oil
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3028,6 +3228,27 @@ country_event = { #Mekka Raid
 
 	option = {
 		name = jom_expedition.120.a
+		reverse_add_opinion_modifier = {
+			target = TAT
+			modifier = fatwa
+		}
+		501 = {
+			add_building_construction = {
+				type = landmark_kaaba
+				level = 1
+				instant_build = yes
+				province = 7917
+			}
+		}
+		# 70 = {
+		# 	add_building_construction = {
+		# 		type = landmark_kaaba
+		# 		level = 1
+		# 		instant_build = yes
+		# 		province = 17209
+		# 	}
+		# }
+		
 		JOM_zandberg_little_less_sane = yes
 		JOM_one_more_step_to_un_intervention = yes
 	}
@@ -3081,6 +3302,14 @@ country_event = { #Dubai Trade
 
 	option = {
 		name = jom_expedition.122.a
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = reactionary
+			popularity = -0.1
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3101,6 +3330,12 @@ country_event = { #Dubai Raid
 
 	option = {
 		name = jom_expedition.123.a
+		custom_effect_tooltip = budget_add_10B
+		add_to_variable = {
+			budget = 10000
+		}
+		# +100 oil
+		add_manpower = 1000
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -3153,6 +3388,11 @@ country_event = { #India Trade
 
 	option = {
 		name = jom_expedition.125.a
+		add_tech_bonus = {
+			name = "Indian Call Centers"
+			category = decryption_tech
+			bonus = 0.5
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3174,6 +3414,11 @@ country_event = { #India Raid
 
 	option = {
 		name = jom_expedition.126.a
+		add_manpower = -234
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = -14
+		}
 		JOM_zandberg_little_less_sane = yes
 		JOM_one_more_step_to_un_intervention = yes
 	}
@@ -3223,6 +3468,13 @@ country_event = { #Indochina Trade
 		JOM = {
 			JOM_suceed_expedition = yes
 		}
+
+		add_resource = {
+			type = food
+			amount = 10
+			state = 70
+		}
+		
 	}
 
 	option = {
@@ -3300,6 +3552,7 @@ country_event = { #China Trade
 	option = {
 		name = jom_expedition.131.a
 		JOM_zandberg_little_more_sane = yes
+		# +10% industrial_capacity_factory 
 	}
 }
 country_event = { #China Raid
@@ -3319,6 +3572,12 @@ country_event = { #China Raid
 
 	option = {
 		name = jom_expedition.132.a
+		add_tech_bonus = {
+			name = "Taiwanese Electronics"
+			category = electronics
+			bonus = 0.5
+			uses = 1
+		}
 		JOM_zandberg_little_less_sane = yes
 		JOM_one_more_step_to_un_intervention = yes
 	}
@@ -3372,6 +3631,10 @@ country_event = { #Korea Trade
 
 	option = {
 		name = jom_expedition.134.a
+		add_equipment_to_stockpile = {
+			type = ifv_chassis_1
+			amount = 20
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3392,6 +3655,12 @@ country_event = { #Korea Raid
 
 	option = {
 		name = jom_expedition.135.a
+		add_tech_bonus = {
+			name = "Samsung Designs"
+			category = electronics
+			bonus = 0.5
+			uses = 2
+		}
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -3444,6 +3713,14 @@ country_event = { #Japan Trade
 
 	option = {
 		name = jom_expedition.137.a
+		sp:sp_mech = {
+			add_project_progress_ratio = 0.25
+		}
+		add_doctrine_cost_reduction = {
+			cost_reduction = 0.5
+			category = land_close_combat_doctrine
+			name = "Bushi-do"
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3464,6 +3741,10 @@ country_event = { #Japan Raid
 
 	option = {
 		name = jom_expedition.138.a
+		custom_effect_tooltip = budget_add_1M
+		add_to_variable = {
+			budget = 1
+		}
 		JOM_zandberg_little_less_sane = yes
 		JOM_one_more_step_to_un_intervention = yes
 	}
@@ -3517,6 +3798,7 @@ country_event = { #Philipines/Indonesia Trade
 
 	option = {
 		name = jom_expedition.140.a
+		# -10 consumer_goods_factor #10 rubber
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3537,6 +3819,10 @@ country_event = { #Philipines/Indonesia Raid
 
 	option = {
 		name = jom_expedition.141.a
+		add_to_variable = {
+			budget = 10
+		}
+		custom_effect_tooltip = budget_add_10M
 		JOM_zandberg_little_less_sane = yes
 	}
 }
@@ -3589,6 +3875,7 @@ country_event = { #Australia Trade
 
 	option = {
 		name = jom_expedition.143.a
+		# 10 coal
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3610,7 +3897,10 @@ country_event = { #Australia Raid
 	option = {
 		name = jom_expedition.144.a
 		JOM_zandberg_little_less_sane = yes
-
+		add_manpower = -10
+		sp:sp_kontrola_knura = {
+			add_project_progress_ratio = 0.2
+		}
 	}
 }
 
@@ -3662,6 +3952,12 @@ country_event = { #Oceania Trade
 
 	option = {
 		name = jom_expedition.146.a
+		add_unit_bonus = {
+			category_melee_infantry = {
+				soft_attack = 0.05
+				breakthrough = 0.05
+			}
+		}
 		JOM_zandberg_little_more_sane = yes
 	}
 }
@@ -3682,6 +3978,7 @@ country_event = { #Oceania Raid
 
 	option = {
 		name = jom_expedition.147.a
+		add_stability = 0.01
 		JOM_zandberg_little_less_sane = yes
 	}
 }
