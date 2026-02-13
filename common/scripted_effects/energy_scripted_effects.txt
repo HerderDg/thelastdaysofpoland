@@ -50,11 +50,34 @@ calculate_generated_energy = {
 			}
 		}
 	}
+	set_temp_variable = {
+		coal_usage = 1
+	}
+	add_to_temp_variable = {
+		coal_usage = modifier@coal_usage_by_power_plants
+	}
+	multiply_variable = {
+		coal_used_by_power_plants = coal_usage 
+	}
 	multiply_variable = {
 		coal_used_by_power_plants = 14
-	} 
+	}
+	
+	
 	add_dynamic_modifier = {
 		modifier = coal_used_by_power_plants_modifier
+	}
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Used coal: [?coal_used_by_power_plants]"
+	}
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Free coal: [?free_coal]"
 	}
 	set_variable = { generated_energy = num_of_power_plants }
 	set_variable = {lack_of_coal_modifier = 1}
@@ -77,13 +100,31 @@ calculate_generated_energy = {
 		add_to_variable = {lack_of_coal_modifier = 1}
 	}
 	
-	multiply_variable = { generated_energy = lack_of_coal_modifier }
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Lack of coal modifier: [?lack_of_coal_modifier]"
+	}
+	
 	set_temp_variable = { energy_from_wind_farms = num_of_wind_farms }
 	multiply_temp_variable = { energy_from_wind_farms = 750 }
 	add_to_variable = { generated_energy = energy_from_wind_farms }
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Energy pre idea bonus: [?generated_energy]"
+	}
 	set_variable = { bonus_from_ideas = 1.0}
 	add_to_variable = { bonus_from_ideas = modifier@energy_modifier }
 	multiply_variable = { generated_energy = bonus_from_ideas }
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Energy post idea bonus: [?generated_energy]"
+	}
 	if = {
 		limit = {
 			has_variable = BBW_pre_blackout_nerf
@@ -92,16 +133,23 @@ calculate_generated_energy = {
 	}
 	if = {
 		limit = {
+			tag = BBW
+		}
+		log = "Energy post pre-blackout nerf: [?generated_energy]"
+	}
+	if = {
+		limit = {
 			has_variable = power_from_atom
 		}
 		add_to_variable =  { generated_energy = power_from_atom }
 	}
+	multiply_variable = { generated_energy = lack_of_coal_modifier }
 	if = {
 		limit = {
-			has_idea = energy_full_emission
+			tag = BBW
 		}
-		multiply_variable =  { coal_used_by_power_plants = 1.3 }
-	}	
+		log = "Final generated energy: [?generated_energy]"
+	}
 }
 
 calculate_used_energy = {
@@ -128,7 +176,12 @@ calculate_used_energy = {
 	}
 	multiply_temp_variable = { energy_for_industry = 75 }
 	add_to_variable = { used_energy = energy_for_industry }
-
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Energy to industry: [?energy_for_industry]"
+	}
 	set_temp_variable = { energy_from_infrastructure = num_of_supply_nodes }
 	every_controlled_state = {
 		limit = {
@@ -146,6 +199,20 @@ calculate_used_energy = {
 	}
 	multiply_temp_variable = { energy_from_infrastructure = 25 }
 	add_to_variable = { used_energy = energy_from_infrastructure }
+
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Energy to infrastructure: [?energy_from_infrastructure]"
+	}
+
+	if = {
+		limit = {
+			tag = BBW
+		}
+		log = "Used energy: [?used_energy]"
+	}
 
 	if = {
 		limit = {
