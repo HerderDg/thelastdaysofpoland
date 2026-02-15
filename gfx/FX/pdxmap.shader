@@ -340,8 +340,6 @@ PixelShader =
 				float SpecRemapped = vSpec * vSpec * 0.4;
 			#endif // NO_SHADER_TEXTURE_LOD			
 
-			diffuse.rgb = diffuse.rgb * CUSTOM_DIFFUSE_RGB_FACTOR;
-
 			float MetalnessRemapped = 0.0;// - (1.0 - vProperties.b) * (1.0 - vProperties.b);
 			lightingProperties._Diffuse = MetalnessToDiffuse(MetalnessRemapped, diffuse.rgb);
 			lightingProperties._Glossiness = vGlossiness;
