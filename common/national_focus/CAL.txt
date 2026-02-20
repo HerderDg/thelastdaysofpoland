@@ -474,9 +474,9 @@ focus_tree = {
 			focus = CAL_glod_ziemi_o_stali 
 			focus = CAL_stracone_szanse 
 		}
-		allow_branch = {
-			has_country_flag = CAL_ager_publicus_failed
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_ager_publicus_failed
+		#}
 		relative_position_id = CAL_mowa_o_naduzyciach
 		available = {
 		    has_war = no
@@ -514,7 +514,6 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			set_grand_doctrine = cqc_theory
 			country_event = calisia.9
 		}
 	}
@@ -557,6 +556,10 @@ focus_tree = {
 				tooltip = CAL_change_loyalty_praetoriae_tt
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	
@@ -583,7 +586,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_stability = 0.05
-			set_sub_doctrine = roman_legion
+			set_grand_doctrine = cqc_theory
 		    country_event = calisia.10
 		}
 	}
@@ -626,6 +629,10 @@ focus_tree = {
 				tooltip = CAL_change_loyalty_legiones_tt
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			add_to_variable = {
+				budget = -100
+			}
+			custom_effect_tooltip = budget_subtract_100M
 		}
 	}
 	
@@ -651,7 +658,8 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			set_sub_doctrine = roman_legion
+			set_grand_doctrine = cqc_theory
+			add_war_support = 0.05
 			country_event = calisia.11
 		}
 	}
@@ -684,7 +692,7 @@ focus_tree = {
 					has_completed_focus = CAL_wyzszy_zold_dla_pretorian
 				}
 				CAL_krystian_kinastowski = {
-					add_corps_commander_role = {
+					add_field_marshal_role = {
 						traits = { infantry_leader trickster urban_assault_specialist politically_connected praetorian }
 						skill = 2
 						attack_skill = 3
@@ -700,7 +708,7 @@ focus_tree = {
 					has_completed_focus = CAL_wyzszy_zold_i_wieksza_dyscyplina
 				}
 				CAL_pawel_delag = { #jakby ktoś chciał mu dać inne staty to prosze bardzo
-					add_corps_commander_role = {
+					add_field_marshal_role = {
 						traits = { trait_reckless war_hero inspirational_leader media_personality politically_connected popular legionarius }
 						skill = 3
 						attack_skill = 4
@@ -854,9 +862,9 @@ focus_tree = {
 		    always = no
 		}
 		
-		allow_branch = {
-			has_country_flag = CAL_show_war_foci
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_show_war_foci
+		#}
 
 		bypass = {
 		}
@@ -979,6 +987,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			689 = {
+				add_compliance = 20
+			}
 		}
 	}
 
@@ -992,7 +1003,7 @@ focus_tree = {
 			KNN = {
 				exists = no
 			}
-		    owns_state = 256
+		    owns_state = 1145
 			has_war = no
 		}
 		
@@ -1020,6 +1031,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			1145 = {
+				add_compliance = 20
+			}
 		}
 	}
 	
@@ -1038,7 +1052,6 @@ focus_tree = {
 					is_subject_of = ROOT
 				}
 			}
-			
 		}
 		
 		bypass = {
@@ -1051,6 +1064,18 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = calisia.27
+			689 = {
+				create_unit = {
+					division = "division_template = \"Auxilia\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+					owner = CAL
+				}
+			}
+			260 = {
+				create_unit = {
+					division = "division_template = \"Auxilia\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+					owner = CAL
+				}
+			}			
 		}
 	}
 	
@@ -1200,6 +1225,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			240 = {
+				add_compliance = 20
+			}
 		}
 	}
 	
@@ -1224,7 +1252,12 @@ focus_tree = {
 		
 		completion_reward = { 
 		    country_event = calisia.18
-			add_manpower = 3000
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = CAL_cavalry_experience
+				sub_doctrine = honor_armor
+			}
 		}
 	}
 	
@@ -1266,6 +1299,9 @@ focus_tree = {
 				popularity = 0.01
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			299 = {
+				add_compliance = 20
+			}
 		}
 	}
 	
@@ -1440,6 +1476,7 @@ focus_tree = {
 				tooltip = CAL_change_gravitas_populares_tt
 			}
 			CAL_clamp_on_loyalty_and_gravitas = yes
+			add_political_power = 100
 		}
 	}
 
@@ -1546,6 +1583,7 @@ focus_tree = {
 				remove_idea = training_battle 
 				add_idea = training_basic 
 			}
+			army_experience = 50
 		}
 	}
 
@@ -1570,6 +1608,7 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = { id = calisia.22 }
+			add_ideas = CAL_gladiators_idea
 		}
 	}
 
@@ -1898,9 +1937,9 @@ focus_tree = {
 			has_completed_focus = CAL_calisian_region
 		}
 		
-		allow_branch = {
-			has_country_flag = unified_voivodeship
-		}
+		#allow_branch = {
+		#	has_country_flag = unified_voivodeship
+		#}
 
 		bypass = {
 		}
@@ -2282,23 +2321,43 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
-			314 = {
-				add_manpower = 2000
-			}
-			846 = {
-				add_manpower = 5000
-			}
-			688 = {
-				add_manpower = -1500
-			}
-			286 = {
-				add_manpower = -1500
-			}
-			285 = {
-				add_manpower = -2000
-			}
-			851 = {
-				add_manpower = -2000
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 688
+						state = 286
+						state = 285
+						state = 851
+					}
+				}
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.15}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_calisia = to_resettle}
+				set_temp_variable = {to_resettle_west_calisia = to_resettle}
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 846
+							}
+						}
+						multiply_temp_variable = {to_resettle_west_calisia = -0.4}
+						add_manpower = to_resettle_west_calisia
+					}					
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 314
+							}
+						}
+						multiply_temp_variable = {to_resettle_calisia = -0.6}
+						add_manpower = to_resettle_calisia
+					}								
+				}
+
 			}
 		}
 	}
@@ -2409,6 +2468,7 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = { 
+			navy_experience = 100
 			256 = {
 				add_building_construction = {
 					type = naval_base
@@ -3289,9 +3349,9 @@ focus_tree = {
 			has_country_flag = unified_voivodeship
 		}
 		
-		allow_branch = {
-			has_country_flag = unified_voivodeship
-		}
+		#allow_branch = {
+		#	has_country_flag = unified_voivodeship
+		#}
 
 		bypass = {
 		}
@@ -3789,9 +3849,9 @@ focus_tree = {
 			has_completed_focus = CAL_pax_calisiana
 		}
 		
-		allow_branch = {
-			has_country_flag = unified_voivodeship
-		}
+		#allow_branch = {
+		#	has_country_flag = unified_voivodeship
+		#}
 
 		bypass = {
 		}
@@ -4043,10 +4103,18 @@ focus_tree = {
 				add_dynamic_modifier = {
 					modifier = CAL_gardens_modifier
 				}
+				add_resource = {
+					type = food
+					amount = 1
+				}
 			}
 			846 = {
 				add_dynamic_modifier = {
 					modifier = CAL_gardens_modifier
+				}
+				add_resource = {
+					type = food
+					amount = 1
 				}
 			}
 			CAL_project_funding = yes
@@ -5226,6 +5294,7 @@ focus_tree = {
 					THIS.coring_cost = 0.8
 				}
 			}
+			#todo - add tooltip about coring cost reduction
 			846 = {
 			    add_manpower = 2150 }
 			add_victory_points = {
@@ -5724,9 +5793,9 @@ focus_tree = {
 		    has_country_flag = unified_regional
 		}
 		
-		allow_branch = {
-			has_country_flag = unified_regional
-		}
+		#allow_branch = {
+		#	has_country_flag = unified_regional
+		#}
 
 		bypass = {
 		}
@@ -6820,6 +6889,10 @@ focus_tree = {
 				remove_idea = training_basic 
 				add_idea = training_veterans
 			}
+			swap_ideas = {
+				remove_idea = CAL_gladiators_idea
+				add_idea = CAL_gladiators_idea_2
+			}
 		}
 	}
 	focus = {
@@ -6989,7 +7062,7 @@ focus_tree = {
         relative_position_id = CAL_schola_armaturarum
 		prerequisite = { focus = CAL_si_vis_pacem_para_bellum }
 		available = {
-		    owns_state = 34
+
 		}
 		
 		bypass = {
@@ -7009,10 +7082,10 @@ focus_tree = {
 			}
 			swap_ideas = {
 				remove_idea = officer_leftovers
-				add_idea = officer_academies }
+				add_idea = officer_academies 
 			}
-			random_owned_controlled_state = {
-				limit  = { is_coastal = yes }
+			}
+			256 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = naval_facility
@@ -7022,6 +7095,18 @@ focus_tree = {
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = budget_subtract_1B500M
+			if = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				256 = {
+					add_building_construction = {
+						type = naval_headquarters
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -7110,24 +7195,24 @@ focus_tree = {
 				remove_idea = officer_leftovers
 				add_idea = officer_academies }
 			}
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
+			851 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = air_base
-					level = 1
+					level = 2
 					instant_build = yes
 				}
+				add_building_construction = {
+					type = air_facility
+					level = 1
+					instant_build = yes
+				}				
+			}
+			add_to_variable = {
+				budget = -100
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
-			custom_effect_tooltip = budget_subtract_350M
+			custom_effect_tooltip = budget_subtract_2B
 		}
 	}
 	focus = {
@@ -7150,6 +7235,24 @@ focus_tree = {
 		
 		completion_reward = { 
 		    add_ideas = CAL_caesarea_cadre
+			if = {
+				limit = {
+					846 = {
+						land_facility < 1
+					}
+				}
+				846 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+					}
+				}
+				custom_effect_tooltip = rozdzielacz_efektow
+				custom_effect_tooltip = budget_subtract_1B500M				
+			}
+
 		}
 	}
 	focus = {
@@ -7185,9 +7288,9 @@ focus_tree = {
 			has_country_flag = CAL_crisis_of_the_third_decade_flag
 		}
 		
-		allow_branch = {
-			has_country_flag = CAL_crisis_of_the_third_decade_flag
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_crisis_of_the_third_decade_flag
+		#}
 
 		bypass = {
 		}
@@ -7265,7 +7368,17 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = { 
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}
+			}
 		    add_research_slot = 1
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_250M
 		}
 	}
 	focus = {
@@ -7897,6 +8010,10 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 				}
+				add_resource = {
+					type = food
+					amount = 2
+				}
 			}
 			311 = {
 				add_extra_state_shared_building_slots = 1
@@ -7905,6 +8022,10 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 				}
+				add_resource = {
+					type = food
+					amount = 2
+				}
 			}
 			271 = {
 				add_extra_state_shared_building_slots = 1
@@ -7912,6 +8033,10 @@ focus_tree = {
 						type = januszex
 						level = 1
 						instant_build = yes
+				}
+				add_resource = {
+					type = food
+					amount = 2
 				}
 			}
 			add_stability = 0.1
@@ -8042,9 +8167,9 @@ focus_tree = {
 			focus = CAL_central_command_economy
 			focus = CAL_economy_based_on_plunder
 		}
-		allow_branch = {
-			has_country_flag = CAL_inflation_1_flag
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_inflation_1_flag
+		#}
 		available = {
 		
 		}
@@ -8068,9 +8193,9 @@ focus_tree = {
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_bread_and_circuses	
 		prerequisite = { focus = CAL_inflation_1 }
-		allow_branch = {
-			has_country_flag = CAL_inflation_2_flag
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_inflation_2_flag
+		#}
 		available = {
 		
 		}
@@ -8093,9 +8218,9 @@ focus_tree = {
 		text_icon = CALISIA_focus_style 
         relative_position_id = CAL_bread_and_circuses	
 		prerequisite = { focus = CAL_inflation_2 }
-		allow_branch = {
-			has_country_flag = CAL_inflation_3_flag
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_inflation_3_flag
+		#}
 		available = {
 		
 		}
@@ -8124,9 +8249,9 @@ focus_tree = {
 			always = no
 		}
 		
-		allow_branch = {
-			has_country_flag = CAL_show_barbarian_foci
-		}
+		#allow_branch = {
+		#	has_country_flag = CAL_show_barbarian_foci
+		#}
 
 		bypass = {
 		}

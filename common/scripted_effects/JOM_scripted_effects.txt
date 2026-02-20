@@ -1,4 +1,150 @@
 #plus
+
+JOM_initiate_dream = {
+	set_variable = {
+		JOM_dream_stage_begin = 1
+	}
+
+	if = {
+		limit = {
+			NOT = {
+				has_completed_focus = JOM_urdr
+				has_completed_focus = JOM_verdandi
+				has_completed_focus = JOM_skuld
+			}
+		}
+		set_variable = {
+			JOM_dream_1 = 1
+		}	
+		set_variable = {
+			JOM_dream_1_stage_1 = 1
+		}			
+	}
+	if = {
+		limit = {
+				has_completed_focus = JOM_urdr
+			NOT = {
+				has_completed_focus = JOM_verdandi
+				has_completed_focus = JOM_skuld
+			}
+		}
+		set_variable = {
+			JOM_dream_2 = 1
+		}	
+		set_variable = {
+			JOM_dream_2_stage_1 = 1
+		}			
+	}
+	if = {
+		limit = {
+				has_completed_focus = JOM_urdr
+				has_completed_focus = JOM_verdandi
+			NOT = {
+				has_completed_focus = JOM_skuld
+			}
+		}
+		set_variable = {
+			JOM_dream_3 = 1
+		}	
+		set_variable = {
+			JOM_dream_3_stage_1 = 1
+		}			
+	}	
+	
+}
+
+JOM_next_dream_sequence = {
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_1_stage_1 = 1
+			}
+		}
+		set_variable = { JOM_dream_1_stage_1 = 0 }
+		set_variable = { JOM_dream_1_stage_2 = 1 }
+		set_variable = { JOM_dream_stage_begin = 1 }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_1_stage_2 = 1
+			}
+		}
+		set_variable = { JOM_dream_1_stage_3 = 1 }
+		set_variable = { JOM_dream_stage_begin = 1 }		
+		set_variable = { JOM_dream_1_stage_2 = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_1_stage_3 = 1
+			}
+		}
+		set_variable = { JOM_dream_1 = 0 }
+		set_variable = { JOM_dream_stage_begin = 0 }		
+		set_variable = { JOM_dream_1_stage_3 = 0 }
+	}
+	
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_2_stage_1 = 1
+			}
+		}
+		set_variable = { JOM_dream_2_stage_1 = 0 }
+		set_variable = { JOM_dream_2_stage_2 = 1 }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_2_stage_2 = 1
+			}
+		}
+		set_variable = { JOM_dream_2_stage_2 = 0 }
+		set_variable = { JOM_dream_2_stage_3 = 1 }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_2_stage_3 = 1
+			}
+		}
+		set_variable = { JOM_dream_2_stage_3 = 0 }
+		set_variable = { JOM_dream_2 = 0 }
+		set_variable = { JOM_dream_stage_begin = 0 }
+	}
+	
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_3_stage_1 = 1
+			}
+		}
+		set_variable = { JOM_dream_3_stage_1 = 0 }
+		set_variable = { JOM_dream_3_stage_2 = 1 }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_3_stage_2 = 1
+			}
+		}
+		set_variable = { JOM_dream_3_stage_2 = 0 }
+		set_variable = { JOM_dream_3_stage_3 = 1 }
+	}
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_3_stage_3 = 1
+			}
+		}
+		set_variable = { JOM_dream_3_stage_3 = 0 }
+		set_variable = { JOM_dream_3 = 0 }
+		set_variable = { JOM_dream_stage_begin = 0 }
+	}		
+}
+
+
 JOM_plus5_success = {
 	add_to_variable = { JOM_mission_success_var = 5 }
 	custom_effect_tooltip = JOM_plus5_success
@@ -40,6 +186,14 @@ JOM_random_bullshit_go = {
 	}
 }
 JOM_activate_expedition = {
+	if = {
+		limit = {
+			has_country_flag = JOM_more_chance_for_succeed 
+		}
+		add_to_variable = {
+			JOM_mission_success_var = 5
+		}
+	}
 	JOM_random_bullshit_go = yes
 	if = {
 		limit = {
