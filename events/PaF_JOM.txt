@@ -1178,3 +1178,207 @@ country_event = {
 		JOM_initiate_dream = yes
 	}
 }
+
+country_event = {
+	id = jomsborg_dreams.2 #well done, you realized your destiny
+	title = jomsborg_dreams.2.t
+	desc = jomsborg_dreams.2.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.1" }
+	
+	option = {
+		name = jomsborg_dreams.2.a
+		add_to_variable = {
+			JOM_passed_stages = 1
+		}
+		if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_sane_zandberg_total_control_range
+				}
+			}
+			add_to_variable = {
+				JOM_final_sanity = 1 #jeśli 3 - zandberg zdrowieje, jeśli 0 - zandberg zostaje wikingiem, w przeciwnym wypadku "ścieżka mieszana"
+			}
+			if = {
+				limit = {
+					check_variable = {
+						JOM_dream_1 = 1
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.2
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						JOM_dream_2 = 1
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.45
+				}
+			}
+			else = {
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.75
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_viking_zandberg_total_control_range
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						JOM_dream_1 = 1
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = 0.2
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						JOM_dream_2 = 1
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = 0.45
+				}
+			}
+			else = {
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = 0.75
+				}
+			}
+		}
+		set_variable = {
+			JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+		}
+	}
+}
+
+country_event = {
+	id = jomsborg_dreams.3 #your mind is still clouded, try again
+	title = jomsborg_dreams.3.t
+	desc = jomsborg_dreams.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.1" }
+	
+	option = {
+		name = jomsborg_dreams.3.a
+		if = {
+			limit = {
+				check_variable = {
+					JOM_right_answer = 2
+				}
+			}
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = 0.0
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					JOM_right_answer = 1
+				}
+			}
+			if = {
+				limit = {
+					is_power_balance_in_range = {
+						id = JOM_power_balance
+						range = JOM_sane_zandberg_total_control_range
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = 0.2
+				}
+			}
+			if = {
+				limit = {
+					is_power_balance_in_range = {
+						id = JOM_power_balance
+						range = JOM_viking_zandberg_total_control_range
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.2
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					is_power_balance_in_range = {
+						id = JOM_power_balance
+						range = JOM_sane_zandberg_total_control_range
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = 0.45
+				}
+			}
+			if = {
+				limit = {
+					is_power_balance_in_range = {
+						id = JOM_power_balance
+						range = JOM_viking_zandberg_total_control_range
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.45
+				}
+			}
+		}
+		set_variable = {
+			JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+		}
+	}
+}
