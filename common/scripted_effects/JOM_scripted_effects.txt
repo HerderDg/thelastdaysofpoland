@@ -80,6 +80,7 @@ JOM_next_dream_sequence = {
 				JOM_dream_1_stage_3 = 1
 			}
 		}
+		JOM_collect_the_answers = yes
 		set_variable = { JOM_dream_1 = 0 }
 		set_variable = { JOM_dream_stage_begin = 0 }		
 		set_variable = { JOM_dream_1_stage_3 = 0 }
@@ -109,6 +110,7 @@ JOM_next_dream_sequence = {
 				JOM_dream_2_stage_3 = 1
 			}
 		}
+		JOM_collect_the_answers = yes
 		set_variable = { JOM_dream_2_stage_3 = 0 }
 		set_variable = { JOM_dream_2 = 0 }
 		set_variable = { JOM_dream_stage_begin = 0 }
@@ -138,12 +140,188 @@ JOM_next_dream_sequence = {
 				JOM_dream_3_stage_3 = 1
 			}
 		}
+		JOM_collect_the_answers = yes
 		set_variable = { JOM_dream_3_stage_3 = 0 }
 		set_variable = { JOM_dream_3 = 0 }
 		set_variable = { JOM_dream_stage_begin = 0 }
 	}		
 }
 
+
+
+JOM_get_answer_from_button_1 = {
+	if = {
+		limit = {
+			check_variable = {
+				JOM_dream_1_stage_3 = 1
+			}
+		}
+		add_to_variable = {
+			JOM_right_answer = 1
+		}
+	}
+}
+
+JOM_get_answer_from_button_2 = {
+	
+}
+
+JOM_get_answer_from_button_3 = {
+	if = {
+		limit = {
+			or = {
+				check_variable = {
+					JOM_dream_1_stage_1 = 1
+				}
+				check_variable = {
+					JOM_dream_1_stage_2 = 1
+				}
+			}
+		}
+		add_to_variable = {
+			JOM_right_answer = 1
+		}
+	}
+}
+
+JOM_collect_the_answers = {
+	if = {
+		limit = {
+			check_variable = {
+				JOM_right_answer = 3
+			}
+		}
+		add_to_variable = {
+			JOM_passed_stages = 1
+		}
+		if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_sane_zandberg_total_control_range
+				}
+			}
+			add_to_variable = {
+				JOM_final_sanity = 1 #jeśli 3 - zandberg zdrowieje, jeśli 0 - zandberg zostaje wikingiem, w przeciwnym wypadku "ścieżka mieszana"
+			}
+			if = {
+				limit = {
+					check_variable = {
+						JOM_dream_1 = 1
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.2
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						JOM_dream_2 = 1
+					}
+				}
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.45
+				}
+			}
+			else = {
+				set_power_balance = {
+					id = JOM_power_balance
+					left_side = JOM_sane_zandberg_side
+					right_side = JOM_viking_zandberg_side
+					set_value = -0.75
+				}
+			}
+		}
+	} 
+	else_if = {
+		limit = {
+			check_variable = {
+				JOM_right_answer = 2
+			}
+		}
+		set_power_balance = {
+			id = JOM_power_balance
+			left_side = JOM_sane_zandberg_side
+			right_side = JOM_viking_zandberg_side
+			set_value = 0.0
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				JOM_right_answer = 1
+			}
+		}
+		if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_sane_zandberg_total_control_range
+				}
+			}
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_viking_zandberg_total_control_range
+				}
+			}
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = -0.2
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_sane_zandberg_total_control_range
+				}
+			}
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = 0.45
+			}
+		}
+		if = {
+			limit = {
+				is_power_balance_in_range = {
+					id = JOM_power_balance
+					range = JOM_viking_zandberg_total_control_range
+				}
+			}
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = -0.45
+			}
+		}
+	}
+	set_variable = {
+		JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+	}
+}
 
 JOM_plus5_success = {
 	add_to_variable = { JOM_mission_success_var = 5 }
@@ -2846,9 +3024,24 @@ JOM_start_punitive_operation = {
 				fixed_ship_anti_air_slot = ship_anti_air_4
 				fixed_ship_engine_slot = heavy_ship_engine_4
 				fixed_ship_fire_control_system_slot = ship_fire_control_system_3
+				fixed_ship_armor_slot = ship_armor_bc_1
 			}
 		}
-		
+		create_ship = {
+			type = heavy_monitor_hull_3_equipment
+			equipment_variant = "Daring Class"
+			name = "Daring"
+		}
+		create_ship = {
+			type = heavy_monitor_hull_3_equipment
+			equipment_variant = "Daring Class"
+			name = "Dauntless"
+		}
+		create_ship = {
+			type = heavy_monitor_hull_3_equipment
+			equipment_variant = "Daring Class"
+			name = "Diamond"
+		}
 		GER = {
 			ENG = {
 				give_military_access = PREV
