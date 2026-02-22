@@ -1168,7 +1168,6 @@ country_event = {
 	title = jomsborg_dreams.2.t
 	desc = jomsborg_dreams.2.desc
 
-	fire_only_once = yes
 	is_triggered_only = yes
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.1" }
@@ -1177,7 +1176,7 @@ country_event = {
 		name = jomsborg_dreams.2.a
 		custom_effect_tooltip = jomsborg_dreams_2_a_tt
 		add_to_variable = {
-			JOM_passed_stages = 1
+			VAR_JOM_passed_stages = 1
 		}
 		if = {
 			limit = {
@@ -1187,87 +1186,27 @@ country_event = {
 				}
 			}
 			add_to_variable = {
-				JOM_final_sanity = 1 #jeśli 3 - zandberg zdrowieje, jeśli 0 - zandberg zostaje wikingiem, w przeciwnym wypadku "ścieżka mieszana"
+				VAR_JOM_final_sanity = 1 #jeśli 3 - zandberg zdrowieje, jeśli 0 - zandberg zostaje wikingiem, w przeciwnym wypadku "ścieżka mieszana"
 			}
-			if = {
-				limit = {
-					check_variable = {
-						JOM_dream_1 = 1
-					}
-				}
-				set_power_balance = {
-					id = JOM_power_balance
-					left_side = JOM_sane_zandberg_side
-					right_side = JOM_viking_zandberg_side
-					set_value = 0
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						JOM_dream_2 = 1
-					}
-				}
-				set_power_balance = {
-					id = JOM_power_balance
-					left_side = JOM_sane_zandberg_side
-					right_side = JOM_viking_zandberg_side
-					set_value = -0.25
-				}
-			}
-			else = {
-				set_power_balance = {
-					id = JOM_power_balance
-					left_side = JOM_sane_zandberg_side
-					right_side = JOM_viking_zandberg_side
-					set_value = -0.5
-				}
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = 0
 			}
 		}
-		else_if = {
-			limit = {
-				is_power_balance_in_range = {
-					id = JOM_power_balance
-					range = JOM_viking_zandberg_total_control_range
-				}
-			}
-			if = {
-				limit = {
-					check_variable = {
-						JOM_dream_1 = 1
-					}
-				}
-				set_power_balance = {
-					id = JOM_power_balance
-					left_side = JOM_sane_zandberg_side
-					right_side = JOM_viking_zandberg_side
-					set_value = 0
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						JOM_dream_2 = 1
-					}
-				}
-				set_power_balance = {
-					id = JOM_power_balance
-					left_side = JOM_sane_zandberg_side
-					right_side = JOM_viking_zandberg_side
-					set_value = 0.25
-				}
-			}
-			else = {
-				set_power_balance = {
-					id = JOM_power_balance
-					left_side = JOM_sane_zandberg_side
-					right_side = JOM_viking_zandberg_side
-					set_value = 0.5
-				}
+		else = {
+			set_power_balance = {
+				id = JOM_power_balance
+				left_side = JOM_sane_zandberg_side
+				right_side = JOM_viking_zandberg_side
+				set_value = 0
 			}
 		}
-		set_variable = {
-			JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+		JOM = {
+			set_variable = {
+				VAR_JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+			}
 		}
 	if = {
 		limit = {
@@ -1307,7 +1246,6 @@ country_event = {
 	title = jomsborg_dreams.3.t
 	desc = jomsborg_dreams.3.desc
 
-	fire_only_once = yes
 	is_triggered_only = yes
 	
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.1" }
@@ -1317,8 +1255,10 @@ country_event = {
 		custom_effect_tooltip = jomsborg_dreams_3_a_tt
 		if = {
 			limit = {
-				check_variable = {
-					JOM_right_answer = 2
+				JOM = {
+					check_variable = {
+						VAR_JOM_right_answer = 2
+					}
 				}
 			}
 			set_power_balance = {
@@ -1330,8 +1270,10 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				check_variable = {
-					JOM_right_answer = 1
+				JOM = {
+					check_variable = {
+						VAR_JOM_right_answer = 1
+					}
 				}
 			}
 			if = {
@@ -1393,8 +1335,10 @@ country_event = {
 				}
 			}
 		}
-		set_variable = {
-			JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+		JOM = {
+			set_variable = {
+				VAR_JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+			}
 		}
 	}
 }
