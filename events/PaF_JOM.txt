@@ -1198,7 +1198,7 @@ country_event = {
 					id = JOM_power_balance
 					left_side = JOM_sane_zandberg_side
 					right_side = JOM_viking_zandberg_side
-					set_value = -0.2
+					set_value = 0
 				}
 			}
 			else_if = {
@@ -1211,7 +1211,7 @@ country_event = {
 					id = JOM_power_balance
 					left_side = JOM_sane_zandberg_side
 					right_side = JOM_viking_zandberg_side
-					set_value = -0.45
+					set_value = -0.25
 				}
 			}
 			else = {
@@ -1219,7 +1219,7 @@ country_event = {
 					id = JOM_power_balance
 					left_side = JOM_sane_zandberg_side
 					right_side = JOM_viking_zandberg_side
-					set_value = -0.75
+					set_value = -0.5
 				}
 			}
 		}
@@ -1240,7 +1240,7 @@ country_event = {
 					id = JOM_power_balance
 					left_side = JOM_sane_zandberg_side
 					right_side = JOM_viking_zandberg_side
-					set_value = 0.2
+					set_value = 0
 				}
 			}
 			else_if = {
@@ -1253,7 +1253,7 @@ country_event = {
 					id = JOM_power_balance
 					left_side = JOM_sane_zandberg_side
 					right_side = JOM_viking_zandberg_side
-					set_value = 0.45
+					set_value = 0.25
 				}
 			}
 			else = {
@@ -1261,13 +1261,43 @@ country_event = {
 					id = JOM_power_balance
 					left_side = JOM_sane_zandberg_side
 					right_side = JOM_viking_zandberg_side
-					set_value = 0.75
+					set_value = 0.5
 				}
 			}
 		}
 		set_variable = {
 			JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
 		}
+	if = {
+		limit = {
+			NOT = {
+				has_completed_focus = JOM_urdr
+				has_completed_focus = JOM_verdandi
+				has_completed_focus = JOM_skuld
+			}
+		}
+		complete_national_focus = JOM_urdr			
+	}
+	else_if = {
+		limit = {
+				has_completed_focus = JOM_urdr
+			NOT = {
+				has_completed_focus = JOM_verdandi
+				has_completed_focus = JOM_skuld
+			}
+		}
+		complete_national_focus = JOM_verdandi					
+	}
+	else_if = {
+		limit = {
+				has_completed_focus = JOM_urdr
+				has_completed_focus = JOM_verdandi
+			NOT = {
+				has_completed_focus = JOM_skuld
+			}
+		}
+		complete_national_focus = JOM_skuld		
+	}
 	}
 }
 
@@ -1363,6 +1393,206 @@ country_event = {
 		}
 		set_variable = {
 			JOM_right_answer = 0 #odpowiedzi zebrane, można zresetować
+		}
+	}
+}
+
+country_event = {
+	id = jomsborg_dreams.4 #end of dreams - healing
+	title = jomsborg_dreams.4.t
+	desc = jomsborg_dreams.4.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.4" }
+	
+	option = {
+		name = jomsborg_dreams.4.a
+		remove_power_balance = {
+			id = JOM_power_balance
+		}
+		JOM = { 
+			set_country_flag = JOM_zandberg_healed
+			set_country_leader_ideology = socialdemocrature_nordic_model_subtype
+			set_politics = {
+			    ruling_party = socialdemocrature
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.1
+			}
+			set_party_name = {
+			    ideology = socialdemocrature
+			    long_name = JOM_socialdemocrature_party_healed_long
+			    name = JOM_socialdemocrature_party_healed
+			}
+			set_party_name = {
+			    ideology = squattism
+			    long_name = JOM_squattism_party_healed_long
+			    name = JOM_squattism_party_healed
+			}
+			set_country_leader_portrait = {
+				portrait = GFX_JOM_Zandberg3
+			}	
+
+		}
+		if = {
+			limit = {
+				has_completed_focus = JOM_norse_language
+			}
+			set_party_name = {
+				ideology = marxism_cranism
+				long_name = JOM_marxism_cranism_party_healed_long
+				name = JOM_marxism_cranism_party_healed
+			}
+			set_party_name = {
+				ideology = euroliberalism
+				long_name = JOM_euroliberalism_party_healed_long
+				name = JOM_euroliberalism_party_healed
+			}
+			set_party_name = {
+				ideology = freemarketism
+				long_name = JOM_freemarketism_party_long
+				name = JOM_freemarketism_party
+			}												
+			set_party_name = {
+				ideology = paternal_conservatism
+				long_name = JOM_paternal_conservatism_party_long
+				name = JOM_paternal_conservatism_party
+			}
+			set_party_name = {
+				ideology = corporativism
+				long_name = JOM_corporativism_party_long
+				name = JOM_corporativism_party
+			}
+			set_party_name = {
+				ideology = autocracy
+				long_name = JOM_autocracy_party_healed_long
+				name = JOM_autocracy_party_healed
+			}			
+			set_party_name = {
+				ideology = neonationalism
+				long_name = JOM_neonationalism_party_healed_long
+				name = JOM_neonationalism_party_healed
+			}
+			set_party_name = {
+				ideology = postpolonism
+				long_name = JOM_postpolonism_party_healed_long
+				name = JOM_postpolonism_party_healed
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = jomsborg_dreams.5 #end of dreams - madness
+	title = jomsborg_dreams.5.t
+	desc = jomsborg_dreams.5.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.5" }
+	
+	option = {
+		name = jomsborg_dreams.5.a
+		remove_power_balance = {
+			id = JOM_power_balance
+		}
+		JOM = { 
+			set_country_flag = JOM_zandberg_mad
+			set_country_leader_ideology = reactionary_paganism_subtype
+			set_politics = {
+			    ruling_party = reactionary
+			}
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.1
+			}
+			set_country_leader_portrait = {
+				portrait = GFX_JOM_Zandberg2
+			}	
+		}
+		if = {
+			limit = {
+				has_completed_focus = JOM_polish_body_nordic_soul
+			}
+			set_party_name = {
+				ideology = marxism_cranism
+				long_name = "Endurvakningarflokkurinn"
+				name = "Endurvakningarflokkurinn"
+			}
+			set_party_name = {
+				ideology = squattism
+				long_name = "Saman - Róttaeklingar"
+				name = "Saman - Róttaeklingar"
+			}
+			set_party_name = {
+				ideology = socialdemocrature
+				long_name = "Saman - Hófsamir"
+				name = "Saman - Hófsamir"
+			}
+			set_party_name = {
+				ideology = euroliberalism
+				long_name = "Borgaraflokkurinn"
+				name = "Borgaraflokkurinn"
+			}
+			set_party_name = {
+				ideology = freemarketism
+				long_name = "Frelsishofid"
+				name = "Frelsishofid"
+			}												
+			set_party_name = {
+				ideology = paternal_conservatism
+				long_name = "Laga og Réttlaetis"
+				name = "Laga og Réttlaetis"
+			}
+			set_party_name = {
+				ideology = corporativism
+				long_name = "Bátasmidafélagid"
+				name = "Bátasmiðafélagid"
+			}
+			set_party_name = {
+				ideology = autocracy
+				long_name = "Saman - Jarlsfylkingin"
+				name = "Saman - Jarlsfylkingin"
+			}			
+			set_party_name = {
+				ideology = neonationalism
+				long_name = "Saman - Ódinsúlfar"
+				name = "Saman - Ódinsúlfar"
+			}
+			set_party_name = {
+				ideology = postpolonism
+				long_name = "Laerisveinar Ragnaröks"
+				name = "Laerisveinar Ragnaröks"
+			}
+		}
+	}
+}
+
+country_event = {
+	id = jomsborg_dreams.6 #end of dreams - mieszanka studencka
+	title = jomsborg_dreams.6.t
+	desc = jomsborg_dreams.6.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires jomsborg_dreams.6" }
+	
+	option = {
+		name = jomsborg_dreams.6.a
+		remove_power_balance = {
+			id = JOM_power_balance
+		}
+		JOM = { 
+			set_country_flag = JOM_zandberg_mixed
+			#set_country_leader_portrait = {
+			#	portrait = GFX_JOM_Zandberg4 #przydałby się kolejny
+			#}	
 		}
 	}
 }
