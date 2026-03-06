@@ -1,0 +1,69 @@
+scripted_gui = {
+	culture_window = {
+		context_type = selected_state_context
+
+		window_name = "culture_icon_container"
+		parent_window_token = selected_state_view
+		dirty = subculture
+		
+		properties = {
+			culture_icon = {
+				image = "GFX_culture_[?subculture]"
+			}		
+		}
+	}
+
+	open_culture_gui = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "culture_button_container"
+		properties = {
+			show_culture_gui = {
+				image = "[GetCurrentCultureIcon]"
+			}
+		}
+		effects = {
+			show_culture_gui_click = {
+				if = {
+					limit = { has_variable = global.PaF_CultureGUI }
+					clear_variable = global.PaF_CultureGUI
+				}
+				else = {
+					set_variable = { global.PaF_CultureGUI = 1 }
+				}	
+			}
+		}
+	}
+
+	culture_gui = {
+		window_name = "culture_container_gui"
+		context_type = player_context
+		visible = {
+			has_variable = global.PaF_CultureGUI
+		}
+		properties = {
+			current_culture_icon = {
+				image = "[GetCurrentCultureIcon]"
+			}
+			dominant_culture_icon = {
+				image = "[GetDominantCultureIcon]"
+			}
+			cultural_law_value = {
+				image = "[GetCurrentCultureLawIcon]"
+			}
+		}
+		effects = {
+			cultural_law_close_click = {
+				if = {
+					limit = { has_variable = global.PaF_CultureGUI }
+					clear_variable = global.PaF_CultureGUI
+				}
+				else = {
+					set_variable = { global.PaF_CultureGUI = 1 }
+				}
+			}
+		}
+	}
+
+
+}
