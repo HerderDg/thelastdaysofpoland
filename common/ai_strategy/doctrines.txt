@@ -13,186 +13,210 @@
 #marines
 #mountaineer
 
+DOCTRINE_start_making_horsies = {
+	enable = {
+        OR = {
+        	original_tag = KOZ
+        	original_tag = FEL
+        	original_tag = TAT
+        	original_tag = UHL
+        	original_tag = KNN
+        }
+	}
+	abort = {
+		always = no
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 30 
+	}		
+}
+
 # No cav if we have motor inf
-#no_cavalry = {
-#	enable = {
-#		OR = {
-#			has_tech = nsb_truck_1
-#			has_tech = nsb_truck_1
-#		}
-#		NOT = {
-#			OR = {
-#				original_tag = KOZ
-#				original_tag = FEL
-#				original_tag = TAT
-#				original_tag = UHL
-#				original_tag = GRU
-#			}
-#		}
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = cavalry
-#		value = -100 
-#	}
-#}
-#
-#
-#tech_supremacy_ratios = {
-#	enable = {
-#		has_tech = technological_supremacy 
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = armor
-#		value = 10
-#	}
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = motorized
-#		value = 2
-#	}
-#}
-#
-#conv_warfare_ratios = {
-#	enable = {
-#		has_tech = conventional_warfare
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = infantry
-#		value = 10
-#	}
-#
-#	ai_strategy = {
-#		type = role_ratio
-#		id = artillery
-#		value = 15
-#	}
-#	
-#}
-#
-### Later in superior_firepower tree
-##concentrated_fire_plans_ratios = {
-#	#enable = {
-#		#has_tech = concentrated_fire_plans
-#	#}
-#	#abort = {
-#		#always = no
-#	#}
-#	
-#	#ai_strategy = {
-#		#type = role_ratio
-#		#id = infantry
-#		#value = -5
-#	#}
-#	
-#	#ai_strategy = {
-#		#type = role_ratio
-#		#id = armor
-#		#value = 10
-#	#}
-#
-#	#ai_strategy = {
-#		#type = role_ratio
-#		#id = cas
-#		#value = 5
-#	#}
-#	
-##}
-#
-#
-#asymetrical_warfare_ratios = {
-#	enable = {
-#		has_tech = asymetrical_warfare
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = militia
-#		value = 25
-#	}	
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = cavalry
-#		value = 110
-#	}
-#
-#}
-#
-#
-#sword_or_bat_rations = {
-#	enable = {
-#		has_tech = cqc_theory
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = melee_infantry
-#		value = 25
-#	}	
-#	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = cavalry
-#		value = 105
-#	}
-#
-#}
-#
-#barbarian_ratios = {
-#	enable = {
-#		has_idea = barbarians_idea
-#	}
-#	abort = {
-#		always = no
-#	}
-#	ai_strategy = {
-#		type = role_ratio
-#		id = melee_infantry
-#		value = 1000
-#	}	
-#	ai_strategy = {
-#		type = role_ratio
-#		id = militia
-#		value = 1000
-#	}
-#	ai_strategy = {
-#		type = role_ratio
-#		id = cavalry
-#		value = 1000
-#	}
-#	ai_strategy = {
-#		type = role_ratio
-#		id = infantry
-#		value = -1000
-#	}
-#	ai_strategy = {
-#		type = role_ratio
-#		id = motorized
-#		value = -1000
-#	}
-#}
+DOCTRINE_no_cavalry = {
+	enable = {
+		has_tech = nsb_truck_1
+        NOT = {
+            OR = {
+            	original_tag = KOZ
+            	original_tag = FEL
+            	original_tag = TAT
+            	original_tag = UHL
+            	original_tag = KNN
+            }
+        }
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = -70 
+	}
+}
+
+
+##### Mobile Warfare branch #####
+
+DOCTRINE_technological_supremacy_ratios = {
+	enable = {
+		has_doctrine = technological_supremacy
+	}
+	abort = {
+		always = no
+	}
+
+    ai_strategy = {
+        type = role_ratio
+        id = mechanized
+        value = 5
+    }
+	
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 10
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 2
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cas
+		value = 5
+	}
+}
+
+DOCTRINE_MW_aifc_mobile_warfare = {
+	enable = {
+		has_doctrine = conventional_warfare
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 15
+	}
+}
+
+
+##### Superior Firepower branch #####
+
+DOCTRINE_SF_superior_firepower_ratios = {
+	enable = {
+		has_doctrine = conventional_warfare
+	}
+	abort = {
+		always = no
+	}
+    ai_strategy = {
+        type = role_ratio
+        id = mechanized
+        value = 10
+    }
+	
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 10
+	}
+    
+
+	ai_strategy = {
+		type = role_ratio
+		id = artillery
+		value = 15
+	}
+
+
+}
+
+asymetrical_warfare_ratios = {
+	enable = {
+		has_doctrine = asymetrical_warfare
+	}
+	abort = {
+		has_idea = barbarians_idea
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = militia
+		value = 25
+	}	
+	
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 10
+	}
+
+}
+
+
+sword_or_bat_ratios = {
+	enable = {
+		has_doctrine = cqc_theory
+	}
+	abort = {
+		has_idea = barbarians_idea
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = melee_infantry
+		value = 25
+	}	
+	
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 20
+	}
+
+}
+
+barbarian_ratios = {
+	enable = {
+		has_idea = barbarians_idea
+	}
+	abort = {
+		always = no
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = melee_infantry
+		value = 50
+	}	
+	ai_strategy = {
+		type = role_ratio
+		id = militia
+		value = 30
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 20
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = -100
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = -100
+	}
+}
 #
 ###############
 #### NAVAL ####
@@ -204,38 +228,38 @@
 ##carrier
 #
 #
-#brown_navy_ratios = {
-#	enable = {
-#		has_tech = brown_water_navy
-#	}
-#	abort = {
-#		always = no
-#	}
-#
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = screen_ship
-#		value = 20
-#	}
-#}
-#
-#
-#green_navy_ratios= {
-#	enable = {
-#		has_tech = green_water_navy
-#	}
-#	abort = {
-#		always = no
-#	}
-#
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = capital_ship
-#		value = 20
-#	}
-#}
-#
-#
+brown_navy_ratios = {
+	enable = {
+		has_doctrine = brown_water_navy
+	}
+	abort = {
+		always = no
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 20
+	}
+}
+
+
+green_navy_ratios= {
+	enable = {
+		has_doctrine = green_water_navy
+	}
+	abort = {
+		always = no
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
+		value = 20
+	}
+}
+
+
 ###############
 ####  AIR  ####
 ###############
@@ -248,67 +272,76 @@
 ##naval_bomber
 #
 #
-#air_superiority_ratios = {
-#	enable = {
-#		has_tech = air_superiority
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = fighter
-#		value = 50
-#	}
-#	
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = tactical_bomber
-#		value = 50
-#	}
-#}
-#
-#
-#ground_support_ratios = {
-#	enable = {
-#		has_tech = ground_support
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = interceptor
-#		value = 20
-#	}
-#
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = cas
-#		value = 50
-#	}
-#}
-#
-#
-#air_parity_ratios = {
-#	enable = {
-#		has_tech = air_parity
-#	}
-#	abort = {
-#		has_idea = barbarians_idea
-#	}
-#	
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = interceptor
-#		value = 20
-#	}
-#
-#	ai_strategy = {
-#		type = unit_ratio
-#		id = anti_air
-#		value = 50
-#	}
-#}
+air_superiority_ratios = {
+	enable = {
+		has_doctrine = air_superiority
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 50
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 30
+	}
+}
+
+
+ground_support_ratios = {
+	enable = {
+		has_doctrine = ground_support
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = interceptor
+		value = 20
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 30
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 20
+	}	
+	
+}
+
+
+air_parity_ratios = {
+	enable = {
+		has_doctrine = air_parity
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = interceptor
+		value = 20
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 20
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 20
+	}	
+}
