@@ -1,114 +1,235 @@
+JOM_balance_of_power_category = {
+	JOM_fiu_bzdziu_w_glowie = {
+		allowed = {
+			always = no
+		}
+		icon = GFX_decision_generic_brainwash
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+			OR = {
+				has_completed_focus = JOM_changing_the_mind
+				has_completed_focus = JOM_herald_of_change
+			}
+		}
+		days_mission_timeout = 60
+		selectable_mission = no
+		timeout_effect = {
+			random_list = {
+				15 = {
+					JOM = {
+						add_power_balance_value = {
+							id = JOM_power_balance
+							value = 0.02
+						}
+					}
+				}
+				35 = {
+					JOM = {
+						add_power_balance_value = {
+							id = JOM_power_balance
+							value = 0.01
+						}
+					}
+				}
+				35 = {
+					JOM = {
+						add_power_balance_value = {
+							id = JOM_power_balance
+							value = -0.01
+							tooltip_side = JOM_sane_zandberg_side
+						}
+					}
+				}
+				15 = {
+					JOM = {
+						add_power_balance_value = {
+							id = JOM_power_balance
+							value = -0.02
+							tooltip_side = JOM_sane_zandberg_side
+						}
+					}
+				}
+			}
+			activate_mission = JOM_fiu_bzdziu_w_glowie
+		}
+		fixed_random_seed = no
+	}
+	JOM_take_pills = {
+		allowed = {
+			always = yes
+		}
+		icon = GFX_decision_hol_war_on_pacifism
+		days_re_enable = 90
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+
+		}
+		visible = {
+
+		}
+		cost = 5
+		complete_effect = {
+			JOM_zandberg_little_more_sane = yes
+		}
+	}
+	JOM_watch_vikings = {
+		allowed = {
+			always = yes
+		}
+		ai_will_do = {
+            base = 100
+        }
+		icon = GFX_decision_viking
+		days_re_enable = 90
+		available = {
+
+		}
+		visible = {
+
+		}
+		cost = 5
+		complete_effect = {
+			JOM_zandberg_little_less_sane = yes
+		}
+	}
+}
+
 JOM_expedition_category = {
 	expedition_preparation_1 = {
 		allowed = {
 			always = yes
 		}
-		fire_only_once = yes
+		icon = GFX_decision_hol_draw_up_staff_plans
 		ai_will_do = {
             base = 100
         }
 		available = {
-			
+			check_variable = {
+				JOM_mission_success_var < 100
+			}
 		}
 		visible = {
+			NOT = { has_country_flag = JOM_expedition_preparation_1_taken }
 			has_active_mission = expedition_preparation_general_mission
 		}
 		cost = 25
 		complete_effect = {
 			JOM_plus5_success = yes
 			JOM_fail_calc = yes
+			set_country_flag = JOM_expedition_preparation_1_taken
 		}
 	}
 	expedition_preparation_2 = {
 		allowed = {
 			always = yes
 		}
-		fire_only_once = yes
 		ai_will_do = {
             base = 100
         }
+		icon = GFX_decision_generic_consumer_goods
 		available = {
-			
+			check_variable = {
+				JOM_mission_success_var < 100
+			}
 		}
 		visible = {
+			NOT = { has_country_flag = JOM_expedition_preparation_2_taken }
 			has_active_mission = expedition_preparation_general_mission
 		}
 		cost = 25
 		complete_effect = {
 			JOM_plus5_success = yes
 			JOM_fail_calc = yes
+			set_country_flag = JOM_expedition_preparation_2_taken
 		}
 	}
 	expedition_preparation_3 = {
 		allowed = {
 			always = yes
 		}
-		fire_only_once = yes
+		icon = GFX_decision_infiltrate_state
 		ai_will_do = {
             base = 100
         }
 		available = {
-			
+			check_variable = {
+				JOM_mission_success_var < 100
+			}
 		}
 		visible = {
+			NOT = { has_country_flag = JOM_expedition_preparation_3_taken }
 			has_active_mission = expedition_preparation_general_mission
 		}
 		cost = 25
 		complete_effect = {
 			JOM_plus5_success = yes
 			JOM_fail_calc = yes
+			set_country_flag = JOM_expedition_preparation_3_taken
 		}
 	}
 	expedition_preparation_4 = {
 		allowed = {
 			always = yes
 		}
-		fire_only_once = yes
 		ai_will_do = {
             base = 100
         }
+		icon = GFX_decision_generic_coastal_fortification
 		available = {
-			
+			check_variable = {
+				JOM_mission_success_var < 100
+			}
 		}
 		visible = {
+			NOT = { has_country_flag = JOM_expedition_preparation_4_taken }
 			has_active_mission = expedition_preparation_general_mission
 		}
 		cost = 25
 		complete_effect = {
 			JOM_plus5_success = yes
 			JOM_fail_calc = yes
+			set_country_flag = JOM_expedition_preparation_4_taken
 		}
 	}
 	expedition_preparation_5 = {
 		allowed = {
 			always = yes
 		}
-		fire_only_once = yes
 		ai_will_do = {
             base = 100
         }
+		icon = GFX_decision_generic_military
 		available = {
-			
+			check_variable = {
+				JOM_mission_success_var < 100
+			}
 		}
 		visible = {
+			NOT = { has_country_flag = JOM_expedition_preparation_5_taken }
 			has_active_mission = expedition_preparation_general_mission
 		}
 		cost = 25
 		complete_effect = {
 			JOM_plus5_success = yes
 			JOM_fail_calc = yes
+			set_country_flag = JOM_expedition_preparation_5_taken
 		}
 	}
 	expedition_preparation_general_mission = {
 		allowed = {
 			always = no
 		}
+		icon = GFX_decision_viking
 		fire_only_once = yes
 		ai_will_do = {
             base = 100
         }
 		available = {
-			
+
 		}
 		days_mission_timeout = 14
 		selectable_mission = yes
@@ -128,15 +249,16 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 2
 		available = {
-			NOT = { has_country_flag = JOM_vikinging }
 			NOT = { has_country_flag = JOM_vikinging }
 		}
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -156,6 +278,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 3
 		available = {
@@ -164,6 +287,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -183,6 +307,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 3
 		available = {
@@ -191,6 +316,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -210,6 +336,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 2
 		available = {
@@ -218,6 +345,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -237,6 +365,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 5
 		available = {
@@ -245,6 +374,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -264,6 +394,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 4
 		available = {
@@ -272,6 +403,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -291,6 +423,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 5
 		available = {
@@ -299,6 +432,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -318,6 +452,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 7
 		available = {
@@ -326,6 +461,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -345,6 +481,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 9
 		available = {
@@ -353,6 +490,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -372,6 +510,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 8
 		available = {
@@ -380,6 +519,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -399,6 +539,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 4
 		available = {
@@ -407,6 +548,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -426,6 +568,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 7
 		available = {
@@ -434,6 +577,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -453,6 +597,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 10
 		available = {
@@ -461,6 +606,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -480,6 +626,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 24
 		available = {
@@ -488,6 +635,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -507,6 +655,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 18
 		available = {
@@ -515,6 +664,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -534,6 +684,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 18
 		available = {
@@ -542,6 +693,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -561,6 +713,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 16
 		available = {
@@ -569,6 +722,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -588,6 +742,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 28
 		available = {
@@ -596,6 +751,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -615,6 +771,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 38
 		available = {
@@ -623,6 +780,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -642,6 +800,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 34
 		available = {
@@ -650,6 +809,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -669,6 +829,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 58
 		available = {
@@ -677,6 +838,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -696,6 +858,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 76
 		available = {
@@ -704,6 +867,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -723,6 +887,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 90
 		available = {
@@ -731,6 +896,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -750,6 +916,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 92
 		available = {
@@ -758,6 +925,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -777,6 +945,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 110
 		available = {
@@ -785,6 +954,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -804,6 +974,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 146
 		available = {
@@ -812,6 +983,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -831,6 +1003,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 130
 		available = {
@@ -839,6 +1012,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -858,6 +1032,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 135
 		available = {
@@ -866,15 +1041,16 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
-						#country_event = jom_expedition.79 #NEEDS EVENTY
+						country_event = jom_expedition.811 
 					}
 				}
 				var:JOM_mission_fail_var = {
 					JOM = {
-						#country_event = jom_expedition.149 #NEEDS EVENTY
+						country_event = jom_expedition.149 
 					}
 				}
 			}
@@ -885,6 +1061,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 7
 		available = {
@@ -893,6 +1070,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -912,6 +1090,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 11
 		available = {
@@ -920,6 +1099,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -939,6 +1119,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 20
 		available = {
@@ -947,6 +1128,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -966,6 +1148,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 34
 		available = {
@@ -974,6 +1157,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -993,6 +1177,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 35
 		available = {
@@ -1001,6 +1186,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1020,6 +1206,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 20
 		available = {
@@ -1028,6 +1215,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1047,6 +1235,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 47
 		available = {
@@ -1055,6 +1244,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1074,6 +1264,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 43
 		available = {
@@ -1082,6 +1273,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1101,6 +1293,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 49
 		available = {
@@ -1109,6 +1302,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1128,6 +1322,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 59
 		available = {
@@ -1136,6 +1331,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1155,6 +1351,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 89
 		available = {
@@ -1163,6 +1360,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1182,6 +1380,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 76
 		available = {
@@ -1190,6 +1389,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1209,6 +1409,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 47
 		available = {
@@ -1217,6 +1418,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1236,6 +1438,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 78
 		available = {
@@ -1244,6 +1447,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1263,6 +1467,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 87
 		available = {
@@ -1271,6 +1476,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1290,6 +1496,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 126
 		available = {
@@ -1298,6 +1505,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1317,6 +1525,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 138
 		available = {
@@ -1325,6 +1534,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1344,6 +1554,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 140
 		available = {
@@ -1352,6 +1563,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1371,6 +1583,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 152
 		available = {
@@ -1379,6 +1592,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1398,6 +1612,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 149
 		available = {
@@ -1406,6 +1621,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1425,6 +1641,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 164
 		available = {
@@ -1433,6 +1650,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1452,6 +1670,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 172
 		available = {
@@ -1460,6 +1679,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {
@@ -1479,6 +1699,7 @@ JOM_expedition_category = {
 			always = no
 		}
 		fire_only_once = yes
+		icon = GFX_decision_viking
 		selectable_mission = no
 		days_mission_timeout = 142
 		available = {
@@ -1487,6 +1708,7 @@ JOM_expedition_category = {
 		is_good = yes
 		fixed_random_seed = no
 		timeout_effect = {
+			JOM_clear_preparation_flags = yes
 			random_list = {
 				var:JOM_mission_success_var = {
 					JOM = {

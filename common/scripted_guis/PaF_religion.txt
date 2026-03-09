@@ -1,18 +1,36 @@
 scripted_gui = {
+	religion_window = {
+		context_type = selected_state_context
 
+		window_name = "religion_icon_container"
+		parent_window_token = selected_state_view
+		dirty = state_religion
+		
+		properties = {
+			religion_icon = {
+				image = "GFX_state_religion_[?state_religion]"
+			}			
+		}
+	}
 	open_religion_gui = {
 		context_type = player_context
-		parent_window_name = "political_idea_entry"
+		parent_window_token = politics_tab
 		window_name = "religion_button_container"
+		properties = {
+			show_religion_gui = {
+				image = "[GetCurrentReligionIcon]"
+			}
+		}
 		effects = {
 			show_religion_gui_click = {
 				if = {
 					limit = { has_variable = global.PaF_ReligionGUI }
 					clear_variable = global.PaF_ReligionGUI
-					if = {
-						limit = { has_variable = global.PaF_ReligiousLawPicker }
-						clear_variable = global.PaF_ReligiousLawPicker
-					}
+				}
+				else_if = {
+					limit = { has_variable = global.PaF_CultureGUI }
+					clear_variable = global.PaF_CultureGUI
+					set_variable = { global.PaF_ReligionGUI = 1 }
 				}
 				else = {
 					set_variable = { global.PaF_ReligionGUI = 1 }
