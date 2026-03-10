@@ -5,6 +5,7 @@ NDefines.NDiplomacy.NUM_DAYS_TO_ENABLE_KICKING_NEW_MEMBERS_OF_FACTION = 30      
 NDefines.NDiplomacy.NUM_DAYS_TO_ENABLE_REINVITE_KICKED_NATIONS = 30             -- I z powrotem ich zaprosić po kolejnych 30, tylko ze kurwa mamy wylaczone to xd
 NDefines.NDiplomacy.NOT_READY_FOR_WAR_BASE = -10                                -- AI nie powinno się az tak srać gdy dostaje call to war a nie jest ubrane
 NDefines.NDiplomacy.FRONT_IS_DANGEROUS = -10                                    -- No nie bój się pizdo, dołączaj do wojny
+NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 5
 NDefines.NCountry.MIN_FOCUSES_FOR_CONTINUOUS = 5                                -- Minimalna liczba focusów wymagana do odblokowania continuosów
 NDefines.NCountry.MIN_STABILITY = -1.0                                          -- Mamy -100% stabilności...w vanillce jest min 0%
 NDefines.NCountry.POPULATION_YEARLY_GROWTH_BASE = 0.005                         -- Przyrost naturalny populacji
