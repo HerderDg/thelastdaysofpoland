@@ -1,47 +1,62 @@
-﻿capital = 220
+﻿capital = 49
 
 oob = "POZ_2027"
-set_stability = 0.2
-set_war_support = 0.1
+
+set_research_slots = 3
 
 # Starting tech
 set_technology = {
-		melee_weapons = 1  
-		ranged_weapons_upgrade = 1
-		ranged_weapons = 1
-		ranged_weapons1 = 1
-		infantry_training = 1
-		infantry_armor1 = 1
-		army_uniform = 1
-		special_forces_equipment = 1
-
-		nsb_bicycle = 1
-		nsb_truck_1 = 1
-		nsb_sidecar = 1
-		nsb_mbt_0 = 1
-		
-		tech_support = 1
-		basic_train = 1
-		
-		light_artillery = 1
-		light_artillery1 = 1
-		
-		primitive_aircraft = 1
-		fighter_0 = 1
-		
-		drone_0 = 1
-
-		nsb_bicycle = 1
-		nsb_truck_1 = 1
-		nsb_sidecar = 1
-		nsb_mbt_0 = 1
-
-		wind_farm = 1
-power_generation = 1
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_mountaineers = 1
+	tech_support = 1		
+	tech_engineers = 1
+	tech_recon = 1
+	gw_artillery = 1
+	motorised_infantry = 1
+	trench_warfare = 1
+	fuel_silos = 1
+	synth_oil_experiments = 1
+	basic_train = 1
 }
 
+if = {
+	limit = {
+		NOT = { has_dlc = "No Step Back" }
+	}
+	set_technology = {
+		gwtank = 1
+	}
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_technology = {
+		gwtank_chassis = 1
+	}
+}
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	set_technology = {
+		early_destroyer = 1
+		early_submarine = 1	
+	}
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	set_technology = {
+		basic_naval_mines = 1
+		submarine_mine_laying = 1
+		early_ship_hull_light = 1
+		early_ship_hull_submarine = 1
+		basic_ship_hull_submarine = 1
+		basic_battery = 1
+		basic_torpedo = 1
+		basic_depth_charges = 1
+	}
+}
 
-set_cosmetic_tag = POZ_UE
 set_convoys = 20
 
 recruit_character = POZ_jacek_jaskowiak
@@ -60,39 +75,7 @@ recruit_character = POZ_rafal_wojciechowski
 recruit_character = POZ_mariusz_wozniak
 recruit_character = POZ_michal_rohde
 recruit_character = POZ_ireneusz_nowak
-recruit_character = POZ_jacek_sobkowiak
-recruit_character = POZ_jan_grabkowski
 
-add_ideas = {
-	POZ_min_zukowski
-	POZ_min_wozniak
-	POZ_min_rozanski
-	POZ_min_grabkowski
-
-	POZ_the_renovations 
-	POZ_unpopular_president 
-	POZ_small_bastion_democracy
-	POZ_incompetent_administration
-
-	atheism_encouraged
-	multiparty
-	minorities_multiculturalism
-	autocensorship
-	volunteer_only
-	training_western_instructors
-	officer_leftovers
-	women_gender_equality
-	basic_social
-	basic_security
-	private_healthcare
-	economy_regulated_capitalism
-	taxes_high
-	trade_promoted
-	energy_sustainable_mix
-	diet_rationing
-	drugs_decriminalised
-	lgbt_equal_laws
-	}
 
 set_politics = {
 	ruling_party = euroliberalism
@@ -101,29 +84,188 @@ set_politics = {
 	elections_allowed = no
 }
 
-GER = {	
-	set_autonomy = {
-		target = POZ
-		autonomous_state = autonomy_euroassociate
-		freedom_level = 0.9
+set_popularities = {
+	marxism_cranism	= 0
+	squattism = 4
+	socialdemocrature = 2
+	euroliberalism = 87
+	freemarketism = 1
+	paternal_conservatism = 3
+	autocracy = 2
+	corporativism = 1
+	neonationalism = 0
+	reactionary = 0
+	postpolonism = 0
+}
+
+### VARIANTS ###
+# 1936 Start #
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	### Ship Variants ###
+	create_equipment_variant = {
+		name = "Kocatepe Class"
+		type = destroyer_1
+		upgrades = {
+			ship_torpedo_upgrade = 2
+			destroyer_engine_upgrade = 2
+			ship_ASW_upgrade = 1
+			ship_anti_air_upgrade = 1
+		}
+	}
+	create_equipment_variant = {
+		name = "Tinaztepe Class"
+		type = destroyer_1
+		obsolete = yes
+		upgrades = {
+			ship_torpedo_upgrade = 1
+			destroyer_engine_upgrade = 1
+			ship_ASW_upgrade = 1
+			ship_anti_air_upgrade = 1
+		}
+	}
+	create_equipment_variant = {
+		name = "Dumlupinar Class"
+		type = submarine_1
+		upgrades = {
+			ship_reliability_upgrade = 2
+			sub_engine_upgrade = 2
+			sub_stealth_upgrade = 2
+			sub_torpedo_upgrade = 2
+		}
+	}
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	# Submarines #
+	create_equipment_variant = {
+		name = "Birinci Inönü Class"				
+		type = ship_hull_submarine_1
+		name_group = TUR_SS_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_1
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Dumlupinar Class"				
+		type = ship_hull_submarine_2
+		name_group = TUR_SS_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_1
+			fixed_ship_engine_slot = sub_ship_engine_2
+			rear_1_custom_slot = ship_mine_layer_sub
+		}
+	}
+	create_equipment_variant = {
+		name = "Sakarya Class"								# represents Sakarya and Gur classes
+		type = ship_hull_submarine_1
+		name_group = TUR_SS_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_2
+			fixed_ship_engine_slot = sub_ship_engine_2
+			rear_1_custom_slot = empty
+		}
+	}
+	# Destroyers #
+	create_equipment_variant = {
+		name = "Peyk Class"									# large torpedo boats		
+		type = ship_hull_light_1
+		name_group = TUR_DD_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = light_ship_engine_1
+			fixed_ship_torpedo_slot = ship_torpedo_1
+			mid_1_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Kocatepe Class"								# represents Kocatepe and Zafer classes
+		type = ship_hull_light_1
+		name_group = TUR_DD_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = light_ship_engine_2
+			fixed_ship_torpedo_slot = ship_torpedo_1
+			mid_1_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
+	}
+	# Cruisers #
+	create_equipment_variant = {
+		name = "Mecidiye Class"								# represents Mecidiye and Hamidiye protected cruisers		
+		type = ship_hull_cruiser_coastal_defense_ship
+		name_group = TUR_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = empty
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			mid_1_custom_slot = empty
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = ship_torpedo_1
+		}
+	}
+	# Battlecruiser #
+	create_equipment_variant = {
+		name = "Yavuz Class"	
+		type = ship_hull_heavy_1
+		name_group = TUR_BC_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_heavy_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = heavy_ship_engine_1
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			fixed_ship_armor_slot = ship_armor_bc_1
+			front_1_custom_slot = ship_heavy_battery_1
+			mid_1_custom_slot = ship_secondaries_1
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
 	}
 }
 
-set_variable = { official_culture = 103 }
-set_variable = { official_religion_catholicism = 1 }
-
-
-set_popularities = {
-	marxism_cranism	= 0
-	squattism = 5
-	socialdemocrature = 15
-	euroliberalism = 65
-	freemarketism = 1
-	paternal_conservatism = 10
-	autocracy = 1
-	corporativism = 1
-	neonationalism = 1
-	reactionary = 0
-	postpolonism = 1
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Submarines #
+		create_equipment_variant = {
+			name = "Saldiray Class"				
+			type = ship_hull_submarine_2
+			name_group = TUR_SS_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_2
+				fixed_ship_engine_slot = sub_ship_engine_2
+				rear_1_custom_slot = empty
+			}
+		}
+	}
 }
-

@@ -1,42 +1,60 @@
-﻿capital = 421
+﻿capital = 186
+
+set_research_slots = 3
 
 # Starting tech
 set_technology = {
-		melee_weapons = 1  
-		ranged_weapons_upgrade = 1
-		ranged_weapons = 1
-		ranged_weapons1 = 1
-		infantry_training = 1
-		infantry_armor1 = 1
-		army_uniform = 1
-		special_forces_equipment = 1
-		special_forces_equipment1 = 1
-		special_forces_equipment2 = 1
-	nsb_armored_car_1 = 1	
-		
-		tech_support = 1
-		basic_train = 1
-		
-		light_artillery = 1
-		light_artillery1 = 1
-		
-		primitive_aircraft = 1
-		fighter_0 = 1
-		
-		drone_0 = 1
-
-		nsb_bicycle = 1
-		nsb_truck_1 = 1
-		nsb_sidecar = 1
-		nsb_mbt_0 = 1
-
-		wind_farm = 1
-power_generation = 1
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_mountaineers = 1
+	tech_support = 1		
+	tech_engineers = 1
+	tech_recon = 1
+	gw_artillery = 1
+	motorised_infantry = 1
+	trench_warfare = 1
+	fuel_silos = 1
+	synth_oil_experiments = 1
+	basic_train = 1
 }
 
-generate_character = {
-	token_base = JWK_footballer
+if = {
+	limit = {
+		NOT = { has_dlc = "No Step Back" }
+	}
+	set_technology = {
+		gwtank = 1
+	}
 }
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_technology = {
+		gwtank_chassis = 1
+	}
+}
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	set_technology = {
+		early_destroyer = 1
+		early_submarine = 1	
+	}
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	set_technology = {
+		basic_naval_mines = 1
+		submarine_mine_laying = 1
+		early_ship_hull_light = 1
+		early_ship_hull_submarine = 1
+		basic_ship_hull_submarine = 1
+		basic_battery = 1
+		basic_torpedo = 1
+		basic_depth_charges = 1
+	}
+}
+
 
 oob = "JWK_2027"
 set_convoys = 20
@@ -45,54 +63,13 @@ recruit_character = JWK_kukula
 recruit_character = JWK_drumowicz
 recruit_character = JWK_strzelecki
 recruit_character = JWK_bialas
-recruit_character = JWK_klisz
-recruit_character = JWK_danisiewicz
-recruit_character = JWK_kozlowski
-recruit_character = JWK_baranski
-recruit_character = JWK_wolski
-
-add_ideas = {
-
-	JWK_min_klisz
-	JWK_min_drumowicz
-	JWK_min_strzelecki
-	JWK_min_bialas
-
-	JWK_two_branches_of_one_tree
-	JWK_shield_of_poland
-	JWK_no_civilian_authority
-
-	controlled_opposition
-	state_press
-	direct_security
-	partial_refundation
-	social_minimum
-	training_veterans
-	system_enlistment
-	officer_leftovers
-	economy_militarism
-	taxes_medium
-	trade_minimal
-	energy_coal_based
-	diet_rationing
-	lgbt_limited_laws
-	drugs_all_penalised
-	women_traditional_roles
-	minorities_system_oppresion
-	one_religion_favoured
-
-}
 
 set_politics = {
-	ruling_party = autocracy
+	ruling_party = postpolonism
 	last_election = "2027.3.1"
 	election_frequency = 48
 	elections_allowed = no
 }
-
-set_variable = { official_culture = 27 }
-set_variable = { official_religion_catholicism = 1 }
-
 
 set_popularities = {
 	marxism_cranism	= 9
@@ -101,10 +78,173 @@ set_popularities = {
 	euroliberalism = 0
 	freemarketism = 0
 	paternal_conservatism = 30
-	autocracy = 41
+	autocracy = 0
 	corporativism = 0
 	neonationalism = 20
 	reactionary = 0
-	postpolonism = 0
+	postpolonism = 41
 }
 
+### VARIANTS ###
+# 1936 Start #
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	### Ship Variants ###
+	create_equipment_variant = {
+		name = "Hydra Class"
+		type = destroyer_1
+		upgrades = {
+			ship_torpedo_upgrade = 2
+			destroyer_engine_upgrade = 2
+			ship_ASW_upgrade = 2
+			ship_anti_air_upgrade = 2
+		}
+	}
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	# Submarines #
+	create_equipment_variant = {
+		name = "Katsonis Class"				
+		type = ship_hull_submarine_1
+		name_group = GRE_SS_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_1
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Glafkos Class"				
+		type = ship_hull_submarine_2
+		name_group = GRE_SS_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_1
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = ship_torpedo_sub_1
+		}
+	}
+	# Destroyers #
+	create_equipment_variant = {
+		name = "Aetos Class"					
+		type = ship_hull_light_1
+		name_group = GRE_DD_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_1
+			fixed_ship_anti_air_slot = empty
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = light_ship_engine_1
+			fixed_ship_torpedo_slot = ship_torpedo_1
+			mid_1_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Hydra Class"	
+		type = ship_hull_light_1
+		name_group = GRE_DD_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = light_ship_engine_2
+			fixed_ship_torpedo_slot = ship_torpedo_1
+			mid_1_custom_slot = empty
+			rear_1_custom_slot = ship_mine_layer_1
+		}
+	}
+	# Cruisers #
+	create_equipment_variant = {
+		name = "Averof Class"				
+		type = ship_hull_cruiser_coastal_defense_ship
+		name_group = GRE_CA_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = ship_armor_cruiser_2
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			mid_1_custom_slot = empty
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = ship_medium_battery_1
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Elli Class"				
+		type = ship_hull_cruiser_1
+		name_group = GRE_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = empty
+			fixed_ship_secondaries_slot = empty
+			mid_1_custom_slot = ship_torpedo_1
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = ship_mine_layer_1
+		}
+	}
+	# Battleships #
+	create_equipment_variant = {
+		name = "Kilkis Class"	
+		type = ship_hull_pre_dreadnought
+		name_group = GRE_BB_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_heavy_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = heavy_ship_engine_1
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			fixed_ship_armor_slot = ship_armor_bb_1
+			front_1_custom_slot = empty
+			mid_1_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+}
+
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Destroyers #
+	create_equipment_variant = {
+			name = "Vasilefs Georgios I Class"	
+			type = ship_hull_light_2
+			name_group = GRE_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_2
+				fixed_ship_torpedo_slot = ship_torpedo_1
+				mid_1_custom_slot = ship_torpedo_1
+				rear_1_custom_slot = ship_depth_charge_1
+			}
+		}
+	}
+}

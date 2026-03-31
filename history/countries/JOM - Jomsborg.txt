@@ -1,130 +1,69 @@
-﻿capital = 221
+﻿capital = 110
+
+set_research_slots = 3
 
 # Starting tech
+set_technology = {
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_mountaineers = 1
+	tech_support = 1		
+	tech_engineers = 1
+	tech_recon = 1
+	gw_artillery = 1
+	motorised_infantry = 1
+	trench_warfare = 1
+	fuel_silos = 1
+	synth_oil_experiments = 1
+	basic_train = 1
+}
 
 if = {
 	limit = {
-		has_dlc = "Man the Guns"
+		NOT = { has_dlc = "No Step Back" }
 	}
 	set_technology = {
-		kayak_hull = 1
-		motorboat_hull = 1
-		monitor_hull = 1
-		heavy_monitor_hull_1 = 1
-		early_gunnery = 1
-		torpedos_1 = 1
-		mtg_transport = 1
-		damage_control_1 = 1
+		gwtank = 1
+	}
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_technology = {
+		gwtank_chassis = 1
+	}
+}
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	set_technology = {
+		early_destroyer = 1
+		early_submarine = 1	
+	}
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	set_technology = {
 		basic_naval_mines = 1
+		submarine_mine_laying = 1
+		early_ship_hull_light = 1
+		early_ship_hull_submarine = 1
+		basic_ship_hull_submarine = 1
+		basic_battery = 1
+		basic_torpedo = 1
+		basic_depth_charges = 1
 	}
-	create_equipment_variant = {
-		type = kayak_hull_equipment
-		name = "Faering Class"
-		modules = {
-			fixed_ship_battery_slot = ship_light_battery_1
-		}
-	}
-	create_equipment_variant = {
-		type = monitor_hull_equipment
-		name = "Sleipnir Class"
-		modules = {
-			fixed_ship_battery_slot = ship_light_battery_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-		}
-	}
-	create_equipment_variant = {
-		type = heavy_monitor_hull_equipment
-		name = "Odin Class"
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_engine_slot = heavy_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_bb_1
-		}
-	}
-	set_naval_oob = "JOM_2027_fleet_MTG"
-}
-
-set_technology = {
-		melee_weapons = 1  
-		ranged_weapons_upgrade = 1
-		ranged_weapons = 1
-		ranged_weapons1 = 1
-		infantry_training = 1
-		infantry_armor1 = 1
-		army_uniform = 1
-		
-		special_forces_equipment = 1
-		nsb_armored_car_1 = 1		
-		
-		tech_support = 1
-		basic_train = 1
-		
-		light_artillery = 1
-		light_artillery1 = 1
-		
-		primitive_aircraft = 1
-		fighter_0 = 1
-		
-		drone_0 = 1
-
-		nsb_bicycle = 1
-		nsb_truck_1 = 1
-		nsb_sidecar = 1
-		nsb_mbt_0 = 1
-
-		wind_farm = 1
-		power_generation = 1
 }
 
 
 
-add_manpower = 1266
+add_manpower = 2000
 oob = "JOM_2027"
 
 set_convoys = 100
 
 recruit_character = JOM_halfdan_sandbjerg
-recruit_character = JOM_zawisza
-recruit_character = JOM_biejat
-recruit_character = JOM_grucela
-recruit_character = JOM_koscielak
-recruit_character = JOM_morawiec
-recruit_character = JOM_celinski
-recruit_character = JOM_vikerness
 
-
-add_ideas = {
-	regime_council
-	autocensorship
-	improvised_security
-	voluntary_healthcare
-	no_subsidies
-	random_enlistment
-	training_battle
-	officer_clerks
-	economy_primal_economy
-	taxes_none
-	trade_none
-	energy_natural
-	diet_rationing
-	lgbt_unregulated_ignored
-	drugs_allowed
-	women_gender_equality
-	minorities_multiculturalism
-	partial_secularism
-
-	JOM_min_zawisza
-	JOM_min_biejat
-	JOM_min_grucela
-	JOM_min_koscielak
-
-	JOM_exiles
-	JOM_duality_of_man
-	JOM_northern_spirit
-}
 
 set_politics = {
 	ruling_party = squattism
@@ -133,27 +72,99 @@ set_politics = {
 	elections_allowed = no
 }
 
-set_variable = { official_culture = 96 }
-set_variable = { official_religion_norse = 1 }
-
 set_popularities = {
 	marxism_cranism	= 0
-	squattism = 44
-	socialdemocrature = 51
+	squattism = 100
+	socialdemocrature = 0
 	euroliberalism = 0
 	freemarketism = 0
 	paternal_conservatism = 0
 	autocracy = 0
 	corporativism = 0
 	neonationalism = 0
-	reactionary = 5
+	reactionary = 0
 	postpolonism = 0
 }
 
-set_power_balance = {
-	id = JOM_power_balance
-	left_side = JOM_sane_zandberg_side
-	right_side = JOM_viking_zandberg_side
-	set_value = 0.4
+### VARIANTS ###
+# 1936 Start #
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	### Ship Variants ###
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	# Submarines #
+	create_equipment_variant = {
+		name = "Rota Class"								# represents Rota and Daphne classes
+		type = ship_hull_submarine_1
+		name_group = DEN_DD_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_1
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+	}
+	# Heavy Cruisers #
+	create_equipment_variant = {
+		name = "Herluf Trolle Class"				
+		type = ship_hull_cruiser_coastal_defense_ship
+		name_group = DEN_CA_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = ship_armor_cruiser_2
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			mid_1_custom_slot = empty
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = ship_torpedo_1
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Niels Iuel Class"				
+		type = ship_hull_cruiser_coastal_defense_ship
+		name_group = DEN_CA_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = ship_armor_cruiser_2
+			fixed_ship_secondaries_slot = empty
+			mid_1_custom_slot = ship_anti_air_1
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = ship_light_medium_battery_1
+		}
+	}
 }
 
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Submarines #
+		create_equipment_variant = {
+			name = "Havmanden Class"				
+			type = ship_hull_submarine_1
+			name_group = DEN_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_1
+				fixed_ship_engine_slot = sub_ship_engine_2
+				rear_1_custom_slot = empty
+			}
+		}
+	}
+}

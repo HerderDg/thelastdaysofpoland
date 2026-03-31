@@ -1,66 +1,65 @@
-﻿capital = 261
+﻿capital = 493
 
 oob = "MAF_2027"
 
+set_research_slots = 3
+
 # Starting tech
 set_technology = {
-		melee_weapons = 1  
-		ranged_weapons_upgrade = 1
-		ranged_weapons = 1
-		ranged_weapons1 = 1
-		infantry_training = 1
-		infantry_armor1 = 1
-		army_uniform = 1
-		special_forces_equipment = 1
-	nsb_armored_car_1 = 1
-		
-		tech_support = 1
-		basic_train = 1
-		
-		light_artillery = 1
-		light_artillery1 = 1
-		
-		primitive_aircraft = 1
-		fighter_0 = 1
-		
-		drone_0 = 1
-
-		nsb_bicycle = 1
-		nsb_truck_1 = 1
-		nsb_sidecar = 1
-		nsb_mbt_0 = 1
-
-		wind_farm = 1
-power_generation = 1
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_mountaineers = 1
+	tech_support = 1		
+	tech_engineers = 1
+	tech_recon = 1
+	gw_artillery = 1
+	motorised_infantry = 1
+	trench_warfare = 1
+	fuel_silos = 1
+	synth_oil_experiments = 1
+	basic_train = 1
 }
 
-add_ideas = {
-
-	MAF_scrap
-	MAF_trash
-	regime_council
-	state_press
-	direct_security
-	private_healthcare
-	no_subsidies
-	random_enlistment
-	training_battle
-	officer_mercenaries
-	economy_criminal
-	taxes_inhuman
-	trade_promoted
-	energy_natural
-	diet_hunger
-	lgbt_limited_laws
-	drugs_allowed
-	women_gender_equality
-	minorities_equal_rights
-	full_secularism
+if = {
+	limit = {
+		NOT = { has_dlc = "No Step Back" }
+	}
+	set_technology = {
+		gwtank = 1
+	}
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_technology = {
+		gwtank_chassis = 1
+	}
+}
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	set_technology = {
+		early_destroyer = 1
+		early_submarine = 1	
+	}
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	set_technology = {
+		basic_naval_mines = 1
+		submarine_mine_laying = 1
+		early_ship_hull_light = 1
+		early_ship_hull_submarine = 1
+		basic_ship_hull_submarine = 1
+		basic_battery = 1
+		basic_torpedo = 1
+		basic_depth_charges = 1
+	}
 }
 
 set_convoys = 20
 
-recruit_character = MAF_zlomek
+recruit_character = MAF_boss
 
 
 set_politics = {
@@ -70,22 +69,42 @@ set_politics = {
 	elections_allowed = no
 }
 
-set_variable = { official_culture = 72 }
-set_variable = { official_religion_catholicism = 1 }
-
-
 set_popularities = {
 	marxism_cranism	= 0
-	squattism = 20
+	squattism = 0
 	socialdemocrature = 0
-	euroliberalism = 14
+	euroliberalism = 0
 	freemarketism = 0
 	paternal_conservatism = 0
-	autocracy = 41
-	corporativism = 8
-	neonationalism = 0
-	reactionary = 10
-	postpolonism = 7
+	autocracy = 58
+	corporativism = 0
+	neonationalism = 20
+	reactionary = 0
+	postpolonism = 22
 }
 
-
+### VARIANTS ###
+# 1936 Start #
+if = {
+	limit = { not = { has_dlc = "Man the Guns" } }
+	### Ship Variants ###
+}
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	create_equipment_variant = {
+		name = "Antioquia Class"				
+		type = ship_hull_light_1
+		name_group = COL_DD_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_2
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = light_ship_engine_2
+			fixed_ship_torpedo_slot = ship_torpedo_1
+			mid_1_custom_slot = ship_mine_layer_1
+			rear_1_custom_slot = ship_depth_charge_1
+		}
+	}
+}
