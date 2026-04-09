@@ -79,12 +79,7 @@ country_event = {
 
 	option = {
 		name = config.3.a
-		random_country = {
-			limit = {
-				any_controlled_state = {
-					has_state_flag = coal_deposit_found
-				}
-			}
+		TSB = {
 			country_event = {
 				id = config.3
 				days = 365
@@ -111,13 +106,24 @@ country_event = {
 					has_state_flag = coal_deposit_found
 					meta_trigger = {	
 						text = {
-							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 0 } }
+							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 1 } }
 						}
 						STATE_ID = "[?THIS.GetID]"
 					}
 				}
 			}
-			ROOT = { country_event = config.4 }			
+			every_state = {
+				limit = { 
+					has_state_flag = coal_deposit_found
+					meta_trigger = {	
+						text = {
+							[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 1 } }
+						}
+						STATE_ID = "[?THIS.GetID]"
+					}					
+				}
+				OWNER = { country_event = config.4 }
+			}	
 		}
 
 	}
@@ -136,11 +142,11 @@ country_event = {
 
 	option = {
 		name = config.4.a
-		every_state = {
+		every_owned_state = {
 			limit = {
 				meta_trigger = {	
 					text = {
-						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 0 } }
+						[STATE_ID] = { check_variable = { global.coal_deposit_level_[STATE_ID] < 1 } }
 						[STATE_ID] = { is_owned_and_controlled_by = ROOT }
 					}
 					STATE_ID = "[?THIS.GetID]"
