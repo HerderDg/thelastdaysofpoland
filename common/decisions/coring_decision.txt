@@ -1,59 +1,6712 @@
 core_category = {
-	core_the_state = {
-		state_target = yes
-		target_root_trigger = {
-			always = yes
-		}
+	#core_the_state = {
+	#	state_target = yes
+	#	target_root_trigger = {
+	#		always = yes
+	#	}
+	#	ai_will_do = {
+	#		base = 100
+	#	}
+	#	target_array = ROOT.owned_states
+	#	target_trigger = {
+	#		FROM = {
+	#			NOT = { is_core_of = ROOT }
+	#		}
+	#		meta_trigger = {	
+	#			text = {
+	#				ROOT = {
+	#					NOT = {
+	#					has_country_flag = CHUJ_[STATE_ID]_coring_stage_2
+	#					}
+	#					NOT = {
+	#					has_country_flag = CHUJ_[STATE_ID]_coring_stage_3
+	#					}						
+	#				}
+	#			}
+	#			STATE_ID = "[?FROM.GetID]"
+	#		}
+	#	}
+	#	available = {
+	#		has_political_power > FROM.coring_cost
+	#		FROM = {
+	#			compliance > 50
+	#		}
+    #    }
+	#	days_remove = 30
+	#	custom_cost_trigger = {
+	#		has_political_power > FROM.coring_cost
+	#	}
+	#	custom_cost_text = coring_cost_text
+	#	complete_effect = {
+	#		set_temp_variable = { coring_pp_cost = FROM.coring_cost }
+	#		multiply_temp_variable = { coring_pp_cost = -1 }
+	#		add_political_power = coring_pp_cost
+	#		log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+	#	}
+	#	remove_effect = {
+	#		FROM = {
+	#			add_core_of = ROOT
+	#			PaF_change_capital_coring_prequel = yes
+	#			set_variable = { coring_cost = state_population_k }
+	#			multiply_variable = { coring_cost = 0.6 }
+	#			round_variable = coring_cost
+	#			clamp_variable = {
+	#				var = coring_cost
+	#				max = 200
+	#			}
+	#		}
+	#	}
+	#}
+
+	core_the_region_180 = {
+
 		ai_will_do = {
 			base = 100
 		}
-		target_array = ROOT.owned_states
-		target_trigger = {
-			FROM = {
-				NOT = { is_core_of = ROOT }
-			}
-			meta_trigger = {	
-				text = {
-					ROOT = {
-						NOT = {
-						has_country_flag = CHUJ_[STATE_ID]_coring_stage_2
-						}
-						NOT = {
-						has_country_flag = CHUJ_[STATE_ID]_coring_stage_3
-						}						
-					}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_180
+				is_owned_and_controlled_by = ROOT
+				NOT = {
+					is_core_of = ROOT
 				}
-				STATE_ID = "[?FROM.GetID]"
 			}
 		}
 		available = {
-			has_political_power > FROM.coring_cost
-			FROM = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_180
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT } 
+						}
+					}
+				}
 				compliance > 50
 			}
         }
-		days_remove = 30
-		custom_cost_trigger = {
-			has_political_power > FROM.coring_cost
+		modifier = {
+			political_power_factor = -0.25
 		}
-		custom_cost_text = coring_cost_text
+		days_remove = 60
+		cost = 100
 		complete_effect = {
-			set_temp_variable = { coring_pp_cost = FROM.coring_cost }
-			multiply_temp_variable = { coring_pp_cost = -1 }
-			add_political_power = coring_pp_cost
-			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+
+			log = "[GetDateText]: Decision core_the_region_180"
 		}
 		remove_effect = {
-			FROM = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_180
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes			
+			}
+		}
+	}
+	
+	core_the_region_2 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_2
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_2
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_2
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
-				set_variable = { coring_cost = state_population_k }
-				multiply_variable = { coring_cost = 0.6 }
-				round_variable = coring_cost
-				clamp_variable = {
-					var = coring_cost
-					max = 200
+			}
+		}
+	}
+	core_the_region_3 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_3
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_3
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
 				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_3
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_4 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_4
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_4
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_4
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_5 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_5
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_5
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_5
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_6 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_6
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_6
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_6
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_7 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_7
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_7
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_7
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_8 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_8
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_8
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_8
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_9 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_9
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_9
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_9
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_10 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_10
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_10
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_10
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_11 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_11
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_11
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_11
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_12 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_12
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_12
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_12
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_13 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_13
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_13
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_13
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_14 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_14
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_14
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_14
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_15 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_15
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_15
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_15
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_16 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_16
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_16
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_16
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_17 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_17
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_17
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_17
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_18 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_18
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_18
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_18
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_19 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_19
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_19
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_19
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_20 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_20
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_20
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_20
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_21 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_21
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_21
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_21
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_22 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_22
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_22
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_22
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_23 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_23
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_23
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_23
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_24 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_24
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_24
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_24
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_25 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_25
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_25
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_25
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_26 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_26
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_26
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_26
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_27 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_27
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_27
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_27
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_28 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_28
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_28
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_28
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_29 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_29
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_29
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_29
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_30 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_30
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_30
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_30
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_31 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_31
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_31
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_31
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_32 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_32
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_32
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_32
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_33 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_33
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_33
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_33
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_34 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_34
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_34
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_34
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_35 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_35
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_35
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_35
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_36 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_36
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_36
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_36
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_37 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_37
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_37
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_37
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_38 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_38
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_38
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_38
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_39 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_39
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_39
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_39
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_40 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_40
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_40
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_40
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_41 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_41
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_41
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_41
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_42 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_42
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_42
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_42
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_43 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_43
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_43
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_43
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_44 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_44
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_44
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_44
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_45 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_45
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_45
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_45
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_46 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_46
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_46
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_46
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_47 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_47
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_47
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_47
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_48 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_48
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_48
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_48
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_49 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_49
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_49
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_49
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_50 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_50
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_50
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_50
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_51 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_51
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_51
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_51
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_52 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_52
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_52
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_52
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_53 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_53
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_53
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_53
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_54 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_54
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_54
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_54
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_55 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_55
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_55
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_55
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_56 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_56
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_56
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_56
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_57 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_57
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_57
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_57
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_58 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_58
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_58
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_58
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_59 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_59
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_59
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_59
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_60 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_60
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_60
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_60
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_61 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_61
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_61
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_61
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_62 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_62
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_62
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_62
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_63 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_63
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_63
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_63
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_64 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_64
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_64
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_64
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_65 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_65
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_65
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_65
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_66 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_66
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_66
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_66
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_67 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_67
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_67
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_67
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_68 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_68
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_68
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_68
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_69 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_69
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_69
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_69
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_70 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_70
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_70
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_70
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_71 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_71
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_71
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_71
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_72 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_72
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_72
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_72
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_73 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_73
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_73
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_73
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_74 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_74
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_74
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_74
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_75 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_75
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_75
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_75
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_76 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_76
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_76
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_76
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_77 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_77
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_77
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_77
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_78 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_78
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_78
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_78
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_79 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_79
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_79
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_79
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_80 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_80
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_80
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_80
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_81 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_81
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_81
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_81
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_82 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_82
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_82
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_82
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_83 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_83
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_83
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_83
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_84 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_84
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_84
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_84
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_85 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_85
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_85
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_85
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_86 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_86
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_86
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_86
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_87 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_87
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_87
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_87
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_88 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_88
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_88
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_88
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_89 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_89
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_89
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_89
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_90 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_90
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_90
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_90
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_91 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_91
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_91
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_91
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_92 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_92
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_92
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_92
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_93 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_93
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_93
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_93
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_94 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_94
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_94
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_94
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_95 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_95
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_95
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_95
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_96 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_96
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_96
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_96
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_97 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_97
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_97
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_97
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_98 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_98
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_98
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_98
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_99 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_99
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_99
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_99
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_100 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_100
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_100
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_100
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_101 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_101
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_101
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_101
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_102 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_102
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_102
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_102
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_103 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_103
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_103
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_103
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_104 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_104
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_104
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_104
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_105 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_105
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_105
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_105
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_106 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_106
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_106
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_106
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_107 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_107
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_107
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_107
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_108 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_108
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_108
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_108
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_109 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_109
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_109
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_109
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_110 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_110
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_110
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_110
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_111 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_111
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_111
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_111
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_112 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_112
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_112
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_112
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_113 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_113
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_113
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_113
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_114 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_114
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_114
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_114
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_115 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_115
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_115
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_115
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_116 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_116
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_116
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_116
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_117 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_117
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_117
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_117
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_118 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_118
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_118
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_118
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_119 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_119
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_119
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_119
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_120 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_120
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_120
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_120
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_121 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_121
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_121
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_121
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_122 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_122
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_122
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_122
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_123 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_123
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_123
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_123
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_124 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_124
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_124
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_124
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_125 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_125
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_125
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_125
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_126 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_126
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_126
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_126
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_127 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_127
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_127
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_127
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_128 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_128
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_128
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_128
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_129 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_129
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_129
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_129
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_130 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_130
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_130
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_130
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_131 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_131
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_131
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_131
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_132 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_132
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_132
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_132
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_133 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_133
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_133
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_133
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_134 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_134
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_134
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_134
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_135 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_135
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_135
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_135
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_136 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_136
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_136
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_136
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_137 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_137
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_137
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_137
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_138 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_138
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_138
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_138
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_139 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_139
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_139
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_139
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_140 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_140
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_140
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_140
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_141 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_141
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_141
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_141
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_142 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_142
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_142
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_142
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_143 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_143
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_143
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_143
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_144 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_144
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_144
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_144
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_145 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_145
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_145
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_145
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_146 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_146
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_146
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_146
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_147 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_147
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_147
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_147
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_148 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_148
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_148
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_148
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_149 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_149
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_149
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_149
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_150 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_150
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_150
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_150
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}
+	core_the_region_151 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			any_collection_element = {
+				collection = collection:region_collection_151
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			all_collection_elements = {
+				collection = {
+					input = collection:region_collection_151
+					operators = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+							NOT = { is_core_of = ROOT }
+						}
+					}
+				}
+				compliance > 50
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 100
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_151
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
 			}
 		}
 	}
