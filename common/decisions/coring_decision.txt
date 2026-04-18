@@ -90,7 +90,13 @@ core_category = {
 			if = {
 				limit = {
 					ROOT = {
+						OR = {
 						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
 					}
 				}
 				every_owned_state = {
@@ -101,6 +107,15 @@ core_category = {
 					}
 					add_core_of = ROOT
 					PaF_change_capital_coring_prequel = yes
+				}
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
 				}				
 			}
 
@@ -108,6 +123,7 @@ core_category = {
 				limit = {
 					ROOT = {
 						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
 					}
 				}
 				every_owned_state = {
@@ -151,11 +167,155 @@ core_category = {
 						}
 						OWNER_TAG = "[?ROOT.GetTag]"
 						OWNER_IDEOLOGY = "[?ROOT.GetRulingIdeology]"
-					}					
+					}
+					meta_effect = {	
+						text = {
+							add_country_leader_role = {
+							    character = LDZ_[OWNER_TAG]_leader
+							    promote_leader = yes
+							    country_leader = {
+							        ideology = [OWNER_IDEOLOGY]
+							    }
+							}
+						}
+						OWNER_TAG = "[?ROOT.GetTag]"
+						OWNER_IDEOLOGY = "[?ROOT.country_leader.GetIdeologyGroup]"
+					}				
 				}
 			}
 		}
 	}
+
+	core_voivodeship_zaglebie_jura = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_zaglebie_and_jura = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_zaglebie_and_jura_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_zaglebie
+				can_unify_zaglebie = yes			
+			}
+		}
+		#modifier = {
+		#	political_power_factor = -0.25
+		#}
+		#days_remove = 60
+		#cost = 100
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				every_owned_state = {
+					limit = {
+						is_zaglebie_and_jura_state = yes
+						NOT = { is_core_of = ROOT }
+						is_owned_and_controlled_by = ROOT
+					}
+					add_core_of = ROOT
+					PaF_change_capital_coring_prequel = yes
+				}
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				every_owned_state = {
+					limit = {
+						is_zaglebie_and_jura_state = yes
+						NOT = { is_core_of = ROOT }
+						is_owned_and_controlled_by = ROOT
+					}
+					ZGJ = { transfer_state = PREV }
+					PaF_change_capital_coring_prequel = yes
+				}
+				ZGJ = { get_current_government_type = yes }
+				ROOT = {
+					diplomatic_relation = {
+						country = ZGJ
+						relation = puppet
+						active = yes
+					}
+				}
+				ZGJ = { restore_previous_government_type = yes }	
+				ROOT = {
+					set_autonomy = {
+					    target = ZGJ
+					    autonomous_state = autonomy_colony
+					}
+				}
+				ZGJ = {
+					meta_effect = {	
+						text = {
+							set_cosmetic_tag = ZGJ_[OWNER_TAG]
+						}
+						OWNER_TAG = "[?ROOT.GetTag]"
+					}
+					meta_effect = {	
+						text = {
+							set_party_name = {
+								ideology = ROOT
+								long_name = [OWNER_TAG]_[OWNER_IDEOLOGY]_party_long
+								name = [OWNER_TAG]_[OWNER_IDEOLOGY]_party
+							}
+						}
+						OWNER_TAG = "[?ROOT.GetTag]"
+						OWNER_IDEOLOGY = "[?ROOT.GetRulingIdeology]"
+					}
+					meta_effect = {	
+						text = {
+							add_country_leader_role = {
+							    character = ZGJ_[OWNER_TAG]_leader
+							    promote_leader = yes
+							    country_leader = {
+							        ideology = [OWNER_IDEOLOGY]
+							    }
+							}
+						}
+						OWNER_TAG = "[?ROOT.GetTag]"
+						OWNER_IDEOLOGY = "[?ROOT.country_leader.GetIdeologyGroup]"
+					}				
+				}
+			}
+		}
+	}
+
+	
 
 	core_the_region_2 = {
 		ai_will_do = {
