@@ -57,6 +57,145 @@ core_category = {
 	#		}
 	#	}
 	#}
+	coring_mission_stage_1 = {
+		days_mission_timeout = 360
+		icon = GFX_decision_generic_colonial_administration
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		modifier = {
+			political_power_factor = -0.1
+			resistance_activity = 0.2
+		}
+		timeout_effect = { 
+			coring_effect_script = yes
+		}
+	}
+
+	coring_mission_decision_1 = {
+		allowed = {
+			always = yes
+		}
+		icon = GFX_decision_generic_political_address
+		days_re_enable = 30
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+
+		}
+		visible = {
+			has_country_flag = coring_in_process
+		}
+		cost = 60
+		complete_effect = {
+			add_days_mission_timeout = {
+			    mission = coring_mission_stage_1
+			    days = -60
+			}
+		}
+	}
+
+	coring_mission_decision_2 = {
+		allowed = {
+			always = yes
+		}
+		icon = GFX_decision_generic_military
+		days_re_enable = 30
+		days_remove = 30
+		ai_will_do = {
+            base = 100
+        }
+		modifier = {
+			required_garrison_factor = -0.5
+		}
+		visible = {
+			has_country_flag = coring_in_process
+		}
+		cost = 60
+		complete_effect = {
+			add_days_mission_timeout = {
+			    mission = coring_mission_stage_1
+			    days = -30
+			}
+		}
+	}
+
+	coring_mission_decision_3 = {
+		allowed = {
+			always = yes
+		}
+		icon = GFX_decision_eng_propaganda_campaigns
+		days_re_enable = 30
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+
+		}
+		visible = {
+			has_country_flag = coring_in_process
+		}
+		cost = 60
+		complete_effect = {
+			random_list = {
+				30 = {
+					add_days_mission_timeout = {
+					    mission = coring_mission_stage_1
+					    days = -45
+					}					
+				}
+				30 = {
+					add_days_mission_timeout = {
+					    mission = coring_mission_stage_1
+					    days = -90
+					}					
+				}
+				30 = {
+					add_days_mission_timeout = {
+					    mission = coring_mission_stage_1
+					    days = 90
+					}					
+				}								
+			}
+		}
+	}
+	
+	coring_mission_decision_4 = {
+		allowed = {
+			always = yes
+		}
+		icon = GFX_decision_generic_scorched_earth
+		days_re_enable = 45
+		days_remove = 30
+		ai_will_do = {
+            base = 100
+        }
+		available = {
+
+		}
+		modifier = {
+			non_core_manpower = 0.3
+			local_resources_factor = 0.3
+			production_factory_efficiency_gain_factor = 0.3
+			resistance_growth = 0.3
+		}
+		visible = {
+			has_country_flag = coring_in_process
+		}
+		cost = 60
+		complete_effect = {
+			add_days_mission_timeout = {
+			    mission = coring_mission_stage_1
+			    days = 60
+			}													
+		}
+	}	
+	
+
 	core_voivodeship_lodz = {
 		ai_will_do = {
 			base = 100
@@ -80,12 +219,32 @@ core_category = {
 				tooltip = controls_lodz_voivodeship
 				can_unify_lodz = yes			
 			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				302 = { compliance > 25 }
+				236 = { compliance > 25 }
+				321 = { compliance > 25 }
+				370 = { compliance > 25 }
+				357 = { compliance > 25 }
+				341 = { compliance > 25 }
+				353 = { compliance > 25 }
+				340 = { compliance > 25 }
+				269 = { compliance > 25 }
+			}
 		}
-		#modifier = {
-		#	political_power_factor = -0.25
-		#}
-		#days_remove = 60
-		#cost = 100
+
+		cost = 30
 		remove_effect = {
 			if = {
 				limit = {
@@ -99,15 +258,9 @@ core_category = {
 						}
 					}
 				}
-				every_owned_state = {
-					limit = {
-						is_lodz_state = yes
-						NOT = { is_core_of = ROOT }
-						is_owned_and_controlled_by = ROOT
-					}
-					add_core_of = ROOT
-					PaF_change_capital_coring_prequel = yes
-				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_lodzkie
+				activate_mission = coring_mission_stage_1
 				if = {
 					limit = {
 						ROOT = {
@@ -126,66 +279,11 @@ core_category = {
 						has_country_flag = first_voivodeship_cored
 					}
 				}
-				every_owned_state = {
-					limit = {
-						is_lodz_state = yes
-						NOT = { is_core_of = ROOT }
-						is_owned_and_controlled_by = ROOT
-					}
-					LDZ = { transfer_state = PREV }
-					PaF_change_capital_coring_prequel = yes
-				}
-				LDZ = { get_current_government_type = yes }
-				ROOT = {
-					diplomatic_relation = {
-						country = LDZ
-						relation = puppet
-						active = yes
-					}
-				}
-				LDZ = { restore_previous_government_type = yes }	
-				ROOT = {
-					set_autonomy = {
-					    target = LDZ
-					    autonomous_state = autonomy_colony
-					}
-				}
-				LDZ = {
-					meta_effect = {	
-						text = {
-							set_cosmetic_tag = LDZ_[OWNER_TAG]
-						}
-						OWNER_TAG = "[?ROOT.GetTag]"
-					}
-					meta_effect = {	
-						text = {
-							set_party_name = {
-								ideology = ROOT
-								long_name = [OWNER_TAG]_[OWNER_IDEOLOGY]_party_long
-								name = [OWNER_TAG]_[OWNER_IDEOLOGY]_party
-							}
-						}
-						OWNER_TAG = "[?ROOT.GetTag]"
-						OWNER_IDEOLOGY = "[?ROOT.GetRulingIdeology]"
-					}
-					meta_effect = {	
-						text = {
-							add_country_leader_role = {
-							    character = LDZ_[OWNER_TAG]_leader
-							    promote_leader = yes
-							    country_leader = {
-							        ideology = [OWNER_IDEOLOGY]
-							    }
-							}
-						}
-						OWNER_TAG = "[?ROOT.GetTag]"
-						OWNER_IDEOLOGY = "[?ROOT.country_leader.GetIdeologyGroup]"
-					}				
-				}
+				coring_puppet_lodzkie = yes
 			}
 		}
 	}
-
+	
 	core_voivodeship_zaglebie_jura = {
 		ai_will_do = {
 			base = 100
@@ -209,12 +307,31 @@ core_category = {
 				tooltip = controls_zaglebie
 				can_unify_zaglebie = yes			
 			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				870 = { compliance > 25 }
+				738 = { compliance > 25 }
+				739 = { compliance > 25 }
+				421 = { compliance > 25 }
+				460 = { compliance > 25 }
+				481 = { compliance > 25 }
+				487 = { compliance > 25 }
+				591 = { compliance > 25 }
+			}
 		}
-		#modifier = {
-		#	political_power_factor = -0.25
-		#}
-		#days_remove = 60
-		#cost = 100
+
+		cost = 30
 		remove_effect = {
 			if = {
 				limit = {
@@ -228,15 +345,9 @@ core_category = {
 						}
 					}
 				}
-				every_owned_state = {
-					limit = {
-						is_zaglebie_and_jura_state = yes
-						NOT = { is_core_of = ROOT }
-						is_owned_and_controlled_by = ROOT
-					}
-					add_core_of = ROOT
-					PaF_change_capital_coring_prequel = yes
-				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_zaglebie_jura
+				activate_mission = coring_mission_stage_1
 				if = {
 					limit = {
 						ROOT = {
@@ -255,67 +366,1650 @@ core_category = {
 						has_country_flag = first_voivodeship_cored
 					}
 				}
-				every_owned_state = {
-					limit = {
-						is_zaglebie_and_jura_state = yes
-						NOT = { is_core_of = ROOT }
-						is_owned_and_controlled_by = ROOT
-					}
-					ZGJ = { transfer_state = PREV }
-					PaF_change_capital_coring_prequel = yes
-				}
-				ZGJ = { get_current_government_type = yes }
-				ROOT = {
-					diplomatic_relation = {
-						country = ZGJ
-						relation = puppet
-						active = yes
-					}
-				}
-				ZGJ = { restore_previous_government_type = yes }	
-				ROOT = {
-					set_autonomy = {
-					    target = ZGJ
-					    autonomous_state = autonomy_colony
-					}
-				}
-				ZGJ = {
-					meta_effect = {	
-						text = {
-							set_cosmetic_tag = ZGJ_[OWNER_TAG]
-						}
-						OWNER_TAG = "[?ROOT.GetTag]"
-					}
-					meta_effect = {	
-						text = {
-							set_party_name = {
-								ideology = ROOT
-								long_name = [OWNER_TAG]_[OWNER_IDEOLOGY]_party_long
-								name = [OWNER_TAG]_[OWNER_IDEOLOGY]_party
-							}
-						}
-						OWNER_TAG = "[?ROOT.GetTag]"
-						OWNER_IDEOLOGY = "[?ROOT.GetRulingIdeology]"
-					}
-					meta_effect = {	
-						text = {
-							add_country_leader_role = {
-							    character = ZGJ_[OWNER_TAG]_leader
-							    promote_leader = yes
-							    country_leader = {
-							        ideology = [OWNER_IDEOLOGY]
-							    }
-							}
-						}
-						OWNER_TAG = "[?ROOT.GetTag]"
-						OWNER_IDEOLOGY = "[?ROOT.country_leader.GetIdeologyGroup]"
-					}				
-				}
+				coring_puppet_zaglebie_jura = yes
 			}
 		}
 	}
 
+	core_voivodeship_capital_district = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_capital_district = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_capital_district_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_capital_district_voivodeship
+				can_unify_capital_district = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				565 = { compliance > 25 }
+				557 = { compliance > 25 }
+				720 = { compliance > 25 }
+				233 = { compliance > 25 }
+				261 = { compliance > 25 }
+				558 = { compliance > 25 }
+				1021 = { compliance > 25 }
+				268 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_capital_district
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_capital_district = yes
+			}
+		}
+	}	
+
+	core_voivodeship_upper_silesia = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_upper_silesia = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_upper_silesia_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_upper_silesia
+				can_unify_upper_silesia = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				483 = { compliance > 25 }
+				475 = { compliance > 25 }
+				471 = { compliance > 25 }
+				466 = { compliance > 25 }
+				500 = { compliance > 25 }
+				516 = { compliance > 25 }
+				509 = { compliance > 25 }
+				445 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_upper_silesia
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_upper_silesia = yes
+			}
+		}
+	}
 	
+	core_voivodeship_tatry = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_tatry_region = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_tatry_region_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_tatry
+				can_unify_tatry = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				748 = { compliance > 25 }
+				525 = { compliance > 25 }
+				530 = { compliance > 25 }
+				539 = { compliance > 25 }
+				545 = { compliance > 25 }
+				531 = { compliance > 25 }
+				533 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_tatry
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_tatry = yes
+			}
+		}
+	}	
+
+	core_voivodeship_opolskie = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_opolskie = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_opolskie_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_opole_voivodeship
+				can_unify_opolskie = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				428 = { compliance > 25 }
+				383 = { compliance > 25 }
+				435 = { compliance > 25 }
+				467 = { compliance > 25 }
+				603 = { compliance > 25 }
+				402 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_opolskie
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_opolskie = yes
+			}
+		}
+	}	
+	
+	core_voivodeship_wroclaw = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_lower_silesia = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_lower_silesia_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_lower_silesia
+				can_unify_lower_silesia = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				608 = { compliance > 25 }
+				338 = { compliance > 25 }
+				351 = { compliance > 25 }
+				726 = { compliance > 25 }
+				604 = { compliance > 25 }
+				397 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_lower_silesia
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_lower_silesia = yes
+			}
+		}
+	}
+
+	core_voivodeship_legnica = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_legnica = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_lubuskie_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_legnica
+				can_unify_legnica = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				727 = { compliance > 25 }
+				329 = { compliance > 25 }
+				316 = { compliance > 25 }
+				728 = { compliance > 25 }
+				345 = { compliance > 25 }
+				313 = { compliance > 25 }
+				609 = { compliance > 25 }
+
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_lubuskie
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_lubuskie = yes
+			}
+		}
+	}	
+
+	core_voivodeship_west_pomerania = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_west_pomerania = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_west_pomerania_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_west_pomerania_voivodeship
+				can_unify_west_pomerania = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				105 = { compliance > 25 }
+				54 = { compliance > 25 }
+				107 = { compliance > 25 }
+				82 = { compliance > 25 }
+				621 = { compliance > 25 }
+				53 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_west_pomerania
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_west_pomerania = yes
+			}
+		}
+	}
+	
+	core_voivodeship_southern_greater_poland = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_southern_greater_poland = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_southern_greater_poland_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_southern_greater_poland
+				can_unify_kaliskie = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				314 = { compliance > 25 }
+				311 = { compliance > 25 }
+				271 = { compliance > 25 }
+				689 = { compliance > 25 }
+				1145 = { compliance > 25 }
+				299 = { compliance > 25 }
+				240 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_southern_greater_poland
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_southern_greater_poland = yes
+			}
+		}
+	}
+	
+	core_voivodeship_northern_greater_poland = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_northern_greater_poland = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_northern_greater_poland = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_poznanskie
+				can_unify_north_greater_poland = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				220 = { compliance > 25 }
+				244 = { compliance > 25 }
+				227 = { compliance > 25 }
+				183 = { compliance > 25 }
+				162 = { compliance > 25 }
+				699 = { compliance > 25 }
+				135 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_northern_greater_poland
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_northern_greater_poland = yes
+			}
+		}
+	}	
+
+	core_voivodeship_kuyavia = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_kuyavia = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_kuyavia_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_kuyavia_voivodeship
+				can_unify_kuyavia = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				708 = { compliance > 25 }
+				165 = { compliance > 25 }
+				115 = { compliance > 25 }
+				134 = { compliance > 25 }
+				198 = { compliance > 25 }
+				701 = { compliance > 25 }
+				99 = { compliance > 25 }
+				136 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_kuyavia
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_kuyavia = yes
+			}
+		}
+	}	
+
+	core_voivodeship_pomerelia = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_pomerelia = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_pomerelia_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_pomerelia_voivodeship
+				can_unify_pomerelia = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				39 = { compliance > 25 }
+				709 = { compliance > 25 }
+				34 = { compliance > 25 }
+				1081 = { compliance > 25 }
+				1075 = { compliance > 25 }
+				1069 = { compliance > 25 }
+				1084 = { compliance > 25 }
+				35 = { compliance > 25 }
+				38 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_pomerelia
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_pomerelia = yes
+			}
+		}
+	}
+	
+	core_voivodeship_warmia_and_masuria = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_warmia_and_masuria = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_warmia_and_masuria_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_warmia_and_masuria
+				can_unify_warmia_and_masuria = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				91 = { compliance > 25 }
+				56 = { compliance > 25 }
+				75 = { compliance > 25 }
+				79 = { compliance > 25 }
+				64 = { compliance > 25 }
+				73 = { compliance > 25 }
+				113 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_warmia_and_masuria
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_warmia_and_masuria = yes
+			}
+		}
+	}	
+	
+	core_voivodeship_podlasie = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_podlasie = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_podlasie_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_podlasie_voivodeship
+				can_unify_podlasie = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				845 = { compliance > 25 }
+				634 = { compliance > 25 }
+				633 = { compliance > 25 }
+				138 = { compliance > 25 }
+				174 = { compliance > 25 }
+				254 = { compliance > 25 }
+				199 = { compliance > 25 }
+				169 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_podlasie
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_podlasie = yes
+			}
+		}
+	}
+
+	core_voivodeship_mazovia = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_mazovia = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_mazovia_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_mazovia_voivodeship
+				can_unify_mazovia = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				642 = { compliance > 25 }
+				237 = { compliance > 25 }
+				223 = { compliance > 25 }
+				151 = { compliance > 25 }
+				160 = { compliance > 25 }
+				173 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_mazovia
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_mazovia = yes
+			}
+		}
+	}	
+
+	core_voivodeship_radom = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_radom_province = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_radom_province_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_radom_province_voivodeship
+				can_unify_radom_province = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				348 = { compliance > 25 }
+				653 = { compliance > 25 }
+				360 = { compliance > 25 }
+				1008 = { compliance > 25 }
+				301 = { compliance > 25 }
+				651 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_radom
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_radom = yes
+			}
+		}
+	}	
+	
+	core_voivodeship_lubelskie = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_lubelskie = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_lubelskie_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_lublin_voivodeship
+				can_unify_lubelskie = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				658 = { compliance > 25 }
+				661 = { compliance > 25 }
+				424 = { compliance > 25 }
+				669 = { compliance > 25 }
+				391 = { compliance > 25 }
+				330 = { compliance > 25 }
+				277 = { compliance > 25 }
+				278 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_lubelskie
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_lubelskie = yes
+			}
+		}
+	}
+	
+	core_voivodeship_subcarpathia = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_subcarpathia = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_subcarpathia_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_subcarpathia_voivodeship
+				can_unify_subcarpathia = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				1138 = { compliance > 25 }
+				517 = { compliance > 25 }
+				536 = { compliance > 25 }
+				461 = { compliance > 25 }
+				430 = { compliance > 25 }
+				429 = { compliance > 25 }
+				455 = { compliance > 25 }
+				535 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_subcarpathia
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_subcarpathia = yes
+			}
+		}
+	}	
+
+	core_voivodeship_holy_cross = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_holy_cross = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_holy_cross_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_holy_cross_voivodeship
+				can_unify_holy_cross = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				416 = { compliance > 25 }
+				670 = { compliance > 25 }
+				377 = { compliance > 25 }
+				392 = { compliance > 25 }
+				441 = { compliance > 25 }
+				398 = { compliance > 25 }
+				362 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_holy_cross
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_holy_cross = yes
+			}
+		}
+	}
+	
+	core_voivodeship_lesser_poland = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		allowed = {
+			NOT = {
+				is_lesser_poland = yes
+			}
+		}
+		visible = {
+			has_country_flag = unified_voivodeship
+			any_owned_state = {
+				is_lesser_poland_state = yes
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = controls_lesser_poland_voivodeship
+				can_unify_lesser_poland = yes			
+			}
+			NOT = { has_country_flag = coring_in_process }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				506 = { compliance > 25 }
+				573 = { compliance > 25 }
+				508 = { compliance > 25 }
+				515 = { compliance > 25 }
+				513 = { compliance > 25 }
+				459 = { compliance > 25 }
+				512 = { compliance > 25 }
+				523 = { compliance > 25 }
+				505 = { compliance > 25 }
+			}
+		}
+
+		cost = 30
+		remove_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+						core_is_niepolak = no
+						AND = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}
+						}
+					}
+				}
+				set_country_flag = coring_in_process
+				set_country_flag = coring_lesser_poland
+				activate_mission = coring_mission_stage_1
+				if = {
+					limit = {
+						ROOT = {
+							core_is_niepolak = yes
+							NOT = { has_country_flag = first_voivodeship_cored }
+						}						
+					}
+					set_country_flag = first_voivodeship_cored
+				}				
+			}
+
+			else_if = {
+				limit = {
+					ROOT = {
+						core_is_niepolak = yes
+						has_country_flag = first_voivodeship_cored
+					}
+				}
+				coring_puppet_lesser_poland = yes
+			}
+		}
+	}	
 
 	core_the_region_2 = {
 		ai_will_do = {
@@ -358,6 +2052,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -404,6 +2099,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -450,6 +2146,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -496,6 +2193,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -542,6 +2240,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -588,6 +2287,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -634,6 +2334,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -680,6 +2381,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -726,6 +2428,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -772,6 +2475,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -818,6 +2522,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -865,6 +2570,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -911,6 +2617,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -957,6 +2664,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1003,6 +2711,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1050,6 +2759,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1096,6 +2806,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1142,6 +2853,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1188,6 +2900,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1234,6 +2947,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1280,6 +2994,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1326,6 +3041,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1372,6 +3088,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1418,6 +3135,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1464,6 +3182,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1510,6 +3229,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1556,6 +3276,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1602,6 +3323,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1648,6 +3370,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1694,6 +3417,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1740,6 +3464,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1786,6 +3511,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1832,6 +3558,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1878,6 +3605,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1924,6 +3652,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -1970,6 +3699,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2016,6 +3746,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2062,6 +3793,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2108,6 +3840,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2154,6 +3887,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2200,6 +3934,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2246,6 +3981,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2292,6 +4028,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2338,6 +4075,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2384,6 +4122,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2430,6 +4169,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2476,6 +4216,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2522,6 +4263,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2568,6 +4310,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2614,6 +4357,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2660,6 +4404,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2706,6 +4451,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2752,6 +4498,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2798,6 +4545,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2844,6 +4592,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2890,6 +4639,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2936,6 +4686,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -2982,6 +4733,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3028,6 +4780,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3074,6 +4827,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3120,6 +4874,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3166,6 +4921,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3212,6 +4968,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3258,6 +5015,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3304,6 +5062,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3350,6 +5109,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3396,6 +5156,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3442,6 +5203,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3488,6 +5250,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3534,6 +5297,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3580,6 +5344,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3626,6 +5391,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3672,6 +5438,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3718,6 +5485,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3764,6 +5532,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3810,6 +5579,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3856,6 +5626,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3902,6 +5673,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3948,6 +5720,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -3994,6 +5767,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4040,6 +5814,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4086,6 +5861,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4132,6 +5908,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4178,6 +5955,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4224,6 +6002,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4270,6 +6049,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4316,6 +6096,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4362,6 +6143,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4408,6 +6190,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4454,6 +6237,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4501,6 +6285,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4547,6 +6332,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4593,6 +6379,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4639,6 +6426,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4685,6 +6473,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4731,6 +6520,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4777,6 +6567,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4823,6 +6614,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4869,6 +6661,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4915,6 +6708,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -4961,6 +6755,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5007,6 +6802,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5053,6 +6849,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5099,6 +6896,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5145,6 +6943,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5191,6 +6990,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5237,6 +7037,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5283,6 +7084,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5329,6 +7131,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5375,6 +7178,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5421,6 +7225,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5467,6 +7272,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5513,6 +7319,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5559,6 +7366,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5605,6 +7413,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5651,6 +7460,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5697,6 +7507,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5743,6 +7554,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5789,6 +7601,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5835,6 +7648,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5881,6 +7695,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5927,6 +7742,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -5973,6 +7789,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6019,6 +7836,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6065,6 +7883,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6111,6 +7930,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6157,6 +7977,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6203,6 +8024,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6249,6 +8071,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6295,6 +8118,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6341,6 +8165,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6387,6 +8212,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
@@ -6433,6 +8259,7 @@ core_category = {
 					is_owned_and_controlled_by = ROOT
 				}
 				display_individual_scopes = yes
+				clear_administration_modifier = yes
 				add_core_of = ROOT
 				PaF_change_capital_coring_prequel = yes
 			}
