@@ -1,61 +1,50 @@
-	#core_the_state = {
-	#	state_target = yes
-	#	target_root_trigger = {
-	#		always = yes
-	#	}
-	#	ai_will_do = {
-	#		base = 100
-	#	}
-	#	target_array = ROOT.owned_states
-	#	target_trigger = {
-	#		FROM = {
-	#			NOT = { is_core_of = ROOT }
-	#		}
-	#		meta_trigger = {	
-	#			text = {
-	#				ROOT = {
-	#					NOT = {
-	#					has_country_flag = CHUJ_[STATE_ID]_coring_stage_2
-	#					}
-	#					NOT = {
-	#					has_country_flag = CHUJ_[STATE_ID]_coring_stage_3
-	#					}						
-	#				}
-	#			}
-	#			STATE_ID = "[?FROM.GetID]"
-	#		}
-	#	}
-	#	available = {
-	#		has_political_power > FROM.coring_cost
-	#		FROM = {
-	#			compliance > 50
-	#		}
-    #    }
-	#	days_remove = 30
-	#	custom_cost_trigger = {
-	#		has_political_power > FROM.coring_cost
-	#	}
-	#	custom_cost_text = coring_cost_text
-	#	complete_effect = {
-	#		set_temp_variable = { coring_pp_cost = FROM.coring_cost }
-	#		multiply_temp_variable = { coring_pp_cost = -1 }
-	#		add_political_power = coring_pp_cost
-	#		log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
-	#	}
-	#	remove_effect = {
-	#		FROM = {
-	#			add_core_of = ROOT
-	#			PaF_change_capital_coring_prequel = yes
-	#			set_variable = { coring_cost = state_population_k }
-	#			multiply_variable = { coring_cost = 0.6 }
-	#			round_variable = coring_cost
-	#			clamp_variable = {
-	#				var = coring_cost
-	#				max = 200
-	#			}
-	#		}
-	#	}
-	#}
+core_category_puppet = {
+	core_the_state = {
+		state_target = yes
+		target_root_trigger = {
+			is_generic_voivodeship_puppet = yes
+		}
+		ai_will_do = {
+			base = 100
+		}
+		target_array = ROOT.owned_states
+		target_trigger = {
+			FROM = {
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			has_political_power > FROM.coring_cost
+			FROM = {
+				compliance > 50
+			}
+    	}
+		days_remove = 30
+		custom_cost_trigger = {
+			has_political_power > FROM.coring_cost
+		}
+		custom_cost_text = coring_cost_text
+		complete_effect = {
+			set_temp_variable = { coring_pp_cost = FROM.coring_cost }
+			multiply_temp_variable = { coring_pp_cost = -1 }
+			add_political_power = coring_pp_cost
+			log = "[GetDateText]: Decision core_the_state (v: [?FROM.coring_cost])"
+		}
+		remove_effect = {
+			FROM = {
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+				set_variable = { coring_cost = state_population_k }
+				multiply_variable = { coring_cost = 0.3 }
+				round_variable = coring_cost
+				clamp_variable = {
+					var = coring_cost
+					max = 200
+				}
+			}
+		}
+	}
+}
 
 core_category_2 = {
 
@@ -2810,7 +2799,6 @@ core_category_2 = {
 
 }
 core_category = {
-
 	core_the_region_2 = {
 		ai_will_do = {
 			base = 100
@@ -2825,19 +2813,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_2
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -2872,19 +2858,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_3
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -2919,19 +2903,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_4
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -2966,19 +2948,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_5
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3013,19 +2993,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_6
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3060,19 +3038,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_7
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3107,19 +3083,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_8
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3154,19 +3128,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_9
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3201,19 +3173,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_10
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3248,19 +3218,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_11
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3295,19 +3263,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_12
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3343,19 +3309,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_15
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3390,19 +3354,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_16
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3437,19 +3399,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_17
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3484,19 +3444,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_18
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3532,19 +3490,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_33
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3579,19 +3535,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_34
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3626,19 +3580,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_35
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3673,19 +3625,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_36
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3720,19 +3670,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_37
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3767,19 +3715,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_38
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3814,19 +3760,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_39
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3861,19 +3805,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_40
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3908,19 +3850,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_41
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -3955,19 +3895,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_42
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4002,19 +3940,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_43
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4049,19 +3985,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_44
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4096,19 +4030,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_45
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4143,19 +4075,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_46
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4190,19 +4120,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_47
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4237,19 +4165,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_48
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4284,19 +4210,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_49
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4331,19 +4255,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_50
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4378,19 +4300,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_51
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4425,19 +4345,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_52
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4472,19 +4390,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_53
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4519,19 +4435,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_54
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4566,19 +4480,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_55
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4613,19 +4525,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_56
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4660,19 +4570,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_57
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4707,19 +4615,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_58
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4754,19 +4660,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_59
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4801,19 +4705,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_60
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4848,19 +4750,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_61
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4895,19 +4795,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_62
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4942,19 +4840,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_63
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -4989,19 +4885,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_64
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5036,19 +4930,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_65
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5083,19 +4975,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_66
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5130,19 +5020,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_67
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5177,19 +5065,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_68
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5224,19 +5110,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_69
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5271,19 +5155,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_70
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5318,19 +5200,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_71
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5365,19 +5245,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_72
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5412,19 +5290,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_73
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5459,19 +5335,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_74
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5506,19 +5380,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_75
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5553,19 +5425,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_76
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5600,19 +5470,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_77
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5647,19 +5515,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_78
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5694,19 +5560,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_79
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5741,19 +5605,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_80
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5788,19 +5650,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_81
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5835,19 +5695,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_82
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5882,19 +5740,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_83
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5929,19 +5785,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_84
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -5976,19 +5830,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_85
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6023,19 +5875,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_86
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6070,19 +5920,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_87
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6117,19 +5965,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_88
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6164,19 +6010,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_89
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6211,19 +6055,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_90
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6258,19 +6100,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_91
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6305,19 +6145,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_92
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6352,19 +6190,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_93
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6399,19 +6235,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_94
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6446,19 +6280,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_95
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6493,19 +6325,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_96
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6540,19 +6370,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_97
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6587,19 +6415,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_98
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6634,19 +6460,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_99
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6681,19 +6505,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_100
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6728,19 +6550,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_101
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6775,19 +6595,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_102
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6822,19 +6640,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_103
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6869,19 +6685,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_104
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6916,19 +6730,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_105
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -6963,19 +6775,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_106
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7010,19 +6820,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_107
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7058,19 +6866,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_109
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7105,19 +6911,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_110
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7152,19 +6956,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_111
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7199,19 +7001,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_112
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7246,18 +7046,15 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_113
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
 		}
 		modifier = {
@@ -7293,19 +7090,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_114
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7340,19 +7135,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_115
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7387,19 +7180,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_116
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7434,19 +7225,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_117
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7481,19 +7270,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_118
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7528,19 +7315,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_119
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7575,19 +7360,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_120
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7622,19 +7405,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_121
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7669,19 +7450,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_122
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7716,19 +7495,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_123
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7763,19 +7540,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_124
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7810,19 +7585,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_125
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7857,19 +7630,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_126
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7904,19 +7675,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_127
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7951,19 +7720,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_128
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -7998,19 +7765,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_129
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8045,19 +7810,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_130
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8092,19 +7855,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_131
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8139,19 +7900,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_132
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8186,19 +7945,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_133
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8233,19 +7990,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_134
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8280,19 +8035,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_135
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8327,19 +8080,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_136
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8374,19 +8125,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_137
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8421,19 +8170,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_138
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8468,19 +8215,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_139
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8515,19 +8260,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_140
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8562,19 +8305,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_141
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8609,19 +8350,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_142
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8656,19 +8395,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_143
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8703,19 +8440,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_144
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8750,19 +8485,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_145
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8797,19 +8530,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_146
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8844,19 +8575,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_147
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8891,19 +8620,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_148
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8938,19 +8665,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_149
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -8985,19 +8710,17 @@ core_category = {
 			}
 		}
 		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
 			any_owned_state = {
 				has_state_flag = region_coring_150
 
 				compliance > 50
 			}
-			if = {
-				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
-				}
-				has_global_flag = eurokom_has_fallen
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
@@ -9032,19 +8755,17 @@ core_category = {
 			}
 		}
 		available = {
-			any_owned_state = {
-				has_state_flag = region_coring_151
-
-				compliance > 50
-			}
-			if = {
+			if = { 
 				limit = {
-					OWNER = {
-						is_eurozone = yes
-					}
+					is_generic_voivodeship_puppet = no
 				}
-				has_global_flag = eurokom_has_fallen
+				any_owned_state = {
+					has_state_flag = region_coring_151
+				
+					compliance > 50
+				}
 			}
+			
 		}
 		modifier = {
 			political_power_factor = -0.25
