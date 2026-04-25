@@ -4,11 +4,12 @@ scripted_gui = {
 		window_name = "PaF_POL_container_gui"
 		context_type = decision_category
 		parent_window_token = decision_tab
+		visible = {
+			has_country_flag = POL_pissomierz_visible
+		}
 
 		properties = {
-			GFX_pisometr_button_click = { #on click? do sprawdzenia
-
-			}
+			
 		}
 
 		dynamic_lists = {
@@ -16,25 +17,78 @@ scripted_gui = {
 		}
 
 		triggers = {
-			POL_morawiecki_portrait_visible = {
+			POL_you_morawiecki_portrait_visible = {
 				tag = POL
 			}
 			POL_morawiecki_name_visible = {
 				tag = POL
 			}
+
+			POL_morawiecki_portrait_visible = {
+				has_country_flag = POL_moderate_leader_morawiecki
+			}
 			POL_fogiel_portrait_visible = {
 				has_country_flag = POL_moderate_leader_fogiel
 			}
+			POL_fotyga_portrait_visible = {
+				has_country_flag = POL_moderate_leader_fotyga
+			}
+			POL_plazynski_portrait_visible = {
+				has_country_flag = POL_moderate_leader_plazynski
+			}
+
 			POL_ziobro_portrait_visible = {
 				has_country_flag = POL_solpol_leader_ziobro
 			}
+
 			POL_bochenski_portrait_visible = {
 				has_country_flag = POL_undecided_leader_bochenski
 			}
 		}
 
 		effects = {
-			
+			pisometr_button_click = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = POL_pisometr_open
+						}
+					}
+					set_country_flag = POL_pisometr_open
+				}
+				else_if = {
+					limit = {
+						has_country_flag = POL_pisometr_open
+					}
+					clr_country_flag = POL_pisometr_open
+				}
+			}
+		}
+	}
+	POL_pissometr_gui = {
+		window_name = "PaF_POL_pissometr_gui"
+		context_type = player_context
+		parent_window_token = top_bar
+		visible = {
+			has_country_flag = POL_pisometr_open
+		}
+
+		properties = {
+			PIS_CORE_BAR = { frame = POL_pissometr_value }
+		}
+
+		dynamic_lists = {
+
+		}
+
+		triggers = {
+		
+		}
+
+		effects = {
+			pisometr_button_close_click = {
+				clr_country_flag = POL_pisometr_open
+			}
 		}
 	}
 }
