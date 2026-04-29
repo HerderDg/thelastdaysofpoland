@@ -8,6 +8,7 @@ NDefines.NDiplomacy.FRONT_IS_DANGEROUS = -10                                    
 NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 5
 NDefines.NCountry.MIN_FOCUSES_FOR_CONTINUOUS = 5                                -- Minimalna liczba focusów wymagana do odblokowania continuosów
 NDefines.NCountry.MIN_STABILITY = -1.0                                          -- Mamy -100% stabilności...w vanillce jest min 0%
+NDefines.NCountry.WAR_SUPPORT_TENSION_IMPACT = 0.1                              -- World tension chuja potrzebne więc zbijam
 NDefines.NCountry.POPULATION_YEARLY_GROWTH_BASE = 0.005                         -- Przyrost naturalny populacji
 NDefines.NPolitics.BASE_POLITICAL_POWER_INCREASE = 2.5                          -- Podstawowy przyrost PP
 NDefines.NResistance.GARRISON_MANPOWER_REINFORCEMENT_SPEED = 200.0              -- Liczba o którą się odnawiają manpowerem garnizony, zmniejszona bo jednostki mamy mniejsze
