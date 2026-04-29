@@ -257,3 +257,184 @@ country_event = {
 
 }
 
+country_event = {
+	id = config.8 #rozpoczęcie konwersji kultury
+	title = config.8.t
+	desc = config.8.desc
+
+	is_triggered_only = yes
+	#hidden = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires config.8" 
+	}
+
+	option = {
+		name = config.8.a
+		ROOT = {
+			set_temp_variable = {
+				xxxguwnoroot = 0 
+			}
+			set_temp_variable = {
+				xxxguwnominus = 0 
+			}			 
+			random_owned_controlled_state = {
+				limit = {
+					has_state_flag = state_culture_conversion_in_progress
+				}
+				add_to_temp_variable = { PREV.xxxguwnoroot = coring_cost }
+				add_to_temp_variable = { PREV.xxxguwnominus = coring_cost }				
+			}
+			multiply_temp_variable = {
+				xxxguwnominus = -1
+			}
+			multiply_temp_variable = {
+				xxxguwnoroot = 3
+			}
+			random_owned_controlled_state = {
+				limit = {
+					has_state_flag = state_culture_conversion_in_progress
+				}
+				add_dynamic_modifier = {
+					modifier = culture_changer
+					days = xxxguwnoroot
+				}		
+			}
+			add_political_power = xxxguwnominus
+		}		
+		country_event = {
+			id = config.9
+			days = xxxguwnoroot
+		}			
+
+	}
+
+}
+
+country_event = {
+	id = config.9 #zakończenie konwersji kultury
+	title = config.9.t
+	desc = config.9.desc
+
+	is_triggered_only = yes
+	#hidden = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires config.9" 
+	}
+
+	option = {
+		name = config.9.a
+		if = { 
+			limit = {
+				any_owned_state = {
+					has_state_flag = state_culture_conversion_in_progress
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					has_state_flag = state_culture_conversion_in_progress
+				}
+				clr_state_flag = state_culture_conversion_in_progress
+				set_variable = {
+					THIS.subculture = ROOT.official_culture
+				}
+			}
+			ROOT = {
+				PaF_calculate_dominant_culture = yes
+			}					
+		}
+
+	}
+
+}
+
+
+country_event = {
+	id = config.10 #rozpoczęcie konwersji religii
+	title = config.10.t
+	desc = config.10.desc
+
+	is_triggered_only = yes
+	#hidden = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires config.10" 
+		save_event_target_as = state_religion_changer
+	}
+
+	option = {
+		name = config.10.a
+		ROOT = {
+			set_temp_variable = {
+				xxxguwnoroot2 = 0 
+			}
+			set_temp_variable = {
+				xxxguwnominus2 = 0 
+			}			 
+			random_owned_controlled_state = {
+				limit = {
+					has_state_flag = state_religion_conversion_in_progress
+				}
+				add_to_temp_variable = { PREV.xxxguwnoroot2 = coring_cost }
+				add_to_temp_variable = { PREV.xxxguwnominus2 = coring_cost }				
+			}
+			multiply_temp_variable = {
+				xxxguwnominus2 = -1
+			}
+			multiply_temp_variable = {
+				xxxguwnoroot2 = 3
+			}	
+			random_owned_controlled_state = {
+				limit = {
+					has_state_flag = state_religion_conversion_in_progress
+				}
+				add_dynamic_modifier = {
+					modifier = religion_changer
+					days = xxxguwnoroot2
+				}		
+			}		
+			add_political_power = xxxguwnominus2
+		}		
+		country_event = {
+			id = config.11
+			days = xxxguwnoroot2
+		}
+
+	}
+
+}
+
+country_event = {
+	id = config.11 #zakończenie konwersji kultury
+	title = config.11.t
+	desc = config.11.desc
+
+	is_triggered_only = yes
+	#hidden = yes
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires config.11" 
+
+	}
+
+	option = {
+		name = config.11.a
+		if = { 
+			limit = {
+				any_owned_state = {
+					has_state_flag = state_religion_conversion_in_progress
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					has_state_flag = state_religion_conversion_in_progress
+				}
+				clr_state_flag = state_religion_conversion_in_progress
+				set_variable = {
+					THIS.state_religion = ROOT.official_religion
+				}
+			}	
+			ROOT = { PaF_calculate_dominant_religion = yes }
+		}
+	}
+
+}
+
+

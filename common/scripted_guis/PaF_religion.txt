@@ -1,21 +1,68 @@
 scripted_gui = {
 	religion_window = {
 		context_type = selected_state_context
-
+		ai_enabled = {
+			always = no
+		}
 		window_name = "religion_icon_container"
 		parent_window_token = selected_state_view
-		dirty = state_religion
 		
 		properties = {
 			religion_icon = {
 				image = "GFX_state_religion_[?state_religion]"
+			}
+			religion_change_icon = {
+				image = "[GetCurrentReligionChangerIcon]"
 			}			
+		}
+		triggers = {
+			religion_change_icon_bg_visible = {
+				THIS = {
+					is_owned_by = ROOT
+				}
+			}
+			religion_change_icon_visible = {
+				THIS = {
+					is_owned_by = ROOT
+				}
+			}							
+			religion_change_icon_bg_click_enabled = {
+				THIS = {
+					NOT = {
+						check_variable = {
+							state_religion = ROOT.official_religion
+						}
+					}
+				}
+				ROOT = {
+					NOT = { 
+						any_owned_state = {
+							has_state_flag = state_religion_conversion_in_progress
+						}
+					}						
+				}				
+			}			
+		}
+		effects = {
+			religion_change_icon_bg_click = {
+				THIS = {
+					set_state_flag = state_religion_conversion_in_progress
+				}
+				ROOT = { 
+					country_event = {
+						id = config.10
+					}
+				}
+			}
 		}
 	}
 	open_religion_gui = {
 		context_type = player_context
 		parent_window_token = politics_tab
 		window_name = "religion_button_container"
+		ai_enabled = {
+			always = no
+		}
 		properties = {
 			show_religion_gui = {
 				image = "[GetCurrentReligionIcon]"
@@ -42,6 +89,9 @@ scripted_gui = {
 	religion_gui = {
 		window_name = "religion_container_gui"
 		context_type = player_context
+		ai_enabled = {
+			always = no
+		}
 		visible = {
 			has_variable = global.PaF_ReligionGUI
 		}
@@ -86,6 +136,9 @@ scripted_gui = {
 	religious_law_picker_gui = {
 		window_name = "religious_law_picker_gui"
 		context_type = player_context
+		ai_enabled = {
+			always = no
+		}
 		visible = {
 			has_variable = global.PaF_ReligiousLawPicker
 		}

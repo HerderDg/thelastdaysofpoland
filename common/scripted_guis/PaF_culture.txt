@@ -1,15 +1,59 @@
 scripted_gui = {
 	culture_window = {
 		context_type = selected_state_context
-
+		ai_enabled = {
+			always = no
+		}
 		window_name = "culture_icon_container"
 		parent_window_token = selected_state_view
-		dirty = subculture
-		
+
 		properties = {
 			culture_icon = {
 				image = "GFX_culture_[?subculture]"
-			}		
+			}	
+			culture_change_icon = {
+				image = "[GetCurrentCultureChangerIcon]"
+			}
+		}
+		triggers = {
+			culture_change_icon_bg_visible = {
+				THIS = {
+					is_owned_by = ROOT
+				}
+			}
+			culture_change_icon_visible = {
+				THIS = {
+					is_owned_by = ROOT
+				}
+			}							
+			culture_change_icon_bg_click_enabled = {
+				THIS = {
+					NOT = {
+						check_variable = {
+							subculture = ROOT.official_culture
+						}
+					}
+				}
+				ROOT = {
+					NOT = { 
+						any_owned_state = {
+							has_state_flag = state_culture_conversion_in_progress
+						}
+					}						
+				}				
+			}			
+		}
+		effects = {
+			culture_change_icon_bg_click = {
+				THIS = {
+					set_state_flag = state_culture_conversion_in_progress
+				}
+				ROOT = { 
+					country_event = {
+						id = config.8
+					}
+				}				
+			}
 		}
 	}
 
@@ -21,6 +65,9 @@ scripted_gui = {
 			show_culture_gui = {
 				image = "[GetCurrentCultureIcon]"
 			}
+		}
+		ai_enabled = {
+			always = no
 		}
 		effects = {
 			show_culture_gui_click = {
@@ -45,6 +92,9 @@ scripted_gui = {
 		context_type = player_context
 		visible = {
 			has_variable = global.PaF_CultureGUI
+		}
+		ai_enabled = {
+			always = no
 		}
 		properties = {
 			current_culture_icon = {
