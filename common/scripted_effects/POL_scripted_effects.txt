@@ -1,0 +1,63 @@
+
+#Pis meter core mechanic
+POL_pissometr_clamp_min = {
+	clamp_variable = {
+		var = POL_pissometr_value
+		min = 0
+	}
+}
+POL_pissometr_clamp_max = {
+	clamp_variable = {
+		var = POL_pissometr_value
+		max = 100
+	}
+}
+POL_pissometr_clamp = {
+	clamp_variable = {
+		var = POL_pissometr_value
+		min = 0
+	}
+	clamp_variable = {
+		var = POL_pissometr_value
+		max = 100
+	}
+}
+#Pis members
+POL_add_kaczynski = {
+	add_to_variable = { POL_pis_members = 1 }
+}
+
+POL_clamp_pis_supporters = {
+	clamp_variable = {
+		var = POL_pis_supporters
+		min = 0
+	}
+	clamp_variable = {
+		var = POL_pis_supporters
+		max = POL_pis_members
+	}
+}
+POL_clamp_pis_opponents = {
+	clamp_variable = {
+		var = POL_pis_opponents
+		min = 0
+	}
+	clamp_variable = {
+		var = POL_pis_opponents
+		max = POL_pis_members
+	}
+}
+POL_calc_pis_undecided = {
+	set_variable = { POL_pis_undecided = POL_pis_members }
+	subtract_from_variable = {
+		POL_pis_undecided = POL_pis_supporters
+	}
+	subtract_from_variable = {
+		POL_pis_undecided = POL_pis_opponents
+	}
+}
+POL_pis_calc = {
+	POL_clamp_pis_supporters = yes
+	POL_clamp_pis_opponents = yes
+	POL_calc_pis_undecided = yes
+}

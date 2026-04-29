@@ -26,12 +26,8 @@ unification_category = {
 			has_global_flag = story_unification
 			NOT = {
 				original_tag = ATM
-				AND = {
-					original_tag = BBW
-					is_ai = no
-				}
-				has_global_flag = BBW_is_player
 			}
+			BBW = { is_ai = yes }
 		}
 
 		fire_only_once = yes
@@ -75,6 +71,7 @@ unification_category = {
 			}
 			has_country_flag = unified_regional
 			has_global_flag = story_unification
+			BBW = { is_ai = yes }
 		}
 
 		complete_effect = {
@@ -114,12 +111,7 @@ unification_category = {
 			}			
 			has_country_flag = unified_regional
 			has_global_flag = story_unification
-			OR = {
-				has_global_flag = BBW_is_player
-				BBW = {
-					is_ai = no
-				}
-			}
+			BBW = { is_ai = yes }
 		}
 			
 
@@ -167,14 +159,7 @@ unification_category = {
 					is_capital_district = yes
 				}				
 			}
-			NOT = {
-				OR = {
-					has_global_flag = BBW_is_player
-					BBW = {
-						is_ai = no
-					}
-				}
-			}
+			BBW = { is_ai = yes }
 			has_global_flag = story_unification
 		}
 			
@@ -213,14 +198,7 @@ unification_category = {
 			NOT = {
 				has_global_flag = northwest_unified
 			}
-			NOT = {
-				OR = {
-					has_global_flag = BBW_is_player
-					BBW = {
-						is_ai = no
-					}
-				}
-			}
+			BBW = { is_ai = yes }
 			has_country_flag = unified_regional
 			has_global_flag = story_unification
 		}
@@ -262,14 +240,7 @@ unification_category = {
 			NOT = {
 				has_global_flag = northeast_unified
 			}
-			NOT = {
-				OR = {
-					has_global_flag = BBW_is_player
-					BBW = {
-						is_ai = no
-					}
-				}
-			}
+			BBW = { is_ai = yes }
 			has_country_flag = unified_regional
 			has_global_flag = story_unification
 		}
@@ -318,229 +289,4 @@ unification_category = {
 		ai_will_do = { factor = 1 }
 	}
 
-	realize_miner_dream = {
-		icon = GFX_decision_icon_default
-		
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = controls_lodz_jura_and_silesia
-				#controls_lodz = yes
-				#controls_zaglebie = yes
-				controls_opolskie = yes
-				controls_upper_silesia = yes
-			}
-		}
-		
-		fire_only_once = yes
-
-		cost = 0
-		
-		visible = { 
-			has_country_flag = unified_regional
-			has_global_flag = story_unification
-			original_tag = BBW
-		}
-			
-
-		complete_effect = {
-			log = "[GetDateText]: Decision northeast_unification"
-			set_country_flag = unified_supregional
-			superregional_unification_effect = yes
-		}
-		ai_will_do = { factor = 1 }
-	}
-
-	north_unification = {
-		icon = GFX_decision_westpol
-		
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = "Took over North Poland"
-				can_unify_west_pomerania = yes
-				can_unify_pomerelia = yes
-				can_unify_warmia_and_masuria = yes 
-				controls_state = 48
-			}	
-		}
-		
-		fire_only_once = yes
-
-		cost = 0
-		
-		visible = { 
-			OR = {
-				is_warmia_and_masuria_unifier = yes
-				is_pomerelia_unifier = yes
-			}
-			NOT = {
-				has_global_flag = north_unified
-			}
-			OR = {
-				has_global_flag = BBW_is_player
-				BBW = {
-					is_ai = no
-				}
-			}
-			
-			has_country_flag = unified_regional
-			has_global_flag = story_unification
-		}
-			
-
-		complete_effect = {
-			log = "[GetDateText]: Decision northwest_unification"
-			set_country_flag = unified_supregional
-			set_global_flag = north_unified
-			superregional_unification_effect = yes
-		}
-		ai_will_do = { factor = 1 }
-	}
-
-	kuyavia_podlachia_belt_unification = {
-		icon = GFX_decision_westpol
-		
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = "Took over Kuyavia-Podlachia belt"
-				can_unify_kuyavia = yes
-				can_unify_mazovia = yes
-				can_unify_podlasie = yes
-			}	
-		}
-		
-		fire_only_once = yes
-
-		cost = 0
-		
-		visible = { 
-			OR = {
-				is_kuyavia_mazovia_unifier = yes
-				is_podlasie_unifier = yes
-			}
-			NOT = {
-				has_global_flag = kuyavia_podlachia_belt_unified
-			}
-			OR = {
-				has_global_flag = BBW_is_player
-				BBW = {
-					is_ai = no
-				}
-			}
-			if = {
-				limit = {
-					is_kuyavia_mazovia_unifier = yes
-				}
-				has_country_flag = unified_regional
-			}
-			else = {
-				has_country_flag = unified_voivodeship
-			}
-			has_global_flag = story_unification
-		}
-			
-
-		complete_effect = {
-			log = "[GetDateText]: Decision northwest_unification"
-			set_country_flag = unified_supregional
-			set_global_flag = kuyavia_podlachia_belt_unified
-			superregional_unification_effect = yes
-		}
-		ai_will_do = { factor = 1 }
-	}
-
-	warsaw_kielce_unification = {
-		icon = GFX_decision_westpol
-		
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = "Took over warsaw-kielce region"
-				can_unify_capital_district = yes
-				can_unify_radom_province = yes
-				can_unify_holy_cross = yes
-			}	
-		}
-		
-		fire_only_once = yes
-
-		cost = 0
-		
-		visible = { 
-			OR = {
-				is_capital_district_unifier = yes
-				is_old_polish_basin_unifier = yes
-			}
-			NOT = {
-				has_global_flag = warsaw_kielce_unified
-			}
-			OR = {
-				has_global_flag = BBW_is_player
-				BBW = {
-					is_ai = no
-				}
-			}
-			if = {
-				limit = {
-					is_old_polish_basin_unifier = yes
-				}
-				has_country_flag = unified_regional
-			}
-			else = {
-				has_country_flag = unified_voivodeship
-			}
-			has_global_flag = story_unification
-		}
-			
-
-		complete_effect = {
-			log = "[GetDateText]: Decision northwest_unification"
-			set_country_flag = unified_supregional
-			set_global_flag = warsaw_kielce_unified
-			superregional_unification_effect = yes
-		}
-		ai_will_do = { factor = 1 }
-	}
-
-	southwest_unification = {
-		icon = GFX_decision_westpol
-		
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = "Took over Southwest"
-				can_unify_kuyavia = yes
-				can_unify_mazovia = yes
-				can_unify_podlasie = yes
-			}	
-		}
-		
-		fire_only_once = yes
-
-		cost = 0
-		
-		visible = { 
-			OR = {
-				is_greater_lower_silesia_unifier = yes
-				is_greater_poland_unifier = yes
-			}
-			NOT = {
-				has_global_flag = southwest_unified
-			}
-			OR = {
-				has_global_flag = BBW_is_player
-				BBW = {
-					is_ai = no
-				}
-			}
-			has_country_flag = unified_regional
-			has_global_flag = story_unification
-		}
-			
-
-		complete_effect = {
-			log = "[GetDateText]: Decision northwest_unification"
-			set_country_flag = unified_supregional
-			set_global_flag = southwest_unified
-			superregional_unification_effect = yes
-		}
-		ai_will_do = { factor = 1 }
-	}
 }

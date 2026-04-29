@@ -1,0 +1,68 @@
+﻿add_namespace = putin_zdechl
+
+
+country_event = {
+	id = putin_zdechl.1 #search for putin
+	title = putin_zdechl.1.t
+	desc = putin_zdechl.1.desc
+
+	fire_only_once = yes
+	trigger = {
+		can_unify_prusy = yes
+		NOT = { original_tag = ROS }
+		NOT = { original_tag = RMA }
+		NOT = { original_tag = RMF }
+		ROS = { exists = no }
+		owns_state = 23
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires putin_zdechl.1" }
+
+	option = {
+		name = putin_zdechl.1.a 
+		log = "[GetDateText]: szukamy putlera"
+		country_event = {
+			id = putin_zdechl.3
+			days = 14
+		}
+	}
+}
+
+
+news_event = {
+	id = putin_zdechl.2
+	title = putin_zdechl.2.t
+	desc = putin_zdechl.2.desc
+	picture = GFX_news_event_putin_zdechl
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires putin_zdechl.2" }
+	
+	option = {
+		name = putin_zdechl.2.a
+	}
+}
+
+country_event = {
+	id = putin_zdechl.3 #search for putin
+	title = putin_zdechl.3.t
+	desc = putin_zdechl.3.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires putin_zdechl.3" }
+
+	option = {
+		name = putin_zdechl.1.a 
+		log = "[GetDateText]: putin umier putin zdoch"
+		hidden_effect = {
+			every_country = {
+				limit = { NOT = { is_ai = yes } }
+				news_event = { id = putin_zdechl.2 }
+			}
+		}	
+	}
+}
