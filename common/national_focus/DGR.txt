@@ -258,12 +258,16 @@ focus_tree = {
 			460 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = cathedral
+					type = landmark_dabrowa_pkz
 					level = 1
 					instant_build = yes
+					province = 3201
 				}
 			}
-			custom_effect_tooltip = budget_subtract_50K
+			custom_effect_tooltip = budget_subtract_50M
+			add_to_variable = {
+				budget = -50
+			}
 			add_stability = 0.1
 		}
 	}
@@ -3358,7 +3362,6 @@ focus_tree = {
 			}
 			add_country_leader_role = {
 					character = DGR_krzysztof_szwej
-					promote_leader = yes
 					country_leader = {
 						ideology = neonationalism_national_bolshevism_subtype
 					}
@@ -3607,13 +3610,6 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = dgr.36	
-			hidden_effect = {
-				load_focus_tree = generic_focus
-				country_event = {
-					id = paf_generic.101
-				}
-			}	
-		custom_effect_tooltip = DGR_notbas_unfinished_content_tt
 		}
 	}
 	
@@ -3780,13 +3776,6 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr.39
-			hidden_effect = {
-				load_focus_tree = generic_focus
-				country_event = {
-					id = paf_generic.101 
-				}
-			}
-		custom_effect_tooltip = DGR_bas_unfinished_content_tt
 		}
 	}
 
@@ -3813,6 +3802,10 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.1
+			swap_ideas = {
+				remove_idea = direct_security
+				add_idea = extreme_security
+			}
 		}
 	}	
 	focus = {
@@ -3836,6 +3829,41 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.2
+			set_party_name = {
+				ideology = autocracy
+				long_name = "NLPP - Land Forces Clique"
+				name = "NLPP - Klika Sił Lądowych"
+			}
+			set_party_name = {
+				ideology = reactionary
+				long_name = "NLPP - Inquisition"
+				name = "NLPP - Inkwizycja"
+			}
+			set_party_name = {
+				ideology = paternal_conservatism
+				long_name = "NLPP - Guard"
+				name = "NLPP - Gwardia"
+			}
+			set_party_name = {
+				ideology = euroliberalism
+				long_name = "NLPP - Civil Corps"
+				name = "NLPP - Korpus Cywilny"
+			}	
+			set_party_name = {
+				ideology = socialdemocrature
+				long_name = "NLPP - Civil Corps"
+				name = "NLPP - Korpus Cywilny"
+			}
+			set_party_name = {
+				ideology = freemarketism
+				long_name = "NLPP - Civil Corps"
+				name = "NLPP - Korpus Cywilny"
+			}
+			set_party_name = {
+				ideology = corporativism
+				long_name = "NLPP - Civil Corps"
+				name = "NLPP - Korpus Cywilny"
+			}																				
 		}
 	}
 	focus = {
@@ -3916,10 +3944,18 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			DGR = {
+				controls_state = 732
+			}
 		}
 		
 		bypass = {
+			AND = {
+				has_completed_focus = DGR_fake_judges_fake_trials
+				DGR = {
+					NOT = { controls_state = 732 }
+				}				
+			}
 		}
 		
 		x = 0
@@ -3929,6 +3965,22 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.3
+			if = {
+				limit = {
+					732 = {
+						prison < 1
+					}
+				}
+				732 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = prison
+						level = 1
+					}			
+				}
+				custom_effect_tooltip = rozdzielacz_efektow
+				custom_effect_tooltip = budget_subtract_50M								
+			}
 		}
 	}		
 	focus = {
@@ -3952,7 +4004,10 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.4
-			promote_character = DGR_krzysztof_szwej
+			promote_character = {
+				character = DGR_krzysztof_szwej
+				ideology = neonationalism_national_bolshevism_subtype
+			}
 			DGR_krzysztof_szwej = {
 				set_portraits = {
 					character = DGR_krzysztof_szwej
@@ -4122,7 +4177,49 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					has_idea = one_religion_favoured
+				}
+				swap_ideas = {
+					remove_idea = one_religion_favoured
+					add_idea = atheism_encouraged
+				}				
+			}
+			else_if = {
+				limit = {
+					has_idea = full_secularism
+				}
+				swap_ideas = {
+					remove_idea = full_secularism
+					add_idea = atheism_encouraged
+				}				
+			}
+			if = {
+				limit = {
+					any_owned_state = {
+						cathedral > 0
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						cathedral > 0
+					}
+					remove_building = {
+						type = cathedral
+						level = 1
+					}					
+				}
+			}
+			add_stability = -0.05
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.025
+			}
+			add_to_variable = {
+				budget = 300
+			}
+			custom_effect_tooltip = budget_add_300M
 		}
 	}
 	focus = {
@@ -4380,7 +4477,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = voluntary_healthcare
+				add_idea = partial_refundation
+			}
 		}
 	}	
 	focus = {
@@ -4452,7 +4552,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = state_press
+				add_idea = absolute_censorship
+			}
 		}
 	}	
 	focus = {
@@ -4545,7 +4648,19 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = energy_full_emission
+				add_idea = energy_coal_based
+			}
+			1148 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = wind_farm
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = budget_subtract_600M
 		}
 	}	
 	focus = {
@@ -4640,7 +4755,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = lgbt_equal_laws
+				add_idea = lgbt_limited_laws
+			}
 		}
 	}
 
@@ -4657,7 +4775,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -4831,7 +4949,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = economy_central_planning
+				add_idea = economy_militarism
+			}
 		}
 	}
 	focus = {
@@ -5926,7 +6047,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = energy_coal_based
+				add_idea = energy_nuclear
+			}
+			add_breakthrough_points = {
+				specialization = specialization_nuclear
+				value = 1
+			}
 		}
 	}
 	focus = {
@@ -5974,7 +6102,34 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_opinion_modifier = {
+				target = RUS
+				modifier = trade_agreement
+			}
+			RUS = { 
+				add_opinion_modifier = {
+					target = DGR
+					modifier = trade_agreement
+				}
+				give_market_access = DGR
+			}
+			if = {
+				limit = {
+					RUS = {
+						OR = {
+							has_government = marxism_cranism
+							has_government = socialdemocrature
+						}
+					}
+				}
+				RUS = {
+					diplomatic_relation = {
+				   		country = DGR
+				   		relation = non_aggression_pact
+						active = yes
+					}
+				}
+			}
 		}
 	}		
 	focus = {
@@ -5998,7 +6153,24 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_opinion_modifier = {
+				target = CHI
+				modifier = trade_agreement
+			}
+			CHI = { 
+				add_opinion_modifier = {
+					target = DGR
+					modifier = trade_agreement
+				}
+				give_market_access = DGR
+			}
+			CHI = {
+				diplomatic_relation = {
+			   		country = DGR
+			   		relation = non_aggression_pact
+					active = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -6046,7 +6218,17 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_nuclear_reactor } 
+				}
+				complete_special_project = sp:sp_nuclear_reactor
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_to_variable = {
+				budget = -200
+			}
+			custom_effect_tooltip = budget_subtract_200M
 		}
 	}
 	focus = {
