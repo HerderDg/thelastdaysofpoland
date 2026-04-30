@@ -120,10 +120,7 @@ focus_tree = {
 			set_resistance = 30
 			}
 		}
-			add_political_power = 50
-			hidden_effect = {
-			add_ideas = DGR_separatists
-			}
+		add_political_power = 50
 		}
 	}
 	
@@ -176,9 +173,6 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = economy_criminal
 				add_idea = economy_workers_management
-			}
-			hidden_effect = {
-			add_ideas = DGR_druglords
 			}
 		}
 	}
@@ -1024,7 +1018,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 24
+		x = 22
 		y = 0
 		
 		cost = 1
@@ -1292,7 +1286,7 @@ focus_tree = {
 		}
 	}
 	
-	
+
 	focus = {
 		id = DGR_restore_jw_sulno
 		icon = DGR_restore_jw_sulno
@@ -1569,7 +1563,7 @@ focus_tree = {
 			}
 		}
 		
-		x = 34
+		x = 33
 		y = 0
 		
 		cost = 1
@@ -1624,7 +1618,7 @@ focus_tree = {
 			}		
 		}
 		
-		x = 36
+		x = 37
 		y = 0
 		
 		cost = 1
@@ -1928,13 +1922,67 @@ focus_tree = {
 			country_event = dgr.13
 		}
 	}	
+
+	focus = {
+		id = DGR_sweep_the_floor
+		icon = DGR_sweep_the_floor
+		relative_position_id = DGR_question_of_leadership
+		prerequisite = { focus = DGR_revenge_at_czarzasty }
+		prerequisite = { focus = DGR_strike_back_at_antifa }
+		text_icon = DABROWA_focus_style
+		available = {
+			AND = {
+				NOT = { country_exists = SOS }
+				NOT = { country_exists = JAW }
+				DGR = { has_war = no }
+			}
+		}
+		
+		bypass = {
+			OR = { 
+				AND = {
+					SIE = { exists = no }
+					BED = { exists = no }
+				}
+				AND = {
+					SIE = { is_ally_with = ROOT }
+					BED = { is_ally_with = ROOT }
+				}				
+			}
+		}
+		
+		x = 2
+		y = 0
+		
+		cost = 1
+		
+		completion_reward = {
+			if = { limit = { 
+				country_exists = SIE 
+				NOT = { SIE = { is_ally_with = ROOT } }
+			} 
+			declare_war_on = {
+				target = SIE
+				type = voivodeship_war
+			}
+			}
+			if = { limit = { 
+				country_exists = BED 
+				NOT = { BED = { is_ally_with = ROOT } }
+			} 
+			declare_war_on = {
+				target = BED
+				type = voivodeship_war
+			}
+			}								
+		}
+	}	
 	
 	focus = {
 		id = DGR_reclaim_greater_zaglebie
 		icon = DGR_reclaim_greater_zaglebie
 		relative_position_id = DGR_question_of_leadership
-		prerequisite = { focus = DGR_revenge_at_czarzasty }
-		prerequisite = { focus = DGR_strike_back_at_antifa }
+		prerequisite = { focus = DGR_sweep_the_floor }
 		text_icon = DABROWA_focus_style
 		available = {
 			OR = {
@@ -1952,7 +2000,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 1
+		x = 2
 		y = 1
 		
 		cost = 1
