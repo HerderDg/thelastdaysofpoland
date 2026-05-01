@@ -2003,8 +2003,11 @@ focus_tree = {
 		}
 
 		bypass = {
-			NOT = {
+			AND = {
+				NOT = {
 				country_exists = STA
+				country_exists = ETS
+				}
 			}
 		}
 
@@ -2013,8 +2016,23 @@ focus_tree = {
 
 		cost = 2
 		
-		completion_reward = { 
-			declare_war_on = { type = voivodeship_war target = STA }					
+		completion_reward = {
+			if = {
+				limit = {
+					STA = {
+						exists = yes
+					}
+				}
+			declare_war_on = { type = voivodeship_war target = STA }				
+			} 
+			if = {
+				limit = {
+					ETS = {
+						exists = yes
+					}
+				}
+			declare_war_on = { type = voivodeship_war target = ETS }				
+			} 					
 		}
 	}	
 
