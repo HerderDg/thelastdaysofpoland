@@ -7467,6 +7467,53 @@ core_category = {
 		}
 	}
 
+	core_the_region_108 = {
+		ai_will_do = {
+			base = 100
+		}
+		icon = GFX_decision_generic_colonial_administration
+		visible = {
+			NOT = { has_country_flag = unified_voivodeship }
+			any_owned_state = {
+				has_state_flag = region_coring_108
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			if = { 
+				limit = {
+					is_generic_voivodeship_puppet = no
+				}
+			any_owned_state = {
+				has_state_flag = region_coring_108
+
+				compliance > 30
+				resistance < 50
+			}
+			}
+			
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		days_remove = 60
+		cost = 50
+		remove_effect = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = region_coring_108
+					NOT = { is_core_of = ROOT }
+					is_owned_and_controlled_by = ROOT
+				}
+				display_individual_scopes = yes
+				clear_administration_modifier = yes
+				add_core_of = ROOT
+				PaF_change_capital_coring_prequel = yes
+			}
+		}
+	}	
+
 	core_the_region_109 = {
 		ai_will_do = {
 			base = 100
