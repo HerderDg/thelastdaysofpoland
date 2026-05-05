@@ -58,8 +58,89 @@ postsmog_conquest_category = {
 				type = annex_everything
 			}
 		}
-
 	}
+    postsmog_unification = {
+
+        icon = GFX_decision_poland_uni
+        
+        available = {
+            hidden_trigger = {
+                is_postsmog_faction = yes
+            }
+            custom_trigger_tooltip = { 
+                tooltip = controls_postsmog_poland
+                AND = {
+                    ROOT = {
+                        owns_state = 430
+                        owns_state = 517
+                        owns_state = 640
+                        owns_state = 143
+                        owns_state = 636
+                        owns_state = 50
+                        owns_state = 51
+                        owns_state = 1086
+                        owns_state = 1056
+                        owns_state = 708
+                        owns_state = 135
+                        owns_state = 609
+                        owns_state = 190
+                        owns_state = 1092
+                        owns_state = 617
+                        owns_state = 83
+                        owns_state = 39
+                        owns_state = 35
+                        owns_state = 762
+                        owns_state = 509
+                        owns_state = 945
+                        owns_state = 580
+                        owns_state = 573
+                    }
+                }
+            }
+        }
+
+        ai_will_do = {
+			factor = 1
+		}
+        
+        fire_only_once = yes
+
+        cost = 0
+        
+        visible = { 
+            AND = { 
+                is_postsmog_faction = yes
+                postsmog_active = yes
+            }
+        }
+        complete_effect = {
+            set_country_flag = poland_smog
+            if = {
+                limit = { 
+                    original_tag = STL	  
+                }
+                set_cosmetic_tag = STL_smog_uni
+                hidden_effect = {
+                    every_country = {
+                        limit = { NOT = { is_ai = yes } }
+                        news_event = { id = supersmog.1 }
+                    }
+                }		
+		    }
+            else_if = {
+                limit = { 
+                    original_tag = UPA	  
+                }
+                set_cosmetic_tag = UPA_smog_uni
+                hidden_effect = {
+                    every_country = {
+                        limit = { NOT = { is_ai = yes } }
+                        news_event = { id = supersmog.2 }
+                    }
+                }		
+		    }
+        }
+    }
 }
 
 postsmog_desolation_category = {
