@@ -55,6 +55,54 @@ country_event = {
 }
 
 country_event = {
+	id = wunderwegiel.2
+	title = wunderwegiel.2.t
+	desc = wunderwegiel.2.desc
+
+	fire_only_once = yes
+	trigger = {
+		original_tag = BBW
+		has_completed_focus = BBW_our_inspiration
+		OR = {
+			date > 2040.03.01
+			controls_eighteen_voivodeships = yes
+		}
+		903 = {
+			has_dynamic_modifier = coal_deposit_modifier_903
+		}
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires wunderwegiel.2" }
+
+	option = {
+		name = wunderwegiel.2.a
+		log = "[GetDateText]: to węgloniec"
+		903 = {
+			remove_dynamic_modifier = {
+				modifier = coal_deposit_modifier_903
+			}
+			clr_state_flag = coal_deposit_found
+			clr_state_flag = coal_deposit_unlock_1
+			clr_state_flag = coal_deposit_unlock_2
+			clr_state_flag = coal_deposit_unlock_3
+			add_extra_state_shared_building_slots = 1
+			set_temp_variable = { ligniteballs = 0 }
+			subtract_from_temp_variable = { ligniteballs = 903.resource@coal }
+			add_resource = {
+				type = coal
+				amount = ligniteballs
+			}
+		}
+		BBW = {
+			add_timed_idea = {
+				idea = BBW_ecosystem_failing
+				days = 90
+			}
+		}
+	}
+}
+
+country_event = {
 	id = belchatow.1
 	title = belchatow.1.t
 	desc = belchatow.1.desc
@@ -2962,6 +3010,7 @@ country_event = {
 	immediate = { 
 		hidden_effect = {
 			BBW_collapse_EKW = yes
+			set_global_flag = postsmog_active
 		}
 	}
 
