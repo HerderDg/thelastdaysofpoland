@@ -568,11 +568,15 @@ ATM_nuclear_plant = {
 					ATM_usable_uranium = 548
 				}
 				activate_mission = ATM_atomic_power_cycle
-				set_variable = {
-					power_from_atom = 40000
-				}
 				country_event = {
 					id = atom_plant.16
+				}
+			}
+			903 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = commercial_nuclear_reactor
+					level = 2
 				}
 			}
 		}
@@ -585,6 +589,7 @@ ATM_nuclear_plant = {
 		activation = {
 			always = no
 		}
+		fixed_random_seed = no
 		days_mission_timeout = 550
 		timeout_effect = {
 			custom_effect_tooltip = ATM_smr_online_tt
@@ -597,28 +602,76 @@ ATM_nuclear_plant = {
 				set_variable = {
 					ATM_SMR_wave = 1
 				}
+				151 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = nuclear_reactor_heavy_water
+						level = 1
+					}
+				}
+				737 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = nuclear_reactor_heavy_water
+						level = 1
+					}
+				}
+				573 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = nuclear_reactor_heavy_water
+						level = 1
+					}
+				}								
 			}
 			else = {
 				add_to_variable = {
 					ATM_SMR_wave = 1
 				}
+				random_owned_controlled_state = {
+					limit = {
+						OR = {
+							has_state_category = city
+	    		       		has_state_category = megalopolis
+	    		       		has_state_category = metropolis
+	    		       		has_state_category = large_city		
+							nuclear_reactor_heavy_water < 1				
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = nuclear_reactor_heavy_water
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						OR = {
+							has_state_category = city
+	    		       		has_state_category = megalopolis
+	    		       		has_state_category = metropolis
+	    		       		has_state_category = large_city		
+							nuclear_reactor_heavy_water < 1				
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = nuclear_reactor_heavy_water
+						level = 1
+					}
+				}				
 			}
 			set_variable = {
-				ATM_uranium_for_smrs = 137
+				ATM_uranium_for_smrs = 274
 			}
-			set_variable = {
-				power_from_atom = 10000
-			}
+			
 			multiply_variable = {
 				ATM_uranium_for_smrs = ATM_SMR_wave
-			}
-			multiply_variable = {
-				power_from_atom = ATM_SMR_wave
 			}
 			hidden_effect = {
 				set_country_flag = ATM_atomic_belchatow_built
 				subtract_from_variable = {
-					ATM_usable_uranium = 137
+					ATM_usable_uranium = 274
 				}	
 				activate_mission = ATM_atomic_power_cycle
 				if = {
@@ -663,7 +716,7 @@ ATM_nuclear_plant = {
 				}
 				else = {
 					set_variable = {
-						ATM_uranium_for_smrs = 137
+						ATM_uranium_for_smrs = 274
 					}
 					multiply_variable = {
 						ATM_uranium_for_smrs = ATM_SMR_wave
