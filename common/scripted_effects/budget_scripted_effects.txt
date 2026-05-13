@@ -9,6 +9,22 @@ get_building_cost = {
             subtract_from_variable = { budget = new_reactors }
             set_variable = { prev_reactors = num_of_reactors }
         }
+		if = {
+            limit = { check_variable = { prev_small_reactors < num_of_small_reactors } }
+            set_variable = { new_small_reactors = num_of_small_reactors }
+            subtract_from_variable = { new_small_reactors = prev_small_reactors }
+            multiply_variable = { new_small_reactors = cost_for_small_reactor }
+            subtract_from_variable = { budget = new_small_reactors }
+            set_variable = { prev_small_reactors = num_of_small_reactors }
+        }
+		if = {
+            limit = { check_variable = { prev_industrial_reactors < num_of_industrial_reactors } }
+            set_variable = { new_industrial_reactors = num_of_industrial_reactors }
+            subtract_from_variable = { new_industrial_reactors = prev_industrial_reactors }
+            multiply_variable = { new_industrial_reactors = cost_for_reactor }
+            subtract_from_variable = { budget = new_industrial_reactors }
+            set_variable = { prev_industrial_reactors = num_of_industrial_reactors }
+        }				
 		# Rocket Sites
         if = {
             limit = { check_variable = { prev_rockets < num_of_rockets } }
@@ -1088,6 +1104,28 @@ get_building_payments = {
 		building_payments = payments_for_reactor_temp
 	}
 
+	# Reactor
+	set_temp_variable = {
+		payments_for_small_reactor_temp = payments_for_small_reactor
+	}
+	multiply_temp_variable = {
+		payments_for_small_reactor_temp = num_of_small_reactors
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_small_reactor_temp
+	}	
+
+	# Reactor
+	set_temp_variable = {
+		payments_for_industrial_reactor_temp = payments_for_reactor
+	}
+	multiply_temp_variable = {
+		payments_for_industrial_reactor_temp = num_of_industrial_reactors
+	}
+	add_to_temp_variable = {
+		building_payments = payments_for_industrial_reactor_temp
+	}	
+
 	# Rockets
 	set_temp_variable = {
 		payments_for_rockets_temp = payments_for_rockets
@@ -1473,7 +1511,7 @@ set_up_budget = {
 	STL = { add_to_variable = { budget = 830 } }
 	SUP = { add_to_variable = { budget = 119 } }
 	SUS = { add_to_variable = { budget = 89 } }
-	SVK = { add_to_variable = { budget = 2000 } }
+	SVK = { add_to_variable = { budget = 12000 } }
 	SWC = { add_to_variable = { budget = 244 } }
 	SWD = { add_to_variable = { budget = 226 } }
 	SWI = { add_to_variable = { budget = 517 } }

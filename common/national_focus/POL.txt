@@ -314,7 +314,7 @@ focus_tree = {
 					id = morawiecki.3
 				}
 			}
-			set_grand_doctrine = conventional_warfare		
+			#set_grand_doctrine = conventional_warfare	- obsolete, zamienić na subdoctrine infantry????????	
 			army_experience = 15		
 		}
 	}
@@ -951,22 +951,27 @@ focus = {
 	icon = POL_reforma_prawa_budowlanego
 	relative_position_id = POL_suspension_of_polish_deal
 	prerequisite = { focus = POL_suspension_of_polish_deal }
-	available = {
-	
-	}
-	
-	bypass = {
-	}
-	
+
 	x = -2
 	y = 1
-	
 	cost = 1
-	
+
 	completion_reward = {
-		swap_ideas = {
-			remove_idea = POL_polish_deal_1
-			add_idea = POL_polish_deal_2
+
+		if = {
+			limit = { has_idea = POL_polish_deal_1 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_1
+				add_idea = POL_polish_deal_2
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal }
+			swap_ideas = {
+				remove_idea = POL_polish_deal
+				add_idea = POL_polish_deal_2
+			}
 		}
 	}
 }
@@ -976,22 +981,35 @@ focus = {
 	icon = POL_przyjazny_urzad
 	relative_position_id = POL_suspension_of_polish_deal
 	prerequisite = { focus = POL_suspension_of_polish_deal }
-	available = {
-	
-	}
-	
-	bypass = {
-	}
-	
+
 	x = 0
 	y = 1
-	
 	cost = 1
-	
+
 	completion_reward = {
-		swap_ideas = {
-			remove_idea = POL_polish_deal_2
-			add_idea = POL_polish_deal_3
+
+		if = {
+			limit = { has_idea = POL_polish_deal_2 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_2
+				add_idea = POL_polish_deal_3
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal_1 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_1
+				add_idea = POL_polish_deal_3
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal }
+			swap_ideas = {
+				remove_idea = POL_polish_deal
+				add_idea = POL_polish_deal_3
+			}
 		}
 	}
 }
@@ -1001,22 +1019,43 @@ focus = {
 	icon = POL_sol_tej_gospodarki
 	relative_position_id = POL_suspension_of_polish_deal
 	prerequisite = { focus = POL_suspension_of_polish_deal }
-	available = {
-	
-	}
-	
-	bypass = {
-	}
-	
+
 	x = 2
 	y = 1
-	
 	cost = 1
-	
+
 	completion_reward = {
-		swap_ideas = {
-			remove_idea = POL_polish_deal_3
-			add_idea = POL_polish_deal_4
+
+		if = {
+			limit = { has_idea = POL_polish_deal_3 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_3
+				add_idea = POL_polish_deal_4
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal_2 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_2
+				add_idea = POL_polish_deal_4
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal_1 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_1
+				add_idea = POL_polish_deal_4
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal }
+			swap_ideas = {
+				remove_idea = POL_polish_deal
+				add_idea = POL_polish_deal_4
+			}
 		}
 	}
 }
@@ -1025,29 +1064,60 @@ focus = {
 	id = POL_newest_deal
 	icon = POL_newest_deal
 	relative_position_id = POL_przyjazny_urzad
+
 	prerequisite = { focus = POL_reforma_prawa_budowlanego }
 	prerequisite = { focus = POL_przyjazny_urzad }
 	prerequisite = { focus = POL_sol_tej_gospodarki }
-	available = {
-	
-	}
-	
-	bypass = {
-	}
-	
+
 	x = 0
 	y = 2
-	
+
 	cost = 1
-	
+
 	completion_reward = {
-		swap_ideas = {
-			remove_idea = POL_polish_deal_4
-			add_idea = POL_polish_deal_5
+
+		if = {
+			limit = { has_idea = POL_polish_deal_4 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_4
+				add_idea = POL_polish_deal_5
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal_3 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_3
+				add_idea = POL_polish_deal_5
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal_2 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_2
+				add_idea = POL_polish_deal_5
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal_1 }
+			swap_ideas = {
+				remove_idea = POL_polish_deal_1
+				add_idea = POL_polish_deal_5
+			}
+		}
+
+		else_if = {
+			limit = { has_idea = POL_polish_deal }
+			swap_ideas = {
+				remove_idea = POL_polish_deal
+				add_idea = POL_polish_deal_5
+			}
 		}
 	}
-
 }
+
 	focus = {
 		id = POL_lessons_from_the_past
 		icon = POL_lessons_from_the_past
@@ -1442,6 +1512,7 @@ focus = {
 		icon = POL_steel_will
 		relative_position_id = POL_tarnobrzeg
 		prerequisite = { focus = POL_tarnobrzeg }
+		prerequisite = { focus = POL_bydgoszcz }
 		available = {
 		
 		}
@@ -1449,7 +1520,29 @@ focus = {
 		bypass = {
 		}
 		
-		x = 0
+		x = -1
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+
+		}
+	}
+	focus = {
+		id = POL_whatever_it_takes
+		icon = POL_whatever_it_takes
+		relative_position_id = POL_tarnobrzeg
+		prerequisite = { focus = POL_tarnobrzeg }
+		prerequisite = { focus = POL_grudziadz }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
 		y = 1
 		
 		cost = 1
@@ -1463,8 +1556,7 @@ focus = {
 		icon = POL_to_arms
 		relative_position_id = POL_tarnobrzeg
 		prerequisite = { focus = POL_steel_will }
-		prerequisite = { focus = POL_grudziadz }
-		prerequisite = { focus = POL_bydgoszcz }
+		prerequisite = { focus = POL_whatever_it_takes }
 		available = {
 		
 		}
