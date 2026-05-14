@@ -5490,7 +5490,9 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_ideas = DGR_national_science
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_research_slot = 1
 		}
 	}
 
@@ -5515,7 +5517,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = DGR_national_science
+				add_idea = DGR_national_science2
+			}
+			add_breakthrough_points = {
+				specialization = specialization_nuclear
+				value = 1
+			}
 		}
 	}
 
@@ -6135,8 +6144,25 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
-
+		completion_reward = {
+			add_stability = 0.025
+			add_victory_points = {
+				province = 7744
+				value = 2
+			}
+			776 = {
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}				
+			}
+			custom_effect_tooltip = budget_subtract_300M
 		}
 	}	
 	focus = {
@@ -6160,7 +6186,48 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					460 = {
+						university < 1
+					}
+				}
+				460 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = university
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					460 = {
+						university = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						OR = {
+						has_state_category = city
+						has_state_category = large_city
+						}
+						university < 1
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = university
+						level = 1
+						instant_build = yes
+					}					
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_civilian
+				value = 1
+			}
+			custom_effect_tooltip = budget_subtract_250M
 		}
 	}
 	focus = {
@@ -6308,12 +6375,41 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-			481 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = hospital
-					level = 1
-					instant_build = yes
+			if = {
+				limit = {
+					481 = {
+						hospital < 1
+					}
+				}
+				481 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = hospital
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					481 = {
+						hospital = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						OR = {
+						has_state_category = city
+						has_state_category = large_city
+						}
+						hospital < 1
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = hospital
+						level = 1
+						instant_build = yes
+					}					
 				}
 			}
 			add_tech_bonus = {
@@ -6833,6 +6929,7 @@ focus_tree = {
 		icon = DGR_central_supercomputer
 		relative_position_id = DGR_incorporate_faculty_of_nature_science
 		prerequisite = { focus = DGR_incorporate_faculty_of_nature_science }
+		prerequisite = { focus = DGR_our_own_pentagon }
 
 
 		text_icon = DABROWA_focus_style
@@ -6849,7 +6946,20 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_supercomputer
+					}
+				}
+				complete_special_project = sp:sp_supercomputer
+			}
+			else = {
+				add_breakthrough_points = {
+					specialization = specialization_civilian
+					value = 2
+				}
+			}
 		}
 	}
 
