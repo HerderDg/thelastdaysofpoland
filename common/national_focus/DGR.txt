@@ -5493,35 +5493,12 @@ focus_tree = {
 
 		}
 	}
-	focus = {
-		id = DGR_party_institute_of_social_science
-		icon = DGR_party_institute_of_social_science
-		relative_position_id = DGR_national_science_department
-		prerequisite = { focus = DGR_national_science_department }
 
-
-		text_icon = DABROWA_focus_style
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 5
-		
-		completion_reward = {	
-
-		}
-	}
 	focus = {
 		id = DGR_incorporate_faculty_of_nature_science
 		icon = DGR_incorporate_faculty_of_nature_science
-		relative_position_id = DGR_party_institute_of_social_science
-		prerequisite = { focus = DGR_party_institute_of_social_science }
+		relative_position_id = DGR_national_science_department
+		prerequisite = { focus = DGR_national_science_department }
 
 
 		text_icon = DABROWA_focus_style
@@ -5563,7 +5540,7 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			country_event = dgr_nazbol.5
 		}
 	}
 	focus = {
@@ -5898,7 +5875,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 741
 		}
 		
 		bypass = {
@@ -5910,7 +5887,34 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			741 = {
+				add_extra_state_shared_building_slots = 2
+				add_manpower = -34
+				add_victory_points = {
+					province = 8645
+					value = 2
+				}
+			}
+			build_railway = {
+			  level = 5
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
 
+				modifier = {
+				  tag = DGR
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 8645 8646 7446 }
+			  start_province = 8645
+			  target_province = 7446
+			}
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	focus = {
@@ -5933,7 +5937,27 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			775 = { 
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			741 = { 
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					instant_build = yes
+					province = 8645
+				}				
+			}
+			custom_effect_tooltip = budget_subtract_150M			
 		}
 	}
 	focus = {
@@ -5944,10 +5968,14 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 760
+			owns_state = 741
 		}
 		
 		bypass = {
+			check_variable = {
+				741.building_level@air_base = 10
+			}
 		}
 		
 		x = 0
@@ -5956,7 +5984,57 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = { 
+				limit = {
+					check_variable = {
+						741.building_level@air_base < 10
+					}					
+				}
+				add_to_temp_variable = { pyrzowice_level = 760.building_level@air_base }
+				760 = {
+					set_building_level = {
+					    type = air_base
+					    level = 0
+					    instant_build = yes
+					}
+					add_victory_points = {
+						province = 3324
+						value = -9
+					}
+					custom_effect_tooltip = rozdzielacz_efektow
+					set_province_name = {
+						id = 3324
+						name = VICTORY_POINTS_3324_AIRPORT
+					}					
+				}
+				741 = {
+					add_building_construction = {
+						type = air_base
+						level = 6
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = radar_station
+						level = 3
+					}
+					add_victory_points = {
+						province = 8645
+						value = 8
+					}
+					custom_effect_tooltip = rozdzielacz_efektow
+					if = {
+						limit = { OWNER = { has_completed_focus = DGR_niegowoniczki_airstrip } }
+						set_province_name = {
+							id = 8645
+							name = VICTORY_POINTS_8645_AIRPORT
+						}							
+					}
+				}
+				add_to_variable = {
+					budget = 60
+				}
+				custom_effect_tooltip = budget_subtract_1B200M
+			}
 		}
 	}	
 	focus = {
@@ -5979,7 +6057,22 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			760 = {
+				add_extra_state_shared_building_slots = 2
+				add_resource = {
+					type = food
+					amount = 4
+				}
+				add_building_construction = {
+					type = big_ass_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = -50
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	focus = {
@@ -6002,7 +6095,25 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_ideas = DGR_pogoria_commissariat
+			navy_experience = 50
+			if = {
+				limit = {
+					NOT = {
+						has_doctrine = green_water_navy
+						has_doctrine = brown_water_navy
+					}
+				}
+				set_grand_doctrine = brown_water_navy
+			}
+			else = {
+				add_mastery_bonus = {
+					name = DGR_pogoria_commissariat
+					bonus = 0.3
+					days = 150
+					folder = naval
+				}
+			}
 		}
 	}
 	focus = {
@@ -6287,7 +6398,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_political_power = 50
+			775 = {
+				add_resource = {
+					type = food
+					amount = -4
+				}
+				add_extra_state_shared_building_slots = 1
+			}
 		}
 	}	
 	focus = {
@@ -6310,6 +6428,22 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			775 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = steel
+					amount = 3
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_special_industry_zone
+				}
+			}
+			custom_effect_tooltip = budget_subtract_150M
 
 		}
 	}	
@@ -6333,7 +6467,23 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_fuel = 4000
+			736 = {	
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = coal
+					amount = 10
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_special_industry_zone
+				}
+			}
+			custom_effect_tooltip = budget_subtract_500M
 		}
 	}
 	focus = {
@@ -6356,7 +6506,18 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			737 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_special_industry_zone
+				}				
+			}
+			custom_effect_tooltip = budget_subtract_300M
 		}
 	}
 	focus = {
@@ -6367,7 +6528,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_completed_focus = DGR_industrial_triangle
 		}
 		
 		bypass = {
@@ -6379,7 +6540,11 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = DGR_industrial_heart5
+				add_idea = DGR_industrial_heart6
+			}
+			add_political_power = 100
 		}
 	}
 	focus = {
@@ -6402,7 +6567,24 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			737 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = power_plant
+					level = 1
+					instant_build = yes
+				}
+			}
+			453 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = power_plant
+					level = 1
+					instant_build = yes
+				}
+			}	
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_1B400M
 		}
 	}	
 	focus = {
@@ -6425,7 +6607,20 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			480 = {
+				add_building_construction = {
+					type = fuel_silo
+					level = 1
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_euroterminal_expanded
+				}
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	focus = {
@@ -6473,7 +6668,8 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 825
+			825 = { is_core_of = DGR }
 		}
 		
 		bypass = {
@@ -6485,7 +6681,24 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			825 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = steel_works
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_resource = {
+					type = aluminium
+					amount = 5
+				}
+			}
+			custom_effect_tooltip = budget_subtract_450M
 		}
 	}
 	focus = {
@@ -6509,7 +6722,29 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			775 = {
+				add_building_construction = {
+					type = high_tech_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_breakthrough_points = {
+				specialization = specialization_land
+				value = 1
+			}
+			if = {
+				limit = {
+					NOT = { is_special_project_completed = sp:sp_robopies } 					
+				}
+				complete_special_project = sp:sp_robopies
+			}
+			custom_effect_tooltip = budget_subtract_500M
 		}
 	}	
 
@@ -6536,8 +6771,59 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
-
+		completion_reward = {
+			country_event = dgr_nazbol.6
+			460 = {
+				add_dynamic_modifier = {
+					modifier = DGR_special_industry_zone
+				}
+				increase_state_category = yes
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = rural
+					}
+					NOT = {
+						state = 737
+						state = 775
+						state = 776
+						state = 736
+						state = 735
+						state = 460
+						state = 777
+						state = 1148
+						state = 481 
+						state = 453 
+						state = 589 
+						state = 741 
+						state = 730 
+						state = 731 
+						state = 769 
+						state = 732 
+						state = 760 
+						state = 825 
+					}
+					is_zaglebie_and_jura_state = yes
+				}
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = 0.07}
+				multiply_temp_variable = {to_resettle = -1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_dabrowa = to_resettle}
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 775
+							}
+						}
+						multiply_temp_variable = {to_resettle_dabrowa = -1}
+						add_manpower = to_resettle_dabrowa
+					}								
+				}
+			}
 		}
 	}		
 	
@@ -6566,12 +6852,58 @@ focus_tree = {
 
 		}
 	}
+
+	focus = {
+		id = DGR_secret_nuclear_facilities
+		icon = DGR_secret_nuclear_facilities
+		relative_position_id = DGR_central_supercomputer
+		prerequisite = { focus = DGR_central_supercomputer }
+
+
+		text_icon = DABROWA_focus_style
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 5
+		
+		completion_reward = {
+			if = {
+				limit = {
+					735 = {
+						nuclear_facility < 1
+					}
+				}
+				735 = {
+					add_building_construction = {
+						type = nuclear_facility
+						level = 1
+						instant_build = yes
+						province = 7754
+					}
+				}
+				custom_effect_tooltip = budget_subtract_1B500M				
+			}
+			else = {
+				add_breakthrough_points = {
+					specialization = specialization_nuclear
+					value = 2
+				}
+			}	
+		}
+	}
 	
 	focus = {
 		id = DGR_atomic_heart
 		icon = DGR_atomic_heart
 		relative_position_id = DGR_5_year_plan_2
-		prerequisite = { focus = DGR_central_supercomputer }
+		prerequisite = { focus = DGR_secret_nuclear_facilities }
 		prerequisite = { focus = DGR_infrastructure_railways }
 		prerequisite = { focus = DGR_infrastructure_naval_ports }
 		prerequisite = { focus = DGR_genome_alignment_lab }
@@ -7535,7 +7867,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_completed_focus = DGR_pogoria_naval_commissariat
 		}
 		
 		bypass = {
@@ -7583,7 +7915,8 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 305
+			305 = { is_core_of = DGR }
 		}
 		
 		bypass = {
@@ -7595,7 +7928,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			305 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					province = 14259
+					level = 2
+					instant_build = yes
+				}					
+			}
+			custom_effect_tooltip = budget_subtract_1B
 		}
 	}		
 	focus = {
