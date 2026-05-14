@@ -1550,11 +1550,20 @@ focus_tree = {
 			}
 			every_owned_state = {
 				limit = {
-					is_core_of = BBW
+					is_core_of = ATM
+					prison > 0
 				}
 				remove_building = {
 					type = prison 
 					level = 1
+				}
+			}
+			ATM_tarkowski = {
+				add_scientist_role = {
+					scientist = {
+						traits = { scientist_trait_gifted_engineer  } 
+						skills = { specialization_land = 2  }
+					}
 				}
 			}
 		}
@@ -1606,7 +1615,13 @@ focus_tree = {
 		completion_reward = { 
 			country_event = {
 				id = atom_reg.17
-				}
+			}
+			ATM = {
+				add_opinion_modifier = {
+					target = GER
+					modifier = threatened_us_opinion_modifier
+				}		
+			}
 			add_war_support = 0.2
 		}
 	}
@@ -1974,7 +1989,15 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = {
-			#puste?
+			903 = {
+				add_building_construction = {
+					type = nuclear_facility
+					level = 1
+					province = 10241
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = budget_subtract_1B500M
 		}
 	}
 	
@@ -2208,6 +2231,14 @@ focus_tree = {
 			country_event = {
 				id = atom_plant.12
 			}
+			ATM_woo = {
+				add_scientist_role = {
+					scientist = {
+						traits = { scientist_trait_genius scientist_trait_nuclear_power_expert } 
+						skills = { specialization_nuclear = 3  }
+					}
+				}
+			}
 		}
 	}
 	
@@ -2377,8 +2408,16 @@ focus_tree = {
 		
 		completion_reward = { 
 			custom_effect_tooltip = ATM_better_plant_tt
-			add_research_slot = 1
 			add_to_variable = { belchatow_outcome = 1 }
+			903 = {
+				add_building_construction = {
+					type = nuclear_facility
+					level = 1
+					province = 10241
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = budget_subtract_1B500M
 		}
 	}
 	
@@ -2496,15 +2535,16 @@ focus_tree = {
 		
 		completion_reward = {
 			custom_effect_tooltip = ATM_better_plant_tt
+			country_event = {
+				id = atom_plant.19
+			}			
 			add_tech_bonus = {
+				name = ATM_experiences_of_zarnowiec
 				bonus = 0.75
 				uses = 1
 				category = construction_tech
 			}
 			add_to_variable = { belchatow_outcome = 1 }
-			country_event = {
-				id = atom_plant.19
-			}
 		}
 	}
 	
@@ -2620,6 +2660,14 @@ focus_tree = {
 			add_to_variable = { belchatow_outcome = 1 }
 			country_event = {
 				id = atom_plant.20
+			}
+			ATM_kurek = {
+				add_scientist_role = {
+					scientist = {
+						traits = { scientist_trait_nuclear_specialist  } 
+						skills = { specialization_nuclear = 2  }
+					}
+				}
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
 			custom_effect_tooltip = budget_subtract_250M
@@ -3227,6 +3275,46 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = atom_plant.14
+			}
+			if = {
+				limit = {
+					has_completed_focus = ATM_conversion_of_belchatow
+				}
+				complete_special_project = {
+				  project = sp:sp_nuclear_reactor
+				  scientist = ATM_kurek
+				  state = 903
+				  iteration_output = {
+					sp_nuclear_design_choice_reward = sp_nuclear_design_choice_reward_graphite
+				  }
+				}
+				hidden_effect = {
+					903 = {
+						remove_building = {
+							type = nuclear_reactor_heavy_water
+							level = 1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_completed_focus = ATM_revive_smr_project
+				}
+				complete_special_project = {
+				  project = sp:sp_nuclear_reactor
+				  scientist = ATM_woo
+				  state = 903
+				  iteration_output = {
+					sp_nuclear_design_choice_reward = sp_nuclear_design_choice_reward_heavy_water
+				  }
+				}
+				903 = {
+					remove_building = {
+						type = nuclear_reactor
+						level = 1
+					}
+				}				
 			}
 		}
 	}
@@ -4116,10 +4204,12 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = { 
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.75
-				uses = 2
-				category = land_doctrine
+			add_mastery_bonus = {
+			    bonus = 0.5
+			    days = 180
+			    name = ATM_lessons_from_fall
+			    # FILTERS:
+			    folder = land
 			}
 			army_experience = 100
 		}
@@ -4142,6 +4232,18 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = {
+			FRA = {
+				add_opinion_modifier = {
+					target = ATM
+					modifier = opened_dialogue
+				}		
+			}
+			ATM = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = opened_dialogue
+				}		
+			}
 			country_event = {
 				id = atom_supreg.8
 			}
@@ -4552,6 +4654,7 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = { 
+			add_research_slot = 1
 			random_owned_state = {
 				limit = {
 					OR = {
@@ -4643,6 +4746,10 @@ focus_tree = {
 				mark_focus_tree_layout_dirty = yes
 			}
 			add_ideas = ATM_atomic_science
+			add_breakthrough_points = {
+				specialization = specialization_nuclear
+				value = 2
+			}
 		}
 	}
 	
@@ -4750,8 +4857,9 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
+				name = ATM_deadly_but_safe
+				cost_reduction = 0.75
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -4776,7 +4884,7 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_tech_bonus = {
-				name = tanks_bonus
+				name = ATM_uranium_armor
 				bonus = 0.5
 				uses = 1
 				category = ifv
@@ -4803,10 +4911,18 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_tech_bonus = {
-				name = bullets_bonus
+				name = ATM_uranium_bullets
 				bonus = 0.5
 				uses = 1
 				technology = ranged_weapons_upgrade4
+			}
+			add_equipment_bonus = {
+				name = ATM_uranium_bullets
+				bonus = {
+					ranged_equipment = {
+						breakthrough = 3
+					}
+				}
 			}
 		}
 	}
@@ -4836,6 +4952,14 @@ focus_tree = {
 				category = fighters
 				category = bombers
 			}
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_air_jet_engine
+					}
+				}
+				complete_special_project = sp:sp_air_jet_engine
+			}
 		}
 	}
 	
@@ -4858,10 +4982,18 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_tech_bonus = {
-				name = boat_bonus
+				name = ATM_nuclear_engines
 				bonus = 0.5
 				uses = 1
-				category = dd_tech
+				category = ss_tech
+			}
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_nuclear_engines
+					}
+				}
+				complete_special_project = sp:sp_nuclear_engines
 			}
 		}
 	}
@@ -4886,8 +5018,9 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
+				name = ATM_sacred_losses
+				cost_reduction = 0.75
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -4963,14 +5096,17 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = { 
-			add_tech_bonus = {
-				name = transport_bonus
-				bonus = 0.5
-				uses = 1
-				category = civilian_aircrafts
+			add_ideas = {
+				ATM_zeppelin_in_the_atomic_age_idea
 			}
-
-			add_ideas = {ATM_zeppelin_in_the_atomic_age_idea}
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_zeppelin
+					}
+				}
+				complete_special_project = sp:sp_zeppelin
+			}
 		}
 	}
 	
@@ -4993,11 +5129,20 @@ focus_tree = {
 		
 		completion_reward = { 
 			add_tech_bonus = {
-				name = helicopter_bonus
+				name = ATM_modernization_of_mi14pl
 				bonus = 0.5
 				uses = 1
 				technology = helicopter_4
 				technology = transport_helicopter_2
+			}
+			add_equipment_bonus = {
+				name = ATM_modernization_of_mi14pl
+				bonus = {
+					helicopter_equipment = {
+						air_ground_attack = 0.1
+						build_cost_ic = -0.1
+					}
+				}
 			}
 		}
 	}
@@ -5025,7 +5170,10 @@ focus_tree = {
 			country_event = {
 				id = atom_supreg.14
 			}
-			army_experience = 100
+			army_experience = 50
+			air_experience = 50
+			navy_experience = 50
+			complete_special_project = sp:sp_power_armor
 		}
 	}
 	
@@ -5049,7 +5197,15 @@ focus_tree = {
 		cost = 4.4
 		
 		completion_reward = { 
-			add_ideas = {ATM_civilian_usage}
+			add_unit_bonus = {
+				field_hospital = {
+					casualty_trickleback = 0.025
+					experience_loss_factor = -0.05
+				}
+			}
+			add_ideas = {
+				ATM_civilian_usage
+			}
 		}
 	}
 	
@@ -5074,6 +5230,21 @@ focus_tree = {
 			swap_ideas = {
 				add_idea = ATM_civilian_usage2
 				remove_idea = ATM_civilian_usage
+			}
+			every_owned_state = {
+				display_individual_scopes = yes
+				limit = {
+					OR = {
+						is_lodz_state = yes
+						is_zaglebie_and_jura_state = yes
+					}
+					has_state_category = rural
+					food > 0
+				}
+				add_resource = {
+					type = food
+					amount = 1
+				}
 			}
 		}
 	}
