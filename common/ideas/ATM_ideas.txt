@@ -920,7 +920,8 @@ ideas = {
 			removal_cost = -1
 			picture = ATM_belchatow_failed
 			modifier = {
-
+				sp_tag_nuclear_power_speed_factor = -1
+				sp_tag_nuclear_warfare_speed_factor = -1
 			}
 		}
 		ATM_pacification= {
@@ -935,6 +936,12 @@ ideas = {
 				add_timed_idea = {
 					idea = ATM_pacification_2
 					days = 30
+				}
+				every_owned_state = {
+					limit = {
+						is_demilitarized_zone = yes
+					}
+					set_demilitarized_zone = no
 				}
 			}
 			removal_cost = -1
@@ -959,6 +966,7 @@ ideas = {
 					idea = ATM_pacification_3
 					days = 30
 				}
+				remove_ideas = ATM_eco_org_idea5
 			}
 			removal_cost = -1
 			picture = ATM_pacification
@@ -977,6 +985,14 @@ ideas = {
 			
 			allowed_civil_war = {
 				always = yes
+			}
+			on_remove = {
+				every_owned_state = {
+					limit = { has_dynamic_modifier = ATM_eco_strike }
+					remove_dynamic_modifier = {
+						modifier = ATM_eco_strike
+					}
+				}
 			}
 			removal_cost = -1
 			picture = ATM_pacification
