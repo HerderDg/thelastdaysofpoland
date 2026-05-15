@@ -436,10 +436,8 @@ focus_tree = {
 				amount = 500
 				producer = SAP
 			}
-			every_possible_country = {
-				limit = { has_character = SAP_dukaj }
-				random_character = {
-					limit = { is_character = SAP_dukaj }
+			SAP = {
+				SAP_dukaj = {
 					set_nationality = ATM
 				}
 			}
@@ -843,7 +841,7 @@ focus_tree = {
 			random_owned_controlled_state = {
 				limit = {
 					is_lodz_state = yes
-					arms_factory > 1
+					arms_factory > 0
 				}
 				remove_building = {
 					type = arms_factory
@@ -853,7 +851,7 @@ focus_tree = {
 			random_owned_controlled_state = {
 				limit = {
 					is_lodz_state = yes
-					arms_factory > 1
+					arms_factory > 0
 				}
 				remove_building = {
 					type = arms_factory
@@ -1042,11 +1040,18 @@ focus_tree = {
 				id = atom_reg.9
 				}
 			add_ideas = ATM_gadomski_plan
-			if = {
-				limit = {
-					has_completed_focus = ATM_brother_gadomski
+			add_advisor_role = {
+				character = ATM_gadomski
+				advisor = {
+					slot = minister_of_economy
+					cost = -1
+					idea_token = ATM_min_gadomski
+					traits = {
+						pragmatic_organiser
+					}
+					can_be_fired = no
 				}
-				add_ideas = BBW_min_gadomski
+				activate = yes
 			}
 		}
 	}
@@ -1068,91 +1073,64 @@ focus_tree = {
 		
 		cost = 4.4
 		
-		completion_reward = { 
-			random_owned_state = {
+		completion_reward = {
+			every_owned_state = {
 				limit = {
 					OR = {
-						has_state_category = city
+						state = 341
 						has_state_category = large_city
 						has_state_category = metropolis
 						has_state_category = megalopolis
 					}
 				}
-				add_manpower = -20000
-			}
-			random_owned_state = {
-				limit = {
-					OR = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
+				display_individual_scopes = yes
+				set_temp_variable = {to_resettle = -0.05}
+				multiply_temp_variable = {to_resettle = 1000}
+				multiply_temp_variable = {to_resettle = state_population_k}
+				add_manpower = to_resettle
+				set_temp_variable = {to_resettle_dobron = to_resettle}
+				set_temp_variable = {to_resettle_wola = to_resettle}
+				set_temp_variable = {to_resettle_zelow = to_resettle}
+				set_temp_variable = {to_resettle_wolborz = to_resettle}
+				OWNER = {
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 1129
+							}
+						}
+						multiply_temp_variable = {to_resettle_dobron = -0.25}
+						add_manpower = to_resettle_dobron
 					}
-				}
-				add_manpower = -20000
-			}
-			random_owned_state = {
-				limit = {
-					OR = {
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 1062
+							}
+						}
+						multiply_temp_variable = {to_resettle_wola = -0.25}
+						add_manpower = to_resettle_wola
 					}
-				}
-				add_manpower = -20000
-			}			
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = large_town
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 358
+							}
+						}
+						multiply_temp_variable = {to_resettle_zelow = -0.25}
+						add_manpower = to_resettle_zelow
 					}
+					random_controlled_state = {
+						limit = { 
+							OR = {
+								state = 328
+							}
+						}
+						multiply_temp_variable = {to_resettle_wolborz = -0.25}
+						add_manpower = to_resettle_wolborz
+					}																	
 				}
-				add_manpower = 20000
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = large_town
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = 20000
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}	
-			random_owned_state = {
-				limit = {
-					NOT = {
-						has_state_category = large_town
-						has_state_category = city
-						has_state_category = large_city
-						has_state_category = metropolis
-						has_state_category = megalopolis
-					}
-				}
-				add_manpower = 20000
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
+			} 
 			add_stability = -0.1
 		}
 	}
@@ -1204,26 +1182,39 @@ focus_tree = {
 		
 		completion_reward = { 
 			random_owned_controlled_state = {
-				limit = { OWNER = { original_tag = ATM }}
-				add_resource = {
-					type = food
-					amount = 3
+				limit = { 
+					is_lodz_state = yes
+					has_state_category = rural
+				}
+				add_building_construction = {
+					type = big_ass_farm
+					level = 1
+					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
-				limit = { OWNER = { original_tag = ATM }}
+				limit = { 
+					is_lodz_state = yes
+					has_state_category = rural
+				}
+				add_building_construction = {
+					type = big_ass_farm
+					level = 1
+					instant_build = yes
+				}
+			}			
+			every_owned_state = {
+				limit = {
+					is_lodz_state = yes
+					has_state_category = rural					
+				}
+				display_individual_scopes = yes
 				add_resource = {
 					type = food
-					amount = 3
+					amount = 1
 				}
 			}
-			random_owned_controlled_state = {
-				limit = { OWNER = { original_tag = ATM }}
-				add_resource = {
-					type = food
-					amount = 3
-				}
-			}										
+			custom_effect_tooltip = rozdzielacz_efektow										
 		}
 	}
 	
@@ -1298,6 +1289,7 @@ focus_tree = {
 				id = atom_reg.11
 				}	
 			add_political_power = 100
+			add_stability = 0.1
 		}
 	}
 	
@@ -1355,6 +1347,27 @@ focus_tree = {
 				idea = ATM_cleansing_ranks
 				days = 90
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = ATM_cleansing_ranks_tt
+			custom_effect_tooltip = rozdzielacz_efektow	
+			effect_tooltip = {
+				create_operative_leader = {
+					name = "Patryk Łodzianin"
+					GFX = GFX_lodzianin1
+					traits = { operative_seducer operative_infiltrator operative_well_groomed }
+					bypass_recruitment = no
+					available_to_spy_master = yes
+					nationalities = { WML }
+				}
+				create_operative_leader = {
+					name = "Courier"
+					GFX = GFX_kurier
+					traits = { operative_commando operative_demolition_expert }
+					bypass_recruitment = no
+					available_to_spy_master = yes
+					nationalities = { WML }
+				}
+			}		
 		}
 	}
 	
@@ -1385,6 +1398,10 @@ focus_tree = {
 				remove_idea = minorities_hidden_oppresion
 				add_idea = minorities_equal_rights
 			}
+			swap_ideas = {
+				remove_idea = women_traditional_roles
+				add_idea = women_gender_equality
+			}			
 		}
 	}
 	
@@ -1461,12 +1478,15 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = atom_reg.12
-				}
+			}
+			add_ideas = ATM_eco_org_idea
+			custom_effect_tooltip = rozdzielacz_efektow
 			set_party_name = {
 				ideology = squattism
 				long_name = "Greenpeace Poland"
 				name = "Greenpeace Poland"
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
 			add_popularity = {
 				ideology = squattism
 				popularity = 0.1
@@ -1557,7 +1577,11 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = atom_reg.15
-				}	
+			}
+			swap_ideas = {
+				remove_idea = ATM_gadomski_plan
+				add_idea = ATM_reduction_plan
+			}	
 		}
 	}	
 	
@@ -1595,6 +1619,12 @@ focus_tree = {
 			add_popularity = {
 				ideology = freemarketism
 				popularity = 0.05
+			}
+			903 = {
+				add_resource = {
+					type = coal
+					amount = -50
+				}
 			}
 			every_owned_state = {
 				limit = {
@@ -1723,10 +1753,6 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = atom_reg.18
-				}
-			swap_ideas = {
-				remove_idea = ATM_indoctrinated_society2
-				add_idea = ATM_fear_of_the_atom
 			}
 		}
 	}
