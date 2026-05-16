@@ -973,11 +973,7 @@ focus_tree = {
 				remove_idea = officer_random
 				add_idea = officer_clerks
 			}
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 1
-				category = land_warsaw_pact
-			}
+			set_sub_doctrine = warsaw_pact_infantry
 		}
 	}
 	focus = {
@@ -2504,6 +2500,10 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = DGR_narodowa_armia_ludowa3
+				add_idea = DGR_narodowa_armia_ludowa4
+			}				
 			add_popularity = {
 				ideology = neonationalism
 				popularity = 0.05
@@ -2514,7 +2514,6 @@ focus_tree = {
 			}
 			add_command_power = 50
 			add_political_power = 50
-			
 		}
 	}
 
@@ -4759,7 +4758,16 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_tech_bonus = {
+				name = DGR_intranet
+				bonus = 0.5
+				uses = 2
+				category = networking_tech
+			}
+			add_breakthrough_points = {
+				specialization = specialization_civilian
+				value = 1
+			}
 		}
 	}
 	focus = {
@@ -4865,7 +4873,39 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_ideas = DGR_coal_union
+			every_owned_state = {
+				limit = {
+					has_state_flag = coal_deposit_found
+					coal > 0
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_coal_union_present
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			if = {
+				limit = {
+					LBW = { exists = yes }
+				}
+				LBW = {
+					add_opinion_modifier = {
+						target = DGR
+						modifier = AUS_aligned_with_our_values
+					}
+				}
+			}
+			if = {
+				limit = {
+					SBW = { exists = yes }
+				}
+				SBW = {
+					add_opinion_modifier = {
+						target = DGR
+						modifier = AUS_aligned_with_our_values
+					}
+				}
+			}			
 		}
 	}
 	focus = {
@@ -5130,10 +5170,11 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-			swap_ideas = {
-				remove_idea = economy_central_planning
-				add_idea = economy_militarism
+			add_ideas = DGR_economic_maneuver
+			add_to_variable = {
+				rate_of_inflation = 0.05
 			}
+			custom_effect_tooltip = inflation_growth_5
 		}
 	}
 	focus = {
@@ -5156,7 +5197,11 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			remove_ideas = DGR_real_estate_crash_idea
+			add_timed_idea = {
+				idea = DGR_real_estate_crash_idea_2
+				days = 120
+			}
 		}
 	}	
 	focus = {
@@ -5179,7 +5224,12 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			DGR = {
+				set_variable = {
+					reindustrial_var = 60
+				}
+			}
+			custom_effect_tooltip = DGR_reindustrialization_effort_tt
 		}
 	}
 	focus = {
@@ -5202,7 +5252,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = DGR_collectivisation_stage_2
+				add_idea = DGR_collectivisation_stage_3
+			}
 		}
 	}
 	focus = {
@@ -5213,7 +5266,10 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_completed_focus = DGR_real_estate_takeover
+			NOT = {
+				has_idea = DGR_real_estate_crash_idea_2
+			}
 		}
 		
 		bypass = {
@@ -5225,7 +5281,15 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			every_owned_state = {
+				limit = {
+					NOT = { state = 737 }
+					arms_factory > 1
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_garrison_city
+				}
+			}
 		}
 	}
 	focus = {
@@ -5248,7 +5312,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = economy_central_planning
+				add_idea = economy_militarism
+			}
 		}
 	}
 	focus = {
@@ -5271,7 +5338,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = DGR_collectivisation_stage_3
+				add_idea = DGR_collectivisation_stage_4
+			}
 		}
 	}
 	focus = {
@@ -5296,7 +5366,18 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			remove_ideas = DGR_economic_maneuver
+			every_owned_state = {
+				limit = {
+					OR = {
+					industrial_complex > 1
+					arms_factory > 1
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = DGR_sabotage_agents
+				}
+			}
 		}
 	}
 	focus = {
@@ -5322,7 +5403,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_timed_idea = {
+				idea = DGR_5_year_plan_idea_2
+				years = 5
+			}
 		}
 	}
 	focus = {
@@ -5346,7 +5430,197 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			737 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 7445  
+					}
+				}
+			}
+			776 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 7742  
+						id = 3993  
+					}
+				}
+			}
+			730 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 3131  
+					}
+				}
+			}
+			731 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 7790  
+						id = 2708  
+					}
+				}
+			}
+			760 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 7795  
+					}
+				}
+			}
+			440 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 8745  
+						id = 8738  
+					}
+				}
+			}
+			745 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 8452 
+						id = 8451  
+					}
+				}
+			}			
+			423 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 8550
+						id = 8534  
+						id = 8556  
+						id = 8547  
+						id = 8544  
+						id = 8543  
+						id = 8540  
+					}
+				}
+			}
+			390 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 8471
+					}
+				}
+			}
+			591 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 8489
+					}
+				}
+			}
+			400 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 8627
+						id = 8628
+						id = 8629
+						id = 8633
+						id = 8637
+					}
+				}
+			}
+			370 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 7501
+					}
+				}
+			}			
+			848 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 7497
+						id = 7498
+						id = 7505
+						id = 7507
+						id = 7509
+						id = 7510
+						id = 7514
+						id = 7516
+						id = 569
+					}
+				}
+			}
+			1062 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 12073
+						id = 12071
+						id = 12068
+						id = 12063
+						id = 12034
+						id = 12032
+						id = 12031
+					}
+				}
+			}
+			328 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 12035
+						id = 12038
+						id = 627
+					}
+				}
+			}	
+			684 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 10351
+					}
+				}
+			}
+			315 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 10349
+					}
+				}
+			}
+			759 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 11489
+					}
+				}
+			}
+			577 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 11506
+					}
+				}
+			}
+			758 = {
+				add_province_modifier = {
+					static_modifiers = { DGR_gierkowka }
+					province = { 
+						id = 11533
+						id = 11532
+					}
+				}
+			}																																						
 		}
 	}
 	focus = {
@@ -5370,7 +5644,23 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			every_owned_state = {
+				display_individual_scopes = yes
+				limit = {
+					air_base > 2
+					air_base < 10
+				}
+				add_building_construction = {
+					type = air_base
+					instant_build = yes
+					level = 1
+				}
+				OWNER = {
+					add_to_variable = {
+						budget = 200
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -5394,7 +5684,27 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			build_railway = {
+			  level = 3
+			  build_only_on_allied = yes
+			  controller_priority = {
+				base = 1
 
+				modifier = {
+				  tag = DGR
+				  add = 2
+				}
+			  }
+			  fallback = yes
+			  path = { 7461 7501 7496 7506 7508 7512 2225 7515 10255 10256 10261 10257 509 10271 10273 10270 10275 3487 10279 273 10321 10322 10336 10238 10340 3465 11491 11493 3826 }
+			  start_province = 7461
+			  target_province = 3826
+			}
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				amount = 200
+				producer = DGR
+			}
 		}
 	}
 	focus = {
@@ -5418,7 +5728,27 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			every_owned_state = {
+				display_individual_scopes = yes
+				limit = {
+					naval_base > 1
+					naval_base < 10
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_naval_base = yes
+					}
+				}
+				OWNER = {
+					add_to_variable = {
+						budget = 200
+					}
+				}
+			}
 		}
 	}	
 	focus = {
@@ -5442,7 +5772,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = women_gender_equality
+				add_idea = women_traditional_roles
+			}
 		}
 	}
 	focus = {
@@ -6024,6 +6357,7 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = radar_station
+						instant_build = yes
 						level = 3
 					}
 					add_victory_points = {
@@ -6707,10 +7041,12 @@ focus_tree = {
 				add_building_construction = {
 					type = fuel_silo
 					level = 1
+					instant_build = yes
 				}
 				add_building_construction = {
 					type = infrastructure
 					level = 2
+					instant_build = yes
 				}
 				add_dynamic_modifier = {
 					modifier = DGR_euroterminal_expanded
@@ -7551,7 +7887,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			num_divisions > 150
 		}
 		
 		bypass = {
@@ -7611,7 +7947,7 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			upgrade_tax_law = yes
 		}
 	}
 	focus = {
@@ -8001,7 +8337,24 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					has_idea = officer_clerks
+				}
+				swap_ideas = {
+					remove_idea = officer_clerks
+					add_idea = officer_schools
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = officer_leftovers
+				}
+				swap_ideas = {
+					remove_idea = officer_leftovers
+					add_idea = officer_schools
+				}
+			}			
 		}
 	}	
 	focus = {
@@ -8190,7 +8543,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = { has_doctrine = brown_water_navy }
+					NOT = { has_doctrine = green_water_navy }
+				}
+				set_grand_doctrine = brown_water_navy
+			}
+			navy_experience = 100
 		}
 	}	
 	focus = {
@@ -8289,7 +8649,9 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			any_owned_state = {
+				is_coastal = yes
+			}
 		}
 		
 		bypass = {
@@ -8361,10 +8723,20 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = controls_pomerelia_voivodeship_short
+					can_unify_pomerelia = yes			
+				}
+				custom_trigger_tooltip = {
+					tooltip = controls_west_pomerania_voivodeship_short
+					can_unify_west_pomerania = yes			
+				}
+			}				
 		}
 		
 		bypass = {
+			is_special_project_completed = sp:sp_naval_modern_carrier
 		}
 		
 		x = 0
@@ -8373,7 +8745,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_naval_modern_carrier
+					}
+				}
+				complete_special_project = sp:sp_naval_modern_carrier
+			}
 		}
 	}	
 	
@@ -8630,6 +9009,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			is_special_project_completed = sp:sp_air_mothership_aircraft
 		}
 		
 		x = 0
@@ -8638,7 +9018,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_air_mothership_aircraft
+					}
+				}
+				complete_special_project = sp:sp_air_mothership_aircraft
+			}
 		}
 	}	
 
@@ -8747,7 +9134,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 421
 		}
 		
 		bypass = {
@@ -8759,7 +9146,42 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_victory_points = {
+				province = 8405
+				value = 5
+			}
+			division_template = {
+				name = "Zespół Bojowy JWK"
+				template_counter = 37
+				regiments = {
+					paratrooper = { x = 0 y = 0 }
+					paratrooper = { x = 0 y = 1 }
+					marine = { x = 1 y = 0 }
+					marine = { x = 1 y = 1 }
+					forest_infantry = { x = 2 y = 0 }
+					forest_infantry = { x = 2 y = 1 }
+				}
+				support = {
+					maintenance_company = { x = 0 y = 0 }
+					engineer = { x = 0 y = 1 }
+					signal_company = { x = 0 y = 2 }
+					logistics_company = { x = 0 y = 3 }
+				}
+			}
+			421 = {
+				create_unit = {
+					division = "name = \"Zespół Bojowy A\" division_template = \"Zespół Bojowy JWK\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = DGR
+				}
+				create_unit = {
+					division = "name = \"Zespół Bojowy B\" division_template = \"Zespół Bojowy JWK\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = DGR
+				}
+				create_unit = {
+					division = "name = \"Zespół Bojowy C\" division_template = \"Zespół Bojowy JWK\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = DGR
+				}				
+			}
 		}
 	}
 	focus = {
@@ -8823,6 +9245,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			is_special_project_completed = sp:sp_bio_engineering
 		}
 		
 		x = 0
@@ -8831,7 +9254,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_bio_engineering
+					}
+				}
+				complete_special_project = sp:sp_bio_engineering
+			}
 		}
 	}	
 
