@@ -2687,7 +2687,34 @@ focus_tree = {
 		cost = 4
 		
 		completion_reward = {
-			custom_effect_tooltip = DGR_bop_new_decisions		
+			custom_effect_tooltip = DGR_bop_new_decisions	
+			create_operative_leader = {
+				name = "Julia Majer"
+				GFX = GFX_portrait_europe_generic_operative_female_3
+				traits = { operative_seducer operative_escape_artist }
+				skill = 2
+				bypass_recruitment = no
+				available_to_spy_master = yes
+				nationalities = { DGR LDZ }
+			}
+			create_operative_leader = {
+				name = "Wiktor Nowocień"
+				GFX = GFX_portrait_europe_generic_operative_male_7
+				traits = { operative_linguist operative_well_groomed }
+				skill = 2
+				bypass_recruitment = no
+				available_to_spy_master = yes
+				nationalities = { DGR }
+			}
+			create_operative_leader = {
+				name = "Piotr Machnowski"
+				GFX = GFX_portrait_europe_generic_operative_male_19
+				traits = { operative_commando operative_demolition_expert }
+				skill = 2
+				bypass_recruitment = no
+				available_to_spy_master = yes
+				nationalities = { DGR BEL }
+			}							
 		}
 	}
 	
@@ -4235,6 +4262,7 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_political_power = 100
 			add_advisor_role = {
 				character = DGR_zimmermann
 				advisor = {
@@ -4306,7 +4334,71 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+					}
+					prison < 1
+				}
+				add_building_construction = {
+					type = prison
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+					}
+					prison < 1
+				}
+				add_building_construction = {
+					type = prison
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+					}
+					prison < 1
+				}
+				add_building_construction = {
+					type = prison
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+					}
+					prison < 1
+				}
+				add_building_construction = {
+					type = prison
+					level = 1
+					instant_build = yes
+				}
+			}			
+			add_stability = 0.025
+            set_technology = {
+                penal_infantry = 1
+				popup = no
+            }
 		}
 	}
 	focus = {
@@ -4330,7 +4422,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_tech_bonus = {
+				name = DGR_militarization_of_police
+				bonus = 0.5
+				uses = 1
+				category = military_police_tech
+			}
+			add_unit_bonus = {
+            	military_police = {
+            	    battalion_mult = {
+            	        category = category_all_infantry
+            	        soft_attack = 0.1
+						max_organisation = 0.05
+            	    }
+            	}
+			}
 		}
 	}	
 	focus = {
@@ -4420,6 +4526,22 @@ focus_tree = {
 				budget = 300
 			}
 			custom_effect_tooltip = budget_add_300M
+			custom_effect_tooltip = rozdzielacz_efektow
+			every_country = {
+				limit = {
+					OR = {
+					has_idea = one_state_one_religion
+					has_idea = state_religion
+					}
+					check_variable = {
+						official_religion = 1
+					}
+				}
+				add_opinion_modifier = {
+					target = DGR
+					modifier = protest_action
+				}
+			}
 		}
 	}
 	focus = {
@@ -4442,7 +4564,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			swap_ideas = {
+				remove_idea = DGR_red_heritage_nazbol2
+				add_idea = DGR_red_heritage_nazbol3
+			}
 		}
 	}
 	focus = {
@@ -4464,7 +4589,8 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			add_political_power = 100	
 			add_advisor_role = {
 				character = DGR_czyzewski
 				advisor = {
@@ -4536,20 +4662,20 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
-			add_advisor_role = {
-				character = DGR_zielinski
-				advisor = {
-					slot = interior_minister
-					cost = 100
-					idea_token = DGR_min_zielinski
-					traits = {
-						DGR_general_protector
-						impetuous_countryman
-					}
-					can_be_fired = yes
+		completion_reward = {
+			every_unit_leader = {
+				limit = {
+					has_trait = guardsman
 				}
+				add_defense = 1
+				add_logistics = 1
 			}
+			add_unit_bonus = {
+				militia = {
+					suppression_factor = 0.05
+					max_organisation = 5
+				}
+			}	
 		}
 	}
 	focus = {
@@ -4572,8 +4698,21 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
-
+		completion_reward = {
+			add_ideas = DGR_regional_protectors	
+			add_advisor_role = {
+				character = DGR_zielinski
+				advisor = {
+					slot = interior_minister
+					cost = 100
+					idea_token = DGR_min_zielinski
+					traits = {
+						DGR_general_protector
+						impetuous_countryman
+					}
+					can_be_fired = yes
+				}
+			}
 		}
 	}			
 	focus = {
@@ -4620,8 +4759,33 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
-
+		completion_reward = {
+			random_neighbor_country = {
+				DGR = {
+					add_intel = {
+					    target = PREV
+					    civilian_intel = 30
+					    army_intel = 50
+					    navy_intel = 20
+					    airforce_intel = 20
+					}
+				}				
+			}
+			random_neighbor_country = {
+				DGR = {
+					add_intel = {
+					    target = PREV
+					    civilian_intel = 30
+					    army_intel = 50
+					    navy_intel = 20
+					    airforce_intel = 20
+					}
+				}				
+			}				
+			swap_ideas = {
+				remove_idea = DGR_red_heritage_nazbol3
+				add_idea = DGR_red_heritage_nazbol4
+			}
 		}
 	}
 	focus = {
@@ -4636,6 +4800,9 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = {
+				has_dlc = "La Resistance"
+			}
 		}
 		
 		x = 1
@@ -4644,7 +4811,15 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			gain_random_agency_upgrade = yes
+			every_operative = {
+				if = {
+					limit = {
+						NOT = { has_trait = operative_master_interrogator }
+					}
+					add_unit_leader_trait = operative_master_interrogator
+				}
+			}
 		}
 	}
 	focus = {
@@ -4668,6 +4843,8 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.43
+			add_political_power = 100
+			add_stability = 0.05
 		}
 	}
 	focus = {
@@ -4747,7 +4924,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_completed_focus = DGR_incorporate_faculty_of_nature_science
 		}
 		
 		bypass = {
@@ -4759,7 +4936,60 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					}
+					university < 1
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}					
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					}
+					university < 1
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}					
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					}
+					university < 1
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}					
+			}
+			swap_ideas = {
+				remove_idea = DGR_national_science2
+				add_idea = DGR_national_science3
+			}	
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_750M					
 		}
 	}			
 	focus = {
@@ -4865,7 +5095,7 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_political_power = 100
 		}
 	}	
 	focus = {
@@ -5026,8 +5256,31 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
-
+		completion_reward = {
+			every_owned_state = {
+				random_select_amount = 3
+				limit = {
+					januszex > 0
+				}
+				damage_building = {
+					type = januszex
+					damage = 0.3
+				}
+			}			
+			custom_effect_tooltip = budget_add_1_845B
+			custom_effect_tooltip = rozdzielacz_efektow	
+			every_country = {
+				limit = {
+					OR = {
+					has_government = corporativism
+					has_government = freemarketism
+					}
+				}
+				add_opinion_modifier = {
+					target = DGR
+					modifier = protest_action
+				}
+			}
 		}
 	}	
 	focus = {
@@ -5054,6 +5307,15 @@ focus_tree = {
 			swap_ideas = {
 				remove_idea = lgbt_equal_laws
 				add_idea = lgbt_limited_laws
+			}
+			every_country = {
+				limit = {
+					has_idea = lgbt_encouraged
+				}
+				add_opinion_modifier = {
+					target = DGR
+					modifier = fascism_leanings_bad
+				}
 			}
 		}
 	}
@@ -5938,7 +6200,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-			has_completed_focus = DGR_civil_committee
+
 		}
 		
 		bypass = {
