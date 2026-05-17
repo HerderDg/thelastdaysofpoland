@@ -8326,8 +8326,14 @@ focus_tree = {
 					division_names_group = DGR_MOT_01
 					regiments = {
 						motorized = { x = 0 y = 0 }
-						mechanized = { x = 0 y = 1 }
-						medium_armor = { x = 0 y = 2 }
+						motorized = { x = 0 y = 1 }
+						motorized = { x = 0 y = 2 }
+						mechanized = { x = 1 y = 0 }
+						mechanized = { x = 1 y = 1 }
+						mechanized = { x = 1 y = 2 }
+						medium_armor = { x = 2 y = 0 }
+						medium_armor = { x = 2 y = 1 }
+						medium_armor = { x = 2 y = 2 }
 					}
 					override_model = GER_heavy_armor_entity
 				}
@@ -8591,6 +8597,12 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.27
+			add_tech_bonus = {
+				name = DGR_fire_and_fury
+				bonus = 0.5
+				uses = 2
+				category = advanced_artillery
+			}
 		}
 	}
 	focus = {
@@ -8849,6 +8861,7 @@ focus_tree = {
 		}
 		
 		bypass = {
+			is_special_project_completed = sp:sp_land_land_cruiser
 		}
 		
 		x = -1
@@ -8857,7 +8870,14 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_land_land_cruiser
+					}
+				}
+				complete_special_project = sp:sp_land_land_cruiser
+			}
 		}
 	}		
 	
@@ -8933,7 +8953,13 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_mastery_bonus = {
+				name = DGR_national_people_land_forces
+				bonus = 0.5
+				days = 120
+				folder = land
+			}
+			army_experience = 100
 		}
 	}
 	focus = {
@@ -9019,7 +9045,28 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_unit_bonus = {
+           		infantry = {
+           		    urban = {
+           		        movement = 0.1
+						attack = 0.1
+           		    }                
+           		    industrial = {
+           		        movement = 0.1
+						attack = 0.1
+           		    }           
+           		}
+           		militia = {
+           		    urban = {
+           		        movement = 0.1
+						attack = 0.1
+           		    }                
+           		    industrial = {
+           		        movement = 0.1
+						attack = 0.1
+           		    }           
+           		}				
+			}
 		}
 	}	
 	focus = {
@@ -9065,7 +9112,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_tech_bonus = {
+				name = DGR_restandarisation_of_firearms
+				bonus = 0.5
+				uses = 1
+				category = ranged_weapons
+			}
+			add_equipment_bonus = {
+				name = DGR_restandarisation_of_firearms
+				bonus = {
+					ranged_equipment = {
+						reliability = 0.05
+						build_cost_ic = -0.1
+					}
+				}
+			}
 		}
 	}	
 	focus = {
@@ -9088,7 +9149,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_tech_bonus = {
+				name = DGR_every_soldier_tank_destroyer
+				bonus = 0.5
+				uses = 1
+				category = antitank_weapons
+			}
+			add_unit_bonus = {
+				anti_tank = {
+					battalion_mult = {
+						category = category_all_infantry
+						ap_attack = 0.05
+					}
+					max_organisation = 5
+				}
+			}
 		}
 	}	
 	focus = {
@@ -9168,6 +9243,14 @@ focus_tree = {
 					NOT = { has_doctrine = green_water_navy }
 				}
 				set_grand_doctrine = brown_water_navy
+			}
+			else = {
+				add_mastery_bonus = {
+					name = DGR_national_people_navy
+					bonus = 0.5
+					days = 120
+					folder = naval
+				}
 			}
 			navy_experience = 100
 		}
@@ -9473,7 +9556,23 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			if = {
+				limit = {
+					NOT = { has_doctrine = air_parity }
+					NOT = { has_doctrine = air_superiority }
+					NOT = { has_doctrine = ground_support }
+				}
+				set_grand_doctrine = ground_support
+			}
+			else = {
+				add_mastery_bonus = {
+					name = DGR_national_people_air_forces
+					bonus = 0.5
+					days = 120
+					folder = air
+				}
+			}
+			air_experience = 100
 		}
 	}
 	focus = {
@@ -9576,7 +9675,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_completed_focus = DGR_move_pyrzowice
 		}
 		
 		bypass = {
@@ -9588,7 +9687,28 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_unit_bonus = {
+				category_fighter = {
+    				air_range = 0.05
+       				fuel_consumption_factor = -0.1
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = 100
+				producer = DGR
+			}
+			741 = {
+				add_building_construction = {
+					type = anti_air_building
+					instant_build = yes
+					level = 3
+				}
+			}
+			add_to_variable = {
+				budget = -5
+			}
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}	
 	focus = {
@@ -9669,7 +9789,12 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				name = DGR_special_purpose_forces
+				uses = 2
+				category = special_forces_doctrine
+			}
 		}
 	}	
 	focus = {
@@ -9693,7 +9818,42 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_doctrine_cost_reduction = {
+				name = DGR_maroon_berets
+				uses = 2
+				cost_reduction = 0.5
+				category = cat_paratroopers_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { 
+						has_template_containing_unit = paratrooper
+					}
+				}
+				custom_effect_tooltip = DGR_paratroopers_tt
+				division_template = {
+					name = "Batalion Powietrznodesantowy"
+					template_counter = 2
+					regiments = {
+						paratrooper = { x = 0 y = 0 }
+						paratrooper = { x = 0 y = 1 }
+						paratrooper = { x = 0 y = 2 }
+						paratrooper = { x = 0 y = 3 }
+					}
+					division_names_group = DGR_PAR_01
+				} 
+			}
+			else_if = {
+				limit = {
+					has_template_containing_unit = paratrooper
+				}
+				add_unit_bonus = {
+					category_paratroopers = {
+						max_organisation = 10
+						soft_attack = 0.1
+					}
+				}
+			}
 		}
 	}	
 	focus = {
@@ -9717,7 +9877,41 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_doctrine_cost_reduction = {
+				name = DGR_green_berets
+				uses = 2
+				cost_reduction = 0.5
+				category = cat_rangers_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { 
+						has_template_containing_unit = forest_infantry
+					}
+				}
+				custom_effect_tooltip = DGR_forest_infantry_tt
+				division_template = {
+					name = "Batalion Leśny"
+					template_counter = 82
+					regiments = {
+						forest_infantry = { x = 0 y = 0 }
+						forest_infantry = { x = 0 y = 1 }
+						forest_infantry = { x = 0 y = 2 }
+						forest_infantry = { x = 0 y = 3 }
+					}
+				} 
+			}
+			else_if = {
+				limit = {
+					has_template_containing_unit = forest_infantry
+				}
+				add_unit_bonus = {
+					category_forest_infantry = {
+						max_organisation = 10
+						soft_attack = 0.1
+					}
+				}
+			}
 		}
 	}		
 	focus = {
@@ -9741,7 +9935,41 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_doctrine_cost_reduction = {
+				name = DGR_blue_berets
+				uses = 2
+				cost_reduction = 0.5
+				category = cat_marines_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { 
+						has_template_containing_unit = marine
+					}
+				}
+				custom_effect_tooltip = DGR_marines_tt
+				division_template = {
+					name = "Batalion Desantowy"
+					template_counter = 68
+					regiments = {
+						marine = { x = 0 y = 0 }
+						marine = { x = 0 y = 1 }
+						marine = { x = 0 y = 2 }
+						marine = { x = 0 y = 3 }
+					}
+				} 
+			}
+			else_if = {
+				limit = {
+					has_template_containing_unit = marine
+				}
+				add_unit_bonus = {
+					category_marines = {
+						max_organisation = 10
+						soft_attack = 0.1
+					}
+				}
+			}
 		}
 	}	
 	focus = {
@@ -9824,7 +10052,47 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_unit_bonus = {
+           		melee_infantry = {               
+           		    industrial = {
+           		        movement = 0.15
+						attack = 0.15
+						defence = 0.1
+           		    }           
+           		}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Batalion Przemysłowy"
+					}
+				}
+				division_template = {
+					name = "Batalion Przemysłowy"
+					template_counter = 16
+					division_names_group = DGR_MOT_01
+					regiments = {
+						motorized = { x = 0 y = 0 }
+						motorized = { x = 0 y = 1 }
+						motorized = { x = 0 y = 2 }
+						mechanized = { x = 1 y = 0 }
+						mechanized = { x = 1 y = 1 }
+						mechanized = { x = 1 y = 2 }
+						medium_armor = { x = 2 y = 0 }
+						medium_armor = { x = 2 y = 1 }
+						medium_armor = { x = 2 y = 2 }
+					}
+					override_model = GER_heavy_armor_entity
+				}
+			}
+			else = {
+				add_units_to_division_template = {
+					template_name = "Batalion Przemysłowy"
+					support = {
+						armored_engineer = 0
+					}
+				}
+			}	
 		}
 	}
 	focus = {
@@ -9848,7 +10116,27 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			add_unit_bonus = {
+				artillery = {
+					battalion_mult = {
+						category = category_special_forces
+						attack = 0.05
+						breakthrough = 0.05
+					}
+				}
+				militia = {
+					urban = {
+						attack = 0.1
+						defence = 0.1
+						movement = 0.05
+					}
+					low_urban = {
+						attack = 0.1
+						defence = 0.1
+						movement = 0.05
+					}					
+				}				
+			}
 		}
 	}	
 	focus = {
@@ -10240,7 +10528,17 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			set_sub_doctrine = late_new_army
+			add_mastery = {
+			    amount = 150
+			    sub_doctrine = late_new_army
+			}
+			add_mastery_bonus = {
+				name = DGR_salvation_tactics
+				bonus = 0.5
+				days = 90
+				sub_doctrine = late_new_army
+			}	
 		}
 	}
 	focus = {
@@ -10335,7 +10633,17 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			set_sub_doctrine = late_cursed_soldiers
+			add_mastery = {
+			    amount = 150
+			    sub_doctrine = late_cursed_soldiers
+			}
+			add_mastery_bonus = {
+				name = DGR_scorched_earth_tactics
+				bonus = 0.5
+				days = 90
+				sub_doctrine = late_cursed_soldiers
+			}
 		}
 	}	
 	focus = {
@@ -10431,7 +10739,17 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-
+			set_sub_doctrine = late_conv_asm_fusion
+			add_mastery = {
+			    amount = 150
+			    sub_doctrine = late_conv_asm_fusion
+			}
+			add_mastery_bonus = {
+				name = DGR_sabotage_tactics
+				bonus = 0.5
+				days = 90
+				sub_doctrine = late_conv_asm_fusion
+			}
 		}
 	}	
 	focus = {
