@@ -11,6 +11,9 @@ scripted_gui = {
 				}
 				else = {
 					set_variable = { global.PaF_EconomyLedger = 1 }
+				}
+				set_variable = {
+					global.ParagonGear = 1
 				}	
 			}
 		}
@@ -25,7 +28,39 @@ scripted_gui = {
 		effects = {
 			close_ledger_click = {
 				clear_variable = global.PaF_EconomyLedger	
+				if = {
+					limit = { has_variable = global.ParagonBuildings }
+					clear_variable = global.ParagonBuildings
+				}
+				if = {
+					limit = { has_variable = global.ParagonGear }
+					clear_variable = global.ParagonGear
+				}								
 			}
+			paragon_gear_button_click = {
+				if = {
+					limit = { NOT = { has_variable = global.ParagonGear } }
+					set_variable = {
+						global.ParagonGear = 1
+					}					
+				}				
+				if = {
+					limit = { has_variable = global.ParagonBuildings }
+					clear_variable = global.ParagonBuildings
+				}
+			}
+			paragon_buildings_button_click = {
+				if = {
+					limit = { NOT = { has_variable = global.ParagonBuildings } }
+					set_variable = {
+						global.ParagonBuildings = 1
+					}					
+				}
+				if = {
+					limit = { has_variable = global.ParagonGear }
+					clear_variable = global.ParagonGear
+				}				
+			}			
 		}
 	}
 }
