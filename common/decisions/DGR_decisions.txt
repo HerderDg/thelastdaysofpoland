@@ -1,4 +1,58 @@
+DGR_guard_wars_category = {
+   guard_wars_decision = {
+		visible = {			
+            NOT = { has_war_with = FROM }
+		}
+		available = {
+			has_war = no
+			custom_trigger_tooltip = {
+				NOT = {
+					has_country_flag = getting_ready_to_war
+				}
+				tooltip = not_ready_to_fight
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				is_somsiad = no
+				NOT = {
+					has_idea = barbarians_idea
+				}
+				NOT = {
+					is_in_faction_with = ROOT
+				}
+				NOT = {
+					is_subject_of = ROOT
+				}
+			}
+		}
+		cancel_trigger = {
+			has_war = yes
+		}
+		cancel_effect = {
+			clr_country_flag = getting_ready_to_war
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1
+		}
+		cost = 10
+		days_remove = 14
+		complete_effect = {
+			set_country_flag = getting_ready_to_war
+			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
+		}
+		remove_effect = {
+			clr_country_flag = getting_ready_to_war
 
+			declare_war_on = {
+				target = FROM
+				type = annex_everything
+			}
+		}
+	}
+}
 
 DGR_balance_of_power_category = {
 
