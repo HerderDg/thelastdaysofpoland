@@ -13464,7 +13464,23 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_doctrine = brown_water_navy }
+					NOT = { has_doctrine = green_water_navy }
+				}
+				set_grand_doctrine = brown_water_navy
+			}
+			else = {
+				add_mastery_bonus = {
+					name = DGR_national_people_navy
+					bonus = 0.5
+					days = 120
+					folder = naval
+				}
+			}
+			navy_experience = 100	
 		}
 	}
 	focus = {
@@ -13488,6 +13504,19 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_tech_bonus = {
+				name = DGR_przemsza_program
+				bonus = 0.5
+				uses = 1
+				category = motorboats
+			}
+			add_unit_bonus = {
+				monitor = {
+					build_cost_ic = -0.2
+					reliability = -0.2
+					fuel_consumption_factor = -0.1
+				}				
+			}
 		}
 	}
 	focus = {
@@ -13499,7 +13528,8 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 305
+			305 = { is_core_of = DGR }
 		}
 		
 		bypass = {
@@ -13511,6 +13541,31 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			305 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					province = 14259
+					level = 2
+					instant_build = yes
+				}					
+			}
+			custom_effect_tooltip = budget_subtract_1B
+			custom_effect_tooltip = rozdzielacz_efektow
+			create_equipment_variant = {
+				name = "Przemsza Class"                   
+				type = motorboat_hull_equipment
+				role_icon_index = 1
+				modules = {
+					fixed_ship_battery_slot = ship_light_battery_1
+					fixed_ship_engine_slot = light_ship_engine_1
+				}
+			}
 		}
 	}
 	focus = {
@@ -13534,6 +13589,24 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			country_event = dgr_nazbol.24
+			create_ship = {
+				type = motorboat_hull_equipment
+				equipment_variant = "Przemsza Class"
+				name = "ONFL Czarna Przemsza"
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			create_ship = {
+				type = motorboat_hull_equipment
+				equipment_variant = "Przemsza Class"
+				name = "ONFL Biała Przemsza"
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			create_ship = {
+				type = motorboat_hull_equipment
+				equipment_variant = "Przemsza Class"
+				name = "ONFL Brynica"
+			}
 		}
 	}
 	focus = {
@@ -13557,6 +13630,19 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_tech_bonus = {
+				name = DGR_metalowiec_gunboat
+				bonus = 0.5
+				uses = 1
+				category = gunboats
+			}
+			add_unit_bonus = {
+				monitor = {
+					build_cost_ic = -0.2
+					reliability = -0.2
+					fuel_consumption_factor = -0.1
+				}				
+			}
 		}
 	}
 	focus = {
@@ -13580,6 +13666,19 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_tech_bonus = {
+				name = DGR_pogoria_monitor
+				bonus = 0.5
+				uses = 1
+				category = dd_tech
+			}
+			add_unit_bonus = {
+				heavy_monitor = {
+					build_cost_ic = -0.2
+					reliability = -0.2
+					fuel_consumption_factor = -0.1
+				}				
+			}
 		}
 	}
 	focus = {
@@ -13603,6 +13702,16 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_equipment_to_stockpile = {
+    			type = convoy
+    			amount = 300
+			}
+			add_tech_bonus = {
+				name = DGR_project_716
+				uses = 1
+				bonus = 0.5
+				category = tp_tech
+			}
 		}
 	}
 	focus = {
@@ -14200,7 +14309,13 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				name = DGR_special_purpose_forces
+				uses = 2
+				category = special_forces_doctrine
+			}	
 		}
 	}
 	focus = {
@@ -14224,6 +14339,42 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_doctrine_cost_reduction = {
+				name = DGR_maroon_berets
+				uses = 2
+				cost_reduction = 0.5
+				category = cat_paratroopers_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { 
+						has_template_containing_unit = paratrooper
+					}
+				}
+				custom_effect_tooltip = DGR_paratroopers_tt
+				division_template = {
+					name = "Batalion Powietrznodesantowy"
+					template_counter = 2
+					regiments = {
+						paratrooper = { x = 0 y = 0 }
+						paratrooper = { x = 0 y = 1 }
+						paratrooper = { x = 0 y = 2 }
+						paratrooper = { x = 0 y = 3 }
+					}
+					division_names_group = DGR_PAR_01
+				} 
+			}
+			else_if = {
+				limit = {
+					has_template_containing_unit = paratrooper
+				}
+				add_unit_bonus = {
+					category_paratroopers = {
+						max_organisation = 10
+						soft_attack = 0.1
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -14247,6 +14398,41 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_doctrine_cost_reduction = {
+				name = DGR_green_berets
+				uses = 2
+				cost_reduction = 0.5
+				category = cat_rangers_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { 
+						has_template_containing_unit = forest_infantry
+					}
+				}
+				custom_effect_tooltip = DGR_forest_infantry_tt
+				division_template = {
+					name = "Batalion Leśny"
+					template_counter = 82
+					regiments = {
+						forest_infantry = { x = 0 y = 0 }
+						forest_infantry = { x = 0 y = 1 }
+						forest_infantry = { x = 0 y = 2 }
+						forest_infantry = { x = 0 y = 3 }
+					}
+				} 
+			}
+			else_if = {
+				limit = {
+					has_template_containing_unit = forest_infantry
+				}
+				add_unit_bonus = {
+					category_forest_infantry = {
+						max_organisation = 10
+						soft_attack = 0.1
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -14258,7 +14444,7 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 421
 		}
 		
 		bypass = {
@@ -14269,7 +14455,43 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			add_victory_points = {
+				province = 8405
+				value = 5
+			}
+			division_template = {
+				name = "Zespół Bojowy JWK"
+				template_counter = 37
+				regiments = {
+					paratrooper = { x = 0 y = 0 }
+					paratrooper = { x = 0 y = 1 }
+					marine = { x = 1 y = 0 }
+					marine = { x = 1 y = 1 }
+					forest_infantry = { x = 2 y = 0 }
+					forest_infantry = { x = 2 y = 1 }
+				}
+				support = {
+					maintenance_company = { x = 0 y = 0 }
+					engineer = { x = 0 y = 1 }
+					signal_company = { x = 0 y = 2 }
+					logistics_company = { x = 0 y = 3 }
+				}
+			}
+			421 = {
+				create_unit = {
+					division = "name = \"Zespół Bojowy A\" division_template = \"Zespół Bojowy JWK\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = DGR
+				}
+				create_unit = {
+					division = "name = \"Zespół Bojowy B\" division_template = \"Zespół Bojowy JWK\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = DGR
+				}
+				create_unit = {
+					division = "name = \"Zespół Bojowy C\" division_template = \"Zespół Bojowy JWK\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = DGR
+				}				
+			}	
 		}
 	}
 	focus = {
@@ -14292,7 +14514,48 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			add_unit_bonus = {
+           		melee_infantry = {               
+           		    industrial = {
+           		        movement = 0.15
+						attack = 0.15
+						defence = 0.1
+           		    }           
+           		}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_template = "Batalion Przemysłowy"
+					}
+				}
+				division_template = {
+					name = "Batalion Przemysłowy"
+					template_counter = 16
+					division_names_group = DGR_MOT_01
+					regiments = {
+						motorized = { x = 0 y = 0 }
+						motorized = { x = 0 y = 1 }
+						motorized = { x = 0 y = 2 }
+						mechanized = { x = 1 y = 0 }
+						mechanized = { x = 1 y = 1 }
+						mechanized = { x = 1 y = 2 }
+						medium_armor = { x = 2 y = 0 }
+						medium_armor = { x = 2 y = 1 }
+						medium_armor = { x = 2 y = 2 }
+					}
+					override_model = GER_heavy_armor_entity
+				}
+			}
+			else = {
+				add_units_to_division_template = {
+					template_name = "Batalion Przemysłowy"
+					support = {
+						armored_engineer = 0
+					}
+				}
+			}	
 		}
 	}
 	focus = {
@@ -14316,6 +14579,27 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_unit_bonus = {
+				artillery = {
+					battalion_mult = {
+						category = category_special_forces
+						attack = 0.05
+						breakthrough = 0.05
+					}
+				}
+				militia = {
+					urban = {
+						attack = 0.1
+						defence = 0.1
+						movement = 0.05
+					}
+					low_urban = {
+						attack = 0.1
+						defence = 0.1
+						movement = 0.05
+					}					
+				}				
+			}
 		}
 	}
 	focus = {
@@ -14338,7 +14622,42 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = DGR_blue_berets
+				uses = 2
+				cost_reduction = 0.5
+				category = cat_marines_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { 
+						has_template_containing_unit = marine
+					}
+				}
+				custom_effect_tooltip = DGR_marines_tt
+				division_template = {
+					name = "Batalion Desantowy"
+					template_counter = 68
+					regiments = {
+						marine = { x = 0 y = 0 }
+						marine = { x = 0 y = 1 }
+						marine = { x = 0 y = 2 }
+						marine = { x = 0 y = 3 }
+					}
+				} 
+			}
+			else_if = {
+				limit = {
+					has_template_containing_unit = marine
+				}
+				add_unit_bonus = {
+					category_marines = {
+						max_organisation = 10
+						soft_attack = 0.1
+					}
+				}
+			}	
 		}
 	}
 
