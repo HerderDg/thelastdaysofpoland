@@ -3273,13 +3273,13 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			add_country_leader_role = {
-				character = DGR_krzysztof_szwej
-				promote_leader = yes
-				country_leader = {
-					ideology = neonationalism_national_bolshevism_subtype
-				}
-			}
+			#add_country_leader_role = {
+			#	character = DGR_krzysztof_szwej
+			#	promote_leader = yes
+			#	country_leader = {
+			#		ideology = neonationalism_national_bolshevism_subtype
+			#	}
+			#}
 			set_party_name = {
 				ideology = neonationalism
 				long_name = "KPP - Pax"
@@ -4243,6 +4243,9 @@ focus_tree = {
 				set_portraits = {
 					character = DGR_krzysztof_szwej
 					civilian = { large ="GFX_DGR_Szwej2" }
+				}
+				remove_trait = {
+					trait = wounded
 				}
 			}
 			add_trait = {
@@ -11896,23 +11899,23 @@ focus_tree = {
 			}
 			set_party_name = {
 				ideology = euroliberalism
-				long_name = "NLPP - Civil Corps"
-				name = "NLPP - Korpus Cywilny"
+				long_name = "KPP - Civil Corps"
+				name = "KPP - Korpus Cywilny"
 			}	
 			set_party_name = {
 				ideology = socialdemocrature
-				long_name = "NLPP - Civil Corps"
-				name = "NLPP - Korpus Cywilny"
+				long_name = "KPP - Civil Corps"
+				name = "KPP - Korpus Cywilny"
 			}
 			set_party_name = {
 				ideology = freemarketism
-				long_name = "NLPP - Civil Corps"
-				name = "NLPP - Korpus Cywilny"
+				long_name = "KPP - Civil Corps"
+				name = "KPP - Korpus Cywilny"
 			}
 			set_party_name = {
 				ideology = corporativism
-				long_name = "NLPP - Civil Corps"
-				name = "NLPP - Korpus Cywilny"
+				long_name = "KPP - Civil Corps"
+				name = "KPP - Korpus Cywilny"
 			}		
 		}
 	}	
@@ -12022,8 +12025,8 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = DGR_health_trials_nc
-		icon = DGR_health_trials_nc
+		id = DGR_health_trails
+		icon = DGR_health_trails
 		relative_position_id = DGR_capital_punishment_nc
 		prerequisite = {
 			focus = DGR_capital_punishment_nc
@@ -12045,14 +12048,30 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			if = {
+				limit = {
+					any_owned_state = {
+						has_dynamic_modifier = DGR_local_strike
+					}
+				}
+				every_owned_state = {
+					limit = {
+						has_dynamic_modifier = DGR_local_strike
+					}
+					remove_dynamic_modifier = {
+						modifier = DGR_local_strike
+					}
+				}
+			}
+			add_stability = 0.1
 		}
 	}
 	focus = {
 		id = DGR_halt_the_trials
 		icon = DGR_halt_the_trials
-		relative_position_id = DGR_health_trials_nc
+		relative_position_id = DGR_health_trails
 		prerequisite = {
-			focus = DGR_health_trials_nc
+			focus = DGR_health_trails
 		}
 		text_icon = DABROWA_focus_style
 		available = {
@@ -12067,7 +12086,13 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			remove_ideas = DGR_strikes_4	
+			add_stability = 0.05
+			add_popularity = {
+				ideology = neonationalism
+				popularity = -0.05
+			}
 		}
 	}
 	focus = {
@@ -12091,6 +12116,18 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			DGR_krzysztof_szwej = {
+				remove_trait = {
+					trait = sick
+				}
+			}
+			set_politics = {
+				ruling_party = marxism_cranism
+			}
+			swap_ideas = {
+				remove_idea = extreme_security
+				add_idea = advanced_security
+			}
 		}
 	}
 
@@ -14084,7 +14121,12 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			custom_effect_tooltip = unlock_pewex_tt	
+			custom_effect_tooltip = rozdzielacz_efektow
+			effect_tooltip = {
+				add_ideas = DGR_pewex
+			}
 		}
 	}
 	focus = {
@@ -14119,7 +14161,24 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			OR = {
+				AND = {
+					owns_state = 603
+					603 = {
+						has_state_flag = factory_nysa
+					}
+				}
+				AND = {
+					owns_state = 525
+					525 = {
+						has_state_flag = factory_fsm
+					}
+				}
+				AND = {
+					owns_state = 560
+					has_military_industrial_organization = FSO_fso_mio
+				}								
+			}
 		}
 		
 		bypass = {
@@ -16413,25 +16472,7 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-			country_event = dgr_nazbol.18
-			add_corps_commander_role = {
-				character = DGR_lasecki
-				traits = { educated politically_connected NAL_member }
-				skill = 3
-				attack_skill = 1
-				defense_skill = 2
-				planning_skill = 4
-				logistics_skill = 4	
-			}
-			add_corps_commander_role = {
-				character = DGR_grabarczyk
-				traits = { educated politically_connected NAL_member }
-				skill = 2
-				attack_skill = 1
-				defense_skill = 1
-				planning_skill = 3
-				logistics_skill = 3	
-			}		
+			country_event = dgr_nazbol.18	
 		}
 	}
 	focus = {
