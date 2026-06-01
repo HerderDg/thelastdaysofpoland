@@ -13947,7 +13947,6 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.11	
-			remove_ideas = DGR_economic_maneuver
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -14040,6 +14039,7 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			upgrade_tax_law = yes
 		}
 	}
 	focus = {
@@ -14109,6 +14109,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			modify_building_resources = {
+				building = big_ass_farm
+				resource = food
+				amount = 1
+			}
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_gmo
+					}
+				}
+				sp:sp_gmo = {
+					add_project_progress_ratio = 0.3
+				}				
+			}
 		}
 	}
 	focus = {
@@ -14159,7 +14174,25 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					rail_way > 0
+					supply_node > 0
+					OR = {
+						is_lodz_state = yes
+						is_zaglebie_and_jura_state = yes
+					}
+				}
+				set_building_level = {
+					type = rail_way
+					level = 5
+					province = {
+						all_provinces = yes
+						limit_to_supply_node = yes
+					}
+				}
+			}	
 		}
 	}
 	focus = {
@@ -14200,6 +14233,41 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			if = {
+				limit = {
+					owns_state = 603
+					603 = {
+						has_state_flag = factory_nysa
+					}					
+				}
+				unlock_military_industrial_organization_tooltip = mio:DGR_fsd_mio
+				mio:DGR_fsd_mio = {
+					add_mio_size = 1
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 525
+					525 = {
+						has_state_flag = factory_fsm
+					}					
+				}
+				unlock_military_industrial_organization_tooltip = mio:DGR_fsm_mio
+				mio:DGR_fsm_mio = {
+					add_mio_size = 1
+				}
+			}	
+			if = {
+				limit = {
+					owns_state = 560
+					has_military_industrial_organization = FSO_fso_mio			
+				}
+				mio:FSO_fso_mio = {
+					add_mio_size = 1
+					add_mio_task_capacity = 1
+					add_mio_research_bonus = 0.1
+				}
+			}					
 		}
 	}
 	focus = {
@@ -15435,6 +15503,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_tech_bonus = {
+				name = DGR_new_old_skots_nc
+				bonus = 0.5
+				uses = 1
+				category = apc
+			}
+			add_equipment_bonus = {
+				bonus = { 
+					apc_equipment = {
+						build_cost_ic = -0.1
+						reliability_factor = 0.1
+					}
+				}
+				name = DGR_new_old_skots_nc
+			}
 		}
 	}
 	focus = {
@@ -15503,6 +15586,21 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			add_tech_bonus = {
+				name = DGR_pt_91_the_hardest
+				bonus = 0.5
+				uses = 1
+				category = armor
+			}
+			add_equipment_bonus = {
+				bonus = { 
+					mbt_chassis = {
+						reliability_factor = 0.1
+						armor_value = 0.1
+					}
+				}
+				name = DGR_pt_91_the_hardest
+			}
 		}
 	}
 	focus = {
@@ -15668,7 +15766,21 @@ focus_tree = {
 		
 		cost = 5
 		
-		completion_reward = {	
+		completion_reward = {
+			741 = {
+				add_building_construction = {
+					type = rocket_site
+					level = 1
+				}
+			}
+			add_equipment_bonus = {
+				name = DGR_strategic_rocket_forces_command_nc
+				bonus = {
+					guided_missile_equipment = {
+						build_cost_ic = -0.15
+					}
+				}
+			}	
 		}
 	}
 	focus = {
@@ -15720,7 +15832,7 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_military_industrial_organization = MIE_pzl_mio
 		}
 		
 		bypass = {
@@ -15732,7 +15844,11 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
-		
+			mio:MIE_pzl_mio = {
+				add_mio_size = 1
+				add_mio_task_capacity = 1
+				add_mio_research_bonus = 0.1
+			}
 		}
 	}
 	focus = {
@@ -15865,7 +15981,9 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			507 = {
+				is_core_of = FROM
+			}
 		}
 		
 		bypass = {
@@ -15877,6 +15995,10 @@ focus_tree = {
 		cost = 5
 		
 		completion_reward = {	
+			unlock_military_industrial_organization_tooltip = mio:DGR_wsk_mio
+			mio:DGR_wsk_mio = {
+				add_mio_size = 1
+			}
 		}
 	}
 	focus = {
