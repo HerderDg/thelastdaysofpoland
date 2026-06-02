@@ -167,3 +167,174 @@ DGR_power_balance = {
 	}
 }
 
+
+DGR_power_balance_demilitarisation = {
+	initial_value = 0.05
+	left_side = DGR_demilitary_side	
+	right_side = DGR_military_side	
+	#decision_category = DGR_balance_of_power_category
+
+	### Neutral
+	range = {
+		id = DGR_military_balance_range
+		min = -0.7
+		max = -0.4
+		modifier = {
+			conscription_factor = -0.1
+			experience_gain_army_factor = -0.1
+			experience_gain_navy_factor = -0.1
+			experience_gain_air_factor = -0.1
+			training_time_factor = 0.1
+		}
+		on_activate = {
+
+		}
+		on_deactivate = {
+			
+		}
+	}
+
+
+	### Demilitaryzacja
+	side = {
+		id = DGR_demilitary_side	
+		icon = GFX_bop_DGR_redarmy_side
+
+		range = {
+			id = DGR_military_pure_range
+			min = -1
+			max = -0.7
+			modifier = {
+				
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+	}
+
+	### Wkurwienie NAL
+	side = {
+		id = DGR_military_side	
+		icon = GFX_bop_DGR_npa_side
+
+		range = {
+			id = DGR_military_low_rage
+			min = -0.4
+			max = 0
+			modifier = {
+				conscription_factor = -0.25
+				experience_gain_army_factor = -0.25
+				experience_gain_navy_factor = -0.25
+				experience_gain_air_factor = -0.25
+				army_attack_factor = -0.15
+				army_defence_factor  = -0.15
+				army_speed_factor = -0.15
+				army_org_factor = -0.15
+				training_time_factor = 0.2
+			}
+			on_activate = {
+
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = DGR_military_medium_rage
+			min = 0
+			max = 0.4
+			modifier = {
+				conscription_factor = -0.5
+				experience_gain_army_factor = -0.5
+				experience_gain_navy_factor = -0.5
+				experience_gain_air_factor = -0.5
+				army_attack_factor = -0.3
+				army_defence_factor  = -0.3
+				army_speed_factor = -0.3
+				army_org_factor = -0.3
+				training_time_factor = 0.4
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+
+			}
+		}
+
+		range = {
+			id = DGR_military_high_rage
+			min = 0.4
+			max = 0.8
+			modifier = {
+				cannot_use_abilities = 1
+				conscription_factor = -1
+				experience_gain_army_factor = -0.9
+				experience_gain_navy_factor = -0.9
+				experience_gain_air_factor = -0.9
+				army_attack_factor = -0.8
+				army_defence_factor  = -0.8
+				army_speed_factor = -0.8
+				army_org_factor = -0.8
+				training_time_factor = 4
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = DGR_military_total_rage
+			min = 0.8
+			max = 1
+			modifier = {
+
+			}
+			on_activate = {
+				DGR = {
+					start_civil_war = {
+					    ideology = neonationalism
+					    size = 0.6
+					    army_ratio = 0.6
+					    navy_ratio = 0.5
+					    air_ratio = 0.5
+					    keep_unit_leaders_trigger = {
+					       NOT = {
+							has_trait = NAL_member
+						   }
+					    }
+    					PREV = {  # Original country
+    					    DGR_szarejko = { # Character
+    					        set_nationality = PREV.PREV
+    					    }
+    					    DGR_abrahamowicz = { # Character
+    					        set_nationality = PREV.PREV
+    					    }	
+    					    DGR_czyzewski = { # Character
+    					        set_nationality = PREV.PREV
+    					    }
+    					    DGR_werner = { # Character
+    					        set_nationality = PREV.PREV
+    					    }																				
+    					}
+					}
+					remove_power_balance = {
+						id = DGR_power_balance_demilitarisation
+					}
+				}
+			}
+			on_deactivate = {
+			}
+		}
+	}
+}
+
