@@ -124,11 +124,14 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-		DGA = {
-			every_owned_state = {
-			set_resistance = 30
-			}
-		}
+		DGA = { add_ideas = DGR_district_wars_other }
+		ADM = { add_ideas = DGR_district_wars_other }
+		DAR = { add_ideas = DGR_district_wars_other }
+		FAR = { add_ideas = DGR_district_wars_other }
+		HUT = { add_ideas = DGR_district_wars_other }
+		STG = { add_ideas = DGR_district_wars_other }
+		STM = { add_ideas = DGR_district_wars_other }
+		SWK = { add_ideas = DGR_district_wars_other }
 		add_political_power = 50
 		}
 	}
@@ -210,6 +213,28 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = dgr.4
+			DGR = {
+				add_opinion_modifier = {
+					target = SOS
+					modifier = refused_help
+				}
+				add_opinion_modifier = {
+					target = JAW
+					modifier = refused_help
+				}				
+			}
+			JAW = {
+				add_opinion_modifier = {
+					target = DGR
+					modifier = tsr_untrustworthy_ally_opm
+				}
+			}
+			SOS = {
+				add_opinion_modifier = {
+					target = DGR
+					modifier = tsr_untrustworthy_ally_opm
+				}
+			}			
 		}
 	}
 	
@@ -379,7 +404,11 @@ focus_tree = {
 		prerequisite = { focus = DGR_restore_palace_of_culture }
 		text_icon = DABROWA_focus_style
 		available = {
-			has_global_flag = ZAG_congress_of_bedzin
+			OR = {
+				has_global_flag = ZAG_congress_of_bedzin
+				has_global_flag = ZAG_congress_of_bedzin_success
+				has_global_flag = ZAG_congress_of_bedzin_failure
+			}
 		}
 		
 		bypass = {
@@ -392,10 +421,18 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 2
+		cost = 1
 		
 		completion_reward = {
-			country_event = dgr.9
+			if = {
+				limit = {
+					NOT = {
+						has_global_flag = ZAG_congress_of_bedzin_success
+						has_global_flag = ZAG_congress_of_bedzin_failure
+					}
+				}
+				country_event = dgr.9
+			}
 			swap_ideas = {
 				remove_idea = trade_none
 				add_idea = trade_minimal
@@ -987,7 +1024,7 @@ focus_tree = {
 				remove_idea = officer_random
 				add_idea = officer_clerks
 			}
-			set_sub_doctrine = warsaw_pact_infantry
+			add_command_power = 30
 		}
 	}
 	focus = {
@@ -10234,6 +10271,7 @@ focus_tree = {
 				uses = 2
 				category = special_forces_doctrine
 			}
+			add_potential_special_forces_tree = yes
 		}
 	}	
 	focus = {
