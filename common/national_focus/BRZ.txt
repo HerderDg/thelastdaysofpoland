@@ -769,6 +769,14 @@ focus_tree = {
 				start_province = 86
 				target_province = 8634
 			}
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 8473 219 }
+				start_province = 8473
+				target_province = 219
+			}
 			add_equipment_to_stockpile = {
 				type = motorized_equipment_1
 				amount = 200
@@ -811,6 +819,10 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			swap_ideas = {
+				remove_idea = economy_anarchy
+				add_idea = economy_workers_management
+			}
 			add_popularity = {
 				ideology = marxism_cranism
 				popularity = 0.05
@@ -845,16 +857,12 @@ focus_tree = {
 					province = 8473
 				}
 			}
-			build_railway = {
-				level = 1
-				build_only_on_allied = yes
-				fallback = yes
-				path = { 8473 219 }
-				start_province = 8473
-				target_province = 219
-			}
 			mio:BRZ_maskpol_mio = {
 				add_mio_size = 1
+			}
+			swap_ideas = {
+				remove_idea = trade_none
+				add_idea = trade_minimal
 			}
 			add_popularity = {
 				ideology = marxism_cranism
@@ -889,8 +897,8 @@ focus_tree = {
 				ruling_party = marxism_cranism
 			}						
 			swap_ideas = {
-				remove_idea = economy_anarchy
-				add_idea = economy_workers_management
+				remove_idea = taxes_none
+				add_idea = taxes_minimal
 			}
 		}
 	}
@@ -1255,6 +1263,8 @@ focus_tree = {
 				amount = 50
 				producer = JWK
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_JWK_liga_tt
 		}
 	}	
 	
@@ -1282,9 +1292,8 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			declare_war_on = {
-				target = JUR
-				type = voivodeship_war
+			JUR = {
+				add_ideas = BRZ_hooligan_raids
 			}
 		}
 	}
@@ -1297,13 +1306,13 @@ focus_tree = {
 		prerequisite = { focus = BRZ_jurassic_hooligan_fights }
 		available = {
 			has_war = no
-			ZAW = { is_neighbor_of = BRZ }
+			JUR = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
 			OR = {
-				ZAW = { exists = no }
-				has_war_with = ZAW
+				JUR = { exists = no }
+				has_war_with = JUR
 			}
 		}
 		
@@ -1313,7 +1322,62 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			set_variable = {
+				enemy_team = JUR
+			}
+			set_variable = {
+				home_advantage = 0
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] JUR: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 30
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				JUR = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 30
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 30
+							}
+						}
+						1 = {
+							JUR = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 30
+								}
+							}
+						}
+					}
+				}
+			} 
+			declare_war_on = {
+				target = JUR
+				type = voivodeship_war
+			}
 		}
 	}
 	
@@ -1325,9 +1389,7 @@ focus_tree = {
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
 			JUR = { exists = no }
-			ZAW = { exists = no }
 			738 = { is_controlled_by = BRZ }
-			739 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1341,13 +1403,15 @@ focus_tree = {
 		completion_reward = { 
 			every_owned_state = {
 				limit = {
-					or = {
-						is_core_of = JUR
-						is_core_of = ZAW
+					is_core_of = JUR
+					NOT = {
+						is_core_of = BRZ
 					}
 				}
-				add_compliance = 40
+				add_compliance = 25
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_JUR_liga_tt
 		}
 	}
 	
@@ -1359,7 +1423,6 @@ focus_tree = {
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
 			JUR = { exists = no }
-			ZAW = { exists = no }
 		}
 		
 		bypass = {
@@ -1402,6 +1465,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			CCH = {
+				add_ideas = BRZ_hooligan_raids
+			}
 		}
 	}
 	
@@ -1445,7 +1511,7 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = BRZ_victory_fervor
-					days = 14
+					days = 30
 				}
 			}
 			else_if = {
@@ -1457,7 +1523,7 @@ focus_tree = {
 				CCH = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
 			}
@@ -1467,14 +1533,14 @@ focus_tree = {
 						1 = {
 							add_timed_idea = {
 								idea = BRZ_victory_fervor
-								days = 14
+								days = 30
 							}
 						}
 						1 = {
 							CCH = {
 								add_timed_idea = {
 									idea = BRZ_victory_fervor
-									days = 14
+									days = 30
 								}
 							}
 						}
@@ -1502,23 +1568,34 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -1
+		x = 1
 		y = 1
 		
 		cost = 1
 		
 		completion_reward = { 
-				BRZ_papszun={
-					add_corps_commander_role = {
-						traits = { brilliant_strategist }
-						skill = 2
-						attack_skill = 4
-						defense_skill = 4
-						planning_skill = 5
-						logistics_skill = 3
-						legacy_id = -1
+			BRZ_papszun={
+				add_corps_commander_role = {
+					traits = { brilliant_strategist }
+					skill = 2
+					attack_skill = 4
+					defense_skill = 4
+					planning_skill = 5
+					logistics_skill = 3
+					legacy_id = -1
+				}
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = CCH
+					NOT = {
+						is_core_of = BRZ
 					}
 				}
+				add_compliance = 25
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_CCH_liga_tt
 		}
 	}
 	
@@ -1536,7 +1613,7 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 1
+		x = -1
 		y = 1
 		
 		cost = 1
@@ -1569,7 +1646,8 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-
+			add_ideas = BRZ_locker_room_cleaning
+			add_fuel = 4000
 		}
 	}
 
@@ -1580,7 +1658,9 @@ focus_tree = {
 		relative_position_id = BRZ_take_away_whatever_you_can
 		prerequisite = { focus = BRZ_take_away_whatever_you_can }
 		available = {
-		
+			423 = { is_owned_and_controlled_by = BRZ }
+			591 = { is_owned_and_controlled_by = BRZ }
+			436 = { is_owned_and_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1592,7 +1672,32 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-
+			423 = {
+				add_resource = {
+					type = steel
+					amount = 4
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = hospital
+					level = 1
+					instant_build = yes
+				}
+			}
+			591 = {
+				add_resource = {
+					type = steel
+					amount = 2
+				}
+			}
+			436 = {
+				add_resource = {
+					type = steel
+					amount = 2
+				}				
+			}	
+			get_budget_tooltip = yes
+			custom_effect_tooltip = budget_subtract_200M		
 		}
 	}
 	
@@ -1729,7 +1834,10 @@ focus_tree = {
 		relative_position_id = BRZ_take_away_whatever_you_can
 		prerequisite = { focus = BRZ_take_away_whatever_you_can }
 		available = {
-		
+			870 = { is_owned_and_controlled_by = BRZ }
+			591 = { is_owned_and_controlled_by = BRZ }
+			421 = { is_owned_and_controlled_by = BRZ }
+			400 = { is_owned_and_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1741,7 +1849,41 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-
+			870 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			591 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			421 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			400 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 200
+			}									
 		}
 	}	
 
@@ -1801,9 +1943,13 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = BRZ_locker_room_cleaning
+				add_idea = BRZ_locker_room_cleaning_2
+			}
 			add_equipment_to_stockpile = {
 				type = support_equipment
-				amount = 50
+				amount = 250
 				producer = JWK
 			}
 		}
@@ -1864,6 +2010,9 @@ focus_tree = {
 		available = {
 		
 		}
+		select_effect = {
+			
+		}
 		
 		bypass = {
 		}
@@ -1873,8 +2022,16 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
-
+		completion_reward = {
+			unlock_military_industrial_organization_tooltip = mio:DGR_huta_katowice_mio
+			custom_effect_tooltip = rozdzielacz_efektow
+			mio:DGR_huta_katowice_mio = {
+				set_mio_name_key = BRZ_mio_huta_name
+				set_mio_icon = GFX_idea_BRZ_kombinat					
+				add_mio_size = 2
+				add_mio_task_capacity = 2
+				add_mio_research_bonus = 0.1
+			}
 		}
 	}
 	
@@ -2104,7 +2261,7 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = BRZ_victory_fervor
-					days = 14
+					days = 30
 				}
 			}
 			else_if = {
@@ -2116,7 +2273,7 @@ focus_tree = {
 				ZAW = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
 			}
@@ -2126,14 +2283,14 @@ focus_tree = {
 						1 = {
 							add_timed_idea = {
 								idea = BRZ_victory_fervor
-								days = 14
+								days = 30
 							}
 						}
 						1 = {
 							ZAW = {
 								add_timed_idea = {
 									idea = BRZ_victory_fervor
-									days = 14
+									days = 30
 								}
 							}
 						}
@@ -2201,7 +2358,7 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = BRZ_victory_fervor
-					days = 14
+					days = 30
 				}
 			}
 			else_if = {
@@ -2213,7 +2370,7 @@ focus_tree = {
 				DGR = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
 			}
@@ -2223,14 +2380,14 @@ focus_tree = {
 						1 = {
 							add_timed_idea = {
 								idea = BRZ_victory_fervor
-								days = 14
+								days = 30
 							}
 						}
 						1 = {
 							DGR = {
 								add_timed_idea = {
 									idea = BRZ_victory_fervor
-									days = 14
+									days = 30
 								}
 							}
 						}
@@ -2301,7 +2458,7 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = BRZ_victory_fervor
-					days = 14
+					days = 30
 				}
 			}
 			else_if = {
@@ -2313,7 +2470,7 @@ focus_tree = {
 				SOS = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
 			}
@@ -2323,14 +2480,14 @@ focus_tree = {
 						1 = {
 							add_timed_idea = {
 								idea = BRZ_victory_fervor
-								days = 14
+								days = 30
 							}
 						}
 						1 = {
 							SOS = {
 								add_timed_idea = {
 									idea = BRZ_victory_fervor
-									days = 14
+									days = 30
 								}
 							}
 						}
@@ -2391,7 +2548,7 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = BRZ_victory_fervor
-					days = 14
+					days = 30
 				}
 			}
 			else_if = {
@@ -2403,7 +2560,7 @@ focus_tree = {
 				JAW = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
 			}
@@ -2413,14 +2570,14 @@ focus_tree = {
 						1 = {
 							add_timed_idea = {
 								idea = BRZ_victory_fervor
-								days = 14
+								days = 30
 							}
 						}
 						1 = {
 							JAW = {
 								add_timed_idea = {
 									idea = BRZ_victory_fervor
-									days = 14
+									days = 30
 								}
 							}
 						}
@@ -2535,8 +2692,10 @@ focus_tree = {
 					}
 					NOT = { is_core_of = BRZ }
 				}
-				add_compliance = 40
+				add_compliance = 25
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_ZGJ_liga_tt
 		}
 	}
 
@@ -2616,6 +2775,10 @@ focus_tree = {
 		prerequisite = { focus = BRZ_dreams_of_champions_league }
 		available = {
 			has_country_flag = unified_voivodeship
+			has_completed_focus = BRZ_role_of_church
+			has_completed_focus = BRZ_role_of_civilian_administration
+			has_completed_focus = BRZ_incorporation_of_czestochowa_clubs
+			has_completed_focus = BRZ_incorporation_of_jurassic_clubs
 		}
 		
 		bypass = {
