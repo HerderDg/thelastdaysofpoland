@@ -40,44 +40,159 @@ BRZ_the_dream_team = {
 	}
 }
 BRZ_super_duper_league = {
-	BRZ_next_round = {
+	BRZ_match_1 = {
 		icon = GFX_decision_eng_propaganda_campaigns
 		available = {
 			always = no
 		}
 		activation = {
-			has_country_flag = nsfl_is_running
-			NOT = {
-				has_country_flag = nsfl_is_asleep
-			}
+			always = no
 		}
 		is_good = yes
-		days_mission_timeout = 14
+		days_mission_timeout = 3
 		timeout_effect = {
 			hidden_effect = {
-				nsfl_simulate_round = yes
+				nsfl_simulate_match_1 = yes
 				sort_league_array = yes
-			}
-			
-			set_temp_variable = {
-				m = nsfl_round
-			}
-			modulo_temp_variable = {
-				m = 9
-			}
-			if = {
-				limit = {
-					check_variable = {
-						m = 0
-					}
-				}
-				set_country_flag = nsfl_is_asleep
 			}
 		}
 		remove_trigger = {
 			has_country_flag = nsfl_is_running
 		}
 	}
+	BRZ_match_2 = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 6
+		timeout_effect = {
+			hidden_effect = {
+				nsfl_simulate_match_2 = yes
+				sort_league_array = yes
+			}
+		}
+		remove_trigger = {
+			has_country_flag = nsfl_is_running
+		}
+	}
+	BRZ_match_3 = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 9
+		timeout_effect = {
+			hidden_effect = {
+				nsfl_simulate_match_3 = yes
+				sort_league_array = yes
+			}
+		}
+		remove_trigger = {
+			has_country_flag = nsfl_is_running
+		}
+	}
+	BRZ_match_4 = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 12
+		timeout_effect = {
+			hidden_effect = {
+				nsfl_simulate_match_4 = yes
+				sort_league_array = yes
+			}
+		}
+		remove_trigger = {
+			has_country_flag = nsfl_is_running
+		}
+	}			
+	BRZ_match_5 = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 15
+		timeout_effect = {
+			hidden_effect = {
+				nsfl_simulate_match_5 = yes
+				sort_league_array = yes
+			}
+			if = { #tylko dla meczu piątego
+				limit = {
+					check_variable = {
+						nsfl_round < 9
+					}
+				}
+				add_to_variable = {
+					nsfl_round = 1
+				}
+				activate_mission = BRZ_league_in_recess_break
+			}			
+			else_if = {
+				limit = {
+					NOT = { has_country_flag = nsfl_second_half_of_season }
+					check_variable = {
+						nsfl_round = 9
+					}
+				}
+				set_country_flag = nsfl_is_asleep
+				set_country_flag = nsfl_second_half_of_season
+				set_variable = {
+					nsfl_round = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = nsfl_second_half_of_season
+					check_variable = {
+						nsfl_round = 9
+					}
+				}
+				clr_country_flag = nsfl_is_running
+				clr_country_flag = nsfl_is_asleep
+			}			
+
+		}
+		remove_trigger = {
+			has_country_flag = nsfl_is_running
+		}
+	}
+	BRZ_league_in_recess_break = {
+		icon = GFX_decision_hol_radio_oranje
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 5
+		timeout_effect = {
+			activate_mission = BRZ_match_1
+			activate_mission = BRZ_match_2
+			activate_mission = BRZ_match_3
+			activate_mission = BRZ_match_4
+			activate_mission = BRZ_match_5
+		}
+	}	
 	BRZ_league_in_recess = {
 		icon = GFX_decision_hol_radio_oranje
 		available = {
@@ -90,6 +205,11 @@ BRZ_super_duper_league = {
 		days_mission_timeout = 90
 		timeout_effect = {
 			clr_country_flag = nsfl_is_asleep
+			activate_mission = BRZ_match_1
+			activate_mission = BRZ_match_2
+			activate_mission = BRZ_match_3
+			activate_mission = BRZ_match_4
+			activate_mission = BRZ_match_5
 		}
 		remove_trigger = {
 			has_country_flag = nsfl_is_running
