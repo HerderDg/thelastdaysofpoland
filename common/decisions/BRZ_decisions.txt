@@ -17,6 +17,146 @@ BRZ_the_dream_team = {
 			}
 		}
 	}
+	declare_match_on_neighbour_decision = {
+		icon = GFX_decision_ball
+		visible = {			
+			has_country_flag = unified_voivodeship
+		}
+		available = {
+			if = {
+				limit = { 
+					has_country_flag = unified_voivodeship 
+					NOT = { has_country_flag = unified_regional }
+				}
+				custom_trigger_tooltip = {
+					tooltip = doesnt_control_3_vois_yet
+					controls_three_voivodeships = no
+				}
+				date > "2033.03.01"
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = unified_regional
+					NOT = { has_country_flag = unified_supregional }
+				}
+				custom_trigger_tooltip = {
+					tooltip = doesnt_control_6_vois_yet
+					controls_six_voivodeships = no
+				}
+				date > "2037.03.01"
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = unified_supregional 
+				}
+				date > "2041.03.01"
+			}
+			has_war = no
+			custom_trigger_tooltip = {
+				NOT = {
+					has_country_flag = getting_ready_to_war
+				}
+				tooltip = "Is not getting ready to play with other warlord"
+			}
+		}
+		target_array = root.neighbors
+		target_trigger = {
+			FROM = {
+				# NOT = {
+				# 	has_war = yes
+				# }
+				is_somsiad = no
+				NOT = {
+					has_idea = barbarians_idea
+				}
+				NOT = {
+					original_tag = ZON
+				}
+				NOT = {
+					is_in_faction_with = ROOT
+				}
+				NOT = {
+					is_subject_of = ROOT
+				}
+			}
+		}
+		cancel_trigger = {
+			has_war = yes
+		}
+		cancel_effect = {
+			clr_country_flag = getting_ready_to_war
+		}
+		war_with_target_on_complete = yes
+		ai_will_do = {
+			factor = 1
+		}
+		cost = 10
+		days_remove = 14
+		complete_effect = {
+			set_country_flag = getting_ready_to_war
+			log = "[GetDateText]: [ROOT.GetName] is getting ready to war..."
+		}
+		remove_effect = {
+			clr_country_flag = getting_ready_to_war
+			set_variable = {
+				enemy_team = FROM
+			}
+			set_variable = {
+				home_advantage = 0
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] [?FROM.GetTag]: [?enemy_goals]"
+			if = {
+				limit = {
+					check_variable = {
+						BRZ_goals > enemy_goals
+					}
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 60
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						BRZ_goals < enemy_goals
+					}
+				}
+				FROM = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 60
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					random_list = {
+						1 = {
+							add_timed_idea = {
+								idea = BRZ_victory_fervor
+								days = 60
+							}
+						}
+						1 = {
+							FROM = {
+								add_timed_idea = {
+									idea = BRZ_victory_fervor
+									days = 60
+								}
+							}
+						}
+					}
+				}
+			} 
+			declare_war_on = {
+				target = FROM
+				type = superregional_war
+			}
+		}
+
+	}
 }
 BRZ_super_duper_league = {
 	BRZ_match_1 = {
