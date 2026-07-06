@@ -288,6 +288,8 @@ focus_tree = {
 		completion_reward = { 
 			add_political_power = -10
 			add_stability = 0.05
+			army_experience = 10
+			add_command_power = 5
 		}
 	}
 	
@@ -311,6 +313,8 @@ focus_tree = {
 		
 		completion_reward = {
 			custom_effect_tooltip = BRZ_match_liswarta_krzepice_tt
+			army_experience = 10
+			add_command_power = 5
 			hidden_effect = {
 				random_list = {
 					1 = {
@@ -346,6 +350,8 @@ focus_tree = {
 			
 		completion_reward = {
 			custom_effect_tooltip = BRZ_match_znicz_klobuck_tt
+			army_experience = 10
+			add_command_power = 5
 			hidden_effect = {
 				random_list = {
 					1 = {
@@ -999,6 +1005,8 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = buzzer.10
+			add_war_support = -0.05
+			add_stability = 0.05
 		}
 	}
 	
@@ -1023,6 +1031,8 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = buzzer.11
+			add_war_support = 0.05
+			add_stability = -0.05
 		}
 	}
 	
@@ -1051,6 +1061,12 @@ focus_tree = {
 					is_owned_by = JWK
 				}
 				add_claim_by = BRZ
+			}
+			JWK = {
+				add_opinion_modifier = {
+					target = BRZ
+					modifier = claims_on_us
+				}
 			}
 		}
 	}
@@ -1107,8 +1123,29 @@ focus_tree = {
 				target = JWK
 				type = voivodeship_war
 			}
+			if = {
+				limit = {
+					has_country_flag = lubliniec_kickoff_victory
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 30
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = lubliniec_kickoff_defeat
+				}	
+				JWK = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 30
+					}
+				}			
+			}
 			country_event = buzzer.12
 		}
+		will_lead_to_war_with = JWK
 	}
 	
 
@@ -1334,6 +1371,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_jur_tt
 			set_variable = {
 				enemy_team = JUR
 			}
@@ -1342,55 +1380,38 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] JUR: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 30
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				JUR = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
 						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 30
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							JUR = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 30
-								}
-							}
+					}
+					JUR = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-			} 
+			}
 			declare_war_on = {
 				target = JUR
 				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = JUR
 	}
 	
 	focus = {
@@ -1507,6 +1528,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_cch_tt
 			set_variable = {
 				enemy_team = CCH
 			}
@@ -1515,46 +1537,28 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] CCH: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 30
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				CCH = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
 						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 30
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							CCH = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 30
-								}
-							}
+					}
+					CCH = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
@@ -1564,6 +1568,7 @@ focus_tree = {
 				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = CCH
 	}
 	
 	focus = {
@@ -2323,6 +2328,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_zaw_tt
 			set_variable = {
 				enemy_team = ZAW
 			}
@@ -2331,50 +2337,31 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] ZAW: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 30
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				ZAW = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
 						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 30
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							ZAW = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 30
-								}
-							}
+					}
+					ZAW = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-				
 			}
 			declare_war_on = {
 				target = ZAW
@@ -2394,6 +2381,7 @@ focus_tree = {
 				army_experience = 100 
 			}
 		}
+		will_lead_to_war_with = ZAW
 	}
 	
 	focus = {
@@ -2420,6 +2408,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_dgr_tt
 			set_variable = {
 				enemy_team = DGR
 			}
@@ -2428,46 +2417,28 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] DGR: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 30
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				DGR = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
 						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 30
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							DGR = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 30
-								}
-							}
+					}
+					DGR = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
@@ -2477,6 +2448,7 @@ focus_tree = {
 				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = DGR
 	}
 	
 	focus = {
@@ -2520,6 +2492,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_sos_tt
 			set_variable = {
 				enemy_team = SOS
 			}
@@ -2528,6 +2501,7 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] SOS: [?enemy_goals]"
+			hidden_effect = {
 			if = {
 				limit = {
 					check_variable = {
@@ -2552,25 +2526,6 @@ focus_tree = {
 					}
 				}
 			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 30
-							}
-						}
-						1 = {
-							SOS = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 30
-								}
-							}
-						}
-					}
-				}
 			}
 			declare_war_on = {
 				target = SOS
@@ -2584,6 +2539,7 @@ focus_tree = {
 				}				
 			}
 		}
+		will_lead_to_war_with = SOS
 	}
 	
 	focus = {
@@ -2610,6 +2566,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_jaw_tt
 			set_variable = {
 				enemy_team = JAW
 			}
@@ -2618,55 +2575,38 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] JAW: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 30
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				JAW = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
 						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 30
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							JAW = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 30
-								}
-							}
+					}
+					JAW = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-			} 
+			}
 			declare_war_on = {
 				target = JAW
 				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = JAW
 	}
 
 	focus = {
