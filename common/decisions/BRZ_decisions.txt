@@ -348,4 +348,88 @@ BRZ_super_duper_league = {
 			has_country_flag = nsfl_is_running
 		}
 	}
+	BRZ_convince_referee = {
+		icon = GFX_decision_generic_welfare
+
+		available = {
+			check_variable = {
+				budget >= 1
+			}
+			NOT = {
+				has_country_flag = league_referee_convinced
+			}
+			NOT = {
+				has_country_flag = league_opponent_bribed
+			}
+			OR = {
+				has_active_mission = BRZ_match_1
+				has_active_mission = BRZ_match_2
+				has_active_mission = BRZ_match_3
+				has_active_mission = BRZ_match_4
+				has_active_mission = BRZ_match_5
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = BRZ_convince_referee_effect_tt
+			custom_effect_tooltip = budget_subtract_1M
+			hidden_effect = {
+				subtract_from_variable = {
+					budget = 1
+				}
+
+				add_to_variable = {
+					league_olimpia_match_influence = 3
+				}
+
+				set_country_flag = league_referee_convinced
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	BRZ_bribe_opponent_team = {
+		icon = GFX_decision_ger_mefo_bills
+
+		available = {
+			check_variable = {
+				budget >= 15
+			}
+			NOT = {
+				has_country_flag = league_referee_convinced
+			}
+			NOT = {
+				has_country_flag = league_opponent_bribed
+			}
+			OR = {
+				has_active_mission = BRZ_match_1
+				has_active_mission = BRZ_match_2
+				has_active_mission = BRZ_match_3
+				has_active_mission = BRZ_match_4
+				has_active_mission = BRZ_match_5
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = BRZ_bribe_opponent_team_effect_tt
+			custom_effect_tooltip = budget_subtract_15M
+			hidden_effect = {
+				subtract_from_variable = {
+					budget = 15
+				}
+
+				add_to_variable = {
+					league_olimpia_match_influence = 8
+				}
+
+				set_country_flag = league_opponent_bribed
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
