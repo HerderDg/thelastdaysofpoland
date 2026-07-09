@@ -747,17 +747,41 @@ country_event = {
 }
 
 country_event = {
-	id = buzzer.1974 #event po pokonaniu tagu z piłkarzem
+	id = buzzer.1974 
 	title = buzzer.1974.t
 	desc = buzzer.1974.desc
 
-	fire_only_once = yes
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.14"}
 	option = {
+		name = buzzer.1974.a
+		custom_effect_tooltip = buzzer.1974.accept_tt
 
-		name = buzzer.1974.a #bierzemy piłkarza
-		
+		hidden_effect = {
+			random_character = {
+				limit = {
+					has_character_flag = taken_over_for_BRZ
+				}
+
+				set_variable = {
+					tee_number = ROOT.next_tee_number
+				}
+
+				add_to_variable = {
+					ROOT.next_tee_number = 1
+				}
+
+				clr_character_flag = taken_over_for_BRZ
+			}
+
+			# Optional cleanup
+			set_variable = {
+				zwkt_captured_fb_power = 0
+			}
+			set_variable = {
+				zwkt_captured_fb_role = 0
+			}
+		}
 	}
 	option = {
 		name = buzzer.1974.b #nie bierzemy piłkarza
@@ -767,6 +791,14 @@ country_event = {
 			}
 			ROOT = {
 				retire_character = PREV
+			}
+		}
+		hidden_effect = {
+			set_variable = {
+				zwkt_captured_fb_power = 0
+			}
+			set_variable = {
+				zwkt_captured_fb_role = 0
 			}
 		}
 	}

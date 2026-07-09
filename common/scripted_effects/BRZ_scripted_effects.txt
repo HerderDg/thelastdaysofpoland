@@ -2,6 +2,9 @@
 
 set_initial_team = {
 	log = "---------------------------------------------------"
+	set_variable = {
+		next_tee_number = 13
+	}
 	every_character = {
 		limit = {
 			has_character_flag = is_footballer
@@ -257,6 +260,188 @@ set_initial_team = {
 	BRZ_calculate_stats = yes
 }
 
+change_to_442_setup = { 
+	if = { 
+		limit = { 
+			check_variable = { current_team_setup = 433 } 
+		} 
+		add_midfielder = yes 
+	} 
+	else = { add_defender = yes } 
+	subtract_attacker = yes 
+	set_variable = { current_team_setup = 442 } 
+	BRZ_calculate_stats = yes 
+} 
+
+change_to_433_setup = { 
+	if = { 
+		limit = { 
+			check_variable = { current_team_setup = 442 } 
+		} add_attacker = yes 
+	} 
+	else = { add_defender = yes } 
+	subtract_midfielder = yes 
+	set_variable = { current_team_setup = 433 } 
+	BRZ_calculate_stats = yes 
+} 
+
+change_to_343_setup = { 
+	if = { 
+		limit = { 
+			check_variable = { 
+				current_team_setup = 442 } 
+			} 
+		add_attacker = yes 
+	} 
+	else = { add_midfielder = yes } 
+	subtract_defender = yes 
+	set_variable = { current_team_setup = 343 } 
+	BRZ_calculate_stats = yes 
+} 
+
+subtract_attacker = { 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_attacker 
+			has_character_flag = is_active 
+			has_character_flag = center_atk 
+		} 
+	clr_character_flag = is_active 
+	clr_character_flag = center_atk 
+} 
+} 
+
+add_attacker = { 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_attacker 
+			not = { has_character_flag = is_active } 
+		} 
+		set_character_flag = is_active 
+		set_character_flag = center_atk 
+		set_variable = {ROOT.center_atk_tee_number = THIS.tee_number} 
+		set_variable = {ROOT.center_atk_name = THIS} 
+	} 
+} 
+
+subtract_midfielder = { 
+	set_variable = { ROOT.weakest_mid = 101 } 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_midfielder 
+			has_character_flag = is_active 
+			has_character_flag = center_mid 
+		} 
+		if = { 
+			limit = { 
+				check_variable = { THIS.fb_power < ROOT.weakest_mid } 
+			} 
+		set_variable = { ROOT.weakest_mid = THIS.fb_power } 
+		ROOT = { 
+			every_character = { 
+				limit = { 
+					has_character_flag = midfielder_to_drop 
+				} 
+				clr_character_flag = midfielder_to_drop 
+			} 
+		} 
+		set_character_flag = midfielder_to_drop 
+		} 
+	} 
+	every_character = { 
+		limit = { 
+			has_character_flag = midfielder_to_drop 
+		} 
+		clr_character_flag = midfielder_to_drop 
+		clr_character_flag = is_active 
+		log = "[THIS.GetName] is dropped" 
+	} 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_midfielder 
+			has_character_flag = is_active 
+			has_character_flag = center_mid 
+		} 
+		set_variable = {ROOT.center_mid_tee_number = THIS.tee_number} 
+		set_variable = {ROOT.center_mid_name = THIS} 
+	} 
+} 
+
+add_midfielder = { 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_midfielder 
+			has_character_flag = center_mid 
+			not = { has_character_flag = is_active } 
+		} 
+		set_character_flag = is_active 
+		log = "[THIS.GetName] is added" 
+	} 
+} 
+
+subtract_defender = { 
+	set_variable = { ROOT.weakest_def = 101 } 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_defender 
+			has_character_flag = is_active 
+			has_character_flag = center_def 
+		} 
+		if = { 
+			limit = { 
+				check_variable = { THIS.fb_power < ROOT.weakest_def } 
+			} 
+			set_variable = { ROOT.weakest_def = THIS.fb_power } 
+			ROOT = { 
+				every_character = { 
+					limit = { 
+						has_character_flag = defender_to_drop 
+					} 
+					clr_character_flag = defender_to_drop 
+				} 
+			} 
+			set_character_flag = defender_to_drop 
+		} 
+	} 
+	every_character = { 
+		limit = { 
+			has_character_flag = defender_to_drop 
+		} 
+		clr_character_flag = defender_to_drop 
+		clr_character_flag = is_active 
+		log = "[THIS.GetName] is dropped" 
+	} 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_defender 
+			has_character_flag = is_active 
+			has_character_flag = center_def 
+		} 
+		set_variable = {ROOT.center_def_tee_number = THIS.tee_number} 
+		set_variable = {ROOT.center_def_name = THIS} 
+	} 
+} 
+
+add_defender = { 
+	every_character = { 
+		limit = { 
+			has_character_flag = is_footballer 
+			has_character_flag = is_defender 
+			has_character_flag = center_def 
+			not = { has_character_flag = is_active } 
+		} 
+		set_character_flag = is_active 
+		log = "[THIS.GetName] is added" 
+	} 
+}
+
 BRZ_calculate_stats = {
 	set_temp_variable = {
 		attacker_count = 0
@@ -412,235 +597,10 @@ BRZ_calculate_stats = {
 	round_variable = zwkp_mid
 	round_variable = zwkp_def
 }
-
-change_to_442_setup = {
-	
-	if = {
-		limit = {
-			check_variable = {
-				current_team_setup = 433
-			}
-		}
-		add_midfielder = yes
-	}
-	else = {
-		add_defender = yes
-	}
-	subtract_attacker = yes
-	set_variable = {
-		current_team_setup = 442
-	}	
-	BRZ_calculate_stats = yes
-}
-
-change_to_433_setup = {
-	if = {
-		limit = {
-			check_variable = {
-				current_team_setup = 442
-			}
-		}
-		add_attacker = yes
-		
-	}
-	else = {
-		#343
-		add_defender = yes
-	}
-	subtract_midfielder = yes
-	
-	
-	set_variable = {
-		current_team_setup = 433
-	}
-	BRZ_calculate_stats = yes
-}
-
-change_to_343_setup = {
-	
-	if = {
-		limit = {
-			check_variable = {
-				current_team_setup = 442
-			}
-		}
-		add_attacker = yes
-	}
-	else = {
-		#433
-		add_midfielder = yes
-	}
-	subtract_defender = yes
-	set_variable = {
-		current_team_setup = 343
-	}
-	BRZ_calculate_stats = yes
-}
-
-subtract_attacker = {
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_attacker
-			has_character_flag = is_active
-			has_character_flag = center_atk
-		}
-		clr_character_flag = is_active
-		clr_character_flag = center_atk
-	}
-}
-
-add_attacker = {
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_attacker
-			not = {
-				has_character_flag = is_active
-			}
-		}
-		set_character_flag = is_active
-		set_character_flag = center_atk
-		set_variable = {ROOT.center_atk_tee_number = THIS.tee_number}
-		set_variable = {ROOT.center_atk_name = THIS}
-	}
-}
-
-subtract_midfielder = {
-	set_variable = {
-		ROOT.weakest_mid = 101
-	}
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_midfielder
-			has_character_flag = is_active
-			has_character_flag = center_mid
-		}	
-		if = {
-			limit = {
-				check_variable = {
-					THIS.fb_power < ROOT.weakest_mid
-				}
-			}
-			set_variable = {
-				ROOT.weakest_mid = THIS.fb_power 
-			}
-			ROOT = {
-				every_character = {
-					limit = {
-						has_character_flag = midfielder_to_drop
-					}
-					clr_character_flag = midfielder_to_drop
-				}
-			}
-			set_character_flag = midfielder_to_drop
-		}
-	}
-	every_character = {
-		limit = {
-			has_character_flag = midfielder_to_drop
-		}
-		clr_character_flag = midfielder_to_drop
-		clr_character_flag = is_active
-		log = "[THIS.GetName] is dropped"
-	}
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_midfielder
-			has_character_flag = is_active
-			has_character_flag = center_mid
-		}
-		set_variable = {ROOT.center_mid_tee_number = THIS.tee_number}
-		set_variable = {ROOT.center_mid_name = THIS}
-	}
-}
-
-add_midfielder = {
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_midfielder
-			has_character_flag = center_mid
-			not = {
-				has_character_flag = is_active
-			}
-		}
-		set_character_flag = is_active
-		log = "[THIS.GetName] is added"
-	}
-}
-
-subtract_defender = {
-	set_variable = {
-		ROOT.weakest_def = 101
-	}
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_defender
-			has_character_flag = is_active
-			has_character_flag = center_def
-		}	
-		if = {
-			limit = {
-				check_variable = {
-					THIS.fb_power < ROOT.weakest_def
-				}
-			}
-			set_variable = {
-				ROOT.weakest_def = THIS.fb_power 
-			}
-			ROOT = {
-				every_character = {
-					limit = {
-						has_character_flag = defender_to_drop
-					}
-					clr_character_flag = defender_to_drop
-				}
-			}
-			set_character_flag = defender_to_drop
-		}
-	}
-	every_character = {
-		limit = {
-			has_character_flag = defender_to_drop
-		}
-		clr_character_flag = defender_to_drop
-		clr_character_flag = is_active
-		log = "[THIS.GetName] is dropped"
-	}
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_defender
-			has_character_flag = is_active
-			has_character_flag = center_def
-		}
-		set_variable = {ROOT.center_def_tee_number = THIS.tee_number}
-		set_variable = {ROOT.center_def_name = THIS}
-	}
-}
-
-add_defender = {
-	every_character = {
-		limit = {
-			has_character_flag = is_footballer
-			has_character_flag = is_defender
-			has_character_flag = center_def
-			not = {
-				has_character_flag = is_active
-			}
-		}
-		set_character_flag = is_active
-		log = "[THIS.GetName] is added"
-	}
-}
-
 show_atk_in_reserve = {
 	clear_array = available_reserve
 	clear_array = available_reserve_tee_numbers
+	clear_array = available_reserve_fb_power
 	every_character = {
 		limit = {
 			has_character_flag = is_attacker
@@ -654,6 +614,10 @@ show_atk_in_reserve = {
 		add_to_array = {
 			array = ROOT.available_reserve_tee_numbers
 			value = THIS.tee_number
+		}
+		add_to_array = {
+			array = ROOT.available_reserve_fb_power
+			value = THIS.fb_power
 		}
 	}
 }
@@ -661,6 +625,7 @@ show_atk_in_reserve = {
 show_mid_in_reserve = {
 	clear_array = available_reserve
 	clear_array = available_reserve_tee_numbers
+	clear_array = available_reserve_fb_power
 	every_character = {
 		limit = {
 			has_character_flag = is_midfielder
@@ -675,12 +640,17 @@ show_mid_in_reserve = {
 			array = ROOT.available_reserve_tee_numbers
 			value = THIS.tee_number
 		}
+		add_to_array = {
+			array = ROOT.available_reserve_fb_power
+			value = THIS.fb_power
+		}
 	}
 }
 
 show_def_in_reserve = {
 	clear_array = available_reserve
 	clear_array = available_reserve_tee_numbers
+	clear_array = available_reserve_fb_power
 	every_character = {
 		limit = {
 			has_character_flag = is_defender
@@ -695,11 +665,73 @@ show_def_in_reserve = {
 			array = ROOT.available_reserve_tee_numbers
 			value = THIS.tee_number
 		}
+		add_to_array = {
+			array = ROOT.available_reserve_fb_power
+			value = THIS.fb_power
+		}
+	}
+}
+
+show_gk_in_reserve = {
+	clear_array = available_reserve
+	clear_array = available_reserve_tee_numbers
+	clear_array = available_reserve_fb_power
+
+	every_character = {
+		limit = {
+			has_character_flag = is_goalkeeper
+			not = {
+				has_character_flag = is_active
+			}
+		}
+
+		add_to_array = {
+			array = ROOT.available_reserve
+		}
+
+		add_to_array = {
+			array = ROOT.available_reserve_tee_numbers
+			value = THIS.tee_number
+		}
+
+		add_to_array = {
+			array = ROOT.available_reserve_fb_power
+			value = THIS.fb_power
+		}
 	}
 }
 
 swap_footballer = {
 	if = {
+		limit = {
+			has_country_flag = gk_chosen
+		}
+
+		every_character = {
+			limit = {
+				has_character_flag = is_goalkeeper
+				has_character_flag = is_active
+			}
+			clr_character_flag = is_active
+			log = "[THIS.GetName] is out"
+		}
+
+		every_character = {
+			limit = {
+				has_character_flag = ready_to_field
+			}
+			clr_character_flag = ready_to_field
+			set_character_flag = is_goalkeeper
+			set_character_flag = is_active
+
+			set_variable = { ROOT.gk_tee_number = THIS.tee_number }
+			set_variable = { ROOT.gk_name = THIS }
+			set_variable = { ROOT.gk_fb = THIS.fb_power }
+
+			log = "[THIS.GetName] is in as goalkeeper"
+		}
+	}
+	else_if = {
 		limit = {
 			has_country_flag = left_atk_chosen
 		}
@@ -743,9 +775,9 @@ swap_footballer = {
 			clr_character_flag = ready_to_field
 			set_character_flag = center_atk
 			set_character_flag = is_active
-			set_variable = {ROOT.right_atk_tee_number = THIS.tee_number}
-			set_variable = {ROOT.right_atk_name = THIS}
-			set_variable = {ROOT.right_atk_fb = THIS.fb_power}
+			set_variable = {ROOT.center_atk_tee_number = THIS.tee_number}
+			set_variable = {ROOT.center_atk_name = THIS}
+			set_variable = {ROOT.center_atk_fb = THIS.fb_power}
 			log = "[THIS.GetName] is in"
 		}
 	}
@@ -1097,6 +1129,12 @@ clear_team_ui_flags = {
 		clr_character_flag = ready_to_field
 	}
 	clear_array = available_reserve
+	clear_array = available_reserve_tee_numbers
+	clear_array = available_reserve_fb_power
+	clr_country_flag = reserve_preview_active
+	set_variable = { reserve_preview_fb = 0 }
+	set_variable = { reserve_preview_number = 0 }
+	set_variable = { fb_power_in = 0 }
 }
 
 national_team_test = {

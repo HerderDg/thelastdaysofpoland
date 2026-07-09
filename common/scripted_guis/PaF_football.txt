@@ -460,6 +460,16 @@ scripted_gui = {
 			BRZ_goalkeeper_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = gk_chosen
+			
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = is_goalkeeper
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power }
+				}
+			
+				show_gk_in_reserve = yes
 			}
 
 			BRZ_team_2_left_atk_btn_click = {
@@ -722,7 +732,7 @@ scripted_gui = {
 				random_character = {
 					limit = {
 						has_character_flag = is_active
-						has_character_flag = center_def
+						has_character_flag = right_def
 					}
 					set_variable = { ROOT.fb_power_out = THIS.fb_power}
 				}
@@ -730,15 +740,51 @@ scripted_gui = {
 			}
 
 			BRZ_reserve_player_click = {
-				every_character = {
+				if = {
 					limit = {
-						is_character = chosen_reserve
+						any_character = {
+							is_character = chosen_reserve
+							has_character_flag = ready_to_field
+						}
 					}
-					set_character_flag = ready_to_field
-					set_variable = { ROOT.fb_power_in = THIS.fb_power}
+				
+					every_character = {
+						limit = {
+							has_character_flag = ready_to_field
+						}
+						clr_character_flag = ready_to_field
+					}
+				
+					clr_country_flag = reserve_preview_active
+					set_variable = { reserve_preview_fb = 0 }
+					set_variable = { reserve_preview_number = 0 }
+					set_variable = { fb_power_in = 0 }
 				}
-				log = "[?available_reserve^available_reserve_index.GetTokenValue]"
+				else = {
+					every_character = {
+						limit = {
+							has_character_flag = ready_to_field
+						}
+						clr_character_flag = ready_to_field
+					}
+				
+					every_character = {
+						limit = {
+							is_character = chosen_reserve
+						}
+					
+						set_character_flag = ready_to_field
+					
+						set_variable = { ROOT.fb_power_in = THIS.fb_power }
+						set_variable = { ROOT.reserve_preview_name = THIS }
+						set_variable = { ROOT.reserve_preview_fb = THIS.fb_power }
+						set_variable = { ROOT.reserve_preview_number = THIS.tee_number }
+					
+						ROOT = { set_country_flag = reserve_preview_active }
+					}
+				}
 			}
+
 
 			BRZ_swap_footballer_click = {
 				swap_footballer = yes
