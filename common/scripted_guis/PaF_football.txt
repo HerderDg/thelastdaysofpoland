@@ -102,6 +102,7 @@ scripted_gui = {
 			BRZ_goalkeeper_btn = { image = "[ShowGKBtnClickState]" }
 
 			BRZ_reserve_player = { image = "[ShowReserveButtonClickState]"}
+
 		}
 
 		dynamic_lists = {
@@ -114,6 +115,20 @@ scripted_gui = {
 		}
 
 		triggers = {
+			BRZ_formation_442_button_click_enabled = {
+				NOT = { has_country_flag = BRZ_formation_change_cooldown }
+				NOT = { check_variable = { current_team_setup = 442 } }
+			}
+
+			BRZ_formation_433_button_click_enabled = {
+				NOT = { has_country_flag = BRZ_formation_change_cooldown }
+				NOT = { check_variable = { current_team_setup = 433 } }
+			}
+
+			BRZ_formation_343_button_click_enabled = {
+				NOT = { has_country_flag = BRZ_formation_change_cooldown }
+				NOT = { check_variable = { current_team_setup = 343 } }
+			}
 			BRZ_team_2_left_atk_btn_visible = {
 				check_variable = {
 					current_team_setup = 442
@@ -391,55 +406,6 @@ scripted_gui = {
 		effects = {
 			BRZ_team_management_close_click={
 				clr_country_flag = team_editor_shown
-			}
-
-			BRZ_change_team_setup_right_click={
-				if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 433
-						}
-					}
-					change_to_343_setup = yes
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 343
-						}
-					}
-					change_to_442_setup = yes
-				}
-				else = {
-					change_to_433_setup = yes
-				}
-				clear_team_ui_flags = yes
-				clear_array = available_reserve
-			}
-
-			BRZ_change_team_setup_left_click={
-				if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 433
-						}
-					}
-					change_to_442_setup = yes
-					
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 343
-						}
-					}
-					change_to_433_setup = yes
-				}
-				else = {
-					change_to_343_setup = yes
-				}
-				clear_team_ui_flags = yes
-				clear_array = available_reserve
 			}
 
 			BRZ_change_team_stance_right_click={
@@ -785,6 +751,61 @@ scripted_gui = {
 				}
 			}
 
+			BRZ_formation_442_button_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BRZ_formation_change_cooldown }
+						NOT = { check_variable = { current_team_setup = 442 } }
+					}
+				
+					change_to_442_setup = yes
+					BRZ = {
+						set_country_flag = {
+							flag = BRZ_formation_change_cooldown
+							days = 14
+							value = 1
+						}
+					}
+				}
+			}
+
+			BRZ_formation_433_button_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BRZ_formation_change_cooldown }
+						NOT = { check_variable = { current_team_setup = 433 } }
+					}
+				
+					change_to_433_setup = yes
+				
+					BRZ = {
+						set_country_flag = {
+							flag = BRZ_formation_change_cooldown
+							days = 14
+							value = 1
+						}
+					}
+				}
+			}
+
+			BRZ_formation_343_button_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BRZ_formation_change_cooldown }
+						NOT = { check_variable = { current_team_setup = 343 } }
+					}
+				
+					change_to_343_setup = yes
+				
+					BRZ = {
+						set_country_flag = {
+							flag = BRZ_formation_change_cooldown
+							days = 14
+							value = 1
+						}
+					}
+				}
+			}
 
 			BRZ_swap_footballer_click = {
 				swap_footballer = yes
