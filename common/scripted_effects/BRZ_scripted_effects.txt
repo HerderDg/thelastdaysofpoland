@@ -1689,6 +1689,9 @@ initialize_standings = {
 	set_variable = {
 		league_olimpia_match_influence = 0
 	}
+	set_variable = {
+		league_corruption_counter = 0
+	}
 
 	add_ideas = BRZ_olimpia_truskolasy
 	add_ideas = BRZ_liswarta_krzepice
@@ -2190,6 +2193,19 @@ nsfl_simulate_match_5 = {
 	nsfl_simulate_generic_match = yes
 	league_apply_match_result = yes
 	league_sort_standings = yes
+	if = {
+		limit = {
+			OR = {
+				check_variable = {
+					nsfl_round = 9
+				}
+				check_variable = {
+					nsfl_round = 18
+				}				
+			}
+		}
+		nsfl_check_season_events = yes
+	}
 }
 
 create_other_teams = {
@@ -3257,6 +3273,10 @@ nsfl_check_corruption_leak = {
 					ideology = ROOT
 					popularity = -0.01
 				}
+
+				add_to_variable = {
+					league_corruption_counter = 1
+				}
 			}
 		}
 
@@ -3281,10 +3301,93 @@ nsfl_check_corruption_leak = {
 					ideology = ROOT
 					popularity = -0.03
 				}
+
+				add_to_variable = {
+					league_corruption_counter = 2
+				}
 			}
 		}
 
 		clr_country_flag = league_opponent_bribed
+	}
+}
+
+nsfl_check_season_events = {
+	#polowa sezonu
+	if = {
+		limit = {
+			check_variable = {
+				nsfl_round = 9
+			}
+			NOT = {
+				has_country_flag = nsfl_midseason_event_fired
+			}
+		}
+
+		set_country_flag = nsfl_midseason_event_fired
+
+		# chujnia w chuj
+		if = {
+			limit = {
+				OR = {
+					check_variable = {
+						league_standings^7 = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						league_standings^8 = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						league_standings^9 = token:BRZ_olimpia_truskolasy
+					}
+				}
+			}
+
+			country_event = {
+				id = brz_league.1
+			}
+		}
+
+		# olimpia gurom
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {
+						league_standings^0 = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						league_standings^1 = token:BRZ_olimpia_truskolasy
+					}
+					check_variable = {
+						league_standings^2 = token:BRZ_olimpia_truskolasy
+					}
+				}
+			}
+		
+			country_event = {
+				id = brz_league.2
+			}
+		}
+	}
+
+	# ja pierdole ja pierdole ja pierdole ja pierdole
+	if = {
+		limit = {
+			check_variable = {
+				nsfl_round = 18
+			}
+			NOT = {
+				has_country_flag = nsfl_endseason_event_fired
+			}
+			check_variable = {
+				league_standings^9 = token:BRZ_olimpia_truskolasy
+			}
+		}
+
+		set_country_flag = nsfl_endseason_event_fired
+
+		country_event = {
+			id = brz_league.3
+		}
 	}
 }
 
