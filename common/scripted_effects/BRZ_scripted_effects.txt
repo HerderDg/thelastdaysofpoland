@@ -1117,7 +1117,6 @@ BRZ_clear_formation_display_vars = {
 	set_variable = { right_center_def_fb = 0 }
 }
 
-
 BRZ_calculate_stats = {
 	set_temp_variable = {
 		attacker_count = 0
@@ -1273,6 +1272,7 @@ BRZ_calculate_stats = {
 	round_variable = zwkp_mid
 	round_variable = zwkp_def
 }
+
 show_atk_in_reserve = {
 	clear_array = available_reserve
 	clear_array = available_reserve_tee_numbers
@@ -4104,6 +4104,16 @@ nsfl_check_season_events = {
 			id = brz_league.3
 		}
 	}
+	if = {
+		limit = {
+			check_variable = {
+				nsfl_round = 18
+			}
+		}
+
+		set_country_flag = nsfl_endseason
+	}
+	
 }
 
 
@@ -4112,18 +4122,325 @@ BRZ_show_zwkt_match_popup = {
 		limit = {
 			check_variable = { BRZ_goals > enemy_goals }
 		}
-		sound_effect = brz_win_sound
+		hidden_effect = {
+			sound_effect = brz_win_sound			
+		}
 	}
 	else_if = {
 		limit = {
 			check_variable = { BRZ_goals = enemy_goals }
 		}
-		sound_effect = brz_draw_sound
+		hidden_effect = {
+			sound_effect = brz_draw_sound			
+		}
+
 	}
 	else = {
-		sound_effect = brz_lose_sound
+		hidden_effect = {
+			sound_effect = brz_lose_sound			
+		}
 	}
 
 	set_country_flag = BRZ_zwkt_match_popup_open
 }
+
+
+BRZ_select_local_promoted_club = {
+	if = {
+		limit = {
+			check_variable = {
+				league_standings^0 = token:BRZ_olimpia_truskolasy
+			}
+		}
+
+		random_list = {
+			50 = {
+				set_variable = {
+					BRZ_promoted_local_club = league_standings^1
+				}
+			}
+			50 = {
+				set_variable = {
+					BRZ_promoted_local_club = league_standings^2
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {
+					league_standings^1 = token:BRZ_olimpia_truskolasy
+				}
+				check_variable = {
+					league_standings^2 = token:BRZ_olimpia_truskolasy
+				}
+			}
+		}
+
+		set_variable = {
+			BRZ_promoted_local_club = league_standings^0
+		}
+	}
+	else = {
+		# Safety fallback
+		set_variable = {
+			BRZ_promoted_local_club = league_standings^0
+		}
+	}
+}
+
+BRZ_promote_olimpia_to_voivodeship_league = {
+	BRZ_select_local_promoted_club = yes
+
+	clr_country_flag = BRZ_local_league_active
+	set_country_flag = BRZ_voivodeship_league_active
+
+	BRZ_initialize_voivodeship_league = yes
+
+	set_variable = { league_round = 1 }
+}
+
+BRZ_restart_local_league = {
+	clr_country_flag = BRZ_voivodeship_league_active
+	set_country_flag = BRZ_local_league_active
+	initialize_standings = yes
+	set_variable = { nsfl_round = 1 }
+}
+
+
+BRZ_initialize_voivodeship_league = {
+	set_country_flag = league_is_open
+
+	clear_array = league_team_tokens
+	clear_array = league_standings
+	clear_array = league_points
+	clear_array = league_wins
+	clear_array = league_draws
+	clear_array = league_loses	
+	clear_array = league_goals_shot
+	clear_array = league_goals_lost
+	clear_array = league_last_goals_for
+	clear_array = league_last_goals_against
+	clear_array = league_strength
+
+	set_variable = { league_size = 18 }
+	set_variable = { league_round = 1 }
+	set_variable = { league_matches_per_round = 9 }
+	set_variable = {
+		league_olimpia_match_influence = 0
+	}
+
+	add_to_array = { array = league_team_tokens value = token:BRZ_olimpia_truskolasy }
+	add_to_array = { array = league_team_tokens value = BRZ_promoted_local_club }
+	add_to_array = { array = league_team_tokens value = token:BRZ_rakow_czestochowa }
+	add_to_array = { array = league_team_tokens value = token:BRZ_skra_czestochowa }
+	add_to_array = { array = league_team_tokens value = token:BRZ_zaglebie_sosnowiec }
+	add_to_array = { array = league_team_tokens value = token:BRZ_gornik_sosnowiec }
+	add_to_array = { array = league_team_tokens value = token:BRZ_sarmacja_bedzin }
+	add_to_array = { array = league_team_tokens value = token:BRZ_unia_dabrowa_gornicza }
+	add_to_array = { array = league_team_tokens value = token:BRZ_tecza_bledow }
+	add_to_array = { array = league_team_tokens value = token:BRZ_unia_zabkowice }
+	add_to_array = { array = league_team_tokens value = token:BRZ_szczakowianka_jaworzno }
+	add_to_array = { array = league_team_tokens value = token:BRZ_victoria_jaworzno }
+	add_to_array = { array = league_team_tokens value = token:BRZ_warta_zawiercie }
+	add_to_array = { array = league_team_tokens value = token:BRZ_przemsza_siewierz }
+	add_to_array = { array = league_team_tokens value = token:BRZ_sparta_lubliniec }
+	add_to_array = { array = league_team_tokens value = token:BRZ_unia_kalety }
+	add_to_array = { array = league_team_tokens value = token:BRZ_mks_myszkow }
+	add_to_array = { array = league_team_tokens value = token:BRZ_pilica_koniecpol }
+
+	add_to_array = { array = league_standings value = token:BRZ_olimpia_truskolasy } 
+	add_to_array = { array = league_standings value = BRZ_promoted_local_club } 
+	add_to_array = { array = league_standings value = token:BRZ_rakow_czestochowa } 
+	add_to_array = { array = league_standings value = token:BRZ_skra_czestochowa } 
+	add_to_array = { array = league_standings value = token:BRZ_zaglebie_sosnowiec } 
+	add_to_array = { array = league_standings value = token:BRZ_gornik_sosnowiec } 
+	add_to_array = { array = league_standings value = token:BRZ_sarmacja_bedzin } 
+	add_to_array = { array = league_standings value = token:BRZ_unia_dabrowa_gornicza } 
+	add_to_array = { array = league_standings value = token:BRZ_tecza_bledow } 
+	add_to_array = { array = league_standings value = token:BRZ_unia_zabkowice } 
+	add_to_array = { array = league_standings value = token:BRZ_szczakowianka_jaworzno } 
+	add_to_array = { array = league_standings value = token:BRZ_victoria_jaworzno } 
+	add_to_array = { array = league_standings value = token:BRZ_warta_zawiercie } 
+	add_to_array = { array = league_standings value = token:BRZ_przemsza_siewierz } 
+	add_to_array = { array = league_standings value = token:BRZ_sparta_lubliniec } 
+	add_to_array = { array = league_standings value = token:BRZ_unia_kalety } 
+	add_to_array = { array = league_standings value = token:BRZ_mks_myszkow } 
+	add_to_array = { array = league_standings value = token:BRZ_pilica_koniecpol }	 
+
+	add_to_array = { array = league_strength value = 53 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_strength value = 47 } # 1 NSFL Team
+	add_to_array = { array = league_strength value = 61 } # 2 Raków Częstochowa
+	add_to_array = { array = league_strength value = 54 } # 3 Skra Częstochowa
+	add_to_array = { array = league_strength value = 53 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_strength value = 48 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_strength value = 49 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_strength value = 51 } # 7 Unia DG
+	add_to_array = { array = league_strength value = 46 } # 8 Tęcza Błędów
+	add_to_array = { array = league_strength value = 49 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_strength value = 55 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_strength value = 49 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_strength value = 53 } # 12 Warta Zawiercie
+	add_to_array = { array = league_strength value = 47 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_strength value = 55 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_strength value = 49 } # 15 Unia Kalety
+	add_to_array = { array = league_strength value = 50 } # 16 MKS Myszków
+	add_to_array = { array = league_strength value = 48 } # 17 Pilica Koniecpol	
+
+	add_to_array = { array = league_points value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_points value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_points value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_points value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_points value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_points value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_points value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_points value = 0 } # 7 Unia DG
+	add_to_array = { array = league_points value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_points value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_points value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_points value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_points value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_points value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_points value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_points value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_points value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_points value = 0 } # 17 Pilica Koniecpol	
+
+	add_to_array = { array = league_goals_shot value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_goals_shot value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_goals_shot value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_goals_shot value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_goals_shot value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_goals_shot value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_goals_shot value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_goals_shot value = 0 } # 7 Unia DG
+	add_to_array = { array = league_goals_shot value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_goals_shot value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_goals_shot value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_goals_shot value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_goals_shot value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_goals_shot value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_goals_shot value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_goals_shot value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_goals_shot value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_goals_shot value = 0 } # 17 Pilica Koniecpol		
+
+	add_to_array = { array = league_goals_lost value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_goals_lost value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_goals_lost value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_goals_lost value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_goals_lost value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_goals_lost value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_goals_lost value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_goals_lost value = 0 } # 7 Unia DG
+	add_to_array = { array = league_goals_lost value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_goals_lost value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_goals_lost value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_goals_lost value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_goals_lost value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_goals_lost value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_goals_lost value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_goals_lost value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_goals_lost value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_goals_lost value = 0 } # 17 Pilica Koniecpol			
+
+	add_to_array = { array = league_wins value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_wins value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_wins value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_wins value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_wins value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_wins value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_wins value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_wins value = 0 } # 7 Unia DG
+	add_to_array = { array = league_wins value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_wins value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_wins value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_wins value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_wins value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_wins value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_wins value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_wins value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_wins value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_wins value = 0 } # 17 Pilica Koniecpol				
+	
+	add_to_array = { array = league_draws value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_draws value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_draws value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_draws value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_draws value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_draws value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_draws value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_draws value = 0 } # 7 Unia DG
+	add_to_array = { array = league_draws value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_draws value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_draws value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_draws value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_draws value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_draws value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_draws value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_draws value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_draws value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_draws value = 0 } # 17 Pilica Koniecpol		
+	
+	add_to_array = { array = league_loses value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_loses value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_loses value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_loses value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_loses value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_loses value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_loses value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_loses value = 0 } # 7 Unia DG
+	add_to_array = { array = league_loses value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_loses value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_loses value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_loses value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_loses value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_loses value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_loses value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_loses value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_loses value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_loses value = 0 } # 17 Pilica Koniecpol			
+
+	add_to_array = { array = league_last_goals_for value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_last_goals_for value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_last_goals_for value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_last_goals_for value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_last_goals_for value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_last_goals_for value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_last_goals_for value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_last_goals_for value = 0 } # 7 Unia DG
+	add_to_array = { array = league_last_goals_for value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_last_goals_for value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_last_goals_for value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_last_goals_for value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_last_goals_for value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_last_goals_for value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_last_goals_for value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_last_goals_for value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_last_goals_for value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_last_goals_for value = 0 } # 17 Pilica Koniecpol				
+
+	add_to_array = { array = league_last_goals_against value = 0 } # 0 Olimpia Truskolasy
+	add_to_array = { array = league_last_goals_against value = 0 } # 1 NSFL Team
+	add_to_array = { array = league_last_goals_against value = 0 } # 2 Raków Częstochowa
+	add_to_array = { array = league_last_goals_against value = 0 } # 3 Skra Częstochowa
+	add_to_array = { array = league_last_goals_against value = 0 } # 4 Zagłębie Sosnowiec
+	add_to_array = { array = league_last_goals_against value = 0 } # 5 Górnik Sosnowiec
+	add_to_array = { array = league_last_goals_against value = 0 } # 6 Sarmacja Będzin
+	add_to_array = { array = league_last_goals_against value = 0 } # 7 Unia DG
+	add_to_array = { array = league_last_goals_against value = 0 } # 8 Tęcza Błędów
+	add_to_array = { array = league_last_goals_against value = 0 } # 9 Unia Ząbkowice
+	add_to_array = { array = league_last_goals_against value = 0 } # 10 Szczakowianka Jaworzno
+	add_to_array = { array = league_last_goals_against value = 0 } # 11 Victoria Jaworzno
+	add_to_array = { array = league_last_goals_against value = 0 } # 12 Warta Zawiercie
+	add_to_array = { array = league_last_goals_against value = 0 } # 13 Przemsza Siewierz
+	add_to_array = { array = league_last_goals_against value = 0 } # 14 Sparta Lubliniec
+	add_to_array = { array = league_last_goals_against value = 0 } # 15 Unia Kalety
+	add_to_array = { array = league_last_goals_against value = 0 } # 16 MKS Myszków
+	add_to_array = { array = league_last_goals_against value = 0 } # 17 Pilica Koniecpol		
+	
+	#nsvl_initialize_fixtures = yes
+}
+
 
