@@ -4197,6 +4197,15 @@ BRZ_promote_olimpia_to_voivodeship_league = {
 	set_country_flag = BRZ_voivodeship_league_active
 
 	BRZ_initialize_voivodeship_league = yes
+	BRZ_start_voivodeship_batch_1 = yes
+
+	remove_mission = BRZ_match_1
+	remove_mission = BRZ_match_2
+	remove_mission = BRZ_match_3
+	remove_mission = BRZ_match_4
+	remove_mission = BRZ_match_5
+	remove_mission = BRZ_league_in_recess_break
+	remove_mission = BRZ_league_in_recess
 
 	set_variable = { league_round = 1 }
 }
@@ -4439,8 +4448,261 @@ BRZ_initialize_voivodeship_league = {
 	add_to_array = { array = league_last_goals_against value = 0 } # 15 Unia Kalety
 	add_to_array = { array = league_last_goals_against value = 0 } # 16 MKS Myszków
 	add_to_array = { array = league_last_goals_against value = 0 } # 17 Pilica Koniecpol		
-	
-	#nsvl_initialize_fixtures = yes
+
+	set_variable = { league_batch = 1 }
+	set_variable = { league_batch_offset = 0 }
+	set_variable = { league_matches_this_batch = 4 }
+
+	league_sort_standings = yes
+	BRZ_initialize_voivodeship_fixtures = yes
+	league_prepare_voivodeship_batch_1 = yes
 }
 
+BRZ_initialize_voivodeship_fixtures = {
+	clear_array = league_fixture_home_index
+	clear_array = league_fixture_away_index
 
+	# ROUND 1, MATCH 1
+	add_to_array = { array = league_fixture_home_index value = 0 }
+	add_to_array = { array = league_fixture_away_index value = 1 }
+
+	# ROUND 1, MATCH 2
+	add_to_array = { array = league_fixture_home_index value = 2 }
+	add_to_array = { array = league_fixture_away_index value = 17 }
+
+	# ROUND 1, MATCH 3
+	add_to_array = { array = league_fixture_home_index value = 3 }
+	add_to_array = { array = league_fixture_away_index value = 16 }
+
+	# ROUND 1, MATCH 4
+	add_to_array = { array = league_fixture_home_index value = 4 }
+	add_to_array = { array = league_fixture_away_index value = 15 }
+
+	# ROUND 1, MATCH 5
+	add_to_array = { array = league_fixture_home_index value = 5 }
+	add_to_array = { array = league_fixture_away_index value = 14 }
+
+	# ROUND 1, MATCH 6
+	add_to_array = { array = league_fixture_home_index value = 6 }
+	add_to_array = { array = league_fixture_away_index value = 13 }
+
+	# ROUND 1, MATCH 7
+	add_to_array = { array = league_fixture_home_index value = 7 }
+	add_to_array = { array = league_fixture_away_index value = 12 }
+
+	# ROUND 1, MATCH 8
+	add_to_array = { array = league_fixture_home_index value = 8 }
+	add_to_array = { array = league_fixture_away_index value = 11 }
+
+	# ROUND 1, MATCH 9
+	add_to_array = { array = league_fixture_home_index value = 9 }
+	add_to_array = { array = league_fixture_away_index value = 10 }	
+}
+
+league_load_current_batch_matches = {
+	set_temp_variable = { league_round_start_index = league_round }
+	subtract_from_temp_variable = { league_round_start_index = 1 }
+	multiply_temp_variable = {
+		var = league_round_start_index
+		value = league_matches_per_round
+	}
+	add_to_temp_variable = { league_round_start_index = league_batch_offset }
+
+	# Match 1
+	set_temp_variable = { league_match_index = league_round_start_index }
+
+	set_variable = { league_match_1_home_index = league_fixture_home_index^league_match_index }
+	set_variable = { league_match_1_away_index = league_fixture_away_index^league_match_index }
+
+	set_variable = { league_match_1_home = league_team_tokens^league_match_1_home_index }
+	set_variable = { league_match_1_away = league_team_tokens^league_match_1_away_index }
+
+	# Match 2
+	set_temp_variable = { league_match_index = league_round_start_index }
+	add_to_temp_variable = { league_match_index = 1 }
+
+	set_variable = { league_match_2_home_index = league_fixture_home_index^league_match_index }
+	set_variable = { league_match_2_away_index = league_fixture_away_index^league_match_index }
+
+	set_variable = { league_match_2_home = league_team_tokens^league_match_2_home_index }
+	set_variable = { league_match_2_away = league_team_tokens^league_match_2_away_index }
+
+	# Match 3
+	set_temp_variable = { league_match_index = league_round_start_index }
+	add_to_temp_variable = { league_match_index = 2 }
+
+	set_variable = { league_match_3_home_index = league_fixture_home_index^league_match_index }
+	set_variable = { league_match_3_away_index = league_fixture_away_index^league_match_index }
+
+	set_variable = { league_match_3_home = league_team_tokens^league_match_3_home_index }
+	set_variable = { league_match_3_away = league_team_tokens^league_match_3_away_index }
+
+	# Match 4
+	set_temp_variable = { league_match_index = league_round_start_index }
+	add_to_temp_variable = { league_match_index = 3 }
+
+	set_variable = { league_match_4_home_index = league_fixture_home_index^league_match_index }
+	set_variable = { league_match_4_away_index = league_fixture_away_index^league_match_index }
+
+	set_variable = { league_match_4_home = league_team_tokens^league_match_4_home_index }
+	set_variable = { league_match_4_away = league_team_tokens^league_match_4_away_index }
+
+	# Match 5
+	if = {
+		limit = {
+			check_variable = { league_matches_this_batch > 4 }
+		}
+
+		set_country_flag = league_match_5_available
+
+		set_temp_variable = { league_match_index = league_round_start_index }
+		add_to_temp_variable = { league_match_index = 4 }
+
+		set_variable = { league_match_5_home_index = league_fixture_home_index^league_match_index }
+		set_variable = { league_match_5_away_index = league_fixture_away_index^league_match_index }
+
+		set_variable = { league_match_5_home = league_team_tokens^league_match_5_home_index }
+		set_variable = { league_match_5_away = league_team_tokens^league_match_5_away_index }
+	}
+	else = {
+		clr_country_flag = league_match_5_available
+	}
+}
+
+league_prepare_voivodeship_batch_1 = {
+	set_variable = { league_batch = 1 }
+	set_variable = { league_batch_offset = 0 }
+	set_variable = { league_matches_this_batch = 4 }
+
+	league_load_current_batch_matches = yes
+}
+
+league_prepare_voivodeship_batch_2 = {
+	set_variable = { league_batch = 2 }
+	set_variable = { league_batch_offset = 4 }
+	set_variable = { league_matches_this_batch = 5 }
+
+	league_load_current_batch_matches = yes
+}
+
+BRZ_start_voivodeship_batch_1 = {
+	league_prepare_voivodeship_batch_1 = yes
+	league_load_current_batch_matches = yes
+
+	set_variable = { league_matches_finished_in_batch = 0 }
+
+	activate_mission = BRZ_league_match_1
+	activate_mission = BRZ_league_match_2
+	activate_mission = BRZ_league_match_3
+	activate_mission = BRZ_league_match_4
+}
+
+BRZ_start_voivodeship_batch_2 = {
+	league_prepare_voivodeship_batch_2 = yes
+	league_load_current_batch_matches = yes
+
+	set_variable = { league_matches_finished_in_batch = 0 }
+
+	activate_mission = BRZ_league_match_1
+	activate_mission = BRZ_league_match_2
+	activate_mission = BRZ_league_match_3
+	activate_mission = BRZ_league_match_4
+	activate_mission = BRZ_league_match_5
+}
+
+league_simulate_match_1 = {
+	set_temp_variable = { league_home = league_match_1_home_index }
+	set_temp_variable = { league_away = league_match_1_away_index }
+
+	nsfl_simulate_generic_match = yes
+	league_apply_match_result = yes
+	league_sort_standings = yes
+}
+
+league_simulate_match_2 = {
+	set_temp_variable = { league_home = league_match_2_home_index }
+	set_temp_variable = { league_away = league_match_2_away_index }
+
+	nsfl_simulate_generic_match = yes
+	league_apply_match_result = yes
+	league_sort_standings = yes
+	league_after_match_finished = yes
+}
+
+league_simulate_match_3 = {
+	set_temp_variable = { league_home = league_match_3_home_index }
+	set_temp_variable = { league_away = league_match_3_away_index }
+
+	nsfl_simulate_generic_match = yes
+	league_apply_match_result = yes
+	league_sort_standings = yes
+	league_after_match_finished = yes
+}
+
+league_simulate_match_4 = {
+	set_temp_variable = { league_home = league_match_4_home_index }
+	set_temp_variable = { league_away = league_match_4_away_index }
+
+	nsfl_simulate_generic_match = yes
+	league_apply_match_result = yes
+	league_sort_standings = yes
+	league_after_match_finished = yes
+}
+
+league_simulate_match_5 = {
+	set_temp_variable = { league_home = league_match_5_home_index }
+	set_temp_variable = { league_away = league_match_5_away_index }
+
+	nsfl_simulate_generic_match = yes
+	league_apply_match_result = yes
+	league_sort_standings = yes
+	league_after_match_finished = yes
+}
+
+league_after_match_finished = {
+	add_to_variable = { league_matches_finished_in_batch = 1 }
+
+	if = {
+		limit = {
+			check_variable = { league_batch = 1 }
+			check_variable = {
+				league_matches_finished_in_batch = 3
+			}
+		}
+
+		country_event = {
+			id = brz_league.5
+			days = 3
+		}
+	}
+
+	else_if = {
+		limit = {
+			check_variable = { league_batch = 2 }
+			check_variable = {
+				league_matches_finished_in_batch = 5
+			}
+		}
+
+		league_finish_voivodeship_round = yes
+	}
+}
+
+league_finish_voivodeship_round = {
+	league_sort_standings = yes
+
+	add_to_variable = { league_round = 1 }
+
+	# For now, only continue if another round exists.
+	# Later this becomes 34.
+	if = {
+		limit = {
+			check_variable = { league_round < 2 }
+		}
+
+		country_event = {
+			id = brz_league.6
+			days = 3
+		}
+	}
+}
