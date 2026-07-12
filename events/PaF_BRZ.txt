@@ -878,6 +878,8 @@ country_event = {
 		name = brz_league.4.a
 		trigger = {
 			BRZ_olimpia_promoted_from_league = yes
+			has_country_flag = BRZ_local_league_active
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
 		}
 		BRZ_promote_olimpia_to_voivodeship_league = yes
 	}
@@ -885,11 +887,33 @@ country_event = {
 	option = {
 		name = brz_league.4.b
 		trigger = {
-			NOT = {
-				BRZ_olimpia_promoted_from_league = yes
-			}
+			BRZ_olimpia_promoted_from_league = no
+			has_country_flag = BRZ_local_league_active
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
 		}
 		BRZ_restart_local_league = yes
+	}
+
+	option = {
+		name = brz_league.4.c
+		trigger = {
+			NOT = { has_country_flag = BRZ_local_league_active }
+			has_country_flag = BRZ_voivodeship_league_active
+			BRZ_olimpia_promoted_from_league = yes
+		}
+
+		BRZ_promote_olimpia_to_next_league = yes
+	}
+
+	option = {
+		name = brz_league.4.d
+		trigger = {
+			NOT = { has_country_flag = BRZ_local_league_active }
+			has_country_flag = BRZ_voivodeship_league_active
+			BRZ_olimpia_promoted_from_league = no
+		}
+
+		BRZ_restart_voivodeship_league = yes
 	}
 }
 
