@@ -3457,6 +3457,25 @@ league_apply_match_result = {
 
 		nsfl_check_corruption_leak = yes
 	}
+
+	if = {
+		limit = {
+			check_variable = { league_home = 0 }
+		}
+
+		set_variable = {
+			league_olimpia_last_enemy = league_team_tokens^league_away
+		}
+	}
+
+	else_if = {
+		limit = {
+			check_variable = { league_away = 0 }
+		}
+		set_variable = {
+			league_olimpia_last_enemy = league_team_tokens^league_home
+		}
+	}
 }
 
 
@@ -4214,6 +4233,7 @@ BRZ_initialize_voivodeship_league = {
 	set_variable = { league_matches_this_batch = 4 }
 
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 	BRZ_initialize_voivodeship_fixtures = yes
 	league_prepare_voivodeship_batch_1 = yes
 }
@@ -5323,6 +5343,7 @@ league_simulate_match_1 = {
 	nsfl_simulate_generic_match = yes
 	league_apply_match_result = yes
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 }
 
 league_simulate_match_2 = {
@@ -5332,6 +5353,7 @@ league_simulate_match_2 = {
 	nsfl_simulate_generic_match = yes
 	league_apply_match_result = yes
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 	league_after_match_finished = yes
 }
 
@@ -5342,6 +5364,7 @@ league_simulate_match_3 = {
 	nsfl_simulate_generic_match = yes
 	league_apply_match_result = yes
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 	league_after_match_finished = yes
 }
 
@@ -5352,6 +5375,7 @@ league_simulate_match_4 = {
 	nsfl_simulate_generic_match = yes
 	league_apply_match_result = yes
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 	league_after_match_finished = yes
 }
 
@@ -5362,6 +5386,7 @@ league_simulate_match_5 = {
 	nsfl_simulate_generic_match = yes
 	league_apply_match_result = yes
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 	league_after_match_finished = yes
 }
 
@@ -5396,7 +5421,7 @@ league_after_match_finished = {
 
 league_finish_voivodeship_round = {
 	league_sort_standings = yes
-
+	league_rebuild_display_stats = yes
 	add_to_variable = { league_round = 1 }
 
 	if = {
@@ -5522,6 +5547,7 @@ BRZ_initialize_regional_league = {
 	set_variable = { league_matches_this_batch = 4 }
 
 	league_sort_standings = yes
+	league_rebuild_display_stats = yes
 	BRZ_initialize_voivodeship_fixtures = yes
 	league_prepare_voivodeship_batch_1 = yes
 }
@@ -5835,4 +5861,76 @@ simulate_northern_league = {
 		}
 		add_to_array = { ROOT.northern_league_players = THIS.x_football_club_token }
 	}		
+}
+
+league_rebuild_display_stats = {
+	clear_array = league_display_points
+	clear_array = league_display_wins
+	clear_array = league_display_draws
+	clear_array = league_display_loses
+	clear_array = league_display_goals_shot
+	clear_array = league_display_goals_lost
+	clear_array = league_display_goal_balance
+
+	set_temp_variable = { league_display_i = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { league_display_i < league_size }
+		}
+
+		set_temp_variable = {
+			league_display_team = league_standings^league_display_i
+		}
+
+		league_get_team_index_from_token = yes
+
+		add_to_array = {
+			array = league_display_points
+			value = league_points^league_current_team_index
+		}
+		add_to_array = {
+			array = league_display_wins
+			value = league_wins^league_current_team_index
+		}
+		add_to_array = {
+			array = league_display_draws
+			value = league_draws^league_current_team_index
+		}
+		add_to_array = {
+			array = league_display_loses
+			value = league_loses^league_current_team_index
+		}
+		add_to_array = {
+			array = league_display_goals_shot
+			value = league_goals_shot^league_current_team_index
+		}
+		add_to_array = {
+			array = league_display_goals_lost
+			value = league_goals_lost^league_current_team_index
+		}
+		add_to_array = {
+			array = league_display_goal_balance
+			value = league_goal_balance^league_current_team_index
+		}
+
+		add_to_temp_variable = { league_display_i = 1 }
+	}
+}
+
+league_get_team_index_from_token = {
+	set_temp_variable = { league_current_team_index = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { league_current_team_index < league_size }
+			NOT = {
+				check_variable = {
+					league_team_tokens^league_current_team_index = league_display_team
+				}
+			}
+		}
+
+		add_to_temp_variable = { league_current_team_index = 1 }
+	}
 }
