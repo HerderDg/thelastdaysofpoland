@@ -278,7 +278,6 @@ change_to_343_setup = {
 BRZ_rebuild_formation = {
 	clear_team_ui_flags = yes
 
-	# Remember who was already on the field
 	every_character = {
 		limit = {
 			has_character_flag = is_footballer
@@ -3498,7 +3497,7 @@ league_recalculate_scores = {
 			}
 		}
 
-		# score = points * 10000000
+		# score = points * 1000000
 		set_temp_variable = {
 			league_score = league_points^league_i
 		}
@@ -3506,7 +3505,7 @@ league_recalculate_scores = {
 			league_score = 1000000
 		}
 
-		# score += wins * 100000
+		# score += wins * 10000
 		set_temp_variable = {
 			league_score_part = league_wins^league_i
 		}
@@ -3969,7 +3968,7 @@ BRZ_select_local_promoted_club = {
 		}
 	}
 	else = {
-		# Safety fallback
+		#fallback
 		set_variable = {
 			BRZ_promoted_local_club = league_standings^0
 		}
@@ -5489,7 +5488,6 @@ BRZ_initialize_regional_league = {
 
 	simulate_regional_league = yes
 
-	# Team 0: Olimpia / player club
 	add_to_array = { array = league_team_tokens value = token:BRZ_olimpia_truskolasy }
 	add_to_array = { array = league_standings value = token:BRZ_olimpia_truskolasy }
 	add_to_array = { array = league_points value = 0 }
@@ -5501,7 +5499,6 @@ BRZ_initialize_regional_league = {
 	add_to_array = { array = league_goal_balance value = 0 }
 	add_to_array = { array = league_strength value = 72 }
 
-	# Team 0: Olimpia / player club
 	add_to_array = { array = league_team_tokens value = BRZ_promoted_local_club }
 	add_to_array = { array = league_standings value = BRZ_promoted_local_club }
 	add_to_array = { array = league_points value = 0 }
@@ -5513,7 +5510,6 @@ BRZ_initialize_regional_league = {
 	add_to_array = { array = league_goal_balance value = 0 }
 	add_to_array = { array = league_strength value = 72 }	
 
-	# Then add 16 dynamic southern league teams
 	set_temp_variable = { regional_league_fill_index = 0 }
 
 	while_loop_effect = {
@@ -5538,9 +5534,13 @@ BRZ_initialize_regional_league = {
 		add_to_array = { array = league_goals_shot value = 0 }
 		add_to_array = { array = league_goals_lost value = 0 }
 		add_to_array = { array = league_goal_balance value = 0 }
-
-		# Placeholder strength
-		add_to_array = { array = league_strength value = 70 }
+		set_variable_to_random = {
+			var = regional_league_strength
+			min = 67
+			max = 76
+			integer = yes
+		}
+		add_to_array = { array = league_strength value = regional_league_strength }
 
 		add_to_temp_variable = { regional_league_fill_index = 1 }
 	}
@@ -5960,4 +5960,125 @@ BRZ_bukmacherka = {
 			add_to_variable = { budget = 4 }
 		}
 	}
+}
+
+
+BRZ_initialize_ekstraklapa = {
+	clear_array = league_team_tokens
+	clear_array = league_standings
+	clear_array = league_points
+	clear_array = league_wins
+	clear_array = league_draws
+	clear_array = league_loses
+	clear_array = league_goals_shot
+	clear_array = league_goals_lost
+	clear_array = league_goal_balance
+	clear_array = league_strength
+
+	simulate_ekstraklapa = yes
+
+	set_temp_variable = { regional_league_fill_index = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { regional_league_fill_index < 18 }
+		}
+
+		add_to_array = {
+			array = league_team_tokens
+			value = regional_league_players^regional_league_fill_index
+		}
+
+		add_to_array = {
+			array = league_standings
+			value = regional_league_players^regional_league_fill_index
+		}
+
+		add_to_array = { array = league_points value = 0 }
+		add_to_array = { array = league_wins value = 0 }
+		add_to_array = { array = league_draws value = 0 }
+		add_to_array = { array = league_loses value = 0 }
+		add_to_array = { array = league_goals_shot value = 0 }
+		add_to_array = { array = league_goals_lost value = 0 }
+		add_to_array = { array = league_goal_balance value = 0 }
+		set_variable_to_random = {
+			var = ekstraleague_strength
+			min = 77
+			max = 87
+			integer = yes
+		}
+		add_to_array = { array = league_strength value = ekstraleague_strength }
+
+		add_to_temp_variable = { regional_league_fill_index = 1 }
+	}
+
+	set_variable = { league_size = 18 }
+	set_variable = { league_round = 1 }
+	set_variable = { league_matches_per_round = 9 }
+
+	set_variable = { league_batch = 1 }
+	set_variable = { league_batch_offset = 0 }
+	set_variable = { league_matches_this_batch = 4 }
+
+	league_sort_standings = yes
+	league_rebuild_display_stats = yes
+	BRZ_initialize_voivodeship_fixtures = yes
+	league_prepare_voivodeship_batch_1 = yes
+}
+
+
+simulate_ekstraklapa = {
+	clear_array = ekstraklasa_league_players
+	every_possible_country = {
+		random_select_amount = 9
+		limit = {
+			has_variable = x_football_club_token
+			is_in_array = {
+				array = ROOT.northern_league_players
+				value = THIS.x_football_club_token
+			}
+		}
+
+		add_to_array = {
+			array = ROOT.ekstraklasa_league_players
+			value = THIS.x_football_club_token
+		}
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^0
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^1
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^2
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^3
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^4
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^5
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^6
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^7
+	}
+	add_to_array = {
+		array = ekstraklasa_league_players
+		value = league_standings^8
+	}				
+
 }
