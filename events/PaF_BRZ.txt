@@ -618,6 +618,10 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.34"}
 	option = {
 		name = buzzer.34.a
+		country_event = {
+			id = buzzer.42
+			days = 3
+		}
 	}
 }
 
@@ -744,6 +748,76 @@ country_event = {
 	option = {
 		name = buzzer.41.a
 	}
+}
+
+country_event = {
+	id = buzzer.42 #resolving BOP - temporary event
+	title = buzzer.42.t
+	desc = buzzer.42.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.41"}
+	option = {
+		name = buzzer.42.a
+		trigger = {
+			is_power_balance_in_range = {
+				id = BRZ_power_balance
+				range < BRZ_the_ball_is_in_center
+			}
+		}
+		remove_power_balance = {
+			id = BRZ_power_balance
+		}
+		add_stability = 0.15
+		add_political_power = 100
+		add_popularity = {
+			ideology = marxism_cranism
+			popularity = 0.2
+		}		
+	}
+	option = {
+		name = buzzer.42.b
+		trigger = {
+			is_power_balance_in_range = {
+				id = BRZ_power_balance
+				range > BRZ_the_ball_is_in_center
+			}
+		}	
+		remove_power_balance = {
+			id = BRZ_power_balance
+		}
+		add_stability = 0.15
+		add_political_power = 100
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.2
+		}
+		set_politics = {
+			ruling_party = euroliberalism
+		}		
+	}
+	option = {
+		name = buzzer.42.c
+		trigger = {
+			is_power_balance_in_range = {
+				id = BRZ_power_balance
+				range = BRZ_the_ball_is_in_center
+			}
+		}
+		remove_power_balance = {
+			id = BRZ_power_balance
+		}
+		add_stability = 0.15
+		add_political_power = 100
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.2
+		}
+		set_politics = {
+			ruling_party = socialdemocrature
+		}			
+	}		
 }
 
 country_event = {
