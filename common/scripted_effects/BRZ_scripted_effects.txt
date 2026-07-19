@@ -3906,6 +3906,7 @@ BRZ_show_zwkt_match_popup = {
 	if = {
 		limit = {
 			check_variable = { BRZ_goals > enemy_goals }
+			BRZ = { is_ai = no }
 		}
 		hidden_effect = {
 			sound_effect = brz_win_sound			
@@ -3914,16 +3915,22 @@ BRZ_show_zwkt_match_popup = {
 	else_if = {
 		limit = {
 			check_variable = { BRZ_goals = enemy_goals }
+			BRZ = { is_ai = no }
 		}
 		hidden_effect = {
 			sound_effect = brz_draw_sound			
 		}
 
 	}
-	else = {
+	else_if = {
+		limit = {
+			check_variable = { BRZ_goals < enemy_goals }
+			BRZ = { is_ai = no }
+		}
 		hidden_effect = {
 			sound_effect = brz_lose_sound			
 		}
+
 	}
 
 	set_country_flag = BRZ_zwkt_match_popup_open
