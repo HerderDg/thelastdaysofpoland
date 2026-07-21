@@ -88,3 +88,29 @@ NDefines.NMilitary.BORDER_WAR_VICTORY = 0.65                                    
 NDefines.NMilitary.BORDER_WAR_WIN_DAYS_AGAINST_EMPTY_OPPONENTS = 7              -- nikt nie przyszedł na border wara ja pierdole
 NDefines.NSupply.MAX_RAILWAY_LEVEL = 5    
 NDefines.NOperatives.AGENCY_OPERATIVE_RECRUITMENT_TIME = 3                      -- sram na ciebie śledzioidzie skandynawski
+
+
+NDefines.NGame.EVENT_PROCESS_OFFSET = 40 -- Default 20. Spread event checking over 40 days (2x less frequent CPU spikes)
+NDefines.NGame.COMBAT_LOG_MAX_MONTHS = 3 -- Default 12. 
+NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 25 -- Default 10. Wait longer before auto-dropping from speed 5.
+
+NDefines.NNavy.CONVOY_LOSS_HISTORY_TIMEOUT_MONTHS = 3 -- Default 24.
+NDefines.NNavy.NAVAL_COMBAT_RESULT_TIMEOUT_YEARS = 0.25 -- Default 2 years. (0.25 years = 3 months)
+
+NDefines.NResistance.GARRISON_LOG_MAX_MONTHS = 3 -- Default 12.
+
+
+-- AI OPTIMIZATIONS --
+NDefines.NAI.DAYS_BETWEEN_CHECK_BEST_TEMPLATE = 30 -- Default 7. AI calculates template designs less frequently.
+NDefines.NDiplomacy.DIPLOMACY_HOURS_BETWEEN_REQUESTS = 96 -- Default 24. AI diplomacy and trade evaluation restricted to every 4 days. AI sends diplomacy requests less frequently.
+NDefines.NAI.REMOVE_OBSOLETE_TEMPLATE_DAYS = 90 -- Default 180. AI cleans up empty unused templates faster to save RAM.
+NDefines.NAI.DAYS_BETWEEN_CHECK_BEST_DOCTRINE = 90 -- Default 30. AI checks for doctrine upgrades less frequently.
+NDefines.NAI.RESEARCH_DAYS_BETWEEN_WEIGHT_UPDATE = 20 -- Default 7.
+NDefines.NAI.REFIT_SHIP_RELUCTANCE = 90 -- Default 28.
+NDefines.NAI.DAYS_BETWEEN_CHECK_BEST_EQUIPMENT = 30 -- Default 7.
+NDefines.NAI.UPGRADE_DIVISION_RELUCTANCE = 14 -- Default 7.
+NDefines.NAI.MAX_STATE_TARGETS_TO_EVALUATE_PER_HOUR = 20 -- Default 50.
+NDefines.NNavy.NAVAL_ACCIDENTS_DAYS_TO_LIVE = 30 -- Default 120. Reduce naval accident log memory bloat.
+NDefines.NAI.AI_OBJECTIVE_DEFAULT_TARGET_RECALC_DAYS = 7 -- Default 5. Naval/Air targeting pathfinding restricted to 1 week.
+NDefines.NAI.STRIKE_FORCE_TARGET_RECALC_DAYS = 7 -- Default 5. Naval strike force pathfinding restricted.
+
