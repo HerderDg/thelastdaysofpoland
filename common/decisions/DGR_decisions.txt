@@ -4082,9 +4082,10 @@ DGR_district_wars_category = {
 							has_country_flag = DGR_OW_victory
 							has_country_flag = DGR_OW_lose
 						}
-				OR = { has_country_flag = DGR_OL_victory 
-				has_country_flag = DGR_OB_victory 
-			}
+				OR = {
+					has_country_flag = DGR_OL_victory 
+					has_country_flag = DGR_OB_victory 
+				}
 		}
 		ai_will_do = {
 			base = 999999
@@ -4275,7 +4276,7 @@ DGR_district_wars_category = {
 				change_state_after_war = yes
 				attacker = {
 					state = 736
-					num_provinces = 1
+					num_provinces = 2
 					on_win = dgr_district.14
 					on_lose = dgr_district.7
 					on_cancel = dgr_district.14
@@ -4283,7 +4284,7 @@ DGR_district_wars_category = {
 							
 				defender = {
 					state = 480
-					num_provinces = 1
+					num_provinces = 2
 					on_win = dgr_district.7
 					on_lose = dgr_district.14
 					on_cancel = dgr_district.14
@@ -4308,7 +4309,7 @@ DGR_district_wars_category = {
 							
 				defender = {
 					state = 480
-					num_provinces = 2
+					num_provinces = 1
 					on_win = dgr_district.7
 					on_lose = dgr_district.14
 					on_cancel = dgr_district.14
@@ -5192,7 +5193,10 @@ DGR_district_wars_category = {
 	
 	DGR_OA_assault_on_city_hall = {
 		visible = { has_country_flag = DGR_operation_adamiecki
-			owns_state = 777
+			OR = {
+				owns_state = 777
+				owns_state = 460
+			}
 			NOT = { has_country_flag = DGR_operation_adamiecki_chosen_haller }
 		}
 		available = {
@@ -5224,24 +5228,49 @@ DGR_district_wars_category = {
 				var = DGR_op_adamiecki
 				value = 65
 			}
-			start_border_war = {
-				change_state_after_war = yes
-				attacker = {
-					state = 777
-					num_provinces = 2
-					on_win = dgr_district.21
-					on_lose = dgr_district.11
-					on_cancel = dgr_district.21
+			if = {
+				limit = {
+					owns_state = 777
 				}
-							
-				defender = {
-					state = 735
-					num_provinces = 2
-					on_win = dgr_district.11
-					on_lose = dgr_district.21
-					on_cancel = dgr_district.21
-				}
-			}	
+				start_border_war = {
+					change_state_after_war = yes
+					attacker = {
+						state = 777
+						num_provinces = 2
+						on_win = dgr_district.21
+						on_lose = dgr_district.11
+						on_cancel = dgr_district.21
+					}
+								
+					defender = {
+						state = 735
+						num_provinces = 2
+						on_win = dgr_district.11
+						on_lose = dgr_district.21
+						on_cancel = dgr_district.21
+					}
+				}	
+			}
+			else = {
+				start_border_war = {
+					change_state_after_war = yes
+					attacker = {
+						state = 460
+						num_provinces = 3
+						on_win = dgr_district.21
+						on_lose = dgr_district.11
+						on_cancel = dgr_district.21
+					}
+								
+					defender = {
+						state = 735
+						num_provinces = 1
+						on_win = dgr_district.11
+						on_lose = dgr_district.21
+						on_cancel = dgr_district.21
+					}
+				}	
+			}
 		}
 	}
 	
@@ -5530,49 +5559,47 @@ DGR_district_wars_category = {
 				var = DGR_op_zawadzki
 				value = 25
 			}
-
-		if = { limit = { 
-			DGR = { controls_state = 735 }
-		 }
-			start_border_war = {
-				change_state_after_war = yes
-				attacker = {
-					state = 735
-					num_provinces = 1
-					on_win = dgr_district.19
-					on_lose = dgr_district.12
-					on_cancel = dgr_district.19
+			if = {
+				limit = { DGR = { controls_state = 735 } }
+				start_border_war = {
+					change_state_after_war = yes
+					attacker = {
+						state = 735
+						num_provinces = 1
+						on_win = dgr_district.19
+						on_lose = dgr_district.12
+						on_cancel = dgr_district.19
+					}
+								
+					defender = {
+						state = 460
+						num_provinces = 3
+						on_win = dgr_district.12
+						on_lose = dgr_district.19
+						on_cancel = dgr_district.19
+					}
 				}
-							
-				defender = {
-					state = 460
-					num_provinces = 3
-					on_win = dgr_district.12
-					on_lose = dgr_district.19
-					on_cancel = dgr_district.19
+			}		
+			else = {
+				start_border_war = {
+					change_state_after_war = yes
+					attacker = {
+						state = 776
+						num_provinces = 1
+						on_win = dgr_district.19
+						on_lose = dgr_district.12
+						on_cancel = dgr_district.19
+					}
+								
+					defender = {
+						state = 460
+						num_provinces = 1
+						on_win = dgr_district.12
+						on_lose = dgr_district.19
+						on_cancel = dgr_district.19
+					}
 				}
 			}
-		}		
-		else_if = { limit = { DGR = { controls_state = 776 } }
-			start_border_war = {
-				change_state_after_war = yes
-				attacker = {
-					state = 776
-					num_provinces = 1
-					on_win = dgr_district.19
-					on_lose = dgr_district.12
-					on_cancel = dgr_district.19
-				}
-							
-				defender = {
-					state = 460
-					num_provinces = 1
-					on_win = dgr_district.12
-					on_lose = dgr_district.19
-					on_cancel = dgr_district.19
-				}
-			}
-		}
 		}
 	}
 	
