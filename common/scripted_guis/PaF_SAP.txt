@@ -1,4 +1,37 @@
 scripted_gui = {
+	SAP_witcher_button = {
+		context_type = decision_category
+		window_name = "SAP_witcher_schools_decision_window"
+
+		effects = {
+			SAP_schools_open_click = {
+				if = {
+					limit = {
+						NOT = {
+							has_global_flag = SAP_schools_gui_opened
+						}
+					}
+					set_global_flag = SAP_schools_gui_opened
+				}
+				else = {
+					clr_global_flag = SAP_schools_gui_opened
+				}
+			}
+		}
+		
+		triggers = {
+			SAP_schools_open_visible = {
+				ROOT = {
+					has_completed_focus = SAP_school_of_the_wolf
+				}
+			}
+			SAP_school_open_button_text_visible = {
+				ROOT = {
+					has_completed_focus = SAP_school_of_the_wolf
+				}
+			}
+		}
+	}	
 	SAP_witcher_schools_ui = {
 		context_type = player_context
 		window_name = "SAP_witcher_schools_ui_window"
@@ -29,44 +62,28 @@ scripted_gui = {
 				clr_global_flag = SAP_schools_gui_opened
 			}
 		}
-		
+		properties = {
+			school_leader_image = {image = "[GetSchoolLeader]"}
+		}
 		triggers = {
-			SAP_school_of_wolf_button_click_enabled = {
-				always = yes
+			SAP_school_of_rose_button_visible = {
+				ROOT = { has_country_flag = SAP_school_of_rose_established }
 			}
-			SAP_school_of_rose_button_click_enabled = {
-				SAP = {
-					any_owned_state = {
-						is_core_of = KRS
-					}
-				}
+			SAP_school_of_lion_button_visible = {
+				ROOT = { has_country_flag = SAP_school_of_lion_established }
 			}
-			SAP_school_of_lion_button_click_enabled = {
-				SAP = {
-					any_owned_state = {
-						is_core_of = ZYD
-					}
-				}
+			SAP_school_of_mole_button_visible = {
+				ROOT = { has_country_flag = SAP_school_of_mole_established }
 			}
-			SAP_school_of_mole_button_click_enabled = {
-				SAP = {
-					any_owned_state = {
-						is_core_of = BBW
-					}
-				}
+			SAP_school_of_lynx_button_visible = {
+				ROOT = { has_country_flag = SAP_school_of_lynx_established }
 			}
-			SAP_school_of_lynx_button_click_enabled = {
-				SAP = {
-					any_owned_state = {
-						is_core_of = ZHP
-					}
-				}
+			SAP_school_of_dove_button_visible = {
+				ROOT = { has_country_flag = SAP_school_of_dove_established }
 			}
-			SAP_school_of_dove_button_click_enabled = {
-				SAP = {
-					any_owned_state = {
-						is_core_of = WML
-					}
+			SAP_school_of_wolf_button_visible = {
+				ROOT = {
+					has_completed_focus = SAP_school_of_the_wolf
 				}
 			}
 		}
