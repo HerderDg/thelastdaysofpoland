@@ -3143,3 +3143,109 @@ country_event = {
 		clr_country_flag = asking_for_money
 	}
 }
+
+### Curtailing the Wolfpack Mechanic Events ###
+
+country_event = {
+	id = dgr_narkom.27 #Za duży influence nacjoli
+	title = dgr_narkom.27.t
+	desc = dgr_narkom.27.desc
+
+	fire_only_once = yes
+	
+	trigger = {
+		has_completed_focus = DGR_curtailing_the_wolfpack
+		neonationalism > 0.3
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.27"}
+
+	option = {
+		name = dgr_narkom.27.a
+		custom_effect_tooltip = nationals_too_powerful_tt
+	}
+}
+
+country_event = {
+	id = dgr_narkom.28 #Nacjole przygotowywują się do puczu
+	title = dgr_narkom.28.t
+	desc = dgr_narkom.28.desc
+
+	fire_only_once = yes
+	
+	trigger = {
+		has_completed_focus = DGR_curtailing_the_wolfpack
+		neonationalism > 0.4
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.28"}
+
+	option = {
+		name = dgr_narkom.28.a
+		custom_effect_tooltip = nationalist_coup_soon_tt
+		set_country_flag = DGR_nationalist_coup_soon
+	}
+}
+
+country_event = {
+	id = dgr_narkom.29 #Pucz nacjoli
+	title = dgr_narkom.29.t
+	desc = dgr_narkom.29.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.29"}
+
+	option = {
+		name = dgr_narkom.29.a
+		custom_effect_tooltip = nationalist_coup_tt
+		DGR = {
+			start_civil_war = {
+			    ideology = neonationalism
+				    size = 0.65
+					army_ratio = 0.8
+					navy_ratio = 0.6
+					air_ratio = 0.6
+					keep_unit_leaders_trigger = {
+					    NOT = {
+							has_trait = NAL_member
+						}
+					}
+    				PREV = {  # Original country
+    					DGR_szarejko = { # Character
+    					    set_nationality = PREV.PREV
+    					}
+    					DGR_abrahamowicz = { # Character
+    					    set_nationality = PREV.PREV
+    					}	
+    					DGR_czyzewski = { # Character
+    					    set_nationality = PREV.PREV
+    					}
+    					DGR_werner = { # Character
+    					    set_nationality = PREV.PREV
+    					}																				
+    				}
+				}
+				remove_power_balance = {
+					id = DGR_power_balance_demilitarisation
+				}
+			}
+	}
+}
+
+country_event = {
+	id = dgr_narkom.30 #Zagrożenie minęło
+	title = dgr_narkom.30.t
+	desc = dgr_narkom.30.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.30"}
+
+	option = {
+		name = dgr_narkom.30.a
+		custom_effect_tooltip = crisis_averted_tt
+	}
+}
