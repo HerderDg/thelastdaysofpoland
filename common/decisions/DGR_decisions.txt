@@ -1135,25 +1135,86 @@ DGR_balance_of_power_demilitarisation_category = {
 			custom_effect_tooltip = 60_days_tt
 		}
 	}
+
+	DGR_bop_stall_the_nationalists = {
+		priority = 99999
+		icon = GFX_decision_generic_military
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_nationalist_coup_soon
+		}
+
+		cost = 15
+
+		days_remove = 20
+
+		modifier = {
+			army_org_factor = -0.25
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_stall_the_nationalists"
+
+			add_days_mission_timeout = {
+				mission = DGR_imminent_coup
+				days = 15
+			}
+		}
+	}
+
+	DGR_bop_small_scale_purges = {
+		priority = 99999
+		icon = GFX_decision_generic_assassination
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_nationalist_coup_soon
+		}
+
+		cost = 20
+
+		days_remove = 20
+
+		modifier = {
+			political_power_factor = -0.15
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_small_scale_purges"
+
+			add_popularity = {
+				ideology = neonationalism
+				popularity = -0.0025
+			}
+		}
+	}
 	
 	DGR_imminent_coup = {
 		icon = GFX_decision_generic_assassination
 		activation = {
 			has_country_flag = DGR_nationalist_coup_soon
+			has_country_flag = DGR_curtailing_the_wolfpack
 		}
 		available = {
 			OR = {
-				neonationalism < 0.4
+				neonationalism < 0.35
 				has_completed_focus = DGR_hunt_for_the_young_wolves
 			}
 		}
 		is_good = no
 		days_mission_timeout = 35
 		complete_effect = {
-			clr_country_flag = DGR_nationalist_coup_soon
 			country_event = dgr_narkom.30
 		}
 		timeout_effect = {
+			clr_country_flag = DGR_nationalist_coup_soon
 			country_event = dgr_narkom.29
 		}
 	}

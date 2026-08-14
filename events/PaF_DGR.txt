@@ -3175,7 +3175,7 @@ country_event = {
 	
 	trigger = {
 		has_completed_focus = DGR_curtailing_the_wolfpack
-		neonationalism > 0.4
+		neonationalism > 0.35
 	}
 
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.28"}
@@ -3195,42 +3195,49 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.29"}
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.29"
+	}
 
 	option = {
 		name = dgr_narkom.29.a
 		custom_effect_tooltip = nationalist_coup_tt
+		clr_country_flag = DGR_curtailing_the_wolfpack
+		add_popularity = {
+			ideology = neonationalism
+			popularity = -1
+		}
 		DGR = {
 			start_civil_war = {
-			    ideology = neonationalism
-				    size = 0.65
-					army_ratio = 0.8
-					navy_ratio = 0.6
-					air_ratio = 0.6
-					keep_unit_leaders_trigger = {
-					    NOT = {
-							has_trait = NAL_member
-						}
-					}
-    				PREV = {  # Original country
-    					DGR_szarejko = { # Character
-    					    set_nationality = PREV.PREV
-    					}
-    					DGR_abrahamowicz = { # Character
-    					    set_nationality = PREV.PREV
-    					}	
-    					DGR_czyzewski = { # Character
-    					    set_nationality = PREV.PREV
-    					}
-    					DGR_werner = { # Character
-    					    set_nationality = PREV.PREV
-    					}																				
+				ideology = neonationalism
+				size = 0.5
+				army_ratio = 0.8
+				navy_ratio = 0.65
+				air_ratio = 0.65
+				keep_unit_leaders_trigger = {
+					NOT = {
+						has_trait = NAL_member
+				 	}
+				}
+    			PREV = {  # Original country
+    				DGR_szarejko = { # Character
+    				    set_nationality = PREV.PREV
     				}
-				}
-				remove_power_balance = {
-					id = DGR_power_balance_demilitarisation
-				}
+    				DGR_abrahamowicz = { # Character
+    				    set_nationality = PREV.PREV
+    				}	
+    				DGR_czyzewski = { # Character
+    				    set_nationality = PREV.PREV
+    				}
+    				DGR_werner = { # Character
+    					set_nationality = PREV.PREV
+    				}																				
+    			}
 			}
+			remove_power_balance = {
+				id = DGR_power_balance_demilitarisation
+			}
+		}
 	}
 }
 
