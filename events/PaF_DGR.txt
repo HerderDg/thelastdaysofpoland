@@ -3256,3 +3256,102 @@ country_event = {
 		custom_effect_tooltip = crisis_averted_tt
 	}
 }
+
+country_event = {
+	id = dgr_narkom.31 #new leader of the new soviet state
+	title = dgr_narkom.31.t
+	desc = dgr_narkom.31.desc
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.31"}
+
+	option = {
+		name = dgr_narkom.31.a
+		add_country_leader_role = {
+			character = DGR_karon
+			promote_leader = yes 
+			country_leader = {
+				ideology = marxism_cranism_subtype
+				traits = { ideological_groupie }
+
+			}
+		}
+		WDW = {
+			WDW_michał_nowicki = {
+				set_nationality = DGR
+			}
+		}
+		remove_country_leader_role = {
+			character = WDW_michał_nowicki
+			ideology = marxism_cranism_maoism_subtype
+		}
+		add_advisor_role = {
+			character = WDW_michał_nowicki
+			advisor = {
+				slot = head_of_government
+				cost = 100
+				idea_token = WDW_min_michał_nowicki
+				traits = {
+					veteran_communist
+				}
+				can_be_fired = no
+			}
+			activate = yes
+		}
+		set_can_be_fired_in_advisor_role = {
+			character = WDW_michał_nowicki
+			value = no
+		}
+	}
+}
+
+country_event = {
+	id = dgr_narkom.32 #wzięcie dobrzynieckiej do rządu
+	title = dgr_narkom.32.t
+	desc = dgr_narkom.32.desc
+
+	trigger = {
+		NOT = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+		}
+		NRA = {
+			exists = no
+		}
+	}
+
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.32"}
+
+	option = {
+		name = dgr_narkom.32.a
+		NRA = {
+			NRA_ludmiła_dobrzyniecka = {
+				set_nationality = DGR
+			}
+		}
+		remove_country_leader_role = {
+			character = NRA_ludmiła_dobrzyniecka
+			ideology = marxism_cranism_stalinism_subtype
+		}
+		add_advisor_role = {
+			character = NRA_ludmiła_dobrzyniecka
+			advisor = {
+				slot = minister_of_war
+				cost = 100
+				idea_token = NRA_min_ludmiła_dobrzyniecka
+				traits = {
+					cornered_fox
+				}
+				can_be_fired = no
+			}
+			activate = yes
+		}
+		set_can_be_fired_in_advisor_role = {
+			character = NRA_ludmiła_dobrzyniecka
+			value = no
+		}
+	}
+}
