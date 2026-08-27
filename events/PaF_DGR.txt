@@ -4,6 +4,7 @@ add_namespace = dgr
 add_namespace = dgr_news
 add_namespace = dgr_nazbol
 add_namespace = dgr_narkom
+add_namespace = dgr_debts
 
 news_event = {
 	id = dgr_news.1 #congress of bedzin - sukces
@@ -93,6 +94,7 @@ country_event = {
 		custom_effect_tooltip = DGR_district_wars_tt
 		DGR = {
 			load_oob = DGR_2027
+			set_capital = {state = 737}
 			736 = {
 				transfer_state_to = STM
 				}
@@ -119,6 +121,20 @@ country_event = {
 			add_ideas = DGR_rastafari
 			add_ideas = DGR_separatists
 			add_ideas = DGR_druglords
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = STM
+					tag = DAR
+					tag = HUT
+					tag = DGA
+					tag = ADM
+					tag = STG
+					tag = SWK
+				}
+			}
+			load_focus_tree = blank_tree
 		}
 		#DGA = {
 		#	add_to_variable = {
@@ -739,16 +755,6 @@ country_event = {
 
 	option = {
 		name = dgr.4.a
-		DGR = {
-			add_opinion_modifier = {
-				target = SOS
-				modifier = unstable_alliance
-			}
-			add_opinion_modifier = {
-				target = JAW
-				modifier = unstable_alliance
-			}				
-		}
 	}
 }
 
@@ -1591,6 +1597,19 @@ country_event = {
 		name = dgr.37.a
 		add_stability = -0.2
 		add_political_power = -50
+		738 = {
+			remove_dynamic_modifier = {
+				modifier = DGR_local_strike
+			}
+		}
+		739 = {
+			remove_dynamic_modifier = {
+				modifier = DGR_local_strike
+			}
+		}
+		set_country_flag = DGR_lapa_lwa
+		mark_focus_tree_layout_dirty = yes	
+		complete_national_focus = DGR_nowy_protest	
 	}
 }
 
@@ -1641,6 +1660,12 @@ country_event = {
 
 	option = {
 		name = dgr.39.a
+		load_focus_tree = generic_focus
+		hidden_effect = {
+			country_event = {
+				id = paf_generic.101
+			}
+		}
 	}
 }
 
@@ -2670,35 +2695,6 @@ country_event = {
 }
 
 country_event = {
-	id = dgr.1005 #bas tajpan idzie na wojne
-	title = dgr.1005.t
-	desc = dgr.1005.desc
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	hidden = yes
-
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr.1004"}
-
-	option = {
-		name = dgr.1004.a
-		738 = {
-			remove_dynamic_modifier = {
-				modifier = DGR_local_strike
-			}
-		}
-		739 = {
-			remove_dynamic_modifier = {
-				modifier = DGR_local_strike
-			}
-		}
-		set_country_flag = DGR_lapa_lwa
-		mark_focus_tree_layout_dirty = yes	
-		complete_national_focus = DGR_nowy_protest	
-	}
-}
-
-country_event = {
 	id = dgr.1006 #efekty kolejnej pięciolatki
 	title = dgr.1006.t
 	desc = dgr.1006.desc
@@ -3010,9 +3006,18 @@ country_event = {
 
 	option = {
 		name = dgr_narkom.20.a
+		retire_character = DGR_krzysztof_szwej
+		
+    	add_country_leader_role = {
+        	character = DGR_party_council 
+        	promote_leader = yes  
+       		country_leader = {
+            	ideology = marxism_cranism_subtype
+           		traits = {  }
+        	}
+    	}
 	}
 }
-
 country_event = {
 	id = dgr_narkom.21 #state funeral
 	title = dgr_narkom.21.t
@@ -3100,5 +3105,254 @@ country_event = {
 
 	option = {
 		name = dgr_narkom.26.a
+	}
+}
+
+### Foreign Credits Events ###
+
+country_event = {
+	id = dgr_debts.1 #they accepted
+	title = dgr_debts.1.t
+	desc = dgr_debts.1.desc
+
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_debts.1"}
+
+	option = {
+		name = dgr_debts.1.a
+		add_to_variable = {
+			budget = 1000
+		}
+		get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_add_1B
+		clr_country_flag = asking_for_money
+	}
+}
+country_event = {
+	id = dgr_debts.2 #they declined
+	title = dgr_debts.2.t
+	desc = dgr_debts.2.desc
+
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_debts.2"}
+
+	option = {
+		name = dgr_debts.2.a
+		clr_country_flag = asking_for_money
+	}
+}
+
+### Curtailing the Wolfpack Mechanic Events ###
+
+country_event = {
+	id = dgr_narkom.27 #Za duży influence nacjoli
+	title = dgr_narkom.27.t
+	desc = dgr_narkom.27.desc
+
+	fire_only_once = yes
+	
+	trigger = {
+		has_completed_focus = DGR_curtailing_the_wolfpack
+		neonationalism > 0.3
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.27"}
+
+	option = {
+		name = dgr_narkom.27.a
+		custom_effect_tooltip = nationals_too_powerful_tt
+	}
+}
+
+country_event = {
+	id = dgr_narkom.28 #Nacjole przygotowywują się do puczu
+	title = dgr_narkom.28.t
+	desc = dgr_narkom.28.desc
+
+	fire_only_once = yes
+	
+	trigger = {
+		has_completed_focus = DGR_curtailing_the_wolfpack
+		neonationalism > 0.35
+	}
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.28"}
+
+	option = {
+		name = dgr_narkom.28.a
+		custom_effect_tooltip = nationalist_coup_soon_tt
+		set_country_flag = DGR_nationalist_coup_soon
+	}
+}
+
+country_event = {
+	id = dgr_narkom.29 #Pucz nacjoli
+	title = dgr_narkom.29.t
+	desc = dgr_narkom.29.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.29"
+	}
+
+	option = {
+		name = dgr_narkom.29.a
+		custom_effect_tooltip = nationalist_coup_tt
+		clr_country_flag = DGR_curtailing_the_wolfpack
+		clr_country_flag = DGR_nationalist_coup_soon
+		add_popularity = {
+			ideology = neonationalism
+			popularity = -1
+		}
+		DGR = {
+			start_civil_war = {
+				ideology = neonationalism
+				size = 0.5
+				army_ratio = 0.65
+				navy_ratio = 0.65
+				air_ratio = 0.65
+				keep_unit_leaders_trigger = {
+					NOT = {
+						has_trait = NAL_member
+				 	}
+				}
+    			PREV = {  # Original country
+    				DGR_szarejko = { # Character
+    				    set_nationality = PREV.PREV
+    				}
+    				DGR_abrahamowicz = { # Character
+    				    set_nationality = PREV.PREV
+    				}	
+    				DGR_czyzewski = { # Character
+    				    set_nationality = PREV.PREV
+    				}
+    				DGR_werner = { # Character
+    					set_nationality = PREV.PREV
+    				}																				
+    			}
+			}
+			remove_power_balance = {
+				id = DGR_power_balance_demilitarisation
+			}
+		}
+	}
+}
+
+country_event = {
+	id = dgr_narkom.30 #Zagrożenie minęło
+	title = dgr_narkom.30.t
+	desc = dgr_narkom.30.desc
+
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.30"}
+
+	option = {
+		name = dgr_narkom.30.a
+		custom_effect_tooltip = crisis_averted_tt
+	}
+}
+
+country_event = {
+	id = dgr_narkom.31 #new leader of the new soviet state
+	title = dgr_narkom.31.t
+	desc = dgr_narkom.31.desc
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.31"}
+
+	option = {
+		name = dgr_narkom.31.a
+		add_country_leader_role = {
+			character = DGR_karon
+			promote_leader = yes 
+			country_leader = {
+				ideology = marxism_cranism_subtype
+				traits = { ideological_groupie }
+
+			}
+		}
+		WDW = {
+			WDW_michał_nowicki = {
+				set_nationality = DGR
+			}
+		}
+		remove_country_leader_role = {
+			character = WDW_michał_nowicki
+			ideology = marxism_cranism_maoism_subtype
+		}
+		add_advisor_role = {
+			character = WDW_michał_nowicki
+			advisor = {
+				slot = head_of_government
+				cost = 100
+				idea_token = WDW_min_michał_nowicki
+				traits = {
+					veteran_communist
+				}
+				can_be_fired = no
+			}
+			activate = yes
+		}
+		set_can_be_fired_in_advisor_role = {
+			character = WDW_michał_nowicki
+			value = no
+		}
+	}
+}
+
+country_event = {
+	id = dgr_narkom.32 #wzięcie dobrzynieckiej do rządu
+	title = dgr_narkom.32.t
+	desc = dgr_narkom.32.desc
+
+	trigger = {
+		has_completed_focus = DGR_curtailing_the_wolfpack
+		NOT = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+		}
+		NRA = {
+			exists = no
+		}
+	}
+
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires dgr_narkom.32"}
+
+	option = {
+		name = dgr_narkom.32.a
+		NRA = {
+			NRA_ludmiła_dobrzyniecka = {
+				set_nationality = DGR
+			}
+		}
+		remove_country_leader_role = {
+			character = NRA_ludmiła_dobrzyniecka
+			ideology = marxism_cranism_stalinism_subtype
+		}
+		add_advisor_role = {
+			character = NRA_ludmiła_dobrzyniecka
+			advisor = {
+				slot = minister_of_war
+				cost = 100
+				idea_token = NRA_min_ludmiła_dobrzyniecka
+				traits = {
+					cornered_fox
+				}
+				can_be_fired = no
+			}
+			activate = yes
+		}
+		set_can_be_fired_in_advisor_role = {
+			character = NRA_ludmiła_dobrzyniecka
+			value = no
+		}
 	}
 }

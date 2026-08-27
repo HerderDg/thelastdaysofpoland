@@ -124,11 +124,14 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-		DGA = {
-			every_owned_state = {
-			set_resistance = 30
-			}
-		}
+		DGA = { add_ideas = DGR_district_wars_other }
+		ADM = { add_ideas = DGR_district_wars_other }
+		DAR = { add_ideas = DGR_district_wars_other }
+		FAR = { add_ideas = DGR_district_wars_other }
+		HUT = { add_ideas = DGR_district_wars_other }
+		STG = { add_ideas = DGR_district_wars_other }
+		STM = { add_ideas = DGR_district_wars_other }
+		SWK = { add_ideas = DGR_district_wars_other }
 		add_political_power = 50
 		}
 	}
@@ -210,6 +213,28 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = dgr.4
+			DGR = {
+				add_opinion_modifier = {
+					target = SOS
+					modifier = refused_help
+				}
+				add_opinion_modifier = {
+					target = JAW
+					modifier = refused_help
+				}				
+			}
+			JAW = {
+				add_opinion_modifier = {
+					target = DGR
+					modifier = tsr_untrustworthy_ally_opm
+				}
+			}
+			SOS = {
+				add_opinion_modifier = {
+					target = DGR
+					modifier = tsr_untrustworthy_ally_opm
+				}
+			}			
 		}
 	}
 	
@@ -277,6 +302,7 @@ focus_tree = {
 					province = 3201
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 			add_to_variable = {
 				budget = -50
@@ -379,7 +405,11 @@ focus_tree = {
 		prerequisite = { focus = DGR_restore_palace_of_culture }
 		text_icon = DABROWA_focus_style
 		available = {
-			has_global_flag = ZAG_congress_of_bedzin
+			OR = {
+				has_global_flag = ZAG_congress_of_bedzin
+				has_global_flag = ZAG_congress_of_bedzin_success
+				has_global_flag = ZAG_congress_of_bedzin_failure
+			}
 		}
 		
 		bypass = {
@@ -392,10 +422,18 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 2
+		cost = 1
 		
 		completion_reward = {
-			country_event = dgr.9
+			if = {
+				limit = {
+					NOT = {
+						has_global_flag = ZAG_congress_of_bedzin_success
+						has_global_flag = ZAG_congress_of_bedzin_failure
+					}
+				}
+				country_event = dgr.9
+			}
 			swap_ideas = {
 				remove_idea = trade_none
 				add_idea = trade_minimal
@@ -640,6 +678,10 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = {
+			mio:DGR_huta_bankowa_mio = {
+				set_mio_icon = GFX_idea_DGR_bankow2
+				set_mio_name_key = DGR_huta_bankowa_communist
+			}
 			460 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -698,6 +740,7 @@ focus_tree = {
 				add_to_variable = {
 					budget = 300
 				}
+				set_country_flag = working_hard_in_huta_katowice
 			}
 			country_event = dgr.41
 		}
@@ -987,7 +1030,7 @@ focus_tree = {
 				remove_idea = officer_random
 				add_idea = officer_clerks
 			}
-			set_sub_doctrine = warsaw_pact_infantry
+			add_command_power = 30
 		}
 	}
 	focus = {
@@ -1074,6 +1117,9 @@ focus_tree = {
 				bonus = 0.5
 				uses = 1
 				category = cars
+			}
+			hidden_effect = {
+				set_country_flag = DGR_brembo_on
 			}
 		}
 	}	
@@ -1339,6 +1385,7 @@ focus_tree = {
 					prioritize_location = 4010
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 		}
 	}	
@@ -1381,6 +1428,7 @@ focus_tree = {
 					budget = 1
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_5M
 			if = {
 				limit = { DGR = { controls_province = 10648 } }
@@ -1429,6 +1477,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_150M		
 			hidden_effect = {
 				add_to_variable = {
@@ -2864,6 +2913,7 @@ focus_tree = {
 				}				
 			}
 			custom_effect_tooltip = DGR_reindustrialization_tt
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_200M							
 		}
 	}
@@ -3785,6 +3835,7 @@ focus_tree = {
 				remove_idea = drugs_illegal_unenforced
 				add_idea = drugs_harsh_penalised
 			}
+			country_event = dgr.37	
 		}
 	}
 	
@@ -3814,8 +3865,7 @@ focus_tree = {
 				ideology = postpolonism
 				long_name = "Slavic Rasta Front"
 				name = "Front Słowiańsko-Rastafari"
-			}
-			country_event = dgr.37		
+			}	
 		}
 	}
 	
@@ -4209,7 +4259,8 @@ focus_tree = {
 					}			
 				}
 				custom_effect_tooltip = rozdzielacz_efektow
-				custom_effect_tooltip = budget_subtract_50M								
+				get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_50M								
 			}
 			remove_ideas = DGR_strikes_4			
 		}
@@ -4247,10 +4298,10 @@ focus_tree = {
 				remove_trait = {
 					trait = wounded
 				}
-			}
-			add_trait = {
-			     character = DGR_krzysztof_szwej
-			     trait = comrade_dementia
+			}			
+			add_country_leader_trait = {
+				ideology = neonationalism_national_bolshevism_subtype				
+				trait = comrade_dementia
 			}
 			set_can_be_fired_in_advisor_role = {
 				character = DGR_jaszczura
@@ -4396,6 +4447,7 @@ focus_tree = {
 					}
 					prison < 1
 				}
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = prison
 					level = 1
@@ -4411,6 +4463,7 @@ focus_tree = {
 					}
 					prison < 1
 				}
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = prison
 					level = 1
@@ -4426,6 +4479,7 @@ focus_tree = {
 					}
 					prison < 1
 				}
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = prison
 					level = 1
@@ -4441,6 +4495,7 @@ focus_tree = {
 					}
 					prison < 1
 				}
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = prison
 					level = 1
@@ -4578,6 +4633,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = 300
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_add_300M
 			custom_effect_tooltip = rozdzielacz_efektow
 			every_country = {
@@ -5042,6 +5098,7 @@ focus_tree = {
 				add_idea = DGR_national_science3
 			}	
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_750M					
 		}
 	}			
@@ -5219,6 +5276,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_600M
 		}
 	}	
@@ -5275,7 +5333,18 @@ focus_tree = {
 						modifier = AUS_aligned_with_our_values
 					}
 				}
-			}			
+			}	
+			if = {
+				limit = {
+					BBW = { exists = yes }
+				}
+				BBW = {
+					add_opinion_modifier = {
+						target = DGR
+						modifier = AUS_aligned_with_our_values
+					}
+				}
+			}					
 		}
 	}
 	focus = {
@@ -5332,6 +5401,7 @@ focus_tree = {
 					damage = 0.3
 				}
 			}			
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_add_1_845B
 			custom_effect_tooltip = rozdzielacz_efektow	
 			every_country = {
@@ -5710,6 +5780,7 @@ focus_tree = {
 				}			
 			}	
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_100M																																											
 		}
 	}
@@ -6437,7 +6508,8 @@ focus_tree = {
 						level = 1
 					}
 				}
-				custom_effect_tooltip = budget_subtract_1B500M				
+				get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_1B500M				
 			}
 		}
 	}
@@ -6848,6 +6920,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -300
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_300M
 		}
 	}	
@@ -6898,6 +6971,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -50
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
@@ -6941,6 +7015,7 @@ focus_tree = {
 					province = 8645
 				}				
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_150M			
 		}
 	}
@@ -7018,7 +7093,8 @@ focus_tree = {
 				add_to_variable = {
 					budget = 60
 				}
-				custom_effect_tooltip = budget_subtract_1B200M
+				get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_1B200M
 			}
 		}
 	}	
@@ -7057,6 +7133,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -50
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
@@ -7138,6 +7215,7 @@ focus_tree = {
 					instant_build = yes
 				}				
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_300M
 		}
 	}	
@@ -7203,6 +7281,7 @@ focus_tree = {
 				specialization = specialization_civilian
 				value = 1
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_250M
 		}
 	}
@@ -7329,6 +7408,7 @@ focus_tree = {
 					province = 7795
 				}																
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M									
 		}
 	}	
@@ -7352,6 +7432,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.13
 			if = {
 				limit = {
 					481 = {
@@ -7448,6 +7529,7 @@ focus_tree = {
 			    track = operations
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_800M
 		}
 	}
@@ -7516,6 +7598,7 @@ focus_tree = {
 					modifier = DGR_special_industry_zone
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_150M
 
 		}
@@ -7556,6 +7639,7 @@ focus_tree = {
 					modifier = DGR_special_industry_zone
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_500M
 		}
 	}
@@ -7590,6 +7674,7 @@ focus_tree = {
 					modifier = DGR_special_industry_zone
 				}				
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_300M
 		}
 	}
@@ -7657,6 +7742,7 @@ focus_tree = {
 				}
 			}	
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_1B400M
 		}
 	}	
@@ -7695,6 +7781,7 @@ focus_tree = {
 					modifier = DGR_euroterminal_expanded
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
@@ -7732,6 +7819,7 @@ focus_tree = {
 				uses = 1
 				category = cat_synth_oil
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_100M
 		}
 	}	
@@ -7773,6 +7861,7 @@ focus_tree = {
 					amount = 5
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_450M
 		}
 	}
@@ -7813,6 +7902,7 @@ focus_tree = {
 				specialization = specialization_land
 				value = 1
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_500M
 		}
 	}	
@@ -7972,7 +8062,8 @@ focus_tree = {
 						province = 7754
 					}
 				}
-				custom_effect_tooltip = budget_subtract_1B500M				
+				get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_1B500M				
 			}
 			else = {
 				add_breakthrough_points = {
@@ -8279,6 +8370,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -200
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_200M
 		}
 	}
@@ -8343,6 +8435,7 @@ focus_tree = {
 			  target_province = 3993
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_200M
 		}
 	}	
@@ -8418,6 +8511,7 @@ focus_tree = {
 				budget = 7
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 		}
 	}		
@@ -9124,7 +9218,7 @@ focus_tree = {
 
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_completed_focus = DGR_garrison_cities
 		}
 		
 		bypass = {
@@ -9479,6 +9573,7 @@ focus_tree = {
 		
 		completion_reward = {	
 			add_ideas = DGR_cut_luxury_sector_idea
+			downgrade_food_law = yes
 		}
 	}
 	focus = {
@@ -9592,6 +9687,7 @@ focus_tree = {
 					instant_build = yes
 				}					
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_1B
 			custom_effect_tooltip = rozdzielacz_efektow
 			create_equipment_variant = {
@@ -10115,6 +10211,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -5
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M
 		}
 	}	
@@ -10216,6 +10313,7 @@ focus_tree = {
 				uses = 2
 				category = special_forces_doctrine
 			}
+			add_potential_special_forces_tree = yes
 		}
 	}	
 	focus = {
@@ -11487,17 +11585,17 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			every_character = {
-				limit = {
-					is_corps_commander = yes
-				}
-				add_temporary_buff_to_units = {
-					combat_offense = 0.1
-					combat_breakthrough = 0.25
-					days = 180
-					tooltip = DGR_race_for_the_base
-				}
-			}
+#			every_character = {
+#				limit = {
+#					is_corps_commander = yes
+#				}
+#				add_temporary_buff_to_units = {
+#					combat_offense = 0.1
+#					combat_breakthrough = 0.25
+#					days = 180
+#					tooltip = DGR_race_for_the_base
+#				}
+#			}
 		}
 	}	
 	
@@ -11768,17 +11866,17 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			every_character = {
-				limit = {
-					is_corps_commander = yes
-				}
-				add_temporary_buff_to_units = {
-					combat_entrenchment = 0.25
-					combat_breakthrough = 0.1
-					days = 180
-					tooltip = DGR_behind_enemy_lines
-				}
-			}
+#			every_character = {
+#				limit = {
+#					is_corps_commander = yes
+#				}
+#				add_temporary_buff_to_units = {
+#					combat_entrenchment = 0.25
+#					combat_breakthrough = 0.1
+#					days = 180
+#					tooltip = DGR_behind_enemy_lines
+#				}
+#			}
 		}
 	}
 	focus = {
@@ -11835,6 +11933,8 @@ focus_tree = {
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.42
+			set_country_flag = PaF_DGR_nazbol_path
+			PaF_initiate_ending_screen = yes
 		}
 	}	
 	
@@ -11860,7 +11960,7 @@ focus_tree = {
 		x = 120
 		y = 0
 		
-		cost = 4.3
+		cost = 1
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.1
@@ -11892,7 +11992,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
 			country_event = dgr_nazbol.2
@@ -11931,6 +12031,15 @@ focus_tree = {
 				long_name = "KPP - Civil Corps"
 				name = "KPP - Korpus Cywilny"
 			}		
+			set_party_name = {
+				ideology = squattism
+				long_name = "KPP - Civil Corps"
+				name = "KPP - Korpus Cywilny"
+			}		
+			add_popularity = {
+				ideology = postpolonism
+				popularity = -0.05
+			}
 		}
 	}	
 	focus = {
@@ -11951,7 +12060,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
 			add_stability = -0.05
@@ -11982,6 +12091,10 @@ focus_tree = {
 					modifier = DGR_local_strike
 				}
 			}		
+			add_popularity = {
+				ideology = postpolonism
+				popularity = -0.025
+			}
 		}
 	}	
 	focus = {
@@ -12002,7 +12115,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
 			add_stability = -0.05
@@ -12036,6 +12149,10 @@ focus_tree = {
 					modifier = DGR_local_strike
 				}
 			}		
+			add_popularity = {
+				ideology = postpolonism
+				popularity = -0.025
+			}
 		}
 	}
 	focus = {
@@ -12059,7 +12176,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
 			if = {
@@ -12078,6 +12195,11 @@ focus_tree = {
 				}
 			}
 			add_stability = 0.1
+			add_popularity = {
+				ideology = postpolonism
+				popularity = -0.04
+			}
+			country_event = dgr_narkom.1
 		}
 	}
 	focus = {
@@ -12098,7 +12220,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {
 			remove_ideas = DGR_strikes_4	
@@ -12127,13 +12249,17 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = dgr_narkom.2
 			DGR_krzysztof_szwej = {
 				remove_trait = {
 					trait = sick
 				}
+			}
+			remove_power_balance = {
+				id = DGR_power_balance
 			}
 			set_politics = {
 				ruling_party = marxism_cranism
@@ -12237,7 +12363,7 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-			has_completed_focus = DGR_industrial_triangle		
+			has_completed_focus = DGR_tucznawa_tworzen_strzemieszyce_triangle_nc
 		}
 		
 		bypass = {
@@ -12294,6 +12420,7 @@ focus_tree = {
 				}
 			}	
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_1B400M		
 		}
 	}
@@ -12332,6 +12459,7 @@ focus_tree = {
 				uses = 1
 				category = cat_synth_oil
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_100M		
 		}
 	}
@@ -12371,6 +12499,7 @@ focus_tree = {
 					modifier = DGR_euroterminal_expanded
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M		
 		}
 	}
@@ -12383,7 +12512,8 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			owns_state = 825
+			825 = { is_core_of = DGR }
 		}
 		
 		bypass = {
@@ -12412,6 +12542,7 @@ focus_tree = {
 					amount = 5
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_450M		
 		}
 	}
@@ -12455,6 +12586,7 @@ focus_tree = {
 				specialization = specialization_land
 				value = 1
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_500M		
 		}
 	}
@@ -12525,6 +12657,7 @@ focus_tree = {
 					modifier = DGR_special_industry_zone
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_150M		
 		}
 	}
@@ -12565,6 +12698,7 @@ focus_tree = {
 					modifier = DGR_special_industry_zone
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_500M		
 		}
 	}
@@ -12600,6 +12734,7 @@ focus_tree = {
 					modifier = DGR_special_industry_zone
 				}				
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_300M		
 		}
 	}
@@ -12927,6 +13062,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -300
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_300M		
 		}
 	}
@@ -12978,6 +13114,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -50
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M		
 		}
 	}
@@ -13022,6 +13159,7 @@ focus_tree = {
 					province = 8645
 				}				
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_150M		
 		}
 	}
@@ -13100,7 +13238,8 @@ focus_tree = {
 				add_to_variable = {
 					budget = 60
 				}
-				custom_effect_tooltip = budget_subtract_1B200M
+				get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_1B200M
 			}		
 		}
 	}
@@ -13140,6 +13279,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -50
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M		
 		}
 	}
@@ -13223,6 +13363,7 @@ focus_tree = {
 					instant_build = yes
 				}				
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_300M		
 		}
 	}
@@ -13350,6 +13491,7 @@ focus_tree = {
 					province = 7795
 				}																
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M			
 		}
 	}
@@ -13444,6 +13586,7 @@ focus_tree = {
 				specialization = specialization_civilian
 				value = 1
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_250M		
 		}
 	}
@@ -13567,6 +13710,7 @@ focus_tree = {
 			    track = operations
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_800M		
 		}
 	}
@@ -13678,6 +13822,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_national_science
+				add_idea = DGR_national_science_narkom_2
+			}
 		}
 	}
 	focus = {
@@ -13702,8 +13850,8 @@ focus_tree = {
 		
 		completion_reward = {	
 			swap_ideas = {
-				remove_idea = DGR_national_science
-				add_idea = DGR_national_science2
+				remove_idea = DGR_national_science_narkom_2
+				add_idea = DGR_national_science_narkom_3
 			}
 			add_breakthrough_points = {
 				specialization = specialization_nuclear
@@ -13818,6 +13966,9 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
+			NOT = {
+				has_idea = DGR_real_estate_crash_idea_2
+			}
 		
 		}
 		
@@ -13830,6 +13981,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			add_ideas = {
+				DGR_housing_complaints_and_grievances_office_spirit
+			}
+			country_event = dgr_narkom.14
 		}
 	}
 	focus = {
@@ -13882,6 +14037,24 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			every_owned_state = {
+				limit = {
+					arms_factory > 0
+				}
+				random_select_amount = 3
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				
+			}			
 		}
 	}
 	focus = {
@@ -13932,6 +14105,11 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_collectivisation_stage_3
+				add_idea = DGR_collectivisation_stage_4_narkom
+			}
+			country_event = dgr_narkom.15
 		}
 	}
 	focus = {
@@ -13996,6 +14174,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_economic_maneuver
+				add_idea = DGR_economic_maneuver_narkom_2
+			}
 		}
 	}
 	focus = {
@@ -14075,6 +14257,8 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.17
+			custom_effect_tooltip = unlocks_loans
 		}
 	}
 	focus = {
@@ -14098,6 +14282,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_collectivisation_stage_4_narkom
+				add_idea = DGR_collectivisation_stage_4_narkom_2
+			}
+			add_to_variable = {
+				rate_of_inflation = 0.1
+			}
+			custom_effect_tooltip = inflation_growth_10
 		}
 	}
 	focus = {
@@ -14160,6 +14352,9 @@ focus_tree = {
 		
 		completion_reward = {
 			custom_effect_tooltip = unlock_pewex_tt	
+			hidden_effect = {
+				set_country_flag = DGR_pewex_on
+			}
 			custom_effect_tooltip = rozdzielacz_efektow
 			effect_tooltip = {
 				add_ideas = DGR_pewex
@@ -14245,6 +14440,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.16
 			if = {
 				limit = {
 					owns_state = 603
@@ -14303,6 +14499,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_economic_maneuver_narkom_2
+				add_idea = DGR_economic_maneuver_narkom_3
+			}
 		}
 	}
 	focus = {
@@ -14354,7 +14554,7 @@ focus_tree = {
 	}
 	focus = {
 		id = DGR_ground_stabilization_nc
-		icon = DGR_ground_stabilisation_nc
+		icon = DGR_ground_stabilization_nc
 		relative_position_id = DGR_atomic_heart_nc
 		prerequisite = {
 			focus = DGR_atomic_heart_nc
@@ -14413,6 +14613,7 @@ focus_tree = {
 			  target_province = 3993
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_200M		
 		}
 	}
@@ -14488,6 +14689,7 @@ focus_tree = {
 				budget = 7
 			}
 			custom_effect_tooltip = rozdzielacz_efektow
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_50M		
 		}
 	}
@@ -14621,6 +14823,7 @@ focus_tree = {
 			add_to_variable = {
 				budget = -200
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_200M		
 		}
 	}
@@ -14878,6 +15081,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {
+			country_event = dgr_narkom.18
 			if = {
 				limit = {
 					WDW = {
@@ -14949,7 +15153,7 @@ focus_tree = {
 						add_unit_leader_trait = loyalist
 					}
 				}
-			}													
+			}												
 		}
 	}
 	focus = {
@@ -15063,6 +15267,7 @@ focus_tree = {
 					instant_build = yes
 				}					
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_1B
 			custom_effect_tooltip = rozdzielacz_efektow
 			create_equipment_variant = {
@@ -15273,6 +15478,36 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			if = {
+				limit = { has_idea = DGR_narodowa_armia_ludowa6_ngf }
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa6_ngf
+					add_idea = DGR_narodowa_armia_ludowa6_nc
+				}
+			}
+			if = {
+				limit = { has_idea = DGR_narodowa_armia_ludowa5}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa5
+					add_idea = DGR_narodowa_armia_ludowa6_fronts
+				}
+			}
+			if = {
+				limit = { has_idea = DGR_narodowa_armia_ludowa_reformed_basic }
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa_reformed_basic
+					add_idea = DGR_narodowa_armia_ludowa_reformed_fronts
+				}
+			}
+			if = {
+				limit = {
+					has_idea = DGR_narodowa_armia_ludowa6_reformed_ngf
+				}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa_reformed_ngf
+					add_idea = DGR_narodowa_armia_ludowa_reformed_full
+				}
+			}
 		}
 	}
 	focus = {
@@ -15296,7 +15531,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			country_event = dgr_nazbol.25
+			country_event = dgr_narkom.19
 			add_unit_bonus = {
             	military_police = {
             	    battalion_mult = {
@@ -15377,10 +15612,36 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			swap_ideas = {
-				remove_idea = DGR_narodowa_armia_ludowa5
-				add_idea = DGR_narodowa_armia_ludowa6
-			}		
+			if = {
+				limit = { has_idea = DGR_narodowa_armia_ludowa6_fronts }
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa6_fronts
+					add_idea = DGR_narodowa_armia_ludowa6_nc
+				}
+			}
+			if = {
+				limit = { has_idea = DGR_narodowa_armia_ludowa5}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa5
+					add_idea = DGR_narodowa_armia_ludowa6_ngf
+				}
+			}
+			if = {
+				limit = { has_idea = DGR_narodowa_armia_ludowa_reformed_basic}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa_reformed_basic
+					add_idea = DGR_narodowa_armia_ludowa_reformed_ngf
+				}
+			}
+			if = {
+				limit = {
+					has_idea = DGR_narodowa_armia_ludowa_reformed_fronts
+				}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa_reformed_fronts
+					add_idea = DGR_narodowa_armia_ludowa_reformed_full
+				}
+			}
 		}
 	}
 	focus = {
@@ -16559,7 +16820,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			country_event = dgr_nazbol.14		
+			country_event = dgr_narkom.6
 		}
 	}
 	focus = {
@@ -16774,6 +17035,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			add_ideas = { DGR_federation_council }
 		}
 	}
 	focus = {
@@ -16941,6 +17203,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_subtract_600M		
 		}
 	}
@@ -17021,7 +17284,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			country_event = dgr_nazbol.15		
+			country_event = dgr_narkom.7	
 		}
 	}
 	focus = {
@@ -17086,6 +17349,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_red_heritage_narkom
+				add_idea = DGR_red_heritage_narkom_2
+			}
 		}
 	}
 	focus = {
@@ -17122,9 +17389,6 @@ focus_tree = {
 		prerequisite = {
 			focus = DGR_intelligence_committee_nc
 		}
-		prerequisite = {
-			focus = DGR_intelligence_committee_nc
-		}
 		text_icon = DABROWA_focus_style
 		available = {
 		
@@ -17139,6 +17403,10 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_red_heritage_narkom_2
+				add_idea = DGR_red_heritage_narkom_3
+			}
 		}
 	}
 	focus = {
@@ -17162,6 +17430,9 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			add_ideas = {
+				DGR_foreign_tech_espionage_spirit
+			}
 		}
 	}
 	focus = {
@@ -17188,7 +17459,7 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
-			country_event = dgr_nazbol.19		
+			country_event = dgr_narkom.8	
 		}
 	}
 	focus = {
@@ -17239,6 +17510,12 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			add_tech_bonus = {
+				name = DGR_reinforce_the_state_media_monopoly
+				bonus = 0.75
+				uses = 1
+				category = encryption_tech
+			}
 		}
 	}
 	focus = {
@@ -17299,6 +17576,7 @@ focus_tree = {
 					damage = 0.3
 				}
 			}			
+			get_budget_tooltip = yes			
 			custom_effect_tooltip = budget_add_1_845B
 			custom_effect_tooltip = rozdzielacz_efektow	
 			every_country = {
@@ -17363,6 +17641,13 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.3
+			set_country_flag = DGR_curtailing_the_wolfpack
+			add_ideas = { DGR_curtailing_the_wolfpack_1 }
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.15
+			}
 		}
 	}
 	focus = {
@@ -17378,6 +17663,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = -1
@@ -17386,6 +17673,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			if = {
+				limit = { has_idea = DGR_curtailing_the_wolfpack_1 }
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_1
+					add_idea = DGR_curtailing_the_wolfpack_mub
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_epim
+					add_idea = DGR_curtailing_the_wolfpack_2
+				}
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.2
+			}
 		}
 	}
 	focus = {
@@ -17401,6 +17705,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17409,6 +17715,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			if = {
+				limit = { has_idea = DGR_curtailing_the_wolfpack_1 }
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_1
+					add_idea = DGR_curtailing_the_wolfpack_epim
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_mub
+					add_idea = DGR_curtailing_the_wolfpack_2
+				}
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.15
+			}
 		}
 	}
 	focus = {
@@ -17427,6 +17750,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17435,6 +17760,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_curtailing_the_wolfpack_2
+				add_idea = DGR_curtailing_the_wolfpack_3
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.2
+			}
 		}
 	}
 	focus = {
@@ -17450,6 +17783,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = -1
@@ -17458,6 +17793,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			if = {
+				limit = { has_idea = DGR_curtailing_the_wolfpack_3 }
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_3
+					add_idea = DGR_curtailing_the_wolfpack_3_self_defense
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_3_privileges
+					add_idea = DGR_curtailing_the_wolfpack_4
+				}
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.25
+			}
 		}
 	}
 	focus = {
@@ -17473,6 +17825,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17481,6 +17835,23 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			if = {
+				limit = { has_idea = DGR_curtailing_the_wolfpack_3 }
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_3
+					add_idea = DGR_curtailing_the_wolfpack_3_privileges
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_3_self_defense
+					add_idea = DGR_curtailing_the_wolfpack_4
+				}
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.3
+			}
 		}
 	}
 	focus = {
@@ -17499,6 +17870,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17507,6 +17880,15 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.4
+			swap_ideas = {
+				remove_idea = DGR_curtailing_the_wolfpack_4
+				add_idea = DGR_curtailing_the_wolfpack_5
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.35
+			}
 		}
 	}
 	focus = {
@@ -17522,6 +17904,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = -1
@@ -17530,6 +17914,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			add_popularity = {
+				ideology = neonationalism
+				popularity = -0.10
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.2
+			}
 		}
 	}
 	focus = {
@@ -17545,6 +17937,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17553,6 +17947,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_curtailing_the_wolfpack_5
+				add_idea = DGR_curtailing_the_wolfpack_5_fascist_deviats
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.25
+			}
 		}
 	}
 	focus = {
@@ -17571,6 +17973,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17579,6 +17983,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_curtailing_the_wolfpack_5_fascist_deviats
+				add_idea = DGR_curtailing_the_wolfpack_6
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.2
+			}
 		}
 	}
 	focus = {
@@ -17594,6 +18006,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = -1
@@ -17601,7 +18015,24 @@ focus_tree = {
 		
 		cost = 4.3
 		
-		completion_reward = {	
+		completion_reward = {
+			if = {
+				limit = { has_idea = DGR_curtailing_the_wolfpack_6 }
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_6
+					add_idea = DGR_curtailing_the_wolfpack_6_prosecutor
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_6_war_crimes_commission
+					add_idea = DGR_curtailing_the_wolfpack_7
+				}
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.2
+			}
 		}
 	}
 	focus = {
@@ -17617,6 +18048,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17625,6 +18058,24 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.5
+			if = {
+				limit = { has_idea = DGR_curtailing_the_wolfpack_6 }
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_6
+					add_idea = DGR_curtailing_the_wolfpack_6_war_crimes_commission
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = DGR_curtailing_the_wolfpack_6_prosecutor
+					add_idea = DGR_curtailing_the_wolfpack_7
+				}
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.25
+			}
 		}
 	}
 	focus = {
@@ -17643,6 +18094,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 1
@@ -17651,6 +18104,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			add_popularity = {
+				ideology = neonationalism
+				popularity = -0.15
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.4
+			}
 		}
 	}
 	focus = {
@@ -17666,6 +18127,8 @@ focus_tree = {
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 0
@@ -17674,6 +18137,14 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			swap_ideas = {
+				remove_idea = DGR_curtailing_the_wolfpack_7
+				add_idea = DGR_curtailing_the_wolfpack_8
+			}
+			add_power_balance_value = {
+				id = DGR_power_balance_demilitarisation
+				value = 0.1
+			}
 		}
 	}
 	focus = {
@@ -17685,10 +18156,11 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
 		}
 		
 		bypass = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+			has_completed_focus = DGR_curtailing_the_wolfpack
 		}
 		
 		x = 0
@@ -17697,6 +18169,66 @@ focus_tree = {
 		cost = 4.3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.9
+			retire_character = DGR_bargiela
+			retire_character = DGR_szarejko
+			retire_character = DGR_abrahamowicz
+			retire_character = DGR_czyzewski
+			retire_character = DGR_werner
+			remove_power_balance = {
+				id = DGR_power_balance_demilitarisation
+			}
+			remove_ideas = DGR_curtailing_the_wolfpack_8
+			add_popularity = {
+				ideology = neonationalism
+				popularity = -0.15
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.1
+			}
+			set_party_name = {
+				ideology = neonationalism
+				long_name = "Nationalist Remnants"
+				name = "Pozostałości Nacjonalistów"
+			}
+			clr_country_flag = DGR_curtailing_the_wolfpack
+			if = {
+				limit = {
+					has_idea = DGR_narodowa_armia_ludowa5
+				}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa5
+					add_idea = DGR_narodowa_armia_ludowa_reformed_basic
+				}
+			}
+			if = {
+				limit = {
+					has_idea = DGR_narodowa_armia_ludowa6_fronts
+				}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa6_fronts
+					add_idea = DGR_narodowa_armia_ludowa_reformed_fronts
+				}
+			}
+			if = {
+				limit = {
+					has_idea = DGR_narodowa_armia_ludowa6_ngf
+				}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa6_ngf
+					add_idea = DGR_narodowa_armia_ludowa_reformed_ngf
+				}
+			}
+			if = {
+				limit = {
+					has_idea = DGR_narodowa_armia_ludowa6_nc
+				}
+				swap_ideas = {
+					remove_idea = DGR_narodowa_armia_ludowa6_nc
+					add_idea = DGR_narodowa_armia_ludowa_reformed_full
+				}
+			}
 		}
 	}
 	focus = {
@@ -17717,9 +18249,18 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 4
 		
-		completion_reward = {	
+		completion_reward = {
+			country_event = dgr_narkom.10	
+			add_popularity = {
+				popularity = 0.05
+				ideology = marxism_cranism
+			}
+			swap_ideas = {
+				remove_idea = minorities_system_oppresion
+				add_idea = minorities_hidden_oppresion
+			}
 		}
 	}
 	focus = {
@@ -17740,9 +18281,37 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
+			country_event = dgr_narkom.11
+			set_party_name = {
+				ideology = paternal_conservatism
+				long_name = "United Democratic Opposition - Conservatives"
+				name = "Zjednoczona Opozycja Demokratyczna - Konserwatyści"
+			}
+			set_party_name = {
+				ideology = euroliberalism
+				long_name = "United Democratic Opposition - Liberals"
+				name = "Zjednoczona Opozycja Demokratyczna - Liberałowie"
+			}	
+			set_party_name = {
+				ideology = freemarketism
+				long_name = "United Democratic Opposition - Libertarians"
+				name = "Zjednoczona Opozycja Demokratyczna - Libertarianie"
+			}
+			add_popularity = {
+				ideology = paternal_conservatism
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = freemarketism
+				popularity = 0.01
+			}
 		}
 	}
 	focus = {
@@ -17763,9 +18332,10 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
+			add_ideas = { DGR_association_of_trade_unions_spirit }
 		}
 	}
 	focus = {
@@ -17780,7 +18350,7 @@ focus_tree = {
 		}
 		text_icon = DABROWA_focus_style
 		available = {
-		
+			has_country_flag = poland_mountain
 		}
 		
 		bypass = {
@@ -17789,9 +18359,10 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = dgr_narkom.12
 		}
 	}
 
@@ -17804,6 +18375,9 @@ focus_tree = {
 		prerequisite = {
 			
 		}
+		allow_branch = {
+			#has_country_flag = DGR_dawn_of_communist_glory
+		}
 		text_icon = DABROWA_focus_style
 		available = {
 			has_completed_focus = DGR_dawn_of_communist_glory
@@ -17815,9 +18389,11 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 4.3
+		cost = 1
 		
 		completion_reward = {	
+			country_event = dgr_narkom.20
+			add_stability = -0.2
 		}
 	}
 
@@ -17838,9 +18414,11 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = dgr_narkom.21
+			add_stability = 0.05
 		}
 	}
 
@@ -17861,9 +18439,11 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = DGR_narkom.23
+			add_stability = -0.05
 		}
 	}
 	focus = {
@@ -17883,9 +18463,12 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
+			add_ideas = {
+				DGR_new_constitution 
+			}
 		}
 	}
 	focus = {
@@ -17905,9 +18488,15 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = DGR_narkom.22
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.05
+			}
+			add_stability = 0.025
 		}
 	}
 	focus = {
@@ -17927,9 +18516,12 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
+			add_ideas = {
+				DGR_economic_consolidation_plan_spirit
+			}
 		}
 	}
 	focus = {
@@ -17952,9 +18544,11 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 4
 		
 		completion_reward = {	
+			country_event = DGR_narkom.31
+			add_stability = 0.1
 		}
 	}
 	focus = {
@@ -17974,9 +18568,15 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = DGR_narkom.24
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}
+			add_stability = 0.025
 		}
 	}
 	focus = {
@@ -17996,9 +18596,15 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 2
 		
 		completion_reward = {	
+			country_event = DGR_narkom.25
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}
+			add_stability = 0.025
 		}
 	}
 	focus = {
@@ -18021,9 +18627,23 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
+			if = {
+				limit = { has_idea = trade_none}
+				swap_ideas = {
+					remove_idea = trade_none
+					add_idea = trade_regulated
+				}
+			}
+			if = {
+				limit = { has_idea = trade_regulated }
+				swap_ideas = {
+					remove_idea = trade_regulated
+					add_idea = trade_promoted
+				}
+			}
 		}
 	}
 	focus = {
@@ -18046,7 +18666,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
 			create_faction_from_template = faction_template_uw
@@ -18081,9 +18701,12 @@ focus_tree = {
 		x = 3
 		y = 1
 		
-		cost = 4.3
+		cost = 3
 		
 		completion_reward = {	
+			downgrade_military_law = yes
+			add_stability = 0.05
+			add_war_support = -0.05
 		}
 	}
 	focus = {
@@ -18109,9 +18732,12 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 4.3
+		cost = 1
 		
 		completion_reward = {	
+			country_event = DGR_narkom.26
+			set_country_flag = PaF_DGR_natcom_path
+			PaF_initiate_ending_screen = yes
 		}
 	}
 }

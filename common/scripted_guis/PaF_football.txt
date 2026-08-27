@@ -1,31 +1,51 @@
 scripted_gui = {
-	
-	# BRZ_football_gui = { zakomentowane ze względu na nadchodzące przeróbki
-	# 	window_name = "GFX_PaF_football"
-	# 	context_type = decision_category
-	# 	parent_window_token = decision_tab
-
-	# 	# dynamic_lists = {
-	# 	# 	BRZ_league_standings = {
-	# 	# 		array = league_standings
-	# 	# 		index = league_standings_position
-	# 	# 		value = league_standings_team
-	# 	# 		entry_container = "BRZ_league_team"
-	# 	# 	}
-	# 	# }
-
-	# 	# effects = {
-	# 	# 	BRZ_edit_team_button_click = {
-	# 	# 		set_country_flag = team_editor_shown
-	# 	# 	}
-	# 	# }
-	# }
-
+	BRZ_zwkt_match_popup_gui = {
+		window_name = "PaF_BRZ_match_result_popup"
+		context_type = player_context
+		ai_enabled = {
+			always = no
+		}
+		visible = {
+			original_tag = BRZ
+			has_country_flag = BRZ_zwkt_match_popup_open
+		}
+		effects = {
+			BRZ_zwkt_match_popup_close_button_click = {
+				ROOT = { clr_country_flag = BRZ_zwkt_match_popup_open }
+				if = {
+					limit = {
+						NOT = { 
+							check_variable = {
+								enemy_team = JWK
+							}
+						}
+					}
+					declare_war_on = {
+						target = enemy_team
+						type = football_war
+					}					
+				}
+			}
+		}
+		properties = {
+			BRZ_zwkt_match_popup_our_flag = {
+				image = "[BRZ.GetFlag]"
+			}
+		
+			BRZ_zwkt_match_popup_enemy_flag = {
+				image = "[?enemy_team.GetFlag]"
+			}
+		}
+	}
 	BRZ_league_gui = {
 		window_name = "GFX_PaF_football_league"
 		context_type = decision_category
 		parent_window_token = decision_tab
-
+		visible = {
+			original_tag = BRZ
+			has_country_flag = BRZ_local_league_active
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
+		}
 		dynamic_lists = {
 			BRZ_league_standings = {
 				array = league_standings
@@ -35,6 +55,79 @@ scripted_gui = {
 			}
 		}
 	}
+
+	BRZ_league_2_gui = {
+		window_name = "GFX_PaF_football_league_2"
+		context_type = decision_category
+		parent_window_token = decision_tab
+
+		visible = {
+			original_tag = BRZ
+			has_country_flag = BRZ_voivodeship_league_active
+			NOT = { has_country_flag = BRZ_local_league_active }
+		}
+
+		dynamic_lists = {
+			BRZ_league_standings = {
+				array = league_standings
+				index = league_standings_position
+				value = league_standings_team
+				entry_container = "BRZ_league_team"
+			}
+		}
+	}	
+
+	BRZ_zwkt_team_menu = {
+		window_name = "GFX_PaF_BRZ_team_management_menu"
+		context_type = decision_category
+		parent_window_token = decision_tab
+		ai_enabled = {
+			always = no
+		}
+		triggers = {
+			BRZ_zwkt_team_last_match_desc_visible = {
+				BRZ = {
+					has_completed_focus = BRZ_match_day
+				}
+			}
+			BRZ_zwkt_team_last_match_right_desc_visible = {
+				BRZ = {
+					has_completed_focus = BRZ_match_day
+				}
+			}
+			BRZ_zwkt_team_last_match_zwkt_desc_visible = {
+				BRZ = {
+					has_completed_focus = BRZ_match_day
+				}
+			}						
+		}
+		effects = {
+			BRZ_edit_team_button_click = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = team_editor_shown
+						}
+					}
+					set_country_flag = team_editor_shown
+				}
+				else = {
+					clr_country_flag = team_editor_shown
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_variable = current_team_setup
+						}
+					}
+					set_variable = {
+						current_team_setup = 442
+					}
+				}
+			}
+		}
+
+	}	
 
 	BRZ_team_management_gui = {
 		window_name = "GFX_PaF_BRZ_team_management"
@@ -71,6 +164,7 @@ scripted_gui = {
 			BRZ_goalkeeper_btn = { image = "[ShowGKBtnClickState]" }
 
 			BRZ_reserve_player = { image = "[ShowReserveButtonClickState]"}
+
 		}
 
 		dynamic_lists = {
@@ -83,6 +177,20 @@ scripted_gui = {
 		}
 
 		triggers = {
+			BRZ_formation_442_button_click_enabled = {
+				NOT = { has_country_flag = BRZ_formation_change_cooldown }
+				NOT = { check_variable = { current_team_setup = 442 } }
+			}
+
+			BRZ_formation_433_button_click_enabled = {
+				NOT = { has_country_flag = BRZ_formation_change_cooldown }
+				NOT = { check_variable = { current_team_setup = 433 } }
+			}
+
+			BRZ_formation_343_button_click_enabled = {
+				NOT = { has_country_flag = BRZ_formation_change_cooldown }
+				NOT = { check_variable = { current_team_setup = 343 } }
+			}
 			BRZ_team_2_left_atk_btn_visible = {
 				check_variable = {
 					current_team_setup = 442
@@ -351,11 +459,8 @@ scripted_gui = {
 				has_completed_focus = BRZ_first_training_camp
 			}
 			BRZ_train_team_click_enabled = {
-				not = {
-					has_country_flag = {
-						flag = recent_training
-						value = 0
-					}
+				NOT = {
+					has_country_flag = recent_training
 				}
 			}
 		}
@@ -363,55 +468,6 @@ scripted_gui = {
 		effects = {
 			BRZ_team_management_close_click={
 				clr_country_flag = team_editor_shown
-			}
-
-			BRZ_change_team_setup_right_click={
-				if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 433
-						}
-					}
-					change_to_343_setup = yes
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 343
-						}
-					}
-					change_to_442_setup = yes
-				}
-				else = {
-					change_to_433_setup = yes
-				}
-				clear_team_ui_flags = yes
-				clear_array = available_reserve
-			}
-
-			BRZ_change_team_setup_left_click={
-				if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 433
-						}
-					}
-					change_to_442_setup = yes
-					
-				}
-				else_if = {
-					limit = {
-						check_variable = {
-							current_team_setup = 343
-						}
-					}
-					change_to_433_setup = yes
-				}
-				else = {
-					change_to_343_setup = yes
-				}
-				clear_team_ui_flags = yes
-				clear_array = available_reserve
 			}
 
 			BRZ_change_team_stance_right_click={
@@ -432,6 +488,16 @@ scripted_gui = {
 			BRZ_goalkeeper_btn_click = {
 				clear_team_ui_flags = yes
 				set_country_flag = gk_chosen
+			
+				random_character = {
+					limit = {
+						has_character_flag = is_active
+						has_character_flag = is_goalkeeper
+					}
+					set_variable = { ROOT.fb_power_out = THIS.fb_power }
+				}
+			
+				show_gk_in_reserve = yes
 			}
 
 			BRZ_team_2_left_atk_btn_click = {
@@ -694,7 +760,7 @@ scripted_gui = {
 				random_character = {
 					limit = {
 						has_character_flag = is_active
-						has_character_flag = center_def
+						has_character_flag = right_def
 					}
 					set_variable = { ROOT.fb_power_out = THIS.fb_power}
 				}
@@ -702,14 +768,105 @@ scripted_gui = {
 			}
 
 			BRZ_reserve_player_click = {
-				every_character = {
+				if = {
 					limit = {
-						is_character = chosen_reserve
+						any_character = {
+							is_character = chosen_reserve
+							has_character_flag = ready_to_field
+						}
 					}
-					set_character_flag = ready_to_field
-					set_variable = { ROOT.fb_power_in = THIS.fb_power}
+				
+					every_character = {
+						limit = {
+							has_character_flag = ready_to_field
+						}
+						clr_character_flag = ready_to_field
+					}
+				
+					clr_country_flag = reserve_preview_active
+					set_variable = { reserve_preview_fb = 0 }
+					set_variable = { reserve_preview_number = 0 }
+					set_variable = { fb_power_in = 0 }
 				}
-				log = "[?available_reserve^available_reserve_index.GetTokenValue]"
+				else = {
+					every_character = {
+						limit = {
+							has_character_flag = ready_to_field
+						}
+						clr_character_flag = ready_to_field
+					}
+				
+					every_character = {
+						limit = {
+							is_character = chosen_reserve
+						}
+					
+						set_character_flag = ready_to_field
+					
+						set_variable = { ROOT.fb_power_in = THIS.fb_power }
+						set_variable = { ROOT.reserve_preview_name = THIS }
+						set_variable = { ROOT.reserve_preview_fb = THIS.fb_power }
+						set_variable = { ROOT.reserve_preview_number = THIS.tee_number }
+					
+						ROOT = { set_country_flag = reserve_preview_active }
+					}
+				}
+			}
+
+			BRZ_formation_442_button_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BRZ_formation_change_cooldown }
+						NOT = { check_variable = { current_team_setup = 442 } }
+					}
+				
+					change_to_442_setup = yes
+					BRZ = {
+						set_country_flag = {
+							flag = BRZ_formation_change_cooldown
+							days = 14
+							value = 1
+						}
+					}
+				}
+			}
+
+			BRZ_formation_433_button_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BRZ_formation_change_cooldown }
+						NOT = { check_variable = { current_team_setup = 433 } }
+					}
+				
+					change_to_433_setup = yes
+				
+					BRZ = {
+						set_country_flag = {
+							flag = BRZ_formation_change_cooldown
+							days = 14
+							value = 1
+						}
+					}
+				}
+			}
+
+			BRZ_formation_343_button_click = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BRZ_formation_change_cooldown }
+						NOT = { check_variable = { current_team_setup = 343 } }
+					}
+				
+					change_to_343_setup = yes
+				
+					BRZ = {
+						set_country_flag = {
+							flag = BRZ_formation_change_cooldown
+							days = 14
+							value = 1
+						}
+					}
+				}
 			}
 
 			BRZ_swap_footballer_click = {
@@ -721,6 +878,7 @@ scripted_gui = {
 					set_country_flag = {
 						flag = recent_training
 						days = 30
+						value = 1
 					}
 					every_character = {
 						limit = {
@@ -744,6 +902,7 @@ scripted_gui = {
 						
 					}
 					BRZ_calculate_stats = yes
+					BRZ_rebuild_formation = yes
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 ﻿add_namespace = buzzer
+add_namespace = brz_league
 
 country_event = {
 	id = buzzer.1
@@ -39,16 +40,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.3"}
 	option = {
-
 		name = buzzer.3.a
-		set_country_flag = football_manager_enabled
-		hidden_effect = {
-			set_initial_team = yes
-			set_variable = {
-				current_team_setup = 442
-			}
-		}
-		
 	}
 }
 
@@ -242,14 +234,16 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.9"}
 	option = {
-
 		name = buzzer.9.a
-		
+		trigger = {
+			has_country_flag = lubliniec_kickoff_victory
+		}
 	}
 	option = {
-
 		name = buzzer.9.b
-		
+		trigger = {
+			has_country_flag = lubliniec_kickoff_defeat
+		}
 	}
 }
 
@@ -268,6 +262,12 @@ country_event = {
 			idea = BRZ_victory_fervor
 			days = 90
 		}
+		every_controlled_state = {
+			damage_building = {
+				type = infrastructure
+				damage = 0.02
+			}
+		}
 	}
 }
 
@@ -282,12 +282,6 @@ country_event = {
 	option = {
 
 		name = buzzer.11.a
-		JWK = {
-			add_timed_idea = {
-				idea = BRZ_victory_fervor
-				days = 90
-			}
-		}
 	}
 }
 
@@ -360,14 +354,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.16"}
 	option = {
-
 		name = buzzer.16.a #Y
-		
-	}
-	option = {
-
-		name = buzzer.16.b #N
-		
 	}
 }
 
@@ -380,14 +367,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.17"}
 	option = {
-
-		name = buzzer.17.a #Y
-		
-	}
-	option = {
-
-		name = buzzer.17.b #N
-		
+		name = buzzer.17.a
 	}
 }
 
@@ -402,7 +382,18 @@ country_event = {
 	option = {
 
 		name = buzzer.18.a
-		
+		hidden_effect = {
+			JAP = {
+				set_cosmetic_tag = JAP_BRZ
+			}
+			SOV = {
+				set_cosmetic_tag = SOV_BRZ
+			}
+		}
+		country_event = {
+			id = brz_league.4
+			days = 3
+		}
 	}
 }
 
@@ -415,11 +406,25 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.19"}
 	option = {
-
 		name = buzzer.19.a
-		set_power_balance = {
-			id = BRZ_power_balance
-			set_value = -0.1
+		set_party_name = {
+			ideology = reactionary
+			long_name = BRZ_reactionary_zwkt_party_long
+			name = BRZ_reactionary_zwkt_party
+		}
+		set_party_name = {
+			ideology = autocracy
+			long_name = BRZ_autocracy_zwkt_party_long
+			name = BRZ_autocracy_zwkt_party
+		}
+		set_party_name = {
+			ideology = paternal_conservatism
+			long_name = BRZ_paternal_conservatism_party_zwkt_long
+			name = BRZ_paternal_conservatism_party_zwkt
+		}		
+		add_popularity = {
+			ideology = reactionary
+			popularity = 0.15
 		}
 	}
 }
@@ -486,6 +491,9 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.24"}
 	option = {
 		name = buzzer.24.a
+		add_ideas = BRZ_untamed_hooligans_1
+		add_ideas = BRZ_dinosaurs_in_club_managements_1
+		add_ideas = BRZ_decadent_footballers_1
 	}
 }
 
@@ -603,6 +611,7 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.33"}
 	option = {
 		name = buzzer.33.a
+		country_event = buzzer.43
 	}
 }
 
@@ -616,6 +625,10 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.34"}
 	option = {
 		name = buzzer.34.a
+		country_event = {
+			id = buzzer.42
+			days = 3
+		}
 	}
 }
 
@@ -680,17 +693,202 @@ country_event = {
 }
 
 country_event = {
-	id = buzzer.1974 #event po pokonaniu tagu z piłkarzem
-	title = buzzer.1974.t
-	desc = buzzer.1974.desc
+	id = buzzer.37 #woes of polish football
+	title = buzzer.37.t
+	desc = buzzer.37.desc
 
 	fire_only_once = yes
 	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.37"}
+	option = {
+		name = buzzer.37.a
+	}
+}
+
+country_event = {
+	id = buzzer.38 #victory cup
+	title = buzzer.38.t
+	desc = buzzer.38.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.38"}
+	option = {
+		name = buzzer.38.a
+	}
+}
+
+country_event = {
+	id = buzzer.39 #dreams of champions league
+	title = buzzer.39.t
+	desc = buzzer.39.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.39"}
+	option = {
+		name = buzzer.39.a
+	}
+}
+
+country_event = {
+	id = buzzer.40 #x-kom nationalization
+	title = buzzer.40.t
+	desc = buzzer.40.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.40"}
+	option = {
+		name = buzzer.40.a
+	}
+}
+
+country_event = {
+	id = buzzer.41 #portuguese - a common enemy
+	title = buzzer.41.t
+	desc = buzzer.41.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.41"}
+	option = {
+		name = buzzer.41.a
+	}
+}
+
+country_event = {
+	id = buzzer.42 #resolving BOP - temporary event
+	title = buzzer.42.t
+	desc = buzzer.42.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.41"}
+	option = {
+		name = buzzer.42.a
+		trigger = {
+			is_power_balance_in_range = {
+				id = BRZ_power_balance
+				range < BRZ_the_ball_is_in_center
+			}
+		}
+		remove_power_balance = {
+			id = BRZ_power_balance
+		}
+		add_stability = 0.15
+		add_political_power = 100
+		add_popularity = {
+			ideology = marxism_cranism
+			popularity = 0.2
+		}		
+	}
+	option = {
+		name = buzzer.42.b
+		trigger = {
+			is_power_balance_in_range = {
+				id = BRZ_power_balance
+				range > BRZ_the_ball_is_in_center
+			}
+		}	
+		remove_power_balance = {
+			id = BRZ_power_balance
+		}
+		add_stability = 0.15
+		add_political_power = 100
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.2
+		}
+		set_politics = {
+			ruling_party = euroliberalism
+		}		
+	}
+	option = {
+		name = buzzer.42.c
+		trigger = {
+			is_power_balance_in_range = {
+				id = BRZ_power_balance
+				range = BRZ_the_ball_is_in_center
+			}
+		}
+		remove_power_balance = {
+			id = BRZ_power_balance
+		}
+		add_stability = 0.15
+		add_political_power = 100
+		add_popularity = {
+			ideology = socialdemocrature
+			popularity = 0.2
+		}
+		set_politics = {
+			ruling_party = socialdemocrature
+		}			
+	}		
+}
+
+country_event = {
+	id = buzzer.43 
+	title = buzzer.43.t
+	desc = buzzer.43.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.43"}
+	option = {
+		name = buzzer.43.a
+	}
+}
+
+country_event = {
+	id = buzzer.44 
+	title = buzzer.44.t
+	desc = buzzer.44.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.44"}
+	option = {
+		name = buzzer.44.a
+	}
+}
+
+country_event = {
+	id = buzzer.1974 
+	title = buzzer.1974.t
+	desc = buzzer.1974.desc
+
+	is_triggered_only = yes
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires buzzer.14"}
 	option = {
+		name = buzzer.1974.a
+		custom_effect_tooltip = buzzer.1974.accept_tt
 
-		name = buzzer.1974.a #bierzemy piłkarza
-		
+		hidden_effect = {
+			random_character = {
+				limit = {
+					has_character_flag = taken_over_for_BRZ
+				}
+
+				set_variable = {
+					tee_number = ROOT.next_tee_number
+				}
+
+				add_to_variable = {
+					ROOT.next_tee_number = 1
+				}
+
+				clr_character_flag = taken_over_for_BRZ
+			}
+
+			# Optional cleanup
+			set_variable = {
+				zwkt_captured_fb_power = 0
+			}
+			set_variable = {
+				zwkt_captured_fb_role = 0
+			}
+		}
 	}
 	option = {
 		name = buzzer.1974.b #nie bierzemy piłkarza
@@ -702,5 +900,209 @@ country_event = {
 				retire_character = PREV
 			}
 		}
+		hidden_effect = {
+			set_variable = {
+				zwkt_captured_fb_power = 0
+			}
+			set_variable = {
+				zwkt_captured_fb_role = 0
+			}
+		}
+	}
+}
+
+country_event = {
+	id = brz_league.1 #midterm chujnia
+	title = brz_league.1.t
+	desc = brz_league.1.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = brz_league.1.a
+		add_stability = -0.05
+		add_political_power = -50
+		add_popularity = {
+			ideology = ROOT
+			popularity = -0.05
+		}
+	}
+}
+
+country_event = {
+	id = brz_league.2
+	title = brz_league.2.t
+	desc = brz_league.2.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = brz_league.2.a
+		add_stability = 0.05
+		add_political_power = 50
+	}
+}
+
+country_event = {
+	id = brz_league.3
+	title = brz_league.3.t
+	desc = brz_league.3.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = brz_league.3.a
+		add_stability = -0.15
+		add_political_power = -100
+		add_popularity = {
+			ideology = ROOT
+			popularity = -0.1
+		}
+		start_civil_war = {
+		    ideology = neonationalism
+		    size = 0.35
+		    army_ratio = 0.4
+		    navy_ratio = 0
+		    air_ratio = 0
+		}
+		# todo: fail state
+		# todo kiedyś: Błaszczykowski przejmuje władzę?
+	}
+}
+
+country_event = {
+	id = brz_league.4
+	title = brz_league.4.t
+	desc = brz_league.4.desc
+
+	is_triggered_only = yes
+
+	immediate = {
+		league_sort_standings = yes
+	}
+
+	option = {
+		name = brz_league.4.a
+		trigger = {
+			BRZ_olimpia_promoted_from_league = yes
+			has_country_flag = BRZ_local_league_active
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
+		}
+		hidden_effect = {
+			BRZ_promote_olimpia_to_voivodeship_league = yes			
+		}
+		add_to_variable = {
+			budget = 50
+		}
+		custom_effect_tooltip = budget_add_50M
+	}
+
+	option = {
+		name = brz_league.4.b
+		trigger = {
+			BRZ_olimpia_promoted_from_league = no
+			has_country_flag = BRZ_local_league_active
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
+		}
+		hidden_effect = {
+			BRZ_restart_local_league = yes			
+		}
+	}
+
+	option = {
+		name = brz_league.4.c
+		trigger = {
+			NOT = { has_country_flag = BRZ_local_league_active }
+			has_country_flag = BRZ_voivodeship_league_active
+			BRZ_olimpia_promoted_from_league = yes
+		}
+		hidden_effect = {
+			BRZ_promote_olimpia_to_next_league = yes			
+		}
+
+		add_to_variable = {
+			budget = 100
+		}
+		custom_effect_tooltip = budget_add_100M
+	}
+
+	option = {
+		name = brz_league.4.d
+		trigger = {
+			NOT = { has_country_flag = BRZ_local_league_active }
+			has_country_flag = BRZ_voivodeship_league_active
+			BRZ_olimpia_promoted_from_league = no
+		}
+		hidden_effect = {
+			BRZ_restart_voivodeship_league = yes			
+		}
+
+	}
+
+	option = {
+		name = brz_league.4.e
+		trigger = {
+			NOT = { has_country_flag = BRZ_local_league_active }
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
+			has_country_flag = BRZ_regional_league_active
+			BRZ_olimpia_promoted_from_league = no
+		}
+		hidden_effect = {
+			BRZ_restart_regional_league = yes			
+		}
+
+	}
+	
+	option = {
+		name = brz_league.4.f
+		trigger = {
+			NOT = { has_country_flag = BRZ_local_league_active }
+			NOT = { has_country_flag = BRZ_voivodeship_league_active }
+			has_country_flag = BRZ_regional_league_active
+			BRZ_olimpia_promoted_from_league = yes
+		}
+		hidden_effect = {
+			BRZ_promote_olimpia_to_next_league_2 = yes			
+		}
+
+		add_to_variable = {
+			budget = 150
+		}
+		custom_effect_tooltip = budget_add_150M
+	}
+	
+	option = {
+		name = brz_league.4.g
+		trigger = {
+			has_country_flag = BRZ_ekstraklasa_active
+		}
+		hidden_effect = {
+			BRZ_restart_ekstraklapa = yes			
+		}
+
+		add_to_variable = {
+			budget = 150
+		}
+		custom_effect_tooltip = budget_add_150M
+	}	
+}
+
+country_event = {
+	id = brz_league.5
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		BRZ_start_voivodeship_batch_2 = yes
+	}
+}
+
+country_event = {
+	id = brz_league.6
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		BRZ_start_voivodeship_batch_1 = yes
 	}
 }

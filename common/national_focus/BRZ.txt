@@ -11,13 +11,16 @@ focus_tree = {
 			tag = BRZ
 		}
 	}
+	initial_show_position = {
+		focus = BRZ_first_whistle
+	}
 	default = no
 	
 	continuous_focus_position = {x = 50 y = 2400 }
 	
 		focus = {
 		id = BRZ_first_whistle
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_first_whistle
 		available = {
 		
@@ -34,13 +37,13 @@ focus_tree = {
 		completion_reward = { 
 			country_event = {
 				id = buzzer.1
-				}
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_representing_olimpia
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_representing_olimpia
 		relative_position_id = BRZ_first_whistle
 		prerequisite = { focus = BRZ_first_whistle }
@@ -59,13 +62,13 @@ focus_tree = {
 		completion_reward = { 
 			country_event = {
 				id = buzzer.2
-				}
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_national_football_team
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_national_football_team
 		relative_position_id = BRZ_representing_olimpia
 		prerequisite = { focus = BRZ_representing_olimpia }
@@ -82,13 +85,20 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			
+			custom_effect_tooltip = BRZ_created_a_football_team	
+			set_country_flag = football_manager_enabled
+			hidden_effect = {
+				set_initial_team = yes
+				set_variable = {
+					current_team_setup = 442
+				}
+			}		
 		}
 	}
 	
 	focus = {
 		id = BRZ_first_appointments
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_first_appointments
 		relative_position_id = BRZ_national_football_team
 		prerequisite = { focus = BRZ_national_football_team }
@@ -108,13 +118,13 @@ focus_tree = {
 			country_event = {
 				id = buzzer.3
 			}
-			custom_effect_tooltip = BRZ_created_a_football_team
+
 		}
 	}
 	
 	focus = {
 		id = BRZ_creation_of_nsfl
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_creation_of_nsfl
 		relative_position_id = BRZ_first_appointments
 		prerequisite = { focus = BRZ_first_appointments }
@@ -135,12 +145,13 @@ focus_tree = {
 			hidden_effect = {
 				initialize_standings = yes
 			}
+			set_country_flag = BRZ_local_league_active
 		}
 	}
 	
 	focus = {
 		id = BRZ_klobuck_training_centre
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_klobuck_training_centre
 		relative_position_id = BRZ_first_appointments
 		prerequisite = { focus = BRZ_first_appointments }
@@ -164,16 +175,26 @@ focus_tree = {
 					instant_build = yes
 				}
 				add_victory_points = {
-					province = 8480 #zrobić na przedmieściach?
+					province = 8480
 					value = 5
 				}
+				custom_effect_tooltip = rozdzielacz_efektow
+				add_dynamic_modifier = {
+					modifier = BRZ_klobuck_training_centre
+				}
+			}
+			add_tech_bonus = {
+				name = BRZ_klobuck_training_centre
+				uses = 1
+				bonus = 0.5
+				category = infantry_training
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_first_training_camp
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_first_training_camp
 		relative_position_id = BRZ_klobuck_training_centre
 		prerequisite = { focus = BRZ_klobuck_training_centre }
@@ -190,11 +211,13 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = {
+			army_experience = 50
 			custom_effect_tooltip = BRZ_first_training_camp_tt
 			hidden_effect = {
 				set_country_flag = {
 					flag = recent_training
 					days = 30
+					value = 1
 				}
 				every_character = {
 					limit = {
@@ -217,6 +240,8 @@ focus_tree = {
 					}
 					
 				}
+				BRZ_rebuild_formation = yes
+				BRZ_calculate_stats = yes
 			}
 			
 		}
@@ -224,7 +249,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_send_envoy_to_lubliniec
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_send_envoy_to_lubliniec
 		relative_position_id = BRZ_first_appointments
 		prerequisite = { focus = BRZ_first_training_camp }
@@ -250,7 +275,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_nsfl_inauguration_cup
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_nsfl_inauguration_cup
 		relative_position_id = BRZ_creation_of_nsfl
 		prerequisite = { focus = BRZ_creation_of_nsfl }
@@ -269,12 +294,14 @@ focus_tree = {
 		completion_reward = { 
 			add_political_power = -10
 			add_stability = 0.05
+			army_experience = 10
+			add_command_power = 5
 		}
 	}
 	
 	focus = {
 		id = BRZ_match_liswarta_krzepice
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_match_liswarta_krzepice
 		relative_position_id = BRZ_nsfl_inauguration_cup
 		prerequisite = { focus = BRZ_nsfl_inauguration_cup }
@@ -292,6 +319,8 @@ focus_tree = {
 		
 		completion_reward = {
 			custom_effect_tooltip = BRZ_match_liswarta_krzepice_tt
+			army_experience = 10
+			add_command_power = 5
 			hidden_effect = {
 				random_list = {
 					1 = {
@@ -308,7 +337,7 @@ focus_tree = {
 
 	focus = {
 		id = BRZ_match_znicz_klobuck
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_match_znicz_klobuck
 		relative_position_id = BRZ_nsfl_inauguration_cup
 		prerequisite = { focus = BRZ_nsfl_inauguration_cup }
@@ -327,6 +356,8 @@ focus_tree = {
 			
 		completion_reward = {
 			custom_effect_tooltip = BRZ_match_znicz_klobuck_tt
+			army_experience = 10
+			add_command_power = 5
 			hidden_effect = {
 				random_list = {
 					1 = {
@@ -343,7 +374,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_truskolasy_leading_role
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_truskolasy_leading_role
 		relative_position_id = BRZ_nsfl_inauguration_cup
 		prerequisite = { focus = BRZ_match_liswarta_krzepice }
@@ -375,7 +406,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_strike_force_of_truskolasy
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_strike_force_of_truskolasy
 		relative_position_id = BRZ_representing_olimpia
 		prerequisite = { focus = BRZ_representing_olimpia }
@@ -392,18 +423,20 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
-				uses = 2
-				category = land_honor
+			add_mastery_bonus = {
+				name = BRZ_strike_force_of_truskolasy
+				bonus = 0.5
+				days = 180
+				grand_doctrine = cqc_theory
 			}
-			add_command_power = 50
+			add_command_power = 25
+			army_experience = 75
 		}
 	}
 	
 	focus = {
 		id = BRZ_issue_preparations_in_clubs
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_issue_preparations_in_clubs
 		relative_position_id = BRZ_strike_force_of_truskolasy
 		prerequisite = { focus = BRZ_strike_force_of_truskolasy }
@@ -425,12 +458,16 @@ focus_tree = {
 				remove_idea = officer_random
 				add_idea = officer_clerks
 			}
+			swap_ideas = {
+				remove_idea = BRZ_bandit_hooligans
+				add_idea = BRZ_bandit_hooligans_2_alt
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_have_faith_in_hooligans
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_have_faith_in_hooligans
 		relative_position_id = BRZ_strike_force_of_truskolasy
 		prerequisite = { focus = BRZ_strike_force_of_truskolasy }
@@ -448,13 +485,23 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
-			upgrade_military_law = yes
+			add_manpower = 500
+			add_equipment_to_stockpile = {
+				type = melee_equipment_1
+				amount = 250
+				producer = BRZ
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			swap_ideas = {
+				remove_idea = BRZ_bandit_hooligans
+				add_idea = BRZ_bandit_hooligans_2
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_professional_fighting_squads
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_professional_fighting_squads
 		relative_position_id = BRZ_issue_preparations_in_clubs
 		prerequisite = { focus = BRZ_issue_preparations_in_clubs }
@@ -471,23 +518,30 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-				BRZ_łukasik={
-					add_corps_commander_role = {
-						traits = { skilled_staffer }
-						skill = 2
-						attack_skill = 1
-						defense_skill = 2
-						planning_skill = 3
-						logistics_skill = 3
-						legacy_id = -1
-					}
+			BRZ_łukasik={
+				add_corps_commander_role = {
+					traits = { skilled_staffer }
+					skill = 2
+					attack_skill = 1
+					defense_skill = 2
+					planning_skill = 3
+					logistics_skill = 3
+					legacy_id = -1
 				}
+			}
+			add_unit_bonus = {
+				militia = {
+					soft_attack = 0.05
+					max_organisation = 5
+				}
+			}
+			set_sub_doctrine = warsaw_pact_infantry
 		}
 	}
 	
 	focus = {
 		id = BRZ_show_of_brutal_force
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_show_of_brutal_force
 		relative_position_id = BRZ_have_faith_in_hooligans
 		prerequisite = { focus = BRZ_have_faith_in_hooligans }
@@ -504,23 +558,30 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-				BRZ_strażak={
-					add_corps_commander_role = {
-						traits = { commando }
-						skill = 2
-						attack_skill = 3
-						defense_skill = 1
-						planning_skill = 2
-						logistics_skill = 1
-						legacy_id = -1
-					}
+			BRZ_strażak={
+				add_corps_commander_role = {
+					traits = { commando }
+					skill = 2
+					attack_skill = 3
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 1
+					legacy_id = -1
 				}
+			}
+			add_unit_bonus = {
+				melee_infantry = {
+					breakthrough = 0.1
+					soft_attack = 0.05
+				}
+			}
+			set_sub_doctrine = honor_operations
 		}
 	}
 	
 	focus = {
 		id = BRZ_every_man_a_footballer
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_every_man_a_footballer
 		relative_position_id = BRZ_strike_force_of_truskolasy
 		prerequisite = { focus = BRZ_professional_fighting_squads 
@@ -538,13 +599,14 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
+			upgrade_military_law = yes
 			country_event = buzzer.6
 		}
 	}
 	
 	focus = {
 		id = BRZ_crusade_of_supreme_coach
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_crusade_of_supreme_coach
 		relative_position_id = BRZ_representing_olimpia
 		prerequisite = { focus = BRZ_representing_olimpia }
@@ -561,16 +623,49 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = BRZ_legacy_of_pzpn
+				add_idea = BRZ_legacy_of_pzpn_2
+			}
 			add_popularity = {
 				ideology = marxism_cranism
-				popularity = 0.01
+				popularity = 0.05
 			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.02
+			}			
+			set_party_name = {
+				ideology = marxism_cranism
+				long_name = BRZ_marxism_cranism_party_zwkt_long
+				name = BRZ_marxism_cranism_party_zwkt
+			}
+			set_party_name = {
+				ideology = socialdemocrature
+				long_name = BRZ_socialdemocrature_party_zwkt_long
+				name = BRZ_socialdemocrature_party_zwkt
+			}
+			set_party_name = {
+				ideology = euroliberalism
+				long_name = BRZ_euroliberalism_party_zwkt_long
+				name = BRZ_euroliberalism_party_zwkt
+			}
+			set_party_name = {
+				ideology = freemarketism
+				long_name = BRZ_freemarketism_party_zwkt_long
+				name = BRZ_freemarketism_party_zwkt
+			}			
+			set_party_name = {
+				ideology = neonationalism
+				long_name = BRZ_neonationalism_party_zwkt_long
+				name = BRZ_neonationalism_party_zwkt
+			}			
 		}
 	}
 	
 	focus = {
 		id = BRZ_destroy_biedronka
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_destroy_biedronka
 		relative_position_id = BRZ_crusade_of_supreme_coach
 		prerequisite = { focus = BRZ_crusade_of_supreme_coach }
@@ -593,15 +688,15 @@ focus_tree = {
 					modifier = BRZ_resource_dynamic_mod
 				}
 			}
-			add_stability = 0.1
-			add_political_power = 100
+			add_war_support = 0.05
+			add_political_power = 50
 			country_event = buzzer.13
 		}
 	}
 	
 	focus = {
 		id = BRZ_reopening_erg_klobuck
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_reopening_erg_klobuck
 		relative_position_id = BRZ_crusade_of_supreme_coach
 		prerequisite = { focus = BRZ_crusade_of_supreme_coach }
@@ -618,10 +713,12 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = { 
+			custom_effect_tooltip = BRZ_erg_klobuck_tt			
 			hidden_effect = {
 				set_country_flag = erg_klobuck_allowed
-				}
+			}
 			591 = {
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
@@ -633,7 +730,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_every_school_a_club
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_every_school_a_club
 		relative_position_id = BRZ_crusade_of_supreme_coach
 		prerequisite = { focus = BRZ_crusade_of_supreme_coach }
@@ -660,7 +757,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_zwkt_infrastructure
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_zwkt_infrastructure
 		relative_position_id = BRZ_every_school_a_club
 		prerequisite = { focus = BRZ_every_school_a_club }
@@ -685,36 +782,47 @@ focus_tree = {
 				}
 			}
 			build_railway = {
-			  level = 1
-			  build_only_on_allied = yes
-			  controller_priority = {
-				base = 1
-
-				modifier = {
-				  tag = BRZ
-				  add = 2
+				level = 1
+				build_only_on_allied = yes
+				controller_priority = {
+					base = 1
+					modifier = {
+					  tag = BRZ
+					  add = 2
+					}
 				}
-			  }
-			  fallback = yes
-			  path = { 8473 219 }
-			  start_province = 8473
-			  target_province = 219
+				fallback = yes
+				path = { 86 8503 8506 8496 8497 8495 8490 3913 8637 8635 8634 }
+				start_province = 86
+				target_province = 8634
+			}
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 8473 219 }
+				start_province = 8473
+				target_province = 219
 			}
 			add_equipment_to_stockpile = {
 				type = motorized_equipment_1
 				amount = 200
 				producer = BRZ
 			}
-		add_popularity = {
-			ideology = marxism_cranism
-			popularity = 0.1
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.01
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_zwkt_industry
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_zwkt_industry
 		relative_position_id = BRZ_reopening_erg_klobuck
 		prerequisite = { focus = BRZ_reopening_erg_klobuck }
@@ -735,22 +843,31 @@ focus_tree = {
 				add_dynamic_modifier = {
 					modifier = BRZ_truskolasy_industry_mod
 				}
+				add_extra_state_shared_building_slots = 1					
 				add_building_construction = {
 					type = arms_factory
 					level = 1
 					instant_build = yes
 				}
 			}
+			swap_ideas = {
+				remove_idea = economy_anarchy
+				add_idea = economy_workers_management
+			}
 			add_popularity = {
 				ideology = marxism_cranism
-				popularity = 0.1
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.01
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_zwkt_supplies
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_zwkt_supplies
 		relative_position_id = BRZ_destroy_biedronka
 		prerequisite = { focus = BRZ_destroy_biedronka }
@@ -775,25 +892,27 @@ focus_tree = {
 					province = 8473
 				}
 			}
-		build_railway = {
-			level = 1
-			build_only_on_allied = yes
-			fallback = yes
-			path = { 8473 219 }
-			start_province = 8473
-			target_province = 219
-		}
-		add_stability = 0.1
-		add_popularity = {
-			ideology = marxism_cranism
-			popularity = 0.1
+			mio:BRZ_maskpol_mio = {
+				add_mio_size = 1
+			}
+			swap_ideas = {
+				remove_idea = trade_none
+				add_idea = trade_minimal
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.01
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_introduction_of_clubism
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_introduction_of_clubism
 		relative_position_id = BRZ_zwkt_industry
 		prerequisite = { focus = BRZ_zwkt_industry }
@@ -811,23 +930,21 @@ focus_tree = {
 		
 		cost = 2
 		
-		completion_reward = { 
-			add_popularity = {
-				ideology = marxism_cranism
-				popularity = 0.2
-			}
+		completion_reward = {
+			country_event = buzzer.7
 			set_politics = {
 				ruling_party = marxism_cranism
+			}						
+			swap_ideas = {
+				remove_idea = taxes_none
+				add_idea = taxes_minimal
 			}
-			add_stability = 0.1
-			add_political_power = 50
-			country_event = buzzer.7
 		}
 	}
 	
 	focus = {
 		id = BRZ_match_day
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_match_day
 		relative_position_id = BRZ_send_envoy_to_lubliniec
 		prerequisite = { focus = BRZ_send_envoy_to_lubliniec }
@@ -890,7 +1007,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_truskolasy_top
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_truskolasy_top
 		relative_position_id = BRZ_match_day
 		prerequisite = { focus = BRZ_match_day }
@@ -909,12 +1026,14 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = buzzer.10
+			add_war_support = -0.05
+			add_stability = 0.05
 		}
 	}
 	
 	focus = {
 		id = BRZ_we_will_get_them_anyway
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_we_will_get_them_anyway
 		relative_position_id = BRZ_match_day
 		prerequisite = { focus = BRZ_match_day }
@@ -933,12 +1052,14 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = buzzer.11
+			add_war_support = 0.05
+			add_stability = -0.05
 		}
 	}
 	
 	focus = {
 		id = BRZ_demand_submission
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_demand_submission
 		relative_position_id = BRZ_match_day
 		prerequisite = { focus = BRZ_truskolasy_top
@@ -962,12 +1083,18 @@ focus_tree = {
 				}
 				add_claim_by = BRZ
 			}
+			JWK = {
+				add_opinion_modifier = {
+					target = BRZ
+					modifier = claims_on_us
+				}
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_send_the_hooligans
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_send_the_hooligans
 		relative_position_id = BRZ_demand_submission
 		prerequisite = { focus = BRZ_demand_submission }
@@ -992,7 +1119,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_march_on_lubliniec
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_march_on_lubliniec
 		relative_position_id = BRZ_send_the_hooligans
 		prerequisite = { focus = BRZ_send_the_hooligans }
@@ -1008,52 +1135,249 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		
 		cost = 1
-		
+		bypass_effect = {
+			country_event = buzzer.12
+			mark_focus_tree_layout_dirty = yes			
+		}
 		completion_reward = {
 			declare_war_on = {
 				target = JWK
-				type = voivodeship_war
+				type = football_war
+			}
+			if = {
+				limit = {
+					has_country_flag = lubliniec_kickoff_victory
+				}
+				add_timed_idea = {
+					idea = BRZ_victory_fervor
+					days = 30
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = lubliniec_kickoff_defeat
+				}	
+				JWK = {
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 30
+					}
+				}			
 			}
 			country_event = buzzer.12
+			mark_focus_tree_layout_dirty = yes
 		}
+		will_lead_to_war_with = JWK
+		
 	}
 	
 
-
-
 	focus = {
 		id = BRZ_lubliniec_training_camp #drzewko wojenne
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_lubliniec_training_camp
 		available = {
 			JWK = { exists = no }
 			421 = { is_controlled_by = BRZ }
 		}
+		allow_branch = {
+			BRZ = {
+				has_completed_focus = BRZ_march_on_lubliniec
+			}
+		}
 		
 		bypass = {
 		}
 		
-		x = 29
+		x = 26
 		y = 0
 		
 		cost = 1
 		
 		completion_reward = { 
 			country_event = buzzer.15
+			if = {
+				limit = {
+					NOT = {
+						has_doctrine = special_forces_quality
+					}
+				}
+				set_grand_doctrine = special_forces_quality
+			}
+			add_potential_special_forces_tree = yes
+		}
+	}
+
+	focus = {
+		id = BRZ_military_gear #drzewko wojenne
+		text_icon = BUZZER_focus_style
+		icon = BRZ_military_gear
+		relative_position_id = BRZ_lubliniec_training_camp
+		prerequisite = { focus = BRZ_lubliniec_training_camp }
+		available = {
+
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			add_equipment_to_stockpile = {
+				type = ranged_equipment
+				amount = 300
+				producer = JWK
+			}
+			add_equipment_to_stockpile = {
+				type = armored_car_equipment
+				amount = 30
+				producer = JWK
+			}			
+			add_equipment_to_stockpile = {
+				type = special_forces_equipment
+				amount = 50
+				producer = JWK
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 300
+				producer = JWK
+			}			
 		}
 	}
 	
 	focus = {
-		id = BRZ_jurassic_hooligan_fights
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_jurassic_hooligan_fights
+		id = BRZ_officer_fans #drzewko wojenne
+		text_icon = BUZZER_focus_style
+		icon = BRZ_officer_fans
 		relative_position_id = BRZ_lubliniec_training_camp
 		prerequisite = { focus = BRZ_lubliniec_training_camp }
 		available = {
-			has_war = no
+
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = { 
+			add_command_power = 25
+			if = {
+				limit = {
+					has_idea = officer_clerks
+				}
+				swap_ideas = {
+					remove_idea = officer_clerks
+					add_idea = officer_leftovers
+				}
+			}
+			else = {
+				army_experience = 50
+				random_unit_leader = {
+					add_defense = 1
+					add_logistics = 1
+				}
+				random_unit_leader = {
+					add_defense = 1
+					add_logistics = 1
+				}				
+			}			
+			JWK = {
+				JWK_strzelecki = {
+					set_nationality = BRZ
+					remove_advisor_role = {
+						slot = head_of_government
+					}
+					set_portraits = {
+						civilian = {
+							large = "gfx/leaders/BRZ/BRZ_Strzelecki.dds"
+						}
+						army = {
+							large = "gfx/leaders/BRZ/BRZ_Strzelecki.dds"
+						}
+					}
+				}
+				JWK_danisiewicz = {
+					set_nationality = BRZ
+					set_portraits = {
+						civilian = {
+							large = "gfx/leaders/BRZ/BRZ_Danisiewicz.dds"
+						}
+						army = {
+							large = "gfx/leaders/BRZ/BRZ_Danisiewicz.dds"
+						}
+					}
+				}					
+			}
+
+		}
+	}	
+
+	focus = {
+		id = BRZ_long_distance_shot #drzewko wojenne
+		text_icon = BUZZER_focus_style
+		icon = BRZ_long_distance_shot
+		relative_position_id = BRZ_lubliniec_training_camp
+		prerequisite = { focus = BRZ_military_gear }
+		prerequisite = { focus = BRZ_officer_fans }
+		available = {
+
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 2
+		
+		completion_reward = { 
+			add_tech_bonus = {
+				name = BRZ_long_distance_shot
+				uses = 2
+				bonus = 0.5
+				category = primitive_artillery
+			}
+			add_equipment_to_stockpile = {
+				type = light_artillery_equipment
+				amount = 50
+				producer = JWK
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_JWK_liga_tt
+		}
+	}	
+	
+	focus = {
+		id = BRZ_jurassic_hooligan_fights
+		text_icon = BUZZER_focus_style
+		icon = BRZ_jurassic_hooligan_fights
+		relative_position_id = BRZ_long_distance_shot
+		prerequisite = { focus = BRZ_long_distance_shot }
+		available = {
+			OR = {
+				has_war = no
+				AND = {
+					OR = {
+						has_war_with = JAW
+						has_war_with = DGR
+						has_war_with = SOS
+					}
+					has_global_flag = ZAG_congress_of_bedzin_success
+				}
+			}
 			JUR = { is_neighbor_of = BRZ }
 		}
 		
@@ -1064,34 +1388,43 @@ focus_tree = {
 			}
 		}
 		
-		x = -6
+		x = -3
 		y = 1
 		
 		cost = 1
 		
 		completion_reward = {
-			declare_war_on = {
-				target = JUR
-				type = voivodeship_war
+			JUR = {
+				add_ideas = BRZ_hooligan_raids
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_warta_zawiercie_match
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_warta_zawiercie_match
 		relative_position_id = BRZ_jurassic_hooligan_fights
 		prerequisite = { focus = BRZ_jurassic_hooligan_fights }
 		available = {
-			has_war = no
-			ZAW = { is_neighbor_of = BRZ }
+			OR = {
+				has_war = no
+				AND = {
+					OR = {
+						has_war_with = JAW
+						has_war_with = DGR
+						has_war_with = SOS
+					}
+					has_global_flag = ZAG_congress_of_bedzin_success
+				}
+			}
+			JUR = { is_neighbor_of = BRZ }
 		}
 		
 		bypass = {
 			OR = {
-				ZAW = { exists = no }
-				has_war_with = ZAW
+				JUR = { exists = no }
+				has_war_with = JUR
 			}
 		}
 		
@@ -1101,77 +1434,54 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_jur_tt
 			set_variable = {
-				enemy_team = ZAW
+				enemy_team = JUR
 			}
 			set_variable = {
-				home_advantage = 1
+				home_advantage = 0
 			}
 			national_team_match = yes
-			log = "BRZ: [?BRZ_goals] ZAW: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			log = "BRZ: [?BRZ_goals] JUR: [?enemy_goals]"
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 14
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				ZAW = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 14
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							ZAW = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 14
-								}
-							}
+					}
+					JUR = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-				
-			}
-			declare_war_on = {
-				target = ZAW
-				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = JUR
 	}
 	
 	focus = {
 		id = BRZ_incorporation_of_jurassic_clubs
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_incorporation_of_jurassic_clubs
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
 			JUR = { exists = no }
-			ZAW = { exists = no }
 			738 = { is_controlled_by = BRZ }
-			739 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
@@ -1180,30 +1490,31 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
 			every_owned_state = {
 				limit = {
-					or = {
-						is_core_of = JUR
-						is_core_of = ZAW
+					is_core_of = JUR
+					NOT = {
+						is_core_of = BRZ
 					}
 				}
-				add_compliance = 40
+				add_compliance = 25
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_JUR_liga_tt
 		}
 	}
 	
 	focus = {
 		id = BRZ_role_of_civilian_administration
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_role_of_civilian_administration
 		relative_position_id = BRZ_warta_zawiercie_match
 		prerequisite = { focus = BRZ_warta_zawiercie_match }
 		available = {
 			JUR = { exists = no }
-			ZAW = { exists = no }
 		}
 		
 		bypass = {
@@ -1212,21 +1523,35 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = controlled_opposition
+				add_idea = regime_council
+			}
 			country_event = buzzer.16
 		}
 	}
 
 	focus = {
 		id = BRZ_pilgrimage_to_czestochowa
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_pilgrimage_to_czestochowa
-		relative_position_id = BRZ_lubliniec_training_camp
-		prerequisite = { focus = BRZ_lubliniec_training_camp }
+		relative_position_id = BRZ_long_distance_shot
+		prerequisite = { focus = BRZ_long_distance_shot }
 		available = {
-			has_war = no
+			OR = {
+				has_war = no
+				AND = {
+					OR = {
+						has_war_with = JAW
+						has_war_with = DGR
+						has_war_with = SOS
+					}
+					has_global_flag = ZAG_congress_of_bedzin_success
+				}
+			}
 			CCH = { is_neighbor_of = BRZ }
 		}
 		
@@ -1236,23 +1561,36 @@ focus_tree = {
 			}
 		}
 		
-		x = 6
+		x = 3
 		y = 1
 		
 		cost = 1
 		
 		completion_reward = { 
+			CCH = {
+				add_ideas = BRZ_hooligan_raids
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_rakow_czestochowa_match
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_rakow_czestochowa_match
 		relative_position_id = BRZ_pilgrimage_to_czestochowa
 		prerequisite = { focus = BRZ_pilgrimage_to_czestochowa }
 		available = {
-			has_war = no
+			OR = {
+				has_war = no
+				AND = {
+					OR = {
+						has_war_with = JAW
+						has_war_with = DGR
+						has_war_with = SOS
+					}
+					has_global_flag = ZAG_congress_of_bedzin_success
+				}
+			}
 			CCH = { is_neighbor_of = BRZ }
 		}
 		
@@ -1269,6 +1607,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_cch_tt
 			set_variable = {
 				enemy_team = CCH
 			}
@@ -1277,94 +1616,84 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] CCH: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 14
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				CCH = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 14
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							CCH = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 14
-								}
-							}
+					}
+					CCH = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-			}
-			declare_war_on = {
-				target = CCH
-				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = CCH
 	}
 	
 	focus = {
 		id = BRZ_incorporation_of_czestochowa_clubs
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_incorporation_of_czestochowa_clubs
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
 		available = {
 			CCH = { exists = no }
-			969 = { is_controlled_by = BRZ }
+			870 = { is_controlled_by = BRZ }
 		}
 		
 		bypass = {
 		}
 		
-		x = -1
+		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
-				BRZ_papszun={
-					add_corps_commander_role = {
-						traits = { brilliant_strategist }
-						skill = 2
-						attack_skill = 4
-						defense_skill = 4
-						planning_skill = 5
-						logistics_skill = 3
-						legacy_id = -1
+			BRZ_papszun={
+				add_corps_commander_role = {
+					traits = { brilliant_strategist }
+					skill = 2
+					attack_skill = 4
+					defense_skill = 4
+					planning_skill = 5
+					logistics_skill = 3
+					legacy_id = -1
+				}
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = CCH
+					NOT = {
+						is_core_of = BRZ
 					}
 				}
+				add_compliance = 25
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_CCH_liga_tt
 		}
 	}
 	
 	focus = {
 		id = BRZ_role_of_church
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_role_of_church
 		relative_position_id = BRZ_rakow_czestochowa_match
 		prerequisite = { focus = BRZ_rakow_czestochowa_match }
@@ -1376,22 +1705,675 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 1
+		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = full_secularism
+				add_idea = one_religion_favoured
+			}
 			country_event = buzzer.17
+		}
+	}
+	
+	focus = {
+		id = BRZ_take_away_whatever_you_can
+		text_icon = BUZZER_focus_style
+		icon = BRZ_take_away_whatever_you_can
+		relative_position_id = BRZ_long_distance_shot
+		prerequisite = { focus = BRZ_long_distance_shot }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 4
+		
+		cost = 2
+		
+		completion_reward = { 
+			add_ideas = BRZ_locker_room_cleaning
+			add_fuel = 4000
 		}
 	}
 
 	focus = {
+		id = BRZ_czestochowa_minerals
+		text_icon = BUZZER_focus_style
+		icon = BRZ_czestochowa_minerals
+		relative_position_id = BRZ_take_away_whatever_you_can
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+			423 = { is_owned_and_controlled_by = BRZ }
+			591 = { is_owned_and_controlled_by = BRZ }
+			436 = { is_owned_and_controlled_by = BRZ }
+		}
+		
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			423 = {
+				add_resource = {
+					type = steel
+					amount = 4
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = hospital
+					level = 1
+					instant_build = yes
+				}
+			}
+			591 = {
+				add_resource = {
+					type = steel
+					amount = 2
+				}
+			}
+			436 = {
+				add_resource = {
+					type = steel
+					amount = 2
+				}				
+			}	
+			get_budget_tooltip = yes
+			custom_effect_tooltip = budget_subtract_200M		
+		}
+	}
+	
+	focus = {
+		id = BRZ_gusto_factory
+		text_icon = BUZZER_focus_style
+		icon = BRZ_gusto_factory
+		relative_position_id = BRZ_take_away_whatever_you_can
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+			746 = {
+				is_owned_and_controlled_by = BRZ
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = -4
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			custom_effect_tooltip = BRZ_gusto_tt
+			hidden_effect = {
+				set_country_flag = BRZ_gusto_on
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			746 = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_100M
+		}
+	}	
+
+	focus = {
+		id = BRZ_solar_stadiums
+		text_icon = BUZZER_focus_style
+		icon = BRZ_solar_stadiums
+		relative_position_id = BRZ_czestochowa_minerals
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+			421 = {
+				is_owned_and_controlled_by = BRZ
+			}
+			738 = {
+				is_owned_and_controlled_by = BRZ
+			}	
+			870 = {
+				is_owned_and_controlled_by = BRZ
+			}					
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			421 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			738 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}	
+			870 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = wind_farm
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 600
+			}
+			custom_effect_tooltip = budget_subtract_300M
+			get_budget_tooltip = yes
+		}
+	}	
+
+	focus = {
+		id = BRZ_nationalization_xkom
+		text_icon = BUZZER_focus_style
+		icon = BRZ_nationalization_xkom
+		relative_position_id = BRZ_take_away_whatever_you_can
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+			CCH = {
+				exists = no
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			country_event = buzzer.40
+			custom_effect_tooltip = BRZ_xkom_tt
+			hidden_effect = { set_country_flag = BRZ_xkom_on }
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_tech_bonus = {
+				name = CCH_xkom
+				uses = 2
+				bonus = 0.5
+				category = computing_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_seize_other_stadiums_and_arenas
+		text_icon = BUZZER_focus_style
+		icon = BRZ_seize_other_stadiums_and_arenas
+		relative_position_id = BRZ_take_away_whatever_you_can
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+			870 = { is_owned_and_controlled_by = BRZ }
+			591 = { is_owned_and_controlled_by = BRZ }
+			421 = { is_owned_and_controlled_by = BRZ }
+			400 = { is_owned_and_controlled_by = BRZ }
+		}
+		
+		bypass = {
+		}
+		
+		x = 4
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			870 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			591 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			421 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			400 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = cathedral
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				budget = 200
+			}									
+		}
+	}	
+
+	focus = {
+		id = BRZ_railway_to_truskolasy
+		text_icon = BUZZER_focus_style
+		icon = BRZ_railway_to_truskolasy
+		relative_position_id = BRZ_seize_other_stadiums_and_arenas
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				controller_priority = {
+					base = 1
+					modifier = {
+					  tag = BRZ
+					  add = 2
+					}
+				}
+				fallback = yes
+				path = { 8467 8468 8474 8473 219 8483 8484 3441 8630 8628 8626 8625 2102 }
+				start_province = 8467
+				target_province = 2102
+			}
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				amount = 30
+				producer = CCH
+			}
+		}
+	}
+
+	focus = {
+		id = BRZ_mugged_supplies
+		text_icon = BUZZER_focus_style
+		icon = BRZ_mugged_supplies
+		relative_position_id = BRZ_take_away_whatever_you_can
+		prerequisite = { focus = BRZ_take_away_whatever_you_can }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 3
+		
+		cost = 2
+		
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = BRZ_locker_room_cleaning
+				add_idea = BRZ_locker_room_cleaning_2
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 250
+				producer = JWK
+			}
+		}
+	}
+
+	focus = {
+		id = BRZ_water_sources_of_jura
+		text_icon = BUZZER_focus_style
+		icon = BRZ_water_sources_of_jura
+		relative_position_id = BRZ_mugged_supplies
+		prerequisite = { focus = BRZ_mugged_supplies }
+		available = {
+			JUR = { exists = no }
+			436 = { is_controlled_by = BRZ }		
+		}
+		
+		bypass = {
+		}
+		
+		x = 5
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			custom_effect_tooltip = BRZ_jurajska_tt
+			hidden_effect = {
+				set_country_flag = BRZ_jurajska_on
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			436 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}				
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow			
+			custom_effect_tooltip = budget_subtract_100M
+		}
+	}	
+
+	focus = {
+		id = BRZ_new_isotonic
+		text_icon = BUZZER_focus_style
+		icon = BRZ_new_isotonic
+		relative_position_id = BRZ_water_sources_of_jura
+		prerequisite = { focus = BRZ_water_sources_of_jura }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_unit_bonus = {
+            	category_all_infantry = {
+            	    maximum_speed = 0.05
+            	    initiative = 0.05
+            	}
+			}
+		}
+	}	
+	
+	focus = {
+		id = BRZ_combine_steelworks
+		text_icon = BUZZER_focus_style
+		icon = BRZ_combine_steelworks
+		relative_position_id = BRZ_new_isotonic
+		prerequisite = { focus = BRZ_new_isotonic }
+		available = {
+			DGR = { exists = no }			
+		}
+		select_effect = {
+	
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+			unlock_military_industrial_organization_tooltip = mio:DGR_huta_katowice_mio
+			custom_effect_tooltip = rozdzielacz_efektow
+			mio:DGR_huta_katowice_mio = {
+				set_mio_name_key = BRZ_mio_huta_name
+				set_mio_icon = GFX_idea_BRZ_kombinat					
+				add_mio_size = 2
+				add_mio_task_capacity = 2
+				add_mio_research_bonus = 0.1
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_antifa_football_section
+		text_icon = BUZZER_focus_style
+		icon = BRZ_antifa_football_section
+		relative_position_id = BRZ_new_isotonic
+		prerequisite = { focus = BRZ_new_isotonic }
+		available = {
+			JAW = {
+				exists = no
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.025
+			}
+			add_corps_commander_role = {
+				character = BRZ_konieczny
+				traits = { politically_connected militias_officer }
+				skill = 2
+				attack_skill = 2
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Antifa - Sekcja Piłkarska\" division_template = \"Milicja Klubowa\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BRZ
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = BRZ_coach_buses
+		text_icon = BUZZER_focus_style
+		icon = BRZ_coach_buses
+		relative_position_id = BRZ_mugged_supplies
+		prerequisite = { focus = BRZ_mugged_supplies }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -5
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			add_tech_bonus = {
+				name = BRZ_coach_buses
+				bonus = 0.5
+				uses = 1
+				category = trucks
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 200
+				producer = BRZ
+			}
+		}
+	}	
+
+	focus = {
+		id = BRZ_first_away_battalion
+		text_icon = BUZZER_focus_style
+		icon = BRZ_first_away_battalion
+		relative_position_id = BRZ_coach_buses
+		prerequisite = { focus = BRZ_coach_buses }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			division_template = {
+				name = "Batalion Wyjazdowy"
+				regiments = {
+					motorized = { x = 0 y = 0 }
+					motorized = { x = 0 y = 1 }
+					motorized = { x = 0 y = 2 }
+					armored_car = { x = 1 y = 0 }
+					armored_car = { x = 1 y = 1 }
+				}
+			}
+			custom_effect_tooltip = BRZ_away_battalion_tooltip
+			custom_effect_tooltip = rozdzielacz_efektow
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1 Batalion Wyjazdowy\" division_template = \"Batalion Wyjazdowy\" start_experience_factor = 1 start_equipment_factor = 1"
+					owner = BRZ
+				}
+			}	
+		}
+	}	
+	
+	focus = {
+		id = BRZ_seize_pyrzowice_bases
+		text_icon = BUZZER_focus_style
+		icon = BRZ_seize_pyrzowice_bases
+		relative_position_id = BRZ_first_away_battalion
+		prerequisite = { focus = BRZ_first_away_battalion }
+		available = {
+			760 = {
+				is_owned_and_controlled_by = BRZ
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = -1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			760 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}																
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 2000
+				producer = SIE
+			}
+			add_equipment_to_stockpile = {
+				type = transport_equipment_2
+				amount = 30
+				producer = USA
+			}
+			add_to_variable = {
+				budget = 300
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_transform_m1
+		text_icon = BUZZER_focus_style
+		icon = BRZ_transform_m1
+		relative_position_id = BRZ_first_away_battalion
+		prerequisite = { focus = BRZ_first_away_battalion }
+		available = {
+			589 = {
+				is_owned_and_controlled_by = BRZ
+			}
+		}
+		
+		bypass = {
+		}
+		
+		x = 1
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = { 
+			589 = { 
+				add_building_construction = {
+					type = januszex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					instant_build = yes
+					province = 4011
+				}				
+			}
+			add_to_variable = {
+				budget = 300
+			}
+			get_budget_tooltip = yes			
+			custom_effect_tooltip = budget_subtract_150M	
+		}
+	}	
+
+	focus = {
 		id = BRZ_away_game_in_zaglebie
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_away_game_in_zaglebie
-		relative_position_id = BRZ_lubliniec_training_camp
-		prerequisite = { focus = BRZ_lubliniec_training_camp }
+		relative_position_id = BRZ_mugged_supplies
+		prerequisite = {
+			focus = BRZ_mugged_supplies
+		}
+
 		available = {
 			has_war = no
 			NOT = {
@@ -1402,14 +2384,67 @@ focus_tree = {
 		}
 		
 		bypass = {
+			OR = {
+				AND = {
+					ZAW = { exists = no }
+					SIE = { exists = no }
+				}
+				AND = { 
+					has_war_with = ZAW
+					has_war_with = SIE
+				}
+				AND = {
+					has_war_with = ZAW
+					SIE = { exists = no }
+				}
+				AND = {
+					has_war_with = SIE
+					ZAW = { exists = no }
+				}				
+			}
 		}
 		
 		x = 0
-		y = 4
+		y = 1
 		
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_zaw_tt
+			set_variable = {
+				enemy_team = ZAW
+			}
+			set_variable = {
+				home_advantage = 1
+			}
+			national_team_match = yes
+			log = "BRZ: [?BRZ_goals] ZAW: [?enemy_goals]"
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
+					}
+					add_timed_idea = {
+						idea = BRZ_victory_fervor
+						days = 30
+					}
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
+						}
+					}
+					ZAW = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
+						}
+					}
+				}
+			}
 			if = {
 				limit = { 
 					country_exists = SIE 
@@ -1417,77 +2452,19 @@ focus_tree = {
 				}
 				declare_war_on = {
 					target = SIE
-					type = voivodeship_war
+					type = football_war
 				}
 			}
 			else = {
-				army_experience = 100
+				army_experience = 100 
 			}
 		}
-	}
-	
-	focus = {
-		id = BRZ_mugged_supplies
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_mugged_supplies
-		relative_position_id = BRZ_lubliniec_training_camp
-		prerequisite = { focus = BRZ_lubliniec_training_camp }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -1
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = { 
-			add_equipment_to_stockpile = {
-				type = support_equipment
-				amount = 50
-				producer = JWK
-			}
-		}
-	}
-	
-	focus = {
-		id = BRZ_take_away_whatever_you_can
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_take_away_whatever_you_can
-		relative_position_id = BRZ_lubliniec_training_camp
-		prerequisite = { focus = BRZ_lubliniec_training_camp }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 1
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = { 
-			add_equipment_to_stockpile = {
-				type = ranged_equipment
-				amount = 300
-				producer = JWK
-			}
-			add_equipment_to_stockpile = {
-				type = motorized_equipment
-				amount = 50
-				producer = JWK
-			}
-		}
+		will_lead_to_war_with = ZAW
 	}
 	
 	focus = {
 		id = BRZ_unia_dg_match
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_unia_dg_match
 		relative_position_id = BRZ_away_game_in_zaglebie
 		prerequisite = { focus = BRZ_away_game_in_zaglebie }
@@ -1509,6 +2486,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_dgr_tt
 			set_variable = {
 				enemy_team = DGR
 			}
@@ -1517,60 +2495,39 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] DGR: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 14
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				DGR = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 14
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							DGR = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 14
-								}
-							}
+					}
+					DGR = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-			}
-			declare_war_on = {
-				target = DGR
-				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = DGR
 	}
 	
 	focus = {
 		id = BRZ_zaglebie_sosnowiec_match
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_zaglebie_sosnowiec_match
 		relative_position_id = BRZ_away_game_in_zaglebie
 		prerequisite = { focus = BRZ_away_game_in_zaglebie }
@@ -1609,6 +2566,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_sos_tt
 			set_variable = {
 				enemy_team = SOS
 			}
@@ -1617,6 +2575,7 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] SOS: [?enemy_goals]"
+			hidden_effect = {
 			if = {
 				limit = {
 					check_variable = {
@@ -1625,7 +2584,7 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = BRZ_victory_fervor
-					days = 14
+					days = 30
 				}
 			}
 			else_if = {
@@ -1637,47 +2596,25 @@ focus_tree = {
 				SOS = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
 			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 14
-							}
-						}
-						1 = {
-							SOS = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 14
-								}
-							}
-						}
-					}
-				}
-			}
-			declare_war_on = {
-				target = SOS
-				type = voivodeship_war
 			}
 			if = {
 				limit = { country_exists = BED }
 				declare_war_on = {
 					target = BED
-					type = voivodeship_war
+					type = football_war
 				}				
 			}
 		}
+		will_lead_to_war_with = SOS
 	}
 	
 	focus = {
 		id = BRZ_szczakowianka_jaworzno_match
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_szczakowianka_jaworzno_match
 		relative_position_id = BRZ_away_game_in_zaglebie
 		prerequisite = { focus = BRZ_away_game_in_zaglebie }
@@ -1699,6 +2636,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			custom_effect_tooltip = BRZ_match_day_jaw_tt
 			set_variable = {
 				enemy_team = JAW
 			}
@@ -1707,60 +2645,39 @@ focus_tree = {
 			}
 			national_team_match = yes
 			log = "BRZ: [?BRZ_goals] JAW: [?enemy_goals]"
-			if = {
-				limit = {
-					check_variable = {
-						BRZ_goals > enemy_goals
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							BRZ_goals > enemy_goals
+						}
 					}
-				}
-				add_timed_idea = {
-					idea = BRZ_victory_fervor
-					days = 14
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						BRZ_goals < enemy_goals
-					}
-				}
-				JAW = {
 					add_timed_idea = {
 						idea = BRZ_victory_fervor
-						days = 14
+						days = 30
 					}
 				}
-			}
-			else = {
-				hidden_effect = {
-					random_list = {
-						1 = {
-							add_timed_idea = {
-								idea = BRZ_victory_fervor
-								days = 14
-							}
+				else_if = {
+					limit = {
+						check_variable = {
+							BRZ_goals < enemy_goals
 						}
-						1 = {
-							JAW = {
-								add_timed_idea = {
-									idea = BRZ_victory_fervor
-									days = 14
-								}
-							}
+					}
+					JAW = {
+						add_timed_idea = {
+							idea = BRZ_victory_fervor
+							days = 30
 						}
 					}
 				}
-			} 
-			declare_war_on = {
-				target = JAW
-				type = voivodeship_war
 			}
 		}
+		will_lead_to_war_with = JAW
 	}
 
 	focus = {
 		id = BRZ_political_training
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_political_training
 		relative_position_id = BRZ_zaglebie_sosnowiec_match
 		prerequisite = { focus = BRZ_zaglebie_sosnowiec_match }
@@ -1775,16 +2692,29 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = { 
+			add_political_power = 50
+			if = {
+				limit = {
+					has_idea = BRZ_zwkt_political_idea_alt
+				}
+				swap_ideas = {
+					remove_idea = BRZ_zwkt_political_idea_alt
+					add_idea = BRZ_zwkt_political_idea_2
+				}
+			}
+			else = {
+				add_ideas = BRZ_zwkt_political_idea	
+			}		
 		}
 	}
 
 
 	focus = {
 		id = BRZ_ideological_training
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_ideological_training
 		relative_position_id = BRZ_unia_dg_match
 		prerequisite = { focus = BRZ_unia_dg_match }
@@ -1799,15 +2729,35 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = { 
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.02
+			}
+			if = {
+				limit = {
+					has_idea = BRZ_zwkt_political_idea
+				}
+				swap_ideas = {
+					remove_idea = BRZ_zwkt_political_idea
+					add_idea = BRZ_zwkt_political_idea_2
+				}
+			}
+			else = {
+				add_ideas = BRZ_zwkt_political_idea_alt
+			}
 		}
 	}	
 	
 	focus = {
 		id = BRZ_communal_training
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_communal_training
 		relative_position_id = BRZ_szczakowianka_jaworzno_match
 		prerequisite = { focus = BRZ_szczakowianka_jaworzno_match }
@@ -1822,16 +2772,20 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = { 
-			
+			add_stability = 0.05
+			swap_ideas = {
+				remove_idea = BRZ_nothings_wrong_poles
+				add_idea = BRZ_nothings_wrong_poles_2
+			}
 		}
 	}
 
 	focus = {
 		id = BRZ_incorporation_of_zaglebie_clubs
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_incorporation_of_zaglebie_clubs
 		relative_position_id = BRZ_unia_dg_match
 		prerequisite = { focus = BRZ_political_training }
@@ -1847,7 +2801,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
 			every_owned_state = {
@@ -1859,69 +2813,172 @@ focus_tree = {
 					}
 					NOT = { is_core_of = BRZ }
 				}
-				add_compliance = 40
+				add_compliance = 25
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = BRZ_ZGJ_liga_tt
+		}
+	}
+
+	focus = {
+		id = BRZ_woes_of_football
+		text_icon = BUZZER_focus_style
+		icon = BRZ_woes_of_football
+		relative_position_id = BRZ_incorporation_of_zaglebie_clubs
+		prerequisite = { focus = BRZ_incorporation_of_zaglebie_clubs }
+		available = {
+
+		}
+		bypass = {
+		}
+		
+		x = -2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			country_event = buzzer.37
+			add_country_leader_trait = {
+				ideology = marxism_cranism_clubism_subtype				
+				trait = visionary_coach
 			}
 		}
 	}
 	
 	focus = {
-		id = BRZ_new_season
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_new_season
-		relative_position_id = BRZ_unia_dg_match
+		id = BRZ_victory_cup
+		text_icon = BUZZER_focus_style
+		icon = BRZ_victory_cup
+		relative_position_id = BRZ_incorporation_of_zaglebie_clubs
 		prerequisite = { focus = BRZ_incorporation_of_zaglebie_clubs }
 		available = {
+
+		}
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			country_event = buzzer.38
+			add_stability = 0.1
+			add_political_power = 100
+		}
+	}
+	
+	focus = {
+		id = BRZ_dreams_of_champions_league
+		text_icon = BUZZER_focus_style
+		icon = BRZ_dreams_of_champions_league
+		relative_position_id = BRZ_incorporation_of_zaglebie_clubs
+		prerequisite = { focus = BRZ_incorporation_of_zaglebie_clubs }
+		available = {
+
+		}
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = { 
+			country_event = buzzer.39
+			GER = {
+				BRZ_lewandowski = {
+					set_nationality = BRZ
+					add_corps_commander_role = {
+						traits = { offensive_doctrine }
+						skill = 2
+						attack_skill = 4
+						defense_skill = 1
+						planning_skill = 3
+						logistics_skill = 1
+					}					
+				}
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.05
+			}
+		}
+	}	
+	
+	focus = {
+		id = BRZ_new_season
+		text_icon = BUZZER_focus_style
+		icon = BRZ_new_season
+		relative_position_id = BRZ_victory_cup
+		prerequisite = { focus = BRZ_woes_of_football }
+		prerequisite = { focus = BRZ_victory_cup }
+		prerequisite = { focus = BRZ_dreams_of_champions_league }
+		available = {
 			has_country_flag = unified_voivodeship
+			has_completed_focus = BRZ_role_of_church
+			has_completed_focus = BRZ_role_of_civilian_administration
+			has_completed_focus = BRZ_incorporation_of_czestochowa_clubs
+			has_completed_focus = BRZ_incorporation_of_jurassic_clubs
 		}
 		
 		bypass = {
 		}
 		
 		x = 0
-		y = 4
+		y = 2
 		
 		cost = 1
 		
 		completion_reward = { 
-			#country_event = buzzer.18
-			load_focus_tree = generic_focus
-			hidden_effect = {
-				country_event = {
-					id = paf_generic.100
-				}
-			}
+			country_event = buzzer.18
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 
 
 	focus = {
 		id = BRZ_olimpia_truskolasy_do_utraty_tchu #drzewko wojewodzkie
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_olimpia_truskolasy_do_utraty_tchu
 		allow_branch = {
 			has_country_flag = unified_voivodeship
 		}
 		available = {
 			has_country_flag = unified_voivodeship
+			has_completed_focus = BRZ_new_season
 		}
 		
 		bypass = {
 		}
 		
-		x = 59
+		x = 48
 		y = 0
 		
 		cost = 1
 		
 		completion_reward = {
 			country_event = buzzer.19
+			set_power_balance = {
+				id = BRZ_power_balance
+				set_value = -0.15
+			}
+			add_country_leader_role = {
+				character = BRZ_lewandowski
+				promote_leader = yes
+				country_leader = {
+					ideology = euroliberalism_subtype
+				}
+			}
 		}
 	}
-	
 	focus = {
-		id = BRZ_rebuilding_stadiums
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_rebuilding_stadiums
+		id = BRZ_sisyphean_task
+		text_icon = BUZZER_focus_style
+		icon = BRZ_sisyphean_task
 		relative_position_id = BRZ_olimpia_truskolasy_do_utraty_tchu
 		prerequisite = { focus = BRZ_olimpia_truskolasy_do_utraty_tchu }
 		available = {
@@ -1931,12 +2988,36 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = -10
-		y = 2
+		x = 0
+		y = 1
 		
 		cost = 1
 		
 		completion_reward = {
+			country_event = buzzer.24
+		}
+	}
+	
+	focus = {
+		id = BRZ_rebuilding_stadiums
+		text_icon = BUZZER_focus_style
+		icon = BRZ_rebuilding_stadiums
+		relative_position_id = BRZ_sisyphean_task
+		prerequisite = { focus = BRZ_sisyphean_task }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = -10
+		y = 1
+		
+		cost = 2
+		
+		completion_reward = {
+			country_event = buzzer.20			
 			every_owned_state = {
 				limit = {
 					or = {
@@ -1951,13 +3032,13 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			country_event = buzzer.20
+			add_ideas = BRZ_thousand_stadiums_program
 		}
 	}
 	
 	focus = {
 		id = BRZ_dabrowa_stadium
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_dabrowa_stadium
 		relative_position_id = BRZ_rebuilding_stadiums
 		prerequisite = { focus = BRZ_rebuilding_stadiums }
@@ -1971,22 +3052,31 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = { 
+			add_political_power = 50
+			add_stability = 0.01
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}
 			460 = {
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = cathedral
 					level = 1
 					instant_build = yes
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	
 	focus = {
 		id = BRZ_zawiercie_stadium
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_zawiercie_stadium
 		relative_position_id = BRZ_rebuilding_stadiums
 		prerequisite = { focus = BRZ_rebuilding_stadiums }
@@ -2000,22 +3090,31 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.01
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}
 			739 = {
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = cathedral
 					level = 1
 					instant_build = yes
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	
 	focus = {
 		id = BRZ_rakow_stadium
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_rakow_stadium
 		relative_position_id = BRZ_rebuilding_stadiums
 		prerequisite = { focus = BRZ_rebuilding_stadiums }
@@ -2029,22 +3128,31 @@ focus_tree = {
 		x = 2
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.01
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}
 			870 = {
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = cathedral
 					level = 1
 					instant_build = yes
 				}
 			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M
 		}
 	}
 	
 	focus = {
 		id = BRZ_football_economy
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_football_economy
 		relative_position_id = BRZ_zawiercie_stadium
 		prerequisite = { focus = BRZ_dabrowa_stadium }
@@ -2060,16 +3168,20 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
 			country_event = buzzer.21
+			swap_ideas = {
+				remove_idea = economy_workers_management
+				add_idea = economy_central_planning
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_defund_other_disciplines
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_defund_other_disciplines
 		relative_position_id = BRZ_football_economy
 		prerequisite = { focus = BRZ_football_economy }
@@ -2084,9 +3196,17 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_ideas = BRZ_defunding_disciplines
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_1_845B
+			add_to_variable = {
+				budget = 1845
+			}
+			get_budget_tooltip = yes
+			custom_effect_tooltip = rozdzielacz_efektow
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2095,7 +3215,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 		}
@@ -2103,7 +3223,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_subsidize_women_football
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_subsidize_women_football
 		relative_position_id = BRZ_defund_other_disciplines
 		prerequisite = { focus = BRZ_defund_other_disciplines }
@@ -2117,9 +3237,17 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = women_working_women
+				add_idea = women_gender_equality
+			}
+			add_power_balance_modifier = {
+			    id = BRZ_power_balance
+			    modifier = BRZ_goal_diggers
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2128,7 +3256,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 		}
@@ -2136,7 +3264,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_zwkt_trademark
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_zwkt_trademark
 		relative_position_id = BRZ_football_economy
 		prerequisite = { focus = BRZ_football_economy }
@@ -2151,9 +3279,16 @@ focus_tree = {
 		x = 2
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_ideas = BRZ_zwkt_tm
+			set_party_name = {
+				ideology = corporativism
+				long_name = BRZ_corporativism_party_zwkt_long
+				name = BRZ_corporativism_party_zwkt
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2162,7 +3297,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 		}
@@ -2170,7 +3305,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_selling_profitable_players
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_selling_profitable_players
 		relative_position_id = BRZ_zwkt_trademark
 		prerequisite = { focus = BRZ_zwkt_trademark }
@@ -2184,9 +3319,17 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = trade_minimal
+				add_idea = trade_regulated
+			}	
+			add_power_balance_modifier = {
+			    id = BRZ_power_balance
+			    modifier = BRZ_art_of_the_deal
+			}		
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2195,7 +3338,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 		}
@@ -2203,7 +3346,7 @@ focus_tree = {
 
 	focus = {
 		id = BRZ_pioneer_cup
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_pioneer_cup
 		relative_position_id = BRZ_football_economy
 		prerequisite = { focus = BRZ_football_economy }
@@ -2217,17 +3360,24 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
 			country_event = buzzer.22
+			add_stability = 0.05
+			random_military_industrial_organization = {
+				limit = {
+					is_mio_available = yes
+				}
+				add_mio_funds = 2000
+			}
 		}
 	}
 
 
 	focus = {
 		id = BRZ_budget_based_on_betting
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_budget_based_on_betting
 		relative_position_id = BRZ_pioneer_cup
 		prerequisite = { focus = BRZ_subsidize_women_football
@@ -2244,15 +3394,17 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
-		completion_reward = { 
+		completion_reward = {
+			set_country_flag = BRZ_budget_based_on_betting 
+			custom_effect_tooltip = BRZ_budget_based_on_betting_tt
 		}
 	}	
 	
 	focus = {
 		id = BRZ_financial_disasters
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_financial_disasters
 		relative_position_id = BRZ_budget_based_on_betting
 		prerequisite = { focus = BRZ_budget_based_on_betting }
@@ -2275,7 +3427,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_buyout_clubs
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_buyout_clubs
 		relative_position_id = BRZ_financial_disasters
 		prerequisite = { focus = BRZ_financial_disasters }
@@ -2290,9 +3442,14 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_political_power = 50			
+			add_power_balance_modifier = {
+			    id = BRZ_power_balance
+			    modifier = BRZ_buyout
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2301,7 +3458,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 		}
@@ -2309,7 +3466,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_drop_them
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_drop_them
 		relative_position_id = BRZ_financial_disasters
 		prerequisite = { focus = BRZ_financial_disasters }
@@ -2324,9 +3481,14 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_war_support = -0.1			
+			add_power_balance_modifier = {
+			    id = BRZ_power_balance
+			    modifier = BRZ_dropthem
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2335,7 +3497,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 		}
@@ -2343,7 +3505,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_funding_problem
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_funding_problem
 		relative_position_id = BRZ_financial_disasters
 		prerequisite = { focus = BRZ_buyout_clubs
@@ -2361,13 +3523,14 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
+		completion_reward = {
+			upgrade_tax_law = yes 
 		}
 	}
 	
 	focus = {
 		id = BRZ_central_fund
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_central_fund
 		relative_position_id = BRZ_funding_problem
 		prerequisite = { focus = BRZ_funding_problem }
@@ -2382,9 +3545,25 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = no_subsidies
+				add_idea = basic_social
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.01
+			}			
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.01
+			}
+			add_popularity = {
+				ideology = socialdemocrature
+				popularity = 0.05
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2393,7 +3572,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 		}
@@ -2401,7 +3580,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_every_club_enterprise
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_every_club_enterprise
 		relative_position_id = BRZ_funding_problem
 		prerequisite = { focus = BRZ_funding_problem }
@@ -2416,9 +3595,25 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = no_subsidies
+				add_idea = charity_system
+			}
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.025
+			}			
+			add_popularity = {
+				ideology = freemarketism
+				popularity = 0.025
+			}
+			add_popularity = {
+				ideology = corporativism
+				popularity = 0.025
+			}			
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2427,7 +3622,7 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 		}
@@ -2435,7 +3630,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_economy_vs_brzeczek
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_economy_vs_brzeczek
 		relative_position_id = BRZ_funding_problem
 		prerequisite = { focus = BRZ_central_fund
@@ -2451,41 +3646,35 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			if = {
+				limit = {
+					has_completed_focus = BRZ_defund_other_disciplines
+				}
+				swap_ideas = {
+					remove_idea = BRZ_defunding_disciplines
+					add_idea = BRZ_defunding_disciplines_fund
+				}
+			}
+			else_if = {
+				limit = {
+					has_completed_focus = BRZ_zwkt_trademark
+				}				
+				swap_ideas = {
+					remove_idea = BRZ_zwkt_tm
+					add_idea = BRZ_zwkt_tm_enterprise
+				}				
+			}
 		}
 	}	
 	
-	focus = {
-		id = BRZ_sisyphean_task
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_sisyphean_task
-		relative_position_id = BRZ_olimpia_truskolasy_do_utraty_tchu
-		prerequisite = { focus = BRZ_olimpia_truskolasy_do_utraty_tchu }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = {
-			add_ideas = BRZ_untamed_hooligans
-			add_ideas = BRZ_dinosaurs_in_club_managements
-			add_ideas = BRZ_decadent_footballers
-			country_event = buzzer.24
-		}
-	}
+
 	
 	focus = {
 		id = BRZ_local_administration
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_local_administration
 		relative_position_id = BRZ_sisyphean_task
 		prerequisite = { focus = BRZ_sisyphean_task }
@@ -2499,15 +3688,35 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = regime_council
+				add_idea = non_partisan_system
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+					}
+					OR = {
+						is_lodz_state = yes
+						is_zaglebie_and_jura_state = yes
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = BRZ_club_administration
+				}
+			}
 		}
 	}
 
 	focus = {
 		id = BRZ_state_sport_media
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_state_sport_media
 		relative_position_id = BRZ_local_administration
 		prerequisite = { focus = BRZ_local_administration }
@@ -2521,7 +3730,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
 			swap_ideas = {
@@ -2533,8 +3742,31 @@ focus_tree = {
 
 	focus = {
 		id = BRZ_from_junior_to_leader
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_from_junior_to_leader
+		relative_position_id = BRZ_local_administration
+		prerequisite = { focus = BRZ_local_administration }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+			add_ideas = BRZ_from_junior_to_leader
+		}
+	}	
+	
+	focus = {
+		id = BRZ_board_of_managers
+		text_icon = BUZZER_focus_style
+		icon = BRZ_board_of_managers
 		relative_position_id = BRZ_local_administration
 		prerequisite = { focus = BRZ_local_administration }
 		available = {
@@ -2550,36 +3782,51 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			add_ideas = BRZ_from_junior_to_leader
-		}
-	}	
-	
-	focus = {
-		id = BRZ_board_of_managers
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_board_of_managers
-		relative_position_id = BRZ_local_administration
-		prerequisite = { focus = BRZ_local_administration }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 2
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = {
-			
+			add_advisor_role = {
+				character = BRZ_kblaszczykowski
+				activate = yes
+				advisor = {
+					slot = head_of_government
+					cost = -1
+					can_be_fired = no						
+					idea_token = BRZ_head_min_kblaszczykowski
+					traits = {
+						true_captain
+					}
+				}
+			}		
+			add_advisor_role = {
+				character = BRZ_papszun
+				activate = yes
+				advisor = {
+					slot = minister_of_war
+					cost = -1
+					can_be_fired = no						
+					idea_token = BRZ_min_papszun
+					traits = {
+						master_of_defense
+					}
+				}
+			}
+			add_advisor_role = {
+				character = BRZ_domagalik
+				activate = yes
+				advisor = {
+					slot = interior_minister
+					cost = -1
+					can_be_fired = no						
+					idea_token = BRZ_min_domagalik
+					traits = {
+						friendly_journalist
+					}
+				}
+			}			
 		}
 	}
 	
 	focus = {
 		id = BRZ_raze_the_pzpn
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_raze_the_pzpn
 		relative_position_id = BRZ_local_administration
 		prerequisite = { focus = BRZ_from_junior_to_leader }
@@ -2595,15 +3842,21 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			add_manpower = -441
+			add_command_power = -20
+			swap_ideas = {
+				remove_idea = BRZ_legacy_of_pzpn_2
+				add_idea = BRZ_legacy_of_pzpn_3
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_denounce_fifa
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_denounce_fifa
 		relative_position_id = BRZ_raze_the_pzpn
 		prerequisite = { focus = BRZ_raze_the_pzpn }
@@ -2621,12 +3874,20 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = buzzer.25
+			add_opinion_modifier = {
+				target = JAP
+				modifier = GRE_strategic_enemy
+			}
+			add_popularity = {
+				ideology = marxism_cranism
+				popularity = 0.025
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_soccer_poker
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_soccer_poker
 		relative_position_id = BRZ_denounce_fifa
 		prerequisite = { focus = BRZ_denounce_fifa }
@@ -2640,7 +3901,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
 			country_event = buzzer.26
@@ -2650,7 +3911,7 @@ focus_tree = {
 
 	focus = {
 		id = BRZ_dinosaurs_in_club_managements
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_dinosaurs_in_club_managements
 		relative_position_id = BRZ_soccer_poker
 		prerequisite = { focus = BRZ_soccer_poker }
@@ -2664,15 +3925,19 @@ focus_tree = {
 		x = -4
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = BRZ_dinosaurs_in_club_managements_1
+				add_idea = BRZ_dinosaurs_in_club_managements_2
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_corruption_runs_deep
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_corruption_runs_deep
 		relative_position_id = BRZ_dinosaurs_in_club_managements
 		prerequisite = { focus = BRZ_dinosaurs_in_club_managements }
@@ -2686,16 +3951,22 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
 			country_event = buzzer.27
+			BRZ_dblaszczykowski = {
+				add_trait = {
+					slot = minister_of_economy					
+					trait = incorruptible
+				}
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_decimate_old_guard
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_decimate_old_guard
 		relative_position_id = BRZ_corruption_runs_deep
 		prerequisite = { focus = BRZ_corruption_runs_deep }
@@ -2710,9 +3981,16 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_popularity = {
+				ideology = reactionary
+				popularity = -0.05
+			}
+			add_stability = 0.025
+			add_manpower = -48
+			add_political_power = -100
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2721,19 +3999,19 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 			swap_ideas = {
-				remove_idea = BRZ_dinosaurs_in_club_managements
-				add_idea = BRZ_dinosaurs_in_club_managements_2
+				remove_idea = BRZ_dinosaurs_in_club_managements_2
+				add_idea = BRZ_dinosaurs_in_club_managements_3
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_deal_with_old_bosses
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_deal_with_old_bosses
 		relative_position_id = BRZ_corruption_runs_deep
 		prerequisite = { focus = BRZ_corruption_runs_deep }
@@ -2748,9 +4026,19 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_popularity = {
+				ideology = reactionary
+				popularity = 0.05
+			}
+			add_stability = -0.025
+			custom_effect_tooltip = budget_subtract_500M
+			add_to_variable = {
+				budget = -500
+			}	
+			get_budget_tooltip = yes	
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2759,19 +4047,19 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 			swap_ideas = {
-				remove_idea = BRZ_dinosaurs_in_club_managements
-				add_idea = BRZ_dinosaurs_in_club_managements_2
+				remove_idea = BRZ_dinosaurs_in_club_managements_2
+				add_idea = BRZ_dinosaurs_in_club_managements_3
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_purge_referees
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_purge_referees
 		relative_position_id = BRZ_decimate_old_guard
 		prerequisite = { focus = BRZ_decimate_old_guard
@@ -2788,9 +4076,16 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			country_event = buzzer.28	
+			add_popularity = {
+				ideology = reactionary
+				popularity = -0.025
+			}
+			add_stability = 0.025
+			add_manpower = -112	
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2799,20 +4094,16 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
-			swap_ideas = {
-				remove_idea = BRZ_dinosaurs_in_club_managements_2
-				add_idea = BRZ_dinosaurs_in_club_managements_3
-			}
-			country_event = buzzer.28
+			remove_ideas = BRZ_dinosaurs_in_club_managements_3 
 		}
 	}
 	
 	focus = {
 		id = BRZ_everyone_has_price
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_everyone_has_price
 		relative_position_id = BRZ_deal_with_old_bosses
 		prerequisite = { focus = BRZ_decimate_old_guard
@@ -2829,9 +4120,15 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			country_event = buzzer.29	
+			custom_effect_tooltip = budget_subtract_200M
+			add_to_variable = {
+				budget = -200
+			}	
+			get_budget_tooltip = yes	
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2840,20 +4137,16 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
-			swap_ideas = {
-				remove_idea = BRZ_dinosaurs_in_club_managements_2
-				add_idea = BRZ_dinosaurs_in_club_managements_3
-			}
-			country_event = buzzer.29
+			remove_ideas = BRZ_dinosaurs_in_club_managements_3 
 		}
 	}
 
 	focus = {
 		id = BRZ_lack_of_discipline
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_lack_of_discipline
 		relative_position_id = BRZ_soccer_poker
 		prerequisite = { focus = BRZ_soccer_poker }
@@ -2867,15 +4160,19 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = BRZ_decadent_footballers_1
+				add_idea = BRZ_decadent_footballers_2
+			} 
 		}
 	}
 	
 	focus = {
 		id = BRZ_footballers_without_resolve
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_footballers_without_resolve
 		relative_position_id = BRZ_lack_of_discipline
 		prerequisite = { focus = BRZ_lack_of_discipline }
@@ -2889,16 +4186,23 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
 			country_event = buzzer.30
+			add_war_support = -0.50
+			add_mastery_bonus = {
+				name = BRZ_footballers_without_resolve
+				bonus = 0.5
+				days = 180
+				grand_doctrine = cqc_theory
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_out_with_lollygaggers
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_out_with_lollygaggers
 		relative_position_id = BRZ_footballers_without_resolve
 		prerequisite = { focus = BRZ_footballers_without_resolve }
@@ -2913,9 +4217,11 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			add_war_support = 0.10
+			add_manpower = -542				
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2924,19 +4230,19 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 			swap_ideas = {
-				remove_idea = BRZ_decadent_footballers
-				add_idea = BRZ_decadent_footballers_2
+				remove_idea = BRZ_decadent_footballers_2
+				add_idea = BRZ_decadent_footballers_3
 			} 
 		}
 	}
 	
 	focus = {
 		id = BRZ_carrot_and_stick
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_carrot_and_stick
 		relative_position_id = BRZ_footballers_without_resolve
 		prerequisite = { focus = BRZ_footballers_without_resolve }
@@ -2951,9 +4257,14 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			custom_effect_tooltip = budget_subtract_200M
+			add_to_variable = {
+				budget = -200
+			}			
+			add_stability = 0.1			
 			if = {
 				limit = {
 					has_power_balance = {
@@ -2962,19 +4273,19 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 			swap_ideas = {
-				remove_idea = BRZ_decadent_footballers
-				add_idea = BRZ_decadent_footballers_2
+				remove_idea = BRZ_decadent_footballers_2
+				add_idea = BRZ_decadent_footballers_3
 			} 
 		}
 	}
 	
 	focus = {
 		id = BRZ_focus_on_young_talents
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_focus_on_young_talents
 		relative_position_id = BRZ_out_with_lollygaggers
 		prerequisite = { focus = BRZ_out_with_lollygaggers
@@ -2991,9 +4302,12 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			country_event = buzzer.31
+			add_manpower = 2000
+			add_command_power = 20			
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3002,20 +4316,16 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
-			swap_ideas = {
-				remove_idea = BRZ_decadent_footballers_2
-				add_idea = BRZ_decadent_footballers_3
-			} 
-			country_event = buzzer.31
+			remove_ideas = BRZ_decadent_footballers_3 
 		}
 	}
 	
 	focus = {
 		id = BRZ_focus_on_foreign_transfers
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_focus_on_foreign_transfers
 		relative_position_id = BRZ_carrot_and_stick
 		prerequisite = { focus = BRZ_carrot_and_stick
@@ -3032,9 +4342,14 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			country_event = buzzer.32	
+			SVK = { give_market_access = BRZ }		
+			ROM = { give_market_access = BRZ }		
+			HUN = { give_market_access = BRZ }		
+			UKR = { give_market_access = BRZ }		
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3043,20 +4358,16 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
-			swap_ideas = {
-				remove_idea = BRZ_decadent_footballers_2
-				add_idea = BRZ_decadent_footballers_3
-			} 
-			country_event = buzzer.32
+			remove_ideas = BRZ_decadent_footballers_3 
 		}
 	}
 
 	focus = {
 		id = BRZ_hooligan_problem
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_hooligan_problem
 		relative_position_id = BRZ_soccer_poker
 		prerequisite = { focus = BRZ_soccer_poker }
@@ -3070,15 +4381,19 @@ focus_tree = {
 		x = 4
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = BRZ_untamed_hooligans_1
+				add_idea = BRZ_untamed_hooligans_2
+			} 
 		}
 	}	
 	
 	focus = {
 		id = BRZ_disastrous_infighting
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_disastrous_infighting
 		relative_position_id = BRZ_hooligan_problem
 		prerequisite = { focus = BRZ_hooligan_problem }
@@ -3092,16 +4407,43 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
-			country_event = buzzer.32
+			country_event = buzzer.44
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis						
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 0.5
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis						
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 0.5
+				}
+			}	
+			add_manpower = -731		
 		}
 	}
 	
 	focus = {
 		id = BRZ_nationalize_ultras
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_nationalize_ultras
 		relative_position_id = BRZ_disastrous_infighting
 		prerequisite = { focus = BRZ_disastrous_infighting }
@@ -3116,9 +4458,14 @@ focus_tree = {
 		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			set_party_name = {
+				ideology = squattism
+				long_name = BRZ_squattism_party_zwkt_long
+				name = BRZ_squattism_party_zwkt
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3127,19 +4474,19 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
 			swap_ideas = {
-				remove_idea = BRZ_untamed_hooligans
-				add_idea = BRZ_untamed_hooligans_2
-			} 
+				remove_idea = BRZ_untamed_hooligans_2
+				add_idea = BRZ_untamed_hooligans_3
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_targeted_wrath
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_targeted_wrath
 		relative_position_id = BRZ_disastrous_infighting
 		prerequisite = { focus = BRZ_disastrous_infighting }
@@ -3154,9 +4501,19 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = {
+			576 = {
+				add_dynamic_modifier = {
+					modifier = BRZ_jebac_lks
+				}
+			}
+			578 = {
+				add_dynamic_modifier = {
+					modifier = BRZ_jebac_lks
+				}
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3165,19 +4522,19 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
 			swap_ideas = {
-				remove_idea = BRZ_untamed_hooligans
-				add_idea = BRZ_untamed_hooligans_2
+				remove_idea = BRZ_untamed_hooligans_2
+				add_idea = BRZ_untamed_hooligans_3
 			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_portuguese_common_enemy
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_portuguese_common_enemy
 		relative_position_id = BRZ_nationalize_ultras
 		prerequisite = { focus = BRZ_nationalize_ultras
@@ -3194,9 +4551,14 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			country_event = buzzer.41
+			add_opinion_modifier = {
+				target = SOV
+				modifier = western_betrayal
+			}			
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3205,20 +4567,16 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = -0.1
+					value = -0.05
 				}
 			}
-			swap_ideas = {
-				remove_idea = BRZ_untamed_hooligans_2
-				add_idea = BRZ_untamed_hooligans_3
-			}
-			country_event = buzzer.32
+			remove_ideas = BRZ_untamed_hooligans_3
 		}
 	}
 	
 	focus = {
 		id = BRZ_blow_off_steam
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_blow_off_steam
 		relative_position_id = BRZ_targeted_wrath
 		prerequisite = { focus = BRZ_targeted_wrath
@@ -3235,9 +4593,15 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
+			country_event = buzzer.33	
+			add_unit_bonus = {
+				melee_infantry = {
+					soft_attack = 0.05
+				}
+			}		
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3246,20 +4610,16 @@ focus_tree = {
 				}
 				add_power_balance_value = {
 					id = BRZ_power_balance
-					value = 0.1
+					value = 0.05
 				}
 			}
-			swap_ideas = {
-				remove_idea = BRZ_untamed_hooligans_2
-				add_idea = BRZ_untamed_hooligans_3
-			}
-			country_event = buzzer.33
+			remove_ideas = BRZ_untamed_hooligans_3
 		}
 	}
 	
 	focus = {
 		id = BRZ_cba
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_cba
 		relative_position_id = BRZ_everyone_has_price
 		prerequisite = { focus = BRZ_everyone_has_price
@@ -3272,19 +4632,31 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = -1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
-			remove_ideas = BRZ_dinosaurs_in_club_managements_3 
+			swap_ideas = {
+				remove_idea = improvised_security
+				add_idea = basic_security
+			}
+			if = {
+				limit = {
+					has_intelligence_agency = no
+				}
+				create_intelligence_agency = {
+					name = "Centralne Biuro Antykorupcyjne"
+					icon = GFX_intelligence_agency_logo_brz
+				}
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_white_red_academy
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_white_red_academy
 		relative_position_id = BRZ_focus_on_young_talents
 		prerequisite = { focus = BRZ_focus_on_foreign_transfers
@@ -3300,16 +4672,46 @@ focus_tree = {
 		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
-			remove_ideas = BRZ_decadent_footballers_3 
+			if = {
+				limit = {
+					has_idea = officer_clerks
+				}
+				swap_ideas = {
+					remove_idea = officer_clerks
+					add_idea = officer_schools
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = officer_leftovers
+				}
+				swap_ideas = {
+					remove_idea = officer_leftovers
+					add_idea = officer_schools
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = officer_random
+				}
+				swap_ideas = {
+					remove_idea = officer_random
+					add_idea = officer_schools
+				}
+			}
+			swap_ideas = {
+				remove_idea = BRZ_from_junior_to_leader
+				add_idea = BRZ_white_red_academy_idea
+			}						
 		}
 	}
 	
 	focus = {
 		id = BRZ_hooligan_army_department
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_hooligan_army_department
 		relative_position_id = BRZ_portuguese_common_enemy
 		prerequisite = { focus = BRZ_portuguese_common_enemy
@@ -3322,20 +4724,41 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 0
+		x = 1
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
-			remove_ideas = BRZ_untamed_hooligans_3 
+			swap_ideas = {
+				remove_idea = training_battle
+				add_idea = training_veterans
+			}
+			if = {
+				limit = {
+					has_idea = BRZ_bandit_hooligans_2
+				}
+				swap_ideas = {
+					remove_idea = BRZ_bandit_hooligans_2
+					add_idea = BRZ_bandit_hooligans_3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = BRZ_bandit_hooligans_2_alt
+				}
+				swap_ideas = {
+					remove_idea = BRZ_bandit_hooligans_2_alt
+					add_idea = BRZ_bandit_hooligans_3
+				}
+			}			
 		}
 	}
 	
 	
 	focus = {
 		id = BRZ_rozklad_jazdy_znany
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_rozklad_jazdy_znany
 		relative_position_id = BRZ_white_red_academy
 		prerequisite = { focus = BRZ_white_red_academy }
@@ -3355,12 +4778,18 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			add_stability = 0.05
+			add_political_power = 100
+			swap_ideas = {
+				remove_idea = BRZ_nothings_wrong_poles_2
+				add_idea = BRZ_nothings_wrong_poles_3
+			}
 		}
 	}
 	
 	focus = {
 		id = BRZ_jazda_z_kurwami
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_jazda_z_kurwami
 		relative_position_id = BRZ_rozklad_jazdy_znany
 		prerequisite = { focus = BRZ_rozklad_jazdy_znany }
@@ -3372,21 +4801,28 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		
 		cost = 1
 		
 		completion_reward = { 
 			country_event = buzzer.34
+			hidden_effect = {
+				load_focus_tree = generic_focus
+				country_event = {
+					id = paf_generic.101
+				}
+			}
+			custom_effect_tooltip = BRZ_unfinished_content_tt
 		}
 	}
 	
 	focus = {
 		id = BRZ_tactical_assesment
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_tactical_assesment
-		relative_position_id = BRZ_olimpia_truskolasy_do_utraty_tchu
-		prerequisite = { focus = BRZ_olimpia_truskolasy_do_utraty_tchu }
+		relative_position_id = BRZ_sisyphean_task
+		prerequisite = { focus = BRZ_sisyphean_task }
 		available = {
 		
 		}
@@ -3395,9 +4831,9 @@ focus_tree = {
 		}
 		
 		x = 10
-		y = 2
+		y = 1
 		
-		cost = 1
+		cost = 2
 		
 		completion_reward = { 
 			country_event = buzzer.35
@@ -3407,149 +4843,10 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_obrona_czestochowy
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_obrona_czestochowy
 		relative_position_id = BRZ_tactical_assesment
 		prerequisite = { focus = BRZ_tactical_assesment }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = {
-			add_ideas = BRZ_defence_of_czestochowa
-			hidden_effect = {
-				BRZ_calculate_stats = yes
-			}
-		}
-	}
-	
-	focus = {
-		id = BRZ_laga
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_laga
-		relative_position_id = BRZ_obrona_czestochowy
-		prerequisite = { focus = BRZ_obrona_czestochowy }
-		mutually_exclusive = { focus = BRZ_tiki_taka }
-		mutually_exclusive = { focus = BRZ_futbol_totalny }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = {
-			add_ideas = BRZ_laga
-			hidden_effect = {
-				BRZ_calculate_stats = yes
-			}
-			if = {
-				limit = {
-					has_power_balance = {
-						id = BRZ_power_balance
-					}
-				}
-				add_power_balance_modifier = {
-					id = BRZ_power_balance
-					modifier = BRZ_bop_buzzliner_mod
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = BRZ_jaka_wrzutka_wariacie
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_jaka_wrzutka_wariacie
-		relative_position_id = BRZ_laga
-		prerequisite = { focus = BRZ_laga }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = -2
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = {
-			add_ideas = BRZ_crosses_crosses_everywhere
-			hidden_effect = {
-				BRZ_calculate_stats = yes
-			}
-			if = {
-				limit = {
-					has_power_balance = {
-						id = BRZ_power_balance
-					}
-				}
-				add_power_balance_modifier = {
-					id = BRZ_power_balance
-					modifier = BRZ_bop_buzzliner_mod
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = BRZ_brexit_football
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_brexit_football
-		relative_position_id = BRZ_laga
-		prerequisite = { focus = BRZ_laga }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 2
-		
-		cost = 1
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = BRZ_laga
-				add_idea = BRZ_brexit_football
-			}
-			if = {
-				limit = {
-					has_power_balance = {
-						id = BRZ_power_balance
-					}
-				}
-				add_power_balance_modifier = {
-					id = BRZ_power_balance
-					modifier = BRZ_bop_buzzliner_mod
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = BRZ_tiki_taka
-		text_icon = TRUSKOLASY_focus_style
-		icon = BRZ_tiki_taka
-		relative_position_id = BRZ_obrona_czestochowy
-		prerequisite = { focus = BRZ_obrona_czestochowy }
 		mutually_exclusive = { focus = BRZ_laga }
 		mutually_exclusive = { focus = BRZ_futbol_totalny }
 		available = {
@@ -3560,12 +4857,158 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
-			add_ideas = BRZ_tiki_taka_idea
+			add_ideas = BRZ_conservative_football
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_laga
+		text_icon = BUZZER_focus_style
+		icon = BRZ_laga
+		relative_position_id = BRZ_obrona_czestochowy
+		prerequisite = { focus = BRZ_tactical_assesment }
+		mutually_exclusive = { focus = BRZ_obrona_czestochowy }
+		mutually_exclusive = { focus = BRZ_futbol_totalny }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 0
+		
+		cost = 4.3
+		
+		completion_reward = {
+			add_ideas = BRZ_traditional_football
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_reformist_mod
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_jaka_wrzutka_wariacie
+		text_icon = BUZZER_focus_style
+		icon = BRZ_jaka_wrzutka_wariacie
+		relative_position_id = BRZ_laga
+		prerequisite = { focus = BRZ_laga }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 2
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BRZ_traditional_football
+				add_idea = BRZ_traditional_football_2
+			}
+			hidden_effect = {
+				BRZ_calculate_stats = yes
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_reformist_mod
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_brexit_football
+		text_icon = BUZZER_focus_style
+		icon = BRZ_brexit_football
+		relative_position_id = BRZ_laga
+		prerequisite = { focus = BRZ_jaka_wrzutka_wariacie }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BRZ_traditional_football_2
+				add_idea = BRZ_traditional_football_3
+			}
+			if = {
+				limit = {
+					has_power_balance = {
+						id = BRZ_power_balance
+					}
+				}
+				add_power_balance_modifier = {
+					id = BRZ_power_balance
+					modifier = BRZ_bop_reformist_mod
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = BRZ_tiki_taka
+		text_icon = BUZZER_focus_style
+		icon = BRZ_tiki_taka
+		relative_position_id = BRZ_obrona_czestochowy
+		prerequisite = { focus = BRZ_obrona_czestochowy }
+
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 4.3
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BRZ_conservative_football
+				add_idea = BRZ_conservative_football_2
+			}
 			hidden_effect = {
 				BRZ_calculate_stats = yes
 			}
@@ -3574,7 +5017,7 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_catenaccio
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_catenaccio
 		relative_position_id = BRZ_tiki_taka
 		prerequisite = { focus = BRZ_tiki_taka }
@@ -3588,12 +5031,12 @@ focus_tree = {
 		x = 0
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = BRZ_tiki_taka_idea
-				add_idea = BRZ_catenaccio
+				remove_idea = BRZ_conservative_football_2
+				add_idea = BRZ_conservative_football_3
 			}
 			hidden_effect = {
 				BRZ_calculate_stats = yes
@@ -3603,12 +5046,12 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_futbol_totalny
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_futbol_totalny
 		relative_position_id = BRZ_obrona_czestochowy
-		prerequisite = { focus = BRZ_obrona_czestochowy }
+		prerequisite = { focus = BRZ_tactical_assesment }
 		mutually_exclusive = { focus = BRZ_laga }
-		mutually_exclusive = { focus = BRZ_tiki_taka }
+		mutually_exclusive = { focus = BRZ_obrona_czestochowy }
 		available = {
 		
 		}
@@ -3616,13 +5059,13 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 2
-		y = 1
+		x = -2
+		y = 0
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
-			add_ideas = BRZ_total_football
+			add_ideas = BRZ_revolutionary_football
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3631,7 +5074,7 @@ focus_tree = {
 				}
 				add_power_balance_modifier = {
 					id = BRZ_power_balance
-					modifier = BRZ_bop_reformist_mod
+					modifier = BRZ_bop_buzzliner_mod
 				}
 			}
 		}
@@ -3639,7 +5082,7 @@ focus_tree = {
 
 	focus = {
 		id = BRZ_gegenpress
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_gegenpress
 		relative_position_id = BRZ_futbol_totalny
 		prerequisite = { focus = BRZ_futbol_totalny }
@@ -3650,13 +5093,16 @@ focus_tree = {
 		bypass = {
 		}
 		
-		x = 2
+		x = -2
 		y = 1
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
-			add_ideas = BRZ_gegenpress
+			swap_ideas = {
+				remove_idea = BRZ_revolutionary_football
+				add_idea = BRZ_revolutionary_football_2
+			}
 			if = {
 				limit = {
 					has_power_balance = {
@@ -3665,7 +5111,7 @@ focus_tree = {
 				}
 				add_power_balance_modifier = {
 					id = BRZ_power_balance
-					modifier = BRZ_bop_reformist_mod
+					modifier = BRZ_bop_buzzliner_mod
 				}
 			}
 		}
@@ -3673,10 +5119,10 @@ focus_tree = {
 	
 	focus = {
 		id = BRZ_panic_playing
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_panic_playing
 		relative_position_id = BRZ_futbol_totalny
-		prerequisite = { focus = BRZ_futbol_totalny }
+		prerequisite = { focus = BRZ_gegenpress }
 		available = {
 		
 		}
@@ -3687,12 +5133,12 @@ focus_tree = {
 		x = 0
 		y = 2
 		
-		cost = 1
+		cost = 4.3
 		
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = BRZ_total_football
-				add_idea = BRZ_panic_playing
+				remove_idea = BRZ_revolutionary_football_2
+				add_idea = BRZ_revolutionary_football_3
 			}
 			hidden_effect = {
 				BRZ_calculate_stats = yes
@@ -3705,7 +5151,7 @@ focus_tree = {
 				}
 				add_power_balance_modifier = {
 					id = BRZ_power_balance
-					modifier = BRZ_bop_reformist_mod
+					modifier = BRZ_bop_buzzliner_mod
 				}
 			}
 		}
@@ -3713,7 +5159,7 @@ focus_tree = {
 
 	focus = {
 		id = BRZ_w_polsce_nie_ma_juz_slabych_druzyn
-		text_icon = TRUSKOLASY_focus_style
+		text_icon = BUZZER_focus_style
 		icon = BRZ_w_polsce_nie_ma_juz_slabych_druzyn
 		relative_position_id = BRZ_catenaccio
 		prerequisite = { focus = BRZ_brexit_football
