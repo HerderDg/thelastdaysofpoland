@@ -1053,6 +1053,38 @@ DGR_balance_of_power_category = {
 }
 
 DGR_curtailing_the_wolfpack_gui = {
+	DGR_nationalist_moves = {
+		icon = GFX_decision_generic_assassination
+		activation = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+		}
+		available = {
+			NOT = { has_country_flag = DGR_curtailing_the_wolfpack }
+		}
+		is_good = no
+		days_mission_timeout = 75
+		complete_effect = {
+		}
+		timeout_effect = {
+			random_list = {
+				50 = {
+					add_to_variable = {
+						DGR_nat_army_support = 2
+					}
+					custom_effect_tooltip = nat_army_support_minus_2
+					DGR_clamp_bop_variables = yes
+				}
+				50 = {
+					add_to_variable = {
+						DGR_nat_bureau_support = 2
+					}
+					custom_effect_tooltip = nat_bureau_support_minus_2
+					DGR_clamp_bop_variables = yes
+				}
+			}
+		}
+	}
+
 	DGR_bop_appease_military_bribes = {
 		priority = 99999
 		icon = GFX_decision_generic_welfare
@@ -1062,24 +1094,23 @@ DGR_curtailing_the_wolfpack_gui = {
 		}
 
 		visible = {
-			has_completed_focus = DGR_suspend_the_martial_law
+			has_completed_focus = DGR_curtailing_the_wolfpack
 			NOT = {
 				has_completed_focus = DGR_hunt_for_the_young_wolves
 			}
 		}
 
-		cost = 50
+		cost = 15
 
-		days_remove = 30
-
-		days_re_enable = 60
+		days_remove = 20
 
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_bop_appease_military_bribes"
-			add_power_balance_value = {
-				id = DGR_power_balance_demilitarisation
-				value = -0.05
+			add_to_variable = {
+				DGR_nat_anger = -5
 			}
+			custom_effect_tooltip = nat_anger_minus_5
+			DGR_clamp_bop_variables = yes
 			subtract_from_variable = {
 				budget = 100
 			}
@@ -1087,10 +1118,8 @@ DGR_curtailing_the_wolfpack_gui = {
 			custom_effect_tooltip = budget_subtract_100M
 			add_popularity = {
 				ideology = neonationalism
-				popularity = 0.02
+				popularity = 0.01
 			}
-			custom_effect_tooltip = rozdzielacz_efektow
-			custom_effect_tooltip = 60_days_tt
 		}
 	}
 	DGR_bop_appease_military_goods = {
@@ -1102,17 +1131,15 @@ DGR_curtailing_the_wolfpack_gui = {
 		}
 
 		visible = {
-			has_completed_focus = DGR_suspend_the_martial_law
+			has_completed_focus = DGR_curtailing_the_wolfpack
 			NOT = {
 				has_completed_focus = DGR_hunt_for_the_young_wolves
 			}
 		}
 
-		cost = 50
+		cost = 15
 
-		days_remove = 30
-
-		days_re_enable = 60
+		days_remove = 20
 
 		modifier = {
 			consumer_goods_factor = 0.5
@@ -1120,16 +1147,15 @@ DGR_curtailing_the_wolfpack_gui = {
 
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_bop_appease_military_goods"
-			add_power_balance_value = {
-				id = DGR_power_balance_demilitarisation
-				value = -0.05
+			add_to_variable = {
+				DGR_nat_anger = -5
 			}
+			custom_effect_tooltip = nat_anger_minus_5
+			DGR_clamp_bop_variables = yes
 			add_popularity = {
 				ideology = neonationalism
-				popularity = 0.02
+				popularity = 0.01
 			}
-			custom_effect_tooltip = rozdzielacz_efektow
-			custom_effect_tooltip = 60_days_tt
 		}
 	}
 	DGR_bop_appease_military_funds = {
@@ -1141,17 +1167,15 @@ DGR_curtailing_the_wolfpack_gui = {
 		}
 
 		visible = {
-			has_completed_focus = DGR_suspend_the_martial_law
+			has_completed_focus = DGR_curtailing_the_wolfpack
 			NOT = {
 				has_completed_focus = DGR_hunt_for_the_young_wolves
 			}
 		}
 
-		cost = 50
+		cost = 15
 
-		days_remove = 30
-
-		days_re_enable = 60
+		days_remove = 20
 
 		modifier = {
 			military_spendings = 0.5
@@ -1159,16 +1183,15 @@ DGR_curtailing_the_wolfpack_gui = {
 
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_bop_appease_military_funds"
-			add_power_balance_value = {
-				id = DGR_power_balance_demilitarisation
-				value = -0.05
+			add_to_variable = {
+				DGR_nat_anger = -5
 			}
+			custom_effect_tooltip = nat_anger_minus_5
+			DGR_clamp_bop_variables = yes
 			add_popularity = {
 				ideology = neonationalism
-				popularity = 0.02
+				popularity = 0.01
 			}
-			custom_effect_tooltip = rozdzielacz_efektow
-			custom_effect_tooltip = 60_days_tt
 		}
 	}
 
@@ -1214,7 +1237,7 @@ DGR_curtailing_the_wolfpack_gui = {
 			has_country_flag = DGR_nationalist_coup_soon
 		}
 
-		cost = 20
+		cost = 15
 
 		days_remove = 20
 
@@ -1252,6 +1275,266 @@ DGR_curtailing_the_wolfpack_gui = {
 		timeout_effect = {
 			clr_country_flag = DGR_nationalist_coup_soon
 			country_event = dgr_narkom.29
+		}
+	}
+
+	DGR_bop_administration_purges = {
+		priority = 99999
+		icon = GFX_decision_generic_assassination
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			political_power_factor = -0.10
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_administration_purges"
+			add_to_variable = {
+				DGR_nat_bureaucracy_support = -1
+			}
+			custom_effect_tooltip = nat_bureau_support_1
+			add_to_variable = {
+				DGR_nat_anger = 3
+			}
+			custom_effect_tooltip = nat_anger_3
+			custom_effect_tooltip = 10_days_tt
+		}
+	}
+	DGR_bop_military_purges = {
+		priority = 99999
+		icon = GFX_decision_generic_assassination
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			army_org_factor = -0.1
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_military_purges"
+			add_to_variable = {
+				DGR_nat_army_support = -1
+			}
+			custom_effect_tooltip = nat_army_support_1
+			add_to_variable = {
+				DGR_nat_anger = 3
+			}
+			custom_effect_tooltip = nat_anger_3
+			
+			DGR_clamp_bop_variables = yes
+			custom_effect_tooltip = 10_days_tt
+		}
+	}
+	DGR_bop_ministry_intervention = {
+		priority = 99999
+		icon = GFX_decision_generic_hammer_and_sickle
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+			has_completed_focus = DGR_expand_the_powers_of_internal_affairs_ministry
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			political_power_factor = -0.10
+			stability_factor = 0.05
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_administration_purges"
+			add_to_variable = {
+				DGR_nat_bureaucracy_support = -2
+			}
+			custom_effect_tooltip = nat_bureau_support_2
+			add_to_variable = {
+				DGR_nat_anger = 5
+			}
+			custom_effect_tooltip = nat_anger_5
+			DGR_clamp_bop_variables = yes
+			custom_effect_tooltip = 10_days_tt
+		}
+	}
+	DGR_bop_defund_mil_infra = {
+		priority = 99999
+		icon = GFX_decision_generic_fortification
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+			has_completed_focus = DGR_committee_for_military_urban_planning
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			production_cost_infrastructure_factor = 0.5
+			military_spendings = -0.1
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_defund_mil_infra"
+			custom_effect_tooltip = nat_anger_6
+			add_to_variable = {
+				DGR_nat_army_support = -2
+			}
+			custom_effect_tooltip = nat_army_support_2
+			add_to_variable = {
+				DGR_nat_anger = 6
+			}
+			DGR_clamp_bop_variables = yes
+			custom_effect_tooltip = 10_days_tt
+		}
+	}
+	DGR_bop_blackmail_military = {
+		priority = 99999
+		icon = GFX_decision_generic_arrest
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+			has_completed_focus = DGR_secret_files_357b
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			army_org_factor = -0.1
+			army_attack_factor = -0.1
+			army_defence_factor = -0.1
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_blackmail_military"
+			add_to_variable = {
+				DGR_nat_army_support = -3
+			}
+			custom_effect_tooltip = nat_army_support_3
+			add_to_variable = {
+				DGR_nat_anger = 8
+			}
+			custom_effect_tooltip = nat_anger_8
+			DGR_clamp_bop_variables = yes
+			custom_effect_tooltip = 10_days_tt
+		}
+	}
+	DGR_bop_prosecute_fascists = {
+		priority = 99999
+		icon = GFX_decision_generic_assassination
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+			has_completed_focus = DGR_pseudo_fascist_deviations
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			army_org_factor = -0.05
+			army_attack_factor = -0.05
+			army_defence_factor = -0.05
+			political_power_factor = -0.05
+			party_popularity_stability_factor = -0.05
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_prosecute_fascists"
+			add_to_variable = {
+				DGR_nat_army_support = -2
+			}
+			custom_effect_tooltip = nat_army_support_2
+			add_to_variable = {
+				DGR_nat_bureaucracy_support = -2
+			}
+			add_to_variable = {
+				DGR_nat_anger = 8
+			}
+			custom_effect_tooltip = nat_anger_8
+			custom_effect_tooltip = nat_bureau_support_2
+			DGR_clamp_bop_variables = yes
+			custom_effect_tooltip = 10_days_tt
+		}
+	}
+	
+	DGR_bop_replace_disloyal = {
+		priority = 99999
+		icon = GFX_decision_generic_arrest
+
+		allowed = {
+			original_tag = DGR
+		}
+
+		visible = {
+			has_country_flag = DGR_curtailing_the_wolfpack
+			has_completed_focus = DGR_high_inspectorate_of_ideological_discipline
+		}
+
+		cost = 15
+		days_remove = 20
+		days_re_enable = 10
+
+		modifier = {
+			political_power_factor = -0.1
+			party_popularity_stability_factor = -0.1
+			stability_factor = -0.1
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: Decision DGR_bop_replace_disloyal"
+			add_to_variable = {
+				DGR_nat_bureaucracy_support = -3
+			}
+			custom_effect_tooltip = nat_bureau_support_3
+			add_to_variable = {
+				DGR_nat_anger = 8
+			}
+			custom_effect_tooltip = nat_anger_8
+			
+			DGR_clamp_bop_variables = yes
+			custom_effect_tooltip = 10_days_tt
 		}
 	}
 }

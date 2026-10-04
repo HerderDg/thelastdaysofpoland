@@ -761,3 +761,60 @@ DGR_district_wars_setup = {
 	}
 }
 
+DGR_clamp_bop_variables = {
+	clamp_variable = {
+		var = DGR_nat_anger
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = DGR_nat_bureaucracy_support
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = DGR_nat_army_support
+		min = 0
+		max = 100
+	}
+	add_to_variable = {
+		DGR_nat_gui_update = 1
+	}
+	if = { # wojna domowa
+		limit = { check_variable = { DGR_nat_anger > 89} }
+		country_event = DGR_narkom.29
+	}
+	if = { # debuff armii
+		limit = { check_variable = { DGR_nat_anger > 50 }}
+		set_variable = {
+			DGR_debuff = 0
+		}
+		set_temp_variable = {
+			DGR_debuff_temp = DGR_nat_anger
+		}
+		divide_temp_variable = {
+			DGR_debuff_temp = 100
+		}
+		subtract_from_variable = {
+			DGR_debuff = DGR_debuff_temp
+		}
+		if = {
+			limit = { NOT = { has_dynamic_modifier = DGR_nationalist_sabotage }}
+			add_dynamic_modifier = {
+				modifier = DGR_nationalist_sabotage
+			}
+		}
+		
+	}
+	if = {
+		limit = { # usunięcie debuffa armii
+			check_variable = { DGR_nat_anger < 50 } 
+			has_dynamic_modifier = DGR_nationalist_sabotage
+		}
+		clear_variable = DGR_debuff
+		remove_dynamic_modifier = {
+			modifier = DGR_nationalist_sabotage
+		}
+	}
+}
+
