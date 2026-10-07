@@ -1156,12 +1156,6 @@ focus_tree = {
 					country_exists = JOM
 				}
 				has_war_with = JOM
-				AND = {
-					JOM = {
-						owns_state = 221
-						NOT = { owns_state = 68 }
-					}
-				}
 			}
 		}
 		ai_will_do = {
@@ -1174,10 +1168,18 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			declare_war_on = {
-                target = JOM
-                type = voivodeship_war
-            }
+			if = {
+				limit = {
+					JOM = {
+						NOT = { owns_state = 221 }
+					} 
+				}
+				declare_war_on = {
+                	target = JOM
+                	type = voivodeship_war
+            	}
+			}
+			
 			if = {
 				limit = {
 					STR = { exists = yes }
