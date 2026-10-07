@@ -595,10 +595,11 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = SAP_ravaged_country
-				add_idea = SAP_ravaged_country_2
-				}
+			remove_ideas = SAP_ravaged_country
+			add_timed_idea = {
+				idea = SAP_ravaged_country_2
+				days = 120				
+			}
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 			}
@@ -2118,7 +2119,15 @@ focus_tree = {
 		relative_position_id = SAP_tridam_ultimatum
 		prerequisite = { focus = SAP_tridam_ultimatum }
 		available = {
-
+		  	302 = { is_controlled_by = SAP }
+			576 = { is_controlled_by = SAP }
+			577 = { is_controlled_by = SAP }
+			578 = { is_controlled_by = SAP }
+			579 = { is_controlled_by = SAP }
+			757 = { is_controlled_by = SAP }
+			758 = { is_controlled_by = SAP }
+			759 = { is_controlled_by = SAP }
+		  	NOT = { has_war = yes }
 		}
 		
 		bypass = {
@@ -2131,7 +2140,15 @@ focus_tree = {
 		cost = 3
 		
 		completion_reward = {
-
+			add_stability = 0.1
+			302 = { set_state_name = STATE_302_SAP }
+			576 = { set_state_name = STATE_576_SAP }
+			577 = { set_state_name = STATE_577_SAP }
+			578 = { set_state_name = STATE_578_SAP }
+			579 = { set_state_name = STATE_579_SAP }
+			757 = { set_state_name = STATE_757_SAP }
+			758 = { set_state_name = STATE_758_SAP }
+			759 = { set_state_name = STATE_759_SAP }
 		}
 	}
 	
@@ -2195,20 +2212,9 @@ focus_tree = {
 		prerequisite = { focus = SAP_tridam_ultimatum }
 
 		available = {
-			KRS = { num_of_controlled_states < 1 }
-			BBW = { num_of_controlled_states < 1 }
-			WML = { num_of_controlled_states < 1 }
-			ZHP = { num_of_controlled_states < 1 }
-			ZYD = { num_of_controlled_states < 1 }
-			POG = { num_of_controlled_states < 1 }
-			RUT = { num_of_controlled_states < 1 }
-			TIG = { num_of_controlled_states < 1 }
-			RDM = { num_of_controlled_states < 1 }
-			LKS = { num_of_controlled_states < 1 }
-			AMW = { num_of_controlled_states < 1 }
-										
-		  302 = { is_controlled_by = SAP }
-		  NOT = { has_war = yes }
+		  	302 = { is_controlled_by = SAP }
+		  	NOT = { has_war = yes }
+			has_country_flag = unified_voivodeship
 		}
 		
 		bypass = {
@@ -2223,6 +2229,32 @@ focus_tree = {
 			country_event = { 
 				id = sapek_war.5
 			}
+			if = {
+				limit = { 
+					302 = { NOT = { is_core_of = 302 } }
+				}
+				302 = { 
+					add_core_of = SAP
+				}
+			}
+			set_capital = {state = 302}
+			set_province_name = {
+				id = 11520
+				name = VICTORY_POINTS_11520_SAP
+			}
+			302 = {
+				remove_building = {
+					type = landmark_lodz_manufaktura
+					level = 1
+					province = 11520
+				}
+				add_building_construction = {
+					type = landmark_lodz_manufaktura_2
+					level = 1
+					instant_build = yes
+					province = 11520
+				}				
+			}
 		}
 	}
 	
@@ -2234,19 +2266,9 @@ focus_tree = {
 		prerequisite = { focus = SAP_tridam_ultimatum }
 
 		available = {
-		  302 = { is_controlled_by = SAP }
-		  NOT = { has_war = yes }
-			KRS = { num_of_controlled_states < 1 }
-			BBW = { num_of_controlled_states < 1 }
-			WML = { num_of_controlled_states < 1 }
-			ZHP = { num_of_controlled_states < 1 }
-			ZYD = { num_of_controlled_states < 1 }
-			POG = { num_of_controlled_states < 1 }
-			RUT = { num_of_controlled_states < 1 }
-			TIG = { num_of_controlled_states < 1 }
-			RDM = { num_of_controlled_states < 1 }
-			LKS = { num_of_controlled_states < 1 }
-			AMW = { num_of_controlled_states < 1 }
+			302 = { is_controlled_by = SAP }
+			has_war = no
+			has_country_flag = unified_voivodeship
 		}
 		
 		bypass = {
@@ -2261,6 +2283,7 @@ focus_tree = {
 			country_event = { 
 				id = sapek_war.6
 			}
+			#todo - odblokowuje tutaj decyzje bałuckie
 		}
 	}
 	
@@ -2327,7 +2350,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = {
 				id = sapek_war.9
-				}
+			}
 		}
 	}
 	
@@ -2383,6 +2406,13 @@ focus_tree = {
 				id = sapek_war.11
 			}
 			custom_effect_tooltip = SAP_insanity_tooltip	
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = hospital_tech
+				}
+			add_fuel = 10000
+			add_stability = -0.1
 		}
 	}
 
@@ -2850,13 +2880,7 @@ focus_tree = {
 					}
 					}					
 				}	
-			}
-			load_focus_tree = generic_focus
-			hidden_effect = {
-				country_event = {
-					id = paf_generic.100
-				}
-			}		
+			}	
 		}
 	}
 
@@ -2881,7 +2905,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			country_event = sapek_region.1
 		}
 	}
 
@@ -3467,7 +3491,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			swap_ideas = { 
+				remove_idea = no_subsidies
+				add_idea = charity_system
+			}
 		}
 	}
 	
@@ -3496,7 +3523,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			swap_ideas = { 
+				remove_idea = witch_doctors
+				add_idea = private_healthcare
+			}
 		}
 	}	
 
@@ -3552,7 +3582,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			swap_ideas = { 
+				remove_idea = no_subsidies
+				add_idea = social_minimum
+			}
 		}
 	}	
 
@@ -3581,7 +3614,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			swap_ideas = { 
+				remove_idea = witch_doctors
+				add_idea = voluntary_healthcare
+			}
 		}
 	}
 	
@@ -11879,9 +11915,9 @@ focus_tree = {
 	
 	
 	focus = {
-		id = SAP_separation_of_powers
+		id = SAP_separation_of_magic
 		text_icon = WITCHER_focus_style
-		#icon = SAP_separation_of_powers
+		#icon = SAP_separation_of_magic
 		relative_position_id = SAP_counterspell
 		prerequisite = { focus = SAP_counterspell }
 		available = {
