@@ -81,13 +81,16 @@ country_event = {
 }
 
 news_event = {
-	id = trz_news.1 #wielka zimna
+	id = trz_news.1 #wielka zima
 	title = trz_news.1.t
 	desc = trz_news.1.desc
-	picture = GFX_news_event_trz.1
+	picture = GFX_news_event_zima
 
 	fire_only_once = yes
-	is_triggered_only = yes
+	trigger = {
+		date > 2027.12.01
+		is_ai = no
+	}
 	
 	immediate = { 
 		log = "[GetDateText]: [ROOT.GetName] fires trz_news.1"			
@@ -95,5 +98,18 @@ news_event = {
 	
 	option = {
 		name = trz_news.1.a
+		hidden_effect = {
+			every_other_country = {
+				add_timed_idea = {
+					idea = biale_zimno
+					days = 90
+				}
+			}
+		}
+
+		add_timed_idea = {
+			idea = biale_zimno
+			days = 90
+		}		
 	}
 }
