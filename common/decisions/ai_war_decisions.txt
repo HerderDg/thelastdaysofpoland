@@ -10709,11 +10709,9 @@ chelminsko_kujawska = {
 		icon = GFX_decision_generic_prepare_civil_war
 		
 		allowed = {
-			AND = { 
 			OR = {	
-				original_tag = JOM
-				original_tag = USP
-			}
+				original_tag = POM
+				original_tag = KOS
 			}
 		}
 		visible = {
@@ -10725,12 +10723,12 @@ chelminsko_kujawska = {
 				AND = {
 					USP = { has_war_with = KOS }
 					NOT = { USP = { owns_state = 622 } }
-					ROOT = { original_tag = USP }
+					ROOT = { original_tag = KOS }
 				}
 				AND = {
 					JOM = { has_war_with = POM }
 					NOT = { JOM = { owns_state = 68 } }
-					ROOT = { original_tag = JOM }
+					ROOT = { original_tag = POM }
 				}
 			}
 			date > 2029.01.01
@@ -10744,32 +10742,32 @@ chelminsko_kujawska = {
 		days_remove = 7
 		remove_effect  = {
 			log = "[GetDateText]: Decision zachpom_JOM_and_USP_fuckup"
-				if = { 
-					limit = { 
-						ROOT = { original_tag = JOM }
-						#JOM = { has_war_with = POM }
-						#NOT = { JOM = { owns_state = 68 } }
-					}
-					DEN = {
-						annex_country = {
-							target = JOM
-							transfer_troops = no
-						}
+			if = { 
+				limit = { 
+					ROOT = { original_tag = POM }
+					#JOM = { has_war_with = POM }
+					#NOT = { JOM = { owns_state = 68 } }
+				}
+				DEN = {
+					annex_country = {
+						target = JOM
+						transfer_troops = no
 					}
 				}
-				else_if = {
-					limit = { 
-						ROOT = { original_tag = USP }
-						#USP = { has_war_with = KOS }
-						#NOT = { USP = { owns_state = 622 } }
-					}
-					USA = {
-						annex_country = {
-							target = USP
-							transfer_troops = no
-						}
+			}
+			else_if = {
+				limit = { 
+					ROOT = { original_tag = KOS }
+					#USP = { has_war_with = KOS }
+					#NOT = { USP = { owns_state = 622 } }
+				}
+				USA = {
+					annex_country = {
+						target = USP
+						transfer_troops = no
 					}
 				}
+			}
 		}	
 	}
 	zachpom_USP_landing = {
