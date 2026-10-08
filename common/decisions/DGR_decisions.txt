@@ -4054,15 +4054,28 @@ DGR_district_wars_category = {
 		days_remove = 7
 		icon = GFX_decision_generic_civil_support
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_levittoux
-					value = 25
-					}
+			set_variable = {
+				var = DGR_op_levittoux
+				value = 25
+			}
 			add_popularity = {
 				ideology = marxism_cranism
 				popularity = 0.05
 			}
+			add_popularity = {
+				ideology = squattism
+				popularity = 0.02
+			}			
 			add_manpower = 50
+			STM = {
+				add_manpower = -50
+			}
+			736 = {
+				damage_building = {
+					type = power_plant
+					damage = 0.25
+				}
+			}
 			log = "[GetDateText]: Decision DGR_OL_instigate_workers"
 		}
 	}
@@ -4099,6 +4112,12 @@ DGR_district_wars_category = {
 				amount = 40
 				producer = DGR
 			}
+			736 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.5
+				}
+			}
 		}
 	}
 	
@@ -4130,6 +4149,13 @@ DGR_district_wars_category = {
 				value = 25
 			}
 			add_fuel = 5000
+			damage_units = {
+				state = 736
+				org_damage = 0.5
+				str_damage = 0.25
+				ratio = yes
+				army = yes
+			}
 		}
 	}
 	
@@ -4161,24 +4187,20 @@ DGR_district_wars_category = {
 				var = DGR_op_levittoux
 				value = 20
 			}
-		start_border_war = {
-			change_state_after_war = yes
-			attacker = {
-				state = 737
-				num_provinces = 1
-				on_win = dgr_district.13
-				on_lose = dgr_district.6
-				on_cancel = dgr_district.13
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 737
+					num_provinces = 1
+					on_win = dgr_district.13
+					on_lose = dgr_district.6
+					on_cancel = dgr_district.13
+				}			
+				defender = {
+					state = 736
+					num_provinces = 2
+				}
 			}
-						
-			defender = {
-				state = 736
-				num_provinces = 2
-				on_win = dgr_district.6
-				on_lose = dgr_district.13
-				on_cancel = dgr_district.13
-			}
-		}
 		}
 	}
 	
@@ -4218,6 +4240,7 @@ DGR_district_wars_category = {
 				ideology = marxism_cranism
 				popularity = 0.05
 			}
+			add_political_power = 50
 		}
 	}
 	
@@ -4245,39 +4268,48 @@ DGR_district_wars_category = {
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OL_emergency_conscription"
 			set_country_flag = DGR_OL_victory
-			736 = {
-				transfer_state_to = DGR
+			if = { 
+				limit = { 
+					736 = {
+						NOT = { is_owned_and_controlled_by = DGR }
+					}
 				}
-		736 = {
-			create_unit = {
-				division = "name = \"Batalion Ochotniczy 'Przyjaźń'\" division_template = \"Batalion Czerwonych Sztandarów\" start_experience_factor = 0 start_equipment_factor = 1"
-				owner = DGR
-				prioritize_location = 2107
+				736 = {
+					transfer_state_to = DGR
+				}				
 			}
-		}
-		clr_country_flag = DGR_operation_levittoux
+			736 = {
+				create_unit = {
+					division = "name = \"Batalion Ochotniczy 'Przyjaźń'\" division_template = \"Batalion Czerwonych Sztandarów\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = DGR
+					prioritize_location = 2107
+				}
+			}
+			clr_country_flag = DGR_operation_levittoux
 		}
 	}
 	
 ###darzbor###
 	DGR_operation_bien = {
-		visible = { NOT = { has_country_flag = DGR_operation_bien 
-					has_country_flag = DGR_OB_victory
-					has_country_flag = DGR_OB_lose
-				 }
+		visible = { 
+			NOT = { 
+				has_country_flag = DGR_operation_bien 
+				has_country_flag = DGR_OB_victory
+				has_country_flag = DGR_OB_lose
+			}
 		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_action_windrose
-			has_country_flag = DGR_operation_zawadzki
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_action_windrose
+				has_country_flag = DGR_operation_zawadzki
+			}
 		}
 		highlight_states = {
 			highlight_state_targets = {
@@ -4329,13 +4361,25 @@ DGR_district_wars_category = {
 		}
 		days_remove = 7
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_bien
-					value = 25
-					}
+			set_variable = {
+				var = DGR_op_bien
+				value = 25
+			}
 			add_popularity = {
 				ideology = paternal_conservatism
 				popularity = -0.05
+			}
+			add_equipment_to_stockpile = {
+				type = ranged_equipment_0
+				amount = 100
+				producer = DAR
+			}
+			damage_units = {
+				state = 775
+				org_damage = 0.5
+				str_damage = 0.25
+				ratio = yes
+				army = yes
 			}
 			log = "[GetDateText]: Decision DGR_OB_eradicate_foresters"
 		}
@@ -4368,7 +4412,7 @@ DGR_district_wars_category = {
 				var = DGR_op_bien
 				value = 25
 			}
-			add_command_power = 10
+			add_command_power = 20
 		}
 	}
 	
@@ -4399,7 +4443,7 @@ DGR_district_wars_category = {
 				var = DGR_op_bien
 				value = 25
 			}
-			army_experience = 20
+			army_experience = 35
 		}
 	}
 	
@@ -4432,21 +4476,17 @@ DGR_district_wars_category = {
 				value = 25
 			}
 			start_border_war = {
-				change_state_after_war = yes
+				change_state_after_war = no
 				attacker = {
 					state = 737
 					num_provinces = 1
 					on_win = dgr_district.15
 					on_lose = dgr_district.8
 					on_cancel = dgr_district.15
-				}
-							
+				}			
 				defender = {
 					state = 775
-					num_provinces = 1
-					on_win = dgr_district.8
-					on_lose = dgr_district.15
-					on_cancel = dgr_district.15					
+					num_provinces = 1		
 				}
 			}
 		}
@@ -4478,42 +4518,44 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OB_nationalization_of_forests"
 			set_country_flag = DGR_OB_victory
 			clr_country_flag = DGR_operation_bien
-		775 = {
-			create_unit = {
-				division = "name = \"Koło Łowieckie Dąbrowa\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 1"
-				owner = DGR
-				prioritize_location = 7751
+			775 = {
+				create_unit = {
+					division = "name = \"Koło Łowieckie Dąbrowa\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 1"
+					owner = DGR
+					prioritize_location = 7751
+				}
 			}
-		}
 		}
 	}
 	
 ###slavkov###
 	DGR_operation_wasilkowski = {
-		visible = { NOT = { has_country_flag = DGR_operation_wasilkowski
-							has_country_flag = DGR_OW_victory
-							has_country_flag = DGR_OW_lose
-						}
-				OR = {
-					has_country_flag = DGR_OL_victory 
-					has_country_flag = DGR_OB_victory 
-				}
+		visible = { 
+			NOT = { 
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_OW_victory
+				has_country_flag = DGR_OW_lose
+			}
+			OR = {
+				has_country_flag = DGR_OL_victory 
+				has_country_flag = DGR_OB_victory 
+			}
 		}
 		ai_will_do = {
 			base = 999999
 		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_action_windrose
-			has_country_flag = DGR_operation_zawadzki
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_action_windrose
+				has_country_flag = DGR_operation_zawadzki
+			}
 		}
 		highlight_states = {
 			highlight_state_targets = {
@@ -4561,10 +4603,10 @@ DGR_district_wars_category = {
 		days_remove = 7
 		icon = GFX_decision_infiltrate_state
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_wasilkowski
-					value = 25
-					}
+			set_variable = {
+				var = DGR_op_wasilkowski
+				value = 25
+			}
 			add_equipment_to_stockpile = {
 				type = train_equipment
 				amount = 20
@@ -4574,6 +4616,12 @@ DGR_district_wars_category = {
 				type = motorized_equipment
 				amount = 200
 				producer = DGR
+			}
+			480 = { 
+				damage_building = {
+					type = supply_node
+					damage = 0.5
+				}
 			}
 			log = "[GetDateText]: Decision DGR_OW_cutoff_euroterminal"
 		}
@@ -4613,6 +4661,7 @@ DGR_district_wars_category = {
 				}			
 			}
 			add_war_support = 0.05
+			army_experience = 15
 		}
 	}
 	
@@ -4645,8 +4694,10 @@ DGR_district_wars_category = {
 			}
 			add_popularity = {
 				ideology = socialdemocrature
-				popularity = -0.1
+				popularity = -0.05
 			}
+			add_political_power = 25
+			add_stability = -0.02
 		}
 	}
 	
@@ -4677,58 +4728,49 @@ DGR_district_wars_category = {
 				var = DGR_op_wasilkowski
 				value = 25
 			}
-
-		if = {
-			limit = {
-				DGR = {
-					owns_state = 736
+			if = {
+				limit = {
+					DGR = {
+						owns_state = 736
+						}
+					}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 736
+						num_provinces = 2
+						on_win = dgr_district.14
+						on_lose = dgr_district.7
+						on_cancel = dgr_district.14
+					}			
+					defender = {
+						state = 480
+						num_provinces = 2
 					}
 				}
-			start_border_war = {
-				change_state_after_war = yes
-				attacker = {
-					state = 736
-					num_provinces = 2
-					on_win = dgr_district.14
-					on_lose = dgr_district.7
-					on_cancel = dgr_district.14
-				}
-							
-				defender = {
-					state = 480
-					num_provinces = 2
-					on_win = dgr_district.7
-					on_lose = dgr_district.14
-					on_cancel = dgr_district.14
-				}
 			}
-		}
-		else_if = {
-			limit = {
-				DGR = {
-					owns_state = 775
+			else_if = {
+				limit = {
+					DGR = {
+						owns_state = 775
+						}
+					}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 775
+						num_provinces = 2
+						on_win = dgr_district.14
+						on_lose = dgr_district.7
+						on_cancel = dgr_district.14
+					}			
+					defender = {
+						state = 480
+						num_provinces = 1
 					}
 				}
-			start_border_war = {
-				change_state_after_war = yes
-				attacker = {
-					state = 775
-					num_provinces = 2
-					on_win = dgr_district.14
-					on_lose = dgr_district.7
-					on_cancel = dgr_district.14
-				}
-							
-				defender = {
-					state = 480
-					num_provinces = 1
-					on_win = dgr_district.7
-					on_lose = dgr_district.14
-					on_cancel = dgr_district.14
-				}
-			}
 
-		}			
+			}			
 		}
 	}
 	
@@ -4760,9 +4802,9 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OW_state_of_emergency"
 			set_country_flag = DGR_OW_victory
 			clr_country_flag = DGR_operation_wasilkowski
-		480 = {
-			create_unit = {
-				division = "name = \"Batalion Ochotniczy im. Dąbrowszczaków\" division_template = \"Batalion Czerwonych Sztandarów\" start_experience_factor = 0.1 start_equipment_factor = 1"
+			480 = {
+				create_unit = {
+					division = "name = \"Batalion Ochotniczy im. Dąbrowszczaków\" division_template = \"Batalion Czerwonych Sztandarów\" start_experience_factor = 0.1 start_equipment_factor = 1"
 					owner = DGR
 					prioritize_location = 2829
 				}
@@ -4772,22 +4814,25 @@ DGR_district_wars_category = {
 	
 ###zabkowice-leknice###
 	DGR_operation_piwowar = {
-		visible = { NOT = { has_country_flag = DGR_operation_piwowar 
-		has_country_flag = DGR_OP_victory
-		has_country_flag = DGR_OP_lose
-		} }
+		visible = { 
+			NOT = { 
+				has_country_flag = DGR_operation_piwowar 
+				has_country_flag = DGR_OP_victory
+				has_country_flag = DGR_OP_lose
+			} 
+		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_action_windrose
-			has_country_flag = DGR_operation_zawadzki
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_action_windrose
+				has_country_flag = DGR_operation_zawadzki
+			}
 		}
 		highlight_states = {
 			highlight_state_targets = {
@@ -4838,20 +4883,21 @@ DGR_district_wars_category = {
 			highlight_color_before_active = 2
 		}
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_piwowar
-					value = 15
-					}
-				country_event = {
-					id =  dgr_district.3
-				}
+			set_variable = {
+				var = DGR_op_piwowar
+				value = 15
+			}
+			country_event = {
+				id =  dgr_district.3
+			}
 			log = "[GetDateText]: Decision DGR_OP_envoy_to_metallurgists"
 		}
 	}
 	
 	DGR_OP_deal_with_devil = {
-		visible = { has_country_flag = DGR_operation_piwowar
-				check_variable = {
+		visible = { 
+			has_country_flag = DGR_operation_piwowar
+			check_variable = {
 				DGR_op_piwowar > 14
 			}
 		}
@@ -4859,7 +4905,7 @@ DGR_district_wars_category = {
 			check_variable = {
 				DGR_op_piwowar > 14
 			}
-			}
+		}
 		cost = 10
 		icon = GFX_decision_hol_exchange_intelligence_data
 		days_remove = 3
@@ -4921,18 +4967,33 @@ DGR_district_wars_category = {
 				var = DGR_op_piwowar
 				value = 15
 			}
-			add_command_power = 20
-			army_experience = 10
+			division_template = {
+				name = "Łęknicka Inkwizycja"
+				priority = 2
+				template_counter = 4
+				regiments = {
+					marine = { x = 0 y = 0 }
+					marine = { x = 0 y = 1 }
+				}
+				override_model = DGR_militia_entity
+			}
+			737 = {
+				create_unit = {
+					division = "name = \"Legion ŁI 'Kosa'\" division_template = \"Łęknicka Inkwizycja\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = DGR
+					prioritize_location = 7445
+				}
+			}
 		}
 	}
 	
 	DGR_OP_secure_industrial_zone = {
-		visible = { has_country_flag = DGR_operation_piwowar 
+		visible = { 
+			has_country_flag = DGR_operation_piwowar 
 			check_variable = {
 				DGR_op_piwowar > 29
 			}		
-
-					}
+		}
 		available = {
 			check_variable = {
 				DGR_op_piwowar > 44
@@ -4961,6 +5022,13 @@ DGR_district_wars_category = {
 			add_victory_points = {
 				province = 7750
 				value = 3
+			}
+			damage_units = {
+				state = 776
+				org_damage = 0.5
+				str_damage = 0.25
+				ratio = yes
+				army = yes
 			}
 		}
 	}
@@ -4997,7 +5065,7 @@ DGR_district_wars_category = {
 				value = 15
 			}
 			start_border_war = {
-				change_state_after_war = yes
+				change_state_after_war = no
 				attacker = {
 					state = 737
 					num_provinces = 1
@@ -5089,45 +5157,41 @@ DGR_district_wars_category = {
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OP_incorporation_of_nationalists"
 			set_country_flag = DGR_OP_victory
-			clr_country_flag = DGR_operation_piwowar
-		division_template = {
-				name = "Łęknicka Inkwizycja"
-				priority = 2
-				template_counter = 4
-				regiments = {
-					marine = { x = 0 y = 0 }
-					marine = { x = 0 y = 1 }
+			776 = {
+				create_unit = {
+					division = "name = \"Legion ŁI 'Wolność'\" division_template = \"Łęknicka Inkwizycja\" start_experience_factor = 0.1 start_equipment_factor = 1"
+					owner = DGR
+					prioritize_location = 3198
 				}
-				override_model = DGR_militia_entity
-		}
-		776 = {
-			create_unit = {
-				division = "name = \"1 Batalion ŁI\" division_template = \"Łęknicka Inkwizycja\" start_experience_factor = 0.1 start_equipment_factor = 1"
-				owner = DGR
-				prioritize_location = 3198
 			}
-		}
+			add_popularity = {
+				ideology = neonationalism
+				popularity = 0.05
+			}
 		}
 	}
 	
 ###golonog###
 	DGR_operation_morcinek = {
-		visible = { NOT = { has_country_flag = DGR_operation_morcinek 
-							has_country_flag = DGR_OM_victory
-							has_country_flag = DGR_OM_lose
-						 } }
+		visible = { 
+			NOT = { 
+				has_country_flag = DGR_operation_morcinek 
+				has_country_flag = DGR_OM_victory
+				has_country_flag = DGR_OM_lose
+			} 
+		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_action_windrose
-			has_country_flag = DGR_operation_zawadzki
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_action_windrose
+				has_country_flag = DGR_operation_zawadzki
+			}
 		}
 		cost = 0
 		icon = GFX_decision_generic_prepare_civil_war
@@ -5177,12 +5241,21 @@ DGR_district_wars_category = {
 			highlight_color_before_active = 2
 		}
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_morcinek
-					value = 30
-					}
+			set_variable = {
+				var = DGR_op_morcinek
+				value = 30
+			}
 			log = "[GetDateText]: Decision DGR_OM_assess_situation"
-			add_command_power = 15
+
+			DGR = {
+				add_intel = {
+				    target = DGA
+				    civilian_intel = 50
+				    army_intel = 75
+				    navy_intel = 50
+				    airforce_intel = 50
+				}
+			}
 		}
 	}
 	
@@ -5213,14 +5286,10 @@ DGR_district_wars_category = {
 				var = DGR_op_morcinek
 				value = 30
 			}
-			add_intel = {
-				target = DGA
-				civilian_intel = 3
-				army_intel = 2
-			}
 			random_unit_leader = {
 				add_maneuver = 1
-			}
+			}			
+			add_command_power = 15
 			set_country_flag = DGR_golonog_open
 		}
 	}
@@ -5266,6 +5335,12 @@ DGR_district_wars_category = {
 				}
 				DGR = { 
 					transfer_state = 777
+				}
+			}
+			777 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.5
 				}
 			}
 		}
@@ -5314,6 +5389,12 @@ DGR_district_wars_category = {
 					transfer_state = 777
 				}
 			}
+			777 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.5
+				}
+			}
 		}
 	}
 	
@@ -5346,7 +5427,6 @@ DGR_district_wars_category = {
 		}
 		remove_effect = {
 			log = "[GetDateText]: Decision DGR_OM_broadway"
-
 			add_manpower = -122
 			army_experience = 12
 			clr_country_flag = DGR_golonog_clearing
@@ -5358,6 +5438,17 @@ DGR_district_wars_category = {
 				}
 				DGR = { 
 					transfer_state = 777
+				}
+			}
+			777 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.75
+				}
+			}
+			DGA = {
+				delete_unit = {
+				   id = 213702
 				}
 			}
 		}
@@ -5407,6 +5498,17 @@ DGR_district_wars_category = {
 					transfer_state = 777
 				}
 			}
+			777 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.75
+				}
+			}
+			DGA = {
+				delete_unit = {
+				   id = 213701
+				}
+			}
 		}
 	}
 	
@@ -5451,21 +5553,17 @@ DGR_district_wars_category = {
 			}
 			clr_country_flag = DGR_golonog_open
 			start_border_war = {
-				change_state_after_war = yes
+				change_state_after_war = no
 				attacker = {
 					state = 737
 					num_provinces = 1
 					on_win = dgr_district.17
 					on_lose = dgr_district.10
 					on_cancel = dgr_district.17
-				}
-							
+				}			
 				defender = {
 					state = 777
 					num_provinces = 1
-					on_win = dgr_district.10
-					on_lose = dgr_district.17
-					on_cancel = dgr_district.17
 				}
 			}	
 		}
@@ -5509,32 +5607,37 @@ DGR_district_wars_category = {
 				}
 				add_extra_state_shared_building_slots = 1
 			}
+			add_stability = 0.02
+			add_political_power = 40
 		}
 	}
 
 ###reden###
 	DGR_operation_adamiecki = {
-		visible = { NOT = { has_country_flag = DGR_operation_adamiecki
-							has_country_flag = DGR_OA_victory
-							has_country_flag = DGR_OA_lose
-						}
-						OR = { has_country_flag = DGR_OM_victory 
-							has_country_flag = DGR_OL_victory 
-							has_country_flag = DGR_OZ_victory 
-							}
-							}
+		visible = { 
+			NOT = { 
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_OA_victory
+				has_country_flag = DGR_OA_lose
+			}
+			OR = { 
+				has_country_flag = DGR_OM_victory 
+				has_country_flag = DGR_OL_victory 
+				has_country_flag = DGR_OZ_victory 
+			}
+		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_operation_zawadzki
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_action_windrose
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_operation_zawadzki
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_action_windrose
+			}
 		}
 		cost = 0
 		icon = GFX_decision_generic_prepare_civil_war
@@ -5585,11 +5688,11 @@ DGR_district_wars_category = {
 			highlight_color_before_active = 2
 		}
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_adamiecki
-					value = 25
-					}
-				735 = {
+			set_variable = {
+				var = DGR_op_adamiecki
+				value = 25
+			}
+			735 = {
 				add_province_modifier = {
 					static_modifiers = { active_decryption_modifier }
 					province = { id = 7754 }
@@ -5598,7 +5701,8 @@ DGR_district_wars_category = {
 					static_modifiers = { active_decryption_modifier }
 					province = { id = 7748 }
 				}
-				}
+			}
+			add_command_power = 20
 			log = "[GetDateText]: Decision DGR_OA_around_korczak_line"
 		}
 	}
@@ -5645,7 +5749,7 @@ DGR_district_wars_category = {
 					owns_state = 777
 				}
 				start_border_war = {
-					change_state_after_war = yes
+					change_state_after_war = no
 					attacker = {
 						state = 777
 						num_provinces = 2
@@ -5657,15 +5761,12 @@ DGR_district_wars_category = {
 					defender = {
 						state = 735
 						num_provinces = 2
-						on_win = dgr_district.11
-						on_lose = dgr_district.21
-						on_cancel = dgr_district.21
 					}
 				}	
 			}
 			else = {
 				start_border_war = {
-					change_state_after_war = yes
+					change_state_after_war = no
 					attacker = {
 						state = 460
 						num_provinces = 3
@@ -5677,9 +5778,6 @@ DGR_district_wars_category = {
 					defender = {
 						state = 735
 						num_provinces = 1
-						on_win = dgr_district.11
-						on_lose = dgr_district.21
-						on_cancel = dgr_district.21
 					}
 				}	
 			}
@@ -5720,7 +5818,7 @@ DGR_district_wars_category = {
 				value = 65
 			}
 			start_border_war = {
-				change_state_after_war = yes
+				change_state_after_war = no
 				attacker = {
 					state = 736
 					num_provinces = 1
@@ -5732,9 +5830,6 @@ DGR_district_wars_category = {
 				defender = {
 					state = 735
 					num_provinces = 1
-					on_win = dgr_district.11
-					on_lose = dgr_district.18
-					on_cancel = dgr_district.18
 				}
 			}	
 		}
@@ -5776,6 +5871,7 @@ DGR_district_wars_category = {
 				add_manpower = -27
 			}
 			army_experience = 30
+			add_stability = 0.025
 		}
 	}
 	
@@ -5805,21 +5901,20 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OA_declare_amnesty"
 			set_country_flag = DGR_OA_victory
 			clr_country_flag = DGR_operation_adamiecki
-		735 = {
-			create_unit = {
-				division = "name = \"Batalion 'Reden'\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = DGR
-					prioritize_location = 7754
-				}
-
-				remove_province_modifier = {
-					static_modifiers = { active_decryption_modifier }
-					province = { id = 7754 }
-				}
-				remove_province_modifier = {
-					static_modifiers = { active_decryption_modifier }
-					province = { id = 7748 }
-				}
+			735 = {
+				create_unit = {
+					division = "name = \"Batalion 'Reden'\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 1"
+						owner = DGR
+						prioritize_location = 7754
+					}
+					remove_province_modifier = {
+						static_modifiers = { active_decryption_modifier }
+						province = { id = 7754 }
+					}
+					remove_province_modifier = {
+						static_modifiers = { active_decryption_modifier }
+						province = { id = 7748 }
+					}
 			}
 			add_stability = 0.05
 			add_political_power = 30
@@ -5828,26 +5923,29 @@ DGR_district_wars_category = {
 	
 ###mydlice###
 	DGR_operation_zawadzki = {
-		visible = { NOT = { has_country_flag = DGR_operation_zawadzki
-							has_country_flag = DGR_OZ_victory
-							has_country_flag = DGR_OZ_lose
-						 }
-						OR = { has_country_flag = DGR_OA_victory 
-							has_country_flag = DGR_OP_victory 
-						}
+		visible = { 
+			NOT = { 
+				has_country_flag = DGR_operation_zawadzki
+				has_country_flag = DGR_OZ_victory
+				has_country_flag = DGR_OZ_lose
+			}
+			OR = { 
+				has_country_flag = DGR_OA_victory 
+				has_country_flag = DGR_OP_victory 
+			}
 		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_action_windrose
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_action_windrose
+			}
 		}
 		highlight_states = {
 			highlight_state_targets = {
@@ -5898,12 +5996,12 @@ DGR_district_wars_category = {
 			highlight_color_before_active = 2
 		}
 		remove_effect = {
-				set_variable = {
-					var = DGR_op_zawadzki
-					value = 25
-					}
-				add_stability = 0.1
-				add_political_power = 50
+			set_variable = {
+				var = DGR_op_zawadzki
+				value = 25
+			}
+			add_stability = 0.1
+			add_political_power = 50
 			log = "[GetDateText]: Decision DGR_OZ_retake_pkz"
 		}
 	}
@@ -5941,6 +6039,7 @@ DGR_district_wars_category = {
 				uses = 1
 				category = armor
 			}
+			add_command_power = 20
 		}
 	}
 	
@@ -5974,7 +6073,7 @@ DGR_district_wars_category = {
 			if = {
 				limit = { DGR = { controls_state = 735 } }
 				start_border_war = {
-					change_state_after_war = yes
+					change_state_after_war = no
 					attacker = {
 						state = 735
 						num_provinces = 1
@@ -5982,19 +6081,16 @@ DGR_district_wars_category = {
 						on_lose = dgr_district.12
 						on_cancel = dgr_district.19
 					}
-								
+							
 					defender = {
 						state = 460
 						num_provinces = 3
-						on_win = dgr_district.12
-						on_lose = dgr_district.19
-						on_cancel = dgr_district.19
 					}
 				}
 			}		
 			else = {
 				start_border_war = {
-					change_state_after_war = yes
+					change_state_after_war = no
 					attacker = {
 						state = 776
 						num_provinces = 2
@@ -6006,9 +6102,6 @@ DGR_district_wars_category = {
 					defender = {
 						state = 460
 						num_provinces = 1
-						on_win = dgr_district.12
-						on_lose = dgr_district.19
-						on_cancel = dgr_district.19
 					}
 				}
 			}
@@ -6051,6 +6144,7 @@ DGR_district_wars_category = {
 				add_manpower = -41
 			}
 			army_experience = 40
+			add_stability = 0.025
 		}
 	}
 	
@@ -6080,12 +6174,12 @@ DGR_district_wars_category = {
 			log = "[GetDateText]: Decision DGR_OZ_declare_amnesty"
 			set_country_flag = DGR_OZ_victory
 			clr_country_flag = DGR_operation_zawadzki
-		460 = {
-			create_unit = {
-				division = "name = \"Batalion 'Sztygarka'\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = DGR
-					prioritize_location = 7743
-				}
+			460 = {
+				create_unit = {
+					division = "name = \"Batalion 'Sztygarka'\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0.1 start_equipment_factor = 1"
+						owner = DGR
+						prioritize_location = 7743
+					}
 			}
 			add_stability = 0.05
 			add_political_power = 30
@@ -6102,17 +6196,17 @@ DGR_district_wars_category = {
 			has_country_flag = DGR_OB_victory
 		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_action_sunflower
-			has_country_flag = DGR_operation_zawadzki
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_action_sunflower
+				has_country_flag = DGR_operation_zawadzki
+			}
 		}
 		cost = 0
 		ai_will_do = {
@@ -6139,6 +6233,7 @@ DGR_district_wars_category = {
 				var = DGR_aw_windrose
 				value = 50
 			}
+			army_experience = 15
 		}
 	}
 	
@@ -6163,6 +6258,7 @@ DGR_district_wars_category = {
 				var = DGR_aw_windrose
 				value = 50
 			}
+			navy_experience = 15
 		}
 	}
 	
@@ -6202,17 +6298,17 @@ DGR_district_wars_category = {
 			has_country_flag = DGR_OP_victory 
 		}
 		available = {
-		 NOT = {
-			has_country_flag = DGR_operation_levittoux
-			has_country_flag = DGR_operation_bien
-			has_country_flag = DGR_operation_morcinek
-			has_country_flag = DGR_operation_piwowar
-			has_country_flag = DGR_operation_wasilkowski
-			has_country_flag = DGR_operation_adamiecki
-			has_country_flag = DGR_action_hendrix
-			has_country_flag = DGR_action_windrose
-			has_country_flag = DGR_operation_zawadzki
-		 }
+			NOT = {
+				has_country_flag = DGR_operation_levittoux
+				has_country_flag = DGR_operation_bien
+				has_country_flag = DGR_operation_morcinek
+				has_country_flag = DGR_operation_piwowar
+				has_country_flag = DGR_operation_wasilkowski
+				has_country_flag = DGR_operation_adamiecki
+				has_country_flag = DGR_action_hendrix
+				has_country_flag = DGR_action_windrose
+				has_country_flag = DGR_operation_zawadzki
+			}
 		}
 		cost = 0
 		ai_will_do = {
@@ -6244,8 +6340,8 @@ DGR_district_wars_category = {
 			776 = {
 				create_unit = {
 					division = "name = \"Naczelni\" division_template = \"Osiedlowe Gangi\" start_experience_factor = 0 start_equipment_factor = 1"
-						owner = DGR
-						prioritize_location = 7742
+					owner = DGR
+					prioritize_location = 7742
 				}
 			}
 		}

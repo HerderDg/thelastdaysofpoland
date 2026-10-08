@@ -143,6 +143,16 @@ country_event = {
 		#}
 		set_country_flag = DGR_district_wars_on
 		}
+		hidden_effect = { 
+			DGA = { add_ideas = DGR_district_wars_other }
+			ADM = { add_ideas = DGR_district_wars_other }
+			DAR = { add_ideas = DGR_district_wars_other }
+			FAR = { add_ideas = DGR_district_wars_other }
+			HUT = { add_ideas = DGR_district_wars_other }
+			STG = { add_ideas = DGR_district_wars_other }
+			STM = { add_ideas = DGR_district_wars_other }
+			SWK = { add_ideas = DGR_district_wars_other }
+		}
 		log = "[GetDateText]: DGR_district_wars"
 	}
 }
@@ -194,10 +204,19 @@ country_event = {
 		clr_country_flag = DGR_district_wars_on
 		if = {
 			limit = {
-				country_exists = DGA
+				any_country = {
+					has_idea = DGR_district_wars_other
+				}
 			}
-			annex_country = {
-				target = DGA
+			every_country = {
+				limit = {
+					has_idea = DGR_district_wars_other
+				}
+				PREV = {
+				 	annex_country = {
+				 		target = PREV
+				 	}
+				}
 			}
 		}
 	}
