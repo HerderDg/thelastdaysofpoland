@@ -1,0 +1,2120 @@
+﻿add_namespace = czh_wyb #wybory
+add_namespace = czh_w   #wojny ogólne jak z niemcami itp
+add_namespace = czh_p   #peace deale
+
+news_event = { #news event na większą integrację unijną
+	id = czh_w.1
+	title = {
+		text = czh_w.1.t
+	}
+	desc = {
+		text = czh_w.1.desc
+	}
+	picture = GFX_czechyczechyczechyczechy
+	trigger = {
+		date > 2033.01.13
+		is_ai = no
+		NOT = {
+			GER = {
+				has_cosmetic_tag = GER_anarchie
+			}
+		}
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			news_event = {
+				id = czh_w.2
+				days = 7
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_w.1.a
+	}
+}
+
+news_event = { #WYKLĘTY POWSTAŃ LUDU CZEEESKI (defenestracja)
+	id = czh_w.2
+	title = {
+		text = czh_w.2.t
+	}
+	desc = {
+		text = czh_w.2.desc
+	}
+	picture = GFX_czechyczechyczechyczechy2
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			GER = {
+				country_event = czh_w.3
+				set_autonomy = {
+					target = CZH
+					autonomy_state = autonomy_free
+				}
+				set_autonomy = {
+					target = MOR
+					autonomy_state = autonomy_free
+				}
+			}
+			CZH = { 
+				drop_cosmetic_tag = yes
+				leave_faction = yes
+			}
+			MOR = { 
+				drop_cosmetic_tag = yes
+				leave_faction = yes
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_w.2.a
+	}
+}
+
+country_event = { #nimecy decydują czy się wpierdalają czy nie
+	id = czh_w.3
+	title = {
+		text = czh_w.3.t
+	}
+	desc = {
+		text = czh_w.3.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #a spierdalajcie czesi
+		name = czh_w.3.a
+		ai_chance = {
+        	base = 1 
+    	}
+		CZH = {
+			country_event = {
+				id = czh_wyb.5
+				days = 7
+			}
+		}
+		GER = {
+			set_country_flag = volt_weakened
+		}
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			news_event = {
+				id = czh_w.7
+				days = 1
+			}
+		}
+	}
+	option = { #halo? halo? interwencja 
+		name = czh_w.3.b
+		ai_chance = {
+        	base = 1 
+    	}
+		CZH = {
+			country_event = czh_w.4
+		}
+	}
+}
+
+country_event = { #ej halo, policja
+	id = czh_w.4
+	title = {
+		text = czh_w.4.t
+	}
+	desc = {
+		text = czh_w.4.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #cykamy się gigaubermenscha, DJKSHAFAFAFAFAFAFAFFFFFFSDFKJHJHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+		name = czh_w.4.a
+		ai_chance = {
+        	base = 1 
+    	}
+		country_event = czh_p.1
+	}
+	option = { #nie cykamy się miniuntermenscha
+		name = czh_w.4.b
+		ai_chance = {
+        	base = 99 
+    	}
+		GER = {
+			country_event = czh_w.5
+		}
+	}
+}
+
+country_event = { #czesi powiedzieli nie i von der Leyen jest smutno
+	id = czh_w.5
+	title = {
+		text = czh_w.5.t
+	}
+	desc = {
+		text = czh_w.5.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #wpierdalamy się
+		name = czh_w.5.a
+		ai_chance = {
+        	base = 95
+    	}
+		GER = {
+			set_country_flag = czech_intervention
+			declare_war_on = CZH
+		}
+		MOR = {
+			country_event = czh_w.11
+		}
+		CZE = {
+			country_event = czh_w.15
+		}
+	}
+	option = { #chlip chlip czesi straszni
+		name = czh_w.5.b
+		ai_chance = {
+        	base = 5 
+    	}
+		GER = {
+			set_country_flag = its_voltover
+		}
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			news_event = {
+				id = czh_w.6
+				days = 1
+			}
+		}
+	}
+}
+
+news_event = { #NIEMCY POSKROMIONE PRZEZ CZECHY
+	id = czh_w.6
+	title = {
+		text = czh_w.6.t
+	}
+	desc = {
+		text = czh_w.6.desc
+	}
+	picture = GFX_czechyczechyczechyczechy3
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.6.a
+	}
+}
+
+
+news_event = { #niemcy ośmieszone przez czechów
+	id = czh_w.7
+	title = {
+		text = czh_w.7.t
+	}
+	desc = {
+		text = czh_w.7.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.7.a
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #wotum nieufności
+	id = czh_w.8
+	title = {
+		text = czh_w.8.t
+	}
+	desc = {
+		text = czh_w.8.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #wygrana wotum, it's voltover, it's spd-over
+		name = czh_w.8.a
+		ai_chance = {
+        	base = 2 
+    	}
+		GER = {
+			white_peace = CZH
+			set_country_flag = its_voltover
+			set_country_flag = its_centrover  #centrum też się rozpada na wyborach
+			clr_country_flag = czech_intervention
+			add_timed_idea = {
+				idea = GER_czech_reparations
+				years = 5
+			}
+			set_political_party = {
+				ideology = socialdemocrature
+				popularity = 23
+			}
+			promote_character = GER_pistorius
+		}
+		CZH = {
+			white_peace = GER
+		}
+	}
+	option = { #przejebane wotum, business as always
+		name = czh_w.8.b
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #litwa decyduje czy się katapultuje
+	id = czh_w.9
+	title = {
+		text = czh_w.9.t
+	}
+	desc = {
+		text = czh_w.9.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.9.a
+		ai_chance = {
+        	base = 8
+    	}
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			news_event = {
+				id = czh_w.10
+				days = 3
+			}
+		}
+		LIT = {
+			drop_cosmetic_tag = yes
+			leave_faction = yes
+		}
+		GER = {
+			set_autonomy = {
+				target = LIT
+				autonomy_state = autonomy_free
+			}
+		}
+	}
+	option = {
+		name = czh_w.9.b
+		ai_chance = {
+        	base = 2 
+    	}
+	}
+}
+
+nwes_event = { #Drugi Łańcuch Litewski
+	id = czh_w.10
+	title = {
+		text = czh_w.10.t
+	}
+	desc = {
+		text = czh_w.10.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.10.a
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #morawy decydują się czy pomóc
+	id = czh_w.11
+	title = {
+		text = czh_w.11.t
+	}
+	desc = {
+		text = czh_w.11.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #tak
+		name = czh_w.11.a
+		ai_chance = {
+        	base = 1 
+    	}
+		MOR = {
+			country_event = {
+				id = czh_w.13
+				days = 3
+			}
+		}
+		GER = {
+			declare_war_on = {
+				target = MOR
+				type = annex_everything
+			}
+			set_country_flag = MOR_helping_CZH
+		}
+		SLE = {
+			country_event = {
+				id = czh_w.16
+				days = 2
+			}
+		}
+	}
+	option = { #nie
+		name = czh_w.11.b
+		ai_chance = {
+        	base = 1 
+    	}
+		MOR = {
+			set_country_flag = not_helping_CZH
+			country_event = {
+				id = czh_w.14
+				days = 2
+			}
+			country_event = {
+				id = czh_w.17
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #morawy w wyszehradzie czy morawy w słowacji
+	id = czh_w.12
+	title = {
+		text = czh_w.12.t
+	}
+	desc = {
+		text = czh_w.12.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.12.a
+		ai_chance = {
+        	base = 90
+    	}
+		SVK = {
+			add_to_faction = MOR
+		}
+		SWE = {
+			clr_country_flag = SLE_vs_MOR_cv
+		}
+	}
+	option = {
+		name = czh_w.12.b
+		ai_chance = {
+        	base = 10 
+    	}
+		SVK = {
+			annex_country = {
+				target = MOR
+				transfer_troops = yes
+			}
+			set_country_flag = MOR_SVK
+		}
+		SWE = {
+			clr_country_flag = SLE_vs_MOR_cv
+		}
+	}
+}
+
+country_event = { #proszenie wyszehradu o interwencję
+	id = czh_w.13
+	title = {
+		text = czh_w.13.t
+	}
+	desc = {
+		text = czh_w.13.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #wyszehrad mówi tak
+		name = czh_w.13.a
+		ai_chance = {
+        	base = 1 
+    	}
+		SVK = {
+			add_to_faction = CZH
+			add_to_faction = MOR
+			add_to_war = {
+				targeted_alliance = MOR
+				enemy = GER
+				hostility_reason = asked_to_join
+			}
+		}
+		GER = {
+			set_country_flag = visegrad_intervention
+		}
+	}
+	option = { #wyszehrad mówi nie
+		name = czh_w.13.b
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #czy morawy łączą się z Cieszynem?
+	id = czh_w.14
+	title = {
+		text = czh_w.14.t
+	}
+	desc = {
+		text = czh_w.14.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		MOR = {
+			country_event = {
+				id = czh_w.12
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = czh_w.14.a
+		ai_chance = {
+        	base = 1 
+    	}
+		MOR = {
+			annex_country = {
+				target = TSZ
+				transfer_troops = yes
+			}
+		}
+	}
+	option = {
+		name = czh_w.14.b
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #okamura decyduje się czy ratować ojczyznę
+	id = czh_w.15
+	title = {
+		text = czh_w.15.t
+	}
+	desc = {
+		text = czh_w.15.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #tak????
+		name = czh_w.15.a
+		ai_chance = {
+        	base = 100 
+    	}
+		GER = {
+			declare_war_on = {
+				target = CZE
+				type = annex_everything
+			}
+			set_country_flag = CZE_helping_CZH
+		}
+	}
+	option = { #nie
+		name = czh_w.15.b
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #petr decyduje się czy ratować ojczyznę
+	id = czh_w.16
+	title = {
+		text = czh_w.16.t
+	}
+	desc = {
+		text = czh_w.16.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #tak
+		name = czh_w.16.a
+		ai_chance = {
+        	base = 90 
+    	}
+		GER = {
+			declare_war_on = {
+				target = SLE
+				type = annex_everything
+			}
+			set_country_flag = SLE_helping_CZH
+		}
+	}
+	option = { #nie
+		name = czh_w.16.b
+		ai_chance = {
+        	base = 10
+    	}
+		GER = {
+			set_country_flag = petr_pavel_cuck
+		}
+	}
+}
+
+country_event = { #petr decyduje się czy będzie miły czy nie
+	id = czh_w.17
+	title = {
+		text = czh_w.17.t
+	}
+	desc = {
+		text = czh_w.17.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.17.a
+		ai_chance = {
+        	base = 5 
+    	}
+		SLE = {
+			declare_war_on = {
+				target = MOR
+				type = annex_everything
+			}
+		}
+		SWE = {
+			set_country_flag = SLE_vs_MOR_cv
+		}
+	}
+	option = {
+		name = czh_w.17.b
+		ai_chance = {
+        	base = 1 
+    	}
+		MOR = {
+			annex_country = {
+				target = SLE
+				transfer_troops = yes
+			}
+		}
+	}
+}
+
+country_event = { #petr decyduje się czy jest gigachadem, czy nie
+	id = czh_w.18
+	title = {
+		text = czh_w.18.t
+	}
+	desc = {
+		text = czh_w.18.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.18.a
+		ai_chance = {
+        	base = 2 
+    	}
+		SLE = {
+			declare_war_on = {
+				target = GER
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = CZH
+				type = annex_everything
+			}
+		}
+		GER = {
+			set_country_flag = SLE_patriotic_war
+		}
+	}
+	option = { #dalsze rozważania
+		name = czh_w.18.b
+		ai_chance = {
+        	base = 1 
+    	}
+		SLE = {
+			country_event = {
+				id = czh_w.19
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #Petr War Win, co z Cieszynem
+	id = czh_w.19
+	title = {
+		text = czh_w.19.t
+	}
+	desc = {
+		text = czh_w.19.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.19.a
+		ai_chance = {
+        	base = 200000 
+			modifier = {
+				factor = 0
+				OR = {
+					TSZ = {
+						is_ai = no
+						is_subject = yes
+						is_in_faction = yes
+						exists = no
+					}
+				}
+			}
+		}
+		SLE = {
+			annex_country = {
+			target = TSZ
+			transfer_troops = yes
+		}
+    	}
+	}
+	option = {
+		name = czh_w.19.b
+		ai_chance = {
+        	base = 100
+			modifier = {
+				factor = 0
+				TSZ = {
+					exists = no
+				}
+			}
+    	}
+		SLE = {
+			declare_war_on = TSZ
+		}
+		SWE = {
+			set_country_flag = SLE_attack_TSZ
+		}
+	}
+	option = {
+		name = czh_w.19.c
+		ai_chance = {
+        	base = 1
+    	}
+	}
+}
+
+country_event = { #
+	id = czh_w.20
+	title = {
+		text = czh_w.20.t
+	}
+	desc = {
+		text = czh_w.20.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = czh_w.20.a
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+	option = {
+		name = czh_w.20.b
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #wybornie...
+	id = czh_wyb.1
+	title = {
+		text = czh_wyb.1.t
+	}
+	desc = {
+		text = czh_wyb.1.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		CZH = {
+			country_event = {
+				id = czh_wyb.2
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = czh_wyb.1.a
+		ai_chance = {
+        	base = 1 
+    	}
+		CZH_elections = yes
+	}
+}
+
+country_event = { #czy wybory prowadzą do wojny domowej czy do zjednoczenia
+	id = czh_wyb.2
+	title = {
+		text = czh_wyb.2.t
+	}
+	desc = {
+		text = czh_wyb.2.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #pokojowe zjednoczenie
+		name = czh_wyb.2.a
+		ai_chance = {
+        	base = 1
+			modifier = {
+				factor = 0
+				CZE = {
+					OR = {
+						has_government = autocracy
+						has_government = neonationalism
+						has_government = reactionary
+					}
+				}
+			}
+    	}
+		CZH = {
+			annex_country = {
+				target = MOR
+				transfer_troops = yes
+			}
+		}
+	}
+	option = { #wojna domowa
+		name = czh_wyb.2.b
+		ai_chance = {
+        	base = 1 
+			modifier = {
+				factor = 0
+				CZE = {
+					OR = {
+						has_government = freemarketism
+						has_government = marxism_cranism
+						has_government = squattism
+						has_government = socialdemocrature
+					}
+				}
+			}
+    	}
+		SWE = {
+			set_country_flag = czech_civil_war
+		}
+		CZH = {
+			declare_war_on = MOR
+		}
+		if = {
+			limit = {
+				MOR = {
+					exists = no
+				}
+				SLE = {
+					exists = yes
+				}
+			}
+			CZH = {
+				declare_war_on = SLE
+			}
+		}
+		if = {
+			limit = {
+				MOR = {
+					exists = no
+				}
+				SLE = {
+					exists = no
+				}
+				TSZ = {
+					exists = yes
+				}
+			}
+			CZH = {
+				declare_war_on = TSZ
+			}
+		}
+	}
+}
+
+country_event = { #czy petr jest dopuszczony do wyborów
+	id = czh_wyb.3
+	title = {
+		text = czh_wyb.3.t
+	}
+	desc = {
+		text = czh_wyb.3.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #tak
+		name = czh_wyb.3.a
+		ai_chance = {
+        	base = 1
+    	}
+		
+	}
+	option = { #nie
+		name = czh_wyb.3.b
+		ai_chance = {
+        	base = 1 
+    	}
+		SLE = {
+			set_country_flag = SLE_petr_election_ban
+		}
+	}
+}
+
+country_event = { #czy okamura jest dopuszczony do wyborów
+	id = czh_wyb.4
+	title = {
+		text = czh_wyb.4.t
+	}
+	desc = {
+		text = czh_wyb.4.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #tak
+		name = czh_wyb.3.a
+		ai_chance = {
+        	base = 1
+			modifier = {
+				factor = 0 
+				CZE = {
+					OR = {
+						exists = no
+						is_ai = yes
+					}
+				}
+			}
+    	}
+	}
+	option = { #nie
+		name = czh_wyb.4.b
+		ai_chance = {
+        	base = 10 
+			modifier = {
+				factor = 0 
+				CZE = {
+					is_ai = no
+				}
+			}
+    	}
+		CZH = {
+			set_country_flag = CZH_okamura_banned
+		}
+	}
+}
+
+country_event = { #wybory setup do ułatwienia sobie życia
+	id = czh_wyb.5
+	title = {
+		text = czh_wyb.5.t
+	}
+	desc = {
+		text = czh_wyb.5.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #tak
+		name = czh_wyb.5.a
+		ai_chance = {
+        	base = 1
+    	}
+		CZH = {
+			country_event = { #petr
+				id = czh_wyb.4
+			}
+			country_event = { #what shall we do with the drunken samurai
+				id = czh_wyb.3
+			}
+			country_event = { #wybory
+				id = czh_wyb.1
+				days = 7
+			}
+		}
+	}
+}
+
+
+country_event = { #okamura idzie dobić morawy
+	id = czh_wyb.6
+	title = {
+		text = czh_wyb.6.t
+	}
+	desc = {
+		text = czh_wyb.6.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { 
+		name = czh_wyb.6.a
+		ai_chance = {
+        	base = 1
+    	}
+		CZE = {
+			declare_war_on = MOR
+			set_cosmetic_tag = CZE_zapadoslavia
+		}
+		MOR = {
+			set_country_flag = MOR_vs_CZE
+		}
+	}
+}
+
+country_event = { #Petr dołącza do wojny domowej
+	id = czh_wyb.7
+	title = {
+		text = czh_wyb.7.t
+	}
+	desc = {
+		text = czh_wyb.7.desc
+	}
+	trigger = {
+		SWE = {
+			has_country_flag = czech_civil_war
+		}
+		original_tag = SLE
+		SLE = {
+			exists = yes
+		}
+	}
+	fire_only_once = yes
+	option = { #
+		name = czh_wyb.7.a
+		ai_chance = {
+        	base = 1
+    	}
+		SLE = {
+			declare_war_on = CZH
+			delcare_war_on = MOR
+		}
+	}
+}
+
+country_event = { #okamura decyduje się czy dołączyć do wojny domowej
+	id = czh_wyb.8
+	title = {
+		text = czh_wyb.8.t
+	}
+	desc = {
+		text = czh_wyb.8.desc
+	}
+	trigger = {
+		SWE = {
+			has_country_flag = czech_civil_war
+		}
+		original_tag = CZE
+		CZE = {
+			exists = yes
+		}
+	}
+	fire_only_once = yes
+	option = { #tak
+		name = czh_wyb.8.a
+		ai_chance = {
+        	base = 20
+    	}
+		CZE = {
+			declare_war_on = CZH
+			delcare_war_on = MOR
+			declare_war_on = SLE
+			set_cosmetic_tag = CZE_zapadoslavia
+		}
+	}
+	option = { #nie
+		name = czh_wyb.8.b
+		ai_chance = {
+        	base = 80
+    	}
+	}
+}
+
+country_event = { #czechy dołączają do wyszehradu/commonwealthu
+	id = czh_wyb.9
+	title = {
+		text = czh_wyb.9.t
+	}
+	desc = {
+		text = czh_wyb.9.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #commonwealth
+		name = czh_wyb.9.a
+		ai_chance = {
+        	base = 1
+			modifier = {
+				factor = 0
+				OR = {
+					original_tag = MOR
+					CZH = {
+						has_government = socialdemocrature
+						has_government = marxism_cranism
+						has_government = freemarketism
+					}
+				}
+			}
+    	}
+		ENG = {
+			add_to_faction = ROOT
+		}
+	}
+	option = { #wyszehrad
+		name = czh_wyb.9.b
+		ai_chance = {
+        	base = 1
+			modifier = {
+				factor = 0
+				OR = {
+					original_tag = SLE
+					CZH = {
+						has_government = autocracy
+						has_government = neonationalism
+						has_government = reactionary
+						has_government = paternal_conservatism
+					}
+				}
+			}
+    	}
+		SVK = {
+			add_to_faction = ROOT
+		}
+	}
+}
+
+country_event = { #przegrana samych czech
+	id = czh_p.1
+	title = {
+		text = czh_p.1.t
+	}
+	desc = {
+		text = czh_p.1.desc
+	}
+	trigger = {
+		CZH = {
+			surrender_progress > 0.8
+		}
+		GER = {
+			has_country_flag = czech_intervention
+			NOT = {
+				has_war_with = MOR
+			}
+		}
+		original_tag = GER
+	}
+	immediate = {
+		release = CZH
+		release = BOH
+		release = HUN
+		release = ROM
+		release = SVK
+		release = MOR
+		GER = {
+			white_peace = CZH
+			clr_country_flag = czech_intervention
+			set_state_owner = 385
+			set_state_controller = 385
+			set_state_owner = 1167
+			set_state_controller = 1167
+			set_state_owner = 405
+			set_state_controller = 405
+			set_state_owner = 1151
+			set_state_controller = 1151
+			set_state_owner = 552
+			set_state_controller = 552
+			set_state_owner = 1173
+			set_state_controller = 1173
+			diplomatic_relation = {
+				country = CZH
+				relation = puppet
+				active = yes
+			}
+		}
+		CZH = {
+			white_peace = GER
+			
+			set_country_flag = CZH_euromandat
+			promote_character = CZH_peksa
+			set_party_name = {
+				ideology = euroliberalism
+				name = CZH_VOLT_party
+				long_name = CZH_VOLT_party_long
+			}
+		}
+		if = {
+			limit = {
+				MOR = {
+					has_war = no
+				}
+			}
+			MOR = {
+				country_event = czh_w.12
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_flag = CZE_helping_CZH 
+				}
+			}
+			GER = {
+				country_event = czh_p.8
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.1.a
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #timeout
+	id = czh_p.2
+	title = {
+		text = czh_p.2.t
+	}
+	desc = {
+		text = czh_p.2.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = {
+				flag = czech_intervention
+				days > 180
+			}
+		}
+		original_tag = GER
+	}
+	immediate = {
+		GER = {
+			white_peace = CZH
+			clr_country_flag = czech_intervention
+		}
+		CZH = {
+			white_peace = GER
+			country_event = {
+				id = czh_wyb.5
+				days = 7
+			}
+		}	
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.2.a
+		ai_chance = {
+        	base = 1 
+    	}
+	}
+}
+
+country_event = { #czeska wygrana w wojnie opp1
+	id = czh_p.3
+	title = {
+		text = czh_p.3.t
+	}
+	desc = {
+		text = czh_p.3.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = czech_intervention
+			surrender_progress > 0.05
+			surrender_progress < 0.1
+		}
+		original_tag = GER
+	}
+	fire_only_once = yes
+	option = { #niech wam będzie czesi
+		name = czh_p.3.a
+		ai_chance = {
+        	base = 15 
+    	}
+		GER = {
+			white_peace = CZH
+			add_timed_idea = {
+				idea = GER_czech_reparations
+				years = 5
+			}
+			clr_country_flag = czech_intervention
+			set_country_flag = its_voltover
+		}
+		CZH = {
+			white_peace = GER
+		}
+	}
+	option = { #a spierdalać, przeżyjemy
+		name = czh_p.3.b
+		ai_chance = {
+        	base = 85 
+    	}
+		GER = {
+			country_event = {
+				id = czh_w.8
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = { #czeska wygrana w wojnie opp2
+	id = czh_p.4
+	title = {
+		text = czh_p.4.t
+	}
+	desc = {
+		text = czh_p.4.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = czech_intervention
+			surrender_progress > 0.1
+			surrender_progress < 0.15
+		}
+		original_tag = GER
+	}
+	fire_only_once = yes
+	option = { #niech wam będzie czesi
+		name = czh_p.4.a
+		ai_chance = {
+        	base = 25 
+    	}
+		GER = {
+			white_peace = CZH
+			add_timed_idea = {
+				idea = GER_czech_reparations
+				years = 10
+			}
+			clr_country_flag = czech_intervention
+			set_country_flag = its_voltover
+		}
+		CZH = {
+			white_peace = GER
+		}
+	}
+	option = { #a spierdalać, przeżyjemy
+		name = czh_p.4.b
+		ai_chance = {
+        	base = 65 
+    	}
+	}
+}
+
+country_event = { #czeska wygrana w wojnie opp3
+	id = czh_p.5
+	title = {
+		text = czh_p.5.t
+	}
+	desc = {
+		text = czh_p.5.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = czech_intervention
+			surrender_progress > 0.15
+			surrender_progress < 0.20
+		}
+		original_tag = GER
+	}
+	fire_only_once = yes
+	option = { #niech wam będzie czesi
+		name = czh_p.5.a
+		ai_chance = {
+        	base = 75 
+    	}
+		GER = {
+			white_peace = CZH
+			add_timed_idea = {
+				idea = GER_czech_reparations
+				years = 15
+			}
+			clr_country_flag = czech_intervention
+			set_country_flag = its_voltover
+		}
+		CZH = {
+			white_peace = GER
+		}
+	}
+	option = { #a spierdalać, przeżyjemy
+		name = czh_p.5.b
+		ai_chance = {
+        	base = 25 
+    	}
+	}
+}
+
+country_event = { #czeska wygrana w wojnie opp4
+	id = czh_p.6
+	title = {
+		text = czh_p.6.t
+	}
+	desc = {
+		text = czh_p.6.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = czech_intervention
+			surrender_progress > 0.20
+		}
+		original_tag = GER
+	}
+	fire_only_once = yes
+	option = { #przegięcie pały
+		name = czh_p.6.a
+		ai_chance = {
+        	base = 1
+    	}
+		GER = {
+			white_peace = CZH
+			add_timed_idea = {
+				idea = GER_czech_reparations
+				years = 20
+			}
+			clr_country_flag = czech_intervention
+			set_country_flag = its_voltover
+		}
+		CZH = {
+			white_peace = GER
+		}
+	}
+}
+
+country_event = { #niemcy wygrywają z Czechami+Morawami
+	id = czh_p.7
+	title = {
+		text = czh_p.7.t
+	}
+	desc = {
+		text = czh_p.7.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = czech_intervention
+			has_country_flag = MOR_helping_CZH
+			NOT = {
+				has_country_flag = visegrad_intervention
+			}
+		}
+		original_tag = GER
+		OR = {
+			AND = {
+				CZH = {
+					surrender_progress > 0.7
+				}
+				MOR = {
+					surrender_progress > 0.3
+				}
+			}
+			AND = {
+				CZH = {
+					exists = no
+				}
+				MOR = {
+					surrender_progress > 0.3
+				}
+			}
+		}
+	}
+	fire_only_once = yes
+	option = { #rip czechomorawy
+		name = czh_p.7.a
+		ai_chance = {
+        	base = 1
+    	}
+		release = CZH
+		release = BOH
+		release = HUN
+		release = ROM
+		release = SVK
+		release = MOR
+		GER = {
+			white_peace = CZH
+			white_peace = MOR
+			clr_country_flag = czech_intervention
+			set_country_flag = GIGAVOLTVICTORY
+			set_state_owner = 385
+			set_state_controller = 385
+			set_state_owner = 1167
+			set_state_controller = 1167
+			set_state_owner = 405
+			set_state_controller = 405
+			set_state_owner = 1151
+			set_state_controller = 1151
+			set_state_owner = 552
+			set_state_controller = 552
+			set_state_owner = 1173
+			set_state_controller = 1173
+			diplomatic_relation = {
+				country = CZH
+				relation = puppet
+				active = yes
+			}
+		}
+		CZH = {
+			white_peace = GER
+			annex_country = {
+				target = MOR
+				transfer_troops = yes
+			}
+			set_cosmetic_tag = CZH_MOR_euromandat
+			promote_character = CZH_peksa
+			set_party_name = {
+				ideology = euroliberalism
+				name = CZH_VOLT_party
+				long_name = CZH_VOLT_party_long
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_flag = CZE_helping_CZH 
+				}
+			}
+			GER = {
+				country_event = czh_p.8
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					OR = {
+						has_country_flag = SLE_helping_CZH 
+						has_country_flag = SLE_patriotic_war
+					}
+				}
+			}
+			GER = {
+				country_event = czh_p.11
+			}
+		}
+	}
+}
+
+country_event = { #niemcy wygrywają z wyszehradem
+	id = czh_p.8
+	title = {
+		text = czh_p.8.t
+	}
+	desc = {
+		text = czh_p.8.desc
+	}
+	trigger = {
+		GER = {
+			has_country_flag = czech_intervention
+			has_country_flag = MOR_helping_CZH
+			has_country_flag = visegrad_intervention
+		}
+		original_tag = GER
+		AND = {
+			CZH = {
+				surrender_progress > 0.7
+				exists = no
+			}
+			MOR = {
+				surrender_progress > 0.7
+				exists = no
+			}
+			SVK = { 
+				OR = {
+					surrender_progress > 0.3
+					exists = no
+				}
+			}
+			AUT = { 
+				OR = {
+					surrender_progress > 0.3
+					exists = no
+				}
+			}
+		}
+	}
+	fire_only_once = yes
+	option = { #rip czechomorawy
+		name = czh_p.8.a
+		ai_chance = {
+        	base = 1
+    	}
+		release = CZH
+		release = BOH
+		release = HUN
+		release = ROM
+		release = SVK
+		release = MOR
+		GER = {
+			white_peace = CZH
+			white_peace = MOR
+			white_peace = HUN
+			white_peace = ROM
+			white_peace = AUT
+			clr_country_flag = czech_intervention
+			set_country_flag = GIGAVOLTVICTORY
+			set_state_owner = 385
+			set_state_controller = 385
+			set_state_owner = 1167
+			set_state_controller = 1167
+			set_state_owner = 405
+			set_state_controller = 405
+			set_state_owner = 1151
+			set_state_controller = 1151
+			set_state_owner = 552
+			set_state_controller = 552
+			set_state_owner = 1173
+			set_state_controller = 1173
+			set_state_owner = 1152
+			set_state_controller = 1152
+			set_state_owner = 1160
+			set_state_controller = 1160
+			set_state_owner = 1174
+			set_state_controller = 1174
+			diplomatic_relation = {
+				country = CZH
+				relation = puppet
+				active = yes
+			}
+			diplomatic_relation = {
+				country = SVK
+				relation = puppet
+				active = yes
+			}
+			annex_country = {
+				target = AUT
+				transfer_troops = yes
+			}
+		}
+		CZH = {
+			white_peace = GER
+			annex_country = {
+				target = MOR
+				transfer_troops = yes
+			}
+			set_cosmetic_tag = CZH_MOR_euromandat
+			promote_character = CZH_peksa
+			set_party_name = {
+				ideology = euroliberalism
+				name = CZH_VOLT_party
+				long_name = CZH_VOLT_party_long
+			}
+		}
+		SVK = {
+			white_peace = GER
+			set_cosmetic_tag = SVK_euromandat
+			set_party_name = {
+				ideology = euroliberalism
+				name = SVK_PS_party
+				long_name = SVK_PS_party_long
+			}
+			promote_character = SVK_simecka
+		}
+		HUN = {
+			white_peace = GER
+		}
+		ROM = {
+			white_peace = GER
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_flag = CZE_helping_CZH 
+				}
+			}
+			GER = {
+				country_event = czh_p.8
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_flag = SLE_helping_CZH 
+				}
+			}
+			GER = {
+				country_event = czh_p.11
+			}
+		}
+	}
+}
+
+country_event = { #niemcy puppetują śląsk
+	id = czh_p.9
+	title = {
+		text = czh_p.9.t
+	}
+	desc = {
+		text = czh_p.9.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #rip ślunsk
+		name = czh_p.9.a
+		ai_chance = {
+        	base = 1
+    	}
+		release = CZE
+		GER = {
+			diplomatic_relation = {
+				country = CZE
+				relation = puppet
+				active = yes
+			}
+			set_country_flag = GER_silesian_vassal
+			transfer_state = 803
+		}
+		CZE = {
+			white_peace = GER
+			set_cosmetic_tag = CZE_euromandat
+			set_party_name = {
+				ideology = euroliberalism
+				name = CZE_euromandat_party
+				long_name = CZE_euromandat_party_long
+			}
+			promote_character = CZE_gubernator
+		}
+	}
+}
+
+country_event = { #morawy win vs petr
+	id = czh_p.10
+	title = {
+		text = czh_p.10.t
+	}
+	desc = {
+		text = czh_p.10.desc
+	}
+	trigger = {
+		original_tag = MOR
+		SWE = {
+			has_country_flag = SLE_vs_MOR_cv
+		}
+		SLE = {
+			exists = no
+		}
+	}
+	fire_only_once = yes
+	option = { #rip petr
+		name = czh_p.10.a
+		ai_chance = {
+        	base = 1
+    	}
+		MOR = {
+			country_event = czh_w.10
+		}
+		SWE = {
+			clr_country_flag = SLE_vs_MOR_cv
+		}
+	}
+}
+
+country_event = { #petr win vs morawy
+	id = czh_p.11
+	title = {
+		text = czh_p.11.t
+	}
+	desc = {
+		text = czh_p.11.desc
+	}
+	trigger = {
+		original_tag = SLE
+		SWE = {
+			has_country_flag = SLE_vs_MOR_cv
+		}
+		MOR = {
+			exists = no
+		}
+		SLE = {
+			exists = yes
+		}
+	}
+	fire_only_once = yes
+	option = { #rip smarda
+		name = czh_p.11.a
+		ai_chance = {
+        	base = 1
+    	}
+		SLE = {
+			set_cosmetic_tag = SLE_MOR
+			if = {
+				CZH = {
+					is_subject = yes
+				}
+				SLE = {
+					country_event = {
+						id = cze_w.18
+						days = 2
+					}
+				}
+			}
+		}
+		SWE = {
+			clr_country_flag = SLE_vs_MOR_cv
+		}
+	}
+}
+country_event = { #ger kill petr
+	id = czh_p.12
+	title = {
+		text = czh_p.12.t
+	}
+	desc = {
+		text = czh_p.12.desc
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #rip petr
+		name = czh_p.12.a
+		ai_chance = {
+        	base = 1
+    	}
+		CZE = {
+			annex_country = {
+				target = SLE
+				transfer_troops = yes
+			}
+		}
+	}
+}
+
+country_event = { #epic petr fail
+	id = czh_p.13
+	title = {
+		text = czh_p.13.t
+	}
+	desc = {
+		text = czh_p.13.desc
+	}
+	trigger = {
+		original_tag = GER
+		GER = {
+			has_country_flag = SLE_patriotic_war
+		}
+		SLE = {
+			OR = {
+				exists = no
+				surrender_progress > 0.95
+			}
+		}
+	}
+	fire_only_once = yes
+	option = { #rip petr
+		name = czh_p.13.a
+		ai_chance = {
+        	base = 1
+    	}
+		GER = {
+			country_event = czh_p.9
+			clr_country_flag = SLE_patriotic_war
+		}
+	}
+}
+
+country_event = { #ŁOLABOGA ON WYGRAŁ???
+	id = czh_p.14
+	title = {
+		text = czh_p.14.t
+	}
+	desc = {
+		text = czh_p.14.desc
+	}
+	trigger = {
+		original_tag = GER
+		GER = {
+			has_country_flag = SLE_patriotic_war
+			surrender_progress > 0.05
+		}
+	}
+	fire_only_once = yes
+	option = { #WOW
+		name = czh_p.14.a
+		ai_chance = {
+        	base = 1
+    	}
+		GER = {
+			clr_country_flag = SLE_patriotic_war
+			set_country_flag = its_voltover
+			add_timed_idea = {
+				idea = GER_czech_reparations
+				years = 10
+			}
+		}
+		SLE = {
+			annex_country = {
+				target = CZH
+				transfer_troops = yes
+			}
+			transfer_state = 385
+			transfer_state = 1167
+			transfer_state = 405
+			transfer_state = 1151
+			transfer_state = 1173
+			transfer_state = 1152
+			transfer_state = 1160
+			transfer_state = 1174
+			transfer_state = 552
+			set_cosmetic_tag = SLE_unified_czechia
+			set_country_flag = SLE_petr_election_win
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_flag = GER_silesian_vassal
+				}
+			}
+			release = CZE
+			SLE = {
+				diplomatic_relation = {
+					country = CZE
+					relation = puppet
+					active = yes
+				}
+			}
+			CZE = {
+				set_cosmetic_tag = CZE_czechsilesia
+				transfer_state = 803
+			}
+			SWE = {
+				set_country_flag = CZE_silesian_vassal
+			}
+		}
+	}
+}
+
+country_event = { #sle win tsz
+	id = czh_p.15
+	title = {
+		text = czh_p.15.t
+	}
+	desc = {
+		text = czh_p.15.desc
+	}
+	trigger = {
+		original_tag = SLE
+		SWE = {
+			has_country_flag = SLE_attack_TSZ
+		}
+		TSZ = {
+			OR = {
+				surrender_progress > 0.80	
+				exists = no
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.15.a
+		ai_chance = {
+        	base = 1
+		}
+		SLE = {
+			white_peace = TSZ
+			white_peace = FROM
+		}
+	}
+}
+
+country_event = { #JAKIM CHUJEM CIESZYN WYGRAŁ
+	id = czh_p.16
+	title = {
+		text = czh_p.16.t
+	}
+	desc = {
+		text = czh_p.16.desc
+	}
+	trigger = {
+		original_tag = SLE
+		SWE = {
+			has_country_flag = SLE_attack_TSZ
+		}
+		SLE = {
+			OR = {
+				surrender_progress > 0.50	
+				exists = no
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.16.a
+		ai_chance = {
+        	base = 1
+		}
+		TSZ = {
+			annex_country = {
+				target = SLE
+				transfer_troops = yes
+			}
+			set_cosmetic_tag = TSZ_czech_unifier
+		}
+		GER = {
+			add_to_faction = TSZ
+		}
+		if = {
+			limit = {
+				SWE = {
+					has_country_flag = CZE_silesian_vassal
+				}
+			}
+			TSZ = {
+				diplomatic_relation = {
+					country = CZE
+					relation = puppet
+					active = yes
+				}
+				transfer_state = 803
+			}
+			CZE = {
+				white_peace = TSZ
+				set_cosmetic_tag = CZE_euromandat2
+				set_party_name = {
+					ideology = euroliberalism
+					name = CZE_euromandat_party
+					long_name = CZE_euromandat_party_long
+				}
+				promote_character = CZE_gubernator
+			}
+		}
+	}
+}
+
+country_event = { #mor wygrywa z cze, co z resztą powinno być niemożliwe, ale lepiej być pewnym
+	id = czh_p.17
+	title = {
+		text = czh_p.17.t
+	}
+	desc = {
+		text = czh_p.17.desc
+	}
+	trigger = {
+		original_tag = MOR
+		MOR = {
+			has_country_flag = MOR_vs_CZE
+		}
+		CZE = {
+			OR = {
+				surrender_progress > 0.80	
+				exists = no
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.17.a
+		ai_chance = {
+        	base = 1
+		}
+		release = CZH
+		MOR = {
+			annex_country = {
+				target = CZH
+				transfer_troops = yes
+			}
+		}
+		release = CZE
+		MOR = {
+			diplomatic_relation = {
+				country = CZE
+				relation = puppet
+				active = yes
+			}
+		}
+		CZE = {
+			set_cosmetic_tag = CZE_czechsilesia
+		}
+		MOR = {
+			set_cosmetic_tag = SLE_unified_czechia_Dem
+		}
+	}
+}
+
+country_event = { #jeśli okamura jest w wojnie domowej i przejebie jakimś cudem
+	id = czh_p.18
+	title = {
+		text = czh_p.18.t
+	}
+	desc = {
+		text = czh_p.18.desc
+	}
+	trigger = {
+		OR = {
+			original_tag = MOR
+			original_tag = CZH
+			original_tag = SLE
+		}
+		SWE = {
+			has_country_flag = czech_civil_war
+		}
+		CZE = {
+			OR = {
+				surrender_progress > 0.80	
+				exists = no
+			}
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.18.a
+		ai_chance = {
+        	base = 1
+		}
+		release = CZE
+		ROOT = {
+			diplomatic_relation = {
+				country = CZE
+				relation = puppet
+				active = yes
+			}
+		}
+		CZE = {
+			set_cosmetic_tag = CZE_czechsilesia
+		}
+	}
+}
+
+country_event = { #koniec wojny domowej
+	id = czh_p.19
+	title = {
+		text = czh_p.19.t
+	}
+	desc = {
+		text = czh_p.19.desc
+	}
+	trigger = {
+		OR = {
+			original_tag = MOR
+			original_tag = CZH
+			original_tag = SLE
+		}
+		CZH = {
+			has_war = no
+		}
+		MOR = {
+			has_war = no
+		}
+		SLE = {
+			has_war = no
+		}
+		SWE = {
+			has_country_flag = czech_civil_war
+		}
+	}
+	fire_only_once = yes
+	option = {
+		name = czh_p.19.a
+		ai_chance = {
+        	base = 1
+		}
+		release = CZE
+		ROOT = {
+			country_event = czh_wyb.9	
+		}
+	}
+}
