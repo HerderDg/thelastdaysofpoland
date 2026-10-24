@@ -35,6 +35,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
+			add_war_support = 0.1
 			country_event = malysz_start.1
 		}
 	}
@@ -58,6 +59,10 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = malysz_start.2
+			add_country_leader_trait = {
+				ideology = euroliberalism_subtype				
+				trait = orzel_z_wisly
+			}
 		}
 	}
 	focus = {
@@ -78,7 +83,10 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			add_ideas = CIE_emergency_government_idea
+			swap_ideas = {
+				remove_idea = CIE_on_the_run
+				add_idea = CIE_emergency_government_idea
+			}
 			add_advisor_role = {
 				character = CIE_suchon
 				activate = yes
@@ -168,7 +176,7 @@ focus_tree = {
      			character = CIE_zyla
      			trait = trickster
 			}
-		 }
+		}
 	}
 	focus = {
 		id = CIE_highlanders_ambushes
@@ -187,7 +195,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			custom_effect_tooltip = CIE_zbojnicy_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			country_event = malysz_start.19
+		}
 	}
 	focus = {
 		id = CIE_cieszyn_defence_council
@@ -207,6 +219,7 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = {
+			TSZ = { give_market_access = CIE }
 			add_equipment_to_stockpile = {
    				type = ranged_equipment_1
    				amount = 300
@@ -221,6 +234,17 @@ focus_tree = {
    				type = motorized_equipment_1
    				amount = 10
    				producer = TSZ
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			TSZ = {
+				add_opinion_modifier = {
+					target = CIE
+					modifier = trade_agreement
+				}
+				reverse_add_opinion_modifier = {
+					target = CIE
+					modifier = trade_agreement
+				}
 			}
 		}
 	}	
@@ -243,9 +267,9 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			WYM = {
-				country_event = malysz_start.16
-			}			
+			custom_effect_tooltip = CIE_wymysou_help_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			country_event = malysz_start.16			
 		}
 	}
 	
@@ -268,10 +292,10 @@ focus_tree = {
 		
 		completion_reward = {
 			add_manpower = 300
-			army_experience = 25
+			army_experience = 50
 			534 = {
 				create_unit = {
-					division = "name = \"Grupa Forteczna Szczyrk\" division_template = \"Gwardia Cieszyńska\" start_experience_factor = 0.5 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
+					division = "name = \"Grupa Forteczna Szczyrk\" division_template = \"Gwardia Cieszyńska\" start_experience_factor = 0.3 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
 					owner = CIE
 				}
 			}
@@ -286,7 +310,7 @@ focus_tree = {
 		prerequisite = { focus = CIE_highlanders_ambushes }
 		prerequisite = { focus = CIE_consolidate_our_troops}
 		available = {
-		
+			always = no
 		}
 		
 		bypass = {
@@ -298,7 +322,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-			country_event = malysz_start.6
+			
 		}
 	}
 	
@@ -327,7 +351,6 @@ focus_tree = {
 				idea = CIE_victory_at_szczyrk
 				days = 60
 			}
-			country_event = malysz_start.13
 		}
 	}
 	
@@ -356,7 +379,7 @@ focus_tree = {
 			}
 			modify_timed_idea = {
 				idea = CIE_victory_at_szczyrk2
-				days = 15
+				days = 30
 			}
 		}
 	}
@@ -387,6 +410,12 @@ focus_tree = {
 						id = 8072
    					}
 				}
+				add_province_modifier = {
+					static_modifiers = { CIE_blockade_koniakow }
+					province = {
+						id = 8072
+					}
+				}
 			}
 		}
 	}
@@ -416,6 +445,12 @@ focus_tree = {
     				province = {
 						id = 1829
    					}
+				}
+				add_province_modifier = {
+					static_modifiers = { CIE_blockade_szczyrk }
+					province = {
+						id = 8072
+					}
 				}
 			}
 		}
@@ -470,6 +505,9 @@ focus_tree = {
 		}
 		
 		bypass = {
+			BSK = {
+				exists = no
+			}
 		}
 		
 		x = 2
@@ -500,6 +538,9 @@ focus_tree = {
 		}
 		
 		bypass = {
+			BSK = {
+				exists = no
+			}
 		}
 		
 		x = 0
@@ -509,18 +550,18 @@ focus_tree = {
 		
 		completion_reward = { 
 			start_border_war = {
-    		change_state_after_war = no
-   			 attacker = {
-        		state = 534
-       			num_provinces = 1
-				on_win = malysz_start.9
-        		on_lose = malysz_start.10
-    		}	
-    		defender = {
-        		state = 780
-        		num_provinces = 1
-   			}
-		}
+    			change_state_after_war = no
+   				attacker = {
+        			state = 534
+       				num_provinces = 1
+					on_win = malysz_start.9
+        			on_lose = malysz_start.10
+    			}	
+    			defender = {
+        			state = 780
+        			num_provinces = 1
+   				}
+			}
 		}
 	}
 	
@@ -551,11 +592,7 @@ focus_tree = {
 				idea = CIE_demoralization_of_armies
 				days = 60 
 			}
-			country_event = malysz_start.4
-			country_event = {
-    			id = malysz_start.5
-   				days = 3
-			}
+			country_event = malysz_start.5
 		 }
 	}
 	
@@ -570,6 +607,9 @@ focus_tree = {
 		}
 		
 		bypass = {
+			BSK = {
+				exists = no
+			}
 		}
 		
 		x = -2
@@ -594,6 +634,9 @@ focus_tree = {
 		}
 		
 		bypass = {
+			BSK = {
+				exists = no
+			}
 		}
 		
 		x = -1
@@ -602,18 +645,19 @@ focus_tree = {
 		cost = 2
 		
 		completion_reward = { 
-		747 = {
-			create_unit = {
-				division = "name = \"1 Batalion Straży Wiślańskiej\" division_template = \"Góralska Banda\" start_experience_factor = 0.5 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
-				owner = CIE
+			upgrade_military_law = yes
+			747 = {
+				create_unit = {
+					division = "name = \"Grupa Barania Góra\" division_template = \"Góralska Banda\" start_experience_factor = 0.1 start_equipment_factor = 0.75"
+					owner = CIE
+				}
 			}
-		}
-		748 = {
-			create_unit = {
-				division = "name = \"2 Batalion Straży Wiślańskiej\" division_template = \"Góralska Banda\" start_experience_factor = 0.5 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
-				owner = CIE
-			}
-		}		
+			748 = {
+				create_unit = {
+					division = "name = \"Grupa Skrzyczne\" division_template = \"Góralska Banda\" start_experience_factor = 0.1 start_equipment_factor = 0.75"
+					owner = CIE
+				}
+			}		
 		}
 	}
 
@@ -627,6 +671,9 @@ focus_tree = {
 		}
 		
 		bypass = {
+			BSK = {
+				exists = no
+			}
 		}
 		
 		x = 1
@@ -693,11 +740,17 @@ focus_tree = {
 				AND = {
 					has_completed_focus = CIE_watchers_on_vistula
 					has_completed_focus = CIE_mountain_hideouts
+					CIE = {
+						surrender_progress < 0.1
 					}
 				}
+			}
 		}
 		
 		bypass = {
+			BSK = {
+				exists = no
+			}
 		}
 		
 		x = 0
@@ -709,6 +762,12 @@ focus_tree = {
 			add_timed_idea = {
 				idea = CIE_repelling_the_bandits
 				days = 90
+			}
+			if = {
+				limit = {
+					has_war_with = BSK
+				}
+				white_peace = BSK
 			}
 		}
 	}
@@ -734,7 +793,19 @@ focus_tree = {
 		
 		completion_reward = {
 			TSZ = { give_guarantee = CIE }
+			give_military_access = TSZ
+			if = {
+				limit = {
+					has_war_with = BSK
+				}
+				white_peace = BSK
+			}
 			add_stability = 0.1
+			add_popularity = {
+    			ideology = euroliberalism
+  			  	popularity = -0.05
+			}
+			add_political_power = -50
 		}
 	}
 	
@@ -834,7 +905,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			748={
+			748 = {
 			 	add_extra_state_shared_building_slots = 1
 			 	add_building_construction = {
 			 		type = industrial_complex
@@ -842,14 +913,19 @@ focus_tree = {
 			 		instant_build = yes
 				}
 			}			
-			747={
+			747 = {
 			 	add_extra_state_shared_building_slots = 1
 			 	add_building_construction = {
-			 		type = industrial_complex
+			 		type = arms_factory
 			 		level = 1
 			 		instant_build = yes
 				}
-			}			
+			}	
+			hidden_effect = {
+				add_to_variable = {
+					budget = 250
+				}
+			}		
 			add_political_power = 100
   			add_ideas = CIE_czech_investments_idea		
 		}
@@ -872,21 +948,15 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { 
-			748={
-				damage_building = {
-					type = infrastructure
-					damage = 1
-				}
-			}			
-			747={
-				damage_building = {
-					type = infrastructure
-					damage = 1
-				}
-			}			
-			add_political_power = -50
-  			add_ideas = CIE_tourist_economy_destroyed_idea				
+		completion_reward = { 		
+			add_political_power = 50
+  			add_ideas = CIE_tourist_economy_destroyed_idea		
+			TOU = {
+				add_opinion_modifier = {
+					target = CIE
+					modifier = medium_decrease
+				}	
+			}	
 		}
 	}
 	
@@ -894,9 +964,10 @@ focus_tree = {
 		id = CIE_wrong_place_wrong_time
 		icon = CIE_wrong_place_wrong_time
 		relative_position_id = CIE_keep_malysz
-		prerequisite = { focus = CIE_keep_malysz }
+		prerequisite = { focus = CIE_czech_investments }
+		prerequisite = { focus = CIE_tourist_resort_no_more }
 		available = {
-			has_global_flag = czechia_dissolution_early
+			always = no
 		}
 		
 		bypass = {
@@ -908,8 +979,8 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			drop_cosmetic_tag = yes
-			TSZ = { end_puppet = CIE }			
+			TSZ = { end_puppet = CIE }		
+			country_event = malysz_start.13	
 		}
 	}
 	
@@ -931,21 +1002,35 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			country_event = malysz_start.23
 			add_political_power = 25
 			522 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			925 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			749 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			785 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			784 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
+			}
+			hidden_effect = {
+				TSZ = {
+					country_event = {
+						id = tesin.3
+						days = 7
+					}
+				}
 			}
 		}
 	}
@@ -970,9 +1055,13 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			add_timed_idea = {
-				idea = CIE_martial_law_idea
-				days = 180
+			swap_ideas = {
+				remove_idea = basic_security
+				add_idea = direct_security
+			}
+			swap_ideas = {
+				remove_idea = CIE_emergency_government_idea
+				add_idea = CIE_martial_law_idea
 			}			
 		}
 	}
@@ -994,7 +1083,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			country_event = malysz_start.21
+		}
 	}
 	
 
@@ -1019,7 +1110,46 @@ focus_tree = {
 			add_stability = 0.05
 			add_popularity = {
     			ideology = euroliberalism
-  		  		popularity = 0.15
+  		  		popularity = 0.1
+			}
+			TSZ = {
+				every_owned_state = {
+					limit = {
+						has_dynamic_modifier = TSZ_bunt
+					}
+					remove_dynamic_modifier = {
+						modifier = TSZ_bunt
+					}
+				}
+				add_opinion_modifier = {
+					modifier = small_increase
+					target = CIE
+				}
+			}
+			925 = { 
+				add_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			749 = { 
+				add_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			785 = { 
+				add_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			784 = { 
+				add_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			522 = { 
+				add_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
 			}			
 		}
 	}
@@ -1042,13 +1172,26 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-			BSK = {
-				add_stability = -0.1			
+			TSZ = {
+				add_opinion_modifier = {
+					target = BSK
+					modifier = condemn_aggression
+				}	
+				give_military_access = CIE	
 			}
 			TSZ = {
-				add_stability = 0.05		
-				add_war_support = 0.05			
+				add_stability = 0.1		
+				add_war_support = 0.1		
+				add_popularity = {
+					ideology = reactionary
+					popularity = -0.1
+				}	
 			}
+			add_popularity = {
+				ideology = autocracy
+				popularity = -0.05
+			}
+
 		}
 	}
 	
@@ -1056,7 +1199,8 @@ focus_tree = {
 		id = CIE_long_night_at_olza
 		icon = CIE_long_night_at_olza
 		relative_position_id = CIE_trip_to_cieszyn
-		prerequisite = { focus = CIE_trip_to_cieszyn }
+		prerequisite = { focus = CIE_pro_european_propaganda }
+		prerequisite = { focus = CIE_white_terror }
 		available = {
 			has_global_flag = czechia_dissolution_early
 		}
@@ -1072,18 +1216,23 @@ focus_tree = {
 		completion_reward = {
 			522 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			925 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			749 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			785 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 			784 = {
 				transfer_state_to = CIE
+				set_demilitarized_zone = no
 			}
 		}
 	}
@@ -1148,7 +1297,44 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+			add_stability = 0.1
+			add_political_power = 100
+			add_popularity = {
+				ideology = euroliberalism
+				popularity = 0.05
+			}			
+			925 = { 
+				add_core_of = CIE
+				remove_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			749 = { 
+				add_core_of = CIE
+				remove_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			785 = { 
+				add_core_of = CIE
+				remove_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				} 
+			}
+			784 = { 
+				add_core_of = CIE
+				remove_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				}  
+			}
+			522 = { 
+				add_core_of = CIE
+				remove_dynamic_modifier = {
+					modifier = TSZ_bunt_2
+				}  
+			}			
+		}
 	}
 	
 	focus = {
@@ -1316,7 +1502,19 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			country_event = malysz_start.24
+			add_stability = 0.1
+			add_political_power = 50
+			drop_cosmetic_tag = yes
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = TSZ_bunt
+				}
+				remove_dynamic_modifier = {
+					modifier = TSZ_bunt
+				}
+				add_core_of = CIE
+			}
 		}
 	}
 	
@@ -2540,7 +2738,15 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_unit_bonus = {
+				category_mountaineers = {                          
+					acclimatization_cold_climate_gain_factor = 0.25
+					initiative = 0.01
+					supply_consumption = -0.02                                              
+				}                                                  	
+			}
+		}
 	}
 	
 	focus = {
@@ -2560,7 +2766,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = { 
+
+		}
 	}
 	
 	focus = {

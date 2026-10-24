@@ -51,8 +51,8 @@ country_event = {
 
 country_event = {
 	id = malysz_start.4
-	title = malysz_start.4.t
-	desc = malysz_start.4.desc
+	title = tesin.2.t
+	desc = tesin.2.desc
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -60,12 +60,23 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.4" }
 
 	option = {
-		name = malysz_start.4.a
-		complete_national_focus = CIE_one_last_stand
-	}
-	option = {
-		name = malysz_start.4.b
-		complete_national_focus = CIE_plead_for_intervention
+		name = tesin.2.a
+		if = {
+			limit = {
+				CIE = {
+					has_completed_focus = CIE_keep_malysz
+				}
+			}
+			complete_national_focus = CIE_wrong_place_wrong_time			
+		}
+		if = {
+			limit = {
+				CIE = {
+					has_completed_focus = CIE_temporary_martial_law
+				}
+			}
+			complete_national_focus = CIE_trip_to_cieszyn			
+		}
 	}
 }
 
@@ -82,18 +93,38 @@ country_event = {
 	option = {
 		name = malysz_start.5.a
 		748 = {
-			add_manpower = 1000
+			add_manpower = 654
+		}
+		747 = {
+			add_manpower = 583
+		}		
+		534 = {
+			add_manpower = -1444
+		}
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = 0.05
 		}
 		add_stability = -0.05
 	}
 	option = {
 		name = malysz_start.5.b
 		add_war_support = -0.1
+		add_popularity = {
+			ideology = euroliberalism
+			popularity = -0.025
+		}
+		534 = {
+			add_manpower = -1444
+		}
+		522 = {
+			add_manpower = 1022
+		}
 	}
 }
 
 country_event = {
-	id = malysz_start.6
+	id = malysz_start.6 #start bitwy o Szczyrk
 	title = malysz_start.6.t
 	desc = malysz_start.6.desc
 
@@ -104,6 +135,7 @@ country_event = {
 
 	option = {
 		name = malysz_start.6.a
+		complete_national_focus = CIE_battle_of_brenna
 		start_border_war = {
     		change_state_after_war = no
    			 attacker = {
@@ -121,7 +153,7 @@ country_event = {
 }
 
 country_event = {
-	id = malysz_start.7
+	id = malysz_start.7 #zwycięstwo w Bitwie o Szczyrk
 	title = malysz_start.7.t
 	desc = malysz_start.7.desc
 
@@ -132,28 +164,37 @@ country_event = {
 
 	option = {
 		name = malysz_start.7.a
+		set_country_flag = CIE_szczyrk_victory
 		complete_national_focus = CIE_victory_over_bandits
 	}
 }
 
 country_event = {
-	id = malysz_start.8
+	id = malysz_start.8 #porażka w bitwie o Szczyrk
 	title = malysz_start.8.t
 	desc = malysz_start.8.desc
 
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.8" }
+	immediate = { 
+		log = "[GetDateText]: [ROOT.GetName] fires malysz_start.8"
+		hidden_effect = {
+			BSK = {
+				declare_war_on = {
+					target = CIE
+					type = voivodeship_war
+				}
+			}
+		}
+	}
 
 	option = {
 		name = malysz_start.8.a
+		set_country_flag = CIE_szczyrk_defeat
 		complete_national_focus = CIE_they_are_coming
 	}
-	option = {
-		name = malysz_start.8.b
-		complete_national_focus = CIE_they_are_coming
-	}
+
 }
 
 country_event = {
@@ -290,7 +331,7 @@ country_event = {
 			}
 			add_popularity = {
 				ideology = paternal_conservatism
-				popularity = 34
+				popularity = 0.34
 			}
 			load_oob = TSZ_2027_CZE
 		}
@@ -347,23 +388,15 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.16" }
 
 	option = {
-		name = malysz_start.16.a
-		ai_chance = { factor = 5}		
-		CIE = {
-			country_event = malysz_start.17
-		}	
-	}
-	option = {
-		name = malysz_start.16.b
-		ai_chance = { factor = 1}		
-		CIE = {
-			country_event = malysz_start.18
+		name = malysz_start.16.a	
+		WYM = {
+			country_event = WYM_wymysou.1
 		}	
 	}
 }
 
 country_event = {
-	id = malysz_start.17
+	id = malysz_start.17 #wymysou pomaga
 	title = malysz_start.17.t
 	desc = malysz_start.17.desc
 
@@ -375,22 +408,28 @@ country_event = {
 	option = {
 		name = malysz_start.17.a
 		add_equipment_to_stockpile = {
-   			type = ranged_equipment_1
-   			amount = 300
+   			type = ranged_equipment
+   			amount = 100
    			producer = WYM
 		}	
 		add_equipment_to_stockpile = {
-   			type = melee_equipment_0
-   			amount = 300
+   			type = melee_equipment
+   			amount = 200
    			producer = WYM
 		}		
 		add_manpower = 300	
+		CIE = {
+			add_opinion_modifier = {
+				target = WYM
+				modifier = offered_support
+			}
+		}		
 		set_country_flag = CIE_wilamowians_remebers
 	}
 }
 
 country_event = {
-	id = malysz_start.18
+	id = malysz_start.18 #wymysou odmawia pomocy
 	title = malysz_start.18.t
 	desc = malysz_start.18.desc
 
@@ -405,5 +444,168 @@ country_event = {
     		ideology = euroliberalism
   		  	popularity = -0.05
 		}	
+		CIE = {
+			add_opinion_modifier = {
+				target = WYM
+				modifier = refused_help
+			}
+		}		
+	}
+
+	
+}
+
+country_event = {
+	id = malysz_start.19 #rozwiązanie kwestii zasadzek
+	title = malysz_start.19.t
+	desc = malysz_start.19.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.19" }
+
+	option = {
+		name = malysz_start.19.a
+		hidden_effect = {
+			country_event = {
+				id = malysz_start.20
+				days = 30
+			}
+		}
+		custom_effect_tooltip = CIE_zbojnicy_infiltracja
+	}
+	option = {
+		name = malysz_start.19.b
+		add_manpower = -122
+		add_equipment_to_stockpile = {
+		    type = ranged_equipment
+		    amount = -78
+		}
+		add_equipment_to_stockpile = {
+		    type = melee_equipment
+		    amount = -44
+		}		
+		every_owned_state = {
+			limit = { 
+				has_dynamic_modifier = {
+					modifier = CIE_highlander_ambush
+				} 
+			}
+			remove_dynamic_modifier = {
+				modifier = CIE_highlander_ambush
+			}
+		}
+	}
+	option = {
+		name = malysz_start.19.c
+		30 = {
+			capital_scope = {
+				create_unit = {
+					division = "name = \"Zbójnicy Beskidzcy\" division_template = \"Góralska Banda\" start_experience_factor = 0.3 start_equipment_factor = 1"
+					owner = CIE
+				}
+			}
+			CIE = {
+				every_owned_state = {
+					limit = { 
+						has_dynamic_modifier = {
+							modifier = CIE_highlander_ambush
+						} 
+					}
+					remove_dynamic_modifier = {
+						modifier = CIE_highlander_ambush
+					}
+				}
+			}
+		}
+		70 = {
+
+		}
+	}		
+}
+
+country_event = {
+	id = malysz_start.20 #infiltracja zbójników - rozwiązanie kwestii zasadzek
+	title = malysz_start.20.t
+	desc = malysz_start.20.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.20" }
+
+	option = {
+		name = malysz_start.20.a
+		every_owned_state = {
+			limit = { 
+				has_dynamic_modifier = {
+					modifier = CIE_highlander_ambush
+				} 
+			}
+			remove_dynamic_modifier = {
+				modifier = CIE_highlander_ambush
+			}
+		}
+	}
+}
+
+country_event = {
+	id = malysz_start.21 #trip to cieszyn
+	title = malysz_start.21.t
+	desc = malysz_start.21.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.21" }
+
+	option = {
+		name = malysz_start.21.a
+	}
+}
+
+country_event = {
+	id = malysz_start.22 #long night at olza
+	title = malysz_start.22.t
+	desc = malysz_start.22.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.22" }
+
+	option = {
+		name = malysz_start.22.a
+	}
+}
+
+country_event = {
+	id = malysz_start.23 #propose vistula buffer zone
+	title = malysz_start.23.t
+	desc = malysz_start.23.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.23" }
+
+	option = {
+		name = malysz_start.23.a
+	}
+}
+
+country_event = {
+	id = malysz_start.24 #restore the polish administration
+	title = malysz_start.24.t
+	desc = malysz_start.24.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.24" }
+
+	option = {
+		name = malysz_start.24.a
 	}
 }
