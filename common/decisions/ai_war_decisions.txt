@@ -12655,6 +12655,51 @@ LEGNICA_03_FINAL_WAR = {
 #░░╚██╔╝░╚██╔╝░██║░░██║╚█████╔╝╚█████╔╝███████╗██║░░██║░░╚██╔╝░╚██╔╝░██████╔╝██║░╚██╗██║███████╗
 #░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝
 #WROCŁAWSKIE - FAZA PIERWSZA
+WROC_03_CLEANING = {
+
+	icon = GFX_decision_generic_prepare_civil_war
+	
+	allowed = {
+		OR = {
+			is_lower_silesia = yes 
+			is_legnica = yes
+		}
+	}
+
+	target_root_trigger = {
+		date > 2031.01.01
+		has_war = no
+	}
+	targets = {
+		BRG BRE
+	}
+	target_trigger = {
+		FROM = {
+			is_neighbor_of = ROOT
+			NOT = { is_subject_of = ROOT }
+			NOT = { is_in_faction_with = ROOT }
+			NOT = { has_war_with = ROOT }
+		}
+	}
+
+	ai_will_do = {
+		factor = 100
+	}
+	days_remove = 14
+	war_with_target_on_complete	= yes
+	remove_effect  = {
+		log = "[GetDateText]: Decision sprzątanie brzegu i breslau"
+		declare_war_on = {
+			target = FROM
+			type = voivodeship_war
+		}
+	}
+	cancel_trigger = {
+		ROOT = {
+			has_war = yes
+		}
+	}
+ }
 WROC_01_OLE_OLE = {
 
 	icon = GFX_decision_generic_prepare_civil_war
