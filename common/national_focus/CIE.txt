@@ -1880,7 +1880,30 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			country_event = malysz_start.26
+			add_political_power = 100
 			CIE = { add_to_faction = BBA }
+			set_faction_name = CIE_USTRON_FACTION
+			add_opinion_modifier = {
+				modifier = NORDIC_strengthened_ties
+				target = BBA
+			}
+			BBA = {
+				add_opinion_modifier = {
+					modifier = NORDIC_strengthened_ties
+					target = CIE
+				}		
+			}
+			add_opinion_modifier = {
+				modifier = NORDIC_strengthened_ties
+				target = WYM
+			}
+			WYM = {
+				add_opinion_modifier = {
+					modifier = NORDIC_strengthened_ties
+					target = CIE
+				}		
+			}			
 		}
 	}
 	
@@ -1933,7 +1956,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			custom_effect_tooltip = CIE_rzymskie_spiski_tt
+			custom_effect_tooltip = rozdzielacz_efektow
+			country_event = malysz_start.25
+			set_country_flag = CIE_operacja_twardowska
+		}
 	}
 	
 	focus = {
@@ -1973,7 +2001,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 2
+		y = 1
 		
 		cost = 1
 		
@@ -1981,6 +2009,17 @@ focus_tree = {
 			declare_war_on = {
 				target = BSK
 				type = voivodeship_war
+			}
+			if = {
+				limit = {
+					BBA = {
+						is_subject_of = BSK
+					}
+				}
+				declare_war_on = {
+					target = BBA
+					type = voivodeship_war
+				}				
 			}
 		}
 	}
@@ -1991,7 +2030,15 @@ focus_tree = {
 		relative_position_id = CIE_final_war_for_podbeskidzie
 		prerequisite = { focus = CIE_final_war_for_podbeskidzie }
 		available = {
-		
+			OR = {
+				AND = {
+					BBA = { exists = no }
+					CIE = { controls_state = 525 }
+				}
+				BBA = {
+					is_in_faction_with = CIE
+				}
+			}
 		}
 		
 		bypass = {
@@ -2002,7 +2049,37 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.1
+			set_cosmetic_tag = CIE_republic
+			if = {
+				limit = {
+					BBA = {
+						is_in_faction_with = CIE
+					}
+				}
+				annex_country = {
+					target = BBA
+					transfer_troops = yes
+				}
+				783 = { add_core_of = CIE }
+				525 = { add_core_of = CIE }
+				521 = { add_core_of = CIE }
+				924 = { add_core_of = CIE }
+			}
+			else_if = {
+				limit = {
+					BBA = {
+						exists = no
+					}
+				}
+				783 = { add_core_of = CIE }
+				525 = { add_core_of = CIE }
+				521 = { add_core_of = CIE }
+				924 = { add_core_of = CIE }
+			}
+		}
 	}
 	
 	focus = {
@@ -2022,7 +2099,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_start.28
+		}
 	}
 	
 	focus = {
@@ -2043,7 +2122,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_start.29
+		}
 	}
 	
 	focus = {
@@ -2065,7 +2146,7 @@ focus_tree = {
 		}
 		
 		x = -5
-		y = 2
+		y = 1
 		
 		cost = 1
 		
@@ -2131,7 +2212,27 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_start.27
+			if = {
+				limit = {
+					has_idea = CIE_our_hero
+				}
+				swap_ideas = { 
+  					remove_idea = CIE_our_hero
+  					add_idea = CIE_our_hero2
+				}				
+			}
+			else_if = {
+				limit = {
+					has_idea = CIE_our_hero1
+				}
+				swap_ideas = { 
+  					remove_idea = CIE_our_hero1
+  					add_idea = CIE_our_hero2
+				}				
+			}
+		}
 	}
 	
 	focus = {
@@ -2139,6 +2240,7 @@ focus_tree = {
 		icon = CIE_root_goralskie_veto
 		relative_position_id = CIE_priviliges_for_gorals
 		prerequisite = { focus = CIE_priviliges_for_gorals }
+		prerequisite = { focus = CIE_under_the_great_krokiew }
 		available = {
 		
 		}
@@ -2185,7 +2287,7 @@ focus_tree = {
 		}
 		
 		x = 5
-		y = 2
+		y = 1
 		
 		cost = 1
 		
@@ -2214,14 +2316,11 @@ focus_tree = {
 		prerequisite = { focus = CIE_dive_into_sacz_land }
 		available = {
 			has_war = no
-			TYM = {
-				is_neighbor_of = ROOT
-			}
-			SCZ = {exists = no}
+			SCZ = { exists = no }
 		}
 		
 		bypass = {
-			TYM = {exists=no}
+
 		}
 		
 		x = 0
@@ -2262,7 +2361,13 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_start.30
+			swap_ideas = {
+				remove_idea = partial_secularism
+				add_idea = full_secularism
+			}
+		}
 	}
 	
 	focus = {
@@ -2270,6 +2375,7 @@ focus_tree = {
 		icon = CIE_sacz_economic_miracle
 		relative_position_id = CIE_deal_with_tymbark
 		prerequisite = { focus = CIE_deal_with_tymbark }
+		prerequisite = { focus = CIE_religious_powder_keg }
 		available = {
 		
 		}
@@ -2293,7 +2399,7 @@ focus_tree = {
 		prerequisite = { focus = CIE_sacz_economic_miracle }
 		prerequisite = { focus = CIE_root_goralskie_veto }
 		available = {
-		
+			has_country_flag = unified_voivodeship
 		}
 		
 		bypass = {
@@ -2305,7 +2411,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-
+			country_event = malysz_start.31
 		}
 	}
 	
@@ -2325,7 +2431,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.1
+		}
 	}
 	
 	focus = {
@@ -2345,7 +2453,20 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = CIE_wymysou_autonomy_temp
+				}
+				annex_country = {
+					target = WYM
+					transfer_troops = yes
+				}
+				782 = {
+					add_core_of = CIE
+				}
+			}
+		}
 	}
 	
 	focus = {
@@ -2385,7 +2506,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.6
+		}
 	}
 	
 	focus = {
@@ -2425,7 +2548,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.8
+		}
 	}
 	
 	focus = {
@@ -2465,7 +2590,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.7
+		}
 	}
 
 	focus = {
@@ -2507,7 +2634,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.9
+		}
 	}
 	
 	focus = {
@@ -2547,7 +2676,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.10
+		}
 	}
 	
 	focus = {
@@ -2608,7 +2739,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.11
+		}
 	}
 	
 	focus = {
@@ -2668,7 +2801,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.2
+		}
 	}
 	
 	focus = {
@@ -2708,7 +2843,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.3
+		}
 	}	
 	
 	focus = {
@@ -2930,6 +3067,7 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			country_event = malysz_reg.4
 			add_unit_bonus = {
 				category_mountaineers = {                          
 					acclimatization_cold_climate_gain_factor = 0.25
@@ -3040,7 +3178,9 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			country_event = malysz_reg.5
+		}
 	}
 	
 	focus = {
