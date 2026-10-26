@@ -423,7 +423,7 @@ country_event = {
 				modifier = offered_support
 			}
 		}		
-		set_country_flag = CIE_wilamowians_remebers
+		set_country_flag = CIE_wymysou_remembers
 	}
 }
 
@@ -450,8 +450,6 @@ country_event = {
 			}
 		}		
 	}
-
-	
 }
 
 country_event = {
@@ -690,9 +688,9 @@ country_event = {
 		521 = { add_core_of = WYM }
 		924 = { add_core_of = WYM }
 		781 = { add_core_of = WYM }	
-		if = { limit = { 521 = { is_core_of = CIE  } } remove_core_of = CIE }
-		if = { limit = { 924 = { is_core_of = CIE  } } remove_core_of = CIE }
-		if = { limit = { 781 = { is_core_of = CIE  } } remove_core_of = CIE }				
+		if = { limit = { 521 = { is_core_of = CIE  } } 521 = { remove_core_of = CIE } }
+		if = { limit = { 924 = { is_core_of = CIE  } } 924 = { remove_core_of = CIE } }
+		if = { limit = { 781 = { is_core_of = CIE  } } 781 = { remove_core_of = CIE } }				
 	}	
 }
 
@@ -707,13 +705,79 @@ country_event = {
 	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.29" }
 
 	option = {
-		name = malysz_start.29.a
+		name = malysz_start.29.a #capital punishment, prosecute the system
+		BSK = {
+			hidden_effect = { retire_character = BSK_bracia_golec }
+			retire_character = BSK_pgolec
+			retire_character = BSK_lgolec
+		}
+		add_stability = -0.1
+		add_political_power = 50
+		add_war_support = -0.1
+		every_controlled_state = {
+			limit = {
+				is_core_of = BSK
+				NOT = { is_core_of = CIE }
+			}
+			add_resistance = 50
+		}
 	}
 	option = {
-		name = malysz_start.29.b
+		name = malysz_start.29.b #capital punishment, reintegrate the system
+		BSK = {
+			hidden_effect = { retire_character = BSK_bracia_golec }
+			retire_character = BSK_pgolec
+			retire_character = BSK_lgolec
+		}
+		add_political_power = -50
+		add_war_support = -0.1
+		every_controlled_state = {
+			limit = {
+				is_core_of = BSK
+				NOT = { is_core_of = CIE }
+			}
+			add_resistance = 25
+		}
+		BBA = {
+			BBA_Pracki = {
+				set_nationality = CIE
+			}
+			BBA_tdrabek = {
+				remove_country_leader_role = {
+				    ideology = euroliberalism_subtype
+				}
+				set_nationality = CIE
+			}					
+		}
 	}
 	option = {
-		name = malysz_start.29.c
+		name = malysz_start.29.c #jail, pardon the system
+		add_stability = 0.05
+		add_political_power = -100
+		add_war_support = 0.1
+		every_controlled_state = {
+			limit = {
+				is_core_of = BSK
+				NOT = { is_core_of = CIE }
+			}
+			add_compliance = 25
+		}
+		BBA = {
+			BBA_Pracki = {
+				set_nationality = CIE
+			}
+			BBA_tdrabek = {
+				remove_country_leader_role = {
+				    ideology = euroliberalism_subtype
+				}
+				set_nationality = CIE
+			}					
+		}
+		BSK = {
+			BSK_drabek = {
+				set_nationality = CIE
+			}			
+		}		
 	}		
 }
 
@@ -746,6 +810,58 @@ country_event = {
 		name = malysz_start.31.a
 	}	
 }
+
+country_event = {
+	id = malysz_start.32 #wymysou jednak pomaga
+	title = malysz_start.32.t
+	desc = malysz_start.32.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.32" }
+
+	option = {
+		name = malysz_start.32.a
+		add_equipment_to_stockpile = {
+   			type = ranged_equipment
+   			amount = 100
+   			producer = WYM
+		}	
+		add_equipment_to_stockpile = {
+   			type = melee_equipment
+   			amount = 200
+   			producer = WYM
+		}			
+	}
+}
+
+country_event = {
+	id = malysz_start.33 #wymysou odmawia pomocy po raz drugi
+	title = malysz_start.33.t
+	desc = malysz_start.33.desc
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = { log = "[GetDateText]: [ROOT.GetName] fires malysz_start.33" }
+
+	option = {
+		name = malysz_start.33.a
+		add_popularity = {
+    		ideology = euroliberalism
+  		  	popularity = -0.05
+		}	
+		CIE = {
+			add_opinion_modifier = {
+				target = WYM
+				modifier = betrayed_our_cause
+			}
+		}
+		set_country_flag = CIE_wymysou_betrays_us		
+	}
+}
+
 
 country_event = { 
 	id = malysz_reg.1 #victory is for the people
@@ -789,6 +905,65 @@ country_event = {
 
 	option = {
 		name = malysz_reg.3.a
+		add_stability = -0.1
+		add_political_power = 50
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.05
+		}
+		division_template = {
+			name = "Batalion Dorożkarzy"
+			regiments = {
+				cavalry = { x = 0 y = 0 }
+				cavalry = { x = 0 y = 1 }
+				cavalry = { x = 1 y = 0 }
+				cavalry = { x = 1 y = 1 }
+			}
+		}
+		545 = {
+			create_unit = {
+				division = "name = \"1 Szwadron Jazdy Podhalańskiej\" division_template = \"Batalion Dorożkarzy\" start_experience_factor = 0.4 start_equipment_factor = 1"
+				owner = CIE
+			}
+			create_unit = {
+				division = "name = \"2 Szwadron Jazdy Podhalańskiej\" division_template = \"Batalion Dorożkarzy\" start_experience_factor = 0.4 start_equipment_factor = 1"
+				owner = CIE
+			}			
+		}
+	}	
+	option = {
+		name = malysz_reg.3.b
+		add_stability = 0.05
+		add_political_power = -100
+		add_popularity = {
+			ideology = autocracy
+			popularity = 0.1
+		}
+		545 = {
+			add_dynamic_modifier = {
+				modifier = CIE_dudki
+			}
+		}
+		595 = {
+			add_dynamic_modifier = {
+				modifier = CIE_dudki
+			}
+		}	
+		820 = {
+			add_dynamic_modifier = {
+				modifier = CIE_dudki
+			}
+		}	
+		534 = {
+			add_dynamic_modifier = {
+				modifier = CIE_dudki
+			}
+		}
+		943 = {
+			add_dynamic_modifier = {
+				modifier = CIE_dudki
+			}
+		}						
 	}	
 }
 

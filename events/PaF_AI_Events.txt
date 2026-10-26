@@ -3082,6 +3082,7 @@ country_event = {
 		AND = {
 			is_tatry_region = yes
 			NOT = { original_tag = TSZ }
+			NOT = { original_tag = CIE }
 			has_country_flag = unified_voivodeship
 			any_country = {
 				is_tatry_region = yes
@@ -3114,51 +3115,5 @@ country_event = {
 			}
 			add_core_of = ROOT
 		}
-	}
-}
-
-country_event = {
-	id = aievent_gory.2 #cieszyn grand sojusz
-	title = aievent_gory.2.t
-	desc = aievent_gory.2.desc
-
-	fire_only_once = yes
-	trigger = {
-		AND = {
-			original_tag = CIE
-			has_country_flag = unified_voivodeship
-			OR = {
-				BBA = { is_in_faction_with = CIE }
-				WYM = { is_in_faction_with = CIE }
-			}
-		}
-	}
-	immediate = { log = "[GetDateText]: [ROOT.GetName] fires aievent_gory.2" }
-	option = {
-		name = aievent_gory.2.a 
-		log = "[GetDateText]: cieszyn grand sojusz"
-		every_country = {
-			limit = {
-				is_tatry_region = yes
-				is_in_faction_with = ROOT
-				NOT = { original_tag = ROOT }
-				NOT = { original_tag = TSZ }
-			}
-			ROOT = {
-				annex_country = {
-					target = PREV
-					transfer_troops = yes
-				}
-			}
-		}
-		every_owned_state = {
-			limit = {
-				is_tatry_region_state = yes
-				NOT = { 
-					is_core_of = ROOT
-				}
-			}
-			add_core_of = ROOT
-		}		
 	}
 }

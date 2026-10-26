@@ -1811,7 +1811,21 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
-
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = CIE_wymysou_remembers
+					}
+				}
+				WYM = {
+					country_event = WYM_wymysou.2
+				}	
+				custom_effect_tooltip = rozdzielacz_efektow
+				custom_effect_tooltip = CIE_wymysou_help2_tt			
+			}
+			else = {
+				custom_effect_tooltip = CIE_wymysou_remembers_tt
+			}
 		}
 	}
 	
@@ -2021,6 +2035,52 @@ focus_tree = {
 					type = voivodeship_war
 				}				
 			}
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = CIE_wymysou_remembers
+						WYM = { has_country_flag = WYM_and_wymysou_will_answer }
+					}
+				}
+				BBA = { end_puppet = WYM }
+				CIE = {
+					add_to_faction = WYM
+				}
+				custom_effect_tooltip = CIE_wymysou_joins_tt
+			}
+			if = {
+				limit = {
+					has_country_flag = CIE_wymysou_betrays_us
+					NOT = {
+						BBA = { is_subject_of = BSK }
+					}
+				}
+				BBA = {
+					end_puppet = WYM
+				}
+				WYM = { get_current_government_type = yes }
+				BSK = {
+					set_autonomy = {
+						target = WYM
+						autonomy_state = autonomy_puppet
+					}
+				}
+				WYM = { restore_previous_government_type = yes }
+				declare_war_on = {
+					target = WYM
+					type = voivodeship_war
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = CIE_wymysou_betrays_us
+					BBA = { is_subject_of = BSK }				
+				}
+				declare_war_on = {
+					target = WYM
+					type = voivodeship_war
+				}				
+			}
 		}
 	}
 	
@@ -2192,7 +2252,34 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_stability = -0.05
+			add_political_power = -50
+			add_popularity = {
+    			ideology = paternal_conservatism
+  			  	popularity = 0.05
+			}			
+			778 = {
+				add_dynamic_modifier = {
+					modifier = CIE_mountain_clans
+				}
+			}
+			779 = {
+				add_dynamic_modifier = {
+					modifier = CIE_mountain_clans
+				}
+			}
+			529 = {
+				add_dynamic_modifier = {
+					modifier = CIE_mountain_clans
+				}
+			}
+			780 = {
+				add_dynamic_modifier = {
+					modifier = CIE_mountain_clans
+				}
+			}									
+		}
 	}
 
 	focus = {
@@ -2253,7 +2340,24 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_popularity = {
+    			ideology = neonationalism
+  			  	popularity = -0.075
+			}
+			add_stability = -0.05
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = GUR_szurtwierdze
+				}
+				remove_dynamic_modifier = {
+					modifier = GUR_szurtwierdze
+				}
+				add_dynamic_modifier = {
+					modifier = CIE_mountain_clans
+				}
+			}
+		}
 	}
 	
 	focus = {
@@ -2267,9 +2371,6 @@ focus_tree = {
 			NOT = { country_exists = ZGR }
 			NOT = { country_exists = ZKP }
 			OR = {
-				TYM = {
-					is_neighbor_of = ROOT
-				}
 				SCZ = {
 					is_neighbor_of = ROOT
 				}
@@ -2294,17 +2395,17 @@ focus_tree = {
 		completion_reward = {
 			if = { 
 				limit = { country_exists = SCZ }
-			declare_war_on = {
-				target = SCZ
-				type = voivodeship_war
-			}
+				declare_war_on = {
+					target = SCZ
+					type = voivodeship_war
+				}
 			}
 			if = { 
 				limit = { country_exists = LEM }
-			declare_war_on = {
-				target = LEM
-				type = voivodeship_war
-			}
+				declare_war_on = {
+					target = LEM
+					type = voivodeship_war
+				}
 			}			
 		}
 	}
@@ -2315,8 +2416,16 @@ focus_tree = {
 		relative_position_id = CIE_dive_into_sacz_land
 		prerequisite = { focus = CIE_dive_into_sacz_land }
 		available = {
-			has_war = no
-			SCZ = { exists = no }
+			TYM = {
+				is_neighbor_of = CIE
+			}
+			OR = {
+				AND = {
+					TYM = { exists = yes }
+					TYM = { is_subject = no }
+				}
+				CIE = { owns_state = 942 }
+			}
 		}
 		
 		bypass = {
@@ -2332,6 +2441,7 @@ focus_tree = {
 			if = {
 				limit = {
 					country_exists = TYM 
+					TYM = { is_subject = no }
 				}
 				TYM = { get_current_government_type = yes }
 				diplomatic_relation = {
@@ -2340,6 +2450,15 @@ focus_tree = {
 					active = yes
 				}
 				TYM = { restore_previous_government_type = yes }
+				CIE = {
+					add_to_faction = TYM
+				}
+				add_ideas = CIE_tymbark_deal
+			}
+			else = {
+				add_ideas = CIE_tymbark_deal
+				942 = { add_core_of = CIE }
+				528 = { add_core_of = CIE }
 			}
 		}
 	}
@@ -2364,8 +2483,8 @@ focus_tree = {
 		completion_reward = {
 			country_event = malysz_start.30
 			swap_ideas = {
-				remove_idea = partial_secularism
-				add_idea = full_secularism
+				remove_idea = one_religion_favoured
+				add_idea = partial_secularism
 			}
 		}
 	}
@@ -2377,7 +2496,10 @@ focus_tree = {
 		prerequisite = { focus = CIE_deal_with_tymbark }
 		prerequisite = { focus = CIE_religious_powder_keg }
 		available = {
-		
+			SCZ_ = { exists = no }
+			CIE = {
+				owns_state = 531
+			}
 		}
 		
 		bypass = {
@@ -2388,7 +2510,24 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			531 = {
+				add_extra_state_shared_building_slots = 2
+				add_dynamic_modifier = {
+					modifier = CIE_money_paradise
+				}
+			}
+			add_ideas = CIE_sacz_miracle
+			set_party_name = {
+				ideology = freemarketism
+				long_name = CIE_fed_freemarketism_party_long
+				name = CIE_fed_freemarketism_party
+			}
+			add_popularity = {
+				ideology = freemarketism
+				popularity = 0.05
+			}
+		}
 	}
 	
 	focus = {
@@ -2412,6 +2551,22 @@ focus_tree = {
 		
 		completion_reward = { 
 			country_event = malysz_start.31
+
+			hidden_effect = {
+				if = {
+					limit = {
+						any_owned_state = {
+							has_dynamic_modifier = GUR_szurtwierdze
+						}
+					}
+					remove_dynamic_modifier = {
+						modifier = GUR_szurtwierdze
+					}
+					add_dynamic_modifier = {
+						modifier = CIE_mountain_clans
+					}
+				}
+			}
 		}
 	}
 	
@@ -2454,6 +2609,39 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = {
+			set_cosmetic_tag = CIE_voivodeship2
+			add_stability = 0.1
+			add_political_power = 200
+			set_party_name = {
+				ideology = marxism_cranism
+				long_name = CIE_fed_marxism_cranism_party_long
+				name = CIE_fed_marxism_cranism_party
+			}
+			set_party_name = {
+				ideology = squattism
+				long_name = CIE_fed_squattism_party_long
+				name = CIE_fed_squattism_party
+			}	
+			set_party_name = {
+				ideology = socialdemocrature
+				long_name = CIE_fed_socialdemocrature_party_long
+				name = CIE_fed_socialdemocrature_party
+			}
+			set_party_name = {
+				ideology = autocracy
+				long_name = CIE_fed_autocracy_party_long
+				name = CIE_fed_autocracy_party
+			}			
+			set_party_name = {
+				ideology = reactionary
+				long_name = CIE_fed_reactionary_party_long
+				name = CIE_fed_reactionary_party
+			}
+			set_party_name = {
+				ideology = postpolonism
+				long_name = CIE_fed_postpolonism_party_long
+				name = CIE_fed_postpolonism_party
+			}											
 			if = {
 				limit = {
 					has_country_flag = CIE_wymysou_autonomy_temp
@@ -2466,6 +2654,23 @@ focus_tree = {
 					add_core_of = CIE
 				}
 			}
+			if = {
+				limit = {
+					TYM = {
+						is_subject_of = CIE
+					}
+				}
+				annex_country = {
+					target = TYM
+					transfer_troops = yes
+				}
+				942 = {
+					add_core_of = CIE
+				}
+				528 = {
+					add_core_of = CIE
+				}				
+			}			
 		}
 	}
 	
@@ -2528,7 +2733,12 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = minorities_equal_rights
+				add_idea = minorities_multiculturalism
+			}
+		}
 	}
 	
 	focus = {
@@ -2551,26 +2761,6 @@ focus_tree = {
 		completion_reward = {
 			country_event = malysz_reg.8
 		}
-	}
-	
-	focus = {
-		id = CIE_referendum_as_foundation
-		icon = CIE_referendum_as_foundation
-		relative_position_id = CIE_federal_council_of_cantons
-		prerequisite = { focus = CIE_federal_council_of_cantons }
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
 	}
 	
 	focus = {
@@ -2612,6 +2802,33 @@ focus_tree = {
 		
 		cost = 1
 		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = partial_secularism
+				add_idea = full_secularism
+			}
+		}
+	}
+
+	focus = {
+		id = CIE_referendum_as_foundation
+		icon = CIE_referendum_as_foundation
+		relative_position_id = CIE_federal_council_of_cantons
+		prerequisite = { focus = CIE_federal_council_of_cantons }
+		prerequisite = { focus = CIE_secular_man_in_the_middle }
+		prerequisite = { focus = CIE_autonomy_for_every_nation }
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 2
+		
+		cost = 1
+		
 		completion_reward = { }
 	}
 	
@@ -2630,7 +2847,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 2
+		y = 1
 		
 		cost = 1
 		
@@ -2698,7 +2915,29 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech = improvised_radio
+					}
+				}
+				set_technology = {
+					improvised_radio = 1
+				}
+			}
+			820 = {
+				add_building_construction = {
+					type = radar_station
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_40M
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = CIE_stargazing_tt
+		}
 	}
 	
 	focus = {
@@ -2718,7 +2957,28 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_breakthrough_points = {
+				specialization = specialization_air
+				value = 1
+			}
+			531 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = CIE_stargazing_2_tt
+			add_to_variable = {
+				budget = 200
+			}
+			get_budget_tooltip = yes
+		}
 	}
 	
 	focus = {
@@ -2741,6 +3001,8 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = malysz_reg.11
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = CIE_stargazing_3_tt
 		}
 	}
 	
@@ -2781,7 +3043,50 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_political_power = 100
+			if = {
+				limit = {
+					NOT = {
+						has_tech = improvised_ballistic_missles
+					}
+				}
+				set_technology = {
+				    improvised_ballistic_missles = 1
+				}				
+			}
+			748 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rocket_site
+					level = 1
+					instant_build = yes
+				}
+			}
+			534 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rocket_site
+					level = 1
+					instant_build = yes
+				}
+			}
+			545 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rocket_site
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_600M
+			hidden_effect = {
+				add_to_variable = {
+					budget = 1800
+				}
+			}
+		}
 	}
 	
 	focus = {
@@ -2803,6 +3108,21 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = malysz_reg.2
+			748 = {
+				add_dynamic_modifier = {
+					modifier = CIE_ski_jumping
+				}
+			}
+			534 = {
+				add_dynamic_modifier = {
+					modifier = CIE_ski_jumping
+				}
+			}
+			545 = {
+				add_dynamic_modifier = {
+					modifier = CIE_ski_jumping
+				}
+			}
 		}
 	}
 	
@@ -2823,7 +3143,29 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.05
+			add_popularity = {
+				ideology = autocracy 
+				popularity = 0.05
+			}
+			545 = {
+				hidden_effect = {
+					remove_building = {
+						type = landmark_zakopane_krupowki
+						level = 1
+						province = 2287
+					}
+				}
+				add_building_construction = {
+					type = landmark_zakopane_krupowki_2
+					level = 1
+					province = 2287
+					instant_build = yes
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -2865,32 +3207,140 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			748 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = 8071
+				}
+			}
+			778 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 8196
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 8200
+				}				
+			}
+			779 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 8182
+				}				
+			}
+			947 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = 10742
+				}				
+			}
+			943 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = 10741
+				}	
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10694
+				}								
+			}
+			945 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10708
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10705
+				}													
+			}
+			595 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10704
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10698
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 4128
+				}																	
+			}	
+			940 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = 10946
+				}
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+					province = 10951
+				}																				
+			}
+			600 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10957
+				}																			
+			}
+			939 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 10985
+				}																			
+			}
+			add_to_variable = {
+				budget = -3
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			SVK = {
+				add_opinion_modifier = {
+					target = CIE
+					modifier = SWI_fortified_border
+				}
+			}
+			custom_effect_tooltip = budget_subtract_40M																										
+		}
 	}
 	
 	focus = {
 		id = CIE_cieszyn_muszyna_rally
 		icon = CIE_cieszyn_muszyna_rally
-		relative_position_id = CIE_mark_new_trails
-		prerequisite = { focus = CIE_mark_new_trails } 
-		available = {
-		
-		}
-		
-		bypass = {
-		}
-		
-		x = 0
-		y = 1
-		
-		cost = 1
-		
-		completion_reward = { }
-	}
-	
-	focus = {
-		id = CIE_transcarpathian_highway
-		icon = CIE_transcarpathian_highway
 		relative_position_id = CIE_budget_of_the_federation
 		prerequisite = { focus = CIE_budget_of_the_federation } 
 		available = {
@@ -2905,14 +3355,30 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_stability = 0.05
+			army_experience = 50
+			add_tech_bonus = {
+				name = CIE_cieszyn_muszyna_rally
+				bonus = 0.5
+				uses = 2
+				category = cars
+			}
+			add_to_variable = {
+				budget = 50
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_add_50M
+			custom_effect_tooltip = rozdzielacz_efektow
+			unlock_decision_tooltip = CIE_rally_annual
+		}
 	}
 	
 	focus = {
-		id = CIE_tunnels_for_trains
-		icon = CIE_tunnels_for_trains
-		relative_position_id = CIE_transcarpathian_highway
-		prerequisite = { focus = CIE_transcarpathian_highway } 
+		id = CIE_transcarpathian_highway
+		icon = CIE_transcarpathian_highway
+		relative_position_id = CIE_cieszyn_muszyna_rally
+		prerequisite = { focus = CIE_cieszyn_muszyna_rally } 
 		available = {
 		
 		}
@@ -2925,7 +3391,55 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			unlock_decision_tooltip = CIE_MI_highway_S1
+			unlock_decision_tooltip = CIE_MI_highway_S2
+			unlock_decision_tooltip = CIE_MI_highway_S3_5
+			unlock_decision_tooltip = CIE_MI_highway_S3
+			unlock_decision_tooltip = CIE_MI_highway_S4
+			unlock_decision_tooltip = CIE_MI_highway_S5
+			unlock_decision_tooltip = CIE_MI_highway_S6
+			unlock_decision_tooltip = CIE_MI_highway_S7
+			unlock_decision_tooltip = CIE_MI_highway_S8
+		}
+	}
+	
+	focus = {
+		id = CIE_tunnels_for_trains
+		icon = CIE_tunnels_for_trains
+		relative_position_id = CIE_mark_new_trails
+		prerequisite = { focus = CIE_mark_new_trails } 
+		available = {
+		
+		}
+		
+		bypass = {
+		}
+		
+		x = 0
+		y = 1
+		
+		cost = 1
+		
+		completion_reward = {
+			custom_effect_tooltip = CIE_newag_tt
+			unlock_decision_tooltip = CIE_MI_rail_beskid
+			unlock_decision_tooltip = CIE_MI_rail_przedhale
+			unlock_decision_tooltip = CIE_MI_rail_zahale
+			unlock_decision_tooltip = CIE_MI_rail_beskid_sadecki
+			unlock_decision_tooltip = CIE_MI_rail_beskid_niski
+			if = {
+				limit = {
+					OR = {
+						TSZ = {
+							is_ally_with = ROOT
+						}
+						owns_state = 588
+					}					
+				}
+				unlock_decision_tooltip = CIE_MI_rail_trzyniec
+			}
+		}
 	}
 
 	focus = {
@@ -2945,7 +3459,22 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = CIE_tech_incubator
+			525 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = university
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_50M
+			add_to_variable = {
+				budget = 200
+			}
+		}
 	}
 	
 	focus = {
@@ -2965,7 +3494,21 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			539 = {
+				add_extra_state_shared_building_slots = 4
+				add_dynamic_modifier = {
+					modifier = CIE_money_paradise
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			custom_effect_tooltip = budget_subtract_300M
+		}
 	}
 	
 	focus = {
@@ -2985,7 +3528,11 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			army_experience = 50
+			add_command_power = 50
+			add_ideas = CIE_west_carpathian_army
+		}
 	}
 	
 	focus = {
@@ -3001,11 +3548,31 @@ focus_tree = {
 		}
 		
 		x = -3
-		y = 2
+		y = 1
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_any_grand_doctrine = special_forces
+					}
+				}
+				set_grand_doctrine = special_forces_quantity
+			}
+			add_potential_special_forces_tree = yes
+			set_sub_doctrine = {
+			    sub_doctrine = mountaineers_1
+			    folder = special_forces
+			    track = 0
+			}
+			set_sub_doctrine = {
+			    sub_doctrine = mountaineers_2
+			    folder = special_forces
+			    track = 1
+			}			
+		}
 	}
 	
 	focus = {
@@ -3018,6 +3585,11 @@ focus_tree = {
 		}
 		
 		bypass = {
+			AND = {
+				has_tech = tech_recon
+				has_tech = tech_engineers
+				is_special_project_completed = sp:sp_land_military_engineering_vehicles
+			}
 		}
 		
 		x = -1
@@ -3025,7 +3597,36 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech = tech_recon
+					}
+				}
+				set_technology = {
+					tech_recon = 1
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = tech_engineers
+					}
+				}
+				set_technology = {
+					tech_engineers = 1
+				}
+			}	
+			if = {
+				limit = {
+					NOT = {
+						is_special_project_completed = sp:sp_land_military_engineering_vehicles
+					}
+				}
+				complete_special_project = sp:sp_land_military_engineering_vehicles
+			}		
+		}
 	}
 	
 	focus = {
@@ -3045,7 +3646,37 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech = tech_field_hospital
+					}
+				}
+				set_technology = {
+					tech_field_hospital = 1
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = tech_field_hospital2
+					}
+				}
+				set_technology = {
+					tech_field_hospital2 = 1
+				}
+			}
+			add_unit_bonus = {
+           		medevac = {
+           		    battalion_mult = {
+           		    category = category_all_infantry
+           		        max_strength = 0.05 
+           		    }
+           		    max_organisation = 5
+           		}
+			}			
+		}
 	}
 	
 	focus = {
@@ -3070,10 +3701,16 @@ focus_tree = {
 			country_event = malysz_reg.4
 			add_unit_bonus = {
 				category_mountaineers = {                          
-					acclimatization_cold_climate_gain_factor = 0.25
+					acclimatization_cold_climate_gain_factor = 0.15
 					initiative = 0.01
 					supply_consumption = -0.02                                              
 				}                                                  	
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_mastery = {
+			    amount = 120
+			    folder = special_forces
+			    sub_doctrine = mountaineers_1
 			}
 		}
 	}
@@ -3096,7 +3733,16 @@ focus_tree = {
 		cost = 1
 		
 		completion_reward = { 
-
+			swap_ideas = {
+				remove_idea = CIE_west_carpathian_army
+				add_idea = CIE_west_carpathian_army2
+			}
+			custom_effect_tooltip = rozdzielacz_efektow
+			add_mastery = {
+			    amount = 120
+			    folder = special_forces
+			    sub_doctrine = mountaineers_2
+			}
 		}
 	}
 	
@@ -3113,11 +3759,14 @@ focus_tree = {
 		}
 		
 		x = 3
-		y = 2
+		y = 1
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			air_experience = 100
+			add_ideas = CIE_federation_airforce
+		}
 	}
 	
 	focus = {
@@ -3137,7 +3786,48 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			if = {
+				limit = {
+					521 = {
+						air_facility < 1
+					}
+				}
+				521 = {
+					add_building_construction = {
+						type = air_facility
+						level = 1
+						instant_build = yes
+						province = 8095
+					}
+				}			
+				custom_effect_tooltip = budget_subtract_250M	
+				hidden_effect = {
+					add_to_variable = {
+						budget = 1250
+					}
+				}	
+				get_budget_tooltip = yes		
+			}
+			else = {
+				add_breakthrough_points = {
+					specialization = specialization_air
+					value = 2
+				}
+			}
+			add_tech_bonus = {
+				name = CIE_reopen_wb_composites
+				bonus = 0.5
+				uses = 1
+				category = advanced_aircrafts
+			}
+			add_tech_bonus = {
+				name = CIE_reopen_wb_composites
+				bonus = 0.5
+				uses = 1
+				category = rocketry
+			}					
+		}
 	}
 	
 	focus = {
@@ -3157,7 +3847,34 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = bomber_equipment
+				amount = 20
+				producer = BBA
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = 20
+				producer = CIE
+			}
+			add_equipment_to_stockpile = {
+				type = bomber_equipment
+				amount = 30
+				producer = GUR
+			}			
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = 30
+				producer = SCZ
+			}			
+			add_tech_bonus = {
+				name = CIE_incorporate_regional_aeroclubs
+				bonus = 0.5
+				uses = 1
+				category = civilian_aircrafts
+			}
+		}
 	}	
 	
 	focus = {
@@ -3180,6 +3897,7 @@ focus_tree = {
 		
 		completion_reward = {
 			country_event = malysz_reg.5
+			add_ideas = CIE_red_bull_sponsorship
 		}
 	}
 	
@@ -3200,7 +3918,16 @@ focus_tree = {
 		
 		cost = 1
 		
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = CIE_federation_airforce
+				add_idea = CIE_federation_airforce_2
+			}
+			add_mastery = {
+				amount = 100
+				folder = air
+			}	
+		}
 	}
 
 }
